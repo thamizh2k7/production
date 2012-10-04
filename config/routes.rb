@@ -1,5 +1,15 @@
 Sociorent::Application.routes.draw do
+
   get "home/index"
+  
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  
+  devise_scope :user do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,7 +60,7 @@ Sociorent::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 

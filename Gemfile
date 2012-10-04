@@ -36,3 +36,10 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'devise'
+gem 'rails_admin'
+
+gem 'omniauth'
+gem 'oauth2'
+gem 'omniauth-facebook'

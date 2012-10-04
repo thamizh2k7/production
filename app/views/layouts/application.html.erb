@@ -6,6 +6,9 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
+  <p class="rails_notice"><%= notice %></p>
+  <p class="rails_alert"><%= alert %></p>
+
   <!-- Header -->
   <div id="header_fixed">
   	<div id="header">
@@ -13,7 +16,13 @@
   			socio rent
   		</div>
   		<div class="right">
-  			<div>menu item</div>
+  			<div>
+  				<% if current_user %>
+  					<%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
+  				<% else %>
+  					<%= link_to "SignUp/SignIn", user_omniauth_authorize_path(:facebook) %>
+  				<% end %>
+  			</div>
   			<div>Pricing</div>
   			<div>Resource Blog</div>
   			<div class="clear"></div>

@@ -1,0 +1,86 @@
+#content{
+
+	.left{
+		float: left;
+		width: 65%;
+		max-height: 600px;
+		border-right: 1px solid #AAA;
+		margin-top: 20px;
+		overflow: auto;
+
+		#intelligent_books_caption {
+			font-size: 20px;
+			color: #AAA;
+			margin-left: 50px;
+			font-style: italic;
+		}
+		#intelligent_books {
+			margin: 20px 0px 20px 50px;
+		
+			.intelligent_books_single{
+				display: inline-block;
+				margin: 20px;
+				border: 1px solid #CCC;
+				padding: 8px;
+			}
+		}
+	}
+
+	.right{
+		float: right;
+		width: 34%;
+		max-height: 600px;
+		margin-top: 20px;
+		overflow: auto;
+
+		.search_books_input{
+			width: 82% !important;
+			margin: 10px 0px 10px 20px;
+		}
+
+		#search_books{
+			text-align: center;
+
+			.search_books_single{
+				display: inline-block;
+				margin: 20px;
+				border: 1px solid #CCC;
+				padding: 8px;
+			}
+		}
+	}
+
+	#suggested_books_caption{
+		background: #CC4D5C;
+		width: 90%;
+		margin: 20px auto;
+		border-radius: 8px;
+		text-align: center;
+		color: white;
+		padding: 5px;
+		-moz-box-shadow: 0 0 5px #888;
+		-webkit-box-shadow: 0 0 5px#888;
+		box-shadow: 0 0 5px #888;
+	}
+
+	#suggested_books{
+		height: 220px;
+		border: 1px solid #CCC;
+		width: 90%;
+		margin: 20px auto;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		border-top: none;
+		overflow-y: hidden;
+		overflow-x: auto; 
+		text-align: center;
+
+		.suggested_books_single{
+			display: inline-block;
+			margin: 20px;
+			border: 1px solid #CCC;
+			padding: 8px;
+			float: left;
+		}
+	}
+}

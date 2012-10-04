@@ -11,8 +11,8 @@
 		Connect with us.
 	</div>
 	<div id="facebook">
-		<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-		<%= image_tag "/assets/facebook_256.png" %>
+		<%= link_to image_tag('/assets/facebook_256.png'), user_omniauth_authorize_path(:facebook) %>
+
 	</div>
 </div>
 <div class="clear"></div>

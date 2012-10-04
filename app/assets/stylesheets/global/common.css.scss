@@ -1,0 +1,99 @@
+@font-face { font-family: s; src: url('fonts/segoeui.ttf'); }
+
+body{
+	font-family: s;
+	background: #FFF;
+}
+
+#header_fixed{
+	position:relative;
+	right:0px;
+	left:0px;
+	top:0px;
+	z-index:1000;
+	margin-bottom:0px;
+	overflow:visible;
+	color: #FFF;
+
+	#header{
+		min-height:90px;
+		padding-left:0px;
+		padding-right:0px;
+		background-color: #CC4D5C;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF333333', endColorstr='#FF222222', GradientType=0);
+		-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		-moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);	
+	
+		.left{
+			float: left;
+			width: 30%;
+			font-size: 55px;
+			margin-left: 40px;
+			margin-top: 28px;
+		}
+		.right{
+			float: right;
+			width: 57%;
+			margin-right: 15px;
+
+			div{
+				float: right;
+				display: inline-block;
+				width: 150px;
+				font-size: 19px;
+				text-align: center;
+				margin: 30px 0px 0px;
+			}
+		}
+
+	}
+}
+
+.clear{
+	clear: both;
+}
+
+#content{
+
+	.left{
+		float: left;
+		width: 60%;
+		border-right: 1px solid #DDD;
+		margin-top: 20px;
+
+		#video{
+			width: 600px;
+			margin: 20px auto;
+		}
+		#video_caption{
+			color: #AAA;
+			font-size: 24px;
+			font-style: italic;
+			margin: 20px 60px;
+		}
+	}
+
+	.right{
+		float: right;
+		width: 39%;
+		margin-top: 20px;
+
+		#facebook_caption{
+			font-weight: 900;
+			font-size: 37px;
+			text-align: center;
+			margin-top: 25px;
+		}
+
+		#facebook{
+			text-align: center;
+			margin-top: 40px;
+
+			img{
+				width: 200px;
+			}
+		}
+	}
+
+}

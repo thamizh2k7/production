@@ -11,11 +11,54 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121004130115) do
+ActiveRecord::Schema.define(:version => 20121005111538) do
 
-  create_table "books", :force => true do |t|
+  create_table "book_carts", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "cart_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "books", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "name"
+    t.text     "description"
+    t.string   "isbn10"
+    t.string   "auther"
+    t.string   "isbn13"
+    t.string   "binding"
+    t.string   "publisher"
+    t.date     "published"
+    t.integer  "pages"
+    t.integer  "price"
+    t.string   "age"
+    t.text     "strengths"
+    t.text     "weaknesses"
+    t.integer  "category_id"
+  end
+
+  create_table "carts", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "book_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -30,6 +73,15 @@ ActiveRecord::Schema.define(:version => 20121004130115) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "reviews", :force => true do |t|
+    t.text     "content"
+    t.integer  "book_id"
+    t.integer  "user_id"
+    t.float    "rating"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

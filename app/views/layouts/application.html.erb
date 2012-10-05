@@ -3,7 +3,7 @@
 <head>
   <title>Sociorent</title>
   <%= stylesheet_link_tag    "global/application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "global/application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -18,15 +18,9 @@
         socio rent
       </div>
       <div class="right">
-        <div>
-          <% if current_user %>
-            <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
-          <% else %>
-            <%= link_to "SignUp/SignIn", user_omniauth_authorize_path(:facebook) %>
-          <% end %>
-        </div>
+        <div>Universities</div>
         <div>Pricing</div>
-        <div>Resource Blog</div>
+        <div>Blog</div>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
@@ -34,7 +28,21 @@
   </div>
   <% if current_user %>
     <div id="user">
-      Welcome, <%= current_user.name %>
+      <div class="left">
+        <div>Welcome, <%= current_user.name %></div>
+      </div>
+      <div class="right">
+        <div>
+          <% if current_user %>
+            <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
+          <% else %>
+            <%= link_to "SignUp/SignIn", user_omniauth_authorize_path(:facebook) %>
+          <% end %>
+        </div>
+        <div>Cart</div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
     </div>
   <% end %>
 

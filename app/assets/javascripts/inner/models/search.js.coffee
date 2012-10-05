@@ -1,0 +1,1 @@
+sociorent.models.search = Backbone.Model.extend()

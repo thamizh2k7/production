@@ -1,51 +1,45 @@
 <%= stylesheet_link_tag "inner" %>
+<%= javascript_include_tag "inner/application" %>
 <div class="left">
 	<div id="intelligent_books_caption">
 		Intelligent Books
 	</div>
 	<div id="intelligent_books">
 		<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="intelligent_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
 	</div>
 </div>
 <div class="right">
-	<form class="form-search search_books_form">
-	  <input type="text" class="input-medium search-query search_books_input" placeholder="Search books">
+	<form id="search_books_form" class="form-search">
+	  <input type="text" id="search_books_input" class="input-medium search-query" placeholder="Search books">
 	</form>
 	<div id="search_books">
-		<div class="search_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-		<div class="search_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
 	</div>
 </div>
 <div class="clear"></div>
-<div id="suggested_books_caption">
-	<a href="#suggested_books">Suggested Books</a>
-</div>
-<div id="suggested_books">
-	<div class="suggested_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book1.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book2.jpeg" %></div>
-	<div class="suggested_books_single"><%= image_tag "/assets/book3.jpeg" %></div>
-</div>
+
+<%= render :partial => "template" %>
+
+<div id="book_details"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//search collection reset
+		sociorent.collections.search_object.reset(<%= raw @search.to_json() %>);
+		sociorent.fn.renderSearch();
+
+		$("#book_details").dialog({
+			autoOpen: false,
+			draggable: false,
+			dialogClass: "book_dialog",
+			height: 600,
+			width: 1000,
+			resizable: false,
+			buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            }
+		});
+	});
+</script>

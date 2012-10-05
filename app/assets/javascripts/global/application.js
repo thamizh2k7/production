@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./underscore.js
+//= require ./jquery.ui.widget.js
 //= require_tree .

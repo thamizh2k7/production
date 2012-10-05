@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-
+gem 'thinking-sphinx'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,3 +43,5 @@ gem 'rails_admin'
 gem 'omniauth'
 gem 'oauth2'
 gem 'omniauth-facebook'
+
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"

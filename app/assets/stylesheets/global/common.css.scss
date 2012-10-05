@@ -65,5 +65,28 @@ body{
 
 #user{
 	background: #F0C36D;
-	padding: 4px 55px;
+	padding: 7px 0px;
+
+	.left{
+		float: left;
+		width: 30%;
+
+		div{
+			margin-left: 60px;
+		}
+	}
+	.right{
+		float: right;
+		width: 67%;
+
+		div{
+			float: right;
+			margin: 0px 50px;
+
+			a{
+				text-decoration: none;
+				color: #000;
+			}
+		}
+	}
 }

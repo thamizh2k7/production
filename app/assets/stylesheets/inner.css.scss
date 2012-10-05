@@ -3,10 +3,7 @@
 	.left{
 		float: left;
 		width: 65%;
-		max-height: 600px;
-		border-right: 1px solid #AAA;
 		margin-top: 20px;
-		overflow: auto;
 
 		#intelligent_books_caption {
 			font-size: 20px;
@@ -29,11 +26,11 @@
 	.right{
 		float: right;
 		width: 34%;
-		max-height: 600px;
 		margin-top: 20px;
-		overflow: auto;
+		border-left: 1px solid #AAA;
+		min-height: 700px;
 
-		.search_books_input{
+		#search_books_input{
 			width: 82% !important;
 			margin: 10px 0px 10px 20px;
 		}
@@ -46,6 +43,38 @@
 				margin: 20px;
 				border: 1px solid #CCC;
 				padding: 8px;
+				width: 246px;
+				cursor: pointer;
+
+				.search_left{
+					float: left;
+					width: 50%;
+				}
+				.search_right{
+					float: right;
+					width: 50%;
+					text-align: left;
+
+					.name{
+						font-size: 16px;
+						font-weight: 900;
+						color: #CC4C5D;
+						margin: 4px 0px 10px 5px;
+					}
+					.price{
+						font-size: 16px;
+						font-weight: 900;
+						color: #000;
+						margin: 4px 0px 10px 5px;
+					}
+					.add_to_cart{
+						font-size: 16px;
+						font-weight: 900;
+						color: #CC4C5D;
+						margin: 4px 0px 10px 5px;
+					}
+				}
+
 			}
 		}
 	}
@@ -88,4 +117,12 @@
 			float: left;
 		}
 	}
+}
+	
+.ui-dialog .ui-dialog-content{
+	background: #FFF !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	display: none;
 }

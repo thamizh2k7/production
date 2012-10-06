@@ -19,5 +19,6 @@ $(document).ready ->
 			$(@el).html @template
 				image: image
 				name: @model.get "name"
-				price: @model.get "price"
+				author: @model.get "author"
+				isbn: @model.get "isbn10"
 			this

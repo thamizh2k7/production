@@ -1,18 +1,44 @@
 <%= stylesheet_link_tag "inner" %>
 <%= javascript_include_tag "inner/application" %>
 <div class="left">
-	<div id="intelligent_books_caption">
-		Intelligent Books
+	
+	<!-- tabs links -->
+	<div id="tabs">
+		<ul>
+			<li><a href="#intelligent_books">Books</a></li>
+			<li><a href="#resources">Resources</a></li>
+		</ul>
+
+		<!-- tabs content -->
+		<div id="intelligent_books">
+			<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
+		</div>
+
+		<div id="resources">
+			this is a resource tab
+		</div>
+
 	</div>
-	<div id="intelligent_books">
-		<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-	</div>
+
 </div>
 <div class="right">
 	<form id="search_books_form" class="form-search">
 	  <input type="text" id="search_books_input" class="input-medium search-query" placeholder="Search books">
 	</form>
+	<div id="close_search_books">close</div>
+	<div class="clear"></div>
 	<div id="search_books">
+	</div>
+	<div id="no_search_result">
+		<form id="request_form">
+		  <legend>Request a Book</legend>
+		  <label></label>
+		  <input id="request_title" type="text" placeholder="Book Title">
+		  <input id="request_author" type="text" placeholder="Author">
+		  <input id="request_isbn" type="text" placeholder="ISBN">
+		  <button id="request_submit" type="submit" class="btn">Submit</button>
+		</form>
+		<div id="request_error"></div>
 	</div>
 </div>
 <div class="clear"></div>
@@ -41,5 +67,7 @@
                 }
             }
 		});
+
+		$("#tabs").tabs();
 	});
 </script>

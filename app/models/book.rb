@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :image_attributes, :book_image, :auther, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id
+  attr_accessible :name, :description, :isbn10, :image_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id
   attr_accessor :book_image
 
   has_one :image
@@ -14,7 +14,7 @@ class Book < ActiveRecord::Base
 
   define_index do
   	indexes :name, :sortable => true
-    indexes :description
+    indexes :author
     indexes :isbn
 
     set_property :enable_star => 1

@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_one :cart
 
+  has_many :requests
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
 	  user = User.where(:provider => auth.provider, :uid => auth.uid).first
 	  unless user

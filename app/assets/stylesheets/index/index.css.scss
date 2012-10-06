@@ -1,0 +1,56 @@
+#content{
+
+	
+	.left{
+		float: left;
+		width: 70%;
+		border-right: 1px solid #DDD;
+		margin-top: 20px;
+
+		.slider-wrapper{
+			width: 90%;
+			margin: 20px auto;
+			img {
+				height: 500px !important;
+			}
+		}
+	}
+
+	.right{
+		float: right;
+		width: 29%;
+		margin-top: 20px;
+
+		#facebook_caption{
+			font-weight: 900;
+			font-size: 37px;
+			text-align: center;
+			margin-top: 25px;
+		}
+
+		#facebook{
+			text-align: center;
+			margin-top: 40px;
+
+			img{
+				width: 200px;
+			}
+		}
+	}
+
+}
+
+.nivoSlider {
+	position:relative;
+	background:url(nivo/loading.gif) no-repeat 50% 50%;
+}
+.nivoSlider img {
+  position:absolute;
+  top:0px;
+  left:0px;
+  display:none;
+}
+.nivoSlider a {
+  border:0;
+  display:block;
+}

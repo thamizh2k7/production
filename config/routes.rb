@@ -2,6 +2,7 @@ Sociorent::Application.routes.draw do
 
   get "home/index"
   match "/search" => "home#search"
+  post "home/book_request"
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

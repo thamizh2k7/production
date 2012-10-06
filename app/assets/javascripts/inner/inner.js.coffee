@@ -3,14 +3,21 @@ window.sociorent = window.sociorent || {fn: {}, models: {}, collections: {}, vie
 $(document).ready ->
 
 	sociorent.fn.renderSearch = ()->
-		$("#search_books").html ""
+		$("#search_books").hide().html ""
 		if sociorent.collections.search_object.models.length > 0
 			_.each sociorent.collections.search_object.models, (model)->
 				view = new sociorent.views.search
 					model: model
 				$("#search_books").append view.render().el
+			# highlight found value
+			val = $("#search_books_input").val()
+			unless $.trim(val) == ""
+				$("#search_books div").highlight(val)
+			$("#no_search_result").hide()
 		else 
-			$("#search_books").append "<div class='no_search_result'>No books found.</div>"
+			$("#search_books").append "<div id='no_search_result_caption'>No books found.</div>"
+			$("#no_search_result").show()
+		$("#search_books").stop().fadeIn(300)
 	
 	search = ()->
 		$.ajax "/search" , 
@@ -20,7 +27,6 @@ $(document).ready ->
 				query: $("#search_books_input").val()
 			success: (msg)->
 				# reset the search collections
-				console.log msg
 				sociorent.collections.search_object.reset(msg)
 				sociorent.fn.renderSearch()
 

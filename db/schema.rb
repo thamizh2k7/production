@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121005111538) do
+ActiveRecord::Schema.define(:version => 20121006105843) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20121005111538) do
     t.string   "name"
     t.text     "description"
     t.string   "isbn10"
-    t.string   "auther"
+    t.string   "author"
     t.string   "isbn13"
     t.string   "binding"
     t.string   "publisher"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(:version => 20121005111538) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "general_images", :force => true do |t|
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "general_id"
+  end
+
+  create_table "generals", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -73,6 +88,17 @@ ActiveRecord::Schema.define(:version => 20121005111538) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "requests", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.integer  "user_id"
+    t.string   "isbn"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "requests", ["user_id"], :name => "index_requests_on_user_id"
 
   create_table "reviews", :force => true do |t|
     t.text     "content"

@@ -5,12 +5,17 @@ $(document).ready ->
 		initialize: ->
 			# search collection
 			sociorent.collections.search_object = new sociorent.collections.search()
+			# car collection
+			sociorent.collections.cart_object = new sociorent.collections.cart()
 		
 		events:
 			"submit #search_books_form"	: "cancel_submit"
 			"focus #search_books_input" : "expand_search"
 			"click #close_search_books" : "shrink_search"
 			"submit #request_form" : "make_request"
+			"click #cart_button" : "open_cart_dialog"
+			"click #cart_options_left" : "close_cart_dialog"
+			"click #cart_options_right" : "checkout"
 
 		cancel_submit: ->
 			false
@@ -53,4 +58,12 @@ $(document).ready ->
 						$("#request_form").animate({height: "0px"}, 300).html ""
 			false
 
+		open_cart_dialog: ->
+			$("#cart_box").dialog("open")
+
+		close_cart_dialog: ->
+			$("#cart_box").dialog("close")
+
+		checkout: ->
+			alert "will be loaded later."
 	sociorent.views.app_object = new sociorent.views.app()

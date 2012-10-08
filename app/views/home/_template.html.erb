@@ -6,7 +6,101 @@
 		<div class="name"><%%= name %></div>
 		<div class="author"><i>by</i> - <%%= author %></div>
 		<div class="isbn">isbn - <%%= isbn %></div>
-		<div class="add_to_cart">Add to Cart</div>
+		<div class="add_to_cart"><%%= cart_message %></div>
+	</div>
+	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="book_details_template">
+	<div class="book_heading"><%%= name %></div>
+	<div class="left">
+		
+		<div class="book_image">
+			<img src="<%%= book_image %>"/>
+		</div>	
+		<div class="auther_edition">
+			<div class="edition"><b>Edition <%%= edition %></b></div>
+			<div class="author">Author(s): <p><span class="blue"><%%= author %></span></p></div>
+			<div class="add_to_cart">Add to Cart</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="socio_rent_rank">
+			<div class="socio_rent_rank_left">
+				SocioRent Rank
+			</div>
+			<div class="socio_rent_rank_right">
+				<span class="blue">(90%)</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="information">
+			<div class="information_left">ISBN10:</div>
+			<div class="information_right"><%%= isbn10 %></div>
+			<div class="information_left">ISBN13:</div>
+			<div class="information_right"><%%= isbn13 %></div>
+			<div class="information_left">binding:</div>
+			<div class="information_right"><%%= binding %></div>
+			<div class="information_left">publisher:</div>
+			<div class="information_right"><%%= publisher %></div>
+			<div class="information_left">published:</div>
+			<div class="information_right"><%%= published %></div>
+			<div class="information_left">pages</div>
+			<div class="information_right"><%%= pages %></div>
+			<div class="information_left">list price</div>
+			<div class="information_right"><%%= price %></div>
+
+			<div class="clear"></div>
+		</div>
+
+	</div>
+	<div class="right">
+		<div class="text"> 
+			<div class="text_left">Description</div>
+			<div class="text_right"><%%= description %></div>
+			<div class="clear"></div>
+		</div>
+		<div class="text"> 
+			<div class="text_left">Strengths</div>
+			<div class="text_right"><%%= strengths %></div>
+			<div class="clear"></div>
+		</div>
+		<div class="text"> 
+			<div class="text_left">Weaknesses</div>
+			<div class="text_right"><%%= weaknesses %></div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="reviews_box">
+			<div class="reviews_caption">
+				<div class="reviews_caption_left">User Reviews</div>
+				<div class="reviews_caption_right">Leave a Review</div>
+				<div class="clear"></div>
+			</div>
+			<div class="reviews">
+				No reviews made.
+			</div>
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="cart_template"> 
+	<div class="cart_image">
+		<img src='<%%= book_image %>'>
+	</div>
+	<div class="cart_name">
+		<%%= name %>
+	</div>
+	<div class="cart_isbn">
+		<%%= isbn10 %>
+	</div> 
+	<div class="cart_price">
+		Rs. <%%= price %>
+	</div>
+	<div class="cart_delete">
 	</div>
 	<div class="clear"></div>
 </script>

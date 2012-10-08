@@ -1,0 +1,1 @@
+sociorent.models.cart = Backbone.Model.extend()

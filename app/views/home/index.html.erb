@@ -1,26 +1,28 @@
 <%= stylesheet_link_tag "index/application" %>
-<div class="left">
-	
-	<!-- slider -->
-	<div class="slider-wrapper theme-default">
-    <div id="slider" class="nivoSlider">
-       <% @images.each do |image| %>
-       		<img src='<%= image.image %>'/>
-       <% end %>
-    </div>
-</div>
+<div id="content">
+  <div class="left">
+  	
+  	<!-- slider -->
+  	<div class="slider-wrapper theme-default">
+      <div id="slider" class="nivoSlider">
+         <% @images.each do |image| %>
+         		<img src='<%= image.image %>'/>
+         <% end %>
+      </div>
+  </div>
 
-</div>
-<div class="right">
-	<div id="facebook_caption">
-		Connect with us.
-	</div>
-	<div id="facebook">
-		<%= link_to image_tag('/assets/facebook_256.png'), user_omniauth_authorize_path(:facebook) %>
+  </div>
+  <div class="right">
+  	<div id="facebook_caption">
+  		Connect with us.
+  	</div>
+  	<div id="facebook">
+  		<%= link_to image_tag('/assets/facebook_256.png'), user_omniauth_authorize_path(:facebook) %>
 
-	</div>
+  	</div>
+  </div>
+  <div class="clear"></div>
 </div>
-<div class="clear"></div>
 
 <script type="text/javascript">
 	$(document).ready(function(){

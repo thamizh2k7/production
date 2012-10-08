@@ -18,6 +18,14 @@ $(document).ready ->
 			$("#search_books").append "<div id='no_search_result_caption'>No books found.</div>"
 			$("#no_search_result").show()
 		$("#search_books").stop().fadeIn(300)
+
+	sociorent.fn.renderCart = ()->
+		$("#cart").html ""
+		_.each sociorent.collections.cart_object.models, (model)->
+			view = new sociorent.views.cart
+				model: model
+			$("#cart").append view.render().el
+
 	
 	search = ()->
 		$.ajax "/search" , 

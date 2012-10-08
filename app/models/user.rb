@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_one :cart
 
   has_many :requests
+  has_many :orders
 
   after_create do |user|
     user.create_cart()

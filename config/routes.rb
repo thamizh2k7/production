@@ -5,6 +5,7 @@ Sociorent::Application.routes.draw do
   post "home/book_request"
   post "home/add_to_cart"
   post "home/remove_from_cart"
+  post "orders/create"
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

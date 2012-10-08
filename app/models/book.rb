@@ -10,6 +10,9 @@ class Book < ActiveRecord::Base
   has_many :book_carts
   has_many :carts, :through => :book_carts
 
+  has_many :book_orders
+  has_many :orders, :through => :book_orders
+
   accepts_nested_attributes_for :images
 
   define_index do

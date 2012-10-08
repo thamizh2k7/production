@@ -16,6 +16,7 @@ $(document).ready ->
 			"click #cart_button" : "open_cart_dialog"
 			"click #cart_options_left" : "close_cart_dialog"
 			"click #cart_options_right" : "checkout"
+			"click .create_order" : "create_order"
 
 		cancel_submit: ->
 			false
@@ -67,5 +68,17 @@ $(document).ready ->
 		checkout: ->
 			$("#cart_box").dialog("close")
 			$("#checkout_box").dialog("open")
+
+		create_order: ->
+			$.ajax "/orders/create" ,
+				type:"post"
+				async:true
+				success: (msg)->
+					$("#checkout_box").dialog "close"
+					$("#order_box").dialog "open"
+					$("#order_id span").html msg.random
+					sociorent.collections.cart_object.reset()
+					sociorent.fn.renderSearch()
+					sociorent.fn.renderCart()
 		
 	sociorent.views.app_object = new sociorent.views.app()

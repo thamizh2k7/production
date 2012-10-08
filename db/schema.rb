@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008055146) do
+ActiveRecord::Schema.define(:version => 20121008142336) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20121008055146) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "book_orders", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "order_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "book_orders", ["book_id"], :name => "index_book_orders_on_book_id"
+  add_index "book_orders", ["order_id"], :name => "index_book_orders_on_order_id"
 
   create_table "books", :force => true do |t|
     t.datetime "created_at",     :null => false
@@ -77,6 +87,13 @@ ActiveRecord::Schema.define(:version => 20121008055146) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "book_id"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.string   "random"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

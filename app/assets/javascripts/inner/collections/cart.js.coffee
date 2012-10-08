@@ -7,6 +7,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			$("#cart_button span").html "(" + @models.length + ")"
 			$("#no_item_in_cart").hide()
 			$("#cart_options_right").show()
+			$("#cart_total span").html sociorent.fn.calculate_cart_total()
 
 		@on "remove", ()->
 			# listen to remove from cart
@@ -15,7 +16,8 @@ sociorent.collections.cart = Backbone.Collection.extend
 				$("#no_item_in_cart").show()
 				$("#cart_options_right").hide()
 			sociorent.fn.renderSearch()
-
+			$("#cart_total span").html sociorent.fn.calculate_cart_total()
+  
 		@on "reset", ()->
 			# listen to add to cart
 			$("#cart_button span").html "(" + @models.length + ")"
@@ -25,3 +27,10 @@ sociorent.collections.cart = Backbone.Collection.extend
 			else
 				$("#no_item_in_cart").hide()
 				$("#cart_options_right").show()
+			$("#cart_total span").html sociorent.fn.calculate_cart_total()
+
+sociorent.fn.calculate_cart_total = ()->
+	total = 0
+	_.each sociorent.collections.cart_object.models, (model)->
+		total += model.get("price")
+	total

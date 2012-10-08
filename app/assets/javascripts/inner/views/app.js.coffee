@@ -65,5 +65,7 @@ $(document).ready ->
 			$("#cart_box").dialog("close")
 
 		checkout: ->
-			alert "will be loaded later."
+			$("#cart_box").dialog("close")
+			$("#checkout_box").dialog("open")
+		
 	sociorent.views.app_object = new sociorent.views.app()

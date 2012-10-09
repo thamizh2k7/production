@@ -1,0 +1,1 @@
+sociorent.models.compare = Backbone.Model.extend()

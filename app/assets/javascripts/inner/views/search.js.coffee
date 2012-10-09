@@ -10,6 +10,7 @@ $(document).ready ->
 
 		events:
 			"click .add_to_cart" : "add_to_cart"
+			"change .add_to_compare": "add_to_compare"
 			"click" : "details"
 
 		add_to_cart: ->
@@ -28,13 +29,22 @@ $(document).ready ->
 						sociorent.fn.renderCart()
 			false
 
-		details: ->
-			view = new sociorent.views.book_details
-				model: @model
-			$("#book_details_box").html view.render().el
-			if sociorent.collections.cart_object.get(@model.id)
-				$(".book_details .add_to_cart").html "In Your Cart"
-			$("#book_details_box").dialog("open")
+		add_to_compare: (ev)->
+			checkbox = $(ev.target)
+			unless checkbox.attr "checked"
+				sociorent.collections.compare_object.remove @model.id
+			else
+				sociorent.collections.compare_object.add @model.attributes
+			sociorent.fn.renderCompare()
+
+		details: (ev)->
+			unless $(ev.target).parent().attr("class") == "add_to_compare_box"
+				view = new sociorent.views.book_details
+					model: @model
+				$("#book_details_box").html view.render().el
+				if sociorent.collections.cart_object.get(@model.id)
+					$(".book_details .add_to_cart").html "In Your Cart"
+				$("#book_details_box").dialog("open")
 
 		render: ->
 			image = @model.get("book_image")
@@ -43,6 +53,7 @@ $(document).ready ->
 			else
 				cart_message = "Add to Cart"
 			$(@el).html @template
+				id: @model.id
 				image: image
 				name: @model.get "name"
 				author: @model.get "author"

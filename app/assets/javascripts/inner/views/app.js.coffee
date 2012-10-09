@@ -5,8 +5,10 @@ $(document).ready ->
 		initialize: ->
 			# search collection
 			sociorent.collections.search_object = new sociorent.collections.search()
-			# car collection
+			# cart collection
 			sociorent.collections.cart_object = new sociorent.collections.cart()
+			# compare collection
+			sociorent.collections.compare_object = new sociorent.collections.compare()
 		
 		events:
 			"submit #search_books_form"	: "cancel_submit"
@@ -17,6 +19,8 @@ $(document).ready ->
 			"click #cart_options_left" : "close_cart_dialog"
 			"click #cart_options_right" : "checkout"
 			"click .create_order" : "create_order"
+			"click #compare_close" : "compare_close"
+			"click #compare_dialog_button" : "compare_dialog"
 
 		cancel_submit: ->
 			false
@@ -80,5 +84,11 @@ $(document).ready ->
 					sociorent.collections.cart_object.reset()
 					sociorent.fn.renderSearch()
 					sociorent.fn.renderCart()
+
+		compare_close: ->
+			$("#compare_box").fadeOut(300)
+
+		compare_dialog: ->
+			$("#compare_dialog").dialog "open"
 		
 	sociorent.views.app_object = new sociorent.views.app()

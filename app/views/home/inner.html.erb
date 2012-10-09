@@ -19,7 +19,14 @@
     <div class="clear"></div>
   </div>
 <% end %>
-
+<div id="compare_box">
+	<div id="compare"></div>
+	<div id="compare_options">
+		<div id="compare_dialog_button">Compare</div>
+		<div id="compare_close">Close</div>
+		<div class="clear"></div>
+	</div>
+</div>
 <div id="content">
 	<div class="left">
 		
@@ -128,6 +135,21 @@
 			width: 700,
 			resizable: false,
 			modal: true
+		});
+
+		$("#compare_dialog").dialog({
+			autoOpen: false,
+			draggable: false,
+			dialogClass: "book_dialog",
+			height: 700,
+			width: width,
+			resizable: false,
+			buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+      modal: true
 		});
 		
 		$("#tabs").tabs();

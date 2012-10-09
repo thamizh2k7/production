@@ -9,6 +9,9 @@ $(document).ready ->
 				view = new sociorent.views.search
 					model: model
 				$("#search_books").append view.render().el
+				if sociorent.collections.compare_object.get model.id
+					$(view.render().el).find(".add_to_compare").attr
+						checked: true
 			# highlight found value
 			val = $("#search_books_input").val()
 			unless $.trim(val) == ""
@@ -25,6 +28,13 @@ $(document).ready ->
 			view = new sociorent.views.cart
 				model: model
 			$("#cart").append view.render().el
+
+	sociorent.fn.renderCompare = ()->
+		$("#compare").html ""
+		_.each sociorent.collections.compare_object.models, (model)->
+			view = new sociorent.views.compare
+				model: model
+			$("#compare").append view.render().el
 
 	
 	search = ()->

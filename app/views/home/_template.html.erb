@@ -7,6 +7,11 @@
 		<div class="author"><i>by</i> - <%%= author %></div>
 		<div class="isbn">isbn - <%%= isbn %></div>
 		<div class="add_to_cart"><%%= cart_message %></div>
+		<div class="add_to_compare_box">
+			<input class="add_to_compare" type="checkbox" id="compare_<%%= id %>">
+			<label for="compare_<%%= id %>">Compare</label>
+			<div class="clear"></div>
+		</div>
 	</div>
 	<div class="clear"></div>
 </script>
@@ -103,4 +108,9 @@
 	<div class="cart_delete">
 	</div>
 	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="compare_template"> 
+	<img src='<%%= book_image %>'/>
+	<div class="remove_from_compare">remove</div>
 </script>

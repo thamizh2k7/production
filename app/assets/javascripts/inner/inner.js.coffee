@@ -31,11 +31,25 @@ $(document).ready ->
 
 	sociorent.fn.renderCompare = ()->
 		$("#compare").html ""
-		_.each sociorent.collections.compare_object.models, (model)->
-			view = new sociorent.views.compare
-				model: model
-			$("#compare").append view.render().el
+		unless sociorent.collections.compare_object.models.length == 0
+			_.each sociorent.collections.compare_object.models, (model)->
+				view = new sociorent.views.compare
+					model: model
+				$("#compare").append view.render().el
+		else
+			$("#compare").html "<div class='no_compare_book'>There are no books to compare.</div>"
+			$("#compare_box").delay(3000)
+			sociorent.fn.hide_compare()
 
+	sociorent.fn.show_compare = ()->
+		$("#compare_box").animate
+			top: "124px"
+		, 500
+
+	sociorent.fn.hide_compare = ()->
+		$("#compare_box").animate
+			top: "-150px"
+		, 500
 	
 	search = ()->
 		$.ajax "/search" , 

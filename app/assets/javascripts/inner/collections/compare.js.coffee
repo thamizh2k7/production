@@ -3,7 +3,7 @@ sociorent.collections.compare = Backbone.Collection.extend
 
 	initialize: ->
 		@on "add", ()->
-			$("#compare_options").show()
+			$("#compare_dialog_button").show()
 			if @models.length == 3
 				$(".add_to_compare_box").hide()
 
@@ -12,5 +12,4 @@ sociorent.collections.compare = Backbone.Collection.extend
 			if @models.length < 3
 				$(".add_to_compare_box").show()
 			if @models.length == 0
-				$("#compare_options").hide()
-			sociorent.fn.renderSearch()
+				$("#compare_dialog_button").hide()

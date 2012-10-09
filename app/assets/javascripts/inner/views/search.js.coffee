@@ -36,6 +36,7 @@ $(document).ready ->
 			else
 				sociorent.collections.compare_object.add @model.attributes
 			sociorent.fn.renderCompare()
+			sociorent.fn.show_compare()
 
 		details: (ev)->
 			unless $(ev.target).parent().attr("class") == "add_to_compare_box"

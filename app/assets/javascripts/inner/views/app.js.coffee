@@ -21,6 +21,7 @@ $(document).ready ->
 			"click .create_order" : "create_order"
 			"click #compare_close" : "compare_close"
 			"click #compare_dialog_button" : "compare_dialog"
+			"click #compare_button" : "compare_dialog"
 
 		cancel_submit: ->
 			false
@@ -86,9 +87,17 @@ $(document).ready ->
 					sociorent.fn.renderCart()
 
 		compare_close: ->
-			$("#compare_box").fadeOut(300)
+			sociorent.fn.hide_compare()
 
 		compare_dialog: ->
+			$("#compare_dialog").html ""
+			unless sociorent.collections.compare_object.models.length == 0
+				_.each sociorent.collections.compare_object.models, (model)->
+					view = new sociorent.views.compare_dialog
+						model: model
+					$("#compare_dialog").append view.render().el
+			else
+				$("#compare_dialog").html "<div class='no_compare_book'>There are no books to compare.<br/>To add one click on compare in books tabs.</div>"
 			$("#compare_dialog").dialog "open"
 		
 	sociorent.views.app_object = new sociorent.views.app()

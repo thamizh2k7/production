@@ -1,19 +1,20 @@
 <%= stylesheet_link_tag "inner" %>
 <%= javascript_include_tag "inner/application" %>
-<% if current_user %>
+<% if @user %>
   <div id="user">
     <div class="left">
-      <div>Welcome, <%= current_user.name %></div>
+      <div>Welcome, <%= @user.name %></div>
     </div>
     <div class="right">
       <div>
-        <% if current_user %>
+        <% if @user %>
           <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
         <% else %>
           <%= link_to "SignUp/SignIn", user_omniauth_authorize_path(:facebook) %>
         <% end %>
       </div>
       <div id="cart_button">Cart <span></span></div>
+      <div id="compare_button">Compare</div>
       <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -95,7 +96,6 @@
 		$("#book_details_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			dialogClass: "book_dialog",
 			height: 700,
 			width: width,
 			resizable: false,
@@ -110,7 +110,6 @@
 		$("#cart_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			dialogClass: "cart_dialog",
 			height: 550,
 			width: 700,
 			resizable: false,
@@ -120,7 +119,6 @@
 		$("#checkout_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			dialogClass: "cart_dialog",
 			height: 550,
 			width: 700,
 			resizable: false,
@@ -130,7 +128,6 @@
 		$("#order_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			dialogClass: "cart_dialog",
 			height: 550,
 			width: 700,
 			resizable: false,
@@ -140,9 +137,8 @@
 		$("#compare_dialog").dialog({
 			autoOpen: false,
 			draggable: false,
-			dialogClass: "book_dialog",
 			height: 700,
-			width: width,
+			width: 1100,
 			resizable: false,
 			buttons: {
                 Ok: function () {

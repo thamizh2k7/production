@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   attr_accessible :random
 
-  has_many :book_orders
+  has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
 
   belongs_to :user
@@ -17,5 +17,17 @@ class Order < ActiveRecord::Base
 	  		order.update_attributes(:random => random)
 	  	end
 	  end
+  end
+
+  rails_admin do
+  	base do
+  		field :random do
+  			label "Order Number"
+  		end
+  		field :user
+  		field :books
+  		field :created_at
+  		field :updated_at
+  	end
   end
 end

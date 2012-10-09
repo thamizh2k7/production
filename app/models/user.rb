@@ -8,11 +8,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin
 
-  has_many :reviews
-  has_one :cart
+  has_many :reviews, :dependent => :destroy
+  has_one :cart, :dependent => :destroy
 
-  has_many :requests
-  has_many :orders
+  has_many :requests, :dependent => :destroy
+  has_many :orders, :dependent => :destroy
 
   after_create do |user|
     user.create_cart()
@@ -36,6 +36,21 @@ class User < ActiveRecord::Base
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
       end
+    end
+  end
+
+  rails_admin do
+    edit do
+      field :email 
+      field :password
+      field :name
+      field :is_admin
+    end
+    create do
+      field :email 
+      field :password
+      field :name
+      field :is_admin
     end
   end
 end

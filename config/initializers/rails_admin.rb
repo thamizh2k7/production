@@ -8,4 +8,26 @@ RailsAdmin.config do |config|
 		redirect_to "/home/index" unless current_user.is_admin?
 	end
 
+	config.excluded_models = ["BookCart", "BookOrder", "GeneralImage", "Image"]
+
+	config.actions do
+		# root actions
+    dashboard
+    # collection actions 
+    index
+    new do
+			visible do
+				["General"].exclude?bindings[:abstract_model].model.to_s
+			end
+		end
+    export
+    history_index
+    bulk_delete
+    # member actions
+    show
+    edit
+    delete
+    history_show
+    show_in_app
+	end
 end

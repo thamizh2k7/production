@@ -9,6 +9,9 @@ $(document).ready ->
 			sociorent.collections.cart_object = new sociorent.collections.cart()
 			# compare collection
 			sociorent.collections.compare_object = new sociorent.collections.compare()
+
+			# bind scroll of window to this view
+			$(window).scroll this.scroll_app
 		
 		events:
 			"submit #search_books_form"	: "cancel_submit"
@@ -99,5 +102,15 @@ $(document).ready ->
 			else
 				$("#compare_dialog").html "<div class='no_compare_book'>There are no books to compare.<br/>To add one click on compare in books tabs.</div>"
 			$("#compare_dialog").dialog "open"
-		
+
+		scroll_app: ->
+			if $("body").scrollTop() > 124
+				$("#compare_box").css
+					position: "fixed"
+					top: "0px"
+			else
+				$("#compare_box").css
+					position: "absolute"
+					top: "124px"
+
 	sociorent.views.app_object = new sociorent.views.app()

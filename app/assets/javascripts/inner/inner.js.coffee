@@ -38,18 +38,14 @@ $(document).ready ->
 				$("#compare").append view.render().el
 		else
 			$("#compare").html "<div class='no_compare_book'>There are no books to compare.</div>"
-			$("#compare_box").delay(3000)
+			$("#compare_box").delay(1500)
 			sociorent.fn.hide_compare()
 
 	sociorent.fn.show_compare = ()->
-		$("#compare_box").animate
-			top: "124px"
-		, 500
+		$("#compare_box").fadeIn 500
 
 	sociorent.fn.hide_compare = ()->
-		$("#compare_box").animate
-			top: "-150px"
-		, 500
+		$("#compare_box").fadeOut 500
 	
 	search = ()->
 		$.ajax "/search" , 

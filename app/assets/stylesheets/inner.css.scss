@@ -518,14 +518,15 @@
 	position: absolute;
 	margin: auto;
 	background: #EEE;
-	left: 420px;
-	top: -150px;
+	left: 28%;
+	top: 124px;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 	z-index: 10;
 	text-align: center;
 	border: 1px solid #CCC;
 	border-top: none;
+	display: none;
 
 	.no_compare_book {
 		text-align: center;

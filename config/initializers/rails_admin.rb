@@ -1,6 +1,6 @@
 RailsAdmin.config do |config|
 
-	config.current_user_method { current_user } # auto-generated
+  config.current_user_method { current_user } # auto-generated
 
   config.main_app_name = ['Sociorent', 'Admin']
 
@@ -30,4 +30,19 @@ RailsAdmin.config do |config|
     history_show
     show_in_app
 	end
+
+  config.model User do
+    edit do
+      field :email 
+      field :password
+      field :name
+      field :is_admin
+    end
+    create do
+      field :email 
+      field :password
+      field :name
+      field :is_admin
+    end
+  end
 end

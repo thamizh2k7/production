@@ -38,19 +38,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
-  rails_admin do
-    edit do
-      field :email 
-      field :password
-      field :name
-      field :is_admin
-    end
-    create do
-      field :email 
-      field :password
-      field :name
-      field :is_admin
-    end
-  end
 end

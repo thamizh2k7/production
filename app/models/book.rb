@@ -40,4 +40,15 @@ class Book < ActiveRecord::Base
     # returning the new json
     h
   end
+
+  rails_admin do
+    include_all_fields
+    field :carts do
+      visible false
+    end
+    field :orders do
+      visible false
+    end
+  end
+
 end

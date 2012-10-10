@@ -66,7 +66,7 @@ $(document).ready ->
 	options =
 	  callback: -> 
 	  	search()
-	  wait: 750
+	  wait: 500
 	  highlight: true
 	  captureLength: 2
 

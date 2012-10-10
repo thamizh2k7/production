@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       if new_user
-        redirect_to "/home/get_user_details"
+        redirect_to "/welcome"
       else
         redirect_to "/"
       end

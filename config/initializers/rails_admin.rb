@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
 		redirect_to "/home/index" unless current_user.is_admin?
 	end
 
-	config.excluded_models = ["BookCart", "BookOrder", "GeneralImage", "Image"]
+	config.excluded_models = ["BookCart", "BookOrder"]
 
 	config.actions do
 		# root actions

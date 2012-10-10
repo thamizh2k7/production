@@ -26,3 +26,7 @@ g.general_images.create(:image_url => "http://cdn.shopify.com/s/files/1/0007/344
 g.general_images.create(:image_url => "http://www.pod-creative.com/_resources/images/projects/news/news_145_morrison_street_2.jpg")
 g.general_images.create(:image_url => "http://wildflowersphotos.com/blog/wp-content/uploads/2012/02/proutyBLOG1.jpg")
 g.general_images.create(:image_url => "http://fc02.deviantart.net/fs70/i/2012/103/9/2/bird_brain_books_1_3_by_rynnay-d4w2ae3.jpg")
+
+# colleges
+College.create(:name => "IIM")
+College.create(:name => "VIT")

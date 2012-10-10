@@ -48,4 +48,20 @@ class HomeController < ApplicationController
     book_cart.delete
     render :json => book.to_json()
   end
+
+  def get_user_details
+    user = current_user
+    if user.mobile_number.nil?
+      @college_names = College.pluck(:name)
+    else
+      redirect_to "/"
+    end
+  end
+
+  def save_user_details
+    user = current_user
+    college = College.where(:name => params[:college]).first
+    user.update_attributes(:mobile_number => params[:mobile], :college_id => college)
+    render :text => "1"
+  end
 end

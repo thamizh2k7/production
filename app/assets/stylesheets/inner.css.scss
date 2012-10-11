@@ -40,34 +40,10 @@
 
 	.left{
 		float: left;
-		width: 69%;
-		margin-top: 20px;
-
-		#intelligent_books_caption {
-			font-size: 20px;
-			color: #AAA;
-			margin-left: 50px;
-			font-style: italic;
-		}
-		#intelligent_books {
-			margin: 20px 0px 20px 50px;
-		
-			.intelligent_books_single{
-				display: inline-block;
-				margin: 20px;
-				border: 1px solid #CCC;
-				padding: 8px;
-			}
-		}
-	}
-
-	.right{
-		float: right;
 		width: 30%;
 		margin-top: 20px;
-		border-left: 1px solid #AAA;
-		min-height: 700px;
-
+		border-right: 1px solid #AAA;
+		
 		#search_books_form{
 			float: left;
 			width: 90%;
@@ -92,61 +68,6 @@
 			.highlight { 
 				background-color: yellow 
 			}
-
-			.search_books_single{
-				display: inline-block;
-				margin: 20px;
-				border: 1px solid #CCC;
-				padding: 8px;
-				width: 246px;
-				cursor: pointer;
-
-				.search_left{
-					float: left;
-					width: 50%;
-				}
-				.search_right{
-					float: right;
-					width: 50%;
-					text-align: left;
-
-					.name{
-						font-size: 16px;
-						font-weight: 900;
-						color: #CC4D5C;
-						margin: 4px 0px 10px 5px;
-					}
-					.author{
-						font-size: 16px;
-						font-weight: 900;
-						color: #000;
-						margin: 4px 0px 10px 5px;
-					}
-					.isbn{
-						font-size: 12px;
-						font-weight: 900;
-						color: #000;
-						margin: 4px 0px 10px 5px;
-					}
-					.add_to_cart{
-						font-size: 16px;
-						font-weight: 900;
-						color: #CC4D5C;
-						margin: 4px 0px 10px 5px;
-					}
-					.add_to_compare_box{
-						.add_to_compare{
-							float: left;
-							margin-left: 5px
-						}
-						label{
-							float: right;
-							margin-right: 40px;
-						}
-					}
-				}
-
-			}
 		}
 
 		#no_search_result{
@@ -160,57 +81,16 @@
 				}
 			}
 		}
+		
 	}
 
-	#suggested_books_caption{
-		background: #CC4D5C;
-		width: 90%;
-		margin: 20px auto;
-		border-radius: 8px;
-		text-align: center;
-		color: white;
-		padding: 5px;
-		-moz-box-shadow: 0 0 5px #888;
-		-webkit-box-shadow: 0 0 5px#888;
-		box-shadow: 0 0 5px #888;
-
-		a{
-			color: #FFF;
-			text-decoration: none;
-		}
+	.right{
+		float: right;
+		width: 69%;
+		margin-top: 20px;
+		min-height: 700px;
 	}
-
-	#suggested_books{
-		height: 220px;
-		border: 1px solid #CCC;
-		width: 90%;
-		margin: 20px auto;
-		border-bottom-left-radius: 8px;
-		border-bottom-right-radius: 8px;
-		border-top: none;
-		overflow-y: hidden;
-		overflow-x: auto; 
-		text-align: center;
-
-		.suggested_books_single{
-			display: inline-block;
-			margin: 20px;
-			border: 1px solid #CCC;
-			padding: 8px;
-			float: left;
-		}
-	}
-}
-
-.ui-dialog{
-	position: fixed;
-}	
-.ui-dialog .ui-dialog-content{
-	background: #FFF !important;
-}
-
-.ui-dialog .ui-dialog-titlebar {
-	display: none;
+	
 }
 
 
@@ -430,7 +310,7 @@
 				}
 			}
 			.cart_name{
-				width: 180px;
+				width: 165px;
 				margin: 5px 0px 0px 30px;
 				color: #CC4D5C;
 			}
@@ -682,4 +562,57 @@
 
 span.blue{
 	color: #CC4D5C;
+}
+.search_books_single{
+	display: inline-block;
+	margin: 20px;
+	border: 1px solid #CCC;
+	padding: 8px;
+	width: 246px;
+	cursor: pointer;
+
+	.book_left{
+		float: left;
+		width: 50%;
+	}
+	.book_right{
+		float: right;
+		width: 50%;
+		text-align: left;
+
+		.name{
+			font-size: 16px;
+			font-weight: 900;
+			color: #CC4D5C;
+			margin: 4px 0px 10px 5px;
+		}
+		.author{
+			font-size: 16px;
+			font-weight: 900;
+			color: #000;
+			margin: 4px 0px 10px 5px;
+		}
+		.isbn{
+			font-size: 12px;
+			font-weight: 900;
+			color: #000;
+			margin: 4px 0px 10px 5px;
+		}
+		.add_to_cart{
+			font-size: 16px;
+			font-weight: 900;
+			color: #CC4D5C;
+			margin: 4px 0px 10px 5px;
+		}
+		.add_to_compare_box{
+			.add_to_compare{
+				float: left;
+				margin-left: 5px
+			}
+			label{
+				float: right;
+				margin-right: 40px;
+			}
+		}
+	}
 }

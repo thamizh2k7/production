@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   has_many :books, :through => :book_orders
 
   belongs_to :user
+  belongs_to :college
 
   after_create do |order|
   	unique = 0

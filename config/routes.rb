@@ -6,6 +6,10 @@ Sociorent::Application.routes.draw do
   post "home/add_to_cart"
   post "home/remove_from_cart"
   post "orders/create"
+  match "/welcome" => "home#get_user_details"
+  post "/home/save_user_details"
+  post "/orders/rented_show_more"
+  post "/orders/rented_college"
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

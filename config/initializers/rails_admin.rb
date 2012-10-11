@@ -1,3 +1,5 @@
+require Rails.root.join('lib','rails_admin_rented.rb')
+
 RailsAdmin.config do |config|
 
   config.current_user_method { current_user } # auto-generated
@@ -22,6 +24,11 @@ RailsAdmin.config do |config|
 		end
     export
     history_index
+    rented do
+      visible do
+        bindings[:abstract_model].model.to_s == "Book"
+      end
+    end
     bulk_delete
     # member actions
     show

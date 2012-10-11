@@ -31,26 +31,6 @@
 <div id="content">
 	<div class="left">
 		
-		<!-- tabs links -->
-		<div id="tabs">
-			<ul>
-				<li><a href="#intelligent_books">Books</a></li>
-				<li><a href="#resources">Resources</a></li>
-			</ul>
-
-			<!-- tabs content -->
-			<div id="intelligent_books">
-				<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
-			</div>
-
-			<div id="resources">
-				this is a resource tab
-			</div>
-
-		</div>
-
-	</div>
-	<div class="right">
 		<form id="search_books_form" class="form-search">
 		  <input type="text" id="search_books_input" class="input-medium search-query" placeholder="Search books">
 		</form>
@@ -69,6 +49,27 @@
 			</form>
 			<div id="request_error"></div>
 		</div>
+
+	</div>
+	<div class="right">
+
+		<!-- tabs links -->
+		<div id="tabs">
+			<ul>
+				<li><a href="#intelligent_books">Intelligent Books</a></li>
+				<!-- <li><a href="#resources">Resources</a></li> -->
+			</ul>
+
+			<!-- tabs content -->
+			<div id="intelligent_books">
+			</div>
+			<!--
+			<div id="resources">
+				this is a resource tab
+			</div>
+			-->
+		</div>
+		
 	</div>
 	<div class="clear"></div>
 </div>
@@ -86,6 +87,9 @@
 		//search collection reset
 		sociorent.collections.search_object.reset(<%= raw @search.to_json() %>);
 		sociorent.fn.renderSearch();
+		// intelligent collection reset
+		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json() %>);
+		sociorent.fn.renderIntelligent();
 
 		// setting width and height
 		var width = $(window).width();

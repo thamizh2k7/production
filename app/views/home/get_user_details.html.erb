@@ -1,0 +1,51 @@
+<%= stylesheet_link_tag "get_user_details" %>
+<div id="content">
+	<form id="form">
+	  <legend>Give us a few more details</legend>
+	  <p>
+	  	<select id="college">
+	  		<option value="0">Select College</option>
+	  		<% @college_names.each do |name| %>
+	  			<option value="<%= name %>"><%= name %></option>
+	  		<% end %>
+	  	</select>
+	  </p>
+	  <p><input type="text" placeholder="Mobile Number" id="mobile"></p>
+	  <button type="submit" class="btn">Submit</button>
+	</form>
+	<div id="error"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$("#college").chosen();
+
+		$("#form").submit(function(){
+			mobile = $.trim($("#mobile").val());
+			college = $("#college").val();
+			// validation
+			if (mobile == "")
+				$("#error").html("Please enter your mobile number.");
+			else if (!mobile.match(/\d{10}/))
+				$("#error").html("Please enter a valid mobile number.");
+			else if (college == "0")
+				$("#error").html("Please enter your college.");
+			else{
+				$("#error").fadeOut(300);
+				$.ajax("/home/save_user_details", {
+					type:"post",
+					async:true,
+					data: {
+						mobile: mobile,
+						college: college,
+					},
+					success: function(msg){
+						if(msg == "1")
+							window.location.href = "/"
+					},
+				});
+			}
+			return false;
+		});
+	});
+</script>

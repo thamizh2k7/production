@@ -9,6 +9,8 @@ $(document).ready ->
 			sociorent.collections.cart_object = new sociorent.collections.cart()
 			# compare collection
 			sociorent.collections.compare_object = new sociorent.collections.compare()
+			# intelligent collections
+			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
 
 			# bind scroll of window to this view
 			$(window).scroll this.scroll_app
@@ -31,19 +33,19 @@ $(document).ready ->
 
 		expand_search: ->
 			$("#content .left").stop().animate
-				width: "49%"
+				width: "50%"
 			, 300
 			$("#content .right").stop().animate
-				width: "50%"
+				width: "49%"
 			, 300
 			$("#close_search_books").show()
 
 		shrink_search: ->
 			$("#content .left").animate
-				width: "69%"
+				width: "30%"
 			, 300
 			$("#content .right").animate
-				width: "30%"
+				width: "69%"
 			, 300
 			$("#close_search_books").hide()
 

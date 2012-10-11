@@ -15,3 +15,23 @@
 //= require ./underscore.js
 //= require ./jquery.ui.widget.js
 //= require_tree .
+
+$(document).ready(function(){
+	$("#resources_button").click(function(){
+		$("#resources_dialog").dialog("open");
+	});
+
+	$("#resources_dialog").dialog({
+			autoOpen: false,
+			draggable: false,
+			height: 700,
+			width: 1100,
+			resizable: false,
+			buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+      modal: true
+		});
+});

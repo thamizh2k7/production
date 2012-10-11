@@ -40,34 +40,8 @@
 
 	.left{
 		float: left;
-		width: 69%;
-		margin-top: 20px;
-
-		#intelligent_books_caption {
-			font-size: 20px;
-			color: #AAA;
-			margin-left: 50px;
-			font-style: italic;
-		}
-		#intelligent_books {
-			margin: 20px 0px 20px 50px;
-		
-			.intelligent_books_single{
-				display: inline-block;
-				margin: 20px;
-				border: 1px solid #CCC;
-				padding: 8px;
-			}
-		}
-	}
-
-	.right{
-		float: right;
 		width: 30%;
 		margin-top: 20px;
-		border-left: 1px solid #AAA;
-		min-height: 700px;
-
 		#search_books_form{
 			float: left;
 			width: 90%;
@@ -160,7 +134,35 @@
 				}
 			}
 		}
+		
 	}
+
+	.right{
+		float: right;
+		width: 69%;
+		margin-top: 20px;
+		border-left: 1px solid #AAA;
+		min-height: 700px;
+
+		#intelligent_books_caption {
+			font-size: 20px;
+			color: #AAA;
+			margin-left: 50px;
+			font-style: italic;
+		}
+		#intelligent_books {
+			margin: 20px 0px 20px 50px;
+		
+			.intelligent_books_single{
+				display: inline-block;
+				margin: 20px;
+				border: 1px solid #CCC;
+				padding: 8px;
+			}
+		}
+
+	}
+	
 
 	#suggested_books_caption{
 		background: #CC4D5C;

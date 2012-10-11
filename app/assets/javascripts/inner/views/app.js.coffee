@@ -31,19 +31,19 @@ $(document).ready ->
 
 		expand_search: ->
 			$("#content .left").stop().animate
-				width: "49%"
+				width: "50%"
 			, 300
 			$("#content .right").stop().animate
-				width: "50%"
+				width: "49%"
 			, 300
 			$("#close_search_books").show()
 
 		shrink_search: ->
 			$("#content .left").animate
-				width: "69%"
+				width: "30%"
 			, 300
 			$("#content .right").animate
-				width: "30%"
+				width: "69%"
 			, 300
 			$("#close_search_books").hide()
 

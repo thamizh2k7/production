@@ -15,7 +15,6 @@ $(document).ready ->
 		remove_from_compare: ->
 			sociorent.collections.compare_object.remove @model.id
 			sociorent.fn.renderCompare()
-			sociorent.fn.renderSearch()
 			false
 
 		open_dialog: ->

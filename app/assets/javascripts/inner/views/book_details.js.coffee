@@ -8,6 +8,11 @@ $(document).ready ->
 		initialize: ->
 			_.bindAll this, 'render', 'add_to_cart'
 
+			that = this
+			sociorent.app_events.bind "added_to_cart", (id)->
+				if that.model.id == id
+					# when this model is added to cart
+					that.$(".add_to_cart").html "Added to Cart"
 
 		events: 
 			"click .add_to_cart" : "add_to_cart"
@@ -28,5 +33,4 @@ $(document).ready ->
 						book: that.model.id 
 					success: (msg)->
 						sociorent.collections.cart_object.add msg
-						$(that.el).find(".add_to_cart").html "Added to cart"
 						sociorent.fn.renderCart()

@@ -1,6 +1,7 @@
-window.sociorent = window.sociorent || {fn: {}, models: {}, collections: {}, views: {}}
+window.sociorent = window.sociorent || {fn: {}, models: {}, collections: {}, views: {}, app_events: {}}
+_.extend sociorent.app_events, Backbone.Events
 
-$(document).ready ->
+$(document).ready ->	
 
 	sociorent.fn.renderSearch = ()->
 		$("#search_books").hide().html ""

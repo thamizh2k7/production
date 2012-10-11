@@ -15,4 +15,20 @@ class OrdersController < ApplicationController
 
 		render :json => order.to_json()
 	end
+
+	def rented_show_more
+		@rented_books = []
+		offset = params[:offset].to_i
+		count = 1
+	  @orders = Order.includes(:books).all
+	  @orders.each do |order|
+	    if @rented_books.count <= offset
+	      @rented_books += order.books
+	    else
+	      break
+	    end
+	  end
+	  @rented_books = @rented_books.drop(offset-count).first(count)
+	  render :json => @rented_books.to_json()
+	end
 end

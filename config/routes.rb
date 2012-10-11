@@ -8,6 +8,7 @@ Sociorent::Application.routes.draw do
   post "orders/create"
   match "/welcome" => "home#get_user_details"
   post "/home/save_user_details"
+  post "/orders/rented_show_more"
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

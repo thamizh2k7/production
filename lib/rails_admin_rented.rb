@@ -54,16 +54,20 @@ module RailsAdmin
         register_instance_option :controller do
 					Proc.new do
             if request.method == "GET"
+              @number_of_books = 0
+              count = 1
+              @colleges = College.pluck(:name)
               @rented_books = []
               @orders = Order.includes(:books).all
               @orders.each do |order|
-                if @rented_books.count <= 1
+                if @rented_books.count <= count
                   @rented_books += order.books
+                  @number_of_books += order.books.count
                 else
-                  break
+                  @number_of_books += order.books.count
                 end
               end
-              @rented_books = @rented_books.first(1)
+              @rented_books = @rented_books.first(count)
             	render :action => @action.template_name
             else
             	redirect_to back_or_index

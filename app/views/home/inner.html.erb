@@ -62,7 +62,6 @@
 
 			<!-- tabs content -->
 			<div id="intelligent_books">
-				<div class="intelligent_books_single"><%= image_tag "/assets/book.jpeg" %></div>
 			</div>
 			<!--
 			<div id="resources">
@@ -88,6 +87,9 @@
 		//search collection reset
 		sociorent.collections.search_object.reset(<%= raw @search.to_json() %>);
 		sociorent.fn.renderSearch();
+		// intelligent collection reset
+		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json() %>);
+		sociorent.fn.renderIntelligent();
 
 		// setting width and height
 		var width = $(window).width();

@@ -9,6 +9,8 @@ $(document).ready ->
 			sociorent.collections.cart_object = new sociorent.collections.cart()
 			# compare collection
 			sociorent.collections.compare_object = new sociorent.collections.compare()
+			# intelligent collections
+			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
 
 			# bind scroll of window to this view
 			$(window).scroll this.scroll_app

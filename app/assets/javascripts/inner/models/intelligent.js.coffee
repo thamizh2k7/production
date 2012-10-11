@@ -1,0 +1,1 @@
+sociorent.models.intelligent = Backbone.Model.extend()

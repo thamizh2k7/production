@@ -67,3 +67,14 @@ $(document).ready ->
 	  captureLength: 2
 
 	$("#search_books_input").typeWatch options
+
+	sociorent.fn.renderIntelligent = ()->
+		$("#intelligent_books").hide().html ""
+		_.each sociorent.collections.intelligent_object.models, (model)->
+			view = new sociorent.views.search
+				model: model
+			$("#intelligent_books").append view.render().el
+			if sociorent.collections.compare_object.get model.id
+				$(view.render().el).find(".add_to_compare").attr
+					checked: true
+		$("#intelligent_books").stop().fadeIn(300)

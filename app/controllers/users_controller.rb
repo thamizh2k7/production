@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     if user.mobile_number.nil?
       @college_names = College.pluck(:name)
       @streams = Stream.pluck(:name)
+      render "home/get_user_details"
     else
       redirect_to "/"
     end

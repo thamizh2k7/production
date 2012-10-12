@@ -16,9 +16,12 @@ $(document).ready ->
 
 		events: 
 			"click .add_to_cart" : "add_to_cart"
+			"click .add_to_wishlist": "add_to_wishlist"
 
 		render: ->
 			$(@el).html @template(@model.toJSON())
+			if $.inArray(@model.id, sociorent.models.user_object.get("wishlist")) > -1
+				@$(".add_to_wishlist").html "Already in your Wishlist."
 			this
 
 		add_to_cart: ->
@@ -34,3 +37,16 @@ $(document).ready ->
 					success: (msg)->
 						sociorent.collections.cart_object.add msg
 						sociorent.fn.renderCart()
+
+		add_to_wishlist: ->
+			if $.inArray(@model.id, sociorent.models.user_object.get("wishlist")) == -1
+				that = this
+				$.ajax "/users/add_to_wishlist" ,
+					type:"post"
+					async:true
+					data:
+						book: that.model.id
+					success: (msg)->
+						that.$(".add_to_wishlist").html "Added to your Wishlist"
+						sociorent.models.user_object.set
+							wishlist: msg

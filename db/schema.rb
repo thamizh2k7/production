@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012115251) do
+ActiveRecord::Schema.define(:version => 20121012132718) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20121012115251) do
     t.string   "mobile_number"
     t.text     "friends"
     t.integer  "stream_id"
+    t.text     "wishlist"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

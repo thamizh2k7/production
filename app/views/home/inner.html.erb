@@ -80,6 +80,9 @@
 
 		// user model 
 		sociorent.models.user_object.set(<%= raw @user.to_json() %>);
+		sociorent.models.user_object.set({
+			wishlist: $.parseJSON(sociorent.models.user_object.get("wishlist"))
+		});
 		view = new sociorent.views.user_dialog({
 			model: sociorent.models.user_object,
 		});

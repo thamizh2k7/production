@@ -1,0 +1,1 @@
+sociorent.models.wishlist = Backbone.Model.extend()

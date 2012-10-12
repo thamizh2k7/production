@@ -156,6 +156,10 @@
 				font-size: 18px;
 				cursor: pointer;
 			}
+			.add_to_wishlist{
+				margin-top: 10px;
+				cursor: pointer;
+			}
 		}
 
 		.socio_rent_rank{
@@ -668,6 +672,10 @@ span.blue{
 				}
 
 				#orders{
+					#no_orders{
+						text-align: center;
+					}
+
 					.order_heading {
 						width: 90%;
 						margin: 20px auto;

@@ -8,7 +8,8 @@ $(document).ready ->
 		events: 
 			"click .menu" : "highlight_current_menu"
 			"submit #profile_form" : "update_profile"
-			"click #orders_button" : "show_orders"
+			"click #profile_orders_button" : "show_orders"
+			"click #profile_wishlist_button" : "show_wishlist"
 
 		initialize: ->
 			_.bindAll this, 'render'
@@ -52,7 +53,24 @@ $(document).ready ->
 				async:true
 				success: (msg)->
 					sociorent.collections.order_object.reset msg
-					_.each sociorent.collections.order_object.models, (model)->
-						view = new sociorent.views.order
-							model: model
-						$("#orders").append view.render().el
+					if sociorent.collections.order_object.models.length == 0
+						$("#orders").append "<div id='no_orders'>You have not made any orders yet.</div>"
+					else
+						_.each sociorent.collections.order_object.models, (model)->
+							view = new sociorent.views.order
+								model: model
+							$("#orders").append view.render().el
+
+		show_wishlist: ->
+			$("#wishlist").html ""
+			$.ajax "/users/wishlist" ,
+				type:"post"
+				async:true
+				success: (msg)->
+					if sociorent.collections.wishlist_object.models.length == 0
+						$("#wishlist").append "<div id='no_wishlist'>You have not made any wishlist yet.</div>"
+					else
+						_.each sociorent.collections.wishlist_object.models, (model)->
+							view = new sociorent.views.wishlist
+								model: model
+							$("#wishlist").append view.render().el

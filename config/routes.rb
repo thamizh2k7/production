@@ -12,7 +12,9 @@ Sociorent::Application.routes.draw do
   post "/orders/rented_college"
   post "users/update"
   post "users/orders"
-
+  post "users/add_to_wishlist"
+  post "users/wishlist"
+  
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

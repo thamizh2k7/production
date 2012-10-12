@@ -27,6 +27,7 @@
 			<div class="edition"><b>Edition <%%= edition %></b></div>
 			<div class="author">Author(s): <p><span class="blue"><%%= author %></span></p></div>
 			<div class="add_to_cart">Add to Cart</div>
+			<div class="add_to_wishlist">Add to my Wishlist</div>
 		</div>
 		<div class="clear"></div>
 		
@@ -164,8 +165,8 @@
 <script type="script/template" id="user_dialog_template">
 	<div id="user_dialog_left">
 		<div class="menu active" href="#profile">Edit Profile</div>
-		<div class="menu" href="#orders_box" id="orders_button">Orders</div>
-		<div class="menu" href="#wishlist_box">Wishlist</div>
+		<div class="menu" href="#orders_box" id="profile_orders_button">Orders</div>
+		<div class="menu" href="#wishlist_box" id="profile_wishlist_button">Wishlist</div>
 	</div>
 	<div id="user_dialog_right">
 		<div id="profile" class="menu_content">
@@ -197,7 +198,10 @@
 			<div id="orders_caption">Your Orders</div>
 			<div id="orders"></div>
 		</div>
-		<div id="wishlist_box" class="menu_content"></div>
+		<div id="wishlist_box" class="menu_content">
+			<div id="wishlist_heading">Your Wishlist</div>
+			<div id="wishlist"></div>
+		</div>
 	</div>
 	<div class="clear"></div>
 </script>
@@ -216,4 +220,8 @@
 	<div class="order_book_left"><%%= name %> <span>by <%%= author %></span></div>
 	<div class="order_book_right">Rs.<%%= price %></div>
 	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="wishlist_template">
+	
 </script>

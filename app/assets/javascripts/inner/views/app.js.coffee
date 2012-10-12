@@ -13,6 +13,8 @@ $(document).ready ->
 			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
 			# orders collections
 			sociorent.collections.order_object = new sociorent.collections.order()
+			# wishlist collections	
+			sociorent.collections.wishlist_object = new sociorent.collections.wishlist()
 
 			# models
 			sociorent.models.user_object = new sociorent.models.user()

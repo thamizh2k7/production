@@ -29,4 +29,28 @@ class UsersController < ApplicationController
     orders = user.orders
     render :json => orders.to_json(:include => {:books => {:only => [:name, :price, :author]}})
   end
+
+  def add_to_wishlist
+    user = current_user
+    book = Book.find(params[:book].to_i)
+    if user.wishlist.nil?
+      wishlist = []
+    else
+      wishlist = JSON.parse user.wishlist
+    end
+    wishlist << book.id
+    user.update_attributes(:wishlist => wishlist.to_json())
+    render :json => wishlist.to_json()
+  end
+
+  def wishlist
+    user = current_user
+    wishlist = JSON.parse user.wishlist
+    wishlist.uniq
+    resp = []
+    wishlist.each do |id|
+      resp << Book.find(id.to_i)
+    end
+    render :json => resp.to_json()
+  end
 end

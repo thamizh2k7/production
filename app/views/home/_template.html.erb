@@ -163,12 +163,36 @@
 
 <script type="script/template" id="user_dialog_template">
 	<div id="user_dialog_left">
-		<div class="menu active" href="#profile">Profile</div>
+		<div class="menu active" href="#profile">Edit Profile</div>
 		<div class="menu" id="#orders">Orders</div>
 		<div class="menu" id="wishlist">Wishlist</div>
 	</div>
 	<div id="user_dialog_right">
-		<div id="profile"></div>
+		<div id="profile">
+
+			<form class="form-horizontal" id="profile_form">
+				<legend>Update your Profile</legend>
+			  <div class="control-group">
+			    <label class="control-label" for="profile_name">Name</label>
+			    <div class="controls">
+			      <input type="text" id="profile_name" name="name" value="<%%= name %>" placeholder="Name">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="profile_mobile_number">mobile_number</label>
+			    <div class="controls">
+			      <input type="text" id="profile_mobile_number" name="mobile_number" value="<%%= mobile_number %>" placeholder="mobile_number">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			      <button type="submit" class="btn">Update Profile</button>
+			    </div>
+			  </div>
+			  <div id="profile_form_error"></div>
+			</form>
+
+		</div>
 		<div id="orders"></div>
 		<div id="wishlist"></div>
 	</div>

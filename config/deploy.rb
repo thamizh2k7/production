@@ -6,4 +6,5 @@ set :user, "root"
 require 'capistrano/ext/multistage'
 set :stages, ["staging", "development"]
 set :default_stage, "development"
-
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true

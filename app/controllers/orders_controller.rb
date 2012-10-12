@@ -3,8 +3,10 @@ class OrdersController < ApplicationController
 		user = current_user
 		cart = user.cart
 		books = cart.books
+		# total price - save this in orders
+		total = cart.books.sum(:price)
 		# creating an order
-		order = user.orders.create()
+		order = user.orders.create(:total => total)
 		# adding all the books in the cart to order
 		order.books = cart.books
 		order.save

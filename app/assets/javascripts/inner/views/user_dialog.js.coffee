@@ -8,6 +8,7 @@ $(document).ready ->
 		events: 
 			"click .menu" : "highlight_current_menu"
 			"submit #profile_form" : "update_profile"
+			"click #orders_button" : "show_orders"
 
 		initialize: ->
 			_.bindAll this, 'render'
@@ -16,6 +17,9 @@ $(document).ready ->
 			$(".menu").removeClass "active"
 			current = ev.target
 			$(current).addClass "active"
+			$(".menu_content").fadeOut(100).delay(100)
+			content_to_activate = $(current).attr("href")
+			$(content_to_activate).fadeIn(300)
 
 		render: ->
 			$(@el).html @template(@model.toJSON())
@@ -40,3 +44,15 @@ $(document).ready ->
 					success: (msg)->
 						$("#profile_form_error").html "Your profile was updated."
 				false
+
+		show_orders: ->
+			$("#orders").html ""
+			$.ajax "/users/orders" ,
+				type:"post"
+				async:true
+				success: (msg)->
+					sociorent.collections.order_object.reset msg
+					_.each sociorent.collections.order_object.models, (model)->
+						view = new sociorent.views.order
+							model: model
+						$("#orders").append view.render().el

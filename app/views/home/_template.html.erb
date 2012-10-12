@@ -164,11 +164,11 @@
 <script type="script/template" id="user_dialog_template">
 	<div id="user_dialog_left">
 		<div class="menu active" href="#profile">Edit Profile</div>
-		<div class="menu" id="#orders">Orders</div>
-		<div class="menu" id="wishlist">Wishlist</div>
+		<div class="menu" href="#orders_box" id="orders_button">Orders</div>
+		<div class="menu" href="#wishlist_box">Wishlist</div>
 	</div>
 	<div id="user_dialog_right">
-		<div id="profile">
+		<div id="profile" class="menu_content">
 
 			<form class="form-horizontal" id="profile_form">
 				<legend>Update your Profile</legend>
@@ -193,8 +193,27 @@
 			</form>
 
 		</div>
-		<div id="orders"></div>
-		<div id="wishlist"></div>
+		<div id="orders_box" class="menu_content">
+			<div id="orders_caption">Your Orders</div>
+			<div id="orders"></div>
+		</div>
+		<div id="wishlist_box" class="menu_content"></div>
 	</div>
+	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="order_template">
+	<div class="order_heading">
+		<div class="order_heading_left">Order No : <%%= random %></div>
+		<div class="order_heading_right"><%%= created_at %></div>
+		<div class="clear"></div>
+	</div>
+	<div class="order_books"></div>
+	<div class="total">Total Price : <%%= total %></div>
+</script>
+
+<script type="script/template" id="order_book_template">
+	<div class="order_book_left"><%%= name %> <span>by <%%= author %></span></div>
+	<div class="order_book_right">Rs.<%%= price %></div>
 	<div class="clear"></div>
 </script>

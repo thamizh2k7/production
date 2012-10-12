@@ -1,0 +1,1 @@
+sociorent.models.order_book = Backbone.Model.extend()

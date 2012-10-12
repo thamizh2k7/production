@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012063225) do
+ActiveRecord::Schema.define(:version => 20121012115251) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20121012063225) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "total"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

@@ -1,0 +1,1 @@
+sociorent.models.order = Backbone.Model.extend()

@@ -11,6 +11,8 @@ $(document).ready ->
 			sociorent.collections.compare_object = new sociorent.collections.compare()
 			# intelligent collections
 			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
+			# orders collections
+			sociorent.collections.order_object = new sociorent.collections.order()
 
 			# models
 			sociorent.models.user_object = new sociorent.models.user()

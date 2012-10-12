@@ -656,11 +656,70 @@ span.blue{
 				}
 			}
 
-			#orders{
+			#orders_box{
 				display: none;
+
+				#orders_caption {
+					text-align: center;
+					border-bottom: 1px solid #EEE;
+					width: 90%;
+					margin: 20px auto;
+					padding-bottom: 20px;
+				}
+
+				#orders{
+					.order_heading {
+						width: 90%;
+						margin: 20px auto;
+						background: #EEE;
+						padding: 5px;
+						border-radius: 5px;
+
+						.order_heading_left {
+							float: left;
+							width: 30%;
+							margin-left: 20px;
+						}
+						.order_heading_right {
+							float: right;
+							width: 30%;
+							text-align: right;
+							margin-right: 20px;
+						}
+					}
+
+					.total {
+						color: #CC4D5C;
+						margin-left: 66px;
+						margin-top: 10px;
+					}
+
+					.order_book_single{
+						width: 80%;
+						margin: 5px auto;
+
+						.order_book_left{
+							float: left;
+							width: 85%;
+							text-transform: uppercase;
+
+							span {
+								color: #AAA;
+								font-style: italic;
+								font-size: 12px;
+							}
+
+						}
+						.order_book_right{
+							float: right;
+							width:15%;
+						}
+					}
+				}
+
 			}
 
-			#wishlist{
+			#wishlist_box{
 				display: none;
 			}
 		}

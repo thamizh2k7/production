@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random
+  attr_accessible :random, :total
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
@@ -25,6 +25,9 @@ class Order < ActiveRecord::Base
   		field :random do
   			label "Order Number"
   		end
+      field :total do
+        label "Total Price"
+      end
   		field :user
   		field :books
   		field :created_at

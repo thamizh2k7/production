@@ -11,6 +11,7 @@ Sociorent::Application.routes.draw do
   post "/orders/rented_show_more"
   post "/orders/rented_college"
   post "users/update"
+  post "users/orders"
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

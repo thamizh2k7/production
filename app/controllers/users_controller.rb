@@ -23,4 +23,10 @@ class UsersController < ApplicationController
   	user.update_attributes(:name => params[:name], :mobile_number => params[:mobile_number])
   	render :nothing => true
   end
+
+  def orders
+    user = current_user
+    orders = user.orders
+    render :json => orders.to_json(:include => {:books => {:only => [:name, :price, :author]}})
+  end
 end

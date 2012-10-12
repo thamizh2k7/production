@@ -12,6 +12,9 @@ $(document).ready ->
 			# intelligent collections
 			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
 
+			# models
+			sociorent.models.user_object = new sociorent.models.user()
+
 			# bind scroll of window to this view
 			$(window).scroll this.scroll_app
 		
@@ -27,6 +30,7 @@ $(document).ready ->
 			"click #compare_close" : "compare_close"
 			"click #compare_dialog_button" : "compare_dialog"
 			"click #compare_button" : "compare_dialog"
+			"click #my_account_button" : "open_user_dialog"
 
 		cancel_submit: ->
 			false
@@ -114,5 +118,8 @@ $(document).ready ->
 				$("#compare_box").css
 					position: "absolute"
 					top: "124px"
+
+		open_user_dialog: ->
+			$("#user_dialog").dialog "open"
 
 	sociorent.views.app_object = new sociorent.views.app()

@@ -7,12 +7,9 @@
     </div>
     <div class="right">
       <div>
-        <% if @user %>
-          <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
-        <% else %>
-          <%= link_to "SignUp/SignIn", user_omniauth_authorize_path(:facebook) %>
-        <% end %>
+        <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
       </div>
+      <div id="my_account_button">My Account</div>
       <div id="cart_button">Cart <span></span></div>
       <div id="compare_button">Compare</div>
       <div class="clear"></div>
@@ -80,6 +77,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		// user model 
+		sociorent.models.user_object.set(<%= raw @user.to_json() %>);
+		view = new sociorent.views.user_dialog({
+			model: sociorent.models.user_object,
+		});
+		$("#user_dialog").html(view.render().el);
 
 		// cart collection reset 
 		sociorent.collections.cart_object.reset(<%= raw @cart.to_json() %>);
@@ -152,6 +156,21 @@
       modal: true
 		});
 		
+		$("#user_dialog").dialog({
+			autoOpen: false,
+			draggable: false,
+			dialogClass: 'user_dialog',
+			height: 700,
+			width: 1100,
+			resizable: false,
+			buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+      modal: true
+		});
+
 		$("#tabs").tabs();
 	});
 </script>

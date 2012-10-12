@@ -1,0 +1,1 @@
+sociorent.models.user = Backbone.Model.extend()

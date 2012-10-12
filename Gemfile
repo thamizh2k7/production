@@ -47,3 +47,6 @@ gem 'omniauth-facebook'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
 gem 'koala'
+
+gem 'activemerchant'
+gem 'active_merchant_ccavenue'

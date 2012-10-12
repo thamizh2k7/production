@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends, :stream_id
 
   has_many :reviews, :dependent => :destroy
   has_one :cart, :dependent => :destroy
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :books, :through => :orders
 
   belongs_to :college
+  belongs_to :stream
 
   after_create do |user|
     user.create_cart()

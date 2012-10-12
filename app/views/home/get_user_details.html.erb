@@ -2,6 +2,7 @@
 <div id="content">
 	<form id="form">
 	  <legend>Give us a few more details</legend>
+	  <p><input type="text" placeholder="Mobile Number" id="mobile"></p>
 	  <p>
 	  	<select id="college">
 	  		<option value="0">Select College</option>
@@ -9,8 +10,13 @@
 	  			<option value="<%= name %>"><%= name %></option>
 	  		<% end %>
 	  	</select>
+	  	<select id="streams">
+	  		<option value="0">Select Stream</option>
+	  		<% @streams.each do |name| %>
+	  			<option value="<%= name %>"><%= name %></option>
+	  		<% end %>
+	  	</select>
 	  </p>
-	  <p><input type="text" placeholder="Mobile Number" id="mobile"></p>
 	  <button type="submit" class="btn">Submit</button>
 	</form>
 	<div id="error"></div>
@@ -20,9 +26,12 @@
 
 		$("#college").chosen();
 
+		$("#streams").chosen();
+
 		$("#form").submit(function(){
 			mobile = $.trim($("#mobile").val());
 			college = $("#college").val();
+			stream = $("#streams").val();
 			// validation
 			if (mobile == "")
 				$("#error").html("Please enter your mobile number.");
@@ -30,6 +39,8 @@
 				$("#error").html("Please enter a valid mobile number.");
 			else if (college == "0")
 				$("#error").html("Please enter your college.");
+			else if (stream == "0")
+				$("#error").html("Please enter your stream.");
 			else{
 				$("#error").fadeOut(300);
 				$.ajax("/home/save_user_details", {
@@ -38,6 +49,7 @@
 					data: {
 						mobile: mobile,
 						college: college,
+						stream: stream,
 					},
 					success: function(msg){
 						if(msg == "1")

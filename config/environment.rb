@@ -7,6 +7,8 @@ Sociorent::Application.configure do
 	  :lib     => 'thinking_sphinx',
 	  :version => '1.4.10'
 	)
+
+	config.gem 'active_merchant_ccavenue'
 end
 
 # Initialize the rails application

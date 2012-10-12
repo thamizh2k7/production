@@ -30,3 +30,8 @@ g.general_images.create(:image_url => "http://fc02.deviantart.net/fs70/i/2012/10
 # colleges
 College.create(:name => "IIM")
 College.create(:name => "VIT")
+
+Stream.create(:name => "Mechanical")
+Stream.create(:name => "Electrical")
+Stream.create(:name => "Computer")
+Stream.create(:name => "Biotech")

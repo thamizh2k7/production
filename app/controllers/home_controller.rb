@@ -16,8 +16,18 @@ class HomeController < ApplicationController
       @intelligent_books = []
       friends_who_use_sociorent_uids.each do |uid|
         friend = User.where(:uid => uid["uid"]).first
-        @intelligent_books += friend.books
+        # check condition on friend from the General Setting
+        general = General.first
+        case general.intelligent_book
+          when "All friends"
+            @intelligent_books += friend.books
+          when "Friends in same College"    
+            @intelligent_books += friend.books if friend.college == @user.college
+          when "Friends in same College and Stream" 
+            @intelligent_books += friend.books if friend.college == @user.college && friend.stream == @user.stream
+        end
       end
+      puts @intelligent_books
       @intelligent_books.uniq
       if @intelligent_books.count == 0
         @intelligent_books = Book.offset(rand(Book.count)).first(10)
@@ -68,6 +78,7 @@ class HomeController < ApplicationController
     user = current_user
     if user.mobile_number.nil?
       @college_names = College.pluck(:name)
+      @streams = Stream.pluck(:name)
     else
       redirect_to "/"
     end
@@ -76,7 +87,9 @@ class HomeController < ApplicationController
   def save_user_details
     user = current_user
     college = College.where(:name => params[:college]).first
-    user.update_attributes(:mobile_number => params[:mobile], :college_id => college)
+    puts params[:stream]
+    stream = Stream.where(:name => params[:stream]).first
+    user.update_attributes(:mobile_number => params[:mobile], :college_id => college.id, :stream_id => stream.id)
     render :text => "1"
   end
 end

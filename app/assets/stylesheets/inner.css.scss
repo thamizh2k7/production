@@ -380,7 +380,7 @@
 		padding: 5px 0px;
 		border-radius: 8px;
 		margin-bottom: 10px;
-	}	
+	}
 	#order_id{
 		text-align: center;
 		font-size: 22px;
@@ -729,6 +729,59 @@ span.blue{
 
 			#wishlist_box{
 				display: none;
+
+				#wishlist_caption {
+					text-align: center;
+					border-bottom: 1px solid #EEE;
+					width: 90%;
+					margin: 20px auto;
+					padding-bottom: 20px;
+				}
+
+				#wishlist{
+					#no_wishlist{
+						text-align: center;
+					}
+
+					.wishlist_single {
+						width: 80%;
+						margin: 20px auto;
+						border-bottom: 1px solid #EEE;
+						padding-bottom: 10px;
+
+						.wishlist_left {
+							float: left;
+							width: 20%;
+
+							img {
+								border: 1px solid #EEE;
+								padding: 5px;
+							}
+						}
+
+						.wishlist_right {
+							float: right;
+							width: 80%;
+												
+							.wishlist_name {
+								color: #CC4D5C;
+								text-transform: uppercase;
+								margin-top: 5px;
+							}
+							.add_to_cart{
+								cursor: pointer;
+							}
+							.remove_from_wishlist {
+								margin-top: 15px;
+								font-style: italic;
+								cursor: pointer;
+								color: #AAA;
+							}
+						}
+
+					}
+				}
+
 			}
 		}
 	}

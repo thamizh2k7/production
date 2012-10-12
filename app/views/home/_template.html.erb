@@ -199,7 +199,7 @@
 			<div id="orders"></div>
 		</div>
 		<div id="wishlist_box" class="menu_content">
-			<div id="wishlist_heading">Your Wishlist</div>
+			<div id="wishlist_caption">Your Wishlist</div>
 			<div id="wishlist"></div>
 		</div>
 	</div>
@@ -223,5 +223,15 @@
 </script>
 
 <script type="script/template" id="wishlist_template">
-	
+	<div class="wishlist_left">
+		<img src="<%%= book_image %>"/>
+	</div>
+	<div class="wishlist_right">
+		<div class="wishlist_name"><%%= name %></div>
+		<div class="wishlist_author">by <%%= author %></div>
+		<div class="wishlist_price">Rs.<%%= price %></div>
+		<div class="add_to_cart"><%%= cart_message %></div>
+		<div class="remove_from_wishlist">remove from wishlist</div>
+	</div>
+	<div class="clear"></div>
 </script>

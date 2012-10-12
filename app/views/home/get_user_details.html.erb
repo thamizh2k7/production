@@ -43,7 +43,7 @@
 				$("#error").html("Please enter your stream.");
 			else{
 				$("#error").fadeOut(300);
-				$.ajax("/home/save_user_details", {
+				$.ajax("/users/save_user_details", {
 					type:"post",
 					async:true,
 					data: {

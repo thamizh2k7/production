@@ -67,6 +67,7 @@ $(document).ready ->
 				type:"post"
 				async:true
 				success: (msg)->
+					sociorent.collections.wishlist_object.reset msg
 					if sociorent.collections.wishlist_object.models.length == 0
 						$("#wishlist").append "<div id='no_wishlist'>You have not made any wishlist yet.</div>"
 					else

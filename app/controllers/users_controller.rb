@@ -45,12 +45,23 @@ class UsersController < ApplicationController
 
   def wishlist
     user = current_user
-    wishlist = JSON.parse user.wishlist
-    wishlist.uniq
     resp = []
-    wishlist.each do |id|
-      resp << Book.find(id.to_i)
+    unless user.wishlist.nil?
+      wishlist = JSON.parse user.wishlist
+      wishlist.uniq
+      wishlist.each do |id|
+        resp << Book.find(id.to_i)
+      end
     end
     render :json => resp.to_json()
+  end
+
+  def remove_from_wishlist
+    user = current_user
+    wishlist = JSON.parse user.wishlist
+    book = Book.find(params[:book].to_i)
+    wishlist.delete book.id
+    user.update_attributes(:wishlist => wishlist.to_json())
+    render :nothing => true
   end
 end

@@ -8,6 +8,29 @@ $(document).ready ->
 		initialize: ->
 			_.bindAll this, 'render', 'add_to_cart', 'details'
 
+			that = this
+			sociorent.app_events.bind "added_to_cart", (id)->
+				if that.model.id == id
+					# when this model is added to cart
+					that.$(".add_to_cart").html "Added to Cart"
+
+			sociorent.app_events.bind "removed_from_cart", (id)->
+				if that.model.id == id
+					# when this model is removed from cart
+					that.$(".add_to_cart").html "Add to Cart"
+
+			sociorent.app_events.bind "added_to_compare", (id)->
+				if that.model.id == id
+					# when this model is added to compare
+					that.$(".add_to_compare").attr
+						checked: true
+
+			sociorent.app_events.bind "removed_from_compare", (id)->
+				if that.model.id == id
+					# when this model is removed from compare
+					that.$(".add_to_compare").attr
+						checked: false
+
 		events:
 			"click .add_to_cart" : "add_to_cart"
 			"change .add_to_compare": "add_to_compare"
@@ -25,7 +48,6 @@ $(document).ready ->
 						book: that.model.id 
 					success: (msg)->
 						sociorent.collections.cart_object.add msg
-						$(that.el).find(".add_to_cart").html "Added to cart"
 						sociorent.fn.renderCart()
 			false
 

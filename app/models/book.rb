@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :image_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price
   attr_accessor :book_image
 
   has_many :images
@@ -13,7 +13,7 @@ class Book < ActiveRecord::Base
   has_many :book_orders
   has_many :orders, :through => :book_orders
 
-  accepts_nested_attributes_for :images
+  accepts_nested_attributes_for :images, :allow_destroy => true
 
   define_index do
   	indexes :name, :sortable => true

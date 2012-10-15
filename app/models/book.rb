@@ -2,7 +2,7 @@ class Book < ActiveRecord::Base
   attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank
   attr_accessor :book_image, :book_original
 
-  has_many :images
+  has_many :images, :as => :imageable
   has_many :reviews
 
   belongs_to :category

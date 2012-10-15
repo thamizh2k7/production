@@ -88,7 +88,11 @@
 				<div class="clear"></div>
 			</div>
 			<div class="reviews">
-				No reviews made.
+				<div class="reviews_content"></div>
+				<form class="reviews_form">
+					<textarea placeholder="Write a review" class="reviews_input"></textarea><br/>
+					<button type="submit" class="btn reviews_submit">Submit</button>
+				</form>
 			</div>
 		</div>
 
@@ -243,7 +247,13 @@
 	<div class="class_adoption_college"><%%= college.name %></div>
 	<div class="class_adoption_rate"><%%= rate %></div>
 	<div class="clear"></div>
-	<div class="progress">
+	<div class="progress progress-striped">
   	<div class="bar" style="width: <%%= percent %>%;"></div>
 	</div>
+</script>
+
+<script type="script/template" id="review_template">
+	<div class="review_single_left"><%%= user.name %></div>
+	<div class="review_single_right"><%%= content %></div>
+	<div class="clear"></div>
 </script>

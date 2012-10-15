@@ -63,13 +63,32 @@ $(document).ready ->
 		details: (ev)->
 			that = this
 			unless $(ev.target).parent().attr("class") == "add_to_compare_box"
+				view = new sociorent.views.book_details
+					model: @model
+				$("#book_details_box").html view.render().el
+				if sociorent.collections.cart_object.get(@model.id)
+					$(".book_details .add_to_cart").html "In Your Cart"
+				$("#book_details_box").dialog("open")
 				$.ajax "/home/get_adoption_rate" ,
 					type:"post"
 					async:true
 					data:
 						book: that.model.id
 					success: (msg)->
-						sociorent.collections.class_adoption_object.reset msg
+						# can user make review
+						make_review = msg[0].splice(msg[0].length - 1)[0].make_review
+						if make_review == 0
+							$(".reviews_form").html("").hide()
+							$(".reviews_caption_right").hide()
+						# show reviews
+						sociorent.collections.review_object.reset msg[0]
+						sociorent.collections.review_object.sort({silent: true})
+						_.each sociorent.collections.review_object.models, (model)->
+							view = new sociorent.views.review
+								model: model
+							$(".reviews_content").append view.render().el
+						# show class adoption rate
+						sociorent.collections.class_adoption_object.reset msg[1]
 						rate_sum = _.reduce sociorent.collections.class_adoption_object.models, (rate_sum, model)->
 							model.get("rate") + rate_sum
 						, 0
@@ -79,12 +98,6 @@ $(document).ready ->
 							view = new sociorent.views.class_adoption
 									model: model
 							$(".class_adoption").append view.render().el
-				view = new sociorent.views.book_details
-					model: @model
-				$("#book_details_box").html view.render().el
-				if sociorent.collections.cart_object.get(@model.id)
-					$(".book_details .add_to_cart").html "In Your Cart"
-				$("#book_details_box").dialog("open")
 
 
 		render: ->

@@ -17,6 +17,8 @@ $(document).ready ->
 			sociorent.collections.wishlist_object = new sociorent.collections.wishlist()
 			# class adoption collections
 			sociorent.collections.class_adoption_object = new sociorent.collections.class_adoption()
+			# review collections
+			sociorent.collections.review_object = new sociorent.collections.review()
 
 			# models
 			sociorent.models.user_object = new sociorent.models.user()

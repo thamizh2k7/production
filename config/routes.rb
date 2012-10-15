@@ -16,6 +16,7 @@ Sociorent::Application.routes.draw do
   post "users/wishlist"
   post "users/remove_from_wishlist"
   post "home/get_adoption_rate"
+  post "home/make_review"
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

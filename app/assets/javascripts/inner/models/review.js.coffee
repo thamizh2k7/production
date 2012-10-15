@@ -1,0 +1,1 @@
+sociorent.models.review = Backbone.Model.extend()

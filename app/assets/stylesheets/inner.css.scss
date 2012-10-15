@@ -247,12 +247,44 @@
 					float: right;
 					width: 40%;
 					text-align: right;
+					cursor: pointer;
 				}
 			}
 			.reviews{
 				text-align: center;
 				margin-top: 20px;
+
+				.reviews_form{
+					text-align: left;
+					margin-left: 15px;
+					margin-top: 20px;
+				
+					.reviews_input{
+						width: 750px;
+					}
+					.reviews_submit{
+
+					}
+				}
+				.reviews_content{
+					.review_single {
+						text-align: left;
+						width: 90%;
+						margin: 15px auto;
+
+						.review_single_right {
+							float: right;
+							width: 80%;
+						}
+							.review_single_left {
+							float: left;
+							width: 20%;
+							color: #CC4D5C;
+						}
+					}
+				}
 			}
+
 		}
 	}
 }

@@ -1,6 +1,6 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price
-  attr_accessor :book_image
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original
+  attr_accessor :book_image, :book_original
 
   has_many :images
   has_many :reviews
@@ -33,10 +33,19 @@ class Book < ActiveRecord::Base
     end
   end
 
+  def book_original
+    unless self.images.count == 0
+      self.images.first.image(:original)
+    else
+      "/assets/book.jpeg"
+    end
+  end
+
   def as_json(options = { })
   	h = super(options)
     # adding virtual attributes to the json
     h[:book_image] = book_image
+    h[:book_original] = book_original
     # returning the new json
     h
   end

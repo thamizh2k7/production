@@ -71,6 +71,7 @@ $(document).ready ->
 
 		render: ->
 			image = @model.get("book_image")
+			original_image = @model.get("book_original")
 			if sociorent.collections.cart_object.get(@model.id)
 				cart_message = "In Your Cart"
 			else
@@ -78,6 +79,7 @@ $(document).ready ->
 			$(@el).html @template
 				id: @model.id
 				image: image
+				original_image: original_image
 				name: @model.get "name"
 				author: @model.get "author"
 				isbn: @model.get "isbn10"

@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :publisher, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank
   attr_accessor :book_image, :book_original
 
   has_many :images
@@ -13,7 +13,15 @@ class Book < ActiveRecord::Base
   has_many :book_orders
   has_many :orders, :through => :book_orders
 
+  has_many :class_adoptions, :dependent => :destroy
+
   accepts_nested_attributes_for :images, :allow_destroy => true
+
+  after_create do |book|
+    r = Random.new
+    rank = r.rand(50..100)
+    book.update_attributes(:rank => rank)
+  end
 
   define_index do
   	indexes :name, :sortable => true

@@ -36,7 +36,7 @@
 				SocioRent Rank
 			</div>
 			<div class="socio_rent_rank_right">
-				<span class="blue">(90%)</span>
+				<span class="blue"><%%= rank %>%</span>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -59,6 +59,9 @@
 
 			<div class="clear"></div>
 		</div>
+
+		<div class="class_adoption_caption">Class Adoption Rate:</div>
+		<div class="class_adoption"></div>
 
 	</div>
 	<div class="right">
@@ -136,7 +139,7 @@
 			SocioRent Rank
 		</div>
 		<div class="socio_rent_rank_right">
-			<span class="blue">(90%)</span>
+			<span class="blue"><%%= rank %>%</span>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -234,4 +237,13 @@
 		<div class="remove_from_wishlist">remove from wishlist</div>
 	</div>
 	<div class="clear"></div>
+</script>
+
+<script type="script/template" id="class_adoption_template">
+	<div class="class_adoption_college"><%%= college.name %></div>
+	<div class="class_adoption_rate"><%%= rate %></div>
+	<div class="clear"></div>
+	<div class="progress">
+  	<div class="bar" style="width: <%%= percent %>%;"></div>
+	</div>
 </script>

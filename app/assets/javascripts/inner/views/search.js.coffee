@@ -61,13 +61,31 @@ $(document).ready ->
 			sociorent.fn.show_compare()
 
 		details: (ev)->
+			that = this
 			unless $(ev.target).parent().attr("class") == "add_to_compare_box"
+				$.ajax "/home/get_adoption_rate" ,
+					type:"post"
+					async:true
+					data:
+						book: that.model.id
+					success: (msg)->
+						sociorent.collections.class_adoption_object.reset msg
+						rate_sum = _.reduce sociorent.collections.class_adoption_object.models, (rate_sum, model)->
+							model.get("rate") + rate_sum
+						, 0
+						_.each sociorent.collections.class_adoption_object.models, (model)->
+							model.set
+								percent: parseInt((model.get("rate")/rate_sum)*100)
+							view = new sociorent.views.class_adoption
+									model: model
+							$(".class_adoption").append view.render().el
 				view = new sociorent.views.book_details
 					model: @model
 				$("#book_details_box").html view.render().el
 				if sociorent.collections.cart_object.get(@model.id)
 					$(".book_details .add_to_cart").html "In Your Cart"
 				$("#book_details_box").dialog("open")
+
 
 		render: ->
 			image = @model.get("book_image")

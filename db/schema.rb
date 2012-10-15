@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012132718) do
+ActiveRecord::Schema.define(:version => 20121015071044) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20121012132718) do
     t.string   "edition"
     t.integer  "new_book_price"
     t.integer  "old_book_price"
+    t.integer  "rank"
   end
 
   create_table "carts", :force => true do |t|
@@ -63,6 +64,17 @@ ActiveRecord::Schema.define(:version => 20121012132718) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "class_adoptions", :force => true do |t|
+    t.integer  "rate"
+    t.integer  "book_id"
+    t.integer  "college_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "class_adoptions", ["book_id"], :name => "index_class_adoptions_on_book_id"
+  add_index "class_adoptions", ["college_id"], :name => "index_class_adoptions_on_college_id"
 
   create_table "colleges", :force => true do |t|
     t.string   "name"

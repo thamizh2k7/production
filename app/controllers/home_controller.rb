@@ -73,4 +73,23 @@ class HomeController < ApplicationController
     book_cart.delete
     render :json => book.to_json()
   end
+
+  def get_adoption_rate
+    @book = Book.find(params[:book].to_i)
+    resp = []
+    College.all.each do |college|
+      class_adoption = @book.class_adoptions.where(:college_id => college).first.to_json(:only => [:rate,:id], :include =>{:college => {:only => [:name]}})
+      unless class_adoption == "null"
+        resp << JSON.parse(class_adoption)
+      else
+        class_adoption = Hash.new
+        class_adoption["rate"] = @book.orders.where(:user_id => college.users).count
+        college_name = Hash.new
+        college_name["name"] = college.name
+        class_adoption["college"] = college_name
+        resp << class_adoption
+      end
+    end
+    render :json => resp.to_json()
+  end
 end

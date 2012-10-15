@@ -15,6 +15,8 @@ $(document).ready ->
 			sociorent.collections.order_object = new sociorent.collections.order()
 			# wishlist collections	
 			sociorent.collections.wishlist_object = new sociorent.collections.wishlist()
+			# class adoption collections
+			sociorent.collections.class_adoption_object = new sociorent.collections.class_adoption()
 
 			# models
 			sociorent.models.user_object = new sociorent.models.user()

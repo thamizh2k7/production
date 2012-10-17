@@ -504,6 +504,47 @@
 	}
 }
 
+#search_to_compare{
+	float: left;
+	width: 34%;
+
+	#search_to_compare_caption{
+		margin: 20px 0px 0px 39px;
+		text-align: center;
+		color: #AAA;
+	}
+	#compare_search_form {
+		margin-bottom: 0px;
+
+		#compare_search_input {
+			width: 80%;
+			margin: 20px 0px 0px 40px;
+		}
+	}
+	#compare_search_result {
+		width: 81%;
+		margin-left: 40px;
+		background: #EEE;
+		padding: 5px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		display: none;
+
+		.compare_search_single{
+			cursor: pointer;
+		}
+		.compare_search_single:hover{
+			background: #DDD;
+		}
+	}
+	#compare_search_no_result {
+		text-align: center;
+		margin-top: 20px;
+		font-style: italic;
+		display: none;
+	}
+}
+
 #compare_dialog{
 	text-align: left;
 
@@ -517,7 +558,7 @@
 
 	.compare_dialog_single{
 		width: 30%;
-		display: inline-block;
+		float: left;
 		margin: 0px 15px;
 
 		.name_remove{

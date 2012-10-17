@@ -19,6 +19,8 @@ $(document).ready ->
 			sociorent.collections.class_adoption_object = new sociorent.collections.class_adoption()
 			# review collections
 			sociorent.collections.review_object = new sociorent.collections.review()
+			# compare search collections
+			sociorent.collections.compare_search_object = new sociorent.collections.compare_search()
 
 			# models
 			sociorent.models.user_object = new sociorent.models.user()
@@ -39,6 +41,7 @@ $(document).ready ->
 			"click #compare_dialog_button" : "compare_dialog"
 			"click #compare_button" : "compare_dialog"
 			"click #my_account_button" : "open_user_dialog"
+			"submit #compare_search_form"	: "cancel_submit"
 
 		cancel_submit: ->
 			false
@@ -107,15 +110,13 @@ $(document).ready ->
 			sociorent.fn.hide_compare()
 
 		compare_dialog: ->
-			$("#compare_dialog").html ""
+			$(".compare_dialog_single").remove()
 			unless sociorent.collections.compare_object.models.length == 0
 				_.each sociorent.collections.compare_object.models, (model)->
 					view = new sociorent.views.compare_dialog
 						model: model
-					$("#compare_dialog").append view.render().el
-			else
-				$("#compare_dialog").html "<div class='no_compare_book'>There are no books to compare.<br/>To add one click on compare in books tabs.</div>"
-			$("#compare_dialog").dialog "open"
+					$(view.render().el).insertBefore("#search_to_compare")
+			$("#compare_dialog_box").dialog "open"
 
 		scroll_app: ->
 			if $("body").scrollTop() > 124

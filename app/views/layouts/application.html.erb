@@ -29,7 +29,14 @@
   </div>
 
   <div id="resources_dialog">
-    this is resource dialog
+    <% Resource.all.each do |res| %>
+      <a class="resource_single" href="<%= res.link %>" target="_blank">
+        <div>
+          <img src="<%= res.image.image %>"/>
+        </div>
+        <div><%= res.name %></div>
+      </a>
+    <% end %>
   </div>
   
   <%= yield %>

@@ -1,21 +1,19 @@
 class Resource < ActiveRecord::Base
-  attr_accessible :link, :name, :images_attributes
+  attr_accessible :link, :name, :image_attributes
 
-  has_many :images, :as => :imageable
+  has_one :image, :as => :imageable
 
-  accepts_nested_attributes_for :images, :allow_destroy => true
+  accepts_nested_attributes_for :image, :allow_destroy => true
 
   rails_admin do
   	base do
   		fields :name
   		fields :link
-  		fields :images do
+  		fields :image do
   			pretty_value do
   				html = ""
-  				unless value.first.nil?
-						value.each do |image|
-							html += "<a href=" + image.image(:original).to_s + "class='thumbnail' target='blank'><img src=" + image.image(:thumb).to_s + "></a><br/><br/>"
-						end
+  				unless value.nil?
+						html += "<a href=" + value.image(:original).to_s + "class='thumbnail' target='blank'><img src=" + value.image(:thumb).to_s + "></a><br/><br/>"
           end
 					html.html_safe				
   			end

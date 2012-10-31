@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031081356) do
+ActiveRecord::Schema.define(:version => 20121031110752) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -111,10 +111,11 @@ ActiveRecord::Schema.define(:version => 20121031081356) do
 
   create_table "orders", :force => true do |t|
     t.string   "random"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "user_id"
     t.integer  "total"
+    t.integer  "rental_total"
   end
 
   create_table "publishers", :force => true do |t|

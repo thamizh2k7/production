@@ -5,9 +5,13 @@ class OrdersController < ApplicationController
 		books = cart.books
 		# total price - save this in orders
 		total = cart.books.sum(:price)
+		rental_total = 0
+		cart.books.each do |book|
+			rental_total += (book.price * book.publisher.rental)/100
+		end
 		# creating an order
-		order = user.orders.create(:total => total)
-		# adding all the books in the cart to order
+		order = user.orders.create(:total => total, :rental_total => rental_total)
+		# adding all the books in the cart to orders
 		order.books = cart.books
 		order.save
 		# empty the cart

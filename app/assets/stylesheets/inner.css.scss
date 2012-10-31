@@ -807,8 +807,18 @@ span.blue{
 
 					.total {
 						color: #CC4D5C;
+						margin-top: 10px;
+						margin-right: 66px;
+						float: right;
+						width: 40%;
+						text-align: right;
+					}
+					.rental_total{
+						color: #CC4D5C;
 						margin-left: 66px;
 						margin-top: 10px;
+						float: left;
+						width: 40%;
 					}
 
 					.order_book_single{

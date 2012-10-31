@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes
   attr_accessor :book_image, :book_original
 
   has_many :images, :as => :imageable
@@ -16,7 +16,7 @@ class Book < ActiveRecord::Base
 
   has_many :class_adoptions, :dependent => :destroy
 
-  accepts_nested_attributes_for :images, :allow_destroy => true
+  accepts_nested_attributes_for :images, :class_adoptions, :reviews, :allow_destroy => true
 
   after_create do |book|
     r = Random.new

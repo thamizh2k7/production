@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015113355) do
+ActiveRecord::Schema.define(:version => 20121031081356) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20121015113355) do
     t.string   "author"
     t.string   "isbn13"
     t.string   "binding"
-    t.string   "publisher"
     t.date     "published"
     t.integer  "pages"
     t.integer  "price"
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20121015113355) do
     t.integer  "new_book_price"
     t.integer  "old_book_price"
     t.integer  "rank"
+    t.integer  "publisher_id"
   end
 
   create_table "carts", :force => true do |t|
@@ -115,6 +115,13 @@ ActiveRecord::Schema.define(:version => 20121015113355) do
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
     t.integer  "total"
+  end
+
+  create_table "publishers", :force => true do |t|
+    t.integer  "rental"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

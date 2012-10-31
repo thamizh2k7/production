@@ -89,13 +89,13 @@
 		$("#user_dialog").html(view.render().el);
 
 		// cart collection reset 
-		sociorent.collections.cart_object.reset(<%= raw @cart.to_json() %>);
+		sociorent.collections.cart_object.reset(<%= raw @cart.to_json(:include => :publisher) %>);
 		sociorent.fn.renderCart();
 		//search collection reset
-		sociorent.collections.search_object.reset(<%= raw @search.to_json() %>);
+		sociorent.collections.search_object.reset(<%= raw @search.to_json(:include => :publisher) %>);
 		sociorent.fn.renderSearch();
 		// intelligent collection reset
-		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json() %>);
+		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json(:include => :publisher) %>);
 		sociorent.fn.renderIntelligent();
 
 		// setting width and height

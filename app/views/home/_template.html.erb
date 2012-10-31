@@ -49,13 +49,15 @@
 			<div class="information_left">binding:</div>
 			<div class="information_right"><%%= binding %></div>
 			<div class="information_left">publisher:</div>
-			<div class="information_right"><%%= publisher %></div>
+			<div class="information_right"><%%= publisher.name %></div>
 			<div class="information_left">published:</div>
 			<div class="information_right"><%%= published %></div>
 			<div class="information_left">pages</div>
 			<div class="information_right"><%%= pages %></div>
 			<div class="information_left">list price</div>
 			<div class="information_right">Rs.<%%= price %></div>
+			<div class="information_left">rental price</div>
+			<div class="information_right">Rs.<%%= (price * publisher.rental)/100 %></div>
 
 			<div class="clear"></div>
 		</div>

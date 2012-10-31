@@ -46,7 +46,7 @@ class HomeController < ApplicationController
   def search
   	query = "*#{params[:query]}*"
   	@books = Book.search query
-  	render :json => @books.to_json()
+  	render :json => @books.to_json(:include => :publisher)
   end
 
   def book_request

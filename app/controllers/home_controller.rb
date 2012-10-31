@@ -35,6 +35,8 @@ class HomeController < ApplicationController
       else
         @intelligent_books = Book.offset(rand(Book.count)).first(10)
       end
+      # orders made by the user
+      @orders = @user.orders
   		# render inner when user is logged in
   		render "inner"
   	else
@@ -63,7 +65,7 @@ class HomeController < ApplicationController
     # add book to the cart
     cart.books << book
     cart.save
-    render :json => book.to_json()
+    render :json => book.to_json(:include => :publisher)
   end
 
   def remove_from_cart
@@ -74,7 +76,7 @@ class HomeController < ApplicationController
     # remove book from cart
     book_cart = cart.book_carts.where(:book_id => book).first
     book_cart.delete
-    render :json => book.to_json()
+    render :json => book.to_json(:include => :publisher)
   end
 
   def get_adoption_rate

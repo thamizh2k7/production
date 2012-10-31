@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 			book_cart.delete
 		end
 
-		render :json => order.to_json()
+		render :json => order.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}})
 	end
 
 	def rented_show_more

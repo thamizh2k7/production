@@ -48,18 +48,13 @@ $(document).ready ->
 
 		show_orders: ->
 			$("#orders").html ""
-			$.ajax "/users/orders" ,
-				type:"post"
-				async:true
-				success: (msg)->
-					sociorent.collections.order_object.reset msg
-					if sociorent.collections.order_object.models.length == 0
-						$("#orders").append "<div id='no_orders'>You have not made any orders yet.</div>"
-					else
-						_.each sociorent.collections.order_object.models, (model)->
-							view = new sociorent.views.order
-								model: model
-							$("#orders").append view.render().el
+			if sociorent.collections.order_object.models.length == 0
+				$("#orders").append "<div id='no_orders'>You have not made any orders yet.</div>"
+			else
+				_.each sociorent.collections.order_object.models, (model)->
+					view = new sociorent.views.order
+						model: model
+					$("#orders").append view.render().el
 
 		show_wishlist: ->
 			$("#wishlist").html ""

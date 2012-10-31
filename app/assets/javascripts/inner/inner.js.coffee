@@ -114,3 +114,10 @@ $(document).ready ->
 				$(view.render().el).find(".add_to_compare").attr
 					checked: true
 		$("#intelligent_books").stop().fadeIn(300)
+
+	sociorent.fn.getUserOrderedBooks = ()->
+		books = new Array()
+		_.each sociorent.collections.order_object.models, (model)->
+			_.each model.get("books"), (book)->
+				books.push book.id
+		_.uniq books

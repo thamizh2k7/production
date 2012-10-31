@@ -102,6 +102,7 @@ $(document).ready ->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"
 					$("#order_id span").html msg.random
+					sociorent.collections.order_object.add(msg)
 					sociorent.collections.cart_object.reset()
 					sociorent.fn.renderSearch()
 					sociorent.fn.renderCart()

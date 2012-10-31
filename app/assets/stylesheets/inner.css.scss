@@ -684,25 +684,31 @@ span.blue{
 			font-size: 16px;
 			font-weight: 900;
 			color: #CC4D5C;
-			margin: 4px 0px 10px 5px;
+			margin: 4px 0px 3px 5px;
 		}
 		.author{
 			font-size: 16px;
 			font-weight: 900;
 			color: #000;
-			margin: 4px 0px 10px 5px;
+			margin: 4px 0px 3px 5px;
 		}
 		.isbn{
 			font-size: 12px;
 			font-weight: 900;
 			color: #000;
-			margin: 4px 0px 10px 5px;
+			margin: 0px 0px 3px 5px;
 		}
 		.add_to_cart{
 			font-size: 16px;
 			font-weight: 900;
 			color: #CC4D5C;
-			margin: 4px 0px 10px 5px;
+			margin: 0px 0px 3px 5px;
+
+			.already_rented {
+				font-size: 10px;
+				line-height: 14px;
+				font-weight: 400;
+			}
 		}
 		.add_to_compare_box{
 			.add_to_compare{

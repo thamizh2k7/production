@@ -11,7 +11,6 @@ Sociorent::Application.routes.draw do
   post "/orders/rented_show_more"
   post "/orders/rented_college"
   post "users/update"
-  post "users/orders"
   post "users/add_to_wishlist"
   post "users/wishlist"
   post "users/remove_from_wishlist"

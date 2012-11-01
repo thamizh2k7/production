@@ -41,6 +41,5 @@ sociorent.fn.calculate_cart_total = ()->
 sociorent.fn.calculate_cart_rental_total = ()->
 	total = 0
 	_.each sociorent.collections.cart_object.models, (model)->
-		console.log model
 		total += (model.get("price")*model.get("publisher").rental)/100
 	total

@@ -66,6 +66,7 @@ $(document).ready ->
 				view = new sociorent.views.book_details
 					model: @model
 				$("#book_details_box").html view.render().el
+				$(view.el).find(".timeago").timeago()
 				if sociorent.collections.cart_object.get(@model.id)
 					$(".book_details .add_to_cart").html "In Your Cart"
 				$("#book_details_box").dialog("open")
@@ -96,7 +97,7 @@ $(document).ready ->
 							model.set
 								percent: parseInt((model.get("rate")/rate_sum)*100)
 							view = new sociorent.views.class_adoption
-									model: model
+								model: model
 							$(".class_adoption").append view.render().el
 
 

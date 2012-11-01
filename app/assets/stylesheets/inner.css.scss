@@ -361,6 +361,14 @@
 				width: 165px;
 				margin: 5px 0px 0px 30px;
 				color: #CC4D5C;
+
+				.cart_name_name{
+
+				}
+				.cart_name_author{
+					font-size: 12px;
+					color: #999;
+				}
 			}
 			.cart_isbn {
 				width: 160px;
@@ -380,6 +388,27 @@
 			}
 
 		}
+	}
+
+	#cart_header{
+		width: 90%;
+		margin: 0px auto;
+		border-bottom: 2px #EEE solid;
+		padding-bottom: 10px;
+
+		div{
+			display: inline-block;
+		}
+		#cart_header_book {
+			width: 290px;
+		}
+		#cart_header_isbn {
+			width: 172px;
+		}
+		#cart_header_rental_amount, #cart_header_rental_deposit {
+			width: 107px;
+		}
+
 	}
 
 	#cart_total {

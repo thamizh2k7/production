@@ -1,6 +1,6 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes
-  attr_accessor :book_image, :book_original
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes, :published_date
+  attr_accessor :book_image, :book_original, :published_date
 
   has_many :images, :as => :imageable
   has_many :reviews
@@ -50,17 +50,28 @@ class Book < ActiveRecord::Base
     end
   end
 
+  def published_date
+    published = self.published
+    published_date = published.gsub("/",", ")
+    date = Date.strptime("{#{published_date}}", "{%Y, %m, %d}")
+    date
+  end
+
   def as_json(options = { })
   	h = super(options)
     # adding virtual attributes to the json
     h[:book_image] = book_image
     h[:book_original] = book_original
+    h[:published_date] = published_date
     # returning the new json
     h
   end
 
   rails_admin do
     include_all_fields
+    field :published do
+      label "Publised (YYYY/MM/DD) OR (YYYY/MM) OR (YYYY)"
+    end
     field :carts do
       visible false
     end

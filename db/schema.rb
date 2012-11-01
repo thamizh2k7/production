@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031110752) do
+ActiveRecord::Schema.define(:version => 20121031135307) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -39,10 +39,9 @@ ActiveRecord::Schema.define(:version => 20121031110752) do
     t.string   "author"
     t.string   "isbn13"
     t.string   "binding"
-    t.date     "published"
+    t.string   "published"
     t.integer  "pages"
     t.integer  "price"
-    t.string   "age"
     t.text     "strengths"
     t.text     "weaknesses"
     t.integer  "category_id"

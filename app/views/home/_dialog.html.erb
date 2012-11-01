@@ -37,7 +37,7 @@
 	<div id="checkout_cheque" class="create_order"> 
 		Send us a cheque at this address
 	</div>
-	<% if @user.ambassador.nil? %>
+	<% if @user.ambassador.nil? && !@user.is_admin? %>
 		<div id="ambassador">
 			<div id="ambassador_caption">Please choose who referred you to our website</div>
 			<div id="ambassador_select_box">

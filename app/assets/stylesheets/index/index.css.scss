@@ -36,6 +36,28 @@
 				width: 200px;
 			}
 		}
+		#login_or{
+			text-align: center;
+		}
+		#normal_signup{
+			text-align: center;
+			font-size: 30px;
+			margin-top: 10px;
+
+			a{
+				text-decoration: none;
+			}
+		}
+		#normal_signin{
+			text-align: center;
+			font-size: 30px;
+			margin-top: 40px;
+
+			a{
+				text-decoration: none;
+			}
+		}
+
 	}
 
 }

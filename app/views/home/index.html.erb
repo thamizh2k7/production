@@ -19,8 +19,10 @@
   	</div>
   	<div id="facebook">
   		<%= link_to image_tag('/assets/facebook_256.png'), user_omniauth_authorize_path(:facebook) %>
-
   	</div>
+    <div id="login_or">- OR -</div>
+    <div id="normal_signup"><%= link_to "Sign Up", new_user_registration_url %></div>
+    <div id="normal_signin"><%= link_to "Sign In", new_user_session_url %></div>
   </div>
   <div class="clear"></div>
 </div>

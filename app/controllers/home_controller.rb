@@ -9,12 +9,12 @@ class HomeController < ApplicationController
       @cart = cart.books
       # Intelligent Books
       # Using FB friends
+      @intelligent_books = []
       if @user.friends
         friend_uids = JSON.parse @user.friends
         all_uids = JSON.parse User.select("uid").to_json()
         friends_who_use_sociorent_uids = all_uids & friend_uids
         # get all books their friends ordered
-        @intelligent_books = []
         friends_who_use_sociorent_uids.each do |uid|
           friend = User.where(:uid => uid["uid"]).first
           # check condition on friend from the General Setting
@@ -33,7 +33,14 @@ class HomeController < ApplicationController
           @intelligent_books = Book.offset(rand(Book.count)).first(10)
         end
       else
-        @intelligent_books = Book.offset(rand(Book.count)).first(10)
+        # get users of same college and stream
+        similar_users = User.where(:college_id => @user.college, :stream_id => @user.stream)
+        similar_users.each do |similar_user|
+          @intelligent_books += similar_user.books
+        end
+        if @intelligent_books.count == 0
+          @intelligent_books = Book.offset(rand(Book.count)).first(10)
+        end
       end
       # orders made by the user
       @orders = @user.orders

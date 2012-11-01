@@ -54,3 +54,5 @@ gem 'koala'
 
 gem 'activemerchant'
 gem 'active_merchant_ccavenue'
+
+gem 'tinymce-rails'

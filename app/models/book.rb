@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes, :published_date
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes, :published_date, :book_colleges_attributes, :book_streams_attributes, :book_semesters_attributes
   attr_accessor :book_image, :book_original, :published_date
 
   has_many :images, :as => :imageable
@@ -15,8 +15,11 @@ class Book < ActiveRecord::Base
   has_many :orders, :through => :book_orders
 
   has_many :class_adoptions, :dependent => :destroy
+  has_many :book_colleges
+  has_many :book_streams
+  has_many :book_semesters
 
-  accepts_nested_attributes_for :images, :class_adoptions, :reviews, :allow_destroy => true
+  accepts_nested_attributes_for :images, :class_adoptions, :reviews, :book_colleges, :book_streams, :book_semesters, :allow_destroy => true
 
   after_create do |book|
     r = Random.new

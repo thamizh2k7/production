@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031135307) do
+ActiveRecord::Schema.define(:version => 20121101073340) do
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20121031135307) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "book_colleges", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "college_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "book_colleges", ["book_id"], :name => "index_book_colleges_on_book_id"
+  add_index "book_colleges", ["college_id"], :name => "index_book_colleges_on_college_id"
 
   create_table "book_orders", :force => true do |t|
     t.integer  "book_id"
@@ -29,6 +39,26 @@ ActiveRecord::Schema.define(:version => 20121031135307) do
 
   add_index "book_orders", ["book_id"], :name => "index_book_orders_on_book_id"
   add_index "book_orders", ["order_id"], :name => "index_book_orders_on_order_id"
+
+  create_table "book_semesters", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "semester_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "book_semesters", ["book_id"], :name => "index_book_semesters_on_book_id"
+  add_index "book_semesters", ["semester_id"], :name => "index_book_semesters_on_semester_id"
+
+  create_table "book_streams", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "stream_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "book_streams", ["book_id"], :name => "index_book_streams_on_book_id"
+  add_index "book_streams", ["stream_id"], :name => "index_book_streams_on_stream_id"
 
   create_table "books", :force => true do |t|
     t.datetime "created_at",     :null => false
@@ -160,6 +190,12 @@ ActiveRecord::Schema.define(:version => 20121031135307) do
     t.integer  "book_id"
     t.integer  "user_id"
     t.float    "rating"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "semesters", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

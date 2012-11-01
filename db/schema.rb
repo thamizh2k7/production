@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101073340) do
+ActiveRecord::Schema.define(:version => 20121101093405) do
+
+  create_table "ambassadors", :force => true do |t|
+    t.string   "name"
+    t.integer  "college_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ambassadors", ["college_id"], :name => "index_ambassadors_on_college_id"
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"
@@ -228,6 +237,7 @@ ActiveRecord::Schema.define(:version => 20121101073340) do
     t.text     "friends"
     t.integer  "stream_id"
     t.text     "wishlist"
+    t.integer  "ambassador_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

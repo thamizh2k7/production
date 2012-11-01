@@ -42,6 +42,7 @@ $(document).ready ->
 			"click #compare_button" : "compare_dialog"
 			"click #my_account_button" : "open_user_dialog"
 			"submit #compare_search_form"	: "cancel_submit"
+			"change #ambassador_select" : "select_reference"
 
 		cancel_submit: ->
 			false
@@ -132,5 +133,19 @@ $(document).ready ->
 
 		open_user_dialog: ->
 			$("#user_dialog").dialog "open"
+
+		select_reference: ->
+			ambassador_id = parseInt $("#ambassador_select").val()
+			if ambassador_id == 0
+				alert "Please select your reference"
+				false
+			else
+				$.ajax "/users/select_reference" ,
+					type:"post"
+					async:true
+					data:
+						ambassador_id: ambassador_id
+					success: (msg)->
+						$("#ambassador_select_box").html "Thank you."
 
 	sociorent.views.app_object = new sociorent.views.app()

@@ -51,5 +51,11 @@ RailsAdmin.config do |config|
       field :name
       field :is_admin
     end
+    show do
+      include_all_fields
+      field :ambassador do
+        label "Referrer"
+      end
+    end
   end
 end

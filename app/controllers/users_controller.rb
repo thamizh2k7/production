@@ -59,4 +59,12 @@ class UsersController < ApplicationController
     user.update_attributes(:wishlist => wishlist.to_json())
     render :nothing => true
   end
+
+  def select_reference
+    ambassador = Ambassador.find(params[:ambassador_id].to_i)
+    user = current_user
+    user.ambassador = ambassador
+    user.save
+    render :nothing => true
+  end
 end

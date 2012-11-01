@@ -38,3 +38,7 @@ Stream.create(:name => "Mechanical")
 Stream.create(:name => "Electrical")
 Stream.create(:name => "Computer")
 Stream.create(:name => "Biotech")
+
+Semester.create(:name => "1")
+Semester.create(:name => "2")
+Semester.create(:name => "3")

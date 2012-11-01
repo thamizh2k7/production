@@ -481,7 +481,7 @@
 
 #compare_box{
 	width: 600px;
-	height: 250px;
+	height: 130px;
 	position: absolute;
 	margin: auto;
 	background: #EEE;
@@ -525,20 +525,35 @@
 	}
 
 	.compare_single{
-		width: 95px;
 		display: inline-block;
-		margin: 10px 35px 10px;
+		margin: 10px 10px 10px;
 		text-align: left;
 		padding: 10px;
 		border: 1px solid #DDD;
 		border-radius: 8px;
 		cursor: pointer;
+		height: 44px;
+
+		img{
+			width:30px;
+			display: inline;
+			float: left;
+		}
+
+		.name{
+			float: right;
+			margin: 5px;
+			width: 80px;
+			overflow: hidden;
+		}
 
 		.remove_from_compare {
+			float: right;
 			background: url("/assets/remove.png");
 			background-repeat: no-repeat;
-			padding-left: 22px;
 			margin-top: 5px;
+			width: 20px;
+			height: 20px;
 		}
 	}
 }
@@ -933,6 +948,21 @@ span.blue{
 				}
 
 			}
+		}
+	}
+}
+
+#ambassador{
+	text-align: center;
+
+	#ambassador_caption{
+
+	}
+	#ambassador_select_box{
+		margin-top: 20px;
+		
+		#ambassador_select{
+
 		}
 	}
 }

@@ -9,4 +9,6 @@ class College < ActiveRecord::Base
   has_many :book_colleges
 
   has_many :ambassadors
+
+  has_many :counters
 end

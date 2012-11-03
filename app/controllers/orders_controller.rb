@@ -69,4 +69,19 @@
     resp[:number_of_books] = @number_of_books
     render :json => resp.to_json()
 	end
+
+	def counter_cash_payment
+		msg = {}
+		counter = current_counter
+		order = Order.find(params[:order_id].to_i)
+		if order.order_type == "cash" && order.user.college == counter.college
+			order.update_attributes(:payment_done => true)
+			msg[:status] = 1
+			msg[:msg] = "Order payment confirmed."
+		else
+			msg[:status] = 0
+			msg[:msg] = "Invalid order."
+		end
+		render :json => msg
+	end
 end

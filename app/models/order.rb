@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random, :total, :rental_total, :order_type
+  attr_accessible :random, :total, :rental_total, :order_type, :payment_done
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
@@ -38,6 +38,7 @@ class Order < ActiveRecord::Base
   		field :user
   		field :books
       field :order_type
+      field :payment_done
   		field :created_at
   		field :updated_at
   	end

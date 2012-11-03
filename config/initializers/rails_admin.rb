@@ -62,4 +62,22 @@ RailsAdmin.config do |config|
       end
     end
   end
+
+  config.model Counter do
+    edit do
+      field :email 
+      field :password
+      field :name
+      field :college
+    end
+    create do
+      field :email 
+      field :password
+      field :name
+      field :college
+    end
+    show do
+      include_all_fields
+    end
+  end
 end

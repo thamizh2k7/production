@@ -46,6 +46,8 @@ class HomeController < ApplicationController
       @orders = @user.orders
   		# render inner when user is logged in
   		render "inner"
+    elsif @counter = current_counter
+      render "counter"
   	else
       @images = General.first.general_images.all
   		render "index"

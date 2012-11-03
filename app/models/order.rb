@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random, :total, :rental_total
+  attr_accessible :random, :total, :rental_total, :order_type
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
@@ -20,6 +20,10 @@ class Order < ActiveRecord::Base
 	  end
   end
 
+  def order_type_enum
+    ['cash', 'cheque', 'online']
+  end
+
   rails_admin do
   	base do
   		field :random do
@@ -33,6 +37,7 @@ class Order < ActiveRecord::Base
       end
   		field :user
   		field :books
+      field :order_type
   		field :created_at
   		field :updated_at
   	end

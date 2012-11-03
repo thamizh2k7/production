@@ -9,8 +9,9 @@ class OrdersController < ApplicationController
 		cart.books.each do |book|
 			rental_total += (book.price * book.publisher.rental)/100
 		end
+		order_type = params[:order_type]
 		# creating an order
-		order = user.orders.create(:total => total, :rental_total => rental_total)
+		order = user.orders.create(:total => total, :rental_total => rental_total, :order_type => order_type)
 		# adding all the books in the cart to orders
 		order.books = cart.books
 		order.save

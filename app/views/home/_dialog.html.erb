@@ -31,10 +31,10 @@
 
 <div id="checkout_box">
 	<div id="checkout_caption">Checkout</div>
-	<div id="checkout_cash" class="create_order">
+	<div id="checkout_cash" class="create_order" data-attr="cash">
 		Pay Cash to our representative in your institute
 	</div>
-	<div id="checkout_cheque" class="create_order"> 
+	<div id="checkout_cheque" class="create_order" data-attr="cheque"> 
 		Send us a cheque at this address
 	</div>
 	<% if @user.ambassador.nil? && !@user.is_admin? %>

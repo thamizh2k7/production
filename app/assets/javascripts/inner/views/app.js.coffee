@@ -95,10 +95,14 @@ $(document).ready ->
 			$("#cart_box").dialog("close")
 			$("#checkout_box").dialog("open")
 
-		create_order: ->
+		create_order: (event)->
+			# get the order type
+			order_type = $(event.target).attr "data-attr"
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
+				data: 
+					order_type: order_type
 				success: (msg)->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"

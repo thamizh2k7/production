@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103092728) do
+ActiveRecord::Schema.define(:version => 20121103123018) do
 
   create_table "ambassadors", :force => true do |t|
-    t.string   "name"
     t.integer  "college_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "ambassador_manager_id"
   end
 
   add_index "ambassadors", ["college_id"], :name => "index_ambassadors_on_college_id"
@@ -231,7 +231,6 @@ ActiveRecord::Schema.define(:version => 20121103092728) do
     t.datetime "updated_at",                                          :null => false
     t.string   "provider"
     t.integer  "uid",                    :limit => 8
-    t.string   "name"
     t.boolean  "is_admin"
     t.integer  "college_id"
     t.string   "mobile_number"
@@ -239,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20121103092728) do
     t.integer  "stream_id"
     t.text     "wishlist"
     t.integer  "ambassador_id"
+    t.string   "name",                                                :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

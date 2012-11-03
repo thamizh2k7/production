@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends, :stream_id, :wishlist, :ambassador_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends, :stream_id, :wishlist, :ambassador_id, :ambassador_manager_id
 
   has_many :reviews, :dependent => :destroy
   has_one :cart, :dependent => :destroy
@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   belongs_to :stream
 
   belongs_to :ambassador
+  has_one :ambassador_manager, :class_name => "Ambassador", :foreign_key => "ambassador_manager_id"
 
   after_create do |user|
     user.create_cart()

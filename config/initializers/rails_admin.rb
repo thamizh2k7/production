@@ -24,7 +24,6 @@ RailsAdmin.config do |config|
 			end
 		end
     export
-    history_index
     rented do
       visible do
         bindings[:abstract_model].model.to_s == "Book"

@@ -55,8 +55,15 @@ class Book < ActiveRecord::Base
 
   def published_date
     published = self.published
-    published_date = published.gsub("/",", ")
-    date = Date.strptime("{#{published_date}}", "{%Y, %m, %d}")
+    published_date = published.gsub(" ","")
+    published_date = published.gsub("/",",")
+    if /^\d{4}\,\d{2}\,\d{2}$/.match published_date
+      date = Date.strptime("{#{published_date}}", "{%Y,%m,%d}")
+    elsif /^\d{4}\,\d{2}$/.match published_date
+      date = Date.strptime("{#{published_date}}", "{%Y,%m}")
+    elsif /^\d{4}$/.match published_date 
+      date = Date.strptime("{#{published_date}}", "{%Y}")
+    end
     date
   end
 

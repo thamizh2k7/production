@@ -11,3 +11,10 @@ en:
         link: "Rented Books"
         bulk_link: "Rented Books"
         done: "Rented Books"
+      search_index:
+        title: "Search Index"
+        menu: "Search Index"
+        breadcrumb: "Search Index"
+        link: "Search Index"
+        bulk_link: "Search Index"
+        done: "Search Index"

@@ -1,4 +1,5 @@
 require Rails.root.join('lib','rails_admin_rented.rb')
+require Rails.root.join('lib','rails_admin_search_index.rb')
 
 RailsAdmin.config do |config|
 
@@ -25,6 +26,11 @@ RailsAdmin.config do |config|
     export
     history_index
     rented do
+      visible do
+        bindings[:abstract_model].model.to_s == "Book"
+      end
+    end
+    search_index do
       visible do
         bindings[:abstract_model].model.to_s == "Book"
       end

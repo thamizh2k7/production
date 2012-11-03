@@ -1,0 +1,6 @@
+<%= form_tag rails_admin.search_index_url(@abstract_model.to_param), class: "form-horizontal" do |f| %>
+  <div class="control-group">
+    <label class="control-label" for="">Index books if you have added new books</label>
+  </div>
+  <button type="submit" class="btn">Index the Search</button>
+<% end %>

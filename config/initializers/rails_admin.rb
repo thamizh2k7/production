@@ -40,7 +40,6 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    history_show
     show_in_app
 	end
 

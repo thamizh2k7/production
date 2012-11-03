@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+ class OrdersController < ApplicationController
 	def create
 		user = current_user
 		cart = user.cart

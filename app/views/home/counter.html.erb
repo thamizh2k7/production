@@ -8,6 +8,9 @@
 	<br/>
 <% end %>
 
+<br/>
+<div><%= link_to "SignOut", destroy_counter_session_path, :method => :delete %></div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".order_confirm").click(function(){

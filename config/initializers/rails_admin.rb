@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
     index
     new do
 			visible do
-				["General"].exclude?bindings[:abstract_model].model.to_s
+				["General", "Ambassador"].exclude?bindings[:abstract_model].model.to_s
 			end
 		end
     export
@@ -48,17 +48,26 @@ RailsAdmin.config do |config|
       field :password
       field :name
       field :is_admin
+      field :ambassador_manager do
+        label "Ambassador"
+      end
     end
     create do
       field :email 
       field :password
       field :name
       field :is_admin
+      field :ambassador_manager do
+        label "Ambassador"
+      end
     end
     show do
       include_all_fields
       field :ambassador do
         label "Referrer"
+      end
+      field :ambassador_manager do
+        label "Ambassador"
       end
     end
   end

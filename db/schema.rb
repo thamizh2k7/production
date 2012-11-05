@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103141332) do
+ActiveRecord::Schema.define(:version => 20121105064045) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -119,6 +119,24 @@ ActiveRecord::Schema.define(:version => 20121103141332) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.string   "offer_position"
+    t.integer  "offer_stipend"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "company_users", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "company_users", ["company_id"], :name => "index_company_users_on_company_id"
+  add_index "company_users", ["user_id"], :name => "index_company_users_on_user_id"
 
   create_table "counters", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -252,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20121103141332) do
     t.datetime "updated_at",                                          :null => false
     t.string   "provider"
     t.integer  "uid",                    :limit => 8
+    t.string   "name"
     t.boolean  "is_admin"
     t.integer  "college_id"
     t.string   "mobile_number"
@@ -259,7 +278,6 @@ ActiveRecord::Schema.define(:version => 20121103141332) do
     t.integer  "stream_id"
     t.text     "wishlist"
     t.integer  "ambassador_id"
-    t.string   "name",                                                :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

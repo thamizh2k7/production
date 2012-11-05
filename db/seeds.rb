@@ -24,11 +24,11 @@ c1.books.create(:name => "sachin tendulkar", :description => "god of cricket", :
 # general
 g = General.create()
 g.general_images.create(:image_url => "http://www.doubledeclutch.com/wp-content/uploads/2011/10/10-porsche-posters-sm.jpg")
-g.general_images.create(:image_url => "http://fc09.deviantart.net/fs71/i/2012/209/b/d/books_and_magazines_design_linspire_solutions_by_linspiresolutions-d5905sx.jpg")
-g.general_images.create(:image_url => "http://cdn.shopify.com/s/files/1/0007/3442/files/New_Year_New_Diary_-_Greens.jpg?1290632676")
-g.general_images.create(:image_url => "http://www.pod-creative.com/_resources/images/projects/news/news_145_morrison_street_2.jpg")
-g.general_images.create(:image_url => "http://wildflowersphotos.com/blog/wp-content/uploads/2012/02/proutyBLOG1.jpg")
-g.general_images.create(:image_url => "http://fc02.deviantart.net/fs70/i/2012/103/9/2/bird_brain_books_1_3_by_rynnay-d4w2ae3.jpg")
+# g.general_images.create(:image_url => "http://fc09.deviantart.net/fs71/i/2012/209/b/d/books_and_magazines_design_linspire_solutions_by_linspiresolutions-d5905sx.jpg")
+# g.general_images.create(:image_url => "http://cdn.shopify.com/s/files/1/0007/3442/files/New_Year_New_Diary_-_Greens.jpg?1290632676")
+# g.general_images.create(:image_url => "http://www.pod-creative.com/_resources/images/projects/news/news_145_morrison_street_2.jpg")
+# g.general_images.create(:image_url => "http://wildflowersphotos.com/blog/wp-content/uploads/2012/02/proutyBLOG1.jpg")
+# g.general_images.create(:image_url => "http://fc02.deviantart.net/fs70/i/2012/103/9/2/bird_brain_books_1_3_by_rynnay-d4w2ae3.jpg")
 
 # colleges
 College.create(:name => "IIM")
@@ -42,3 +42,12 @@ Stream.create(:name => "Biotech")
 Semester.create(:name => "1")
 Semester.create(:name => "2")
 Semester.create(:name => "3")
+
+# resources
+r = Resource.create(:name => "internships", :link => "internships")
+r.create_image(:image_url => "http://xiarch.com/testing/wp-content/uploads/2012/07/internship.jpg")
+
+
+# companies for internships
+c = Company.create(:name => "something", :offer_position => "developer", :offer_stipend => 20000)
+c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/TheCompany_office_2col.jpg")

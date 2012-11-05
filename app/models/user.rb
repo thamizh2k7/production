@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   belongs_to :ambassador
   has_one :ambassador_manager, :class_name => "Ambassador", :foreign_key => "ambassador_manager_id"
 
+  has_many :company_users
+  has_many :companies, :through => :company_users
+
   accepts_nested_attributes_for :ambassador_manager, :allow_destroy => true
 
   after_create do |user|

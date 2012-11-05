@@ -1,6 +1,7 @@
 Sociorent::Application.routes.draw do
 
   get "home/index"
+  match "/internships" => "home#interships"
   match "/search" => "home#search"
   post "home/book_request"
   post "home/add_to_cart"
@@ -18,6 +19,7 @@ Sociorent::Application.routes.draw do
   post "home/make_review"
   post "users/select_reference"
   post "orders/counter_cash_payment"
+  post "home/apply_intership"
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

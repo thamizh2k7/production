@@ -81,10 +81,13 @@ body{
 	display: none;
 }
 
-.resource_single{
-	width: 30%;
-	height: 150px;
-	display: block;
-	text-align: center;
-	margin: 10px;
+#resources{
+
+	.resource_single{
+		width: 30%;
+		height: 150px;
+		display: inline-block;
+		text-align: center;
+		margin: 10px 25px;
+	}
 }

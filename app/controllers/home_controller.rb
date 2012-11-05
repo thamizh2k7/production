@@ -125,4 +125,21 @@ class HomeController < ApplicationController
     review = user.reviews.create(:content => params[:content], :book_id => book.id)
     render :json => review.to_json(:include => {:user => {:only => :name}})
   end
+
+  def interships
+    user = current_user
+    unless user
+      flash[:notice] = "Please login first."
+      redirect_to root_url
+    else
+      @companies = Company.all
+    end
+  end
+
+  def apply_intership
+    user = current_user
+    company = Company.find(params[:company_id].to_i)
+    company.company_users.create(:user_id => user.id)
+    render :nothing => true
+  end
 end

@@ -44,6 +44,8 @@ class HomeController < ApplicationController
       end
       # orders made by the user
       @orders = @user.orders
+      # companies for internship
+      @companies = Company.all
   		# render inner when user is logged in
   		render "inner"
     elsif @counter = current_counter
@@ -124,16 +126,6 @@ class HomeController < ApplicationController
     book = Book.find(params[:book].to_i)
     review = user.reviews.create(:content => params[:content], :book_id => book.id)
     render :json => review.to_json(:include => {:user => {:only => :name}})
-  end
-
-  def interships
-    user = current_user
-    unless user
-      flash[:notice] = "Please login first."
-      redirect_to root_url
-    else
-      @companies = Company.all
-    end
   end
 
   def apply_intership

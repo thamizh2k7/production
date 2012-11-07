@@ -1,7 +1,6 @@
 Sociorent::Application.routes.draw do
 
   get "home/index"
-  match "/internships" => "home#interships"
   match "/search" => "home#search"
   post "home/book_request"
   post "home/add_to_cart"

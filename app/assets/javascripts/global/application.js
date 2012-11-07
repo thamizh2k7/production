@@ -22,16 +22,24 @@ $(document).ready(function(){
 	});
 
 	$("#resources_dialog").dialog({
-			autoOpen: false,
-			draggable: false,
-			height: 700,
-			width: 1100,
-			resizable: false,
-			buttons: {
-                Ok: function () {
-                    $(this).dialog("close");
-                }
-            },
-      modal: true
-		});
+		autoOpen: false,
+		draggable: false,
+		height: 700,
+		width: 1100,
+		resizable: false,
+		buttons: {
+              Ok: function () {
+                  $(this).dialog("close");
+              }
+          },
+    modal: true
+	});
+
+	$(".resource_single").click(function(){
+		if($(this).attr("href") == "internships"){
+			$("#intership_dialog").dialog("open");
+			$("#resources_dialog").dialog("close");
+			return false;
+		}
+	});
 });

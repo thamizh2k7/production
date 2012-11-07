@@ -72,3 +72,31 @@
 </div>
 
 <div id="user_dialog"></div>
+
+<div id="intership_dialog">
+	<h1>Interships</h1>
+	<div id="companies">
+		<% @companies.each do |company| %>
+			<div class="company">
+				<div class="company_left">
+					<% if company.image %>
+						<img src="<%= company.image.image %>" />
+					<% else %>
+						<img src="/assets/book.jpeg" />
+					<% end %>
+				</div>
+				<div class="company_right">
+					<div>Company: <%= company.name %></div>
+					<div>Position: <%= company.offer_position %></div>
+					<div>Stipend: <%= company.offer_stipend %></div>
+					<% unless company.users.include?(@user) %>
+						<a href="#" class="apply_intership" id="company_<%= company.id %>">Apply</a>
+					<% else %>
+						<div>You have applied for this intern.</div>
+					<% end %>
+				</div>
+				<div class="clear"></div>
+			</div>
+		<% end %>
+	</div>
+</div>

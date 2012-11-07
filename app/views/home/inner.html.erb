@@ -179,6 +179,22 @@
       modal: true
 		});
 
+
+		$("#intership_dialog").dialog({
+			autoOpen: false,
+			draggable: false,
+			dialogClass: 'user_dialog',
+			height: 700,
+			width: 1100,
+			resizable: false,
+			buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            },
+      modal: true
+		});
+
 		$(".book_left").zoomimage({
 			border: 20,
 			centered: true,

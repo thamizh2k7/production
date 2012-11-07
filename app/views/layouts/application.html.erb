@@ -52,6 +52,7 @@
             $("#resources_dialog").dialog("close");
             return false;
           <% else %>
+            <% flash[:notice] = "You need to login to register for internships." %>
             window.location.href = "/users/sign_in"
             return false;
           <% end %>

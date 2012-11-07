@@ -34,4 +34,6 @@ $(document).ready(function(){
           },
     modal: true
 	});
+
+	$(".rails_notice").delay(5000).fadeOut(300);
 });

@@ -8,7 +8,9 @@
 </head>
 <body>
 
-  <p class="rails_notice"><%= notice %></p>
+  <% if notice %>
+    <p class="rails_notice"><%= notice %></p>
+  <% end %>
   <p class="rails_alert"><%= alert %></p>
 
   <!-- Header -->

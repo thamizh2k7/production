@@ -66,8 +66,21 @@ body{
 	clear: both;
 }
 
-.rails_notice, .rails_alert{
+.rails_alert{
 	display: none;
+}
+
+.rails_notice{
+	position: absolute;
+	top: 76px;
+	z-index: 1000;
+	text-align: center;
+	width: 300px;
+	background: #C9A765;
+	padding: 5px;
+	border-radius: 3px;
+	left: 50%;
+	margin-left: -150px;
 }
 
 .ui-dialog{

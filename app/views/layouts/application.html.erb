@@ -27,6 +27,8 @@
       <div class="clear"></div>
     </div>
   </div>
+  
+  <%= yield %>
 
   <div id="resources_dialog">
     <div id="resources">
@@ -40,8 +42,23 @@
       <% end %>
     </div>
   </div>
-  
-  <%= yield %>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".resource_single").click(function(){
+        if($(this).attr("href") == "internships"){
+          <% if @user %>
+            $("#intership_dialog").dialog("open");
+            $("#resources_dialog").dialog("close");
+            return false;
+          <% else %>
+            window.location.href = "/users/sign_in"
+            return false;
+          <% end %>
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

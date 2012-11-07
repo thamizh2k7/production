@@ -34,12 +34,4 @@ $(document).ready(function(){
           },
     modal: true
 	});
-
-	$(".resource_single").click(function(){
-		if($(this).attr("href") == "internships"){
-			$("#intership_dialog").dialog("open");
-			$("#resources_dialog").dialog("close");
-			return false;
-		}
-	});
 });

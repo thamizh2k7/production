@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115134318) do
+ActiveRecord::Schema.define(:version => 20121115141237) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -21,6 +21,21 @@ ActiveRecord::Schema.define(:version => 20121115134318) do
   end
 
   add_index "ambassadors", ["college_id"], :name => "index_ambassadors_on_college_id"
+
+  create_table "book_apis", :force => true do |t|
+    t.string   "book"
+    t.string   "author"
+    t.string   "isbn"
+    t.string   "isbn13"
+    t.string   "binding"
+    t.string   "publishing_date"
+    t.string   "publisher"
+    t.string   "edition"
+    t.integer  "number_of_pages"
+    t.string   "language"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "book_carts", :force => true do |t|
     t.integer  "book_id"

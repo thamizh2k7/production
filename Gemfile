@@ -56,3 +56,5 @@ gem 'activemerchant'
 gem 'active_merchant_ccavenue'
 
 gem 'tinymce-rails'
+gem "book_finder_api", "~> 0.0.4"
+gem "mechanize"

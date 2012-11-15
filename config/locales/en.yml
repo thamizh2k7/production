@@ -18,3 +18,10 @@ en:
         link: "Search Index"
         bulk_link: "Search Index"
         done: "Search Index"
+      get_book_details:
+        title: "Get Book Details through ISBN"
+        menu: "Get Book Details"
+        breadcrumb: "Get Book Details"
+        link: "Get Book Details"
+        bulk_link: "Get Book Details"
+        done: "Get Book Details"

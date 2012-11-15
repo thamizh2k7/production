@@ -15,51 +15,7 @@
   <div><%= f.label :name %><br />
   <%= f.text_field :name %></div>
 
-  <div><%= f.label :mobile_number %><br />
-  <%= f.text_field :mobile_number %></div>
-
-  <% colleges = College.all %>
-  <div><%= f.label :college %><br />
-  <select id="college" name="user[college_id]">
-		<option value="0">Select College</option>
-		<% colleges.each do |college| %>
-			<option value="<%= college.id %>"><%= college.name %></option>
-		<% end %>
-	</select></div><br/>
-
-	<% streams = Stream.all %>
-	<div><%= f.label :stream %><br />
-  <select id="stream" name="user[stream_id]">
-		<option value="0">Select Stream</option>
-		<% streams.each do |stream| %>
-			<option value="<%= stream.id %>"><%= stream.name %></option>
-		<% end %>
-	</select></div><br/>
-
   <div><%= f.submit "Sign up", :id => "submit" %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#college").chosen();
-		$("#stream").chosen();
-
-		$("#new_user").submit(function(){
-			var mobile_number = $.trim($("#user_mobile_number").val());
-			var college = $("#college").val();
-			var stream = $("#stream").val();
-			if (!mobile_number.match(/\d{10}/)){
-				alert("Please enter a valid mobile number.");
-				return false;
-			} else if(college == "0"){
-				alert("Please select your college.");
-				return false;
-			} else if (stream == "0"){
-				alert("Please select your stream");
-				return false;
-			} else
-				return true;
-		});
-	});
-</script>

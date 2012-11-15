@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def save_user_details
     user = current_user
     college = College.where(:name => params[:college]).first
-    puts params[:stream]
     stream = Stream.where(:name => params[:stream]).first
     user.update_attributes(:mobile_number => params[:mobile], :college_id => college.id, :stream_id => stream.id)
     render :text => "1"
@@ -21,7 +20,9 @@ class UsersController < ApplicationController
 
   def update
   	user = current_user
-  	user.update_attributes(:name => params[:name], :mobile_number => params[:mobile_number])
+    college = College.where(:name => params[:college]).first
+    stream = Stream.where(:name => params[:stream]).first
+  	user.update_attributes(:name => params[:name], :mobile_number => params[:mobile_number], :college_id => college.id, :stream_id => stream.id)
   	render :nothing => true
   end
 

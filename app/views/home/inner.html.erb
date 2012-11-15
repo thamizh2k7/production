@@ -79,7 +79,7 @@
 	$(document).ready(function(){
 
 		// user model 
-		sociorent.models.user_object.set(<%= raw @user.to_json() %>);
+		sociorent.models.user_object.set(<%= raw @user.to_json(:include => {:college => {:only => :name}, :stream => {:only => :name}}) %>);
 		sociorent.models.user_object.set({
 			wishlist: $.parseJSON(sociorent.models.user_object.get("wishlist"))
 		});
@@ -87,7 +87,9 @@
 			model: sociorent.models.user_object,
 		});
 		$("#user_dialog").html(view.render().el);
-
+		// use chosen plugin
+		$("#profile_college").val(sociorent.models.user_object.get("college").name).chosen();
+		$("#profile_streams").val(sociorent.models.user_object.get("stream").name).chosen();
 		// orders collection reset
 		sociorent.collections.order_object.reset(<%= raw @orders.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}}) %>);
 
@@ -126,7 +128,7 @@
 		$("#cart_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			height: 550,
+			height: 630,
 			width: 820,
 			resizable: false,
 			modal: true

@@ -243,5 +243,5 @@ Devise.setup do |config|
   #     ENV['FACEBOOK_KEY'] = '212611612202812'
   #     ENV['FACEBOOK_SECRET'] = '990066123e92d9624e644740903a6d69'
   # end
-  config.omniauth :facebook, ENV['P_ENV_FB_K'], ENV['P_ENV_FB_S'], :scope => 'email, user_birthday, user_education_history, read_stream'
+  config.omniauth :facebook, ENV['P_ENV_FB_K'], ENV['P_ENV_FB_S'], :scope => 'email, user_birthday, user_education_history, read_stream', :image_size => "large"
 end

@@ -29,6 +29,8 @@ $(document).ready ->
 		update_profile: ->
 			profile_mobile_number = $.trim $("#profile_mobile_number").val()
 			name = $.trim $("#profile_name").val()
+			college = $("#profile_college").val()
+			stream = $("#profile_streams").val()
 			if name == ""
 				$("profile_form_error").html "You can't leave your name blank."
 				false
@@ -42,6 +44,8 @@ $(document).ready ->
 					data:
 						mobile_number: profile_mobile_number
 						name: name
+						college: college
+						stream: stream
 					success: (msg)->
 						$("#profile_form_error").html "Your profile was updated."
 				false

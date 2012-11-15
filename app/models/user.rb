@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends, :stream_id, :wishlist, :ambassador_id, :ambassador_manager_attributes
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :is_admin, :college_id, :mobile_number, :friends, :stream_id, :wishlist, :ambassador_id, :ambassador_manager_attributes, :image
 
   has_many :reviews, :dependent => :destroy
   has_one :cart, :dependent => :destroy
@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
 	                         provider:auth.provider,
 	                         uid:auth.uid,
 	                         email:auth.info.email,
-	                         password:Devise.friendly_token[0,20]
+	                         password:Devise.friendly_token[0,20],
+                           :image => auth.info.image
 	                         )
 	  end
     resp[:user] = user.id

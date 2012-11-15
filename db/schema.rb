@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105064045) do
+ActiveRecord::Schema.define(:version => 20121115134318) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -187,13 +187,14 @@ ActiveRecord::Schema.define(:version => 20121105064045) do
 
   create_table "orders", :force => true do |t|
     t.string   "random"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "user_id"
     t.integer  "total"
     t.integer  "rental_total"
     t.string   "order_type"
-    t.boolean  "payment_done", :default => false
+    t.boolean  "payment_done",  :default => false
+    t.integer  "deposit_total"
   end
 
   create_table "publishers", :force => true do |t|
@@ -278,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20121105064045) do
     t.integer  "stream_id"
     t.text     "wishlist"
     t.integer  "ambassador_id"
+    t.string   "image"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

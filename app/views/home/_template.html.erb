@@ -60,11 +60,10 @@
 			<div class="information_right">Rs.<%%= price %></div>
 			<div class="information_left">rental price</div>
 			<div class="information_right">Rs.<%%= (price * publisher.rental)/100 %></div>
-
 			<div class="clear"></div>
 		</div>
 
-		<div class="class_adoption_caption">Class Adoption Rate:</div>
+		<div class="class_adoption_caption">Class Adoption Rate: (rented <span></span> times)</div>
 		<div class="class_adoption"></div>
 
 	</div>
@@ -203,6 +202,28 @@
 			    </div>
 			  </div>
 			  <div class="control-group">
+			    <label class="control-label" for="profile_college">College</label>
+			    <div class="controls">
+			      <select id="profile_college" name="college">
+				  		<option value="0">Select College</option>
+				  		<% @college_names.each do |name| %>
+				  			<option value="<%= name %>"><%= name %></option>
+				  		<% end %>
+				  	</select>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="profile_course">Course</label>
+			    <div class="controls">
+			    	<select id="profile_streams" name="stream">
+				  		<option value="0">Select Stream</option>
+				  		<% @streams.each do |name| %>
+				  			<option value="<%= name %>"><%= name %></option>
+				  		<% end %>
+				  	</select>
+			    </div>
+			  </div>
+			  <div class="control-group">
 			    <div class="controls">
 			      <button type="submit" class="btn">Update Profile</button>
 			    </div>
@@ -214,6 +235,10 @@
 		<div id="orders_box" class="menu_content">
 			<div id="orders_caption">Your Orders</div>
 			<div id="orders"></div>
+			<div id="orders_amount">
+				<div>Deposit Amount: <%= @user.orders.sum(:total) %></div>
+				<div>Rental Amount : <%= @user.orders.sum(:rental_total) %></div>
+			</div>
 		</div>
 		<div id="wishlist_box" class="menu_content">
 			<div id="wishlist_caption">Your Wishlist</div>

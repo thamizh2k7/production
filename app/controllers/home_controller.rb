@@ -2,11 +2,19 @@ class HomeController < ApplicationController
   def index
   	@user = current_user
   	if @user
+      # check if user has college
+      if @user.college.nil?
+        redirect_to "/welcome"
+        return
+      end
   		# search books by default will show last 5 books
   		@search = Book.last(5)
       # cart of the user
       cart = @user.cart
       @cart = cart.books
+      # list of colleges and stream for my account
+      @college_names = College.pluck(:name)
+      @streams = Stream.pluck(:name)
       # Intelligent Books
       # Using FB friends
       @intelligent_books = []

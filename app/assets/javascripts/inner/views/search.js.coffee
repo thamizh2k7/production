@@ -93,6 +93,8 @@ $(document).ready ->
 						rate_sum = _.reduce sociorent.collections.class_adoption_object.models, (rate_sum, model)->
 							model.get("rate") + rate_sum
 						, 0
+						# show total rented times in view
+						$(".class_adoption_caption span").html rate_sum
 						_.each sociorent.collections.class_adoption_object.models, (model)->
 							model.set
 								percent: parseInt((model.get("rate")/rate_sum)*100)

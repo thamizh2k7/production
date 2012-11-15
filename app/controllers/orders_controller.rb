@@ -4,14 +4,15 @@
 		cart = user.cart
 		books = cart.books
 		# total price - save this in orders
-		total = cart.books.sum(:price)
+		deposit_total = cart.books.sum(:price)
 		rental_total = 0
 		cart.books.each do |book|
 			rental_total += (book.price * book.publisher.rental)/100
 		end
+		total = deposit_total + rental_total
 		order_type = params[:order_type]
 		# creating an order
-		order = user.orders.create(:total => total, :rental_total => rental_total, :order_type => order_type)
+		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type)
 		# adding all the books in the cart to orders
 		order.books = cart.books
 		order.save

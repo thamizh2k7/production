@@ -112,6 +112,7 @@ $(document).ready ->
 					sociorent.fn.renderSearch()
 					sociorent.fn.renderIntelligent()
 					sociorent.fn.renderCart()
+					$("#profile_orders_button").click()
 
 		compare_close: ->
 			sociorent.fn.hide_compare()

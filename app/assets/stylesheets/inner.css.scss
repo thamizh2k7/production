@@ -796,7 +796,7 @@ span.blue{
 		#user_dialog_right{
 			float:right;
 			width:80%;
-			height: 100%;
+			min-height: 100%;
 			background: white;
 			border-radius: 5px;
 
@@ -856,7 +856,7 @@ span.blue{
 						}
 					}
 
-					.total {
+					.deposit_total {
 						color: #CC4D5C;
 						margin-top: 10px;
 						margin-right: 66px;
@@ -870,6 +870,16 @@ span.blue{
 						margin-top: 10px;
 						float: left;
 						width: 40%;
+					}
+					.total{
+						color: #1DA850;
+						margin-left: 66px;
+						margin-top: 5px;
+
+						i{
+							font-size: 10px;
+							color: #000;
+						}
 					}
 
 					.order_book_single{

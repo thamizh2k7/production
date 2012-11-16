@@ -16,6 +16,7 @@ $(document).ready ->
 				created_at: created_at
 				total: @model.get "total"
 				rental_total: @model.get "rental_total"
+				deposit_total: @model.get "deposit_total"
 			# rendering books of this order
 			_.each @model.get("books"), (obj)->
 				model = new sociorent.models.order_book()

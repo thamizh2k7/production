@@ -9,7 +9,8 @@
 		cart.books.each do |book|
 			rental_total += (book.price * book.publisher.rental)/100
 		end
-		total = deposit_total + rental_total
+		shipping_charge = deposit_total < 1000 ? 50 : 0
+		total = deposit_total + rental_total + shipping_charge
 		order_type = params[:order_type]
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type)

@@ -180,7 +180,7 @@
 
 <script type="script/template" id="user_dialog_template">
 	<div id="user_dialog_left">
-		<div class="menu active" href="#profile">Edit Profile</div>
+		<div class="menu active" href="#profile" id="profile_edit_button">Edit Profile</div>
 		<div class="menu" href="#orders_box" id="profile_orders_button">Orders</div>
 		<div class="menu" href="#wishlist_box" id="profile_wishlist_button">Wishlist</div>
 	</div>
@@ -236,8 +236,8 @@
 			<div id="orders_caption">Your Orders</div>
 			<div id="orders"></div>
 			<div id="orders_amount">
-				<div>Deposit Amount: <%= @user.orders.sum(:total) %></div>
-				<div>Rental Amount : <%= @user.orders.sum(:rental_total) %></div>
+				<div id="all_orders_deposit_total">Total Deposit Amount: Rs.<span></span></div>
+				<div id="all_orders_rental_total">Total Rental Amount : Rs.<span></span></div>
 			</div>
 		</div>
 		<div id="wishlist_box" class="menu_content">
@@ -255,9 +255,10 @@
 		<div class="clear"></div>
 	</div>
 	<div class="order_books"></div>
-	<div class="rental_total">Rental Amount: <%%= rental_total %></div>
-	<div class="total">Rental Deposit (refundable): <%%= total %></div>
+	<div class="rental_total">Rental Amount: Rs.<%%= rental_total %></div>
+	<div class="deposit_total">Rental Deposit (refundable): Rs.<%%= deposit_total %></div>
 	<div class="clear"></div>
+	<div class="total">Total: Rs.<%%= total %> <i>(Shipping Charge Rs.50 if Rental deposit less than Rs.1000)</i></div>
 </script>
 
 <script type="script/template" id="order_book_template">

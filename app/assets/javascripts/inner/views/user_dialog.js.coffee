@@ -59,6 +59,14 @@ $(document).ready ->
 					view = new sociorent.views.order
 						model: model
 					$("#orders").append view.render().el
+				all_orders_deposit_total = _.reduce sociorent.collections.order_object.models, (sum, model)->
+				 	sum + model.get("deposit_total")
+				, 0
+				$("#all_orders_deposit_total span").html all_orders_deposit_total
+				all_orders_rental_total = _.reduce sociorent.collections.order_object.models, (sum, model)->
+				 	sum + model.get("rental_total")
+				, 0
+				$("#all_orders_rental_total span").html all_orders_rental_total
 
 		show_wishlist: ->
 			$("#wishlist").html ""

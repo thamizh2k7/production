@@ -1,13 +1,14 @@
 require 'rails_admin/config/actions'
 require 'rails_admin/config/actions/base'
+require 'csv'
  
-module RailsAdminGetBookDetails
+module RailsAdminFinalizeBook
 end
  
 module RailsAdmin
   module Config
     module Actions
-      class GetBookDetails < RailsAdmin::Config::Actions::Base
+      class FinalizeBook< RailsAdmin::Config::Actions::Base
       	RailsAdmin::Config::Actions.register(self)
       
 #       	register_instance_option :member? do
@@ -56,22 +57,32 @@ module RailsAdmin
             if request.method == "GET"
             	render :action => @action.template_name
             else
-              isbns = params[:isbn].split(",")
-              isbns.each do |isbn|
-                book_details = BookFinder.flipkart(isbn)
+              csvfile = params[:book_csv].read
+              CSV.parse(csvfile) do |row|
+                unless row[0].to_i.is_a? (Integer)
+                  puts "not an integer"
+                  next
+                end
                 book = Hash.new()
-                book["book"] = book_details["Book"]
-                book["author"] = book_details["Author"]
-                book["isbn"] = book_details["ISBN"]
-                book["isbn13"] = book_details["ISBN-13"]
-                book["binding"] = book_details["Binding"]
-                book["publishing_date"] = book_details["Publishing Date"]
-                book["publisher"] = book_details["Publisher"]
-                book["edition"] = book_details["Edition"]
-                book["number_of_pages"] = book_details["Number of Pages"]
-                book["language"] = book_details["Language"]
-                BookApi.create(book)
-                redirect_to "/admin/book_api"
+                book["name"] = row[1]
+                book["author"] = row[2]
+                book["isbn10"] =row[3]
+                book["isbn13"] = row[4]
+                book["binding"] = row[5]
+                book["published"] = row[6]
+                book["edition"] = row[8]
+                #book["number_of_pages"] = row[9]
+               # book["language"] = row[10]
+                publisher = Publisher.where(:name=>row[7]).first
+                if publisher.nil?
+                  publisher=Publisher.create(:name=>row[7])
+                end
+                puts book
+                book_save=Book.create(book)
+                book_save.publisher=publisher
+                book_save.save
+                redirect_to "/admin/book"
+
               end
             end
 					end

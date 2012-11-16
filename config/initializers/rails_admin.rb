@@ -1,6 +1,8 @@
 require Rails.root.join('lib','rails_admin_rented.rb')
 require Rails.root.join('lib','rails_admin_search_index.rb')
 require Rails.root.join('lib','rails_admin_get_book_details.rb')
+require Rails.root.join('lib','rails_admin_finalize_book.rb')
+
 RailsAdmin.config do |config|
 
   config.current_user_method { current_user } # auto-generated
@@ -20,7 +22,7 @@ RailsAdmin.config do |config|
     index
     new do
 			visible do
-				["General", "Ambassador"].exclude?bindings[:abstract_model].model.to_s
+				["General", "Ambassador","BookApi"].exclude?bindings[:abstract_model].model.to_s
 			end
 		end
     export
@@ -36,7 +38,12 @@ RailsAdmin.config do |config|
     end
     get_book_details do
       visible do
-        bindings[:abstract_model].model.to_s == "Book"
+        bindings[:abstract_model].model.to_s == "BookApi"
+      end
+    end
+    finalize_book do
+      visible do
+        bindings[:abstract_model].model.to_s == "BookApi"
       end
     end
     bulk_delete

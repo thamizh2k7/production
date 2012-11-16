@@ -25,3 +25,10 @@ en:
         link: "Get Book Details"
         bulk_link: "Get Book Details"
         done: "Get Book Details"
+      finalize_book:
+        title: "Update the Book Details from API"
+        menu: "Update Book Details"
+        breadcrumb: "Update Book Details"
+        link: "Update Book Details"
+        bulk_link: "Update Book Details"
+        done: "Update Book Details"

@@ -1,0 +1,22 @@
+<%= form_tag "/admin/book/get_book_details", class: "form-horizontal" do |f| %>
+   <div class="control-group">
+		<label class="control-label">ISBN numbers(Seperated by commas) </label>
+		<div class="controls">
+				<textarea name="isbn"><%= params[:isbn]%></textarea>
+			
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+				<input type="submit" class="btn">
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+	<% if @filename %>
+  	<a href="<%= @filename%>" class="btn"> Export to CSV </a>
+  </div>
+	</div>
+ <% end %>
+<% end %>
+ 

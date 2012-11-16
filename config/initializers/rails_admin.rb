@@ -1,6 +1,6 @@
 require Rails.root.join('lib','rails_admin_rented.rb')
 require Rails.root.join('lib','rails_admin_search_index.rb')
-
+require Rails.root.join('lib','rails_admin_get_book_details.rb')
 RailsAdmin.config do |config|
 
   config.current_user_method { current_user } # auto-generated
@@ -30,6 +30,11 @@ RailsAdmin.config do |config|
       end
     end
     search_index do
+      visible do
+        bindings[:abstract_model].model.to_s == "Book"
+      end
+    end
+    get_book_details do
       visible do
         bindings[:abstract_model].model.to_s == "Book"
       end

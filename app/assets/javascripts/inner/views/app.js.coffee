@@ -127,14 +127,14 @@ $(document).ready ->
 			$("#compare_dialog_box").dialog "open"
 
 		scroll_app: ->
-			if $("body").scrollTop() > 124
+			if $("body").scrollTop() > 206
 				$("#compare_box").css
 					position: "fixed"
 					top: "0px"
 			else
 				$("#compare_box").css
 					position: "absolute"
-					top: "124px"
+					top: "206px"
 
 		open_user_dialog: ->
 			$("#user_dialog").dialog "open"

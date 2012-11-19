@@ -1,8 +1,9 @@
 #user{
-	background: #F0C36D;
+	background: #0F8159;
 	padding: 7px 0px;
 	z-index: 100;
 	position: relative;
+	color : #FFF;
 
 	.left{
 		float: left;
@@ -23,7 +24,7 @@
 
 			a{
 				text-decoration: none;
-				color: #000;
+				color: #FFF;
 			}
 		}
 	}
@@ -486,7 +487,7 @@
 	margin: auto;
 	background: #EEE;
 	left: 28%;
-	top: 124px;
+	top: 206px;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 	z-index: 10;

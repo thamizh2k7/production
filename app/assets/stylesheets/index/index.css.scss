@@ -1,78 +1,121 @@
-#content{
-
-	
-	.left{
-		float: left;
-		width: 70%;
-		border-right: 1px solid #DDD;
-		margin-top: 20px;
-
-		.slider-wrapper{
-			width: 90%;
-			margin: 20px auto;
-			img {
-				height: 500px !important;
-			}
-		}
-	}
-
-	.right{
-		float: right;
-		width: 29%;
-		margin-top: 20px;
-
-		#facebook_caption{
-			font-weight: 900;
-			font-size: 37px;
-			text-align: center;
-			margin-top: 25px;
-		}
-
-		#facebook{
-			text-align: center;
-			margin-top: 40px;
-
-			img{
-				width: 200px;
-			}
-		}
-		#login_or{
-			text-align: center;
-		}
-		#normal_signup{
-			text-align: center;
-			font-size: 30px;
-			margin-top: 10px;
-
-			a{
-				text-decoration: none;
-			}
-		}
-		#normal_signin{
-			text-align: center;
-			font-size: 30px;
-			margin-top: 40px;
-
-			a{
-				text-decoration: none;
-			}
-		}
-
-	}
-
+/**video content **/
+.video_content .grid_3_5{
+	padding: 70px 20px 50px;
+}
+.video_content  h2{
+	margin: 5px 0 20px;
+}
+.video_content  span{
+	font-size: 20px;
+	color: #B4B5B5;
+	margin: 20px 0;
+}
+.fb_big_logi{
+	background: url("/assets/home-sprite.png") no-repeat scroll -2px -81px transparent;
+    display: block;
+    height: 45px;
+    margin: 40px 0 0px;
+    width: 238px;
 }
 
-.nivoSlider {
-	position:relative;
-	background:url(nivo/loading.gif) no-repeat 50% 50%;
+/** content **/
+.content{
+	background: url("/assets/cont-bg.png") repeat;
+	padding-bottom: 100px;
 }
-.nivoSlider img {
-  position:absolute;
-  top:0px;
-  left:0px;
-  display:none;
+.content h1{
+	padding: 50px 0;
 }
-.nivoSlider a {
-  border:0;
-  display:block;
+.info_icon{
+	border-radius: 50% 50% 50% 50%;
+	background: #fff;
+	width: 75px;
+	height: 75px;
+	padding: 32px;
+}
+
+.info_icon [class*="icon"]{
+	background: url("/assets/home-sprite.png") no-repeat;
+    height: 75px;
+    width: 75px;
+}
+.info_icon .icon1{
+	background-position: -5px -127px;
+}
+
+.info_icon .icon2{
+	background-position: -104px -127px;
+}
+
+.info_icon .icon3{
+	background-position: -204px -127px;
+}
+
+.info_icon .icon4{
+	background-position: -5px -204px;
+}
+.info_cont{
+	width: 320px;
+	padding: 15px 10px;
+}
+.info_cont h2{
+	color: #666;
+	font-weight: bold;
+}
+.info_cont span{
+	color: #7F7D7D;
+	font-size: 20px;
+}
+.nav_circles{
+	left: 50%;
+    position: relative;
+	margin: 70px 0 50px;
+}
+.mk_center{
+	left: -50%;
+    position: relative;
+}
+.nav_circle{
+	border-radius: 50% 50% 50% 50%;
+	background: #fff;
+	width: 15px;
+	height: 15px;
+	border:1px solid #ccc;
+	float: left;
+	margin-right: 10px;
+}
+.nav_circle.selected{
+	background: #F65757;
+	border: none;
+	width: 16px;
+	height: 16px;
+	box-shadow:inset 2px 2px 2px rgba(0,0,0,.5);
+	-moz-box-shadow:inset 2px 2px 2px rgba(0,0,0,.5);
+	-webkit-box-shadow:inset 2px 2px 2px rgba(0,0,0,.5);
+}
+
+.caro_prev, .caro_next{
+	background: url("/assets/home-sprite.png") no-repeat;
+    height: 75px;
+    width: 30px;
+	margin-top: 35px;
+}
+.caro_next{
+	background-position: -128px -203px;
+}
+.caro_prev{
+	background-position: -93px -203px;
+}
+.caro_prev:hover{
+	background-position: -164px -203px;
+}
+.caro_next:hover{
+	background-position: -198px -203px;
+}
+.carousal li{
+	background:#E5E4E4;
+    float: left;
+    height: 130px;
+    margin: 10px 25px;
+    width: 256px;
 }

@@ -8,29 +8,73 @@
 </head>
 <body>
 
-  <% if notice %>
-    <p class="rails_notice"><%= notice %></p>
-  <% end %>
   <p class="rails_alert"><%= alert %></p>
 
   <!-- Header -->
-  <div id="header_fixed">
-    <div id="header">
-      <div class="left">
-        <a href="/">socio rent</a>
+  <div class="topbar">
+    <div class="wrapper">
+      <div class="grid_1">
+        <a class="left logo" href="/"><h1>sociorent</h1></a>
+        <div class="topbar_right right">
+          <div class="left searchbar">
+            <form class="right" method="get" action="/search/" id="search">
+              <input type="text" name="q" size="16" class="left search">
+              <input type="submit" value="Search" class="left searchbutton">
+            </form>
+          </div>
+          <nav class="main_nav right">
+            <ul>
+              <li><a id="resources_button">RESOURCES</a></li>
+              <li><a>UNIVERSITIES</a></li>
+              <li><a>BLOG</a></li>
+              <% if current_user %>
+                <li><a class="selected" id="my_account_button">MY ACCOUNT</a></li>
+              <% else %>
+                <li><a class="selected" href="/users/sign_in">LOGIN</a></li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
       </div>
-      <div class="right">
-        <div>Universities</div>
-        <div>Pricing</div>
-        <div>Blog</div>
-        <div id="resources_button">Resources</div>
-        <div class="clear"></div>
-      </div>
-      <div class="clear"></div>
     </div>
+    <div class="cB"></div>
   </div>
   
   <%= yield %>
+
+  <div class="footer">
+    <div class="wrapper">
+      <div class="right links">
+        <div class="grid_1">
+          <ul class="left">
+            <li>About Us</li>
+            <li>Teams</li>
+            <li>Careers</li>
+            <li>Contact Us</li>
+          </ul>
+          <ul class="left">
+            <li>Product Tour</li>
+            <li>Features</li>
+            <li>Pricing</li>
+            <li>Colleges</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot_box right">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="cB"></div>
+    </div>
+  </div>
+  <div class="footer_cpy">
+    <div class="wrapper">
+      <span>&copy; Sociorent. All rights reserved.</span>
+    </div>
+  </div>
 
   <div id="resources_dialog">
     <div id="resources">

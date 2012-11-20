@@ -19,6 +19,7 @@ Sociorent::Application.routes.draw do
   post "users/select_reference"
   post "orders/counter_cash_payment"
   post "home/apply_intership"
+  match "update_shipping" => "home#update_shipping"
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

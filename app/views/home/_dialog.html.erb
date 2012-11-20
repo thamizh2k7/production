@@ -31,6 +31,51 @@
 	</div>
 </div>
 
+<div id="shipping_details_box">
+	<form class="form-horizontal" id="shipping_form">
+		<% unless @user.address.nil? %>
+		 <%		address = JSON.parse(@user.address) %>
+		<% end %>
+
+		<legend>Shipping Address</legend>
+	  <div class="control-group">
+	    <label class="control-label" for="address_street_name1">Street1</label>
+	    <div class="controls">
+	      <input type="text" id="address_street_name1" name="address_street_name1" value="<%= address["address_street_name1"] if address %>"  placeholder="Street1">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="street_name2">Street2</label>
+	    <div class="controls">
+	      <input type="text" id="address_street_name2" name="address_street_name2" value="<%= address["address_street_name2"] if address%>" placeholder="Street2">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="address_street_name1">City</label>
+	    <div class="controls">
+	      <input type="text" id="address_city" name="address_city" value="<%= address["address_city"] if address%>" placeholder="City">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="address_state">State</label>
+	    <div class="controls">
+	      <input type="text" id="address_state" name="address_state" value="<%= address["address_state"] if address%>" placeholder="State">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="address_pincode">Pincode</label>
+	    <div class="controls">
+	      <input type="text" id="address_pincode" name="address_pincode" value="<%= address["address_pincode"] if address%>" placeholder="Pincode">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <div class="controls">
+	      <button id="update_shipping" type="submit" class="btn">Update Shipping & Continue</button>
+	    </div>
+	  </div>
+	  <div id="shipping_form_error"></div>
+	</form>
+</div>
 <div id="checkout_box">
 	<div id="checkout_caption">Checkout</div>
 	<div id="checkout_cash" class="create_order" data-attr="cash">
@@ -53,7 +98,6 @@
 		</div>
 	<% end %>
 </div>
-
 <div id="order_box">
 	<div id="order_caption">Order Made</div>
 	<div id="order_id">Your order id is <span></span>, use this number when you make payment with cash and cheque for reference.</div>

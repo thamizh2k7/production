@@ -43,6 +43,7 @@ $(document).ready ->
 			"click #my_account_button" : "open_user_dialog"
 			"submit #compare_search_form"	: "cancel_submit"
 			"change #ambassador_select" : "select_reference"
+			"click #update_shipping" : "update_shipping"
 
 		cancel_submit: ->
 			false
@@ -91,9 +92,16 @@ $(document).ready ->
 		close_cart_dialog: ->
 			$("#cart_box").dialog("close")
 
+		update_shipping: ->
+			$.post "/update_shipping", $("#shipping_form").serialize(), (data) ->
+				if data is "success"
+					$("#shipping_details_box").dialog "close"
+					$("#checkout_box").dialog "open"
+			false
+
 		checkout: ->
 			$("#cart_box").dialog("close")
-			$("#checkout_box").dialog("open")
+			$("#shipping_details_box").dialog("open")
 
 		create_order: (event)->
 			# get the order type
@@ -152,5 +160,6 @@ $(document).ready ->
 						ambassador_id: ambassador_id
 					success: (msg)->
 						$("#ambassador_select_box").html "Thank you."
+
 
 	sociorent.views.app_object = new sociorent.views.app()

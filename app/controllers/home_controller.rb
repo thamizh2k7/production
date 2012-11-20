@@ -142,4 +142,13 @@ class HomeController < ApplicationController
     company.company_users.create(:user_id => user.id)
     render :nothing => true
   end
+
+  def update_shipping
+    user=current_user
+    if user.update_attributes(:address=>params.except(:controller, :action).to_json)
+      render :text=> "success"
+    else
+      render :text=> "failed"
+    end
+  end
 end

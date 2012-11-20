@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120101644) do
+ActiveRecord::Schema.define(:version => 20121120114310) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -264,6 +264,15 @@ ActiveRecord::Schema.define(:version => 20121120101644) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "static_pages", :force => true do |t|
+    t.string   "page_name"
+    t.string   "page_title"
+    t.text     "page_content"
+    t.boolean  "is_active",    :default => true
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "streams", :force => true do |t|

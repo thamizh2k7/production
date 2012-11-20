@@ -59,6 +59,7 @@ module RailsAdmin
               isbns = params[:isbn].split(",")
               isbns.each do |isbn|
                 book_details = BookFinder.flipkart(isbn)
+                puts book_details
                 book = Hash.new()
                 book["book"] = book_details["Book"]
                 book["author"] = book_details["Author"]
@@ -70,9 +71,10 @@ module RailsAdmin
                 book["edition"] = book_details["Edition"]
                 book["number_of_pages"] = book_details["Number of Pages"]
                 book["language"] = book_details["Language"]
+                book["image_url"]=book_details["img_url"]
                 BookApi.create(book)
-                redirect_to "/admin/book_api"
               end
+              flash[:notice]="Books Retrieved"
             end
 					end
 				end

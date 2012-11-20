@@ -71,7 +71,7 @@ module RailsAdmin
                 book["binding"] = row[5]
                 book["published"] = row[6]
                 book["edition"] = row[8]
-                #book["number_of_pages"] = row[9]
+                book["pages"] = row[9]
                # book["language"] = row[10]
                 publisher = Publisher.where(:name=>row[7]).first
                 if publisher.nil?
@@ -80,10 +80,14 @@ module RailsAdmin
                 puts book
                 book_save=Book.create(book)
                 book_save.publisher=publisher
+                if row[10] !=""
+                  #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")
+                  img=Image.create(:image_url=>row[13])
+                  book_save.images << img
+                end
                 book_save.save
-                redirect_to "/admin/book"
-
               end
+              redirect_to "/admin/book"
             end
 					end
 				end

@@ -10,6 +10,7 @@ $(document).ready ->
 			"submit #profile_form" : "update_profile"
 			"click #profile_orders_button" : "show_orders"
 			"click #profile_wishlist_button" : "show_wishlist"
+			"click #profile_update_shipping" : "update_shipping"
 
 		initialize: ->
 			_.bindAll this, 'render'
@@ -23,6 +24,9 @@ $(document).ready ->
 			$(content_to_activate).fadeIn(300)
 
 		render: ->
+			address = @model.get("address")
+			@model.set
+				address: $.parseJSON(address)
 			$(@el).html @template(@model.toJSON())
 			this
 
@@ -82,3 +86,18 @@ $(document).ready ->
 							view = new sociorent.views.wishlist
 								model: model
 							$("#wishlist").append view.render().el
+
+		update_shipping: ->
+			$.post "/update_shipping", $("#profile_shipping_form").serialize(), (resp) ->
+				if resp.text is "success"
+					sociorent.models.user_object.set($.parseJSON(resp.user))
+					address = sociorent.models.user_object.get "address"
+					sociorent.models.user_object.set
+						address: $.parseJSON(address)
+					alert "Shipping address updated."
+					$("#shipping_form #address_street_name1").val sociorent.models.user_object.get("address").address_street_name1
+					$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
+					$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city
+					$("#shipping_form #address_state").val sociorent.models.user_object.get("address").address_state
+					$("#shipping_form #address_pincode").val sociorent.models.user_object.get("address").address_pincode
+			false

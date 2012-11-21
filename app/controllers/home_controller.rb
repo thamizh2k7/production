@@ -145,10 +145,13 @@ class HomeController < ApplicationController
 
   def update_shipping
     user=current_user
+    resp = {}
     if user.update_attributes(:address=>params.except(:controller, :action).to_json)
-      render :text=> "success"
+      resp[:text] = "success"
+      resp[:user] = user.to_json(:include => {:college => {:only => :name}, :stream => {:only => :name}})
     else
-      render :text=> "failed"
+      resp[:text] = "failed"
     end
+    render :json => resp
   end
 end

@@ -93,10 +93,14 @@ $(document).ready ->
 			$("#cart_box").dialog("close")
 
 		update_shipping: ->
-			$.post "/update_shipping", $("#shipping_form").serialize(), (data) ->
-				if data is "success"
+			$.post "/update_shipping", $("#shipping_form").serialize(), (resp) ->
+				if resp.text is "success"
 					$("#shipping_details_box").dialog "close"
 					$("#checkout_box").dialog "open"
+					sociorent.models.user_object.set($.parseJSON(resp.user))
+					view = new sociorent.views.user_dialog
+						model: sociorent.models.user_object,
+					$("#user_dialog").html(view.render().el)
 			false
 
 		checkout: ->

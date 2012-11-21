@@ -34,14 +34,14 @@
 <div id="shipping_details_box">
 	<form class="form-horizontal" id="shipping_form">
 		<% unless @user.address.nil? %>
-		 <%		address = JSON.parse(@user.address) %>
+		 <%	address = JSON.parse(@user.address) %>
 		<% end %>
 
 		<legend>Shipping Address</legend>
 	  <div class="control-group">
 	    <label class="control-label" for="address_street_name1">Street1</label>
 	    <div class="controls">
-	      <input type="text" id="address_street_name1" name="address_street_name1" value="<%= address["address_street_name1"] if address %>"  placeholder="Street1">
+	      <input type="text" id="address_street_name1" name="address_street_name1" value="<%= address["address_street_name1"] if address%>"  placeholder="Street1">
 	    </div>
 	  </div>
 	  <div class="control-group">

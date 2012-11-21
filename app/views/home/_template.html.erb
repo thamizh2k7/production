@@ -246,45 +246,41 @@
 			<div id="wishlist"></div>
 		</div>
 		<div id="shipping_box" class="menu_content">
-			<form class="form-horizontal" id="shipping_form">
-				<% unless @user.address.nil? %>
-				 <%		address = JSON.parse(@user.address) %>
-				<% end %>
-
+			<form class="form-horizontal" id="profile_shipping_form">
 				<legend>Shipping Address</legend>
 			  <div class="control-group">
 			    <label class="control-label" for="address_street_name1">Street1</label>
 			    <div class="controls">
-			      <input type="text" id="address_street_name1" name="address_street_name1" value="<%= address["address_street_name1"] if address %>"  placeholder="Street1">
+			      <input type="text" id="address_street_name1" name="address_street_name1" value="<%%= address.address_street_name1 %>"  placeholder="Street1">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="street_name2">Street2</label>
 			    <div class="controls">
-			      <input type="text" id="address_street_name2" name="address_street_name2" value="<%= address["address_street_name2"] if address%>" placeholder="Street2">
+			      <input type="text" id="address_street_name2" name="address_street_name2" value="<%%= address.address_street_name2 %>" placeholder="Street2">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="address_street_name1">City</label>
 			    <div class="controls">
-			      <input type="text" id="address_city" name="address_city" value="<%= address["address_city"] if address%>" placeholder="City">
+			      <input type="text" id="address_city" name="address_city" value="<%%= address.address_city %>" placeholder="City">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="address_state">State</label>
 			    <div class="controls">
-			      <input type="text" id="address_state" name="address_state" value="<%= address["address_state"] if address%>" placeholder="State">
+			      <input type="text" id="address_state" name="address_state" value="<%%= address.address_state %>" placeholder="State">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="address_pincode">Pincode</label>
 			    <div class="controls">
-			      <input type="text" id="address_pincode" name="address_pincode" value="<%= address["address_pincode"] if address%>" placeholder="Pincode">
+			      <input type="text" id="address_pincode" name="address_pincode" value="<%%= address.address_pincode %>" placeholder="Pincode">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <div class="controls">
-			      <button id="update_shipping" type="submit" class="btn">Update Shipping & Continue</button>
+			      <button id="profile_update_shipping" type="submit" class="btn">Update Shipping & Continue</button>
 			    </div>
 			  </div>
 			  <div id="shipping_form_error"></div>

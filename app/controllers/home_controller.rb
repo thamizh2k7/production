@@ -164,4 +164,8 @@ class HomeController < ApplicationController
     end
     render :json => resp
   end
+  def get_bank_details
+    bank=Bank.find(params[:id])
+    render :text=> bank.details
+  end
 end

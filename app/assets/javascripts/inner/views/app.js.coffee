@@ -101,12 +101,14 @@ $(document).ready ->
 					view = new sociorent.views.user_dialog
 						model: sociorent.models.user_object,
 					$("#user_dialog").html(view.render().el)
+					$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
 			false
 
 		checkout: ->
 			$("#cart_box").dialog("close")
 			$("#shipping_details_box").dialog("open")
-
+			#$("#address_state").val(sociorent.models.user_object.get("address").address_state)
+			
 		create_order: (event)->
 			# get the order type
 			order_type = $(event.target).attr "data-attr"

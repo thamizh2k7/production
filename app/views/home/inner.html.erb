@@ -52,7 +52,7 @@
 		<!-- tabs links -->
 		<div id="tabs">
 			<ul>
-				<li><a href="#intelligent_books">Intelligent Books</a></li>
+				<li><a href="#intelligent_books">Recommend Books</a></li>
 				<!-- <li><a href="#resources">Resources</a></li> -->
 			</ul>
 
@@ -72,7 +72,7 @@
 
 <%= render :partial => "template" %>
 
-<%= render :partial => "dialog" %>
+<%= render :partial => "dialog"  %>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -89,6 +89,9 @@
 		// use chosen plugin
 		$("#profile_college").val(sociorent.models.user_object.get("college").name).chosen();
 		$("#profile_streams").val(sociorent.models.user_object.get("stream").name).chosen();
+		$("#address_state").val(sociorent.models.user_object.get("address").address_state)
+		$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
+
 		// orders collection reset
 		sociorent.collections.order_object.reset(<%= raw @orders.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}}) %>);
 
@@ -207,5 +210,10 @@
 		$("#tabs").tabs();
 
 		$("#ambassador_select").chosen();
+		$("#bank_name").live("change",function(){
+				$.get("/get_bank_details/"+$(this).val(),function(data){
+					$("#bank_details").html(data);
+				});
+		});
 	});
 </script>

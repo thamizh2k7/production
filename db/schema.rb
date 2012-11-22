@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120114310) do
+ActiveRecord::Schema.define(:version => 20121122143251) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(:version => 20121120114310) do
   end
 
   add_index "ambassadors", ["college_id"], :name => "index_ambassadors_on_college_id"
+
+  create_table "banks", :force => true do |t|
+    t.string   "bank_name"
+    t.text     "details"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "book_apis", :force => true do |t|
     t.string   "book"
@@ -262,6 +269,11 @@ ActiveRecord::Schema.define(:version => 20121120114310) do
 
   create_table "semesters", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "sms", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

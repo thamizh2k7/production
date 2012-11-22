@@ -50,44 +50,16 @@ a{
 	cursor: pointer;
 }
 
-/**footer**/
-.footer{
-	background: #242424;
-}
-.footer ul li{
-	border-right: 3px solid #303030;
-    color: #919191;
-    font-size: 18px;
-    padding:5px 20px;
-    width: 180px;
-}
-.footer .grid_1{
-	padding: 60px;
-}
-.footer_cpy{
-	background: none repeat scroll 0 0 #1A1A1A;
-    color: #656565;
-    font-size: 20px;
-    padding: 20px 0;
-}
-.footer_cpy span{
-	margin-left: 550px;
-}
-.links{
-	margin-right: 70px;
-}
-.foot_box ul li{
-	width: 30px;
-	height: 50px;
-	background: #303030;
-	float: left;
-	margin:120px 20px 0 0;
+
+#devise_pages{
+	width: 900px;
+	margin: 30px auto;
 }
 
 /* new css */
 @font-face {
 	font-family: 'rupee';
-	src: local('hanzo'),url('fonts/Hattori_Hanzo_Italic.otf');
+	src: local('hanzo'),url(../others/Hattori_Hanzo_Italic.otf);
 	font-weight: normal;
 	font-style: normal;
 }
@@ -190,35 +162,53 @@ body {
 	border-top: 8px solid #0F8159;
 	background: #fafafa;
 }
-.topbar_right{
-	width: 520px;
-}
 .logo{
 	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;
   height: 70px;
-  width: 300px;
-	margin: 60px 0 25px;
+  width: 296px;
+	margin: 10px 0 25px;
 }
 .logo h1{
 	text-indent: -999px;
 }
+.search_wrap{
+	background: none repeat scroll 0 0 #E5E4E4;
+    height: 99px;
+    margin: 10px auto;
+    width: 100%;
+}
+.search_wrap h2{
+	padding: 10px 0 0 280px;
+	font-size: 1.5em !important;
+	line-height: 21px !important;
+}
 .searchbar{
-	width:100%;
-	margin: 35px 0 20px;
+	width:450px;
+	margin: 0px auto;
+	padding-top:15px;
 }
 .search{
-    border: 2px solid #d9d9d9;
-    height: 21px;
-    padding: 2px;
+  border: 2px solid #d9d9d9 !important;
+  height: 21px !important;
+  width: 327px !important;
+  padding: 5px !important;
+  font-size: 13px !important;
 	background: #fafafa;
 }
 .searchbutton {
-    background: url("/assets/home-sprite.png") no-repeat scroll -248px -92px transparent;
-    border: 2px solid #D9D9D9;
-    height: 29px;
-    text-indent: -1000px;
-    width: 40px;
+  background: url("/assets/home-sprite.png") no-repeat scroll -248px -88px #fafafa;
+  border: 2px solid #D9D9D9;
+  height: 35px;
+  text-indent: -1000px;
+  width: 40px !important;
 	border-left: none;
+}
+.foot_box{
+	background: url("/assets/home-sprite.png") no-repeat scroll 0px -288px;
+	margin-top: 120px;
+}
+.main_nav{
+	margin-top: 25px;
 }
 .main_nav li a{
 	display: block;
@@ -242,7 +232,42 @@ body {
 	float: left;
 }
 
-#devise_pages{
-	width: 900px;
-	margin: 30px auto;
+/**footer**/
+.footer{
+	background: #242424;
+}
+.footer ul li{
+	border-right: 3px solid #303030;
+    color: #919191;
+    font-size: 18px;
+    padding:5px 20px;
+    width: 180px;
+}
+.footer .grid_1{
+	padding: 60px;
+}
+.footer_cpy{
+	background: none repeat scroll 0 0 #1A1A1A;
+    color: #656565;
+    font-size: 20px;
+    padding: 20px 0;
+}
+.footer_cpy span{
+	margin-left: 550px;
+}
+.links{
+	margin-right: 70px;
+}
+.foot_box ul li{
+	float: left;
+    height: 47px;
+    margin: 14px 8px 0 0;
+    padding: 0;
+    width: 47px;
+	border: 0;
+}
+.foot_box ul li a{
+	display: block;
+    height: 100%;
+    width: 100%;
 }

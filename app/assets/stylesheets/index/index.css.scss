@@ -1,9 +1,11 @@
 /**video content **/
 .video_content .grid_3_5{
-	padding: 70px 20px 50px;
+	padding: 50px 20px;
 }
 .video_content  h2{
 	margin: 5px 0 20px;
+	font-size: 1.5em !important;
+	line-height: 21px !important;
 }
 .video_content  span{
 	font-size: 20px;
@@ -26,6 +28,7 @@
 .content h1{
 	padding: 50px 0;
 }
+	
 .info_icon{
 	border-radius: 50% 50% 50% 50%;
 	background: #fff;
@@ -34,35 +37,39 @@
 	padding: 32px;
 }
 
-.info_icon [class*="icon"]{
+.info_icon[class*="icon"] div{
 	background: url("/assets/home-sprite.png") no-repeat;
     height: 75px;
     width: 75px;
 }
-.info_icon .icon1{
+.info_icon.icon1{
+}
+.info_icon.icon1 div{
 	background-position: -5px -127px;
 }
 
-.info_icon .icon2{
+.info_icon.icon2 div{
 	background-position: -104px -127px;
 }
 
-.info_icon .icon3{
+.info_icon.icon3 div{
 	background-position: -204px -127px;
 }
 
-.info_icon .icon4{
+.info_icon.icon4 div{
 	background-position: -5px -204px;
 }
-.info_cont{
+[class*="info_cont"]{
 	width: 320px;
 	padding: 15px 10px;
 }
-.info_cont h2{
+[class*="info_cont"] h2{
 	color: #666;
 	font-weight: bold;
+	font-size: 1.5em !important;
+	line-height: 21px !important;
 }
-.info_cont span{
+[class*="info_cont"] span{
 	color: #7F7D7D;
 	font-size: 20px;
 }

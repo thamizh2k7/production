@@ -126,3 +126,78 @@
     margin: 10px 25px;
     width: 256px;
 }
+
+/* search box css */
+#search_books{
+	text-align: center;
+	height: 500px;
+	background: #E5E4E4;
+	margin-top: 53px;
+	z-index: 10000;
+	display: none;
+	position: relative;
+	overflow-y: auto;
+
+	.highlight { 
+		background-color: yellow 
+	}
+}
+
+#no_search_result{
+	display: none;
+	width: 93%;
+	margin: auto;
+}
+
+.search_books_single{
+	display: inline-block;
+	margin: 20px;
+	border: 1px solid #CCC;
+	padding: 8px;
+	width: 246px;
+	cursor: pointer;
+
+	.book_left{
+		display: block;
+		float: left;
+		width: 50%;
+	}
+	.book_right{
+		float: right;
+		width: 50%;
+		text-align: left;
+
+		.name{
+			font-size: 16px;
+			font-weight: 900;
+			color: #CC4D5C;
+			margin: 4px 0px 3px 5px;
+			max-height: 40px;
+			overflow: hidden;
+		}
+		.author{
+			font-size: 16px;
+			font-weight: 900;
+			color: #000;
+			margin: 4px 0px 3px 5px;
+		}
+		.isbn{
+			font-size: 12px;
+			font-weight: 900;
+			color: #000;
+			margin: 0px 0px 3px 5px;
+		}
+		.add_to_cart{
+			font-size: 16px;
+			font-weight: 900;
+			color: #CC4D5C;
+			margin: 0px 0px 3px 5px;
+		}
+	}
+}
+
+#searchClose{
+	padding-top: 6px;
+	padding-bottom: 6px;
+	visibility: hidden;
+}

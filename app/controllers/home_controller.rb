@@ -12,6 +12,11 @@ class HomeController < ApplicationController
       # cart of the user
       cart = @user.cart
       @cart = cart.books
+      if session[:cart]
+        @cart << Book.find(session[:cart].to_i)
+        cart.save
+        session[:cart] = nil
+      end
       # list of colleges and stream for my account
       @college_names = College.pluck(:name)
       @streams = Stream.pluck(:name)
@@ -80,11 +85,16 @@ class HomeController < ApplicationController
     # getting common variables
     book = Book.find(params[:book].to_i)
     user = current_user
-    cart = user.cart
-    # add book to the cart
-    cart.books << book
-    cart.save
-    render :json => book.to_json(:include => :publisher)
+    if user
+      cart = user.cart
+      # add book to the cart
+      cart.books << book
+      cart.save
+      render :json => book.to_json(:include => :publisher)
+    else
+      session[:cart] = book.id
+      render :nothing => true
+    end
   end
 
   def remove_from_cart

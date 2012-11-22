@@ -1,11 +1,12 @@
 <%= stylesheet_link_tag "index/application" %>
+<%= javascript_include_tag "index/index" %>
 
 <div class="video_content wrapper">
 	<div class="grid_3_5">
 		<h1>Why buy Engineering text books, when you can rent at 80% Off?</h1>
 		<h2 class="green"><b>Save loads of money. Feel Great. Be Smart.</b></h2>
 		<span>Join the fastest growing network of smart students and rent books easily.</span>
-		<a class="fb_big_logi"></a>
+		<a class="fb_big_logi" href="/users/auth/facebook"></a>
 	</div>
 	<div class="grid_2_5">
 	</div>
@@ -17,10 +18,12 @@
 			<h2>Rent your books and Save thousands of Rupees</h2>
 			<div class="searchbar">
 					<form class="right" method="get" action="/search/" id="search">
-						<input type="text" name="q" placeholder="Enter Title, Author Name, ISBN" class="left search">
+						<input type="text" name="q" placeholder="Enter Title, Author Name, ISBN" class="left search" id="search_books_input">
 						<input type="submit" value="Search" class="left searchbutton">
+						<input type="button" value="X" class="left btn" id="searchClose">
 					</form>
 			</div>
+			<div id="search_books"></div>
 		</div>
 		<h1>How does it work?</h1>
 		<div class="prod_info">
@@ -76,3 +79,5 @@
 	</div>
 	</div>
 </div>
+
+<%= render :partial => "index_template" %>

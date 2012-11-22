@@ -26,7 +26,7 @@ $(document).ready ->
 		render: ->
 			address = @model.get("address")
 			@model.set
-				address: $.parseJSON(address)
+				address: $.parseJSON(address) || {}
 			$(@el).html @template(@model.toJSON())
 			this
 

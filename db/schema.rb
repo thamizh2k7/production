@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123051534) do
+ActiveRecord::Schema.define(:version => 20121123080752) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -40,9 +40,12 @@ ActiveRecord::Schema.define(:version => 20121123051534) do
     t.string   "edition"
     t.integer  "number_of_pages"
     t.string   "language"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.text     "image_url"
+    t.string   "availability"
+    t.decimal  "price",           :precision => 10, :scale => 2
+    t.text     "description"
   end
 
   create_table "book_carts", :force => true do |t|
@@ -112,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20121123051534) do
     t.integer  "old_book_price"
     t.integer  "rank"
     t.integer  "publisher_id"
+    t.string   "availability"
   end
 
   create_table "carts", :force => true do |t|
@@ -274,7 +278,7 @@ ActiveRecord::Schema.define(:version => 20121123051534) do
   end
 
   create_table "sms", :force => true do |t|
-    t.string   "type"
+    t.string   "sms_type"
     t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

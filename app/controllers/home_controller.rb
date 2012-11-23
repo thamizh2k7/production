@@ -168,4 +168,5 @@ class HomeController < ApplicationController
     bank=Bank.find(params[:id])
     render :text=> bank.details
   end
+  
 end

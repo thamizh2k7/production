@@ -72,6 +72,9 @@ module RailsAdmin
                 book["number_of_pages"] = book_details["Number of Pages"]
                 book["language"] = book_details["Language"]
                 book["image_url"]=book_details["img_url"]
+                book["availability"]=book_details["availability"]
+                book["price"]=book_details["price"]
+                book["description"]=book_details["description"]
                 BookApi.create(book)
               end
               flash[:notice]="Books Retrieved"

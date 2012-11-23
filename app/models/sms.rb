@@ -1,3 +1,3 @@
 class Sms < ActiveRecord::Base
-  attr_accessible :type, :content
+  attr_accessible :sms_type, :content
 end

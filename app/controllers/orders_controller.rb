@@ -17,6 +17,10 @@
 		# adding all the books in the cart to orders
 		order.books = cart.books
 		order.save
+
+		#send the sms when the user completes the order
+    sms_text=Sms.where(:sms_type=>"order").first.content
+    send_sms(user.mobile_number,"Thank you..#{sms_text}")
 		# empty the cart
 		cart.book_carts.each do |book_cart|
 			book_cart.delete

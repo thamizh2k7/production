@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes, :published_date, :book_colleges_attributes, :book_streams_attributes, :book_semesters_attributes
+  attr_accessible :name, :description, :isbn10, :images_attributes, :book_image, :author, :isbn13, :binding, :published, :pages, :price, :age, :strengths, :weaknesses, :category_id, :edition, :new_book_price, :old_book_price, :book_original, :rank, :rental_price, :publisher_id, :class_adoptions_attributes, :reviews_attributes, :published_date, :book_colleges_attributes, :book_streams_attributes, :book_semesters_attributes,:availability
   attr_accessor :book_image, :book_original, :published_date
 
   has_many :images, :as => :imageable

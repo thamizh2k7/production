@@ -19,6 +19,10 @@ class UsersController < ApplicationController
       temp_id="#{params[:college][0..2].downcase}-#{rand(1000..1000000)}"
     end
     user.update_attributes(:mobile_number => params[:mobile], :college_id => college.id, :stream_id => stream.id,:unique_id=>temp_id)
+    
+    #send the sms when the user completes signup    
+    sms_text=Sms.where(:sms_type=>"signup").first.content
+    send_sms(user.mobile_number,"Dear #{user.name}, #{sms_text}.Your Unique_ID:#{temp_id}")
     render :text => "1"
   end
 

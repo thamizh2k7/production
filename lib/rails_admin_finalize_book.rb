@@ -72,6 +72,9 @@ module RailsAdmin
                 book["published"] = row[6]
                 book["edition"] = row[8]
                 book["pages"] = row[9]
+                book["availability"]=row[14]
+                book["price"]=row[15]
+                book["description"]=row[16]
                # book["language"] = row[10]
                 publisher = Publisher.where(:name=>row[7]).first
                 if publisher.nil?

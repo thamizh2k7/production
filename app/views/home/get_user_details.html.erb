@@ -2,16 +2,14 @@
 <div id="content">
 	<form id="form">
 	  <legend>Give us a few more details</legend>
-	  <p><input type="text" placeholder="Mobile Number" id="mobile"></p>
+	  <p><input type="text" placeholder="Mobile Number" name="mobile" id="mobile"></p>
 	  <p>
 	  	<select id="college">
-	  		<option value="0">Select College</option>
 	  		<% @college_names.each do |name| %>
 	  			<option value="<%= name %>"><%= name %></option>
 	  		<% end %>
 	  	</select>
 	  	<select id="streams">
-	  		<option value="0">Select Stream</option>
 	  		<% @streams.each do |name| %>
 	  			<option value="<%= name %>"><%= name %></option>
 	  		<% end %>
@@ -32,17 +30,7 @@
 			mobile = $.trim($("#mobile").val());
 			college = $("#college").val();
 			stream = $("#streams").val();
-			// validation
-			if (mobile == "")
-				$("#error").html("Please enter your mobile number.");
-			else if (!mobile.match(/\d{10}/))
-				$("#error").html("Please enter a valid mobile number.");
-			else if (college == "0")
-				$("#error").html("Please enter your college.");
-			else if (stream == "0")
-				$("#error").html("Please enter your stream.");
-			else{
-				$("#error").fadeOut(300);
+			if($("#form").valid())			
 				$.ajax("/users/save_user_details", {
 					type:"post",
 					async:true,
@@ -58,6 +46,19 @@
 				});
 			}
 			return false;
+		});
+		$("#form").validate({
+		  rules: {
+		    mobile: {
+		      required: true,
+		      digits: true,
+		      minlength: 10,
+		      maxlength: 11
+		    }
+		  },
+		  highlight: function(label) {
+		    return $(label).closest(".control-group").addClass("error");
+		  }
 		});
 	});
 </script>

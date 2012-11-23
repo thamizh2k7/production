@@ -208,7 +208,6 @@
 			    <label class="control-label" for="profile_college">College</label>
 			    <div class="controls">
 			      <select id="profile_college" name="college">
-				  		<option value="0">Select College</option>
 				  		<% @college_names.each do |name| %>
 				  			<option value="<%= name %>"><%= name %></option>
 				  		<% end %>
@@ -219,7 +218,6 @@
 			    <label class="control-label" for="profile_course">Course</label>
 			    <div class="controls">
 			    	<select id="profile_streams" name="stream">
-				  		<option value="0">Select Stream</option>
 				  		<% @streams.each do |name| %>
 				  			<option value="<%= name %>"><%= name %></option>
 				  		<% end %>

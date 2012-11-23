@@ -35,19 +35,7 @@ $(document).ready ->
 			name = $.trim $("#profile_name").val()
 			college = $("#profile_college").val()
 			stream = $("#profile_streams").val()
-			if name == ""
-				$("#profile_form_error").html "You can't leave your name blank."
-				false
-			else if !profile_mobile_number.match(/\d{10}/)
-				$("#profile_form_error").html "Please enter a valid mobile number."
-				false
-			else if college == "0"
-				$("#profile_form_error").html "Please choose your college."
-				false
-			else if stream == "0"
-				$("#profile_form_error").html "Please choose your stream."
-				false
-			else 
+			if $("#profile_form").valid()
 				$.ajax "/users/update" ,
 					type:"post"
 					async:true
@@ -96,6 +84,7 @@ $(document).ready ->
 							$("#wishlist").append view.render().el
 
 		update_shipping: ->
+			sociorent.fn.shipping_validation("profile_shipping_form")
 			if $("#profile_shipping_form").valid()
 				$.post "/update_shipping", $("#profile_shipping_form").serialize(), (resp) ->
 					if resp.text is "success"
@@ -108,7 +97,7 @@ $(document).ready ->
 						$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
 						$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city
 						$("#shipping_form #address_pincode").val sociorent.models.user_object.get("address").address_pincode
-						$("#shipping_form #address_state").val(sociorent.models.user_object.get("address").address_state)
-						$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
+						$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
+	
 
 			false

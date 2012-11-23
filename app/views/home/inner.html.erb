@@ -86,7 +86,9 @@
 			model: sociorent.models.user_object,
 		});
 		$("#user_dialog").html(view.render().el);
-		sociorent.fn.shipping_validation();
+		sociorent.fn.shipping_validation("profile_shipping_form");
+		$("#address_state").val(sociorent.models.user_object.get("address").state).chosen();
+		$("#profile_address_state").val(sociorent.models.user_object.get("address").state).chosen();
 		// use chosen plugin
 		$("#profile_college").val(sociorent.models.user_object.get("college").name).chosen();
 		$("#profile_streams").val(sociorent.models.user_object.get("stream").name).chosen();
@@ -216,5 +218,23 @@
 					$("#bank_details").html(data);
 				});
 		});
+		$("#profile_form").validate({
+		  rules: {
+		    name: {
+		      minlength: 2,
+		      required: true
+		    },
+		    mobile_number: {
+		      required: true,
+		      digits: true,
+		      minlength: 10,
+		      maxlength: 11
+		    }
+		  },
+		  highlight: function(label) {
+		    return $(label).closest(".control-group").addClass("error");
+		  }
+		});
+
 	});
 </script>

@@ -102,7 +102,7 @@ $(document).ready ->
 						view = new sociorent.views.user_dialog
 							model: sociorent.models.user_object,
 						$("#user_dialog").html(view.render().el)
-						$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
+						$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
 			false
 
 		checkout: ->

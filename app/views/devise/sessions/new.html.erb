@@ -17,3 +17,20 @@
 
 	<%= render "devise/shared/links" %>
 </div>
+<script type="text/javascript">
+  $("#new_user").validate({
+      rules: {
+        "user[email]": {
+          email:true,
+          required: true
+        },
+        "user[password]": {
+          required: true,
+          minlength: 6
+        }
+      },
+      highlight: function(label) {
+        return $(label).closest(".control-group").addClass("error");
+      }
+  });
+</script>

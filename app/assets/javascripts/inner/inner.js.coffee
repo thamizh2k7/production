@@ -138,8 +138,8 @@ $(document).ready ->
 					alert("You have successfully applied for intership.")
 		false
 
-	sociorent.fn.shipping_validation = ()->
-		$(".shipping_form").validate
+	sociorent.fn.shipping_validation = (id)->
+		$("#"+id).validate
 			rules:
 				address_street_name1:
 					minlength: 2
@@ -158,4 +158,5 @@ $(document).ready ->
 					minlength:6
 			highlight: (label) ->
 				$(label).closest(".control-group").addClass "error"
-	sociorent.fn.shipping_validation()
+	sociorent.fn.shipping_validation("shipping_form")
+

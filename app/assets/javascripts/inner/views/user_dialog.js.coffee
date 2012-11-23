@@ -36,10 +36,16 @@ $(document).ready ->
 			college = $("#profile_college").val()
 			stream = $("#profile_streams").val()
 			if name == ""
-				$("profile_form_error").html "You can't leave your name blank."
+				$("#profile_form_error").html "You can't leave your name blank."
 				false
 			else if !profile_mobile_number.match(/\d{10}/)
-				$("profile_form_error").html "Please enter a valid mobile number."
+				$("#profile_form_error").html "Please enter a valid mobile number."
+				false
+			else if college == "0"
+				$("#profile_form_error").html "Please choose your college."
+				false
+			else if stream == "0"
+				$("#profile_form_error").html "Please choose your stream."
 				false
 			else 
 				$.ajax "/users/update" ,

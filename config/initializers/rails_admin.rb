@@ -2,7 +2,7 @@ require Rails.root.join('lib','rails_admin_rented.rb')
 require Rails.root.join('lib','rails_admin_search_index.rb')
 require Rails.root.join('lib','rails_admin_get_book_details.rb')
 require Rails.root.join('lib','rails_admin_finalize_book.rb')
-
+require Rails.root.join('lib','rails_admin_get_user.rb')
 RailsAdmin.config do |config|
 
   config.current_user_method { current_user } # auto-generated
@@ -44,6 +44,11 @@ RailsAdmin.config do |config|
     finalize_book do
       visible do
         bindings[:abstract_model].model.to_s == "BookApi"
+      end
+    end
+    get_user do
+      visible do
+        bindings[:abstract_model].model.to_s == "User"
       end
     end
     bulk_delete

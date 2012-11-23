@@ -14,7 +14,11 @@ class UsersController < ApplicationController
     user = current_user
     college = College.where(:name => params[:college]).first
     stream = Stream.where(:name => params[:stream]).first
-    user.update_attributes(:mobile_number => params[:mobile], :college_id => college.id, :stream_id => stream.id)
+    temp_id="#{params[:college][0..2].downcase}-#{rand(1000..1000000)}"
+    while User.where(:unique_id=>temp_id).count>0 
+      temp_id="#{params[:college][0..2].downcase}-#{rand(1000..1000000)}"
+    end
+    user.update_attributes(:mobile_number => params[:mobile], :college_id => college.id, :stream_id => stream.id,:unique_id=>temp_id)
     render :text => "1"
   end
 

@@ -32,3 +32,10 @@ en:
         link: "Update Book Details"
         bulk_link: "Update Book Details"
         done: "Update Book Details"
+      get_user:
+        title: "Get user details from UniqueID"
+        menu: "Get User by UniqueID"
+        breadcrumb: "User by UniqueID"
+        link: "User by UniqueID"
+        bulk_link: "User by UniqueID"
+        done: "User by UniqueID"

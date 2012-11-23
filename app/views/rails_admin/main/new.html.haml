@@ -2,7 +2,16 @@
   = form.generate :action => :create
 :javascript 
   jQuery(function() { 
-    jQuery('textarea').tinymce({ 
+    jQuery('#book_description').tinymce({ 
+      theme: 'advanced' 
+    }); 
+    jQuery('#book_strengths').tinymce({ 
+      theme: 'advanced' 
+    }); 
+    jQuery('#book_weaknesses').tinymce({ 
+      theme: 'advanced' 
+    }); 
+    jQuery('#general_welcome_mail_content').tinymce({ 
       theme: 'advanced' 
     }); 
   }); 

@@ -19,6 +19,7 @@ $(document).ready ->
 			"click .add_to_wishlist": "add_to_wishlist"
 			"submit .reviews_form" : "make_review"
 			"click .reviews_caption_right" : "focus_review_input"
+			"click .author_names a" : "search_author"
 
 		render: ->
 			$(@el).html @template(@model.toJSON())
@@ -77,3 +78,10 @@ $(document).ready ->
 		focus_review_input: ->
 			$(".reviews_input").focus()
 			$("#book_details_box").animate({scrollTop: $(".reviews_input")[0].scrollHeight}, 300);
+
+		search_author: (ev)->
+			author = $.trim $(ev.target).html()
+			$("#book_details_box").dialog("close")
+			$("#search_books_input").val(author)
+			sociorent.fn.search()
+			false

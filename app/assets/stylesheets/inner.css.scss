@@ -889,7 +889,7 @@ span.blue{
 
 						.order_book_left{
 							float: left;
-							width: 85%;
+							width: 70%;
 							text-transform: uppercase;
 
 							span {
@@ -902,6 +902,23 @@ span.blue{
 						.order_book_right{
 							float: right;
 							width:15%;
+							text-align: right;
+						}
+						.order_book_shipping{
+							float: right;
+							width: 13%;
+							color: #0F8159;
+							font-size: 11px;
+							font-style: italic;
+							margin-left: 4px;
+						}
+						.shipped{
+							cursor: pointer;
+						}
+						.order_book_shipping_details{
+							display: none;
+							font-size: 12px;
+							margin-left: 20px;
 						}
 					}
 				}

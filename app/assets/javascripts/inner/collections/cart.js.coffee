@@ -9,7 +9,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			$("#cart_options_right").show()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
-			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.fn.calculate_cart_rental_total() + sociorent.shipping_charge)
+			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			$("#cart_header").show()
 			# trigger that something has been added to cart
 			sociorent.app_events.trigger "added_to_cart", model.id
@@ -23,7 +23,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
-			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.fn.calculate_cart_rental_total() + sociorent.shipping_charge)
+			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			# trigger that something has been removed from cart
 			sociorent.app_events.trigger "removed_from_cart", model.id
   
@@ -36,7 +36,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
-			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.fn.calculate_cart_rental_total() + sociorent.shipping_charge)
+			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 
 sociorent.fn.calculate_cart_deposit_total = ()->
 	total = 0

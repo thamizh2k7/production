@@ -39,3 +39,10 @@ en:
         link: "User by UniqueID"
         bulk_link: "User by UniqueID"
         done: "User by UniqueID"
+      shipping:
+        title: "Shipping"
+        menu: "Shipping"
+        breadcrumb: "Shipping"
+        link: "Shipping"
+        bulk_link: "Shipping"
+        done: "Shipping"

@@ -3,6 +3,8 @@ require Rails.root.join('lib','rails_admin_search_index.rb')
 require Rails.root.join('lib','rails_admin_get_book_details.rb')
 require Rails.root.join('lib','rails_admin_finalize_book.rb')
 require Rails.root.join('lib','rails_admin_get_user.rb')
+require Rails.root.join('lib','rails_admin_shipping.rb')
+
 RailsAdmin.config do |config|
 
   config.current_user_method { current_user } # auto-generated
@@ -57,6 +59,11 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+    shipping do
+      visible do
+        bindings[:abstract_model].model.to_s == "Order"
+      end
+    end
 	end
 
   config.model User do

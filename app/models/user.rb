@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.create_cart()
+    UserMailer.welcome_email(user).deliver
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

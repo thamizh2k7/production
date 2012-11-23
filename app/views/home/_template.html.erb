@@ -27,7 +27,7 @@
 		</div>	
 		<div class="auther_edition">
 			<div class="edition"><b>Edition <%%= edition %></b></div>
-			<div class="author">Author(s): <p><span class="blue"><%%= author %></span></p></div>
+			<div class="author">Author(s): <p><span class="blue author_names"></span></p></div>
 			<div class="add_to_cart">Add to Cart</div>
 			<div class="add_to_wishlist">Add to my Wishlist</div>
 		</div>
@@ -310,9 +310,14 @@
 </script>
 
 <script type="script/template" id="order_book_template">
-	<div class="order_book_left"><%%= name %> <span>by <%%= author %></span></div>
-	<div class="order_book_right">Rs.<%%= price %></div>
+	<div class="order_book_left"><%%= model.name %> <span>by <%%= model.author %></span></div>
+	<div class="order_book_shipping <%%= shipped_class %>"><%%= shipped_button_text %></div>
+	<div class="order_book_right">Rs.<%%= model.price %></div>
 	<div class="clear"></div>
+	<div class="order_book_shipping_details">
+		<div class="order_book_courier_name">Courier: <%%= model.courier_name %></div>
+		<div class="order_book_tracking_number">Tracking #: <%%= model.tracking_number %></div>
+	</div>
 </script>
 
 <script type="script/template" id="wishlist_template">

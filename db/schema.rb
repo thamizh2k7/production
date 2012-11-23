@@ -68,8 +68,11 @@ ActiveRecord::Schema.define(:version => 20121123080752) do
   create_table "book_orders", :force => true do |t|
     t.integer  "book_id"
     t.integer  "order_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "shipped",         :default => false
+    t.string   "courier_name"
+    t.string   "tracking_number"
   end
 
   add_index "book_orders", ["book_id"], :name => "index_book_orders_on_book_id"
@@ -196,9 +199,11 @@ ActiveRecord::Schema.define(:version => 20121123080752) do
   end
 
   create_table "generals", :force => true do |t|
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "intelligent_book"
+    t.string   "welcome_mail_subject"
+    t.text     "welcome_mail_content"
   end
 
   create_table "images", :force => true do |t|

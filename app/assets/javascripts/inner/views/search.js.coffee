@@ -70,6 +70,11 @@ $(document).ready ->
 				if sociorent.collections.cart_object.get(@model.id)
 					$(".book_details .add_to_cart").html "In Your Cart"
 				$("#book_details_box").dialog("open")
+				# update authors in book details
+				author = @model.get "author"
+				author_array = author.split ","
+				_.each author_array, (author)->
+					$(view.el).find(".author_names").append "<a href='#' class='author_name'>" + author + "</a><br/>"
 				$.ajax "/home/get_adoption_rate" ,
 					type:"post"
 					async:true

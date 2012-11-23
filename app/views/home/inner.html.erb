@@ -93,7 +93,7 @@
 		$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
 
 		// orders collection reset
-		sociorent.collections.order_object.reset(<%= raw @orders.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}}) %>);
+		sociorent.collections.order_object.reset(<%= raw @orders.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}, :book_orders => {:only => [:shipped, :tracking_number, :courier_name, :book_id]}}) %>);
 
 		// cart collection reset 
 		sociorent.collections.cart_object.reset(<%= raw @cart.to_json(:include => :publisher) %>);

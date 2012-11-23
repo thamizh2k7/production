@@ -21,6 +21,9 @@ $(document).ready ->
 			_.each @model.get("books"), (obj)->
 				model = new sociorent.models.order_book()
 				model.set obj
+				book_order = _.find that.model.get("book_orders"), (book_order)->
+					book_order.book_id == model.id
+				model.set book_order
 				view = new sociorent.views.order_book
 					model: model
 				that.$(".order_books").append view.render().el

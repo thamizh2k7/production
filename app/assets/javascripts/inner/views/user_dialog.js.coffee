@@ -58,6 +58,8 @@ $(document).ready ->
 			$("#orders").html ""
 			if sociorent.collections.order_object.models.length == 0
 				$("#orders").append "<div id='no_orders'>You have not made any orders yet.</div>"
+				$("#all_orders_deposit_total span").html "0"
+				$("#all_orders_rental_total span").html "0"
 			else
 				_.each sociorent.collections.order_object.models, (model)->
 					view = new sociorent.views.order

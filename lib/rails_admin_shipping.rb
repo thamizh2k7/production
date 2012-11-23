@@ -1,18 +1,18 @@
 require 'rails_admin/config/actions'
 require 'rails_admin/config/actions/base'
  
-module RailsAdminRented
+module RailsAdminShipping
 end
  
 module RailsAdmin
   module Config
     module Actions
-      class Rented < RailsAdmin::Config::Actions::Base
+      class Shipping < RailsAdmin::Config::Actions::Base
       	RailsAdmin::Config::Actions.register(self)
       
-#       	register_instance_option :member? do
-# 					true
-# 				end
+      	register_instance_option :member? do
+					true
+				end
 				
 				register_instance_option :link_icon do
 					'icon-check'
@@ -28,9 +28,9 @@ module RailsAdmin
         end
 
         # Is the action on a model scope (Example: /admin/team/export)
-        register_instance_option :collection? do
-          true
-        end
+        # register_instance_option :collection? do
+        #   true
+        # end
         
         register_instance_option :action_name do
           custom_key.to_sym
@@ -54,23 +54,17 @@ module RailsAdmin
         register_instance_option :controller do
 					Proc.new do
             if request.method == "GET"
-              @number_of_books = 0
-              count = 10
-              @colleges = College.pluck(:name)
-              @rented_books = []
-              @orders = Order.includes(:books).all
-              @orders.each do |order|
-                if @rented_books.count <= count
-                  @rented_books += order.books
-                  @number_of_books += order.books.count
-                else
-                  @number_of_books += order.books.count
-                end
-              end
-              @rented_books = @rented_books.first(count)
+              @book_orders = @object.book_orders.where(:shipped => false)
             	render :action => @action.template_name
             else
-            	redirect_to back_or_index
+              book_order_ids = JSON.parse params[:book_orders]
+              book_order_ids.each do |book_order_id|
+                book_order = BookOrder.find(book_order_id.to_i)
+                if book_order
+                  book_order.update_attributes(:shipped => true, :tracking_number => params[:tracking_number], :courier_name => params[:courier_name])
+                end
+              end
+            	render :nothing => true
             end
 					end
 				end

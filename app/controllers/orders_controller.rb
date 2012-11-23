@@ -10,7 +10,7 @@
 			rental_total += (book.price * book.publisher.rental)/100
 		end
 		shipping_charge = deposit_total < 1000 ? 50 : 0
-		total = deposit_total + rental_total + shipping_charge
+		total = deposit_total + shipping_charge
 		order_type = params[:order_type]
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type)
@@ -31,8 +31,8 @@
 
 	def rented_show_more
 		@rented_books = []
-		offset = params[:offset].to_i
-		count = 1
+		count = 10
+		offset = params[:offset].to_i * count
 		select = params[:select]
     if select == "all"
     	@orders = Order.includes(:books).all

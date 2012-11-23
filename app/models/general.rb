@@ -1,5 +1,5 @@
 class General < ActiveRecord::Base
-  attr_accessible :general_images_attributes, :intelligent_book
+  attr_accessible :general_images_attributes, :intelligent_book, :welcome_mail_subject, :welcome_mail_content
 
   has_many :general_images
 
@@ -26,6 +26,8 @@ class General < ActiveRecord::Base
 					html.html_safe		
   			end
   		end
+      field :welcome_mail_subject
+      field :welcome_mail_content
   	end
 
   end

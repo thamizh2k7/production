@@ -60,7 +60,7 @@ $(document).ready ->
 	sociorent.fn.hide_compare = ()->
 		$("#compare_box").fadeOut 500
 	
-	search = ()->
+	sociorent.fn.search = ()->
 		$.ajax "/search" , 
 			type:"post"
 			async:true
@@ -74,7 +74,7 @@ $(document).ready ->
 
 	options =
 	  callback: -> 
-	  	search()
+	  	sociorent.fn.search()
 	  wait: 500
 	  highlight: true
 	  captureLength: 2

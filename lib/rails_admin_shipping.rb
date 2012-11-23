@@ -64,6 +64,10 @@ module RailsAdmin
                   book_order.update_attributes(:shipped => true, :tracking_number => params[:tracking_number], :courier_name => params[:courier_name])
                 end
               end
+              if book_order_ids.count > 0
+                msg = "Your Order, order id - #{@object.random}, was shipped via #{params[:courier_name]} with tracking number - #{params[:tracking_number]}. Please check your account for more details. Sociorent."
+                send_sms(@object.user.mobile_number ,msg)
+              end
             	render :nothing => true
             end
 					end

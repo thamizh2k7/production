@@ -4,6 +4,7 @@ require Rails.root.join('lib','rails_admin_get_book_details.rb')
 require Rails.root.join('lib','rails_admin_finalize_book.rb')
 require Rails.root.join('lib','rails_admin_get_user.rb')
 require Rails.root.join('lib','rails_admin_shipping.rb')
+require Rails.root.join('lib','rails_admin_import_college.rb')
 
 RailsAdmin.config do |config|
 
@@ -51,6 +52,11 @@ RailsAdmin.config do |config|
     get_user do
       visible do
         bindings[:abstract_model].model.to_s == "User"
+      end
+    end
+    import_college do
+      visible do
+        bindings[:abstract_model].model.to_s == "College"
       end
     end
     bulk_delete

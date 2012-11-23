@@ -46,3 +46,10 @@ en:
         link: "Shipping"
         bulk_link: "Shipping"
         done: "Shipping"
+      import_college:
+        title: "Import the College Details"
+        menu: "Import"
+        breadcrumb: "Import"
+        link: "Import"
+        bulk_link: "Import"
+        done: "Import"

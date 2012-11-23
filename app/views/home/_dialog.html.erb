@@ -33,7 +33,7 @@
 </div>
 
 <div id="shipping_details_box">
-	<form class="form-horizontal" id="shipping_form">
+	<form class="form-horizontal shipping_form" id="shipping_form" >
 		<% unless @user.address.nil? %>
 		 <%	address = JSON.parse(@user.address) %>
 		<% end %>

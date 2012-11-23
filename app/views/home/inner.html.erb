@@ -86,6 +86,7 @@
 			model: sociorent.models.user_object,
 		});
 		$("#user_dialog").html(view.render().el);
+		sociorent.fn.shipping_validation();
 		// use chosen plugin
 		$("#profile_college").val(sociorent.models.user_object.get("college").name).chosen();
 		$("#profile_streams").val(sociorent.models.user_object.get("stream").name).chosen();

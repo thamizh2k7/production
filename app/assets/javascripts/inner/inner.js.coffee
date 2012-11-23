@@ -137,3 +137,25 @@ $(document).ready ->
 					$(that).hide().html ""
 					alert("You have successfully applied for intership.")
 		false
+
+	sociorent.fn.shipping_validation = ()->
+		$(".shipping_form").validate
+			rules:
+				address_street_name1:
+					minlength: 2
+					required: true
+
+				address_city:
+					minlength: 2
+					required: true
+
+				address_state:
+					required: true
+
+				address_pincode:
+					required: true
+					digits: true
+					minlength:6
+			highlight: (label) ->
+				$(label).closest(".control-group").addClass "error"
+	sociorent.fn.shipping_validation()

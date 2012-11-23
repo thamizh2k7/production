@@ -96,18 +96,19 @@ $(document).ready ->
 							$("#wishlist").append view.render().el
 
 		update_shipping: ->
-			$.post "/update_shipping", $("#profile_shipping_form").serialize(), (resp) ->
-				if resp.text is "success"
-					sociorent.models.user_object.set($.parseJSON(resp.user))
-					address = sociorent.models.user_object.get "address"
-					sociorent.models.user_object.set
-						address: $.parseJSON(address)
-					alert "Shipping address updated."
-					$("#shipping_form #address_street_name1").val sociorent.models.user_object.get("address").address_street_name1
-					$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
-					$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city
-					$("#shipping_form #address_pincode").val sociorent.models.user_object.get("address").address_pincode
-					$("#shipping_form #address_state").val(sociorent.models.user_object.get("address").address_state)
-					$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
+			if $("#profile_shipping_form").valid()
+				$.post "/update_shipping", $("#profile_shipping_form").serialize(), (resp) ->
+					if resp.text is "success"
+						sociorent.models.user_object.set($.parseJSON(resp.user))
+						address = sociorent.models.user_object.get "address"
+						sociorent.models.user_object.set
+							address: $.parseJSON(address)
+						alert "Shipping address updated."
+						$("#shipping_form #address_street_name1").val sociorent.models.user_object.get("address").address_street_name1
+						$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
+						$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city
+						$("#shipping_form #address_pincode").val sociorent.models.user_object.get("address").address_pincode
+						$("#shipping_form #address_state").val(sociorent.models.user_object.get("address").address_state)
+						$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
 
 			false

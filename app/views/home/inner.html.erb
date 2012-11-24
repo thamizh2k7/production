@@ -87,14 +87,11 @@
 		});
 		$("#user_dialog").html(view.render().el);
 		sociorent.fn.shipping_validation("profile_shipping_form");
-		$("#address_state").val(sociorent.models.user_object.get("address").state).chosen();
-		$("#profile_address_state").val(sociorent.models.user_object.get("address").state).chosen();
+
 		// use chosen plugin
 		$("#profile_college").val(sociorent.models.user_object.get("college").name).chosen();
 		$("#profile_streams").val(sociorent.models.user_object.get("stream").name).chosen();
-		$("#address_state").val(sociorent.models.user_object.get("address").address_state)
-		$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state)
-
+		$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state).chosen();
 		// orders collection reset
 		sociorent.collections.order_object.reset(<%= raw @orders.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}, :book_orders => {:only => [:shipped, :tracking_number, :courier_name, :book_id]}}) %>);
 

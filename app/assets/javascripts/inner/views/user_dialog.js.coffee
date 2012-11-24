@@ -97,7 +97,5 @@ $(document).ready ->
 						$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
 						$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city
 						$("#shipping_form #address_pincode").val sociorent.models.user_object.get("address").address_pincode
-						$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
-	
-
+						$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen();
 			false

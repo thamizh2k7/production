@@ -108,7 +108,8 @@ $(document).ready ->
 		checkout: ->
 			$("#cart_box").dialog("close")
 			$("#shipping_details_box").dialog("open")
-			#$("#address_state").val(sociorent.models.user_object.get("address").address_state)
+			console.log sociorent.models.user_object.get("address").address_state
+			$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
 			
 		create_order: (event)->
 			# get the order type

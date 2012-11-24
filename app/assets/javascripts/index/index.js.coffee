@@ -9,7 +9,7 @@ $(document).ready ->
 	sociorent.collections.search = Backbone.Collection.extend
 		model: sociorent.models.search
 
-	# backbone view
+	# backbone view for  search
 	sociorent.views.search = Backbone.View.extend
 		tagName: "div"
 		className: "search_books_single"
@@ -18,11 +18,19 @@ $(document).ready ->
 
 		initialize: ->
 			_.bindAll this, 'render'
-
 			that = this
 
 		events:
 			"click .add_to_cart" : "add_to_cart"
+			"click .book_left" : "view_book_info"
+
+		view_book_info: ->
+			$("#book_details").html ""
+			view = new sociorent.views.book_details
+				model: @model
+			$("#book_details").append view.render().el
+			$("#book_details").dialog "open"
+
 
 		add_to_cart: ->
 			that = this
@@ -33,7 +41,6 @@ $(document).ready ->
 					book: that.model.id 
 				success: (msg)->
 					window.location.href = "/users/sign_in"
-						
 
 		render: ->
 			image = @model.get("book_image")
@@ -47,6 +54,20 @@ $(document).ready ->
 				isbn: @model.get "isbn10"
 				cart_message: "Add to Cart"
 			this
+
+	#backbone view for Book details
+	sociorent.views.book_details = Backbone.View.extend
+		tagName: "div"
+		className: "book_details"
+		template: _.template $("#book_details_template").html()
+		initialize: ->
+			_.bindAll this, 'render'
+
+		render: ->
+			$(@el).html @template(@model.toJSON())
+			this
+
+
 
 	# render all search result
 	sociorent.fn.renderSearch = ()->

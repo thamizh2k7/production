@@ -79,5 +79,24 @@
 	</div>
 	</div>
 </div>
+<div id="book_details"></div>
+<script type="text/javascript">
+$("document").ready(function(){
+	var width = $(window).width();
+	$("#book_details").dialog({
+		autoOpen: false,
+		draggable: false,
+		height: 700,
+		width: width-100,
+		resizable: false,
+		buttons: {
+              Ok: function () {
+                  $(this).dialog("close");
+              }
+          },
+    modal: true
+  });
+});
+</script>
 
 <%= render :partial => "index_template" %>

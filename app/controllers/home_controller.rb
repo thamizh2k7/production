@@ -7,8 +7,6 @@ class HomeController < ApplicationController
         redirect_to "/welcome"
         return
       end
-  		# search books by default will show last 5 books
-  		@search = Book.last(5)
       # cart of the user
       cart = @user.cart
       @cart = cart.books
@@ -22,7 +20,7 @@ class HomeController < ApplicationController
       @streams = Stream.pluck(:name)
       # Intelligent Books
       # Using FB friends
-      @intelligent_books = []
+      @search = []
       if @user.friends
         friend_uids = JSON.parse @user.friends
         all_uids = JSON.parse User.select("uid").to_json()
@@ -34,25 +32,25 @@ class HomeController < ApplicationController
           general = General.first
           case general.intelligent_book
             when "All friends"
-              @intelligent_books += friend.books
+              @search += friend.books
             when "Friends in same College"    
-              @intelligent_books += friend.books if friend.college == @user.college
+              @search += friend.books if friend.college == @user.college
             when "Friends in same College and Stream" 
-              @intelligent_books += friend.books if friend.college == @user.college && friend.stream == @user.stream
+              @search += friend.books if friend.college == @user.college && friend.stream == @user.stream
           end
         end
-        @intelligent_books.uniq
-        if @intelligent_books.count == 0
-          @intelligent_books = Book.offset(rand(Book.count)).first(10)
+        @search.uniq
+        if @search.count == 0
+          @search = Book.first(10) # offset(rand(Book.count))
         end
       else
         # get users of same college and stream
         similar_users = User.where(:college_id => @user.college, :stream_id => @user.stream)
         similar_users.each do |similar_user|
-          @intelligent_books += similar_user.books
+          @search += similar_user.books
         end
-        if @intelligent_books.count == 0
-          @intelligent_books = Book.offset(rand(Book.count)).first(10)
+        if @search.count == 0
+          @search = Book.offset(rand(Book.count)).first(10)
         end
       end
       # orders made by the user

@@ -1,63 +1,113 @@
 #user{
-	background: #0F8159;
+	background: #DEDEDD;
 	padding: 7px 0px;
 	z-index: 100;
 	position: relative;
-	color : #FFF;
+	color : #696969;
+	height: 30px;
 
 	.left{
 		float: left;
-		width: 30%;
+		width: 20%;
+		margin-left: 13%;
 
 		div{
 			margin-left: 60px;
+			margin-top: 4px;
 		}
 	}
+
+	.arrow-down {
+		width: 0;
+		height: 0;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-top: 6px solid #F65757;
+		left: 7px;
+		position: relative;
+	}
+
 	.right{
 		float: right;
-		width: 67%;
+		width: 30%;
+		margin-right: 15%;
 
-		div{
+		.cart_button_count{
+			background: #F65757;
+			padding: 3px 10px;
+			border-radius: 4px;
+			color: white;
+			margin-top: 0px;
+			width: 8px;
+		}
+
+		div.menu_button{
 			float: right;
 			margin: 0px 20px;
 			cursor: pointer;
+			margin-top: 4px;
+			width: 44px;
 
 			a{
 				text-decoration: none;
-				color: #FFF;
+				color: #696969;
+			}
+		}
+		#cart_button_total{
+			background: #FFF;
+			min-width: 167px;
+			margin-left: -83px;
+			padding: 13px 9px;
+			-webkit-box-shadow: 0 4px 4px -2px #AAA;
+   		-moz-box-shadow: 0 4px 4px -2px #AAA;
+      box-shadow: 0 4px 4px -2px #AAA;
+
+			#cart_button_total_left{
+				float: left;
+				padding-top: 4px;
+			}
+			#cart_button_total_right{
+				float: right;
+				background: #F65757;
+				color: white;
+				padding: 4px;
 			}
 		}
 	}
 }
 
 #content{
+	min-height: 600px;
+	background: #F0F0F0;
 
-	.left{
-		float: left;
-		width: 30%;
-		margin-top: 20px;
-		border-right: 1px solid #AAA;
+	#content_search{
+		width: 95%;
+		margin: 0px auto;
+		padding-top: 20px;
 		
 		#search_books_form{
-			float: left;
-			width: 90%;
+			max-width: 450px;
+			left: 16%;
+			position: relative;
+			border: 5px solid #DEDEDD;
+			border-radius: 5px;
+			padding: 5px;
+			background: white;
+			width: 33%;
 
 			#search_books_input{
-				width:88% !important;
-				margin: 10px 0px 10px 20px;
+				max-width: 355px !important;
+				border: none !important;
+				outline: 0px !important;
+				box-shadow: none;
+				-moz-box-shadow: none;
+				-webkit-box-shadow: none;
+				background: transparent;
+				width: 80%;
 			}
 		}
 
-		#close_search_books{
-			float: right;
-			width: 8%;
-			display: none;
-			cursor: pointer;
-			margin-top: 10px;
-		}
-
 		#search_books{
-			text-align: center;
 
 			.highlight { 
 				background-color: yellow 
@@ -77,14 +127,6 @@
 		}
 		
 	}
-
-	.right{
-		float: right;
-		width: 69%;
-		margin-top: 20px;
-		min-height: 700px;
-	}
-	
 }
 
 
@@ -710,61 +752,79 @@ span.blue{
 .search_books_single{
 	display: inline-block;
 	margin: 20px;
-	border: 1px solid #CCC;
 	padding: 8px;
-	width: 246px;
+	width: 280px;
 	cursor: pointer;
+	background: white;
+	border-radius: 5px;
+	height: 160px;
 
 	.book_left{
 		display: block;
 		float: left;
-		width: 50%;
+		width: 42%;
 	}
 	.book_right{
 		float: right;
-		width: 50%;
+		width: 57%;
 		text-align: left;
+		height: 100%;
+		position: relative;
 
 		.name{
-			font-size: 16px;
-			font-weight: 900;
-			color: #CC4D5C;
+			font-size: 14px;
+			font-weight: 600;
+			color: #696969;
 			margin: 4px 0px 3px 5px;
 			max-height: 40px;
 			overflow: hidden;
 		}
 		.author{
-			font-size: 16px;
-			font-weight: 900;
-			color: #000;
+			font-size: 13px;
+			font-weight: 600;
+			color: #0F8159;
 			margin: 4px 0px 3px 5px;
-		}
-		.isbn{
-			font-size: 12px;
-			font-weight: 900;
-			color: #000;
-			margin: 0px 0px 3px 5px;
-		}
-		.add_to_cart{
-			font-size: 16px;
-			font-weight: 900;
-			color: #CC4D5C;
-			margin: 0px 0px 3px 5px;
 
-			.already_rented {
-				font-size: 10px;
-				line-height: 14px;
-				font-weight: 400;
+			span{
+				font-size: 12px;
 			}
 		}
+		.isbn{
+			font-size: 11px;
+			margin: 0px 0px 3px 5px;
+			color: dimGray;
+			background: #DEDEDD;
+			display: inline-block;
+			padding: 0px 3px;
+			text-transform: uppercase;
+		}
+		.add_to_cart{
+			font-size: 13px;
+			background: #F65757;
+			display: inline-block;
+			padding: 3px 7px;
+			border-radius: 3px;
+			color: white;
+			position: absolute;
+			bottom: 0px;
+			right: 0px;
+		}
+
+		.already_rented {
+			font-size: 10px;
+			line-height: 14px;
+			font-weight: 400;
+			margin-left: 7px;
+		}
+
 		.add_to_compare_box{
 			.add_to_compare{
 				float: left;
 				margin-left: 5px
 			}
 			label{
-				float: right;
-				margin-right: 40px;
+				float: left;
+				margin-left: 6px;
 			}
 		}
 	}

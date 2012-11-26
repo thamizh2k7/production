@@ -30,8 +30,6 @@ $(document).ready ->
 		
 		events:
 			"submit #search_books_form"	: "cancel_submit"
-			"focus #search_books_input" : "expand_search"
-			"click #close_search_books" : "shrink_search"
 			"submit #request_form" : "make_request"
 			"click #cart_button" : "open_cart_dialog"
 			"click #cart_options_left" : "close_cart_dialog"
@@ -47,24 +45,6 @@ $(document).ready ->
 
 		cancel_submit: ->
 			false
-
-		expand_search: ->
-			$("#content .left").stop().animate
-				width: "50%"
-			, 300
-			$("#content .right").stop().animate
-				width: "49%"
-			, 300
-			$("#close_search_books").show()
-
-		shrink_search: ->
-			$("#content .left").animate
-				width: "30%"
-			, 300
-			$("#content .right").animate
-				width: "69%"
-			, 300
-			$("#close_search_books").hide()
 
 		make_request: ->
 			if $.trim($("#request_title").val()) == ""

@@ -111,10 +111,12 @@ $(document).ready ->
 		render: ->
 			image = @model.get("book_image")
 			original_image = @model.get("book_original")
+			rented_message = ""
 			if sociorent.collections.cart_object.get(@model.id)
 				cart_message = "In Your Cart"
 			else if _.indexOf(sociorent.fn.getUserOrderedBooks(), @model.id) > -1
-				cart_message = "Add to Cart<div class='already_rented'>you have already rented this book</div>"
+				cart_message = "Add to Cart"
+				rented_message = "you have already rented this book"
 			else
 				cart_message = "Add to Cart"
 			$(@el).html @template
@@ -125,4 +127,5 @@ $(document).ready ->
 				author: @model.get "author"
 				isbn: @model.get "isbn10"
 				cart_message: cart_message
+				rented_message: rented_message
 			this

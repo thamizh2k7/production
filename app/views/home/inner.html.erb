@@ -6,11 +6,19 @@
       <div>Welcome, <%= @user.name %></div>
     </div>
     <div class="right">
-      <div>
+      <div class="menu_button">
         <%= link_to "SignOut", destroy_user_session_path, :method => :delete %>
       </div>
-      <div id="cart_button">Cart <span></span></div>
-      <div id="compare_button">Compare</div>
+      <div class="menu_button" id="compare_button">Compare</div>
+      <div class="menu_button" id="cart_button">
+      	<div class="cart_button_count"></div>
+      	<div class="arrow-down"></div>
+      	<div id="cart_button_total">
+      		<div id="cart_button_total_left">Total: Rs.<span></span></div>
+      		<div id="cart_button_total_right">Place Order</div>
+      		<div class="clear"></div>
+      	</div>
+      </div>
       <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -25,12 +33,11 @@
 	</div>
 </div>
 <div id="content">
-	<div class="left">
+	<div id="content_search">
 		
 		<form id="search_books_form" class="form-search">
-		  <input type="text" id="search_books_input" class="input-medium search-query" placeholder="Search books">
+		  <input type="text" id="search_books_input" class="input-medium" placeholder="Enter Title, Author Name, ISBN">
 		</form>
-		<div id="close_search_books">close</div>
 		<div class="clear"></div>
 		<div id="search_books">
 		</div>
@@ -47,27 +54,6 @@
 		</div>
 
 	</div>
-	<div class="right">
-
-		<!-- tabs links -->
-		<div id="tabs">
-			<ul>
-				<li><a href="#intelligent_books">Recommend Books</a></li>
-				<!-- <li><a href="#resources">Resources</a></li> -->
-			</ul>
-
-			<!-- tabs content -->
-			<div id="intelligent_books">
-			</div>
-			<!--
-			<div id="resources">
-				this is a resource tab
-			</div>
-			-->
-		</div>
-		
-	</div>
-	<div class="clear"></div>
 </div>
 
 <%= render :partial => "template" %>

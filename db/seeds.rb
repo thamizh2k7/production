@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+g = General.create(:welcome_mail_subject=>"Dear Admin, This is your email")
 User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
 
 # books
@@ -22,7 +23,7 @@ p2 = Publisher.create(:name => "Wrox", :rental => 70)
 # c1.books.create(:name => "sachin tendulkar", :description => "god of cricket", :isbn10 => "123bh123", :author => "abc", :isbn13 => "12312321312", :binding =>"Hardcover", :publisher_id => p1.id, :published => "2009", :pages => 320, :price => 340, :strengths => "this is a sample strengths", :weaknesses => "this is sample weaknesses")
 
 # general
-# g = General.create()
+
 # g.general_images.create(:image_url => "http://www.doubledeclutch.com/wp-content/uploads/2011/10/10-porsche-posters-sm.jpg")
 # g.general_images.create(:image_url => "http://fc09.deviantart.net/fs71/i/2012/209/b/d/books_and_magazines_design_linspire_solutions_by_linspiresolutions-d5905sx.jpg")
 # g.general_images.create(:image_url => "http://cdn.shopify.com/s/files/1/0007/3442/files/New_Year_New_Diary_-_Greens.jpg?1290632676")

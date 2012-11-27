@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require ./underscore.js
-//= require ./jquery.ui.widget.js
+//= require ./jquery-ui-1.9.1.custom.min.js
 //= require_tree .
 
 $(document).ready(function(){

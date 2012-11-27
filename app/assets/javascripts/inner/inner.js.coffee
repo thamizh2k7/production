@@ -95,7 +95,7 @@ $(document).ready ->
 				query: $("#compare_search_input").val()
 			success: (msg)->
 				# reset the compare search collections
-				sociorent.collections.compare_search_object.reset msg
+				sociorent.collections.compare_search_object.reset $.parseJSON(msg.books)
 				sociorent.fn.renderCompareSearch()
 
 

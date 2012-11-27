@@ -101,7 +101,7 @@ $(document).ready ->
 				query: $("#search_books_input").val()
 			success: (msg)->
 				# reset the search collections
-				sociorent.collections.search_object.reset(msg)
+				sociorent.collections.search_object.reset($.parseJSON(msg.books))
 				sociorent.fn.renderSearch()
 
 	# type watch plugin for search box
@@ -125,3 +125,8 @@ $(document).ready ->
 
 	$("#login_box_button").click ->
 		$("#login_box").dialog "open"
+
+	$("a[href='/users/password/new']").click ->
+		$("#login_box_left_login").fadeOut 200, ()->
+			$("#login_box_left_password").fadeIn 200
+		false

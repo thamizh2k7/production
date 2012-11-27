@@ -117,7 +117,18 @@
 <div id="book_details"></div>
 
 <div id="login_box">
-	<%= render :template => "devise/sessions/new" %>
+	<div id="login_box_left">
+		<div id="login_box_left_login">
+			<%= render :template => "devise/sessions/new" %>
+		</div>
+		<div id="login_box_left_password">
+			<%= render :template => "devise/passwords/new" %>
+		</div>
+	</div>
+	<div id="login_box_right">
+		<%= render :template => "devise/registrations/new" %>
+	</div>
+	<div class="clear"></div>
 </div>
 
 <script type="text/javascript">
@@ -129,18 +140,13 @@ $("document").ready(function(){
 		height: 700,
 		width: width-100,
 		resizable: false,
-		buttons: {
-              Ok: function () {
-                  $(this).dialog("close");
-              }
-          },
     modal: true
   });
 
   $("#login_box").dialog({
 		autoOpen: false,
 		draggable: false,
-		height: 700,
+		height: 600,
 		width: 1000,
 		resizable: false,
     modal: true

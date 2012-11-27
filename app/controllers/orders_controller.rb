@@ -18,6 +18,9 @@
 		order.books = cart.books
 		order.save
 
+		# mail 
+		UserMailer.order_email(user, order).deliver
+
 		#send the sms when the user completes the order
     sms_text=Sms.where(:sms_type=>"order").first.content
     send_sms(user.mobile_number,"Thank you..#{sms_text}")

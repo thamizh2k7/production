@@ -81,35 +81,39 @@
 	  <div id="shipping_form_error"></div>
 	</form>
 </div>
+
 <div id="checkout_box">
 	<div id="checkout_caption">Checkout</div>
-	<div id="checkout_cash" class="create_order" data-attr="cash">
-		<p>Deposit to Bank</p>
-		<div class="control-group">
-	    <label class="control-label" for="address_pincode">Bank Name</label>
-	    <div class="controls">
-	    	<%= select_tag "bank_name", options_for_select(Bank.all.map {|u| [u.bank_name,u.id]}) %>
-	    </div>
-	  </div>
-	  <div id="bank_details"></div>
-	 </div>
-	<div id="checkout_cheque" class="create_order" data-attr="cheque"> 
-		Send us a cheque at this address
-	</div>
-	<% if @user.ambassador.nil? && !@user.is_admin? %>
-		<div id="ambassador">
-			<div id="ambassador_caption">Please choose who referred you to our website</div>
-			<div id="ambassador_select_box">
-				<select id="ambassador_select">
-					<option value=0>Choose your Referrer</option>
-					<% @user.college.ambassadors.each do |ambassador| %>
-						<option value="<%= ambassador.id %>"><%= ambassador.ambassador_manager.name %></option>
-					<% end %>
-				</select>
-			</div>
+	<div id="checkout_box_content">
+		<div id="checkout_cash" class="create_order" data-attr="cash">
+			<p>Deposit to Bank</p>
+			<div class="control-group">
+		    <label class="control-label" for="address_pincode">Bank Name</label>
+		    <div class="controls">
+		    	<%= select_tag "bank_name", options_for_select(Bank.all.map {|u| [u.bank_name,u.id]}) %>
+		    </div>
+		  </div>
+		  <div id="bank_details"></div>
+		 </div>
+		<div id="checkout_cheque" class="create_order" data-attr="cheque"> 
+			Send us a cheque at this address
 		</div>
-	<% end %>
+		<% if @user.ambassador.nil? && !@user.is_admin? %>
+			<div id="ambassador">
+				<div id="ambassador_caption">Please choose who referred you to our website</div>
+				<div id="ambassador_select_box">
+					<select id="ambassador_select">
+						<option value=0>Choose your Referrer</option>
+						<% @user.college.ambassadors.each do |ambassador| %>
+							<option value="<%= ambassador.id %>"><%= ambassador.ambassador_manager.name %></option>
+						<% end %>
+					</select>
+				</div>
+			</div>
+		<% end %>
+	</div>
 </div>
+
 <div id="order_box">
 	<div id="order_caption">Order Made</div>
 	<div id="order_id">Your order id is <span></span>, use this number when you make payment with cash and cheque for reference.</div>

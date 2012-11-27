@@ -94,6 +94,7 @@ $(document).ready ->
 		create_order: (event)->
 			# get the order type
 			order_type = $(event.target).attr "data-attr"
+			$("#checkout_box_content").html "<div class='center'>Order processing...</div>"
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true

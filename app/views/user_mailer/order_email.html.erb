@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+  	<div>Dear <%= @user.name %></div>
+    <div><%= raw @general.order_email_content %></div>
+    <h4>Order details</h4>
+    <div>Order Number: <%= @order.random %></div>
+    <div>Order Total: <%= @order.total %></div>
+    <% @order.books.each do |book| %>
+    	<div><b><%= book.name %></b> <i>by <%= book.author %></i></div>
+    <% end %>
+    <br/><br/>
+    <a href="http://www.sociorent.com/">Sociorent</a>
+  </body>
+</html>

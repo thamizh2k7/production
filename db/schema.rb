@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123080752) do
+ActiveRecord::Schema.define(:version => 20121127060413) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20121123080752) do
     t.string   "intelligent_book"
     t.string   "welcome_mail_subject"
     t.text     "welcome_mail_content"
+    t.string   "order_email_subject"
+    t.text     "order_email_content"
   end
 
   create_table "images", :force => true do |t|

@@ -115,6 +115,11 @@
 </div>
 
 <div id="book_details"></div>
+
+<div id="login_box">
+	<%= render :template => "devise/sessions/new" %>
+</div>
+
 <script type="text/javascript">
 $("document").ready(function(){
 	var width = $(window).width();
@@ -129,6 +134,15 @@ $("document").ready(function(){
                   $(this).dialog("close");
               }
           },
+    modal: true
+  });
+
+  $("#login_box").dialog({
+		autoOpen: false,
+		draggable: false,
+		height: 700,
+		width: 1000,
+		resizable: false,
     modal: true
   });
 });

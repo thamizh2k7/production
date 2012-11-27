@@ -27,7 +27,10 @@
 }
 
 .ui-dialog .ui-dialog-titlebar {
-	display: none;
+	/*display: none;*/
+	background: #777;
+	outline: none;
+	border: none;
 }
 
 #resources{

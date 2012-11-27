@@ -122,3 +122,6 @@ $(document).ready ->
 		$("#search_books").fadeOut 200
 		$(this).css
 			visibility: "hidden"
+
+	$("#login_box_button").click ->
+		$("#login_box").dialog "open"

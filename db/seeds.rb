@@ -53,5 +53,5 @@ c = Company.create(:name => "something", :offer_position => "developer", :offer_
 c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/TheCompany_office_2col.jpg")
 
 # sms for signup and order
-Sms.create(:sms_type="signup",:content="Thank you for registering with us")
-Sms.create(:sms_type="order",:content=>"Thank you for ordering with us")
+Sms.create(:sms_type=>"signup",:content=>"Thank you for registering with us")
+Sms.create(:sms_type=>"order",:content=>"Thank you for ordering with us")

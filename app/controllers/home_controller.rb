@@ -20,38 +20,15 @@ class HomeController < ApplicationController
       @streams = Stream.pluck(:name)
       # Intelligent Books
       # Using FB friends
-      @search = []
-      if @user.friends
-        friend_uids = JSON.parse @user.friends
-        all_uids = JSON.parse User.select("uid").to_json()
-        friends_who_use_sociorent_uids = all_uids & friend_uids
-        # get all books their friends ordered
-        friends_who_use_sociorent_uids.each do |uid|
-          friend = User.where(:uid => uid["uid"]).first
-          # check condition on friend from the General Setting
-          general = General.first
-          case general.intelligent_book
-            when "All friends"
-              @search += friend.books
-            when "Friends in same College"    
-              @search += friend.books if friend.college == @user.college
-            when "Friends in same College and Stream" 
-              @search += friend.books if friend.college == @user.college && friend.stream == @user.stream
-          end
-        end
-        @search.uniq
-        if @search.count == 0
-          @search = Book.first(10) # offset(rand(Book.count))
-        end
+      @search = intelligent_books(@user)
+      if @search.count == 0
+        @search = Book.first(8)
+        @load_more = false
+      elsif @search.count <= 8
+        @load_more = false
       else
-        # get users of same college and stream
-        similar_users = User.where(:college_id => @user.college, :stream_id => @user.stream)
-        similar_users.each do |similar_user|
-          @search += similar_user.books
-        end
-        if @search.count == 0
-          @search = Book.offset(rand(Book.count)).first(10)
-        end
+        @search = @search.first(8)
+        @load_more = true
       end
       # orders made by the user
       @orders = @user.orders
@@ -68,9 +45,37 @@ class HomeController < ApplicationController
   end
 
   def search
-  	query = "*#{params[:query]}*"
-  	@books = Book.search query
-  	render :json => @books.to_json(:include => :publisher)
+	  query = "*#{params[:query]}*"
+    resp = {}
+	  @books = Book.search query
+    if @books.count > 8
+      resp[:load_more] = true
+    else
+      resp[:load_more] = false
+    end
+    @books = @books.first(8)
+    resp[:books] = @books.to_json(:include => :publisher)
+  	render :json => resp.to_json()
+  end
+
+  def load_more
+    resp = {}
+    load_more_count = params[:load_more_count].to_i * 8
+    load_more_limit = load_more_count + 8
+    unless params[:query] == ""
+      query = "*#{params[:query]}*"
+      @books = Book.search(query)
+    else
+      @books = intelligent_books(current_user)
+    end
+    if @books.count > load_more_limit
+      resp[:load_more] = true
+    else
+      resp[:load_more] = false
+    end
+    books_to_send = @books[load_more_count, 8]
+    resp[:books] = books_to_send.to_json(:include => :publisher)
+    render :json => resp
   end
 
   def book_request
@@ -162,9 +167,43 @@ class HomeController < ApplicationController
     end
     render :json => resp
   end
+
   def get_bank_details
     bank=Bank.find(params[:id])
     render :text=> bank.details
+  end
+
+  private
+
+  def intelligent_books(user)
+    intelligent_books = []
+    if user.friends
+      friend_uids = JSON.parse user.friends
+      all_uids = JSON.parse User.select("uid").to_json()
+      friends_who_use_sociorent_uids = all_uids & friend_uids
+      # get all books their friends ordered
+      friends_who_use_sociorent_uids.each do |uid|
+        friend = User.where(:uid => uid["uid"]).first
+        # check condition on friend from the General Setting
+        general = General.first
+        case general.intelligent_book
+          when "All friends"
+            intelligent_books += friend.books
+          when "Friends in same College"    
+            intelligent_books += friend.books if friend.college == user.college
+          when "Friends in same College and Stream" 
+            intelligent_books += friend.books if friend.college == user.college && friend.stream == user.stream
+        end
+      end
+      intelligent_books.uniq
+    else
+      # get users of same college and stream
+      similar_users = User.where(:college_id => user.college, :stream_id => user.stream)
+      similar_users.each do |similar_user|
+        intelligent_books += similar_user.books
+      end
+    end
+    return intelligent_books
   end
   
 end

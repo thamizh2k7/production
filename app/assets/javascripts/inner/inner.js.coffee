@@ -68,7 +68,11 @@ $(document).ready ->
 				query: $("#search_books_input").val()
 			success: (msg)->
 				# reset the search collections
-				sociorent.collections.search_object.reset(msg)
+				if msg.load_more
+					$("#load_more").show()
+				else
+					$("#load_more").hide()
+				sociorent.collections.search_object.reset($.parseJSON(msg.books))
 				sociorent.fn.renderSearch()
 
 
@@ -159,4 +163,3 @@ $(document).ready ->
 			highlight: (label) ->
 				$(label).closest(".control-group").addClass "error"
 	sociorent.fn.shipping_validation("shipping_form")
-

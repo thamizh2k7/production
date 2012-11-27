@@ -21,6 +21,7 @@ Sociorent::Application.routes.draw do
   post "orders/counter_cash_payment"
   post "home/apply_intership"
   match "update_shipping" => "home#update_shipping"
+  post "home/load_more"
  
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

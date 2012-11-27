@@ -26,7 +26,10 @@ $(document).ready ->
 			sociorent.models.user_object = new sociorent.models.user()
 
 			# bind scroll of window to this view
-			$(window).scroll this.scroll_app
+			$("#search_books").scroll this.show_go_top
+
+			# load more count
+			sociorent.load_more = 0
 		
 		events:
 			"submit #search_books_form"	: "cancel_submit"
@@ -42,6 +45,8 @@ $(document).ready ->
 			"submit #compare_search_form"	: "cancel_submit"
 			"change #ambassador_select" : "select_reference"
 			"click #update_shipping" : "update_shipping"
+			"click #load_more" : "load_more"
+			"click #go_top" : "go_top"
 
 		cancel_submit: ->
 			false
@@ -123,15 +128,11 @@ $(document).ready ->
 					$(view.render().el).insertBefore("#search_to_compare")
 			$("#compare_dialog_box").dialog "open"
 
-		scroll_app: ->
-			if $("body").scrollTop() > 156
-				$("#compare_box").css
-					position: "fixed"
-					top: "0px"
+		show_go_top: ->
+			if $("#search_books").scrollTop() == 0
+				$("#go_top").fadeOut 100
 			else
-				$("#compare_box").css
-					position: "absolute"
-					top: "156px"
+				$("#go_top").fadeIn 100
 
 		open_user_dialog: ->
 			$("#user_dialog").dialog "open"
@@ -150,9 +151,32 @@ $(document).ready ->
 					success: (msg)->
 						$("#ambassador_select_box").html "Thank you."
 
+		load_more: ->
+			query = $.trim($("#search_books_input").val())
+			$.ajax "/home/load_more" ,
+				type:"post"
+				async:true
+				data:
+					query: query
+					load_more_count: ++sociorent.load_more
+				success: (msg)->
+					if msg.load_more
+						$("#load_more").show()
+					else
+						$("#load_more").hide()
+					_.each $.parseJSON(msg.books), (obj)->
+						model = new sociorent.models.search(obj)
+						view = new sociorent.views.search
+							model: model
+						$("#search_books").append view.render().el
+						# highlight found value
+					val = $("#search_books_input").val()
+					unless $.trim(val) == ""
+						$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
+
+		go_top: ->
+			$("#search_books").animate
+				scrollTop: 0
+			, 200
 
 	sociorent.views.app_object = new sociorent.views.app()
-	
-
-
-		

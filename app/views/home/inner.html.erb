@@ -52,8 +52,11 @@
 			</form>
 			<div id="request_error"></div>
 		</div>
-
 	</div>
+
+	<div id="load_more" class="center">Load more</div>
+
+	<div id="go_top">Top</div>
 </div>
 
 <%= render :partial => "template" %>
@@ -91,8 +94,10 @@
 		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json(:include => :publisher) %>);
 		sociorent.fn.renderIntelligent();
 
-		// 
-
+		// load more
+		<% unless @load_more %>
+			$("#load_more").hide();
+		<% end %>
 		// setting width and height
 		var width = $(window).width();
 

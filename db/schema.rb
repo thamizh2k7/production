@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127060413) do
+ActiveRecord::Schema.define(:version => 20121127105913) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20121127060413) do
     t.string   "availability"
     t.decimal  "price",           :precision => 10, :scale => 2
     t.text     "description"
+    t.string   "college"
+    t.string   "stream"
   end
 
   create_table "book_carts", :force => true do |t|

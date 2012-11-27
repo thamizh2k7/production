@@ -58,24 +58,28 @@ module RailsAdmin
             else
               isbns = params[:isbn].split(",")
               isbns.each do |isbn|
-                book_details = BookFinder.flipkart(isbn)
-                puts book_details
-                book = Hash.new()
-                book["book"] = book_details["Book"]
-                book["author"] = book_details["Author"]
-                book["isbn"] = book_details["ISBN"]
-                book["isbn13"] = book_details["ISBN-13"]
-                book["binding"] = book_details["Binding"]
-                book["publishing_date"] = book_details["Publishing Date"]
-                book["publisher"] = book_details["Publisher"]
-                book["edition"] = book_details["Edition"]
-                book["number_of_pages"] = book_details["Number of Pages"]
-                book["language"] = book_details["Language"]
-                book["image_url"]=book_details["img_url"]
-                book["availability"]=book_details["availability"]
-                book["price"]=book_details["price"]
-                book["description"]=book_details["description"]
-                BookApi.create(book)
+                if isbn.to_i.is_a? (Integer)
+                  book_details = BookFinder.flipkart(isbn)
+                  puts book_details
+                  book = Hash.new()
+                  book["book"] = book_details["Book"]
+                  book["author"] = book_details["Author"]
+                  book["isbn"] = book_details["ISBN"]
+                  book["isbn13"] = book_details["ISBN-13"]
+                  book["binding"] = book_details["Binding"]
+                  book["publishing_date"] = book_details["Publishing Date"]
+                  book["publisher"] = book_details["Publisher"]
+                  book["edition"] = book_details["Edition"]
+                  book["number_of_pages"] = book_details["Number of Pages"]
+                  book["language"] = book_details["Language"]
+                  book["image_url"]=book_details["img_url"]
+                  book["availability"]=book_details["availability"]
+                  book["price"]=book_details["price"]
+                  book["description"]=book_details["description"]
+                  book["college"]=book_details["college"]
+                  book["stream"]=book_details["stream"]
+                  BookApi.create(book)
+                end
               end
               flash[:notice]="Books Retrieved"
             end

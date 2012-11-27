@@ -75,13 +75,25 @@ module RailsAdmin
                 book["availability"]=row[14]
                 book["price"]=row[15]
                 book["description"]=row[16]
-               # book["language"] = row[10]
+
+                # book["language"] = row[10]
                 publisher = Publisher.where(:name=>row[7]).first
                 if publisher.nil?
                   publisher=Publisher.create(:name=>row[7])
                 end
                 puts book
                 book_save=Book.create(book)
+                college = College.where(:name =>row[17]).first
+                if college.nil?
+                    college = College.create(:name=>row[17])
+                end
+                book_save.book_colleges.create(:college_id=>college.id)
+
+                stream=Stream.where(:name =>row[18]).first
+                if stream.nil?
+                    stream=Stream.create(:name=>row[18])
+                end
+                book_save.book_streams.create(:stream_id=>stream.id)
                 book_save.publisher=publisher
                 if row[10] !=""
                   #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")

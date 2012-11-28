@@ -79,18 +79,25 @@
 			
 			<div class="cB"></div>
 		</div>
-
-		<div class="werwith">
-			<h1>We are with</h1>
-			<div class="caro_prev left"></div>
-			<ul class="carousal left">
+		<h1>We are with</h1>
+			<div  id="gallery-prev" class="caro_prev left"></div>
+		<div class="werwith" id="gallery-wrap">
+	
+			<ul class="carousal left" id="gallery">
+					<li><img src="/assets/col1.jpg"></li>
+					<li><img src="/assets/col2.jpg"></li>
+					<li><img src="/assets/col3.jpg"></li>
+					<li><img src="/assets/col1.jpg"></li>
+					<li><img src="/assets/col2.jpg"></li>
+					<li><img src="/assets/col3.jpg"></li>
 					<li><img src="/assets/col1.jpg"></li>
 					<li><img src="/assets/col2.jpg"></li>
 					<li><img src="/assets/col3.jpg"></li>
 			</ul>
-			<div class="caro_next left"></div>
-			<div class="cB"></div>
+			
 		</div>
+		<div  id="gallery-next" class="caro_next left"></div>
+			<div class="cB"></div>
 
 	</div>
 </div>
@@ -167,6 +174,33 @@ $("document").ready(function(){
     modal: true
   });
   $('#slider').nivoSlider({randomStart: true,directionNav: false});
+
+  // Sliding logos //
+  if($("#gallery").length){
+        // Declare variables
+        var totalImages = jQuery("#gallery > li").length, 
+            imageWidth = jQuery("#gallery > li:first").outerWidth(true),
+            totalWidth = imageWidth * totalImages,
+            visibleImages = Math.round(jQuery("#gallery-wrap").width() / imageWidth),
+            visibleWidth = visibleImages * imageWidth,
+            stopPosition = (visibleWidth - totalWidth);
+            
+        jQuery("#gallery").width(totalWidth);
+        
+        jQuery("#gallery-prev").click(function(){
+            if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")){
+                jQuery("#gallery").animate({left : "+=" + imageWidth + "px"});
+            }
+            return false;
+        });
+        
+        jQuery("#gallery-next").click(function(){
+            if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")){
+                jQuery("#gallery").animate({left : "-=" + imageWidth + "px"});
+            }
+            return false;
+        });
+    }
 });
 </script>
 <%= render :partial => "index_template" %>

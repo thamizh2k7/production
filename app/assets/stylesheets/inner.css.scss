@@ -89,6 +89,7 @@ body{
 
 	#content_search{
 		padding-top: 20px;
+
 		
 		#search_books_form{
 			max-width: 450px;
@@ -97,8 +98,9 @@ body{
 			border: 5px solid #DEDEDD;
 			border-radius: 5px;
 			padding: 5px;
-			background: white;
+			background: #FAFAFA;
 			width: 33%;
+			height: 25px;
 
 			#search_books_input{
 				max-width: 355px !important;
@@ -109,7 +111,19 @@ body{
 				-webkit-box-shadow: none;
 				background: transparent;
 				width: 80%;
+				height:26px;
+				float:left;
 			}
+					.search_icon{
+				background: url("/assets/home-sprite.png") no-repeat scroll -248px -93px #FAFAFA;
+				border: medium none;
+				height: 25px;
+				display:block;
+				text-indent: -1000px;
+				width: 40px !important;
+				float:right;
+			}
+
 		}
 
 		#search_books{

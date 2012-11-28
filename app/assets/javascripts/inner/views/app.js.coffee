@@ -35,7 +35,6 @@ $(document).ready ->
 			"submit #search_books_form"	: "cancel_submit"
 			"submit #request_form" : "make_request"
 			"click #cart_button" : "open_cart_dialog"
-			"click #cart_options_left" : "close_cart_dialog"
 			"click #cart_options_right" : "checkout"
 			"click .create_order" : "create_order"
 			"click #compare_close" : "compare_close"
@@ -73,9 +72,6 @@ $(document).ready ->
 
 		open_cart_dialog: ->
 			$("#cart_box").dialog("open")
-
-		close_cart_dialog: ->
-			$("#cart_box").dialog("close")
 
 		update_shipping: ->
 			if $("#shipping_form").valid()

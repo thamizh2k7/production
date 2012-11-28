@@ -22,12 +22,12 @@ class HomeController < ApplicationController
       # Using FB friends
       @search = intelligent_books(@user)
       if @search.count == 0
-        @search = Book.first(8)
+        @search = Book.first(6)
         @load_more = false
-      elsif @search.count <= 8
+      elsif @search.count <= 6
         @load_more = false
       else
-        @search = @search.first(8)
+        @search = @search.first(6)
         @load_more = true
       end
       # orders made by the user
@@ -47,20 +47,20 @@ class HomeController < ApplicationController
   def search
     resp = {}
 	  @books = Book.search params[:query], :star => true
-    if @books.count > 8
+    if @books.count > 6
       resp[:load_more] = true
     else
       resp[:load_more] = false
     end
-    @books = @books.first(8)
+    @books = @books.first(6)
     resp[:books] = @books.to_json(:include => :publisher)
   	render :json => resp.to_json()
   end
 
   def load_more
     resp = {}
-    load_more_count = params[:load_more_count].to_i * 8
-    load_more_limit = load_more_count + 8
+    load_more_count = params[:load_more_count].to_i * 6
+    load_more_limit = load_more_count + 6
     unless params[:query] == ""
       query = "*#{params[:query]}*"
       @books = Book.search(query)
@@ -72,7 +72,7 @@ class HomeController < ApplicationController
     else
       resp[:load_more] = false
     end
-    books_to_send = @books[load_more_count, 8]
+    books_to_send = @books[load_more_count, 6]
     resp[:books] = books_to_send.to_json(:include => :publisher)
     render :json => resp
   end

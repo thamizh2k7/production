@@ -44,6 +44,10 @@ body{
 			width: 8px;
 		}
 
+		#compare_button{
+			font-weight: 900;
+		}
+
 		div.menu_button{
 			float: right;
 			margin: 0px 20px;
@@ -88,8 +92,10 @@ body{
 	background: #F0F0F0;
 
 	#content_search{
-		padding-top: 20px;
-
+		#search_books_form_box{
+			background: #F0F0F0;
+			padding: 20px 0px;
+		}
 		
 		#search_books_form{
 			max-width: 450px;
@@ -130,6 +136,9 @@ body{
 			padding: 0px 30px;
 			height: 540px;
 			overflow-y: auto;
+			text-align: center;
+			max-width: 1050px;
+			margin: 0px auto;
 
 			.highlight { 
 				background-color: yellow 
@@ -375,16 +384,6 @@ body{
 	#cart_options{
 		margin: 20px auto 0px;
 		width: 95%;
-
-		#cart_options_left {
-			float: left;
-			width: 125px;
-			background: #EEE;
-			padding: 5px 15px;
-			border-radius: 15px;
-			text-align: center;
-			cursor: pointer;
-		}
 
 		#cart_options_right {
 			float: right;
@@ -810,19 +809,17 @@ span.blue{
 			font-weight: 600;
 			color: #0F8159;
 			margin: 4px 0px 3px 5px;
+			height: 20px;
+			overflow: hidden;
 
 			span{
 				font-size: 12px;
 			}
 		}
-		.isbn{
-			font-size: 11px;
-			margin: 0px 0px 3px 5px;
-			color: dimGray;
-			background: #DEDEDD;
-			display: inline-block;
-			padding: 0px 3px;
-			text-transform: uppercase;
+		.mrp, .rent_price{
+			margin: 4px 0px 3px 5px;
+			height: 20px;
+			overflow: hidden;			
 		}
 		.add_to_cart{
 			font-size: 13px;

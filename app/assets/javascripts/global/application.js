@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$("#resources_dialog").dialog("open");
 	});
 
-	$("#resources_dialog").dialog({
+	$("#static_page_dialog").dialog({
 		autoOpen: false,
 		draggable: false,
 		height: 700,
@@ -33,6 +33,14 @@ $(document).ready(function(){
               }
           },
     modal: true
+	});
+
+	$(".static_page_dialog_open").click(function(){
+		current = $(this).attr("href");
+		$("#static_page_dialog .sub").hide();
+		$(current).show();
+		$("#static_page_dialog").dialog("open");
+		return false;
 	});
 
 	$(".rails_notice").delay(5000).fadeOut(300);

@@ -29,23 +29,23 @@
 }
 #searchClose{
 	margin-top: 23px;
-height: 25px;
-width: 38px;
-color: white;
-background: #F65757;
-font-weight: bolder;
-padding: 2px;
-display:none;
+	height: 25px;
+	width: 38px;
+	color: white;
+	background: #F65757;
+	font-weight: bolder;
+	padding: 2px;
+	display:none;
 }
 .searchbar{
 	background: none repeat scroll 0 0 #FAFAFA;
-    border: 7px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 0 2px 2px #AAAAAA inset;
-    height: 21px;
-    margin: 10px auto;
-    padding: 10px;
-    width: 450px;
+  border: 7px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 2px 2px #AAAAAA inset;
+  height: 21px;
+  margin: 10px auto;
+  padding: 10px;
+  width: 450px;
 }
 .search{
 	background: #fafafa !important;
@@ -192,6 +192,9 @@ display:none;
 }
 
 /***********result books*******************/
+#search_books{
+	width: 1050px;
+}
 
 .search_books_single{
 	display: inline-block;
@@ -228,19 +231,17 @@ display:none;
 			font-weight: 600;
 			color: #0F8159;
 			margin: 4px 0px 3px 5px;
+			height: 20px;
+			overflow: hidden;
 
 			span{
 				font-size: 12px;
 			}
 		}
-		.isbn{
-			font-size: 11px;
-			margin: 0px 0px 3px 5px;
-			color: dimGray;
-			background: #DEDEDD;
-			display: inline-block;
-			padding: 0px 3px;
-			text-transform: uppercase;
+		.mrp, .rent_price{
+			margin: 4px 0px 3px 5px;
+			height: 20px;
+			overflow: hidden;			
 		}
 		.add_to_cart{
 			font-size: 13px;

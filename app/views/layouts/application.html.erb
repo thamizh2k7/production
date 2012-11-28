@@ -17,7 +17,7 @@
         <div class="topbar_right right">
           <nav class="main_nav right">
             <ul>
-              <li><a href="#">PLANS</a></li>
+              <li><a href="#pricing_page" class="static_page_dialog_open">PRICING</a></li>
               <li><a>UNIVERSITIES</a></li>
               <li><a>BLOG</a></li>
               <% if current_user %>
@@ -35,36 +35,7 @@
 
   <%= yield %>
 
-  <div id="resources_dialog">
-    <div id="resources">
-      <% Resource.all.each do |res| %>
-        <a class="resource_single" href="<%= res.link %>" target="_blank">
-          <div>
-            <img src="<%= res.image.image %>"/>
-          </div>
-          <div><%= res.name %></div>
-        </a>
-      <% end %>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(".resource_single").click(function(){
-        if($(this).attr("href") == "internships"){
-          <% if @user %>
-            $("#intership_dialog").dialog("open");
-            $("#resources_dialog").dialog("close");
-            return false;
-          <% else %>
-            <% flash[:notice] = "You need to login to register for internships." %>
-            window.location.href = "/users/sign_in"
-            return false;
-          <% end %>
-        }
-      });
-    });
-  </script>
+  <%= render :partial => "/static_page_dialog" %>
 
 </body>
 </html>

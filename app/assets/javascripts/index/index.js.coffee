@@ -53,6 +53,8 @@ $(document).ready ->
 				author: @model.get "author"
 				isbn: @model.get "isbn10"
 				cart_message: "Add to Cart"
+				mrp: @model.get "price"
+				rent_price: (@model.get("price") * @model.get("publisher").rental)/100
 			this
 
 	#backbone view for Book details

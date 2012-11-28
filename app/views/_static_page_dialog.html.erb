@@ -1,0 +1,50 @@
+<div id="static_page_dialog">
+
+	<div id="pricing_page" class="sub">
+		<% pricing = StaticPage.where(:page_name => "pricing").first %>
+	  <h4><%= pricing.page_title %></h4>
+	  <div><%= pricing.page_content %></div>
+	</div>
+
+	<div id="about_us_page" class="sub">
+		<% about_us = StaticPage.where(:page_name => "about_us").first %>
+	  <h4><%= about_us.page_title %></h4>
+	  <div><%= about_us.page_content %></div>
+	</div>
+
+	<div id="teams_page" class="sub">
+		<% teams = StaticPage.where(:page_name => "teams").first %>
+	  <h4><%= teams.page_title %></h4>
+	  <div><%= teams.page_content %></div>
+	</div>
+
+	<div id="careers_page" class="sub">
+		<% careers = StaticPage.where(:page_name => "careers").first %>
+	  <h4><%= careers.page_title %></h4>
+	  <div><%= careers.page_content %></div>
+	</div>
+
+	<div id="contact_us_page" class="sub">
+		<% contact_us = StaticPage.where(:page_name => "contact_us").first %>
+	  <h4><%= contact_us.page_title %></h4>
+	  <div><%= contact_us.page_content %></div>
+	</div>
+
+	<div id="product_tour_page" class="sub">
+		<% product_tour = StaticPage.where(:page_name => "product_tour").first %>
+	  <h4><%= product_tour.page_title %></h4>
+	  <div><%= product_tour.page_content %></div>
+	</div>
+
+	<div id="features_page" class="sub">
+		<% features = StaticPage.where(:page_name => "features").first %>
+	  <h4><%= features.page_title %></h4>
+	  <div><%= features.page_content %></div>
+	</div>
+
+	<div id="colleges_page" class="sub">
+		<% colleges = StaticPage.where(:page_name => "colleges").first %>
+	  <h4><%= colleges.page_title %></h4>
+	  <div><%= colleges.page_content %></div>
+	</div>
+</div>

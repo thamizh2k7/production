@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127105913) do
+ActiveRecord::Schema.define(:version => 20121128053547) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(:version => 20121127105913) do
   add_index "book_streams", ["stream_id"], :name => "index_book_streams_on_stream_id"
 
   create_table "books", :force => true do |t|
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "name"
     t.text     "description"
     t.string   "isbn10"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20121127105913) do
     t.integer  "rank"
     t.integer  "publisher_id"
     t.string   "availability"
+    t.boolean  "delta",          :default => true
   end
 
   create_table "carts", :force => true do |t|

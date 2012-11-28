@@ -1,32 +1,97 @@
 /**video content **/
 .video_content .grid_3_5{
-	padding: 50px 20px;
+	padding: 20px;
 }
 .video_content  h2{
 	margin: 5px 0 20px;
-	font-size: 1.5em !important;
-	line-height: 21px !important;
+	font-size:1.5em;
 }
-.video_content  span{
+.video_content  .join_txt{
 	font-size: 20px;
 	color: #B4B5B5;
-	margin: 20px 0;
+	margin: 10px 0;
+	display: block;
+	line-height:24px;
+}
+.search_wrap{
+    border-bottom: 1px solid #CCCCCC;
+    box-shadow: 0 1px 1px #FFFFFF;
+    margin: 0 auto;
+    padding: 30px 0;
+    width: 100%;
+}
+.search_wrap h2{
+	color: #666666;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 10px 0 0 100px;
+    width: 300px;
+}
+#searchClose{
+	margin-top: 23px;
+height: 25px;
+width: 38px;
+color: white;
+background: #F65757;
+font-weight: bolder;
+padding: 2px;
+visibility:hidden;
+}
+.searchbar{
+	background: none repeat scroll 0 0 #FAFAFA;
+    border: 7px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 2px 2px #AAAAAA inset;
+    height: 21px;
+    margin: 10px auto;
+    padding: 10px;
+    width: 450px;
+}
+.search{
+	background: #fafafa !important;
+	border:none !important;
+  font-size: 18px;
+  width:395px;
+  box-shadow:none !important;
+}
+.search:focus{
+	box-shadow:none !important;
+  -webkit-box-shadow:none;
+}
+.searchbutton {
+    background: url("/assets/home-sprite.png") no-repeat scroll -248px -93px #FAFAFA;
+    border: medium none;
+    height: 25px;
+    text-indent: -1000px;
+    width: 40px !important;
+	cursor: pointer;
+}
+.searchbutton:hover {
+	opacity: 0.7;
 }
 .fb_big_logi{
-	background: url("/assets/home-sprite.png") no-repeat scroll -2px -81px transparent;
+	background: url("/assets/home-sprite.png") no-repeat scroll -1px -79px transparent;
     display: block;
-    height: 45px;
-    margin: 40px 0 0px;
-    width: 238px;
+    height: 50px;
+    margin: 20px 0 0;
+    width: 239px;
 }
-
+.signup_link{
+	font-size: 18px;
+    margin: 32px 10px 0;
+}
+.signup_link span{
+	background: none repeat scroll 0 0 #F4F4F4;
+    border-radius: 5px 5px 5px 5px;
+    padding: 13px;
+}
 /** content **/
 .content{
 	background: url("/assets/cont-bg.png") repeat;
 	padding-bottom: 100px;
 }
 .content h1{
-	padding: 50px 0;
+	padding: 30px 0;
 }
 	
 .info_icon{
@@ -66,8 +131,7 @@
 [class*="info_cont"] h2{
 	color: #666;
 	font-weight: bold;
-	font-size: 1.5em !important;
-	line-height: 21px !important;
+	font-size: 1.5em;
 }
 [class*="info_cont"] span{
 	color: #7F7D7D;
@@ -127,256 +191,90 @@
     width: 256px;
 }
 
-/* search box css */
-#search_books{
-	text-align: center;
-	height: 500px;
-	background: #E5E4E4;
-	margin-top: 53px;
-	z-index: 10;
-	display: none;
-	position: relative;
-	overflow-y: auto;
-
-	.highlight { 
-		background-color: yellow 
-	}
-}
-
-#no_search_result{
-	display: none;
-	width: 93%;
-	margin: auto;
-}
+/***********result books*******************/
 
 .search_books_single{
 	display: inline-block;
 	margin: 20px;
-	border: 1px solid #CCC;
 	padding: 8px;
-	width: 246px;
+	width: 280px;
 	cursor: pointer;
+	background: white;
+	border-radius: 5px;
+	height: 160px;
 
 	.book_left{
 		display: block;
 		float: left;
-		width: 50%;
+		width: 42%;
 	}
 	.book_right{
 		float: right;
-		width: 50%;
+		width: 57%;
 		text-align: left;
+		height: 100%;
+		position: relative;
 
 		.name{
-			font-size: 16px;
-			font-weight: 900;
-			color: #CC4D5C;
+			font-size: 14px;
+			font-weight: 600;
+			color: #696969;
 			margin: 4px 0px 3px 5px;
 			max-height: 40px;
 			overflow: hidden;
 		}
 		.author{
-			font-size: 16px;
-			font-weight: 900;
-			color: #000;
+			font-size: 13px;
+			font-weight: 600;
+			color: #0F8159;
 			margin: 4px 0px 3px 5px;
+
+			span{
+				font-size: 12px;
+			}
 		}
 		.isbn{
-			font-size: 12px;
-			font-weight: 900;
-			color: #000;
+			font-size: 11px;
 			margin: 0px 0px 3px 5px;
+			color: dimGray;
+			background: #DEDEDD;
+			display: inline-block;
+			padding: 0px 3px;
+			text-transform: uppercase;
 		}
 		.add_to_cart{
-			font-size: 16px;
-			font-weight: 900;
-			color: #CC4D5C;
-			margin: 0px 0px 3px 5px;
+			font-size: 13px;
+			background: #F65757;
+			display: inline-block;
+			padding: 3px 7px;
+			border-radius: 3px;
+			color: white;
+			position: absolute;
+			bottom: 0px;
+			right: 0px;
+		}
+
+		.already_rented {
+			font-size: 10px;
+			line-height: 14px;
+			font-weight: 400;
+			margin-left: 7px;
+		}
+
+		.add_to_compare_box{
+			.add_to_compare{
+				float: left;
+				margin-left: 5px
+			}
+			label{
+				float: left;
+				margin-left: 6px;
+			}
 		}
 	}
 }
+/************* end result books *******/
 
-#searchClose{
-	padding-top: 6px;
-	padding-bottom: 6px;
-	visibility: hidden;
-}
-/* book_details css*/
-#book_details{
-
-	span.blue{
-		color: #CC4D5C;
-	}
-	.book_heading{
-		font-size: 22px;
-		border-bottom: 1px solid #AAA;
-		padding: 20px;
-	}
-
-	.left{
-		float: left;
-		width: 35%;
-		
-		.book_image {
-			float: left;
-			width: 25%;
-			margin: 20px;
-
-			img{
-				padding: 5px;
-				border: 1px solid #AAA;
-			}
-		}
-
-		.auther_edition {
-			float: right;
-			width: 65%;
-			margin-top: 20px;
-
-			.edition{
-				margin-bottom: 15px;
-			}
-			.author{
-
-			}
-			.add_to_cart{
-				color: #CC4D5C;
-				font-weight: 900;
-				font-size: 18px;
-				cursor: pointer;
-			}
-			.add_to_wishlist{
-				margin-top: 10px;
-				cursor: pointer;
-			}
-		}
-
-		.socio_rent_rank{
-			border-top: 1px solid #AAA;
-			border-bottom: 1px solid #AAA;
-			padding: 10px 0px;
-
-			.socio_rent_rank_left {
-				float: left;
-				width: 50%;
-				text-align: center;
-			}
-			.socio_rent_rank_right {
-				float: right;
-				text-align: center;
-				width: 50%;
-			}
-
-		}
-
-		.information{
-			margin-top: 20px;
-			text-transform: uppercase;
-
-			.information_left {
-				float: left;
-				width: 40%;
-				margin-left: 14%;
-			}
-
-			.information_right {
-				float: right;
-				width: 40%;
-			}
-		}
-
-		.class_adoption_caption{
-			margin: 20px 0px 15px 10px;
-			color: #CC4D5C;
-		}
-		.class_adoption_single {
-			width: 90%;
-			margin: 10px auto;
-
-			.class_adoption_college {
-				float: left;
-				margin-bottom: 5px;
-			}
-			.class_adoption_rate {
-				float: right;
-				margin-bottom: 5px;
-			}
-		}
-
-	}
-	.right{
-		float: right;
-		width: 60%;
-
-		.text{
-			margin: 30px auto;
-			width: 90%;
-
-			.text_left{
-				float: left;
-				width: 15%;
-			}
-			.text_right {
-				float: right;
-				width: 85%;
-			}
-		}
-
-		.reviews_box{
-			.reviews_caption{
-				background: #AAA;
-				padding: 5px 20px;
-				border-radius: 8px;
-
-				.reviews_caption_left{
-					float:left;
-					width: 40%;
-				}
-				.reviews_caption_right{
-					float: right;
-					width: 40%;
-					text-align: right;
-					cursor: pointer;
-				}
-			}
-			.reviews{
-				text-align: center;
-				margin-top: 20px;
-
-				.reviews_form{
-					text-align: left;
-					margin-left: 15px;
-					margin-top: 20px;
-				
-					.reviews_input{
-						width: 750px;
-					}
-					.reviews_submit{
-
-					}
-				}
-				.reviews_content{
-					.review_single {
-						text-align: left;
-						width: 90%;
-						margin: 15px auto;
-
-						.review_single_right {
-							float: right;
-							width: 80%;
-						}
-							.review_single_left {
-							float: left;
-							width: 20%;
-							color: #CC4D5C;
-						}
-					}
-				}
-			}
-
-		}
-	}
-}
 
 /**footer**/
 .footer{
@@ -384,19 +282,21 @@
 }
 .footer ul li{
 	border-right: 3px solid #303030;
-    color: #919191;
     font-size: 18px;
     padding:5px 20px;
     width: 180px;
+    line-height:22px;
+}
+.footer ul li a{
+	 color: #919191;
 }
 .footer .grid_1{
-	padding: 60px;
+	padding:30px 60px;
 }
 .footer_cpy{
 	background: none repeat scroll 0 0 #1A1A1A;
     color: #656565;
-    font-size: 20px;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .footer_cpy span{
 	margin-left: 550px;
@@ -414,28 +314,18 @@
 }
 .foot_box ul li a{
 	display: block;
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
-
-#login_box{
-	width: 1000px;
-	overflow-x: hidden;
+.foot_box ul li a:hover{
+	background: url("/assets/home-sprite.png") no-repeat;
 }
-
-#login_box_left{
-	float: left;
-	width: 39%;
-	border-right: 1px solid #AAA;
-	height: 100%;
-	margin-left: 10%;
+.foot_box ul li .fb:hover{
+	background-position: 0px -350px;
 }
-
-#login_box_right{
-	float: right;
-	width: 42%;
+.foot_box ul li .twit:hover{
+	background-position: -55px -350px;
 }
-
-#login_box_left_password{
-	display: none;
+.foot_box ul li .blog:hover{
+	background-position: -110px -350px;
 }

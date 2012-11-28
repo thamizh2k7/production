@@ -5,32 +5,26 @@
 	<div class="grid_3_5">
 		<h1>Why buy Engineering text books, when you can rent at 80% Off?</h1>
 		<h2 class="green"><b>Save loads of money. Feel Great. Be Smart.</b></h2>
-		<span class="join_txt">Join the fastest growing network of smart students and rent books easily.</span>
-		<a class="fb_big_logi left" href="/users/auth/facebook"></a><a class="left signup_link green"><span>Sign Up</span></a>
+		<span>Join the fastest growing network of smart students and rent books easily.</span>
+		<a class="fb_big_logi" href="/users/auth/facebook"></a>
 	</div>
 	<div class="grid_2_5">
 	</div>
 	<div class="cB"></div>
 </div>
-
-
 <div class="content">
 	<div class="wrapper">
-
 		<div class="search_wrap">
-			<h2 class="left">Rent your books and Save thousands of Rupees</h2>
-			<div class="searchbar left">
-					<form class="left" method="get" action="/search/" id="search">
-						<input type="text" id="search_books_input" name="q"  placeholder="Enter Title, Author Name, ISBN" class="left search">
+			<h2>Rent your books and Save thousands of Rupees</h2>
+			<div class="searchbar">
+					<form class="right" method="get" action="/search/" id="search">
+						<input type="text" name="q" placeholder="Enter Title, Author Name, ISBN" class="left search" id="search_books_input">
 						<input type="submit" value="Search" class="left searchbutton">
-
+						<input type="button" value="X" class="left btn" id="searchClose">
 					</form>
 			</div>
-			<input type="button" value="X" class="left btn" id="searchClose">
-			<div class="cB"></div>
 			<div id="search_books"></div>
 		</div>
-
 		<h1>How does it work?</h1>
 		<div class="prod_info">
 			<div class="grid_1_2">
@@ -72,54 +66,52 @@
 			
 			<div class="cB"></div>
 		</div>
-
-		<div class="werwith">
-			<h1>We are with</h1>
-			<div class="caro_prev left"></div>
-			<ul class="carousal left">
-					<li><img src="/assets/col1.jpg"></li>
-					<li><img src="/assets/col2.jpg"></li>
-					<li><img src="/assets/col3.jpg"></li>
-			</ul>
-			<div class="caro_next left"></div>
-			<div class="cB"></div>
-		</div>
-
+	<div class="werwith">
+		<h1>We are with</h1>
+		<div class="caro_prev left"></div>
+		<ul class="carousal left">
+				<li><img src="/assets/col1.jpg"></li>
+				<li><img src="/assets/col2.jpg"></li>
+				<li><img src="/assets/col3.jpg"></li>
+		</ul>
+		<div class="caro_next left"></div>
+		<div class="cB"></div>
+	</div>
 	</div>
 </div>
 
 <div class="footer">
-	<div class="wrapper">
-		<div class="right links">
-			<div class="grid_1">
-				<ul class="left">
-					<li><a>About Us</a></li>
-					<li><a>Teams</a></li>
-					<li><a>Careers</a></li>
-					<li><a>Contact Us</a></li>
-				</ul>
-				<ul class="left">
-					<li><a>Product Tour</a></li>
-					<li><a>Features</a></li>
-					<li><a>Pricing</a></li>
-					<li><a>Colleges</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="foot_box left">
-			<ul>
-				<li><a class="fb" href="www.facebook.com/sociorent"></a></li>
-				<li><a class="twit" href="www.twitter.com/sociorent"></a></li>
-				<li><a class="blog" href="www.sociorent.com/blog"></a></li>
-			</ul>
-		</div>
-		<div class="cB"></div>
-	</div>
+  <div class="wrapper">
+    <div class="right links">
+      <div class="grid_1">
+        <ul class="left">
+          <li>About Us</li>
+          <li>Teams</li>
+          <li>Careers</li>
+          <li>Contact Us</li>
+        </ul>
+        <ul class="left">
+          <li>Product Tour</li>
+          <li>Features</li>
+          <li>Pricing</li>
+          <li>Colleges</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot_box right">
+      <ul>
+        <li><a href="http://www.facebook.com/sociorent"></a></li>
+        <li><a href="http://www.twitter.com/sociorent"></a></li>
+        <li><a href="http://www.sociorent.com/blog"></a></li>
+      </ul>
+    </div>
+    <div class="cB"></div>
+  </div>
 </div>
 <div class="footer_cpy">
-	<div class="wrapper">
-		<span>&copy; Sociorent. All rights reserved.</span>
-	</div>
+  <div class="wrapper">
+    <span>&copy; Sociorent. All rights reserved.</span>
+  </div>
 </div>
 
 <div id="book_details"></div>
@@ -161,4 +153,5 @@ $("document").ready(function(){
   });
 });
 </script>
+
 <%= render :partial => "index_template" %>

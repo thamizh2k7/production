@@ -59,10 +59,10 @@ a{
 	}
 }
 
-/* new css */
+/**************css global **********/
 @font-face {
 	font-family: 'rupee';
-	src: local('hanzo'),url(../others/Hattori_Hanzo_Italic.otf);
+	src: local('hanzo'),url(/assets/fonts/Hattori_Hanzo_Italic.otf);
 	font-weight: normal;
 	font-style: normal;
 }
@@ -71,12 +71,17 @@ html, form, body, fieldset, ul, li, ol, h1, h2, h3, a, p {
 	padding: 0;
 	font-weight: normal;
 	font-family: hanzo, helvetica, arial;
+
+}
+h2{
+		line-height:22px;
 }
 th {
 	text-transform: capitalize;
 }
 li {
 	list-style: none;
+	line-height:17px;
 }
 
 .disc{
@@ -166,49 +171,18 @@ body {
 	background: #fafafa;
 }
 .logo{
-	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;
-  height: 70px;
-  width: 296px;
+	background: url("/assets/home-sprite.png") no-repeat scroll 0 0 transparent;
+    height: 70px;
+    width: 272px;
 	margin: 10px 0 25px;
 }
 .logo h1{
 	text-indent: -999px;
 }
-.search_wrap{
-	background: none repeat scroll 0 0 #E5E4E4;
-    height: 99px;
-    margin: 10px auto;
-    width: 100%;
-}
-.search_wrap h2{
-	padding: 10px 0 0 280px;
-	font-size: 1.5em !important;
-	line-height: 21px !important;
-}
-.searchbar{
-	width:450px;
-	margin: 0px auto;
-	padding-top:15px;
-}
-.search{
-  border: 2px solid #d9d9d9 !important;
-  height: 21px !important;
-  width: 327px !important;
-  padding: 5px !important;
-  font-size: 13px !important;
-	background: #fafafa;
-}
-.searchbutton {
-  background: url("/assets/home-sprite.png") no-repeat scroll -248px -88px #fafafa;
-  border: 2px solid #D9D9D9;
-  height: 35px;
-  text-indent: -1000px;
-  width: 40px !important;
-	border-left: none;
-}
+
 .foot_box{
 	background: url("/assets/home-sprite.png") no-repeat scroll 0px -288px;
-	margin-top: 120px;
+	margin-top: 90px;
 }
 .main_nav{
 	margin-top: 25px;

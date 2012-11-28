@@ -171,6 +171,12 @@ class HomeController < ApplicationController
     bank=Bank.find(params[:id])
     render :text=> bank.details
   end
+
+  def book
+    @book = Book.find(params[:id])
+    @book_image = "http://www.sociorent.in" + ((@book.images.first.nil?) ? "/assets/Sociorent.png" : @book.images.first.image.url).to_s
+  end
+
   private
 
   def intelligent_books(user)

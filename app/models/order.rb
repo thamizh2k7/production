@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
+  belongs_to :bank
 
   belongs_to :user
   belongs_to :college

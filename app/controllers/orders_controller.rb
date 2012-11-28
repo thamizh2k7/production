@@ -14,7 +14,21 @@
 		order_type = params[:order_type]
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type)
-		# adding all the books in the cart to orders
+		
+		unless params[:bank_id].nil?
+    	bank=Bank.where(:id=>params[:bank_id]).first
+    	if bank
+    		#adding the bank to order
+    		order.bank = bank
+    		#sending the sms
+    		uniqueid =" Unique ID:#{user.unique_id}"
+    		bank_details = " The Bank Account Details:#{strip_html(bank.details)}"
+    		sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
+    		send_sms(user.mobile_number,sms_text)
+    	end
+    end
+
+    # adding all the books in the cart to orders
 		order.books = cart.books
 		order.save
 
@@ -23,14 +37,8 @@
 
 		#send the sms when the user completes the order
     sms_text=Sms.where(:sms_type=>"order").first.content
-    send_sms(user.mobile_number,"Thank you..#{sms_text}")
-    unless params[:bank_id].nil?
-    	bank=Bank.where(:id=>:bank_id).first
-    	if bank
-    		sms_text=strip_html(bank.details)
-    		send_sms(user.mobile_number,"The Bank Account Details:#{sms_text}")
-    	end
-    end
+    send_sms(user.mobile_number,"#{sms_text}")
+    
 		# empty the cart
 		cart.book_carts.each do |book_cart|
 			book_cart.delete
@@ -100,6 +108,7 @@
 		end
 		render :json => msg
 	end
+
 	private
 	def strip_html(html_page)
   	html_page.to_s.gsub!(/(<[^>]+>|&nbsp;|\r|\n)/,"")

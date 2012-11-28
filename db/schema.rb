@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128053547) do
+ActiveRecord::Schema.define(:version => 20121128132107) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(:version => 20121128053547) do
     t.string   "order_type"
     t.boolean  "payment_done",  :default => false
     t.integer  "deposit_total"
+    t.integer  "bank_id"
   end
 
   create_table "publishers", :force => true do |t|

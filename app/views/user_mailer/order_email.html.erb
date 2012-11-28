@@ -12,6 +12,12 @@
     <% @order.books.each do |book| %>
     	<div><b><%= book.name %></b> <i>by <%= book.author %></i></div>
     <% end %>
+    <% if @order.order_type=="bank" %>
+      <div> You have selected to pay via bank deposit </div>
+      <div> Unique ID:<%= @user.unique_id%> </div>
+      <div>Bank Details:</div>
+      <div><%= raw @order.bank.details %></div>
+    <% end %>
     <br/><br/>
     <a href="http://www.sociorent.com/">Sociorent</a>
   </body>

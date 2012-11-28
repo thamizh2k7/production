@@ -24,6 +24,13 @@
 		#send the sms when the user completes the order
     sms_text=Sms.where(:sms_type=>"order").first.content
     send_sms(user.mobile_number,"Thank you..#{sms_text}")
+    unless params[:bank_id].nil?
+    	bank=Bank.where(:id=>:bank_id).first
+    	if bank
+    		sms_text=strip_html(bank.details)
+    		send_sms(user.mobile_number,"The Bank Account Details:#{sms_text}")
+    	end
+    end
 		# empty the cart
 		cart.book_carts.each do |book_cart|
 			book_cart.delete
@@ -92,5 +99,9 @@
 			msg[:msg] = "Invalid order."
 		end
 		render :json => msg
+	end
+	private
+	def strip_html(html_page)
+  	html_page.to_s.gsub!(/(<[^>]+>|&nbsp;|\r|\n)/,"")
 	end
 end

@@ -85,15 +85,25 @@
 <div id="checkout_box">
 	<div id="checkout_caption">Checkout</div>
 	<div id="checkout_box_content">
-		<div id="checkout_cash" class="create_order" data-attr="cash">
+		<div id="checkout_cash">
 			<p>Deposit to Bank</p>
-			<div class="control-group">
-		    <label class="control-label" for="address_pincode">Bank Name</label>
-		    <div class="controls">
-		    	<%= select_tag "bank_name", options_for_select(Bank.all.map {|u| [u.bank_name,u.id]}) %>
-		    </div>
-		  </div>
-		  <div id="bank_details"></div>
+			<div class="pull-left">
+				<div class="control-group">
+			    <label class="control-label" for="bank_name">Bank Name</label>
+			    <div class="controls">
+			    	<%= select_tag "bank_name", options_for_select(Bank.all.map {|u| [u.bank_name,u.id]}),:prompt=>"Select Bank" %>
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			    	<a class="btn create_order" data-attr="bank"> Confirm</a>
+			    </div>
+			  </div>
+			 </div>
+			 <div class="pull-right">
+			 	<div id="bank_details"></div>
+			 </div>
+			 <div class="clear"></div>
 		 </div>
 		<div id="checkout_cheque" class="create_order" data-attr="cheque"> 
 			Send us a cheque at this address

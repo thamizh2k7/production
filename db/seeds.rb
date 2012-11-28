@@ -56,3 +56,4 @@ c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/Th
 # sms for signup and order
 Sms.create(:sms_type=>"signup",:content=>"Thank you for registering with us")
 Sms.create(:sms_type=>"order",:content=>"Thank you for ordering with us")
+Bank.create(:bank_name=>"SBI",:details=>"Account Details")

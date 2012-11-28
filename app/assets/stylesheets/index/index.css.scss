@@ -332,3 +332,25 @@ display:none;
 
 #gallery-wrap{margin: 0 auto;overflow: hidden;width: 920px;position: relative;float: left;}
 #gallery{position: relative; left: 0; top: 0;}
+
+#login_box{
+	width: 1000px;
+	overflow-x: hidden;
+}
+
+#login_box_left{
+	float: left;
+	width: 39%;
+	border-right: 1px solid #AAA;
+	height: 100%;
+	margin-left: 10%;
+}
+
+#login_box_right{
+	float: right;
+	width: 42%;
+}
+
+#login_box_left_password{
+	display: none;
+}

@@ -99,12 +99,15 @@ $(document).ready ->
 		create_order: (event)->
 			# get the order type
 			order_type = $(event.target).attr "data-attr"
-			$("#checkout_box_content").html "<div class='center'>Order processing...</div>"
+			post_data = order_type :order_type
+			if order_type == "bank"
+				post_data["bank_id"] = $("#bank_name").val()
+			$("#checkout_box_content").html "<div class='center'> Order processing...</div>"
+			console.log post_data
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
-				data: 
-					order_type: order_type
+				data: post_data
 				success: (msg)->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"

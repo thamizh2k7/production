@@ -173,7 +173,8 @@ $("document").ready(function(){
 		resizable: false,
     modal: true
   });
-  $('#slider').nivoSlider({randomStart: true,directionNav: false});
+  $('#slider').nivoSlider({directionNav: false,effect: 'slideInRight',animSpeed: 0, // Slide transition speed
+        pauseTime: 3000,});
 
   // Sliding logos //
   if($("#gallery").length){
@@ -201,6 +202,21 @@ $("document").ready(function(){
             return false;
         });
     }
+    var mouse_is_inside = false;
+		
+		$('.search_wrap').hover(function(){ 
+        mouse_is_inside=true; 
+    }, function(){ 
+        mouse_is_inside=false; 
+    });
+
+    $("body").mouseup(function(){ 
+        if(! mouse_is_inside) {
+        	$('#search_books').hide();
+        	$("#searchClose").hide();
+        }
+    });
+
 });
 </script>
 <%= render :partial => "index_template" %>

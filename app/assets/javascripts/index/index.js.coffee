@@ -86,8 +86,7 @@ $(document).ready ->
 			$("#search_books").append "<div id='no_search_result_caption'>No books found.</div>"
 			$("#no_search_result").show()
 		$("#search_books").stop().fadeIn(500)
-		$("#searchClose").css
-			visibility: "visible"
+		$("#searchClose").show()
 
 	# initialize collection
 	sociorent.collections.search_object = new sociorent.collections.search()
@@ -120,9 +119,7 @@ $(document).ready ->
 
 	$("#searchClose").click ->
 		$("#search_books").fadeOut 200
-		$(this).css
-			visibility: "hidden"
-
+		$(this).hide()
 	$("#login_box_button").click ->
 		$("#login_box").dialog "open"
 

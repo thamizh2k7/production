@@ -45,9 +45,8 @@ class HomeController < ApplicationController
   end
 
   def search
-	  query = "*#{params[:query]}*"
     resp = {}
-	  @books = Book.search query
+	  @books = Book.search params[:query], :star => true
     if @books.count > 8
       resp[:load_more] = true
     else

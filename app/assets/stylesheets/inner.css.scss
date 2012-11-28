@@ -127,6 +127,10 @@ body{
 			width: 93%;
 			margin: auto;
 
+			#no_search_result_caption{
+				font-size: 16px;
+				margin: 20px 0px;
+			}
 			form{
 				input{
 					display: block;
@@ -299,6 +303,7 @@ body{
 					width: 40%;
 					text-align: right;
 					cursor: pointer;
+					display: none;
 				}
 			}
 			.reviews{
@@ -309,6 +314,7 @@ body{
 					text-align: left;
 					margin-left: 15px;
 					margin-top: 20px;
+					display: none;
 				
 					.reviews_input{
 						width: 750px;

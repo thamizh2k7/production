@@ -19,7 +19,6 @@ $(document).ready ->
 				$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
 			$("#no_search_result").hide()
 		else 
-			$("#search_books").append "<div id='no_search_result_caption'>No books found.</div>"
 			$("#no_search_result").show()
 		$("#search_books").stop().fadeIn(300)
 

@@ -32,7 +32,6 @@ class Book < ActiveRecord::Base
     indexes :author
     indexes :isbn10
 
-    set_property :enable_star => 1
     set_property :min_infix_len => 2
 
   end

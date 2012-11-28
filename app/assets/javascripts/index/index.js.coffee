@@ -85,7 +85,7 @@ $(document).ready ->
 		else 
 			$("#search_books").append "<div id='no_search_result_caption'>No books found.</div>"
 			$("#no_search_result").show()
-		$("#search_books").stop().fadeIn(200)
+		$("#search_books").stop().fadeIn(500)
 		$("#searchClose").css
 			visibility: "visible"
 

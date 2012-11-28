@@ -9,6 +9,13 @@
 		<a class="fb_big_logi left" href="/users/auth/facebook"></a><a class="left signup_link green"><span>Sign Up</span></a>
 	</div>
 	<div class="grid_2_5">
+		<div class="slider-wrapper">
+    <div id="slider" class="nivoSlider">
+      <img src="/assets/homeslide1.png">
+			<img src="/assets/homeslide2.png">
+			<img src="/assets/homeslide3.png">
+	  </div>
+</div>
 	</div>
 	<div class="cB"></div>
 </div>
@@ -159,6 +166,7 @@ $("document").ready(function(){
 		resizable: false,
     modal: true
   });
+  $('#slider').nivoSlider({randomStart: true,directionNav: false});
 });
 </script>
 <%= render :partial => "index_template" %>

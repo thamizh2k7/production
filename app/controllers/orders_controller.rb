@@ -30,8 +30,8 @@ class OrdersController < ApplicationController
     end
 
     # koala publish actions 
-    unless @user.token.nil?
-    	token = @user.token
+    unless user.token.nil?
+    	token = user.token
     	graph  = Koala::Facebook::API.new(token)
     	books.each do |book|
 	    	book_url = "http://www.sociorent.in:3000/book/details/#{book.id}"

@@ -333,27 +333,75 @@
 
 #gallery-wrap{margin: 0 auto;overflow: hidden;width: 920px;position: relative;float: left;}
 #gallery{position: relative; left: 0; top: 0;}
+.fl{
+		float:left;
+	}
+	.fr{
+		float:right;
+	}
+	.fc{
+		clear: both;
+	}
 
-#login_box{
-	width: 1000px;
-	overflow-x: hidden;
+#login_box
+{
+	width:580px;
+	#login_box_left{
+		width:48%;
+		float: left;
+		border-right:1px dotted #000;
+		#login_box_left_login{
+			height: 100%;
+			margin-left: 3%;
+		}
+		#login_box_left_signup{
+			display:none;
+		}
+		#login_box_left_password{
+			display: none;
+		}
+	}
+	#login_box_right{
+		width: 48%;
+		float: right;
+		margin: 29px -13px 0px 0px;
+	}
 }
-
-#login_box_left{
-	float: left;
-	width: 39%;
-	border-right: 1px solid #AAA;
-	height: 100%;
-	margin-left: 10%;
-}
-
-#login_box_right{
-	float: right;
-	width: 42%;
-}
-
-#login_box_left_password{
-	display: none;
+#devise_pages{
+	h2{
+		font-size:14px;
+		font-weight: bold;
+	}
+	a{
+		text-decoration:underline;
+		font-size: 12px;
+		color: blue;
+	}
+	.new_user{
+			div{
+				clear:both;
+				label{
+					float:left;
+					font-size:12px;
+					display:block;
+					width:35%;
+				}
+				label.error{
+					float:right;
+				}
+				input{
+					font-size:12px;
+					width:60%;
+					padding:1px;
+				}
+				input[type=checkbox]{
+					width:20px;
+				}
+				input[type=submit]{
+					width:35%;
+				}
+			}
+			}
 }
 /*********  Book details css  ********/
 #book_details{

@@ -84,15 +84,9 @@
 		<div class="werwith" id="gallery-wrap">
 	
 			<ul class="carousal left" id="gallery">
-					<li><img src="/assets/col1.jpg"></li>
-					<li><img src="/assets/col2.jpg"></li>
-					<li><img src="/assets/col3.jpg"></li>
-					<li><img src="/assets/col1.jpg"></li>
-					<li><img src="/assets/col2.jpg"></li>
-					<li><img src="/assets/col3.jpg"></li>
-					<li><img src="/assets/col1.jpg"></li>
-					<li><img src="/assets/col2.jpg"></li>
-					<li><img src="/assets/col3.jpg"></li>
+			<% @images.each do |image| %>
+				<li><img src="<%= image.image %>"></li>
+			<% end %>
 			</ul>
 			
 		</div>
@@ -140,15 +134,18 @@
 
 <div id="login_box">
 	<div id="login_box_left">
-		<div id="login_box_left_login">
+		<div id="login_box_left_login" class="boxes">
 			<%= render :template => "devise/sessions/new" %>
 		</div>
-		<div id="login_box_left_password">
+		<div id="login_box_left_password" class="boxes">
 			<%= render :template => "devise/passwords/new" %>
+		</div>
+		<div id="login_box_left_signup" class="boxes">
+			<%= render :template => "devise/registrations/new" %>
 		</div>
 	</div>
 	<div id="login_box_right">
-		<%= render :template => "devise/registrations/new" %>
+				<a class="fb_big_logi" href="/users/auth/facebook"></a>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -168,11 +165,13 @@ $("document").ready(function(){
   $("#login_box").dialog({
 		autoOpen: false,
 		draggable: false,
-		height: 600,
-		width: 1000,
+		title:'Login',
+		width: 600,
 		resizable: false,
     modal: true
   });
+
+
   $('#slider').nivoSlider({directionNav: false,effect: 'slideInRight',animSpeed: 0, // Slide transition speed
         pauseTime: 3000,});
 

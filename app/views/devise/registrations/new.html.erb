@@ -1,19 +1,17 @@
 <div id="devise_pages">
-  <h2>Sign up</h2>
-
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
-    <div><%= f.label :email %><br />
+    <div><%= f.label :email %>
     <%= f.email_field :email %></div>
 
-    <div><%= f.label :password %><br />
+    <div><%= f.label :password %>
     <%= f.password_field :password %></div>
 
-    <div><%= f.label :password_confirmation %><br />
+    <div><%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %></div>
 
-    <div><%= f.label :name %><br />
+    <div><%= f.label :name %>
     <%= f.text_field :name %></div>
 
     <div><%= f.submit "Sign up", :id => "submit" %></div>

@@ -124,8 +124,22 @@ $(document).ready ->
 		$(this).hide()
 	$("#login_box_button").click ->
 		$("#login_box").dialog "open"
-
-	$("a[href='/users/password/new']").click ->
-		$("#login_box_left_login").fadeOut 200, ()->
-			$("#login_box_left_password").fadeIn 200
+	$("a[href='/users/sign_in']").hide()
+	$("#devise_pages a").click ->
+		action = $(this).text()
+		$("#login_box").dialog('option','title',action)
+		switch(action)
+			when "Login"
+				$("#login_box_left .boxes").slideUp 0
+				$("#login_box_left_login").slideDown 200
+			when "Sign Up"
+				$("#login_box_left .boxes").slideUp 0
+				$("#login_box_left_signup").slideDown 200
+			when "Forgot Password?"
+				$("#login_box_left .boxes").slideUp 0
+				$("#login_box_left_password").slideDown 200
+		$("#devise_pages a").css("display","none")
+		$("#devise_pages a").each (ele) -> 
+			if $(this).text() != action
+				$(this).show()
 		false

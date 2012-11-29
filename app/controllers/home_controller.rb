@@ -39,7 +39,7 @@ class HomeController < ApplicationController
     elsif @counter = current_counter
       render "counter"
   	else
-      # @images = General.first.general_images.all
+      @images = General.first.images
   		render "index"
   	end
   end

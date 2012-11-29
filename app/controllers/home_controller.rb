@@ -180,6 +180,7 @@ class HomeController < ApplicationController
   def book
     @book = Book.find(params[:id])
     @book_image = "http://www.sociorent.in" + ((@book.images.first.nil?) ? "/assets/Sociorent.png" : @book.images.first.image.url).to_s
+    render "book", :layout => false
   end
 
   private

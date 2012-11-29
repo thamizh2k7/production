@@ -1,8 +1,12 @@
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# sociodevelopment: http://ogp.me/ns/fb/sociodevelopment#">
-	<meta property="fb:app_id" content="212611612202812" /> 
-  <meta property="og:type"   content="sociorent:book" /> 
-  <meta property="og:url"    content="http://www.sociorent.in/" /> 
-  <meta property="og:title"  content="<%= @book.name %>" /> 
-  <meta property="og:image"  content="<%= @book_image %>" /> 
-
-  <div><%= @book.name %></div>
+<html>
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# sociorent: http://ogp.me/ns/fb/sociorent#">
+	  <meta property="fb:app_id" content="212611612202812" /> 
+	  <meta property="og:type"   content="sociorent:book" /> 
+	  <meta property="og:url"    content="http://www.sociorent.in/book/detail/<%= @book.id %>" /> 
+	  <meta property="og:title"  content="<%= @book.name %>" /> 
+	  <meta property="og:image"  content="<%= @book_image %>" />
+	</head>
+	<body>
+		<div><%= @book.name %></div>
+	</body>
+</html>

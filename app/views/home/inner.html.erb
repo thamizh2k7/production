@@ -36,7 +36,7 @@
 	<div id="content_search">
 		<div id="search_books_form_box">
 			<form id="search_books_form" class="form-search">
-			  <input type="text" id="search_books_input" class="input-medium" placeholder="Enter Title, Author Name, ISBN">
+			  <input type="text" id="search_books_input" class="input-medium" placeholder="Enter Title, Author Name, ISBN"><span class="search_icon"></span>
 			</form>
 		</div>
 		<div class="clear"></div>
@@ -92,9 +92,6 @@
 		//search collection reset
 		sociorent.collections.search_object.reset(<%= raw @search.to_json(:include => :publisher) %>);
 		sociorent.fn.renderSearch();
-		// intelligent collection reset
-		sociorent.collections.intelligent_object.reset(<%= raw @intelligent_books.to_json(:include => :publisher) %>);
-		sociorent.fn.renderIntelligent();
 
 		// load more
 		<% unless @load_more %>
@@ -135,7 +132,7 @@
 		$("#shipping_details_box").dialog({
 			autoOpen: false,
 			draggable: false,
-			height: 550,
+			height: 600,
 			width: 700,
 			resizable: false,
 			modal: true
@@ -205,6 +202,9 @@
 		    return $(label).closest(".control-group").addClass("error");
 		  }
 		});
+
+		$("#user").sticky({topSpacing:0});
+		$("#search_books_form_box").sticky({topSpacing:42});
 
 	});
 </script>

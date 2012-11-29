@@ -46,7 +46,12 @@ class HomeController < ApplicationController
 
   def search
     resp = {}
-	  @books = Book.search params[:query], :star => true
+    if params[:query] == ""
+      @books = intelligent_books(current_user)
+      @books = Book.first(6) if @books.count == 0
+    else
+  	  @books = Book.search params[:query], :star => true
+    end
     if @books.count > 6
       resp[:load_more] = true
     else

@@ -12,12 +12,14 @@ $(document).ready ->
 			sociorent.app_events.bind "added_to_cart", (id)->
 				if that.model.id == id
 					# when this model is added to cart
-					that.$(".add_to_cart").html "Added to Cart"
+					that.$(".add_to_cart").html("Added to Cart").css
+						background: "#0F8159"
 
 			sociorent.app_events.bind "removed_from_cart", (id)->
 				if that.model.id == id
 					# when this model is removed from cart
-					that.$(".add_to_cart").html "Add to Cart"
+					that.$(".add_to_cart").html("Add to Cart").css
+						background: "#F65757"
 
 			sociorent.app_events.bind "added_to_compare", (id)->
 				if that.model.id == id
@@ -129,4 +131,7 @@ $(document).ready ->
 				rent_price: (@model.get("price") * @model.get("publisher").rental)/100
 				cart_message: cart_message
 				rented_message: rented_message
+			if sociorent.collections.cart_object.get(@model.id)
+				@$(".add_to_cart").css
+					background: "#0F8159"
 			this

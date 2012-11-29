@@ -1,13 +1,11 @@
-body{
-	max-height: 300px !important;
-}
 #user{
 	background: #DEDEDD;
 	padding: 7px 0px;
-	z-index: 100;
+	z-index: 102;
 	position: relative;
 	color : #696969;
 	height: 30px;
+	width: 100%;
 
 	.left{
 		float: left;
@@ -95,6 +93,9 @@ body{
 		#search_books_form_box{
 			background: #F0F0F0;
 			padding: 20px 0px;
+			width: 100%;
+			height: 30px;
+			z-index: 100;
 		}
 		
 		#search_books_form{
@@ -119,8 +120,9 @@ body{
 				width: 80%;
 				height:26px;
 				float:left;
+				margin-top: -3px;
 			}
-					.search_icon{
+			.search_icon{
 				background: url("/assets/home-sprite.png") no-repeat scroll -248px -93px #FAFAFA;
 				border: medium none;
 				height: 25px;
@@ -134,8 +136,6 @@ body{
 
 		#search_books{
 			padding: 0px 30px;
-			height: 540px;
-			overflow-y: auto;
 			text-align: center;
 			max-width: 1050px;
 			margin: 0px auto;
@@ -148,7 +148,8 @@ body{
 		#no_search_result{
 			display: none;
 			width: 93%;
-			margin: auto;
+			margin: 80px auto 0px;
+			text-align: center;
 
 			#no_search_result_caption{
 				font-size: 16px;
@@ -157,6 +158,9 @@ body{
 			form{
 				input{
 					display: block;
+					left: 50%;
+					position: relative;
+					margin-left: -107px;
 				}
 			}
 		}
@@ -388,11 +392,12 @@ body{
 		#cart_options_right {
 			float: right;
 			width: 90px;
-			background: #EEE;
+			background: #F65757;
 			padding: 5px 15px;
-			border-radius: 15px;
+			border-radius: 5px;
 			text-align: center;
 			cursor: pointer;
+			color: white;
 		}
 	}
 
@@ -1114,31 +1119,57 @@ span.blue{
 }
 
 #load_more{
-	position: absolute;
-	bottom: 0px;
-	left: 50%;
 	margin-left: -100px;
 	width: 200px;
-	background: #F65757;
 	padding: 5px;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
-	color: #FFF;
 	margin-top: 20px;
 	cursor: pointer;
+	margin: 0px auto;
 }
 
 #go_top{
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
-	left: 50px;
+	right: 50px;
 	width: 50px;
-	height: 60px;
+	height: 30px;
+	padding-top: 35px;
 	color: white;
-	background: #444;
 	text-align: center;
-	opacity: 0.8;
-	padding-top: 10px;
 	cursor: pointer;
 	display: none;
+	border: 1px solid white;
+	border-bottom: none;
+	background: url("/assets/up_arrow.png") no-repeat 13px 7px #444;
 }
+
+#load_more {
+   border-top: 1px solid #f65757;
+   background: #F24141;
+   background: -webkit-gradient(linear, left top, left bottom, from(#f65757), to(#F24141));
+   background: -webkit-linear-gradient(top, #f65757, #F24141);
+   background: -moz-linear-gradient(top, #f65757, #F24141);
+   background: -ms-linear-gradient(top, #f65757, #F24141);
+   background: -o-linear-gradient(top, #f65757, #F24141);
+   padding: 8.5px 17px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+#load_more:hover {
+   border-top-color: #F24141;
+   background: #F24141;
+   color: #FFF;
+   }
+#load_more:active {
+   border-top-color: #F24141;
+   background: #F24141;
+   }

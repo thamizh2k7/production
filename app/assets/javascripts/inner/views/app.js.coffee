@@ -9,8 +9,6 @@ $(document).ready ->
 			sociorent.collections.cart_object = new sociorent.collections.cart()
 			# compare collection
 			sociorent.collections.compare_object = new sociorent.collections.compare()
-			# intelligent collections
-			sociorent.collections.intelligent_object = new sociorent.collections.intelligent()
 			# orders collections
 			sociorent.collections.order_object = new sociorent.collections.order()
 			# wishlist collections	
@@ -26,7 +24,7 @@ $(document).ready ->
 			sociorent.models.user_object = new sociorent.models.user()
 
 			# bind scroll of window to this view
-			$("#search_books").scroll this.show_go_top
+			$(window).scroll this.show_go_top
 
 			# load more count
 			sociorent.load_more = 0
@@ -111,7 +109,6 @@ $(document).ready ->
 					sociorent.collections.order_object.add(msg)
 					sociorent.collections.cart_object.reset()
 					sociorent.fn.renderSearch()
-					sociorent.fn.renderIntelligent()
 					sociorent.fn.renderCart()
 					$("#profile_orders_button").click()
 
@@ -128,7 +125,7 @@ $(document).ready ->
 			$("#compare_dialog_box").dialog "open"
 
 		show_go_top: ->
-			if $("#search_books").scrollTop() == 0
+			if $(window).scrollTop() == 0
 				$("#go_top").fadeOut 100
 			else
 				$("#go_top").fadeIn 100
@@ -174,7 +171,7 @@ $(document).ready ->
 						$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
 
 		go_top: ->
-			$("#search_books").animate
+			$("html, body").animate
 				scrollTop: 0
 			, 200
 

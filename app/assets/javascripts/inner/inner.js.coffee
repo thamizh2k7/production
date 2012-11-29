@@ -60,6 +60,7 @@ $(document).ready ->
 		$("#compare_box").fadeOut 500
 	
 	sociorent.fn.search = ()->
+		sociorent.load_more = 0
 		$.ajax "/search" , 
 			type:"post"
 			async:true
@@ -80,7 +81,7 @@ $(document).ready ->
 	  	sociorent.fn.search()
 	  wait: 500
 	  highlight: true
-	  captureLength: 2
+	  captureLength: 0
 
 	$("#search_books_input").typeWatch options
 
@@ -106,17 +107,6 @@ $(document).ready ->
 	  captureLength: 2
 
 	$("#compare_search_input").typeWatch options
-
-	sociorent.fn.renderIntelligent = ()->
-		$("#intelligent_books").hide().html ""
-		_.each sociorent.collections.intelligent_object.models, (model)->
-			view = new sociorent.views.search
-				model: model
-			$("#intelligent_books").append view.render().el
-			if sociorent.collections.compare_object.get model.id
-				$(view.render().el).find(".add_to_compare").attr
-					checked: true
-		$("#intelligent_books").stop().fadeIn(300)
 
 	sociorent.fn.getUserOrderedBooks = ()->
 		books = new Array()

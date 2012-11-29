@@ -413,6 +413,19 @@
 		font-size: 22px;
 		border-bottom: 1px solid #AAA;
 		padding: 20px;
+		.heading{
+			float:left;
+			width:40%;
+		}
+		.login_btn
+		{
+			float: right;
+padding: 0px;
+margin-top: -44px;
+			a{
+			float:left;
+			}
+		}
 	}
 
 	.left{

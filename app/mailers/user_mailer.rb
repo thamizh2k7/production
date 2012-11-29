@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "admin@sociorent.com"
+  default from: "testing@devbrother.com"
 
   def welcome_email(user)
   	@general = General.first

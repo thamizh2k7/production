@@ -82,6 +82,12 @@ $(document).ready ->
 							model: sociorent.models.user_object,
 						$("#user_dialog").html(view.render().el)
 						$("#profile_address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
+						if resp.gharpay == "true"
+							$("#checkout_gharpay").show()
+						else
+							$("#checkout_gharpay").hide()
+
+
 			false
 
 		checkout: ->

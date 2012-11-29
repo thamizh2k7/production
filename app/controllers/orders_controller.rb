@@ -7,15 +7,32 @@ class OrdersController < ApplicationController
 		# total price - save this in orders
 		deposit_total = cart.books.sum(:price)
 		rental_total = 0
+		cart_items=[]
 		cart.books.each do |book|
-			rental_total += (book.price * book.publisher.rental)/100
+			rental_price = (book.price * book.publisher.rental)/100
+			rental_total += rental_price
+			product={"productID" =>book.isbn13,"unitCost"=>rental_price,"productDescription"=>book.name}
+			cart_items << product
 		end
 		shipping_charge = deposit_total < 1000 ? 50 : 0
 		total = deposit_total + shipping_charge
 		order_type = params[:order_type]
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type)
-		
+		if order_type=="gharpay"
+			order_array={}
+			user_address=JSON.parse(user.address)
+			address=user_address.map{|k,v| "#{v}"}.join(',')
+			dd=Time.now + (24*60*60*3)
+			delivery=dd.strftime("%d-%m-%Y")
+    	order_array["customerDetails"]={"firstName"=>user.name,"contactNo"=>user.mobile_number,"address"=>address}
+    	order_array["orderDetails"]={"deliveryDate"=>delivery,"pincode"=>user_address["address_pincode"],"orderAmount"=>total,"clientOrderID"=>order.random}
+    	order_array["productDetails"]=cart_items
+    	puts order_array
+	    g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
+	    gharpay_id = g.create_order(order_array)
+	    puts gharpay_id
+		end
 		unless params[:bank_id].nil?
     	bank=Bank.where(:id=>params[:bank_id]).first
     	if bank

@@ -522,7 +522,7 @@
 	#checkout_cash:hover{
 		border: 1px solid #CC4D5C;
 	}
-	#checkout_cheque{
+	#checkout_cheque, #checkout_gharpay{
 		width: 95%;
 		height: 80px;
 		border-radius: 8px;
@@ -531,7 +531,7 @@
 		padding: 8px;
 		cursor: pointer;
 	}
-	#checkout_cheque:hover{
+	#checkout_cheque:hover,#checkout_gharpay:hover{
 		border: 1px solid #CC4D5C;
 	}
 }

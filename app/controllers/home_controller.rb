@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
-  	@user = current_user
-  	if @user
+    @user=current_user
+    if @user
       # check if user has college
       if @user.college.nil?
         redirect_to "/welcome"
@@ -169,6 +169,10 @@ class HomeController < ApplicationController
     resp = {}
     if user.update_attributes(:address=>params.except(:controller, :action).to_json)
       resp[:text] = "success"
+      g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
+      if g.valid_pincode?(params[:address_pincode])
+        resp[:gharpay] = "true"
+      end
       resp[:user] = user.to_json(:include => {:college => {:only => :name}, :stream => {:only => :name}})
     else
       resp[:text] = "failed"

@@ -105,6 +105,9 @@
 		<div id="checkout_cheque" class="create_order" data-attr="cheque"> 
 			Send us a cheque at this address
 		</div>
+		<div id="checkout_gharpay" class="create_order" data-attr="gharpay">
+				Pay by using Gharpay
+		</div>
 		<% if @user.ambassador.nil? && !@user.is_admin? %>
 			<div id="ambassador">
 				<div id="ambassador_caption">Please choose who referred you to our website</div>

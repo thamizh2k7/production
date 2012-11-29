@@ -152,6 +152,7 @@
 
 <script type="text/javascript">
 $("document").ready(function(){
+
 	var width = $(window).width();
 	$("#book_details").dialog({
 		autoOpen: false,
@@ -177,45 +178,55 @@ $("document").ready(function(){
 
   // Sliding logos //
   if($("#gallery").length){
-        // Declare variables
-        var totalImages = jQuery("#gallery > li").length, 
-            imageWidth = jQuery("#gallery > li:first").outerWidth(true),
-            totalWidth = imageWidth * totalImages,
-            visibleImages = Math.round(jQuery("#gallery-wrap").width() / imageWidth),
-            visibleWidth = visibleImages * imageWidth,
-            stopPosition = (visibleWidth - totalWidth);
-            
-        jQuery("#gallery").width(totalWidth);
+    // Declare variables
+    var totalImages = jQuery("#gallery > li").length, 
+        imageWidth = jQuery("#gallery > li:first").outerWidth(true),
+        totalWidth = imageWidth * totalImages,
+        visibleImages = Math.round(jQuery("#gallery-wrap").width() / imageWidth),
+        visibleWidth = visibleImages * imageWidth,
+        stopPosition = (visibleWidth - totalWidth);
         
-        jQuery("#gallery-prev").click(function(){
-            if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")){
-                jQuery("#gallery").animate({left : "+=" + imageWidth + "px"});
-            }
-            return false;
-        });
-        
-        jQuery("#gallery-next").click(function(){
-            if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")){
-                jQuery("#gallery").animate({left : "-=" + imageWidth + "px"});
-            }
-            return false;
-        });
-    }
-    var mouse_is_inside = false;
-		
-		$('.search_wrap').hover(function(){ 
-        mouse_is_inside=true; 
-    }, function(){ 
-        mouse_is_inside=false; 
-    });
-
-    $("body").mouseup(function(){ 
-        if(! mouse_is_inside) {
-        	$('#search_books').hide();
-        	$("#searchClose").hide();
+    jQuery("#gallery").width(totalWidth);
+    
+    jQuery("#gallery-prev").click(function(){
+        if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")){
+            jQuery("#gallery").animate({left : "+=" + imageWidth + "px"});
         }
+        return false;
     });
+    
+    jQuery("#gallery-next").click(function(){
+        if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")){
+            jQuery("#gallery").animate({left : "-=" + imageWidth + "px"});
+        }
+        return false;
+    });
+  }
+  var mouse_is_inside = false;
+	
+	$('.search_wrap').hover(function(){ 
+      mouse_is_inside=true; 
+  }, function(){ 
+      mouse_is_inside=false; 
+  });
 
+	$("body").mouseup(function(){ 
+	    if(! mouse_is_inside) {
+	    	$('#search_books').hide();
+	    	$("#searchClose").hide();
+	    }
+	});
+
+	// search backbone object if isbn is provided in params
+	<% unless @search.nil? %>
+		search_object = new sociorent.models.search(<%= raw @search.to_json(:include => :publisher) %>);
+		view = new sociorent.views.book_details({
+			model: search_object
+		});
+		$("#book_details").append(view.render().el);
+		$("#book_details").dialog("open");
+	<% end %>
+	
 });
 </script>
 <%= render :partial => "index_template" %>

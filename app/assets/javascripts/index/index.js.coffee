@@ -22,7 +22,7 @@ $(document).ready ->
 
 		events:
 			"click .add_to_cart" : "add_to_cart"
-			"click .book_left" : "view_book_info"
+			"click" : "view_book_info"
 
 		view_book_info: ->
 			$("#book_details").html ""
@@ -30,7 +30,6 @@ $(document).ready ->
 				model: @model
 			$("#book_details").append view.render().el
 			$("#book_details").dialog "open"
-
 
 		add_to_cart: ->
 			that = this
@@ -40,7 +39,8 @@ $(document).ready ->
 				data: 
 					book: that.model.id 
 				success: (msg)->
-					window.location.href = "/users/sign_in"
+					$("#login_box").dialog("open");
+			false
 
 		render: ->
 			image = @model.get("book_image")

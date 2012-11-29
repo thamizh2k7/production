@@ -1,4 +1,5 @@
- class OrdersController < ApplicationController
+require 'koala'
+class OrdersController < ApplicationController
 	def create
 		user = current_user
 		cart = user.cart
@@ -26,6 +27,16 @@
     		sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
     		send_sms(user.mobile_number,sms_text)
     	end
+    end
+
+    # koala publish actions 
+    unless @user.token.nil?
+    	token = @user.token
+    	graph  = Koala::Facebook::API.new(token)
+    	books.each do |book|
+	    	book_url = "http://www.sociorent.in:3000/book/details/#{book.id}"
+	    	graph.put_connections("me", "sociorent:rented", :book => book_url)
+	    end
     end
 
     # adding all the books in the cart to orders

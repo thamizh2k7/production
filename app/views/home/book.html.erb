@@ -1,12 +1,18 @@
 <html>
-	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# sociorent: http://ogp.me/ns/fb/sociorent#">
-	  <meta property="fb:app_id" content="212611612202812" /> 
-	  <meta property="og:type"   content="sociorent:book" /> 
-	  <meta property="og:url"    content="http://www.sociorent.in:3000/book/detail/<%= @book.id %>" /> 
-	  <meta property="og:title"  content="<%= @book.name %>" /> 
-	  <meta property="og:image"  content="<%= @book_image %>" />
-	</head>
-	<body>
-		<div><%= @book.name %></div>
-	</body>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# sociorent: http://ogp.me/ns/fb/sociorent#">
+    <meta property="fb:app_id" content="212611612202812" /> 
+    <meta property="og:type"   content="sociorent:book" /> 
+    <meta property="og:url"    content="http://www.sociorent.in:3000/book/detail/<%= @book.id %>" /> 
+    <meta property="og:title"  content="<%= @book.name %>" /> 
+    <meta property="og:image"  content="<%= @book_image %>" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <div><%= @book.name %></div>
+  </body>
+  <script type="text/javascript">
+    $(window).load(function(){
+      window.location.href = "http://localhost:3000/?isbn=<%= @book.isbn10 %>";
+    });
+  </script>
 </html>

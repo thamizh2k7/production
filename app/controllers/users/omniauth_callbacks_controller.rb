@@ -10,8 +10,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     new_user = resp_hash["new_user"]
 
     if @user.persisted?
-      # get fb token 
+      # get fb token and save it
       token = request.env["omniauth.auth"].credentials.token
+      @user.update_attributes(:token => token)
       # initialize koala graph api and get uid of all friends
       @graph  = Koala::Facebook::API.new(token)
       friends = @graph.fql_query("SELECT uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")

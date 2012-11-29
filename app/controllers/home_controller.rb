@@ -39,6 +39,10 @@ class HomeController < ApplicationController
     elsif @counter = current_counter
       render "counter"
   	else
+      # check for params of isbn
+      if params[:isbn]
+        @search = Book.where(:isbn10 => params[:isbn]).first
+      end
       @images = General.first.images
   		render "index"
   	end
@@ -186,7 +190,7 @@ class HomeController < ApplicationController
   private
 
   def intelligent_books(user)
-    intelligent_books = []
+    @intelligent_books = []
     if user.friends
       friend_uids = JSON.parse user.friends
       all_uids = JSON.parse User.select("uid").to_json()
@@ -198,22 +202,21 @@ class HomeController < ApplicationController
         general = General.first
         case general.intelligent_book
           when "All friends"
-            intelligent_books += friend.books
+            @intelligent_books += friend.books
           when "Friends in same College"    
-            intelligent_books += friend.books if friend.college == user.college
+            @intelligent_books += friend.books if friend.college == user.college
           when "Friends in same College and Stream" 
-            intelligent_books += friend.books if friend.college == user.college && friend.stream == user.stream
+            @intelligent_books += friend.books if friend.college == user.college && friend.stream == user.stream
         end
       end
-      intelligent_books.uniq
     else
       # get users of same college and stream
       similar_users = User.where(:college_id => user.college, :stream_id => user.stream)
       similar_users.each do |similar_user|
-        intelligent_books += similar_user.books
+        @intelligent_books += similar_user.books
       end
     end
-    return intelligent_books
+    return @intelligent_books.uniq
   end
   
 end

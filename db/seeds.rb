@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 g = General.create(:welcome_mail_subject=>"Dear Admin, This is your email")
-User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
+# User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
 
 # books
 c1 = Category.create(:name => "Sports")

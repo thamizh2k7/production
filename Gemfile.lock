@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/thamizh2k7/gharpay.git
+  revision: ab22e1d69f6381591cf09218014d92a14f589d30
+  specs:
+    gharpay (0.0.1)
+      httparty (~> 0.8.0)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: d1920aabdc1ece6de7b5bbca39c5488f833b02d6
   specs:
@@ -8,12 +15,6 @@ GIT
       activesupport (>= 3.0.0)
       cocaine (~> 0.4.0)
       mime-types
-
-PATH
-  remote: /home/thamizh/gharpay
-  specs:
-    gharpay (0.0.1)
-      httparty (~> 0.8.0)
 
 GEM
   remote: https://rubygems.org/

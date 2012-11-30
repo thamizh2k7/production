@@ -17,3 +17,5 @@
 /db/sphinx/
 /config/development.sphinx.conf
 /public/system
+public/assets/
+vendor/bundle/

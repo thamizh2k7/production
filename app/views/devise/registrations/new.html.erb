@@ -6,7 +6,7 @@
     <%= f.email_field :email %></div>
 
     <div><%= f.label :password %>
-    <%= f.password_field :password %></div>
+    <%= f.password_field :password, :class => "password_user_check_match" %></div>
 
     <div><%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %></div>
@@ -33,7 +33,7 @@
         },        
         "user[password_confirmation]": {
           required: true,
-          equalTo: "#user_password"
+          equalTo: ".password_user_check_match"
         },
         "user[name]": {
           required: true

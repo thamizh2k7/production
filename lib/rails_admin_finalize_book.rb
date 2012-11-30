@@ -57,51 +57,61 @@ module RailsAdmin
             if request.method == "GET"
             	render :action => @action.template_name
             else
-              csvfile = params[:book_csv].read
-              CSV.parse(csvfile) do |row|
-                unless row[0].to_i.is_a? (Integer)
-                  puts "not an integer"
-                  next
-                end
-                book = Hash.new()
-                book["name"] = row[1]
-                book["author"] = row[2]
-                book["isbn10"] =row[3]
-                book["isbn13"] = row[4]
-                book["binding"] = row[5]
-                book["published"] = row[6]
-                book["edition"] = row[8]
-                book["pages"] = row[9]
-                book["availability"]=row[14]
-                book["price"]=row[15]
-                book["description"]=row[16]
+              
+                csvfile = params[:book_csv].read
+                CSV.parse(csvfile) do |row|
+                  begin
+                    unless row[0].to_i.is_a? (Integer)
+                      puts "not an integer"
+                      next
+                    end
+                    book = Hash.new()
+                    book["name"] = row[1]
+                    book["author"] = row[2]
+                    book["isbn10"] =row[3]
+                    book["isbn13"] = row[4]
+                    book["binding"] = row[5]
+                    book["published"] = row[6]
+                    book["edition"] = row[8]
+                    book["pages"] = row[9]
+                    book["availability"]=row[14]
+                    book["price"]=row[15]
+                    book["description"]=row[16].force_encoding("UTF-8")
+                    if book["description"].valid_encoding?
+                    # book["language"] = row[10]
+                      publisher = Publisher.where(:name=>row[7]).first
+                      if publisher.nil?
+                        publisher=Publisher.create(:name=>row[7])
+                      end
+                      puts book
+                      book_save=Book.create(book)
+                      college = College.where(:name =>row[17]).first
+                      if college.nil?
+                          college = College.create(:name=>row[17])
+                      end
+                      book_save.book_colleges.create(:college_id=>college.id)
 
-                # book["language"] = row[10]
-                publisher = Publisher.where(:name=>row[7]).first
-                if publisher.nil?
-                  publisher=Publisher.create(:name=>row[7])
+                      stream=Stream.where(:name =>row[18]).first
+                      if stream.nil?
+                          stream=Stream.create(:name=>row[18])
+                      end
+                      book_save.book_streams.create(:stream_id=>stream.id)
+                      book_save.publisher=publisher
+                      if row[10] !=""
+                        #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")
+                        img=Image.create(:image_url=>row[13])
+                        book_save.images << img
+                      end
+                      book_save.save
+                    else
+                      puts "Not a valid encode"
+                    end
+                  rescue EncodingError => e
+                    puts "Bad encoding"
+                    next
+                  end
                 end
-                puts book
-                book_save=Book.create(book)
-                college = College.where(:name =>row[17]).first
-                if college.nil?
-                    college = College.create(:name=>row[17])
-                end
-                book_save.book_colleges.create(:college_id=>college.id)
-
-                stream=Stream.where(:name =>row[18]).first
-                if stream.nil?
-                    stream=Stream.create(:name=>row[18])
-                end
-                book_save.book_streams.create(:stream_id=>stream.id)
-                book_save.publisher=publisher
-                if row[10] !=""
-                  #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")
-                  img=Image.create(:image_url=>row[13])
-                  book_save.images << img
-                end
-                book_save.save
-              end
+              
               redirect_to "/admin/book"
             end
 					end

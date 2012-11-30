@@ -122,9 +122,15 @@ $(document).ready ->
 	$("#searchClose").click ->
 		$("#search_books").fadeOut 200
 		$(this).hide()
+
+	$("#search_books_input").live "focus", ->
+		$("#search_books").show()
+		$("#searchClose").show()
+
 	$(".open_login_popup").live "click", ->
 		$("#book_details").dialog "close"
 		$("#login_box").dialog "open"
+		
 	$("a[href='/users/sign_in']").hide()
 	$("#devise_pages a").click ->
 		action = $(this).text()

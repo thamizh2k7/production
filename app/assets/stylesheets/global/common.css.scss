@@ -41,6 +41,11 @@ a{
 
 /**************css global **********/
 @font-face {
+	font-family: 'MuseoSlab-500';
+	src: url('/assets/fonts/24EF4C_0_0.eot');
+	src: url('/assets/global/fonts/24EF4C_0_0.eot?#iefix') format('embedded-opentype'),url('/assets/global/fonts/24EF4C_0_0.woff') format('woff'),url('/assets/global/fonts/24EF4C_0_0.ttf') format('truetype');
+}
+@font-face {
 	font-family: 'rupee';
 	src: local('hanzo'),url(/assets/fonts/Hattori_Hanzo_Italic.otf);
 	font-weight: normal;
@@ -50,7 +55,9 @@ html, form, body, fieldset, ul, li, ol, h1, h2, h3, a, p {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
-	font-family: hanzo, helvetica, arial;
+	/*font-family: hanzo, helvetica, arial;*/
+	font-family: MuseoSlab-500 !important;
+
 
 }
 h2{

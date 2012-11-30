@@ -20,8 +20,12 @@ Sociorent::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['global/application.js', 'index/index.js', 'inner/application.js']
+  config.assets.enabled = true
+
+  config.assets.version = "1.0"
+
   config.assets.precompile += ['global/application.css', 'index/application.css', 'get_user_details.css.scss', 'inner.css.scss']
+  config.assets.precompile += ['global/application.js', 'homepage/homepage.js', 'inner/application.js']
   
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

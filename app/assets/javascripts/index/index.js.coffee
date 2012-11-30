@@ -125,7 +125,8 @@ $(document).ready ->
 
 	$("#search_books_input").live "focus", ->
 		$("#search_books").show()
-		$("#searchClose").show()
+		if $(this).val().length >=2
+			$("#searchClose").show()
 
 	$(".open_login_popup").live "click", ->
 		$("#book_details").dialog "close"

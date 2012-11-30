@@ -47,15 +47,17 @@ class OrdersController < ApplicationController
     	end
     end
 
-    # koala publish actions 
-    unless user.token.nil?
-    	token = user.token
-    	graph  = Koala::Facebook::API.new(token)
-    	books.each do |book|
-	    	book_url = "http://www.sociorent.in:3000/book/details/#{book.id}"
-	    	graph.put_connections("me", "sociorent:rented", :book => book_url)
+    if ENV["RAILS_ENV"] == "production"
+	    # koala publish actions 
+	    unless user.token.nil?
+	    	token = user.token
+	    	graph  = Koala::Facebook::API.new(token)
+	    	books.each do |book|
+		    	book_url = "http://www.sociorent.in/book/details/#{book.id}"
+		    	graph.put_connections("me", "sociorent:rented", :book => book_url)
+		    end
 	    end
-    end
+	  end
 
     # adding all the books in the cart to orders
 		order.books = cart.books

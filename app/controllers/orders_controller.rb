@@ -28,10 +28,11 @@ class OrdersController < ApplicationController
     	order_array["customerDetails"]={"firstName"=>user.name,"contactNo"=>user.mobile_number,"address"=>address}
     	order_array["orderDetails"]={"deliveryDate"=>delivery,"pincode"=>user_address["address_pincode"],"orderAmount"=>total,"clientOrderID"=>order.random}
     	order_array["productDetails"]=cart_items
-    	puts order_array
 	    g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-	    gharpay_id = g.create_order(order_array)
-	    puts gharpay_id
+	    gharpay_resp = g.create_order(order_array)
+	    if gharpay_resp["status"]==true
+	    	order.update_attributes(:gharpay_id=>gharpay_resp["orderID"])
+	    end
 		end
 		unless params[:bank_id].nil?
     	bank=Bank.where(:id=>params[:bank_id]).first

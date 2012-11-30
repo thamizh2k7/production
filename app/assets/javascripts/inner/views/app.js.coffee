@@ -103,7 +103,6 @@ $(document).ready ->
 			if order_type == "bank"
 				post_data["bank_id"] = $("#bank_name").val()
 			$("#checkout_box_content").html "<div class='center'> Order processing...</div>"
-			console.log post_data
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
@@ -112,6 +111,13 @@ $(document).ready ->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"
 					$("#order_id span").html msg.random
+					if order_type=="gharpay"
+						$("#order_gharpay").show()
+						$("#order_bank_cheque").hide()
+					else
+						$("#order_gharpay").hide()
+						$("#order_bank_cheque").show()
+
 					sociorent.collections.order_object.add(msg)
 					sociorent.collections.cart_object.reset()
 					sociorent.fn.renderSearch()

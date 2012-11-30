@@ -691,11 +691,12 @@
 		.name_remove{
 			border-bottom: 1px solid #DDD;
 			padding-bottom: 20px;
+			height:72px;
 
 			.book_name{
 				color: #CC4D5C;
 				font-weight: 900;
-				font-size: 22px;
+				font-size: 18px;
 				float: left;
 				width: 90%;
 				word-wrap: break-word;
@@ -714,6 +715,7 @@
 			float: left;
 			width: 25%;
 			margin: 20px;
+			height:135px;
 
 			img{
 				padding: 5px;

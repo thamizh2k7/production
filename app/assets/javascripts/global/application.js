@@ -42,6 +42,18 @@ $(document).ready(function(){
 		$("#static_page_dialog").dialog("open");
 		return false;
 	});
-
+	$("#university_dialog").dialog({
+			autoOpen: false,
+			title:'Universities',
+			draggable: false,
+			dialogClass: 'user_dialog',
+			height: 500,
+			width: 1000,
+			resizable: false,
+      modal: true
+	});
+	$(".open_university").click(function(){
+			$("#university_dialog").dialog("open");	
+	});
 	$(".rails_notice").delay(5000).fadeOut(300);
 });

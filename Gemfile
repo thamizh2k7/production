@@ -58,8 +58,8 @@ gem 'active_merchant_ccavenue'
 gem 'tinymce-rails'
 gem 'httparty'
 #gem "book_finder_api",:path=>"/home/thamizh/book_finder_api"
-#gem "gharpay",:git => "git://github.com/thamizh2k7/gharpay.git"	
-gem "gharpay",:path=>"/home/thamizh/gharpay"
+gem "gharpay",:git => "git://github.com/thamizh2k7/gharpay.git"	
+#gem "gharpay",:path=>"/home/thamizh/gharpay"
 
 gem "book_finder_api", "~> 0.0.7"
 gem "mechanize"

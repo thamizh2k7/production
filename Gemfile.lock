@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/thamizh2k7/gharpay.git
-  revision: ab22e1d69f6381591cf09218014d92a14f589d30
-  specs:
-    gharpay (0.0.1)
-      httparty (~> 0.8.0)
-
-GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: d1920aabdc1ece6de7b5bbca39c5488f833b02d6
   specs:
@@ -16,16 +9,6 @@ GIT
       cocaine (~> 0.4.0)
       mime-types
 
-<<<<<<< HEAD
-=======
-PATH
-  remote: /home/thamizh/book_finder_api
-  specs:
-    book_finder_api (0.0.7)
-      mechanize
-      nokogiri
-
->>>>>>> c76b904... finalize book changed
 GEM
   remote: https://rubygems.org/
   specs:
@@ -71,6 +54,9 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    book_finder_api (0.0.8)
+      mechanize
+      nokogiri
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
     builder (3.0.4)
@@ -97,6 +83,8 @@ GEM
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    gharpay_api (0.0.1)
+      httparty (~> 0.8.0)
     haml (3.1.7)
     hashie (1.2.0)
     hike (1.2.1)
@@ -245,11 +233,11 @@ PLATFORMS
 DEPENDENCIES
   active_merchant_ccavenue
   activemerchant
-  book_finder_api!
+  book_finder_api (~> 0.0.8)
   coffee-rails (~> 3.2.1)
   devise
   execjs
-  gharpay!
+  gharpay_api
   httparty
   jquery-rails
   koala

@@ -23,11 +23,7 @@ Sociorent::Application.routes.draw do
   match "update_shipping" => "home#update_shipping"
   post "home/load_more"
   match "book/details/:id" => "home#book"
-<<<<<<< Updated upstream
- match "check" => "home#check"
-=======
   match "check" => "home#check"
->>>>>>> Stashed changes
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

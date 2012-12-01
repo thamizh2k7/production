@@ -56,6 +56,7 @@ class HomeController < ApplicationController
     else
   	  @books = Book.search params[:query], :star => true
     end
+    @books.delete(nil)
     if @books.count > 6
       resp[:load_more] = true
     else
@@ -76,6 +77,7 @@ class HomeController < ApplicationController
     else
       @books = intelligent_books(current_user)
     end
+    @books.delete(nil)
     if @books.count > load_more_limit
       resp[:load_more] = true
     else

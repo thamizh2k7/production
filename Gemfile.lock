@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/thamizh2k7/gharpay.git
+  revision: c703b00f5483d4e6703bfee37af673dcb57e7796
+  specs:
+    gharpay (0.0.1)
+      httparty (~> 0.8.0)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: d1920aabdc1ece6de7b5bbca39c5488f833b02d6
   specs:
@@ -83,8 +90,6 @@ GEM
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
-    gharpay_api (0.0.1)
-      httparty (~> 0.8.0)
     haml (3.1.7)
     hashie (1.2.0)
     hike (1.2.1)
@@ -237,7 +242,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   execjs
-  gharpay_api
+  gharpay!
   httparty
   jquery-rails
   koala

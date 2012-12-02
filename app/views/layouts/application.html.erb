@@ -7,13 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <p class="rails_alert"><%= alert %></p>
 
   <!-- Header -->
   <div class="topbar">
     <div class="wrapper">
       <div class="grid_1">
-        <a class="left logo"><h1>sociorent</h1></a>
+        <a class="left logo" href="/"><h1>sociorent</h1></a>
         <div class="topbar_right right">
           <nav class="main_nav right">
             <ul>
@@ -32,6 +31,9 @@
     </div>
     <div class="cB"></div>
   </div>
+
+    <div><%= alert %></div>
+    <div><%= notice %></div>
 
   <%= yield %>
   <div id="university_dialog">

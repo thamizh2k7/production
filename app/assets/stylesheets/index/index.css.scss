@@ -1,3 +1,11 @@
+/* Addition CSS */
+
+span.login_or{ 
+	width: 10px;
+	float: left;
+	padding: 35px 0px 0px 15px;
+}
+
 /**video content **/
 .video_content .grid_3_5{
 	padding: 20px;
@@ -80,6 +88,12 @@
 	font-size: 18px;
     margin: 32px 10px 0;
 }
+.signup_link:active{
+	color:greep !important;		
+}
+
+
+
 .signup_link span{
 	font-size: 12px;
     border-radius: 5px 5px 5px 5px;
@@ -164,6 +178,7 @@
 	-moz-box-shadow:inset 2px 2px 2px rgba(0,0,0,.5);
 	-webkit-box-shadow:inset 2px 2px 2px rgba(0,0,0,.5);
 }
+
 
 .caro_prev, .caro_next{
 	background: url("/assets/home-sprite.png") no-repeat;
@@ -283,7 +298,7 @@
 }
 .footer ul li{
 	border-right: 3px solid #303030;
-    font-size: 18px;
+    font-size: 15px;
     padding:5px 20px;
     width: 180px;
     line-height:22px;
@@ -292,7 +307,7 @@
 	 color: #919191;
 }
 .footer .grid_1{
-	padding:30px 60px;
+	padding:20px 0px;
 }
 .footer_cpy{
 	background: none repeat scroll 0 0 #1A1A1A;

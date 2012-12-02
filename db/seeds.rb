@@ -67,7 +67,7 @@ Sms.create(:sms_type=>"signup",:content=>"Thank you for registering with us")
 Sms.create(:sms_type=>"order",:content=>"Thank you for ordering with us")
 Bank.create(:bank_name=>"SBI",:details=>"Account Details")
 
-StaticPage.create(:page_name => "about_us", :page_title => "About us", :page_content => "About us", :is_active => true)
+StaticPage.create(:page_name => "about_us", :page_title => "About us", :page_content => "", :is_active => true)
 StaticPage.create(:page_name => "teams", :page_title => "Teams", :page_content => "teams", :is_active => true)
 StaticPage.create(:page_name => "careers", :page_title => "Careers", :page_content => "careers", :is_active => true)
 StaticPage.create(:page_name => "contact_us", :page_title => "Contant us", :page_content => "contact us", :is_active => true)

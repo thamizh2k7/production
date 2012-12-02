@@ -43,23 +43,39 @@ a{
 @font-face {
 	font-family: 'MuseoSlab-500';
 	src: url('/assets/fonts/24EF4C_0_0.eot');
-	src: url('/assets/global/fonts/24EF4C_0_0.eot?#iefix') format('embedded-opentype'),url('/assets/global/fonts/24EF4C_0_0.woff') format('woff'),url('/assets/global/fonts/24EF4C_0_0.ttf') format('truetype');
+	src: url('/assets/global/fonts/24EF4C_0_0.eot?#iefix') format('embedded-opentype'),
+	url('/assets/global/fonts/24EF4C_0_0.woff') format('woff'),
+	url('/assets/global/fonts/24EF4C_0_0.ttf') format('truetype');
 }
+
+@font-face {
+				font-family: 'Arvo';
+				src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot');
+				src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot?#iefix') format('embedded-opentype'),
+						 url('/assets/global/fonts/adellebasic/adellebasic_bold.woff') format('woff'),
+						 url('/assets/global/fonts/adellebasic/adellebasic_bold.ttf') format('truetype'),
+						 url('/assets/global/fonts/adellebasic/adellebasic_bold.svg#arvo-regular') format('svg');
+				font-weight: normal;
+				font-style: normal;
+		}
+
 @font-face {
 	font-family: 'rupee';
 	src: local('hanzo'),url(/assets/fonts/Hattori_Hanzo_Italic.otf);
 	font-weight: normal;
 	font-style: normal;
 }
+
+
 html, form, body, fieldset, ul, li, ol, h1, h2, h3, a, p {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
 	/*font-family: hanzo, helvetica, arial;*/
-	font-family: MuseoSlab-500 !important;
-
-
+	font-family: Arvo !important;
 }
+
+
 h2{
 		line-height:22px;
 }
@@ -83,7 +99,7 @@ li {
 }
 /**typo**/
 h1{
-	font-size: 35px;
+	font-size: 34px;
 	line-height: 50px;
 	color: #1A1A1A;
 }
@@ -155,7 +171,7 @@ body {
 /**header**/
 .topbar{
 	border-top: 8px solid #0F8159;
-	background: #fafafa;
+	background: url("/assets/paper.jpg") repeat;
 }
 .logo{
 	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;

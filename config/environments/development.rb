@@ -40,9 +40,9 @@ Sociorent::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => 'www.devbrother.com',
-    :user_name            => 'bikksrux@gmail.com',
-    :password             => 'qwerty_1',
+    :domain               => 'www.sociorent.com',
+    :user_name            => 'alert@sociorent.com',
+    :password             => 'Sociorent1',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 end

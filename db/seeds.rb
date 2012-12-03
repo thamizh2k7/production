@@ -75,3 +75,5 @@ StaticPage.create(:page_name => "product_tour", :page_title => "Product Tour", :
 StaticPage.create(:page_name => "features", :page_title => "Features", :page_content => "features", :is_active => true)
 StaticPage.create(:page_name => "pricing", :page_title => "Pricing", :page_content => "pricing", :is_active => true)
 StaticPage.create(:page_name => "colleges", :page_title => "Colleges", :page_content => "colleges", :is_active => true)
+StaticPage.create(:page_name => "terms_of_use", :page_title => "Terms of use", :page_content => "terms of use", :is_active => true)
+StaticPage.create(:page_name => "privacy_policy", :page_title => "Privacy policy", :page_content => "privacy policy", :is_active => true)

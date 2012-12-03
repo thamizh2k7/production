@@ -47,4 +47,16 @@
 	  <h4><%= colleges.page_title %></h4>
 	  <div><%= raw colleges.page_content %></div>
 	</div>
+
+	<div id="terms_of_use_page" class="sub">
+		<% terms_of_use = StaticPage.where(:page_name => "terms_of_use").first %>
+	  <h4><%= terms_of_use.page_title %></h4>
+	  <div><%= raw terms_of_use.page_content %></div>
+	</div>
+
+	<div id="privacy_policy_page" class="sub">
+		<% privacy_policy = StaticPage.where(:page_name => "privacy_policy").first %>
+	  <h4><%= privacy_policy.page_title %></h4>
+	  <div><%= raw privacy_policy.page_content %></div>
+	</div>
 </div>

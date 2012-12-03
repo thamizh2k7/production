@@ -140,6 +140,10 @@ class OrdersController < ApplicationController
 		end
 		render :json => msg
 	end
+	def print_invoice
+		@order=Order.where(:random=>params[:order]).first
+		@user=current_user
+	end
 
 	private
 	def strip_html(html_page)

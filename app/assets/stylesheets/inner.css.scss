@@ -542,8 +542,8 @@
 		border: 1px solid #DDD;
 		margin: 20px auto;
 		padding: 8px;
-		cursor: pointer;
 	}
+
 }
 
 #order_box{
@@ -559,6 +559,9 @@
 		font-size: 22px;
 		color: #CC4D5C;
 		line-height: 34px;
+	}
+		.invoice_print{
+		display: none;
 	}
 }
 

@@ -130,6 +130,8 @@ $(document).ready ->
 					$(that).hide().html ""
 					alert("You have successfully applied for intership.")
 		false
+	$(".print_invoice a").live "click", ->
+		$(this).attr("href","/print_invoice/"+$(this).attr("data-attr"))
 
 	sociorent.fn.shipping_validation = (id)->
 		$("#"+id).validate

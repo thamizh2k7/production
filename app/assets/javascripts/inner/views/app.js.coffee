@@ -44,6 +44,7 @@ $(document).ready ->
 			"click #update_shipping" : "update_shipping"
 			"click #load_more" : "load_more"
 			"click #go_top" : "go_top"
+			"click .print_invoice" : "print_invoice"
 
 		cancel_submit: ->
 			false
@@ -114,6 +115,8 @@ $(document).ready ->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"
 					$("#order_id span").html msg.random
+					$(".print_invoice a").attr("data-attr",msg.random)
+					$(".print_invoice").show()
 					if order_type=="gharpay"
 						$("#order_gharpay").show()
 						$("#order_bank_cheque").hide()
@@ -189,5 +192,7 @@ $(document).ready ->
 			$("html, body").animate
 				scrollTop: 0
 			, 200
+		print_invoice: ->
+			
 
 	sociorent.views.app_object = new sociorent.views.app()

@@ -24,6 +24,7 @@ Sociorent::Application.routes.draw do
   post "home/load_more"
   match "book/details/:id" => "home#book"
   match "validate/:type" => "home#validate"
+  match "print_invoice/:order"=>"orders#print_invoice"
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

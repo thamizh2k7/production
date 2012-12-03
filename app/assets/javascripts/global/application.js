@@ -27,11 +27,6 @@ $(document).ready(function(){
 		height: 700,
 		width: 1100,
 		resizable: false,
-		buttons: {
-              Ok: function () {
-                  $(this).dialog("close");
-              }
-          },
     modal: true
 	});
 

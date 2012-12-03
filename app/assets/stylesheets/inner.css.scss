@@ -223,7 +223,7 @@
 
 		.auther_edition {
 			float: right;
-			width: 65%;
+			width: 62%;
 			margin-top: 20px;
 
 			.edition{
@@ -262,22 +262,6 @@
 
 		}
 
-		.information{
-			margin-top: 20px;
-			text-transform: uppercase;
-
-			.information_left {
-				float: left;
-				width: 40%;
-				margin-left: 14%;
-			}
-
-			.information_right {
-				float: right;
-				width: 40%;
-			}
-		}
-
 		.class_adoption_caption{
 			margin: 20px 0px 15px 10px;
 			color: #CC4D5C;
@@ -301,75 +285,91 @@
 		float: right;
 		width: 60%;
 
-		.text{
-			margin: 30px auto;
-			width: 90%;
+		.information{
+			margin-top: 20px;
+			text-transform: uppercase;
 
-			.text_left{
+			.information_left {
 				float: left;
-				width: 15%;
+				width: 40%;
+				margin-left: 14%;
 			}
-			.text_right {
+
+			.information_right {
 				float: right;
-				width: 85%;
+				width: 40%;
 			}
 		}
+	}
 
-		.reviews_box{
-			.reviews_caption{
-				background: #AAA;
-				padding: 5px 20px;
-				border-radius: 8px;
+	.text{
+		margin: 30px auto;
+		width: 90%;
 
-				.reviews_caption_left{
-					float:left;
-					width: 40%;
-				}
-				.reviews_caption_right{
-					float: right;
-					width: 40%;
-					text-align: right;
-					cursor: pointer;
-					display: none;
-				}
+		.text_left{
+			float: left;
+			width: 15%;
+		}
+		.text_right {
+			float: right;
+			width: 85%;
+		}
+	}
+
+	.reviews_box{
+		.reviews_caption{
+			background: #AAA;
+			padding: 5px 20px;
+			border-radius: 8px;
+
+			.reviews_caption_left{
+				float:left;
+				width: 40%;
 			}
-			.reviews{
-				text-align: center;
+			.reviews_caption_right{
+				float: right;
+				width: 40%;
+				text-align: right;
+				cursor: pointer;
+				display: none;
+			}
+		}
+		.reviews{
+			text-align: center;
+			margin-top: 20px;
+
+			.reviews_form{
+				text-align: left;
+				margin-left: 15px;
 				margin-top: 20px;
-
-				.reviews_form{
-					text-align: left;
-					margin-left: 15px;
-					margin-top: 20px;
-					display: none;
-				
-					.reviews_input{
-						width: 750px;
-					}
-					.reviews_submit{
-
-					}
+				display: none;
+			
+				.reviews_input{
+					width: 750px;
 				}
-				.reviews_content{
-					.review_single {
-						text-align: left;
-						width: 90%;
-						margin: 15px auto;
+				.reviews_submit{
 
-						.review_single_right {
-							float: right;
-							width: 80%;
-						}
-							.review_single_left {
-							float: left;
-							width: 20%;
-							color: #CC4D5C;
-						}
+				}
+			}
+			.reviews_content{
+				.review_single {
+					text-align: left;
+					width: 90%;
+					margin: 15px auto;
+
+					.review_single_right {
+						float: right;
+						width: 80%;
+					}
+						.review_single_left {
+						float: left;
+						width: 20%;
+						color: #CC4D5C;
 					}
 				}
 			}
-
 		}
+
 	}
 }
 

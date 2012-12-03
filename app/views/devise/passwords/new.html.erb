@@ -5,8 +5,8 @@
 	  <div><%= f.label :email %>
 	  <%= f.email_field :email %></div>
 
-	  <div><%= f.submit "Reset Password" %></div>
-	<% end %>
+	  <div><%= f.submit "Reset Password", :class => "btn" %></div>
+	<% end %><br/>
 
 	<%= render "devise/shared/links" %>
 </div>

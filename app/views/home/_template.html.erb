@@ -16,7 +16,7 @@
 </script>
 
 <script type="script/template" id="book_details_template">
-	<div class="book_heading"><%%= name %></div>
+	<div class="book_heading"><%%= name %> <small>by <%%= author %></small></div>
 	<div class="left">
 		
 		<div class="book_image">
@@ -40,6 +40,11 @@
 			<div class="clear"></div>
 		</div>
 
+		<!--<div class="class_adoption_caption">Class Adoption Rate: (rented <span></span> times)</div>
+		<div class="class_adoption"></div>-->
+
+	</div>
+	<div class="right">
 		<div class="information">
 			<div class="information_left">ISBN10:</div>
 			<div class="information_right"><%%= isbn10 %></div>
@@ -55,51 +60,44 @@
 			<div class="information_right timeago" title="<%%= published_date %>"></div>
 			<div class="information_left">pages</div>
 			<div class="information_right"><%%= pages %></div>
-			<div class="information_left">list price</div>
-			<div class="information_right">Rs.<%%= price %></div>
-			<div class="information_left">rental price</div>
-			<div class="information_right">Rs.<%%= (price * publisher.rental)/100 %></div>
+			<div class="information_left"><b>list price</b></div>
+			<div class="information_right"><b>Rs.<%%= price %></b></div>
+			<div class="information_left"><b>rental price</b></div>
+			<div class="information_right"><b>Rs.<%%= (price * publisher.rental)/100 %></b></div>
 			<div class="clear"></div>
 		</div>
-
-		<div class="class_adoption_caption">Class Adoption Rate: (rented <span></span> times)</div>
-		<div class="class_adoption"></div>
-
-	</div>
-	<div class="right">
-		<div class="text"> 
-			<div class="text_left">Description</div>
-			<div class="text_right"><%%= description %></div>
-			<div class="clear"></div>
-		</div>
-		<div class="text"> 
-			<div class="text_left">Strengths</div>
-			<div class="text_right"><%%= strengths %></div>
-			<div class="clear"></div>
-		</div>
-		<div class="text"> 
-			<div class="text_left">Weaknesses</div>
-			<div class="text_right"><%%= weaknesses %></div>
-			<div class="clear"></div>
-		</div>
-
-		<div class="reviews_box">
-			<div class="reviews_caption">
-				<div class="reviews_caption_left">User Reviews</div>
-				<div class="reviews_caption_right">Leave a Review</div>
-				<div class="clear"></div>
-			</div>
-			<div class="reviews">
-				<div class="reviews_content"></div>
-				<form class="reviews_form">
-					<textarea placeholder="Write a review" class="reviews_input"></textarea><br/>
-					<button type="submit" class="btn reviews_submit">Submit</button>
-				</form>
-			</div>
-		</div>
-
 	</div>
 	<div class="clear"></div>
+	<div class="text"> 
+		<div class="text_left">Description</div>
+		<div class="text_right"><%%= description %></div>
+		<div class="clear"></div>
+	</div>
+	<div class="text"> 
+		<div class="text_left">Strengths</div>
+		<div class="text_right"><%%= strengths %></div>
+		<div class="clear"></div>
+	</div>
+	<div class="text"> 
+		<div class="text_left">Weaknesses</div>
+		<div class="text_right"><%%= weaknesses %></div>
+		<div class="clear"></div>
+	</div>
+
+	<div class="reviews_box">
+		<div class="reviews_caption">
+			<div class="reviews_caption_left">User Reviews</div>
+			<div class="reviews_caption_right">Leave a Review</div>
+			<div class="clear"></div>
+		</div>
+		<div class="reviews">
+			<div class="reviews_content"></div>
+			<form class="reviews_form">
+				<textarea placeholder="Write a review" class="reviews_input"></textarea><br/>
+				<button type="submit" class="btn reviews_submit">Submit</button>
+			</form>
+		</div>
+	</div>
 </script>
 
 <script type="script/template" id="cart_template"> 

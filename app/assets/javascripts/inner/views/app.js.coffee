@@ -92,25 +92,30 @@ $(document).ready ->
 			false
 
 		checkout: ->
-			$("#cart_box").dialog("close")
-			$("#shipping_details_box").dialog("open")
-			console.log sociorent.models.user_object.get("address").address_state
-			$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
+			accept_terms_of_use = $("#order_terms_and_conditions").attr("checked")
+			if accept_terms_of_use == "checked"
+				$("#cart_box").dialog("close")
+				$("#shipping_details_box").dialog("open")
+				$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
+			else
+				alert "Please accept terms of use"
 			
 		create_order: (event)->
 			# get the order type
 			order_type = $(event.target).attr "data-attr"
-			accept_terms_of_use = $("#order_terms_and_conditions").attr("checked") ? true:false
-			post_data = 
+			accept_terms_of_use = $("#order_terms_and_conditions").attr("checked")
+			if accept_terms_of_use == "checked"
+				accept_terms_of_use = true
+			else
+				false
+			post_data = {order_type :order_type, accept_terms_of_use: accept_terms_of_use}
 			if order_type == "bank"
 				post_data["bank_id"] = $("#bank_name").val()
 			$("#checkout_box_content").html "<div class='center'> Order processing...</div>"
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
-				data:
-					order_type :order_type
-					accept_terms_of_use: accept_terms_of_use
+				data: post_data
 				success: (msg)->
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"

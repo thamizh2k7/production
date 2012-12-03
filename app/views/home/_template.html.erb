@@ -246,19 +246,19 @@
 			  <div class="control-group">
 			    <label class="control-label" for="address_street_name1">Street1</label>
 			    <div class="controls">
-			      <input type="text" id="address_street_name1" name="address_street_name1" value="<%%= address.address_street_name1 %>"  placeholder="Street1">
+			      <input type="text" id="address_street_name1" name="address_street_name1" value="<%%= address.address_street_name1 || '' %>"  placeholder="Street1">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="street_name2">Street2</label>
 			    <div class="controls">
-			      <input type="text" id="address_street_name2" name="address_street_name2" value="<%%= address.address_street_name2 %>" placeholder="Street2">
+			      <input type="text" id="address_street_name2" name="address_street_name2" value="<%%= address.address_street_name2 || '' %>" placeholder="Street2">
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="address_street_name1">City</label>
 			    <div class="controls">
-			      <input type="text" id="address_city" name="address_city" value="<%%= address.address_city %>" placeholder="City">
+			      <input type="text" id="address_city" name="address_city" value="<%%= address.address_city || '' %>" placeholder="City">
 			    </div>
 			  </div>
 			  <div class="control-group">
@@ -274,7 +274,7 @@
 			  <div class="control-group">
 			    <label class="control-label" for="address_pincode">Pincode</label>
 			    <div class="controls">
-			      <input type="text" maxlength="6" id="address_pincode" name="address_pincode" value="<%%= address.address_pincode %>" placeholder="Pincode">
+			      <input type="text" maxlength="6" id="address_pincode" name="address_pincode" value="<%%= address.address_pincode || '' %>" placeholder="Pincode">
 			    </div>
 			  </div>
 			  <div class="control-group">

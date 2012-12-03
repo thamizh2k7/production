@@ -1083,6 +1083,11 @@ span.blue{
 			}
 			#shipping_box{
 				display:none;
+
+				#profile_shipping_form{
+					width: 90%;
+					margin: 20px auto;
+				}
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 require 'koala'
 class OrdersController < ApplicationController
 	def create
+		require Rails.root.join('lib','Gharpay.rb')
 		user = current_user
 		cart = user.cart
 		books = cart.books
@@ -143,6 +144,7 @@ class OrdersController < ApplicationController
 	def print_invoice
 		@order=Order.where(:random=>params[:order]).first
 		@user=current_user
+		render "print_invoice",:layout=>false
 	end
 
 	private

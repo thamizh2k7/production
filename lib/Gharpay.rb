@@ -3,19 +3,22 @@ module Gharpay
     include HTTParty
   
     format :xml
-    if Rails.env == 'production'
-      base_uri "http://webservices.gharpay.in/rest/GharpayService"
-    else
+    #if Rails.env == 'production'
+    #   base_uri "http://webservices.gharpay.in/rest/GharpayService"
+    # else
       base_uri "http://services.gharpay.in/rest/GharpayService"
-    end
+    # end
 
     def initialize(username, password)
       @creds = {"username" => username, "password" => password }
+     puts @creds
     end
     
     # Validates whether the location with this pincode is serviced by Gharpay
     def valid_pincode?(zip)
       res = self.class.get("/isPincodePresent", :query => {:pincode => zip}, :headers => @creds)
+  puts res  
+
       eval(res['isPincodePresentPresentResponse']['result'])
     rescue 
       return false
@@ -25,8 +28,15 @@ module Gharpay
     def create_order(order) 
       options = {:body => order.to_xml(:root => "transaction"), :headers => @creds.merge('Content-Type' => 'application/xml')}
       res = self.class.post("/createOrder", options)
-      return res['createOrderResponse']['orderID'] unless res['createOrderResponse']['errorMessage']
-      res['createOrderResponse']['errorMessage']
+      return_val=Hash.new
+      if res['createOrderResponse']['orderID']
+        return_val["status"]=true
+        return_val["orderID"]=res['createOrderResponse']['orderID']
+      else
+        return_val["status"]=false
+        return_val["error"]=res['createOrderResponse']['errorMessage']
+      end
+      return return_val
     rescue
       return nil 
     end    
@@ -61,7 +71,6 @@ module Gharpay
     # This method returns a list of cities currently being served by Gharpay in an array
     def city_list
       res = self.class.get("/getCityList", :headers => @creds)
-      puts res
       res['getCityListResponse']['city']
     rescue
       return nil  

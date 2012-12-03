@@ -167,6 +167,7 @@ class HomeController < ApplicationController
   end
 
   def update_shipping
+    require Rails.root.join('lib','Gharpay.rb')
     user=current_user
     resp = {}
     if user.update_attributes(:address=>params.except(:controller, :action).to_json)

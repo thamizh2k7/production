@@ -61,5 +61,5 @@ gem 'httparty'
 #gem "gharpay_api"
 #gem "gharpay_api",:path=>"/home/thamizh/gharpay"
 gem "gharpay", :git => "git://github.com/thamizh2k7/gharpay.git"
-gem "book_finder_api", "~> 0.0.9"
+gem "book_finder_api", "~> 0.0.10"
 gem "mechanize"

@@ -297,7 +297,9 @@
 	</div>
 	<div class="order_books"></div>
 	<div class="rental_total">Rental Amount: Rs.<%%= rental_total %></div>
-	<div class="deposit_total">Rental Deposit (refundable): Rs.<%%= deposit_total %></div>
+	<div class="deposit_total">Security Deposit: Rs.<%%= deposit_total %></div>
+	<div class="clear"></div>
+	<div class="rental_total">Refundable amount: Rs.<%%= deposit_total - rental_total %></div>
 	<div class="clear"></div>
 	<div class="total">Total: Rs.<%%= total %> <i>(Shipping Charge Rs.50 if Rental deposit less than Rs.1000)</i></div>
 </script>

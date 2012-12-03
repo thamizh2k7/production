@@ -9,6 +9,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			$("#cart_options_right").show()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
+			$("#cart_refundable_amount span").html(sociorent.fn.calculate_cart_deposit_total() - sociorent.fn.calculate_cart_rental_total())
 			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			$("#cart_button_total_left span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			$("#cart_header").show()
@@ -24,6 +25,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
+			$("#cart_refundable_amount span").html(sociorent.fn.calculate_cart_deposit_total() - sociorent.fn.calculate_cart_rental_total())
 			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			$("#cart_button_total_left span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			# trigger that something has been removed from cart
@@ -38,6 +40,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
+			$("#cart_refundable_amount span").html(sociorent.fn.calculate_cart_deposit_total() - sociorent.fn.calculate_cart_rental_total())
 			$("#cart_total span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 			$("#cart_button_total_left span").html(sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge)
 

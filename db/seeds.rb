@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-g = General.create(:welcome_mail_subject=>"Dear Admin, This is your email")
+g = General.create(:welcome_mail_subject=>"Thank you for registering with us:Sociorent")
 # User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
 
 # books

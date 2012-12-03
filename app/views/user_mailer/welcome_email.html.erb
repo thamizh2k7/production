@@ -4,6 +4,6 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <div><%= raw @general.welcome_mail_content %></div>
+    <div>Dear <%= @user.name %>,<br> <%= raw @general.welcome_mail_content %></div>
   </body>
 </html>

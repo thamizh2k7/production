@@ -77,8 +77,8 @@ Sociorent::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'www.devbrother.com',
-    :user_name            => 'testing@devbrother.com',
-    :password             => 'devbrother',
+    :user_name            => 'bikksrux@gmail.com',
+    :password             => 'qwerty_1',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 end

@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id
+  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id, :accept_terms_of_use
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
@@ -36,6 +36,7 @@ class Order < ActiveRecord::Base
       field :rental_total do
         label "Rental Amount"
       end
+      field :accept_terms_of_use
       field :total
   		field :user
   		field :books

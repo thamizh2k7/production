@@ -32,8 +32,11 @@
     <div class="cB"></div>
   </div>
 
-  <%= yield %>
-  <div id="university_dialog">
+  <div class="font_page">
+    <%= yield %>
+  </div>
+
+  <div id="university_dialog" class="font-dialog">
     <% logos=General.first.images %>
     <% if logos%>
       <ul class="university_logos">

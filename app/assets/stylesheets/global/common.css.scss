@@ -40,6 +40,8 @@ a{
 
 
 /**************css global **********/
+
+/* Fonts */
 @font-face {
 	font-family: 'MuseoSlab-500';
 	src: url('/assets/fonts/24EF4C_0_0.eot');
@@ -49,15 +51,15 @@ a{
 }
 
 @font-face {
-				font-family: 'Arvo';
-				src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot');
-				src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot?#iefix') format('embedded-opentype'),
-						 url('/assets/global/fonts/adellebasic/adellebasic_bold.woff') format('woff'),
-						 url('/assets/global/fonts/adellebasic/adellebasic_bold.ttf') format('truetype'),
-						 url('/assets/global/fonts/adellebasic/adellebasic_bold.svg#arvo-regular') format('svg');
-				font-weight: normal;
-				font-style: normal;
-		}
+	font-family: 'Arvo';
+	src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot');
+	src: url('/assets/global/fonts/adellebasic/adellebasic_bold.eot?#iefix') format('embedded-opentype'),
+			 url('/assets/global/fonts/adellebasic/adellebasic_bold.woff') format('woff'),
+			 url('/assets/global/fonts/adellebasic/adellebasic_bold.ttf') format('truetype'),
+			 url('/assets/global/fonts/adellebasic/adellebasic_bold.svg#arvo-regular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
 @font-face {
 	font-family: 'rupee';
@@ -66,13 +68,19 @@ a{
 	font-style: normal;
 }
 
+.font_page{
+	font-family: Arvo;
+}
+
+.font-dialog{
+	font-family: 'MuseoSlab-500';
+}
+
 
 html, form, body, fieldset, ul, li, ol, h1, h2, h3, a, p {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
-	/*font-family: hanzo, helvetica, arial;*/
-	font-family: Arvo !important;
 }
 
 
@@ -112,9 +120,8 @@ a:visited { color: #049; }
 	color: #0F8159;
 }
 body {
-    background: white;
-    font-family: 'Arial', sans-serif;
-    font-size: 13px;
+  background: white;
+  font-size: 13px;
 }
 
 .left {
@@ -223,4 +230,25 @@ body {
 
 	}
 
+}
+
+.btn{
+	background: #F65757;
+	color: white !important;
+	font-weight: 400 !important;
+	text-shadow: none;
+}
+
+.btn:hover{
+	background: #F65757;
+	color: white !important;
+	font-weight: 400 !important;
+	text-shadow: none;
+}
+
+.btn:active{
+	background: #F65757;
+	color: white !important;
+	font-weight: 400 !important;
+	text-shadow: none;
 }

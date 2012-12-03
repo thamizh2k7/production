@@ -1,8 +1,8 @@
-<div id="book_details_box">
-</div>
 <% states=["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Daman and Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Orissa","Pondicherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Dadra and Nagar Haveli","Andaman and Nicobar Islands"]%>
 
-<div id="cart_box">
+<div id="book_details_box" class="font-dialog"></div>
+
+<div id="cart_box" class="font-dialog">
 	<div id="cart_caption">Your Cart</div>
 	<div id="no_item_in_cart">There are no books in your cart.</div>
 	<div id="cart_header">
@@ -27,6 +27,10 @@
 	<div id="cart_total">Total: Rs.<span></span></div>
 	<div class="clear"></div>
 	<div id="cart_options">
+		<div id="terms_and_conditions_box">
+			<input type="checkbox" id="order_terms_and_conditions" checked="checked">
+			<label for="order_terms_and_conditions">I Agree to the Terms of use</label>
+		</div>
 		<div id="cart_options_right">
 			Checkout
 		</div>
@@ -35,7 +39,7 @@
 	<div id="shipping_charge">Shipping Charge: Rs.<span></span> (Rs.50 if Rental deposit less than Rs.1000)</div>
 </div>
 
-<div id="shipping_details_box">
+<div id="shipping_details_box" class="font-dialog">
 	<form class="form-horizontal shipping_form" id="shipping_form" >
 		<% unless @user.address.nil? %>
 		 <%	address = JSON.parse(@user.address) %>
@@ -85,7 +89,7 @@
 	</form>
 </div>
 
-<div id="checkout_box">
+<div id="checkout_box" class="font-dialog">
 	<div id="checkout_caption">Checkout</div>
 	<div id="checkout_box_content">
 		<div id="checkout_cash">
@@ -130,7 +134,7 @@
 	</div>
 </div>
 
-<div id="order_box">
+<div id="order_box" class="font-dialog">
 	<div id="order_caption">Order Made</div>
 	<div id="order_id">Your order id is <span></span><br>
 	<div id="order_bank_cheque">, use this number when you make payment with cash and cheque for reference.</div>
@@ -138,7 +142,7 @@
 </div>
 </div>
 
-<div id="compare_dialog_box">
+<div id="compare_dialog_box" class="font-dialog">
 	<div id="compare_dialog">
 		<div id="search_to_compare">
 			<div id="search_to_compare_caption">Add book to compare</div>
@@ -152,9 +156,9 @@
 	</div>
 </div>
 
-<div id="user_dialog"></div>
+<div id="user_dialog" class="font-dialog"></div>
 
-<div id="intership_dialog">
+<div id="intership_dialog" class="font-dialog">
 	<h1>Interships</h1>
 	<div id="companies">
 		<% @companies.each do |company| %>

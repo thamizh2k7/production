@@ -389,6 +389,15 @@
 		margin: 20px auto 0px;
 		width: 95%;
 
+		#terms_and_conditions_box {
+			float: left;
+
+			label{
+				display: inline;
+				padding-left: 7px;
+			}
+		}
+
 		#cart_options_right {
 			float: right;
 			width: 90px;
@@ -526,9 +535,6 @@
 		margin: 20px auto;
 		padding: 8px;
 	}
-	#checkout_cash:hover{
-		border: 1px solid #CC4D5C;
-	}
 	#checkout_cheque, #checkout_gharpay{
 		width: 95%;
 		height: 80px;
@@ -537,9 +543,6 @@
 		margin: 20px auto;
 		padding: 8px;
 		cursor: pointer;
-	}
-	#checkout_cheque:hover,#checkout_gharpay:hover{
-		border: 1px solid #CC4D5C;
 	}
 }
 

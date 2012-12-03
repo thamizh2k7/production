@@ -58,7 +58,7 @@ module RailsAdmin
             else
               user=User.where(:unique_id=>params[:unique_id]).first
               if user
-                redirect_to "/admin/user/#{user.id}"
+                redirect_to "/cb_admin/user/#{user.id}"
               else
                 flash[:notice]="No Such Unique ID"
               end

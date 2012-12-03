@@ -22,7 +22,7 @@
 		window.book_orders = new Array();
 
 		$("#update_shipping").click(function(){
-			var url = "/admin/order/" + <%= raw @object.id %> + "/shipping";
+			var url = "/cb_admin/order/" + <%= raw @object.id %> + "/shipping";
 			$.ajax(url, {
 				type:"post",
 				async:true,
@@ -32,7 +32,7 @@
 					book_orders: JSON.stringify(window.book_orders),
 				},
 				success: function(){
-					window.location.href = "/admin/order/" + <%= raw @object.id %>;
+					window.location.href = "/cb_admin/order/" + <%= raw @object.id %>;
 				}
 			});
 		});

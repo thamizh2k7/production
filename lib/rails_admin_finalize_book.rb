@@ -112,7 +112,7 @@ module RailsAdmin
                   end
                 end
               
-              redirect_to "/admin/book"
+              redirect_to "/cb_admin/book"
             end
 					end
 				end

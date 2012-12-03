@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "orders/print_invoice.css.scss" %>
 <div class="order_heading">
 	<div class="order_heading_left">
 		<p>Sociorent.Com</p>
@@ -15,21 +16,29 @@
 	</div>
 	<div class="clear"></div>
 </div>
+<div id="cart_header" style="display: block;">
+		<div id="cart_header_book">Book</div>
+		<div id="cart_header_isbn">ISBN</div>
+		<div id="cart_header_rental_amount">Rental Amount</div>
+		<div id="cart_header_rental_deposit">Rental Deposit</div>
+</div>
+<div id="cart">
 <% books = @order.books %>
 <% books.each do |book| %>
-	<div class="order_books">
+	<div class="cart_single">
 		<div class="cart_name">
-		<div class="cart_name_name"><%= book.name %></div>
-		<div class="cart_name_author">by <%=book.author %></div>
-	</div>
-	<div class="cart_isbn">
-		<%= book.isbn10 %>
-	</div> 
-	<div class="cart_price">
-		Rs. <%= (book.price.to_i * book.publisher.rental.to_i)/100 %>
-	</div>
-	<div class="cart_price">
-		Rs. <%= book.price %>
+			<div class="cart_name_name"><%= book.name %></div>
+			<div class="cart_name_author">by <%=book.author %></div>
+		</div>
+		<div class="cart_isbn">
+			<%= book.isbn10 %>
+		</div> 
+		<div class="cart_price">
+			Rs. <%= (book.price.to_i * book.publisher.rental.to_i)/100 %>
+		</div>
+		<div class="cart_price">
+			Rs. <%= book.price %>
+		</div>
 	</div>
 <% end %>
 </div>

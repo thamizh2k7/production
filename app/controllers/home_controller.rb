@@ -193,15 +193,15 @@ class HomeController < ApplicationController
     render "book", :layout => false
   end
 
-  def check
-    order={}
-    order["customerDetails"]={"firstName"=>"keviv vivek","contactNo"=>"9849343334","address"=>"2334,dsfds stredst, Chennai"}
-    order["orderDetails"]={"deliveryDate"=>"02-12-2012","pincode"=>"600001","orderAmount"=>"5000","clientOrderID"=>"222234"}
-
-    g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-    res = g.create_order(order)
-    puts res
-    render :text=>res
+  def validate
+    res=false
+    case params[:type]
+      when "email"
+        res="true" if(User.where(:email=>params[:user]["email"]).count==0)
+      when "mobile"
+        res="true" if(User.where(:mobile_number=>params[:mobile]).count==0)
+    end
+    render :text=> res and return
   end
 
   private

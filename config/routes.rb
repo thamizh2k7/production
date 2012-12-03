@@ -23,7 +23,7 @@ Sociorent::Application.routes.draw do
   match "update_shipping" => "home#update_shipping"
   post "home/load_more"
   match "book/details/:id" => "home#book"
-  match "check" => "home#check"
+  match "validate/:type" => "home#validate"
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -85,7 +85,8 @@ Sociorent::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
-
+  
+  match '*a', :to => 'errors#routing'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

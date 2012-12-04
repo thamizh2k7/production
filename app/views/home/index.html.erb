@@ -30,13 +30,12 @@
 		<div class="search_wrap">
 			<h2>Rent your books and Save thousands of Rupees</h2>
 			<div class="searchbar">
-					<form class="left" method="get" action="/search/" id="search">
-						<input type="text" id="search_books_input" name="q"  placeholder="Enter Title, Author Name, ISBN" class="left search">
-						<input type="submit" value="Search" class="left searchbutton">
-
-					</form>
+				<form method="get" action="/search/" id="search">
+					<input type="text" id="search_books_input" name="q"  placeholder="Enter Title, Author Name, ISBN" class="left search">
+					<input type="submit" value="Search" class="left searchbutton">
+					<input type="button" value="X" class="left btn" id="searchClose">
+				</form>
 			</div>
-			<input type="button" value="X" class="left btn" id="searchClose">
 			<div class="cB"></div>
 			<div id="search_books"></div>
 		</div>
@@ -131,9 +130,9 @@
 	</div>
 </div>
 
-<div id="book_details"></div>
+<div id="book_details" class="font-dialog"></div>
 
-<div id="login_box">
+<div id="login_box" class="font-dialog">
 	<div id="login_box_left">
 		<div id="login_box_left_login" class="boxes">
 			<%= render :template => "devise/sessions/new" %>

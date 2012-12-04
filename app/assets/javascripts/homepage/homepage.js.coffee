@@ -65,9 +65,23 @@ $(document).ready ->
 		initialize: ->
 			_.bindAll this, 'render'
 
+		events:
+			"click .add_to_cart" : "add_to_cart"
+
 		render: ->
 			$(@el).html @template(@model.toJSON())
 			this
+
+		add_to_cart: ->
+			that = this
+			$.ajax "/home/add_to_cart" ,
+				type:"post"
+				async:true
+				data: 
+					book: that.model.id 
+				success: (msg)->
+					$("#login_box").dialog("open");
+			false
 
 
 

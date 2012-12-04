@@ -25,7 +25,6 @@
 		<div class="auther_edition">
 			<div class="edition"><b>Edition <%%= edition %></b></div>
 			<div class="author">Author(s): <p><span class="blue author_names"></span></p></div>
-			<div class="add_to_cart">Add to Cart</div>
 			<div class="add_to_wishlist">Add to my Wishlist</div>
 		</div>
 		<div class="clear"></div>
@@ -45,25 +44,38 @@
 
 	</div>
 	<div class="right">
+		<div class="information information_price">
+			<div class="information_left"><b>list price</b></div>
+			<div class="information_right"><b>Rs.<%%= price %></b></div>
+			<div class="clear"></div>
+			<div class="information_left"><b>rent</b></div>
+			<div class="information_right"><b>Rs.<%%= (price * publisher.rental)/100 %></b></div>
+			<div class="clear"></div>
+			<div class="add_to_cart btn">Add to Cart</div>
+		</div>
+	</div>
+	<div class="right">
 		<div class="information">
 			<div class="information_left">ISBN10:</div>
 			<div class="information_right"><%%= isbn10 %></div>
+			<div class="clear"></div>
 			<div class="information_left">ISBN13:</div>
 			<div class="information_right"><%%= isbn13 %></div>
+			<div class="clear"></div>
 			<div class="information_left">binding:</div>
 			<div class="information_right"><%%= binding %></div>
+			<div class="clear"></div>
 			<div class="information_left">publisher:</div>
 			<div class="information_right"><%%= publisher.name %></div>
+			<div class="clear"></div>
 			<div class="information_left">published:</div>
 			<div class="information_right"><%%= published %></div>
+			<div class="clear"></div>
 			<div class="information_left">Age:</div>
 			<div class="information_right timeago" title="<%%= published_date %>"></div>
+			<div class="clear"></div>
 			<div class="information_left">pages</div>
 			<div class="information_right"><%%= pages %></div>
-			<div class="information_left"><b>list price</b></div>
-			<div class="information_right"><b>Rs.<%%= price %></b></div>
-			<div class="information_left"><b>rental price</b></div>
-			<div class="information_right"><b>Rs.<%%= (price * publisher.rental)/100 %></b></div>
 			<div class="clear"></div>
 		</div>
 	</div>

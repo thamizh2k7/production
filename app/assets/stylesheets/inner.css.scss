@@ -232,12 +232,6 @@
 			.author{
 
 			}
-			.add_to_cart{
-				color: #CC4D5C;
-				font-weight: 900;
-				font-size: 18px;
-				cursor: pointer;
-			}
 			.add_to_wishlist{
 				margin-top: 10px;
 				cursor: pointer;
@@ -283,7 +277,22 @@
 	}
 	.right{
 		float: right;
-		width: 60%;
+		width: 32%;
+
+		.add_to_cart{
+			border-radius: 3px;
+			margin: 10px 46px;
+			width: 150px;
+			height: 21px;
+		}
+
+		.information_price{
+			font-size: 20px;
+
+			.information_left{
+				margin-bottom: 8px;
+			}
+		}
 
 		.information{
 			margin-top: 20px;
@@ -339,7 +348,7 @@
 			margin-top: 20px;
 
 			.reviews_form{
-				text-align: left;
+				text-align: center;
 				margin-left: 15px;
 				margin-top: 20px;
 				display: none;

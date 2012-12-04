@@ -100,8 +100,8 @@ module RailsAdmin
                         book_save.publisher=publisher
                         if row[13] !=""
                           #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")
-                          # img=Image.create(:image_url=>row[13])
-                          # book_save.images << img
+                          img=Image.create(:image_url=>row[13])
+                          book_save.images << img
                         end
                         book_save.save
                       else

@@ -135,6 +135,7 @@
 <div id="login_box" class="font-dialog">
 	<div id="login_box_left">
 		<div id="login_box_left_login" class="boxes">
+			<div class="error_msg"></div><br>
 			<%= render :template => "devise/sessions/new" %>
 		</div>
 		<div id="login_box_left_password" class="boxes">
@@ -167,7 +168,7 @@ $("document").ready(function(){
 		autoOpen: false,
 		draggable: false,
 		title:'Login',
-		width: 600,
+		width: 650,
 		resizable: false,
     modal: true
   });
@@ -226,6 +227,24 @@ $("document").ready(function(){
 		$("#book_details").append(view.render().el);
 		$("#book_details").dialog("open");
 	<% end %>
+
+	$("#login_box_left_login form").live("submit",function(){
+		$.ajax({
+      url: "/users/sign_in",
+      type:"post",
+      data:$("#login_box_left_login form").serialize(),
+      complete: function (jqxhr, txt_status) {
+      	if(jqxhr.status==200){
+      		location.reload();
+      	}
+      	else{
+      			$(".error_msg").html(jqxhr.responseText);
+      	}
+      }
+    });
+		return false;
+
+	});
 	
 });
 </script>

@@ -127,25 +127,29 @@ class HomeController < ApplicationController
     resp = []
     class_adoption_resp = []
     review_resp = []
-    College.all.each do |college|
-      class_adoption = @book.class_adoptions.where(:college_id => college).first.to_json(:only => [:rate,:id], :include =>{:college => {:only => [:name]}})
-      unless class_adoption == "null"
-        class_adoption_resp << JSON.parse(class_adoption)
-      else
-        class_adoption = Hash.new
-        class_adoption["rate"] = @book.orders.where(:user_id => college.users).count
-        college_name = Hash.new
-        college_name["name"] = college.name
-        class_adoption["college"] = college_name
-        class_adoption_resp << class_adoption
+    if user
+      College.all.each do |college|
+        class_adoption = @book.class_adoptions.where(:college_id => college).first.to_json(:only => [:rate,:id], :include =>{:college => {:only => [:name]}})
+        unless class_adoption == "null"
+          class_adoption_resp << JSON.parse(class_adoption)
+        else
+          class_adoption = Hash.new
+          class_adoption["rate"] = @book.orders.where(:user_id => college.users).count
+          college_name = Hash.new
+          college_name["name"] = college.name
+          class_adoption["college"] = college_name
+          class_adoption_resp << class_adoption
+        end
       end
     end
     review_resp = JSON.parse @book.reviews.to_json(:include => {:user => {:only => :name}})
     # check if current user is allowed to make a review for this book
-    if user.books.where(:id => @book).first.nil? || user.reviews.where(:book_id => @book).first
-      review_resp << {"make_review"=>0}
-    else
-      review_resp << {"make_review"=>1}
+    if user
+      if user.books.where(:id => @book).first.nil? || user.reviews.where(:book_id => @book).first
+        review_resp << {"make_review"=>0}
+      else
+        review_resp << {"make_review"=>1}
+      end
     end
     resp << review_resp
     resp << class_adoption_resp

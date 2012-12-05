@@ -25,15 +25,29 @@ $(document).ready ->
 			"click" : "view_book_info"
 
 		view_book_info: ->
+			that = this
 			$("#book_details").html ""
 			view = new sociorent.views.book_details
 				model: @model
 			$("#book_details").append view.render().el
+			$(view.el).find(".timeago").timeago()
 			# update authors in book details
 			author = @model.get "author"
 			author_array = author.split ","
 			_.each author_array, (author)->
 				$(view.el).find(".author_names").append "<a href='#' class='author_name'>" + author + "</a><br/>"
+			$.ajax "/home/get_adoption_rate" ,
+				type:"post"
+				async:true
+				data:
+					book: that.model.id
+				success: (msg)->
+					sociorent.collections.review_object.reset msg[0]
+					sociorent.collections.review_object.sort({silent: true})
+					_.each sociorent.collections.review_object.models, (model)->
+						view = new sociorent.views.review
+							model: model
+						$(".reviews_content").append view.render().el
 			$("#book_details").dialog "open"
 
 		add_to_cart: ->
@@ -95,6 +109,35 @@ $(document).ready ->
 			$("#search_books_input").val(author)
 			search()
 			false
+
+	# Backbone for reviews 
+	sociorent.models.review = Backbone.Model.extend()
+	
+	sociorent.collections.review = Backbone.Collection.extend
+		model: sociorent.models.review
+
+		initialize: ->
+			@on "reset", ()->
+				if @models.length == 0 
+					$(".reviews_content").html "<div>No reviews are made yet.</div>"
+
+		comparator: (model)->
+			-model.id
+
+	sociorent.views.review = Backbone.View.extend
+		tagName: "div"
+		className: "review_single"
+
+		template: _.template $("#review_template").html()
+
+		initialize: ->
+			_.bindAll this, 'render'
+
+		render: ->
+			$(@el).html @template(@model.toJSON())
+			this
+
+	sociorent.collections.review_object = new sociorent.collections.review()
 
 
 

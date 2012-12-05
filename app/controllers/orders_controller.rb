@@ -70,7 +70,7 @@ class OrdersController < ApplicationController
 
 		#send the sms when the user completes the order
     sms_text=Sms.where(:sms_type=>"order").first.content
-    send_sms(user.mobile_number,"#{sms_text}")
+    send_sms(user.mobile_number,"#{sms_text}. Your order id is #{order.random}, please check sociorent for more information.")
     
 		# empty the cart
 		cart.book_carts.each do |book_cart|

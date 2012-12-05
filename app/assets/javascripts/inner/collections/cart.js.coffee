@@ -6,7 +6,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			# listen to add to cart
 			$("#cart_button .cart_button_count").html @models.length
 			$("#no_item_in_cart").hide()
-			$("#cart_options_right").show()
+			$("#cart_hide_on_no_item").show()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
 			$("#cart_refundable_amount span").html(sociorent.fn.calculate_cart_deposit_total() - sociorent.fn.calculate_cart_rental_total())
@@ -21,7 +21,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			$("#cart_button .cart_button_count").html @models.length
 			if @models.length == 0
 				$("#no_item_in_cart").show()
-				$("#cart_options_right").hide()
+				$("#cart_hide_on_no_item").hide()
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()
@@ -36,7 +36,7 @@ sociorent.collections.cart = Backbone.Collection.extend
 			$("#cart_button .cart_button_count").html @models.length
 			if @models.length == 0
 				$("#no_item_in_cart").show()
-				$("#cart_options_right").hide()
+				$("#cart_hide_on_no_item").hide()
 				$("#cart_header").hide()
 			$("#cart_deposit_total span").html sociorent.fn.calculate_cart_deposit_total()
 			$("#cart_rental_total span").html sociorent.fn.calculate_cart_rental_total()

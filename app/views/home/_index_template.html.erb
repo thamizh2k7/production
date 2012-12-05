@@ -78,17 +78,17 @@
 	<div class="clear"></div>
 	<div class="text"> 
 		<div class="text_left">Description</div>
-		<div class="text_right"><%%= description %></div>
+		<div class="text_right"><%%= description || "--" %></div>
 		<div class="clear"></div>
 	</div>
 	<div class="text"> 
 		<div class="text_left">Strengths</div>
-		<div class="text_right"><%%= strengths %></div>
+		<div class="text_right"><%%= strengths || "--" %></div>
 		<div class="clear"></div>
 	</div>
 	<div class="text"> 
 		<div class="text_left">Weaknesses</div>
-		<div class="text_right"><%%= weaknesses %></div>
+		<div class="text_right"><%%= weaknesses || "--" %></div>
 		<div class="clear"></div>
 	</div>
 
@@ -98,5 +98,15 @@
 			<div class="reviews_caption_right">Leave a Review</div>
 			<div class="clear"></div>
 		</div>
+		<div class="reviews">
+			<div class="reviews_content"></div>
+		</div>
 	</div>
+</script>
+
+
+<script type="script/template" id="review_template">
+	<div class="review_single_left"><%%= user.name %></div>
+	<div class="review_single_right"><%%= content %></div>
+	<div class="clear"></div>
 </script>

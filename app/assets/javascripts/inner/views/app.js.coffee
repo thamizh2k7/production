@@ -111,7 +111,8 @@ $(document).ready ->
 			post_data = {order_type :order_type, accept_terms_of_use: accept_terms_of_use}
 			if order_type == "bank"
 				post_data["bank_id"] = $("#bank_name").val()
-			$("#checkout_box_content").html "<div class='center'> Order processing...</div>"
+			$("#checkout_box_content").hide()
+			$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
@@ -134,6 +135,8 @@ $(document).ready ->
 					sociorent.fn.renderSearch()
 					sociorent.fn.renderCart()
 					$("#profile_orders_button").click()
+					$("#checkout_box_content").show()
+					$("#checkout_box_response").html ""
 
 		compare_close: ->
 			sociorent.fn.hide_compare()

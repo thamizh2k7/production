@@ -442,6 +442,10 @@ form#search{
 		font-size: 22px;
 		border-bottom: 1px solid #AAA;
 		padding: 26px 5px 20px 5px;
+
+		small {
+			font-size: 68%;
+		}
 		.heading{
 			float:left;
 			width:40%;

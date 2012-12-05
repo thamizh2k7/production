@@ -29,6 +29,11 @@ $(document).ready ->
 			view = new sociorent.views.book_details
 				model: @model
 			$("#book_details").append view.render().el
+			# update authors in book details
+			author = @model.get "author"
+			author_array = author.split ","
+			_.each author_array, (author)->
+				$(view.el).find(".author_names").append "<a href='#' class='author_name'>" + author + "</a><br/>"
 			$("#book_details").dialog "open"
 
 		add_to_cart: ->
@@ -67,6 +72,7 @@ $(document).ready ->
 
 		events:
 			"click .add_to_cart" : "add_to_cart"
+			"click .author_names a" : "search_author"
 
 		render: ->
 			$(@el).html @template(@model.toJSON())
@@ -81,6 +87,13 @@ $(document).ready ->
 					book: that.model.id 
 				success: (msg)->
 					$("#login_box").dialog("open");
+			false
+
+		search_author: (ev)->
+			author = $.trim $(ev.target).html()
+			$("#book_details").dialog("close")
+			$("#search_books_input").val(author)
+			search()
 			false
 
 

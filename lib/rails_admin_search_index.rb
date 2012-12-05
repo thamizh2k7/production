@@ -56,7 +56,7 @@ module RailsAdmin
             if request.method == "GET"
             	render :action => @action.template_name
             else
-              system("rake thinking_sphinx:index")
+              system("rake ts:index RAILS_ENV=production")
             	redirect_to back_or_index
             end
 					end

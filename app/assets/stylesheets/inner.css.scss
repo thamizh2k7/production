@@ -60,8 +60,8 @@
 		}
 		#cart_button_total{
 			background: #FFF;
-			min-width: 167px;
-			margin-left: -83px;
+			min-width: 185px;
+			margin-left: -89px;
 			padding: 13px 9px;
 			-webkit-box-shadow: 0 4px 4px -2px #AAA;
    		-moz-box-shadow: 0 4px 4px -2px #AAA;
@@ -433,7 +433,7 @@
 	}
 
 	#cart{
-		max-height: 380px;
+		height: 380px;
 		overflow: auto;
 
 		.cart_single{

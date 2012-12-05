@@ -24,5 +24,6 @@ $(document).ready ->
 					book: that.model.id
 				success: (msg)->
 					if sociorent.collections.cart_object.get(msg.id)
-						sociorent.collections.cart_object.remove(msg.id)
-						$(that.el).fadeOut(300)
+						$(that.el).fadeOut(300, ()->
+							sociorent.collections.cart_object.remove(msg.id)
+						)

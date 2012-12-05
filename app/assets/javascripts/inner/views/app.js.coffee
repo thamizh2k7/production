@@ -87,8 +87,6 @@ $(document).ready ->
 							$("#checkout_gharpay").show()
 						else
 							$("#checkout_gharpay").hide()
-
-
 			false
 
 		checkout: ->

@@ -12,7 +12,14 @@ $(document).ready ->
 			sociorent.app_events.bind "added_to_cart", (id)->
 				if that.model.id == id
 					# when this model is added to cart
-					that.$(".add_to_cart").html "Added to Cart"
+					that.$(".add_to_cart").html("Added to Cart").css
+						background: "#0F8159"
+
+			sociorent.app_events.bind "removed_from_cart", (id)->
+				if that.model.id == id
+					# when this model is removed from cart
+					that.$(".add_to_cart").html("Add to Cart").css
+						background: "#F65757"
 
 		events: 
 			"click .add_to_cart" : "add_to_cart"
@@ -25,6 +32,9 @@ $(document).ready ->
 			$(@el).html @template(@model.toJSON())
 			if $.inArray(@model.id, sociorent.models.user_object.get("wishlist")) > -1
 				@$(".add_to_wishlist").html "Already in your Wishlist."
+			if sociorent.collections.cart_object.get(@model.id)
+				@$(".add_to_cart").css
+					background: "#0F8159"
 			this
 
 		add_to_cart: ->

@@ -17,12 +17,12 @@ p1 = Publisher.create(:name => "Penguin", :rental => 75)
 p2 = Publisher.create(:name => "Wrox", :rental => 70)
 
 #seeds for sliding logo images
-g.images.create(:image_url=>"http://1.bp.blogspot.com/-VmmofKydy14/TjpNGtViebI/AAAAAAAAA4E/bOqQkDjSa3o/s1600/HU%2BLogo%2B2nd%2BOption.jpg")
-g.images.create(:image_url=>"http://3.bp.blogspot.com/_CpC8QYlBkHM/TQhjafoWp9I/AAAAAAAAACM/7oiJbRJ11gs/s1600/Anna_university_logo.jpg")
-g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/louisiana-tech-university-logo.jpg")
-g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/louisiana-tech-university-logo.jpg")
-g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/shawnee-state-university-logo.gif")
-g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/washington-state-university-tri-cities-logo.gif")
+# g.images.create(:image_url=>"http://1.bp.blogspot.com/-VmmofKydy14/TjpNGtViebI/AAAAAAAAA4E/bOqQkDjSa3o/s1600/HU%2BLogo%2B2nd%2BOption.jpg")
+# g.images.create(:image_url=>"http://3.bp.blogspot.com/_CpC8QYlBkHM/TQhjafoWp9I/AAAAAAAAACM/7oiJbRJ11gs/s1600/Anna_university_logo.jpg")
+# g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/louisiana-tech-university-logo.jpg")
+# g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/louisiana-tech-university-logo.jpg")
+# g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/shawnee-state-university-logo.gif")
+# g.images.create(:image_url=>"http://blog.orgsync.com/wp-content/uploads/2011/08/washington-state-university-tri-cities-logo.gif")
 
 
 # c2.books.create(:name => "vivek", :description => "this is an autobiography", :isbn10 => "123ad123", :author => "abc", :isbn13 => "12312321312", :binding =>"Hardcover", :publisher_id => p1.id, :published => "2009", :pages => 320, :price => 340, :strengths => "this is a sample strengths", :weaknesses => "this is sample weaknesses")

@@ -71,6 +71,7 @@ $(document).ready ->
 				$(view.el).find(".timeago").timeago()
 				if sociorent.collections.cart_object.get(@model.id)
 					$(".book_details .add_to_cart").html "In Your Cart"
+				$("#book_details_box").scrollTop("0px")
 				$("#book_details_box").dialog("open")
 				# update authors in book details
 				author = @model.get "author"

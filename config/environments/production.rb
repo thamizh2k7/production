@@ -24,7 +24,7 @@ Sociorent::Application.configure do
 
   config.assets.version = "1.0"
 
-  config.assets.precompile += ['global/application.css', 'index/application.css', 'get_user_details.css', 'inner.css']
+  config.assets.precompile += ['global/application.css', 'index/application.css', 'get_user_details.css', 'orders/print_invoice.css', 'inner.css']
   config.assets.precompile += ['global/application.js', 'homepage/homepage.js', 'inner/application.js']
   
   # Defaults to nil and saved in location specified by config.assets.prefix

@@ -31,6 +31,6 @@ class Image < ActiveRecord::Base
 		base do
 			fields :image
 		end
-		visible true
+		visible false
 	end
 end

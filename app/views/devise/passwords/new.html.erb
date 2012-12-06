@@ -1,5 +1,5 @@
 <div id="devise_pages">
-	<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+	<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post,:class=>"forgot_password_form" }) do |f| %>
 	  <%= devise_error_messages! %>
 
 	  <div><%= f.label :email %>
@@ -10,3 +10,25 @@
 
 	<%= render "devise/shared/links" %>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $(".forgot_password_form").validate({
+      rules: {
+        "user[email]": {
+          email:true,
+          required: true,
+          remote: "/validate/email?reverse=true"
+        }
+      },
+      messages: {
+	     "user[email]": {
+	       email: "Invalid Email",
+	       remote: "Your Email is not available"
+	     }
+   		},
+      highlight: function(label) {
+        return $(label).closest(".control-group").addClass("error");
+      }
+  });
+});
+</script>

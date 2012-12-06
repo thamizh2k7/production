@@ -63,6 +63,6 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 #gem "book_finder_api" ,:path=>"/home/thamizh/book_finder_api"
-gem "book_finder_api", "~> 0.0.13"
+gem "book_finder_api", "~> 0.0.14"
 gem "mechanize"
 

@@ -135,7 +135,7 @@
 <div id="login_box" class="font-dialog">
 	<div id="login_box_left">
 		<div id="login_box_left_login" class="boxes">
-			<div class="error_msg"></div><br>
+			<div class="login_error_msg"></div><br>
 			<%= render :template => "devise/sessions/new" %>
 		</div>
 		<div id="login_box_left_password" class="boxes">
@@ -227,8 +227,8 @@ $("document").ready(function(){
 		$("#book_details").append(view.render().el);
 		$("#book_details").dialog("open");
 	<% end %>
-
-	$("#login_box_left_login form").live("submit",function(){
+	$(".login_error_msg").html("");
+	$("#login_box_left_login form").live("click",function(){
 		$.ajax({
       url: "/users/sign_in",
       type:"post",
@@ -238,7 +238,8 @@ $("document").ready(function(){
       		location.reload();
       	}
       	else{
-      			$(".error_msg").html(jqxhr.responseText);
+      			$(".login_error_msg").html(jqxhr.responseText);
+
       	}
       }
     });

@@ -205,6 +205,9 @@ class HomeController < ApplicationController
       when "mobile"
         res="true" if(User.where(:mobile_number=>params[:mobile]).count==0)
     end
+    if params[:reverse]
+      res=(res=="true") ? "false" : "true"
+    end
     render :text=> res and return
   end
 

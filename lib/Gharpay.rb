@@ -84,5 +84,13 @@ module Gharpay
     rescue
       return nil
     end  
+       # This method returns a list of pincodes in a city in an array 
+    def all_pincodes
+      res = self.class.get("/getAllPincodes", :headers => @creds)
+      return res['getAllPincodesResponse']['pincode'] unless res['getAllPincodesResponse']['errorMessage']
+      res['getAllPincodesResponse']['errorMessage']
+    rescue
+      return nil
+    end  
   end
 end

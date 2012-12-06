@@ -64,10 +64,10 @@ module RailsAdmin
                   book = Hash.new()
                   book["book"] = book_details["Book"]
                   book["author"] = book_details["Author"]
-                  book["isbn"] = book_details["ISBN"]
+                  book["isbn"] = book_details["ISBN-10"]
                   book["isbn13"] = book_details["ISBN-13"]
                   book["binding"] = book_details["Binding"]
-                  book["publishing_date"] = book_details["Publishing Date"]
+                  book["publishing_date"] = book_details["Publication Year"]
                   book["publisher"] = book_details["Publisher"]
                   book["edition"] = book_details["Edition"]
                   book["number_of_pages"] = book_details["Number of Pages"]

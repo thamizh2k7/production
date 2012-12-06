@@ -161,6 +161,7 @@ $(document).ready ->
 				$("#go_top").fadeIn 100
 
 		open_user_dialog: ->
+			$("#profile_edit_button").trigger "click"
 			$("#user_dialog").dialog "open"
 
 		select_reference: ->

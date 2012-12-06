@@ -113,6 +113,9 @@ $(document).ready ->
 			post_data = {order_type :order_type, accept_terms_of_use: accept_terms_of_use}
 			if order_type == "bank"
 				post_data["bank_id"] = $("#bank_name").val()
+				if $("#bank_name").val() == ''
+					alert('please select bank')
+					return false
 			$("#checkout_box_content").hide()
 			$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
 			sociorent.fn.show_notification()

@@ -89,6 +89,7 @@ $(document).ready ->
 					data:
 						book: that.model.id
 					success: (msg)->
+						console.log msg
 						sociorent.fn.hide_notification()
 						# can user make review
 						make_review = msg[0].splice(msg[0].length - 1)[0].make_review

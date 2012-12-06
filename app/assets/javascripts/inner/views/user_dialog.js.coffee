@@ -80,7 +80,7 @@ $(document).ready ->
 					sociorent.fn.hide_notification()
 					sociorent.collections.wishlist_object.reset msg
 					if sociorent.collections.wishlist_object.models.length == 0
-						$("#wishlist").append "<div id='no_wishlist'>You have not made any wishlist yet.</div>"
+						$("#wishlist").append "<div id='no_wishlist'>You don't have any books in your wishlist.</div>"
 					else
 						_.each sociorent.collections.wishlist_object.models, (model)->
 							view = new sociorent.views.wishlist

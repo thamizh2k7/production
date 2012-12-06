@@ -96,7 +96,7 @@ $(document).ready ->
 
 		focus_review_input: ->
 			$(".reviews_input").focus()
-			$("#book_details_box").animate({scrollTop: $(".reviews_input")[0].scrollHeight}, 300);
+			$("#book_details_box").animate({scrollTop: $("#book_details_box")[0].scrollHeight}, 300)
 
 		search_author: (ev)->
 			author = $.trim $(ev.target).html()

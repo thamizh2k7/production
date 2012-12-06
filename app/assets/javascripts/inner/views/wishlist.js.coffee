@@ -73,3 +73,6 @@ $(document).ready ->
 				success: (msg)->
 					sociorent.fn.hide_notification()
 					$(that.el).fadeOut "300"
+					sociorent.collections.wishlist_object.remove that.model
+					if sociorent.collections.wishlist_object.models.length == 0
+						$("#wishlist").html "<div id='no_wishlist' style='display:block'>You don't have any books in your wishlist.</div>"

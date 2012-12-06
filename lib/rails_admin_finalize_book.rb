@@ -59,7 +59,7 @@ module RailsAdmin
             else
               
                 csvfile = params[:book_csv].read
-                session[:csv] = csvfile
+                # session[:csv] = csvfile
                 CSV.parse(csvfile) do |row|
                   begin
                     unless row[0].to_i.is_a? (Integer)

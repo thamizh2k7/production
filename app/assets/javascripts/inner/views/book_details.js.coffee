@@ -14,12 +14,14 @@ $(document).ready ->
 					# when this model is added to cart
 					that.$(".add_to_cart").html("Added to Cart").css
 						background: "#0F8159"
+						cursor: 'default'
 
 			sociorent.app_events.bind "removed_from_cart", (id)->
 				if that.model.id == id
 					# when this model is removed from cart
 					that.$(".add_to_cart").html("Add to Cart").css
 						background: "#F65757"
+						cursor: 'pointer'
 
 		events: 
 			"click .add_to_cart" : "add_to_cart"
@@ -42,6 +44,7 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				false
 			else
+				sociorent.fn.show_notification()
 				that = this
 				$.ajax "/home/add_to_cart" ,
 					type:"post"
@@ -49,18 +52,21 @@ $(document).ready ->
 					data: 
 						book: that.model.id 
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						sociorent.collections.cart_object.add msg
 						sociorent.fn.renderCart()
 
 		add_to_wishlist: ->
 			if $.inArray(@model.id, sociorent.models.user_object.get("wishlist")) == -1
 				that = this
+				sociorent.fn.show_notification()
 				$.ajax "/users/add_to_wishlist" ,
 					type:"post"
 					async:true
 					data:
 						book: that.model.id
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						that.$(".add_to_wishlist").html "Added to your Wishlist"
 						sociorent.models.user_object.set
 							wishlist: msg
@@ -72,6 +78,7 @@ $(document).ready ->
 				alert "please enter the content of the review"
 				false
 			else
+				sociorent.fn.show_notification()
 				$.ajax "/home/make_review" ,
 						type:"post"
 						async:true
@@ -79,6 +86,7 @@ $(document).ready ->
 							book: that.model.id
 							content: content
 						success: (msg)->
+							sociorent.fn.hide_notification()
 							$(".reviews_form").html("").hide()
 							model = new sociorent.models.review msg
 							view = new sociorent.views.review

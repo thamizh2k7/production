@@ -44,6 +44,7 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				false
 			else
+				sociorent.fn.show_notification()
 				that = this
 				$.ajax "/home/add_to_cart" ,
 					type:"post"
@@ -51,6 +52,7 @@ $(document).ready ->
 					data: 
 						book: that.model.id 
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						sociorent.collections.cart_object.add msg
 						sociorent.fn.renderCart()
 			false
@@ -80,12 +82,14 @@ $(document).ready ->
 				author_array = author.split ","
 				_.each author_array, (author)->
 					$(view.el).find(".author_names").append "<a href='#' class='author_name'>" + author + "</a><br/>"
+				sociorent.fn.show_notification()
 				$.ajax "/home/get_adoption_rate" ,
 					type:"post"
 					async:true
 					data:
 						book: that.model.id
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						# can user make review
 						make_review = msg[0].splice(msg[0].length - 1)[0].make_review
 						unless make_review == 0

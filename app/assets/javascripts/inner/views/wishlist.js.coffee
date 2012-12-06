@@ -30,6 +30,7 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				false
 			else
+				sociorent.fn.show_notification()
 				that = this
 				$.ajax "/home/add_to_cart" ,
 					type:"post"
@@ -37,16 +38,19 @@ $(document).ready ->
 					data: 
 						book: that.model.id 
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						sociorent.collections.cart_object.add msg
 						sociorent.fn.renderCart()
 						that.$(".add_to_cart").html "Added to cart."
 
 		remove_from_wishlist: ->
 			that = this
+			sociorent.fn.show_notification()
 			$.ajax "/users/remove_from_wishlist" ,
 				type:"post"
 				async:true
 				data: 
 					book: that.model.id 
 				success: (msg)->
+					sociorent.fn.hide_notification()
 					$(that.el).fadeOut "300"

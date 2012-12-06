@@ -1184,32 +1184,45 @@ span.blue{
 }
 
 #load_more {
-   border-top: 1px solid #f65757;
-   background: #F24141;
-   background: -webkit-gradient(linear, left top, left bottom, from(#f65757), to(#F24141));
-   background: -webkit-linear-gradient(top, #f65757, #F24141);
-   background: -moz-linear-gradient(top, #f65757, #F24141);
-   background: -ms-linear-gradient(top, #f65757, #F24141);
-   background: -o-linear-gradient(top, #f65757, #F24141);
-   padding: 8.5px 17px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: white;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
-   }
+	border-top: 1px solid #f65757;
+	background: #F24141;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f65757), to(#F24141));
+	background: -webkit-linear-gradient(top, #f65757, #F24141);
+	background: -moz-linear-gradient(top, #f65757, #F24141);
+	background: -ms-linear-gradient(top, #f65757, #F24141);
+	background: -o-linear-gradient(top, #f65757, #F24141);
+	padding: 8.5px 17px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	box-shadow: rgba(0,0,0,1) 0 1px 0;
+	text-shadow: rgba(0,0,0,.4) 0 1px 0;
+	color: white;
+	font-size: 14px;
+	text-decoration: none;
+	vertical-align: middle;
+}
 #load_more:hover {
-   border-top-color: #F24141;
-   background: #F24141;
-   color: #FFF;
-   }
+	border-top-color: #F24141;
+	background: #F24141;
+	color: #FFF;
+}
 #load_more:active {
-   border-top-color: #F24141;
-   background: #F24141;
-   }
+	border-top-color: #F24141;
+	background: #F24141;
+}
+
+#notification {
+	display: none;
+	position: absolute;
+	top: 8px;
+	left: 47%;
+	width: 65px;
+	background: #F9EDBE;
+	border: 1px solid #D6C06B;
+	color: #222;
+	padding: 2px 8px;
+	z-index: 100000;
+}

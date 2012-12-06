@@ -1,62 +1,52 @@
 <div id="static_page_dialog" class="font-dialog">
 
-	<div id="pricing_page" class="sub">
-		<% pricing = StaticPage.where(:page_name => "pricing").first %>
-	  <h4><%= pricing.page_title %></h4>
-	  <div><%= raw pricing.page_content %></div>
+	<% pricing = StaticPage.where(:page_name => "pricing").first %>
+	<div id="pricing_page" title="<%= pricing.page_title %>" class="sub">
+		<div><%= raw pricing.page_content %></div>
 	</div>
 
-	<div id="about_us_page" class="sub">
-		<% about_us = StaticPage.where(:page_name => "about_us").first %>
-	  <h4><%= about_us.page_title %></h4>
+	<% about_us = StaticPage.where(:page_name => "about_us").first %>
+	<div id="about_us_page" title="<%= about_us.page_title %>" class="sub">
 	  <div><%= raw about_us.page_content %></div>
 	</div>
 
-	<div id="teams_page" class="sub">
-		<% teams = StaticPage.where(:page_name => "teams").first %>
-	  <h4><%= teams.page_title %></h4>
+	<% teams = StaticPage.where(:page_name => "teams").first %>
+	<div id="teams_page" title="<%= teams.page_title %>" class="sub">
 	  <div><%= raw teams.page_content %></div>
 	</div>
 
-	<div id="careers_page" class="sub">
-		<% careers = StaticPage.where(:page_name => "careers").first %>
-	  <h4><%= careers.page_title %></h4>
+	<% careers = StaticPage.where(:page_name => "careers").first %>
+	<div id="careers_page" title="<%= careers.page_title %>" class="sub">
 	  <div><%= raw careers.page_content %></div>
 	</div>
 
-	<div id="contact_us_page" class="sub">
-		<% contact_us = StaticPage.where(:page_name => "contact_us").first %>
-	  <h4><%= contact_us.page_title %></h4>
+	<% contact_us = StaticPage.where(:page_name => "contact_us").first %>
+	<div id="contact_us_page" title="<%= contact_us.page_title %>" class="sub">	
 	  <div><%= raw contact_us.page_content %></div>
 	</div>
 
-	<div id="product_tour_page" class="sub">
-		<% product_tour = StaticPage.where(:page_name => "product_tour").first %>
-	  <h4><%= product_tour.page_title %></h4>
+	<% product_tour = StaticPage.where(:page_name => "product_tour").first %>
+	<div id="product_tour_page" title="<%= product_tour.page_title %>" class="sub">
 	  <div><%= raw product_tour.page_content %></div>
 	</div>
 
-	<div id="features_page" class="sub">
-		<% features = StaticPage.where(:page_name => "features").first %>
-	  <h4><%= features.page_title %></h4>
+	<% features = StaticPage.where(:page_name => "features").first %>
+	<div id="features_page" title="<%= features.page_title %>" class="sub">
 	  <div><%= raw features.page_content %></div>
 	</div>
 
-	<div id="colleges_page" class="sub">
-		<% colleges = StaticPage.where(:page_name => "colleges").first %>
-	  <h4><%= colleges.page_title %></h4>
+	<% colleges = StaticPage.where(:page_name => "colleges").first %>
+	<div id="colleges_page" title="<%= colleges.page_title %>" class="sub">
 	  <div><%= raw colleges.page_content %></div>
 	</div>
 
-	<div id="terms_of_use_page" class="sub">
-		<% terms_of_use = StaticPage.where(:page_name => "terms_of_use").first %>
-	  <h4><%= terms_of_use.page_title %></h4>
+	<% terms_of_use = StaticPage.where(:page_name => "terms_of_use").first %>
+	<div id="terms_of_use_page" title="<%= terms_of_use.page_title %>" class="sub">
 	  <div><%= raw terms_of_use.page_content %></div>
 	</div>
 
-	<div id="privacy_policy_page" class="sub">
-		<% privacy_policy = StaticPage.where(:page_name => "privacy_policy").first %>
-	  <h4><%= privacy_policy.page_title %></h4>
+	<% privacy_policy = StaticPage.where(:page_name => "privacy_policy").first %>
+	<div id="privacy_policy_page" title="<%= privacy_policy.page_title %>" class="sub">
 	  <div><%= raw privacy_policy.page_content %></div>
 	</div>
 </div>

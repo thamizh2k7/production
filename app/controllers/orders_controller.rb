@@ -44,38 +44,22 @@ class OrdersController < ApplicationController
     		#sending the sms
     		uniqueid =" Unique ID:#{user.unique_id}"
     		bank_details = " The Bank Account Details:#{strip_html(bank.details)}"
-    		sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
-    		send_sms(user.mobile_number,sms_text)
+    		@bank_sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
+    		# send_sms(user.mobile_number,sms_text)
     	end
     end
-
-    if ENV["RAILS_ENV"] == "production"
-	    # koala publish actions 
-	    unless user.token.nil?
-	    	token = user.token
-	    	graph  = Koala::Facebook::API.new(token)
-	    	books.each do |book|
-		    	book_url = "http://www.sociorent.in/book/details/#{book.id}"
-		    	graph.put_connections("me", "sociorent:rented", :book => book_url)
-		    end
-	    end
-	  end
 
     # adding all the books in the cart to orders
 		order.books = cart.books
 		order.save
-
-		# mail 
-		UserMailer.order_email(user, order).deliver
-
-		#send the sms when the user completes the order
-    sms_text=Sms.where(:sms_type=>"order").first.content
-    send_sms(user.mobile_number,"#{sms_text}. Your order id is #{order.random}, please check sociorent for more information.")
     
 		# empty the cart
 		cart.book_carts.each do |book_cart|
 			book_cart.delete
 		end
+
+		delayed_job_object = DelayedJob.new
+		delayed_job_object.order(user.id, order.id, @bank_sms_text)
 
 		render :json => order.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}})
 	end

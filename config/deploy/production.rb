@@ -13,6 +13,8 @@ after 'deploy:update_code' do
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
   run "chmod -R 777 #{release_path}/public/uploads"
+  run "cd #{release_path}; RAILS_ENV=production script/delayed_job stop"
+  run "cd #{release_path}; RAILS_ENV=production script/delayed_job start"
 end
 
 namespace :deploy do

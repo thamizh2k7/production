@@ -171,6 +171,8 @@ $(document).ready ->
 			data:
 				query: $("#search_books_input").val()
 			success: (msg)->
+				if msg.suggestion != ''
+					$("#search_books_input_hidden").val(msg.suggestion)
 				# reset the search collections
 				sociorent.collections.search_object.reset($.parseJSON(msg.books))
 				sociorent.fn.renderSearch()

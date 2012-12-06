@@ -58,7 +58,7 @@ Semester.create(:name => "3")
 # r.create_image(:image_url => "http://xiarch.com/testing/wp-content/uploads/2012/07/internship.jpg")
 
 
-# # companies for internships
+
 # c = Company.create(:name => "something", :offer_position => "developer", :offer_stipend => 20000)
 # c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/TheCompany_office_2col.jpg")
 

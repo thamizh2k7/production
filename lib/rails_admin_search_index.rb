@@ -56,7 +56,7 @@ module RailsAdmin
             if request.method == "GET"
             	render :action => @action.template_name
             else
-              system("rake ts:index RAILS_ENV=production")
+              system("rake ts:stop && rake ts:index RAILS_ENV=production && rake ts:start RAILS_ENV=production")
             	redirect_to back_or_index
             end
 					end

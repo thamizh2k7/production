@@ -59,8 +59,10 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
     builder (3.0.4)
@@ -78,6 +80,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    daemons (1.1.9)
     delayed_job (3.0.4)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
@@ -88,7 +91,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    domain_name (0.5.4)
+    domain_name (0.5.6)
       unf (~> 0.0.3)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -102,7 +105,7 @@ GEM
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
-    httparty (0.8.3)
+    httparty (0.9.0)
       multi_json (~> 1.0)
       multi_xml
     httpauth (0.2.0)
@@ -120,10 +123,10 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    koala (1.5.0)
-      faraday (~> 0.7)
+    koala (1.6.0)
+      addressable (~> 2.2)
+      faraday (~> 0.8)
       multi_json (~> 1.3)
-    libv8 (3.11.8.3)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -252,15 +255,15 @@ PLATFORMS
 DEPENDENCIES
   active_merchant_ccavenue
   activemerchant
-  book_finder_api!
+
   capistrano
   coffee-rails (~> 3.2.1)
+  daemons
   delayed_job_active_record
   devise
   httparty
   jquery-rails
   koala
-  libv8 (= 3.11.8.3)
   mechanize
   mysql2
   oauth2

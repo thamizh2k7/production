@@ -57,6 +57,7 @@ $(document).ready ->
 				$("#request_error").html "Please specify either the author name or isbn or both."
 				false
 			else
+				sociorent.fn.show_notification()
 				$.ajax "/home/book_request" ,
 					type: "post" 
 					async: true
@@ -65,6 +66,7 @@ $(document).ready ->
 						author: $("#request_author").val()
 						isbn: $("#request_isbn").val()
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						$("#request_error").html msg
 						$("#request_form").animate({height: "0px"}, 300).html ""
 			false
@@ -74,7 +76,9 @@ $(document).ready ->
 
 		update_shipping: ->
 			if $("#shipping_form").valid()
+				sociorent.fn.show_notification()
 				$.post "/update_shipping", $("#shipping_form").serialize(), (resp) ->
+					sociorent.fn.hide_notification()
 					if resp.text is "success"
 						$("#shipping_details_box").dialog "close"
 						$("#checkout_box").dialog "open"
@@ -111,11 +115,13 @@ $(document).ready ->
 				post_data["bank_id"] = $("#bank_name").val()
 			$("#checkout_box_content").hide()
 			$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
+			sociorent.fn.show_notification()
 			$.ajax "/orders/create" ,
 				type:"post"
 				async:true
 				data: post_data
 				success: (msg)->
+					sociorent.fn.hide_notification()
 					$("#checkout_box").dialog "close"
 					$("#order_box").dialog "open"
 					$("#order_id span").html msg.random
@@ -155,6 +161,7 @@ $(document).ready ->
 				$("#go_top").fadeIn 100
 
 		open_user_dialog: ->
+			$("#profile_edit_button").trigger "click"
 			$("#user_dialog").dialog "open"
 
 		select_reference: ->
@@ -163,16 +170,19 @@ $(document).ready ->
 				alert "Please select your reference"
 				false
 			else
+				sociorent.fn.show_notification()
 				$.ajax "/users/select_reference" ,
 					type:"post"
 					async:true
 					data:
 						ambassador_id: ambassador_id
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						$("#ambassador_select_box").html "Thank you."
 
 		load_more: ->
 			query = $.trim($("#search_books_input").val())
+			sociorent.fn.show_notification()
 			$.ajax "/home/load_more" ,
 				type:"post"
 				async:true
@@ -180,6 +190,7 @@ $(document).ready ->
 					query: query
 					load_more_count: ++sociorent.load_more
 				success: (msg)->
+					sociorent.fn.hide_notification()
 					if msg.load_more
 						$("#load_more").show()
 					else

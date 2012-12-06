@@ -36,6 +36,7 @@ $(document).ready ->
 			college = $("#profile_college").val()
 			stream = $("#profile_streams").val()
 			if $("#profile_form").valid()
+				sociorent.fn.show_notification()
 				$.ajax "/users/update" ,
 					type:"post"
 					async:true
@@ -45,6 +46,7 @@ $(document).ready ->
 						college: college
 						stream: stream
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						$("#profile_form_error").html "Your profile was updated."
 				false
 
@@ -70,13 +72,15 @@ $(document).ready ->
 
 		show_wishlist: ->
 			$("#wishlist").html ""
+			sociorent.fn.show_notification()
 			$.ajax "/users/wishlist" ,
 				type:"post"
 				async:true
 				success: (msg)->
+					sociorent.fn.hide_notification()
 					sociorent.collections.wishlist_object.reset msg
 					if sociorent.collections.wishlist_object.models.length == 0
-						$("#wishlist").append "<div id='no_wishlist'>You have not made any wishlist yet.</div>"
+						$("#wishlist").append "<div id='no_wishlist'>You don't have any books in your wishlist.</div>"
 					else
 						_.each sociorent.collections.wishlist_object.models, (model)->
 							view = new sociorent.views.wishlist
@@ -86,7 +90,9 @@ $(document).ready ->
 		update_shipping: ->
 			sociorent.fn.shipping_validation("profile_shipping_form")
 			if $("#profile_shipping_form").valid()
+				sociorent.fn.show_notification()
 				$.post "/update_shipping", $("#profile_shipping_form").serialize(), (resp) ->
+					sociorent.fn.hide_notification()
 					if resp.text is "success"
 						sociorent.models.user_object.set($.parseJSON(resp.user))
 						address = sociorent.models.user_object.get "address"

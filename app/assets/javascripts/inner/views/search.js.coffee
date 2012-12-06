@@ -14,12 +14,14 @@ $(document).ready ->
 					# when this model is added to cart
 					that.$(".add_to_cart").html("Added to Cart").css
 						background: "#0F8159"
+						cursor: 'default'
 
 			sociorent.app_events.bind "removed_from_cart", (id)->
 				if that.model.id == id
 					# when this model is removed from cart
 					that.$(".add_to_cart").html("Add to Cart").css
 						background: "#F65757"
+						cursor: 'pointer'
 
 			sociorent.app_events.bind "added_to_compare", (id)->
 				if that.model.id == id
@@ -42,6 +44,7 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				false
 			else
+				sociorent.fn.show_notification()
 				that = this
 				$.ajax "/home/add_to_cart" ,
 					type:"post"
@@ -49,6 +52,7 @@ $(document).ready ->
 					data: 
 						book: that.model.id 
 					success: (msg)->
+						sociorent.fn.hide_notification()
 						sociorent.collections.cart_object.add msg
 						sociorent.fn.renderCart()
 			false
@@ -78,12 +82,15 @@ $(document).ready ->
 				author_array = author.split ","
 				_.each author_array, (author)->
 					$(view.el).find(".author_names").append "<a href='#' class='author_name'>" + author + "</a><br/>"
+				sociorent.fn.show_notification()
 				$.ajax "/home/get_adoption_rate" ,
 					type:"post"
 					async:true
 					data:
 						book: that.model.id
 					success: (msg)->
+						console.log msg
+						sociorent.fn.hide_notification()
 						# can user make review
 						make_review = msg[0].splice(msg[0].length - 1)[0].make_review
 						unless make_review == 0
@@ -135,4 +142,5 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				@$(".add_to_cart").css
 					background: "#0F8159"
+					cursor: 'default'
 			this

@@ -9,7 +9,7 @@ $(document).ready ->
 			_.bindAll this, 'render'
 		
 		render: ->
-			created_at = @model.get("created_at").replace(/(T)|(Z)/gi, " ")
+			created_at = @model.get("created_at").replace(/(T)|(\+05\:30)/gi, " ")
 			that = this
 			$(@el).html @template
 				random: @model.get "random"

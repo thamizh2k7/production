@@ -159,7 +159,7 @@ class HomeController < ApplicationController
   def make_review
     user = current_user
     book = Book.find(params[:book].to_i)
-    review = user.reviews.create(:content => params[:content], :book_id => book.id)
+    review = user.reviews.create(:content => CGI.escapeHTML(params[:content]), :book_id => book.id)
     render :json => review.to_json(:include => {:user => {:only => :name}})
   end
 
@@ -204,6 +204,9 @@ class HomeController < ApplicationController
         res="true" if(User.where(:email=>params[:user]["email"]).count==0)
       when "mobile"
         res="true" if(User.where(:mobile_number=>params[:mobile]).count==0)
+    end
+    if params[:reverse]
+      res=(res=="true") ? "false" : "true"
     end
     render :text=> res and return
   end

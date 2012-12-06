@@ -116,9 +116,9 @@
 		</div>
 		<div class="foot_box left">
 			<ul>
-				<li><a class="fb" href="http://www.facebook.com/sociorent"></a></li>
-				<li><a class="twit" href="http://www.twitter.com/sociorent"></a></li>
-				<li><a class="blog" href="http://blog.sociorent.in"></a></li>
+				<li><a class="fb" href="http://www.facebook.com/sociorent" target="_blank"></a></li>
+				<li><a class="twit" href="http://www.twitter.com/sociorent" target="_blank"></a></li>
+				<li><a class="blog" href="http://blog.sociorent.in" target="_blank"></a></li>
 			</ul>
 		</div>
 		<div class="cB"></div>
@@ -135,7 +135,7 @@
 <div id="login_box" class="font-dialog">
 	<div id="login_box_left">
 		<div id="login_box_left_login" class="boxes">
-			<div class="error_msg"></div><br>
+			<div class="login_error_msg"></div><br>
 			<%= render :template => "devise/sessions/new" %>
 		</div>
 		<div id="login_box_left_password" class="boxes">
@@ -227,8 +227,8 @@ $("document").ready(function(){
 		$("#book_details").append(view.render().el);
 		$("#book_details").dialog("open");
 	<% end %>
-
-	$("#login_box_left_login form").live("submit",function(){
+	$(".login_error_msg").html("");
+	$("#login_box_left_login form").live("click",function(){
 		$.ajax({
       url: "/users/sign_in",
       type:"post",
@@ -238,7 +238,8 @@ $("document").ready(function(){
       		location.reload();
       	}
       	else{
-      			$(".error_msg").html(jqxhr.responseText);
+      			$(".login_error_msg").html(jqxhr.responseText);
+
       	}
       }
     });

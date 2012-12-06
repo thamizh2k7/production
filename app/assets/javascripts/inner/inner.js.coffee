@@ -154,3 +154,9 @@ $(document).ready ->
 			highlight: (label) ->
 				$(label).closest(".control-group").addClass "error"
 	sociorent.fn.shipping_validation("shipping_form")
+
+	sociorent.fn.show_notification = ()->
+		$("#notification").fadeIn 100
+
+	sociorent.fn.hide_notification = ()->
+		$("#notification").fadeOut 100

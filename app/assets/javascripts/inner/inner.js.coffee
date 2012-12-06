@@ -97,6 +97,8 @@ $(document).ready ->
 				# reset the compare search collections
 				sociorent.collections.compare_search_object.reset $.parseJSON(msg.books)
 				sociorent.fn.renderCompareSearch()
+				$("#compare_search_input").autocomplete
+					source: msg.books
 
 
 	options =
@@ -106,7 +108,15 @@ $(document).ready ->
 	  highlight: true
 	  captureLength: 2
 
-	$("#compare_search_input").typeWatch options
+	# $("#compare_search_input").typeWatch options
+	sociorent.allow_ajax = true
+	$("#compare_search_input").keypress ->
+		if sociorent.allow_ajax
+			compare_search()
+			sociorent.allow_ajax = false
+			setTimeout(()->
+				sociorent.allow_ajax = true
+			, 50)
 
 	sociorent.fn.getUserOrderedBooks = ()->
 		books = new Array()

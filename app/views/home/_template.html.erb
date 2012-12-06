@@ -155,16 +155,6 @@
 		<div class="author">Author(s): <p><span class="blue"><%%= author %></span></p></div>
 	</div>
 	<div class="clear"></div>
-	
-	<div class="socio_rent_rank">
-		<div class="socio_rent_rank_left">
-			SocioRent Rank
-		</div>
-		<div class="socio_rent_rank_right">
-			<span class="blue"><%%= rank %>%</span>
-		</div>
-		<div class="clear"></div>
-	</div>
 
 	<div class="information">
 		<div class="information_left">ISBN10:</div>
@@ -179,9 +169,8 @@
 		<div class="information_right"><%%= published %></div>
 		<div class="information_left">pages</div>
 		<div class="information_right"><%%= pages %></div>
-		<div class="information_left">list price</div>
-		<div class="information_right">Rs.<%%= price %></div>
-
+		<div class="information_left"><b>list price</b></div>
+		<div class="information_right"><b>Rs.<%%= price %></b></div>
 		<div class="clear"></div>
 	</div>
 </script>
@@ -291,10 +280,11 @@
 			  </div>
 			  <div class="control-group">
 			    <div class="controls">
-			      <button id="profile_update_shipping" type="submit" class="btn">Update Shipping & Continue</button>
+			      <button id="profile_update_shipping" type="submit" class="btn">Update Shipping</button>
 			    </div>
 			  </div>
 			  <div id="shipping_form_error"></div>
+			  <div id="profile_shipping_form_error"></div>
 			</form>
 		</div>
 	</div>

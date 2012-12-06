@@ -98,7 +98,7 @@ $(document).ready ->
 						address = sociorent.models.user_object.get "address"
 						sociorent.models.user_object.set
 							address: $.parseJSON(address)
-						alert "Shipping address updated."
+						$("#profile_shipping_form_error").show().html "Shipping address updated."
 						$("#shipping_form #address_street_name1").val sociorent.models.user_object.get("address").address_street_name1
 						$("#shipping_form #address_street_name2").val sociorent.models.user_object.get("address").address_street_name2
 						$("#shipping_form #address_city").val sociorent.models.user_object.get("address").address_city

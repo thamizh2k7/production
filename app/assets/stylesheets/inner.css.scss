@@ -718,12 +718,12 @@
 	.compare_dialog_single{
 		width: 30%;
 		float: left;
-		margin: 0px 15px;
+		margin: 15px 15px 0px;
 
 		.name_remove{
 			border-bottom: 1px solid #DDD;
 			padding-bottom: 20px;
-			height:72px;
+			max-height: 72px;
 
 			.book_name{
 				color: #CC4D5C;
@@ -1124,8 +1124,12 @@ span.blue{
 				display:none;
 
 				#profile_shipping_form{
-					width: 90%;
-					margin: 20px auto;
+					margin: 80px 0px 0px 170px;
+
+					legend{
+						width: 480px;
+						text-align: center;
+					}
 				}
 			}
 		}
@@ -1246,4 +1250,10 @@ span.blue{
 
 .terms_of_use{
 	text-decoration: underline;
+}
+
+#profile_shipping_form_error{
+	width: 490px;
+	text-align: center;
+	height: 30px;
 }

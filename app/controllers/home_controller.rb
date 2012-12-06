@@ -220,6 +220,10 @@ class HomeController < ApplicationController
     render :text=>pincodes and return
   end
 
+  def c
+    book_details = BookFinder.flipkart(params[:isbn])
+    render :json=>book_details
+  end
   private
 
   def intelligent_books(user)

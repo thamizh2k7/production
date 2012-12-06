@@ -66,4 +66,3 @@ gem 'delayed_job_active_record'
 gem "book_finder_api", "~> 0.0.13"
 gem "mechanize"
 
->>>>>>> 5979ba9... image fix

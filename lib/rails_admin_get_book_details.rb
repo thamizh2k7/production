@@ -77,7 +77,7 @@ module RailsAdmin
                   book["price"]=book_details["price"]
                   book["description"]=book_details["description"]
                   book["college"]=book_details["college"]
-                  book["stream"]=book_details["stream"]
+                  book["stream"]=book_details["stream"] 
                   BookApi.create(book)
                 end
               end

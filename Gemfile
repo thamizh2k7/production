@@ -60,7 +60,7 @@ gem 'tinymce-rails'
 gem 'httparty'
 
 gem 'delayed_job_active_record'
-# gem "book_finder_api",:path=>"/home/thamizh/book_finder_api"
-gem "book_finder_api", "~> 0.0.11"
+gem "book_finder_api",:path=>"/home/thamizh/book_finder_api"
+#gem "book_finder_api", "~> 0.0.11"
 gem "mechanize"
 

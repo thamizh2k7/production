@@ -78,6 +78,7 @@ module RailsAdmin
                       book["availability"]=row[14]
                       book["price"]=row[15]
                       book["description"]=row[16].force_encoding("UTF-8")
+                      book["description"].gsub!('<a href="#">top</a>',"")
                       if book["description"].valid_encoding?
                       # book["language"] = row[10]
                         publisher = Publisher.where(:name=>row[7]).first

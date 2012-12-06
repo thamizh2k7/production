@@ -153,6 +153,10 @@ $(document).ready ->
 					minlength:6
 			highlight: (label) ->
 				$(label).closest(".control-group").addClass "error"
+			focusCleanup: true,
+			success : (label) ->
+				$(label).closest(".control-group").removeClass "error"
+			validClass: "success"
 	sociorent.fn.shipping_validation("shipping_form")
 
 	sociorent.fn.show_notification = ()->

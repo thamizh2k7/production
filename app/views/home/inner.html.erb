@@ -109,6 +109,7 @@
 			autoOpen: false,
 			draggable: false,
 			height: 700,
+			title:"Book Details",
 			width: 1050,
 			resizable: false,
       modal: true
@@ -118,6 +119,7 @@
 			autoOpen: false,
 			draggable: false,
 			height: 700,
+			title:"cart Details",
 			width: 820,
 			resizable: false,
 			modal: true
@@ -127,6 +129,7 @@
 			autoOpen: false,
 			draggable: false,
 			height: 550,
+			title: "Checkout",
 			width: 700,
 			resizable: false,
 			modal: true
@@ -135,6 +138,7 @@
 			autoOpen: false,
 			draggable: false,
 			height: 600,
+			title:"Shipping Details",
 			width: 700,
 			resizable: false,
 			modal: true
@@ -144,6 +148,7 @@
 			autoOpen: false,
 			draggable: false,
 			height: 550,
+			title :"Orders",
 			width: 700,
 			resizable: false,
 			modal: true
@@ -154,6 +159,7 @@
 			draggable: false,
 			height: 700,
 			width: 1100,
+			title:"Compare Books",
 			resizable: false,
       modal: true
 		});
@@ -163,6 +169,7 @@
 			draggable: false,
 			dialogClass: 'user_dialog',
 			height: 700,
+			title:"My Profile",
 			width: 1100,
 			resizable: false,
       modal: true
@@ -203,7 +210,8 @@
 		  },
 		  highlight: function(label) {
 		    return $(label).closest(".control-group").addClass("error");
-		  }
+		  },
+		  focusCleanup: true
 		});
 
 		$("#user").sticky({topSpacing:0});

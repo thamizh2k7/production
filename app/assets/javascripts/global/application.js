@@ -32,6 +32,10 @@ $(document).ready(function(){
 
 	$(".static_page_dialog_open").click(function(){
 		current = $(this).attr("href");
+		page=current.replace("_"," ")
+		page=page.slice(1).toUpperCase()
+
+		$("#static_page_dialog").dialog('option','title',page)
 		$("#static_page_dialog .sub").hide();
 		$(current).show();
 		$("#static_page_dialog").dialog("open");

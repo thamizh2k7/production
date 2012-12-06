@@ -35,6 +35,7 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				@$(".add_to_cart").css
 					background: "#0F8159"
+					cursor: 'default'
 			this
 
 		add_to_cart: ->

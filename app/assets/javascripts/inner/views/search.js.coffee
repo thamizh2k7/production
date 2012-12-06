@@ -14,12 +14,14 @@ $(document).ready ->
 					# when this model is added to cart
 					that.$(".add_to_cart").html("Added to Cart").css
 						background: "#0F8159"
+						cursor: 'default'
 
 			sociorent.app_events.bind "removed_from_cart", (id)->
 				if that.model.id == id
 					# when this model is removed from cart
 					that.$(".add_to_cart").html("Add to Cart").css
 						background: "#F65757"
+						cursor: 'pointer'
 
 			sociorent.app_events.bind "added_to_compare", (id)->
 				if that.model.id == id
@@ -135,4 +137,5 @@ $(document).ready ->
 			if sociorent.collections.cart_object.get(@model.id)
 				@$(".add_to_cart").css
 					background: "#0F8159"
+					cursor: 'default'
 			this

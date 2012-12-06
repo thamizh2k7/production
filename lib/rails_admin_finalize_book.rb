@@ -59,7 +59,7 @@ module RailsAdmin
             else
               
                 csvfile = params[:book_csv].read
-                session[:csv] = csvfile
+                # session[:csv] = csvfile
                 CSV.parse(csvfile) do |row|
                   begin
                     unless row[0].to_i.is_a? (Integer)
@@ -100,11 +100,11 @@ module RailsAdmin
                         end
                         book_save.book_streams.create(:stream_id=>stream.id)
                         book_save.publisher=publisher
-                        # if row[13] !="" || row[13]!="0"
-                        #   #book_save.images.create(:image_url=>row[13],:image_file_name=>"#{row[4]}.jpeg")
-                        #   img=Image.create(:image_url=>row[13])
-                        #   book_save.images << img
-                        # end
+                        if row[13] !="" || row[13]!="0" || row[13]!="-"
+                          book_save.images.create(:image_url=>row[13])
+                          # img=Image.create(:image_url=>row[13])
+                          # book_save.images << img
+                        end
                         book_save.save
                       else
                         puts "Not a valid encode"

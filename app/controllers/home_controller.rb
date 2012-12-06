@@ -55,8 +55,13 @@ class HomeController < ApplicationController
       @books += Book.first(6-@books.count) if @books.count < 6
     else
   	  @books = Book.search params[:query], :star => true
+      resp[:suggestion] = params[:query]
+      if @books.suggestion?
+        resp[:suggestion] = @books.suggestion
+        @books = Book.search @books.suggestion, :star => true
+      end
     end
-    @books.delete(nil)
+    # @books.delete(nil)
     if @books.count > 6
       resp[:load_more] = true
     else
@@ -74,6 +79,11 @@ class HomeController < ApplicationController
     unless params[:query] == ""
       query = "*#{params[:query]}*"
       @books = Book.search(query)
+      resp[:suggestion] = query
+      if @books.suggestion?
+        resp[:suggestion] = @books.suggestion
+        @books = Book.search @books.suggestion, :star => true
+      end
     else
       @books = intelligent_books(current_user)
     end

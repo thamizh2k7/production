@@ -14,7 +14,7 @@ $(document).ready ->
 					$(view.render().el).find(".add_to_compare").attr
 						checked: true
 			# highlight found value
-			val = $("#search_books_input").val()
+			val = $("#search_books_input_hidden").val()
 			unless $.trim(val) == ""
 				$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
 			$("#no_search_result").hide()
@@ -67,6 +67,8 @@ $(document).ready ->
 			data:
 				query: $("#search_books_input").val()
 			success: (msg)->
+				if msg.suggestion != ''
+					$("#search_books_input_hidden").val(msg.suggestion)
 				# reset the search collections
 				if msg.load_more
 					$("#load_more").show()

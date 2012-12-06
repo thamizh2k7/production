@@ -1,0 +1,96 @@
+.clear{
+	clear:both;
+}
+#container{
+	p{
+		margin:0px;
+		padding:0px;
+		line-height: 25px;
+	}
+	width:760px;
+	margin:50px auto;
+	.order_heading_left{
+	float:left;
+	}
+	.order_heading_right{
+	float:right;
+	}
+
+	#cart{
+		.cart_single{
+			border-bottom: 1px solid #ddd;
+			margin-bottom: 5px;
+			padding: 5px;
+			.cart_name{
+				float: left;
+				width: 40%;
+				color: #CC4D5C;
+
+				.cart_name_name{
+
+				}
+				.cart_name_author{
+					font-size: 12px;
+					color: #999;
+				}
+			}
+			.cart_isbn {
+				float: left;
+				width: 20%;
+			}
+			.cart_price {
+				float: left;
+				width: 20%;
+			}
+		}
+	}
+
+	#cart_header{
+		padding:20px 0px;
+		font-weight:bolder;
+		border-bottom: 1px solid #ddd;
+		border-top:1px solid #ddd;
+		div{
+			display: inline-block;
+		}
+		#cart_header_book {
+			width: 40%;
+			float: left;
+		}
+		#cart_header_isbn {
+			width: 20%;
+			float: left;
+		}
+		#cart_header_rental_amount, #cart_header_rental_deposit {
+			width: 20%;
+			float: left;
+		}
+
+	}
+
+	}
+
+	#shipping_charge{
+		margin-top: 10px;
+	}
+
+	#cart_rental_total{
+		margin-top: 20px;
+		text-align: right;
+		padding-right: 30px;
+		color: #CC4D5C;
+		float: right;
+		width: 40%;	
+	}
+
+		.rental_total, .deposit_total,.total{
+		text-align: right;
+		padding-right: 30px;
+		color: #CC4D5C;
+		float: right;
+		margin-top:5px;
+		clear:both;
+		span{
+			width: 100px;
+		}
+	}

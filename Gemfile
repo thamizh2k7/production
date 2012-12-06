@@ -66,3 +66,6 @@ gem "book_finder_api", "~> 0.0.14"
 
 gem "mechanize"
 
+
+gem 'thinking-sphinx-raspell', '1.1.2',
+  :require => 'thinking_sphinx/raspell'

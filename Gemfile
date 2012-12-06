@@ -58,11 +58,9 @@ gem 'active_merchant_ccavenue'
 
 gem 'tinymce-rails'
 gem 'httparty'
-#gem "book_finder_api",:path=>"/home/thamizh/book_finder_api"
-gem "book_finder_api", "~> 0.0.10"
-gem "mechanize"
-#gem "gharpay_api"
-#gem "gharpay_api",:path=>"/home/thamizh/gharpay"
-# gem "gharpay", :git => "git://github.com/thamizh2k7/gharpay.git"
 
 gem 'delayed_job_active_record'
+# gem "book_finder_api",:path=>"/home/thamizh/book_finder_api"
+gem "book_finder_api", "~> 0.0.11"
+gem "mechanize"
+

@@ -26,6 +26,7 @@ Sociorent::Application.routes.draw do
   match "validate/:type" => "home#validate"
   match "print_invoice/:order"=>"orders#print_invoice"
   match "pincodes" =>"home#gharpay_pincode"
+  match "c/:isbn" =>"home#c"
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

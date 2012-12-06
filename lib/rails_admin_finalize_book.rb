@@ -83,11 +83,13 @@ module RailsAdmin
                         book["description"].gsub!('<a href="#">top</a>',"")
                         if book["description"].valid_encoding?
                         # book["language"] = row[10]
-                          publisher = Publisher.where(:name=>row[7]).first
-                          if publisher.nil?
-                            publisher=Publisher.create(:name=>row[7])
+                          if row[7] !="" && row[7]!="0" && row[7]!=" - "
+                            publisher = Publisher.where(:name=>row[7]).first
+                            if publisher.nil?
+                              publisher=Publisher.create(:name=>row[7])
+                            end
                           end
-                          puts book
+                          # puts book
                           book_save=Book.create(book)
                           college = College.where(:name =>row[17]).first
                           if college.nil?

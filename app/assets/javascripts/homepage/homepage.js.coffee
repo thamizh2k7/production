@@ -179,7 +179,7 @@ $(document).ready ->
 	options =
 	  callback: -> 
 	  	search()
-	  wait: 500
+	  wait: 200
 	  highlight: true
 	  captureLength: 2
 

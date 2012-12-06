@@ -6,9 +6,11 @@ class College < ActiveRecord::Base
   has_many :orders, :through => :users
 
   has_many :class_adoptions, :dependent => :destroy
-  has_many :book_colleges
 
   has_many :ambassadors
 
   has_many :counters
+
+  has_many :book_colleges
+  has_many :books, :through => :book_colleges
 end

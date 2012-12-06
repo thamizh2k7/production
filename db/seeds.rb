@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 g = General.create(:welcome_mail_subject=>"Thank you for registering with us:Sociorent")
-# User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
+User.create(:email => "admin@admin.com", :password => "admin123", :name => "ADMIN", :is_admin => true)
 
 # books
 c1 = Category.create(:name => "Sports")
@@ -54,13 +54,13 @@ Semester.create(:name => "2")
 Semester.create(:name => "3")
 
 # resources
-r = Resource.create(:name => "internships", :link => "internships")
-r.create_image(:image_url => "http://xiarch.com/testing/wp-content/uploads/2012/07/internship.jpg")
+# r = Resource.create(:name => "internships", :link => "internships")
+# r.create_image(:image_url => "http://xiarch.com/testing/wp-content/uploads/2012/07/internship.jpg")
 
 
-# companies for internships
-c = Company.create(:name => "something", :offer_position => "developer", :offer_stipend => 20000)
-c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/TheCompany_office_2col.jpg")
+# # companies for internships
+# c = Company.create(:name => "something", :offer_position => "developer", :offer_stipend => 20000)
+# c.create_image(:image_url => "http://polarisleb.com/en/images/stories/company/TheCompany_office_2col.jpg")
 
 # sms for signup and order
 Sms.create(:sms_type=>"signup",:content=>"Thank you for registering with us")

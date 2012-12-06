@@ -15,9 +15,15 @@ class Book < ActiveRecord::Base
   has_many :orders, :through => :book_orders
 
   has_many :class_adoptions, :dependent => :destroy
+  
   has_many :book_colleges
+  has_many :colleges, :through => :book_colleges
+
   has_many :book_streams
+  has_many :streams, :through => :book_streams
+
   has_many :book_semesters
+  has_many :semesters, :through => :book_semesters
 
   accepts_nested_attributes_for :images, :class_adoptions, :reviews, :book_colleges, :book_streams, :book_semesters, :allow_destroy => true
 

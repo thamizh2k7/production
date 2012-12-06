@@ -213,31 +213,30 @@ class HomeController < ApplicationController
 
   def intelligent_books(user)
     @intelligent_books = []
-    if user.friends
-      friend_uids = JSON.parse user.friends
-      all_uids = JSON.parse User.select("uid").to_json()
-      friends_who_use_sociorent_uids = all_uids & friend_uids
-      # get all books their friends ordered
-      friends_who_use_sociorent_uids.each do |uid|
-        friend = User.where(:uid => uid["uid"]).first
-        # check condition on friend from the General Setting
-        general = General.first
-        case general.intelligent_book
-          when "All friends"
-            @intelligent_books += friend.books
-          when "Friends in same College"    
-            @intelligent_books += friend.books if friend.college == user.college
-          when "Friends in same College and Stream" 
-            @intelligent_books += friend.books if friend.college == user.college && friend.stream == user.stream
-        end
-      end
-    else
+    # if user.friends
+    #   friend_uids = JSON.parse user.friends
+    #   all_uids = JSON.parse User.select("uid").to_json()
+    #   friends_who_use_sociorent_uids = all_uids & friend_uids
+    #   # get all books their friends ordered
+    #   friends_who_use_sociorent_uids.each do |uid|
+    #     friend = User.where(:uid => uid["uid"]).first
+    #     # check condition on friend from the General Setting
+    #     general = General.first
+    #     case general.intelligent_book
+    #       when "All friends"
+    #         @intelligent_books += friend.books
+    #       when "Friends in same College"    
+    #         @intelligent_books += friend.books if friend.college == user.college
+    #       when "Friends in same College and Stream" 
+    #         @intelligent_books += friend.books if friend.college == user.college && friend.stream == user.stream
+    #     end
+    #   end
+    # else
       # get users of same college and stream
-      similar_users = User.where(:college_id => user.college, :stream_id => user.stream)
-      similar_users.each do |similar_user|
-        @intelligent_books += similar_user.books
-      end
-    end
+    #   
+
+    # new algo for intelligent books
+    @intelligent_books += user.college.books + user.stream.books 
     return @intelligent_books.uniq
   end
   

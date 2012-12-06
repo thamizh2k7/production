@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206054250) do
+ActiveRecord::Schema.define(:version => 20121206074135) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -251,6 +251,12 @@ ActiveRecord::Schema.define(:version => 20121206054250) do
     t.integer  "bank_id"
     t.string   "gharpay_id"
     t.boolean  "accept_terms_of_use"
+  end
+
+  create_table "pincodes", :force => true do |t|
+    t.integer  "pincode"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "publishers", :force => true do |t|

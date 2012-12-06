@@ -52,7 +52,7 @@ class HomeController < ApplicationController
     resp = {}
     if params[:query] == ""
       @books = intelligent_books(current_user)
-      @books = Book.first(6) if @books.count == 0
+      @books += Book.first(6-@books.count) if @books.count < 6
     else
   	  @books = Book.search params[:query], :star => true
     end
@@ -255,6 +255,7 @@ class HomeController < ApplicationController
 
     # new algo for intelligent books
     @intelligent_books += user.college.books + user.stream.books 
+    @intelligent_books += Book.first(6-@intelligent_books.count) if @intelligent_books.count < 6
     return @intelligent_books.uniq
   end
   

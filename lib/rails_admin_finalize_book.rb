@@ -101,7 +101,7 @@ module RailsAdmin
                           end
                           book_save.book_streams.create(:stream_id=>stream.id)
                           book_save.publisher=publisher
-                          if row[13] !="" || row[13]!="0" || row[13]!=" - "
+                          if row[13] !="" && row[13]!="0" && row[13]!=" - "
                             book_save.images.create(:image_url=>row[13])
                             # img=Image.create(:image_url=>row[13])
                             # book_save.images << img

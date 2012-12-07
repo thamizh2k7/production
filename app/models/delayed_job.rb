@@ -10,6 +10,7 @@ class DelayedJob
   end
 
   def order(user_id, order_id, bank_sms_text)
+  	general = General.first
   	user = User.find(user_id)
   	order = user.orders.find(order_id)
   	books = order.books
@@ -35,6 +36,8 @@ class DelayedJob
 
     if order.order_type == "bank"
     	send_sms(user.mobile_number,bank_sms_text)
+    elsif order.order_type == "cheque"
+    	send_sms(user.mobile_number,"Unique ID:#{user.unique_id}. Address to send the cheque to : #{general.address}")
     end
 
     # gharpay

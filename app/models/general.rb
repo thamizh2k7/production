@@ -1,5 +1,5 @@
 class General < ActiveRecord::Base
-  attr_accessible :general_images_attributes,:images_attributes, :intelligent_book, :welcome_mail_subject, :welcome_mail_content, :order_email_subject, :order_email_content
+  attr_accessible :general_images_attributes,:images_attributes, :intelligent_book, :welcome_mail_subject, :welcome_mail_content, :order_email_subject, :order_email_content, :address
 
   has_many :general_images
   has_many :images, :as => :imageable
@@ -42,6 +42,7 @@ class General < ActiveRecord::Base
       field :welcome_mail_content
       field :order_email_subject
       field :order_email_content
+      field :address
   	end
 
   end

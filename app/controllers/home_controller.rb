@@ -222,6 +222,11 @@ class HomeController < ApplicationController
         res="true" if(User.where(:email=>params[:user]["email"]).count==0)
       when "mobile"
         res="true" if(User.where(:mobile_number=>params[:mobile]).count==0)
+      when "mobile_number"
+        res="true" if(User.where(:mobile_number=>params[:mobile_number]).count==0)
+        if current_user.mobile_number == params[:mobile_number]
+          res="true"
+        end
     end
     if params[:reverse]
       res=(res=="true") ? "false" : "true"

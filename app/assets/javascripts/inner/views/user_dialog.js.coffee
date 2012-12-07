@@ -48,6 +48,7 @@ $(document).ready ->
 					success: (msg)->
 						sociorent.fn.hide_notification()
 						$("#profile_form_error").html "Your profile was updated."
+						$("#profile_mobile_number").closest(".control-group").removeClass("error");
 				false
 
 		show_orders: ->

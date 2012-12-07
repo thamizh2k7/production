@@ -60,7 +60,6 @@ $(document).ready ->
 		$("#compare_box").fadeOut 500
 	
 	sociorent.fn.search = ()->
-		console.log "here"
 		sociorent.load_more = 0
 		$.ajax "/search" , 
 			type:"post"

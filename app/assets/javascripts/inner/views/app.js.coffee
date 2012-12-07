@@ -206,9 +206,9 @@ $(document).ready ->
 							model: model
 						$("#search_books").append view.render().el
 						# highlight found value
-					val = $("#search_books_input_hidden").val()
-					unless $.trim(val) == ""
-						$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
+						val = $("#search_books_input_hidden").val()
+						unless $.trim(val) == ""
+							$("#search_books .name, #search_books .isbn, #search_books .author").highlight(val)
 
 		go_top: ->
 			$("html, body").animate

@@ -56,10 +56,18 @@ class HomeController < ApplicationController
     else
   	  @books = Book.search params[:query], :star => true
       resp[:suggestion] = params[:query]
-      if @books.suggestion?
+      if @books.suggestion? && @books.count <= 0
         resp[:suggestion] = @books.suggestion
         @books = Book.search @books.suggestion, :star => true
       end
+
+      # @books.each_with_weighting do |result, weight|
+      #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      #   puts result
+      #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      #   puts weight
+      #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      # end
     end
     # @books.delete(nil)
     if @books.count > 6
@@ -77,10 +85,10 @@ class HomeController < ApplicationController
     load_more_count = params[:load_more_count].to_i * 6
     load_more_limit = load_more_count + 6
     unless params[:query] == ""
-      query = "*#{params[:query]}*"
+      query = params[:query]
       @books = Book.search(query)
       resp[:suggestion] = query
-      if @books.suggestion?
+      if @books.suggestion? && @books.count <= 0
         resp[:suggestion] = @books.suggestion
         @books = Book.search @books.suggestion, :star => true
       end

@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     @user=current_user
     if @user
       # check if user has college
-      if @user.college.nil?
+      if @user.mobile_number.nil?
         redirect_to "/welcome"
         return
       end

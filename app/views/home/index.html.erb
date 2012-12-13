@@ -229,7 +229,7 @@ $("document").ready(function(){
 		$("#book_details").dialog("open");
 	<% end %>
 	$(".login_error_msg").html("");
-	$("#login_box_left_login form").live("click",function(){
+	$("#login_box_left_login form .btn").live("click",function(){
 		$.ajax({
       url: "/users/sign_in",
       type:"post",

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def get_user_details
     user = current_user
-    if user.mobile_number.nil?
+    if user && user.mobile_number.nil?
       @college_names = College.pluck(:name)
       @streams = Stream.pluck(:name)
       render "home/get_user_details"

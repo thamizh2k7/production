@@ -30,7 +30,11 @@
 			mobile = $.trim($("#mobile").val());
 			college = $("#college").val();
 			stream = $("#streams").val();
-			if($("#form").valid()){			
+			if(!college)
+				$("#error").html("Please select your college.");
+			else if(!stream)
+				$("#error").html("Please select your stream.");
+			else if($("#form").valid()){			
 				$.ajax("/users/save_user_details", {
 					type:"post",
 					async:true,

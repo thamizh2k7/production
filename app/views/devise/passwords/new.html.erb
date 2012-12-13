@@ -1,7 +1,7 @@
 <div id="devise_pages">
 	<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post,:class=>"forgot_password_form" }) do |f| %>
 	  <%= devise_error_messages! %>
-
+    <div class="forgot_error"></div>
 	  <div><%= f.label :email %>
 	  <%= f.email_field :email %></div><br/>
 

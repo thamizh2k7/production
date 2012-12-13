@@ -175,8 +175,8 @@ $("document").ready(function(){
   });
 
 
-  $('#slider').nivoSlider({directionNav: false,effect: 'slideInRight',animSpeed: 0, // Slide transition speed
-        pauseTime: 3000,});
+  //$('#slider').nivoSlider({directionNav: false,effect: 'slideInRight',animSpeed: 0, // Slide transition speed
+       // pauseTime: 3000,});
 
   // Sliding logos //
   if($("#gallery").length){
@@ -229,7 +229,7 @@ $("document").ready(function(){
 		$("#book_details").dialog("open");
 	<% end %>
 	$(".login_error_msg").html("");
-	$("#login_box_left_login form .btn").live("click",function(){
+	$(".login_form .btn").live("click",function(){
 		$.ajax({
       url: "/users/sign_in",
       type:"post",
@@ -247,6 +247,23 @@ $("document").ready(function(){
 		return false;
 
 	});
+	$(".forgot_password_form").live("submit",function(){
+		$.ajax({
+      url: "/users/password",
+      type:"post",
+      data:$(".forgot_password_form").serialize(),
+      complete: function (jqxhr, txt_status) {
+      	if(jqxhr.status==200){
+      			$(".forgot_error").html("Check the Mail For Password Instructions");
+      	}
+      	else{
+      			$(".forgot_error").html("Error Occured");
+
+      	}
+      }
+    });
+    return false;
+	})
 	
 });
 </script>

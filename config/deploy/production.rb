@@ -1,5 +1,5 @@
-server "176.58.103.250", :app, :web, :db, :primary => true
-set :deploy_to, "/var/www/sociorent"
+server "103.8.126.71", :app, :web, :db, :primary => true
+set :deploy_to, "/var/www/sociorent.com"
 set :branch, 'master'
 set :scm_verbose, true
 set :use_sudo, false
@@ -7,7 +7,7 @@ set :rails_env, "production" #added for delayed job
 
 
 after 'deploy:update_code' do
-  # run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
+  run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
   run "cd #{release_path}; RAILS_ENV=production"
   run "mkdir -p #{release_path}/tmp/cache;"
   run "chmod -R 777 #{release_path}/tmp/cache;"

@@ -39,7 +39,7 @@ class Book < ActiveRecord::Base
     indexes :isbn10
     
     set_property :min_infix_len => 3
-    set_property :delta =>true
+    # set_property :delta =>true
 
   end
 

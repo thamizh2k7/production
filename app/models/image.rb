@@ -24,7 +24,7 @@ class Image < ActiveRecord::Base
   end
 
   def download_remote_image
-    self.image =open(self.image_url)
+    self.image = open(self.image_url)
   end
 
   rails_admin do

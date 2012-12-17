@@ -67,25 +67,26 @@ module RailsAdmin
                     end
                     puts "row publisher #{row[7]}"
                     unless row[7] == "" || row[7] == "0" || row[7] ==" - "
-                      book = Hash.new()
-                      book["name"] = row[1]
-                      book["author"] = row[2]
-                      book["isbn10"] =row[3]
-                      book["isbn13"] = row[4]
-                      book["binding"] = row[5]
-                      book["published"] = row[6]
-                      book["edition"] = row[8]
-                      book["pages"] = row[9]
-                      book["availability"]=row[14]
-                      book["price"]=row[15]
-                      book["description"]=row[16].force_encoding("UTF-8")
-                      book["description"].gsub!('<a href="#">top</a>',"")
-                      if book["description"].valid_encoding?
-                      # book["language"] = row[10]
-                        if row[7] !="" && row[7]!="0" && row[7]!=" - "
-                          publisher = Publisher.where(:name=>row[7]).first
-                          if publisher.nil?
-                            publisher=Publisher.create(:name=>row[7])
+                        book = Hash.new()
+                        book["name"] = row[1]
+                        book["author"] = row[2]
+                        book["isbn10"] =row[3]
+                        book["isbn13"] = row[4]
+                        book["binding"] = row[5]
+                        book["published"] = row[6]
+                        book["edition"] = row[8]
+                        book["pages"] = row[9]
+                        book["availability"]=row[14]
+                        book["price"]=row[15]
+                        book["description"]=row[16].force_encoding("UTF-8") if row[16]
+                        book["description"].gsub!('<a href="#">top</a>',"") if row[16]
+                        if row[16] && book["description"].valid_encoding?
+                        # book["language"] = row[10]
+                          if row[7] !="" && row[7]!="0" && row[7]!=" - "
+                            publisher = Publisher.where(:name=>row[7]).first
+                            if publisher.nil?
+                              publisher=Publisher.create(:name=>row[7])
+                            end
                           end
                         end
                         # puts book

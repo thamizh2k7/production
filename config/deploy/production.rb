@@ -13,7 +13,10 @@ after 'deploy:update_code' do
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
   run "chmod -R 777 #{release_path}/public/uploads"
-end
+  run "mkdir -p #{release_path}/log;"
+  run "chmod -R 777 #{release_path}/log"
+  run "ln -s #{shared_path}/images #{release_path}/public/system/images"
+end 
 
 namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do

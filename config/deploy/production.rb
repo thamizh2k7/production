@@ -16,9 +16,10 @@ after 'deploy:update_code' do
   run "rm #{release_path}/log"
   run "mkdir -p #{release_path}/log;"
   run "chmod -R 777 #{release_path}/log"
-  # run "rm #{release_path}/public/system"
+  run "rm -rf #{release_path}/public/system"
   # run "mkdir -p 777 #{release_path}/public/system/"
-  run "ln -s #{shared_path}/images #{release_path}/public/system/" 
+  run "ln -s #{shared_path}/system/ #{release_path}/public/" 
+  # ln -s /var/www/sociorent.com/shared/system/ /var/www/sociorent.com/current/public/
 end 
 
 namespace :deploy do

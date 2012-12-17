@@ -45,7 +45,7 @@ class Book < ActiveRecord::Base
 
 	def book_image
   	unless self.images.count == 0
-      self.images.first.image(:book)
+      self.images.first.image(:original)
     else
       "/assets/no_book.jpeg"
     end

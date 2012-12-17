@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121207203007) do
+ActiveRecord::Schema.define(:version => 20121217083948) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"

@@ -104,7 +104,14 @@ module RailsAdmin
                   book_save.publisher=publisher
 
                   if row[13] !="" && row[13]!="0" && row[13]!=" - "
-                    book_save.images.create(:image_url=>row[13])
+                    begin
+                      if book_save.images.nil? 
+                        book_save.images.create(:image_url=>row[13])
+                      else
+                        book_save.images.first.update_attributes(:image_url=>row[13])   
+                      end
+                    rescue
+                    end
                   end
 
                   book_save.save

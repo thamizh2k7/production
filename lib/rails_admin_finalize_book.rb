@@ -10,11 +10,6 @@ module RailsAdmin
     module Actions
       class FinalizeBook< RailsAdmin::Config::Actions::Base
       	RailsAdmin::Config::Actions.register(self)
-      
-#       	register_instance_option :member? do
-# 					true
-# 				end
-				
 				register_instance_option :link_icon do
 					'icon-check'
 				end
@@ -57,73 +52,70 @@ module RailsAdmin
             if request.method == "GET"
             	render :action => @action.template_name
             else
-              
-                csvfile = params[:book_csv].read
-                CSV.parse(csvfile) do |row|
-                  begin
-                    unless row[0].to_i.is_a? (Integer)
-                      puts "not an integer"
-                      next
-                    end
-                    puts "row publisher #{row[7]}"
-                    unless row[7] == "" || row[7] == "0" || row[7] ==" - "
-                        book = Hash.new()
-                        book["name"] = row[1]
-                        book["author"] = row[2]
-                        book["isbn10"] =row[3]
-                        book["isbn13"] = row[4]
-                        book["binding"] = row[5]
-                        book["published"] = row[6]
-                        book["edition"] = row[8]
-                        book["pages"] = row[9]
-                        book["availability"]=row[14]
-                        book["price"]=row[15]
-                        book["description"]=row[16].force_encoding("UTF-8") if row[16]
-                        book["description"].gsub!('<a href="#">top</a>',"") if row[16]
-                        if row[16] && book["description"].valid_encoding?
-                        # book["language"] = row[10]
-                          if row[7] !="" && row[7]!="0" && row[7]!=" - "
-                            publisher = Publisher.where(:name=>row[7]).first
-                            if publisher.nil?
-                              publisher=Publisher.create(:name=>row[7])
-                            end
-                          end
-                        end
-                        # puts book
-                        if Book.where(:isbn13=>row[4]).count == 0
-                          book_save=Book.create(book)
-                        else
-                          book_save=Book.where(:isbn13=>row[4]).first
-                          puts book_save
-                          book_save.update_attributes(book)
-                        end
-                        college = College.where(:name =>row[17]).first
-                        if college.nil?
-                            college = College.create(:name=>row[17])
-                        end
-                        book_save.book_colleges.create(:college_id=>college.id)
-
-                        stream=Stream.where(:name =>row[18]).first
-                        if stream.nil?
-                            stream=Stream.create(:name=>row[18])
-                        end
-                        book_save.book_streams.create(:stream_id=>stream.id)
-                        book_save.publisher=publisher
-                        if row[13] !="" && row[13]!="0" && row[13]!=" - "
-                          book_save.images.create(:image_url=>row[13])
-                          # img=Image.create(:image_url=>row[13])
-                          # book_save.images << img
-                        end
-                        book_save.save
-                      else
-                        puts "Not a valid encode"
+              csvfile = params[:book_csv].read
+              CSV.parse(csvfile) do |row|
+              begin
+                unless row[7] == "" || row[7] == "0" || row[7] ==" - "
+                  book = Hash.new()
+                  book["name"] = row[1]
+                  book["author"] = row[2]
+                  book["isbn10"] =row[3]
+                  book["isbn13"] = row[4]
+                  book["binding"] = row[5]
+                  book["published"] = row[6]
+                  book["edition"] = row[8]
+                  book["pages"] = row[9]
+                  book["availability"]=row[14]
+                  book["price"]=row[15]
+                  book["description"]=row[16].force_encoding("UTF-8") if row[16]
+                  book["description"].gsub!('<a href="#">top</a>',"") if row[16]
+                  
+                  if row[16] && book["description"].valid_encoding?
+                    # book["language"] = row[10]
+                    if row[7] !="" && row[7]!="0" && row[7]!=" - "
+                      publisher = Publisher.where(:name=>row[7]).first
+                      if publisher.nil?
+                        publisher=Publisher.create(:name=>row[7])
                       end
-                    rescue EncodingError => e
-                      puts "Bad encoding"
-                      next
                     end
                   end
-              
+
+                  # puts book
+                  if Book.where(:isbn13=>row[4]).count == 0
+                    book_save=Book.create(book)
+                  else
+                    book_save=Book.where(:isbn13=>row[4]).first
+                    puts book_save
+                    book_save.update_attributes(book)
+                  end
+
+                  college = College.where(:name =>row[17]).first
+
+                  if college.nil?
+                      college = College.create(:name=>row[17])
+                  end
+
+                  book_save.book_colleges.create(:college_id=>college.id)
+                  stream=Stream.where(:name =>row[18]).first
+
+                  if stream.nil?
+                      stream=Stream.create(:name=>row[18])
+                  end
+
+                  book_save.book_streams.create(:stream_id=>stream.id)
+                  book_save.publisher=publisher
+
+                  if row[13] !="" && row[13]!="0" && row[13]!=" - "
+                    book_save.images.create(:image_url=>row[13])
+                  end
+
+                  book_save.save
+                end
+
+              rescue EncodingError => e
+                puts "Bad encoding"
+                next
+              end
               redirect_to "/cb_admin/book"
             end
 					end

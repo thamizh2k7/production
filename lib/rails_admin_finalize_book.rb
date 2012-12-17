@@ -118,12 +118,11 @@ module RailsAdmin
                       else
                         puts "Not a valid encode"
                       end
+                    rescue EncodingError => e
+                      puts "Bad encoding"
+                      next
                     end
-                  rescue EncodingError => e
-                    puts "Bad encoding"
-                    next
                   end
-                end
               
               redirect_to "/cb_admin/book"
             end

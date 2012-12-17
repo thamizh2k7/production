@@ -8,7 +8,7 @@ end
 module RailsAdmin
   module Config
     module Actions
-      class FinalizeBook< RailsAdmin::Config::Actions::Base
+      class FinalizeBook < RailsAdmin::Config::Actions::Base
       	RailsAdmin::Config::Actions.register(self)
 				register_instance_option :link_icon do
 					'icon-check'
@@ -91,17 +91,15 @@ module RailsAdmin
 
                   college = College.where(:name =>row[17]).first
 
-                  if college.nil?
-                      college = College.create(:name=>row[17])
-                  end
+                  college = College.create(:name=>row[17]) if college.nil?
+                  
 
                   book_save.book_colleges.create(:college_id=>college.id)
                   stream=Stream.where(:name =>row[18]).first
 
-                  if stream.nil?
-                      stream=Stream.create(:name=>row[18])
-                  end
-
+                  
+                  stream=Stream.create(:name=>row[18]) if stream.nil?
+                  
                   book_save.book_streams.create(:stream_id=>stream.id)
                   book_save.publisher=publisher
 
@@ -111,10 +109,10 @@ module RailsAdmin
 
                   book_save.save
                 end
-
               rescue EncodingError => e
                 puts "Bad encoding"
                 next
+              end
               end
               redirect_to "/cb_admin/book"
             end

@@ -16,7 +16,8 @@ after 'deploy:update_code' do
   run "rm #{release_path}/log"
   run "mkdir -p #{release_path}/log;"
   run "chmod -R 777 #{release_path}/log"
-  run "ln -s #{release_path}/public/system/images #{shared_path}"
+  run "mkdir -p 777 #{release_path}/public/system/"
+  run "ln -s #{shared_path}/images #{release_path}/public/system/" 
 end 
 
 namespace :deploy do

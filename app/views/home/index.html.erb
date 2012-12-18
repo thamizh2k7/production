@@ -233,23 +233,26 @@ $("document").ready(function(){
 		$("#book_details").dialog("open");
 	<% end %>
 	$(".login_error_msg").html("");
-	$(".login_form .btn").live("click",function(){
-		$("#loading_div").fadeIn();
-		$.ajax({
-      url: "/users/sign_in",
-      type:"post",
-      data:$("#login_box_left_login form").serialize(),
-      complete: function (jqxhr, txt_status) {
-      	if(jqxhr.status==200){
-      		location.reload();
-      	}
-      	else{
-      		$("#loading_div").fadeOut();
-      			$(".login_error_msg").html(jqxhr.responseText);
+	$("#login_box_left_login form").live("submit",function(){
+		if($(this).valid())
+		{
+			$("#loading_div").fadeIn();
+			$.ajax({
+	      url: "/users/sign_in",
+	      type:"post",
+	      data:$("#login_box_left_login form").serialize(),
+	      complete: function (jqxhr, txt_status) {
+	      	if(jqxhr.status==200){
+	      		location.reload();
+	      	}
+	      	else{
+	      		$("#loading_div").fadeOut();
+	      			$(".login_error_msg").html(jqxhr.responseText);
 
-      	}
-      }
-    });
+	      	}
+	      }
+	    });
+	   }
 		return false;
 
 	});

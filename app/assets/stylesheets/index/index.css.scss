@@ -154,13 +154,25 @@ form#search{
 }
 [class*="info_cont"]{
 	width: 320px;
-	padding: 15px 10px;
 }
 [class*="info_cont"] h2{
 	color: #666;
 	font-weight: bold;
 	font-size: 1.5em;
 	margin-bottom: 9px;
+}
+
+.info_cont2{
+	padding: 20px 10px;
+}
+.info_cont1{
+	padding:22px 10px;
+}
+.info_cont3{
+	padding:30px 10px;
+}
+.info_cont4{
+	padding:15px 10px;
 }
 [class*="info_cont"] span{
 	color: #7F7D7D;

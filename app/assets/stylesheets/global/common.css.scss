@@ -57,6 +57,7 @@ a{
 /**************css global **********/
 
 /* Fonts */
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
 @font-face {
 	font-family: 'MuseoSlab-500';
 	src: url('/assets/fonts/24EF4C_0_0.eot');
@@ -84,11 +85,11 @@ a{
 }
 
 .font_page{
-	font-family: Arvo;
+	font-family: 'PT Sans', sans-serif;
 }
 
 .font-dialog{
-	font-family: 'MuseoSlab-500';
+	font-family: 'PT Sans', sans-serif;
 }
 
 
@@ -96,6 +97,7 @@ html, form, body, fieldset, ul, li, ol, h1, h2, h3, a, p {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
+	font-family: 'PT Sans', sans-serif;
 }
 
 
@@ -121,10 +123,15 @@ li {
 	}
 }
 /**typo**/
+.homepage_title{
+	font-family: 'Arvo';
+}
 h1{
 	font-size: 34px;
 	line-height: 50px;
 	color: #1A1A1A;
+
+
 }
 a { 
 	text-decoration: none;

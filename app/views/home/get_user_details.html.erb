@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "get_user_details" %>
+<div id="loading_div">Loading ... Please wait</div>
 <div id="content">
 	<form id="form">
 	  <legend>Give us a few more details</legend>
@@ -35,6 +36,7 @@
 			else if(!stream)
 				$("#error").html("Please select your stream.");
 			else if($("#form").valid()){			
+				$("#loading_div").fadeIn();
 				$.ajax("/users/save_user_details", {
 					type:"post",
 					async:true,
@@ -46,8 +48,10 @@
 					success: function(msg){
 						if(msg == "1")
 							window.location.href = "/"
+						$("#loading_div").fadeOut();
 					},
 				});
+
 			}
 			return false;
 		});

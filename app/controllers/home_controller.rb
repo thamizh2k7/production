@@ -55,10 +55,12 @@ class HomeController < ApplicationController
       @books += Book.first(6-@books.count) if @books.count < 6
     else
   	  @books = Book.search params[:query], :star => true
-      resp[:suggestion] = params[:query]
-      if @books.suggestion? && @books.count <= 0
-        resp[:suggestion] = @books.suggestion
-        @books = Book.search @books.suggestion, :star => true
+      unless params[:query].=~ /^[0-9]+$/
+        resp[:suggestion] = params[:query]
+        if @books.suggestion? && @books.count <= 0
+          resp[:suggestion] = @books.suggestion
+          @books = Book.search @books.suggestion, :star => true
+        end
       end
 
       # @books.each_with_weighting do |result, weight|

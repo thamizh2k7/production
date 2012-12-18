@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "index/application" %>
 <%= javascript_include_tag "homepage/homepage" %>
-
+<div id="loading_div">Loading ... Please wait</div>
 <div class="video_content wrapper">
 	<div class="grid_3_5">
 		<h1>Why buy engineering textbooks, when you can <span class="tite_rent">RENT</span> at 75% Off?</h1>
@@ -234,6 +234,7 @@ $("document").ready(function(){
 	<% end %>
 	$(".login_error_msg").html("");
 	$(".login_form .btn").live("click",function(){
+		$("#loading_div").fadeIn();
 		$.ajax({
       url: "/users/sign_in",
       type:"post",
@@ -243,6 +244,7 @@ $("document").ready(function(){
       		location.reload();
       	}
       	else{
+      		$("#loading_div").fadeOut();
       			$(".login_error_msg").html(jqxhr.responseText);
 
       	}
@@ -252,6 +254,7 @@ $("document").ready(function(){
 
 	});
 	$(".forgot_password_form").live("submit",function(){
+		$("#loading_div").fadeIn();
 		$.ajax({
       url: "/users/password",
       type:"post",
@@ -264,6 +267,7 @@ $("document").ready(function(){
       			$(".forgot_error").html("Error Occured");
 
       	}
+      	$("#loading_div").fadeOut();
       }
     });
     return false;

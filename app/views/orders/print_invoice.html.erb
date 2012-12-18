@@ -39,7 +39,7 @@
 				<%= book.isbn10 %>
 			</div> 
 			<div class="cart_price">
-				Rs. <%= (book.price.to_i * book.publisher.rental.to_i)/100 %>
+				Rs. <%= ((book.price.to_i * book.publisher.rental.to_i)/100).round %>
 			</div>
 			<div class="cart_price">
 				Rs. <%= book.price %>

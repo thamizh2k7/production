@@ -395,10 +395,9 @@ Copyright (c) 2011 by Harvest
       var $search_field=this.search_field;
       $search_field.typeWatch({
         callback: function(evt){ 
-          alert("waited for 1min");
           return _this.keyup_checker(evt); 
         },
-        wait:500,
+        wait:300,
         highlight: true,
         captureLength: 3 });
       // this.search_field.keydown(function(evt) {

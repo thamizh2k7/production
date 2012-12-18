@@ -121,7 +121,7 @@
 		<%%= isbn10 %>
 	</div> 
 	<div class="cart_price">
-		Rs. <%%= (price * publisher.rental)/100 %>
+		Rs. <%%= ((price * publisher.rental)/100).toFixed(0) %>
 	</div>
 	<div class="cart_price">
 		Rs. <%%= price %>

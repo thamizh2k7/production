@@ -36,7 +36,9 @@ class Book < ActiveRecord::Base
   define_index do
   	indexes :name, :sortable => true
     indexes :author, :sortable => true
+    indexes :isbn13
     indexes :isbn10
+
     
     set_property :min_infix_len => 3
     # set_property :delta =>true

@@ -825,6 +825,10 @@ span.blue{
 	border-radius: 5px;
 	height: 160px;
 
+	img {
+		height: 160px !important;
+	}
+
 	.book_left{
 		display: block;
 		float: left;

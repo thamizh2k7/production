@@ -19,6 +19,7 @@ after 'deploy:update_code' do
   run "rm -rf #{release_path}/public/system"
   # run "mkdir -p 777 #{release_path}/public/system/"
   run "ln -s #{shared_path}/system/ #{release_path}/public/" 
+  run "ln -s '/var/www/blog' #{release_path}/public/" 
   # ln -s /var/www/sociorent.com/shared/system/ /var/www/sociorent.com/current/public/
 end 
 

@@ -19,6 +19,21 @@
 	margin-left: -150px;
 }
 
+#page_not_found {
+	display: none;
+	position: absolute;
+	top: 8px;
+	left: 30%;
+	width: 40%;
+	background: #F9EDBE;
+	border: 1px solid #D6C06B;
+	color: #222;
+	padding: 2px 8px;
+	z-index: 100000;
+	text-align: center;
+}
+
+
 .ui-dialog{
 	position: fixed;
 }	

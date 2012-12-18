@@ -20,7 +20,7 @@
 			<img src="<%%= book_image %>"/>
 		</div>	
 		<div class="auther_edition">
-			<div class="edition"><b>Edition <%%= edition %></b></div>
+			<div class="edition"><b><%%= edition %></b></div>
 			<div class="author">Author(s): <p><span class="blue author_names"></span></p></div>
 		</div>
 		<div class="clear"></div>
@@ -45,7 +45,7 @@
 			<div class="information_right"><b>Rs.<%%= price %></b></div>
 			<div class="clear"></div>
 			<div class="information_left"><b>rent</b></div>
-			<div class="information_right"><b>Rs.<%%= (price * publisher.rental)/100 %></b></div>
+			<div class="information_right"><b>Rs.<%%= ((price * publisher.rental)/100).toFixed(0) %></b></div>
 			<div class="clear"></div>
 			<div class="add_to_cart btn">Add to Cart</div>
 		</div>
@@ -66,9 +66,6 @@
 			<div class="clear"></div>
 			<div class="information_left">published:</div>
 			<div class="information_right"><%%= published %></div>
-			<div class="clear"></div>
-			<div class="information_left">Age:</div>
-			<div class="information_right timeago" title="<%%= published_date %>"></div>
 			<div class="clear"></div>
 			<div class="information_left">pages</div>
 			<div class="information_right"><%%= pages %></div>

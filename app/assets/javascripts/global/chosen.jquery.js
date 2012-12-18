@@ -386,12 +386,25 @@ Copyright (c) 2011 by Harvest
       this.search_field.blur(function(evt) {
         return _this.input_blur(evt);
       });
-      this.search_field.keyup(function(evt) {
-        return _this.keyup_checker(evt);
-      });
-      this.search_field.keydown(function(evt) {
-        return _this.keydown_checker(evt);
-      });
+
+      // this.search_field.keyup(function(evt) {
+      //   return _this.keyup_checker(evt);
+        
+      // });
+
+      var $search_field=this.search_field;
+      $search_field.typeWatch({
+        callback: function(evt){ 
+          alert("waited for 1min");
+          return _this.keyup_checker(evt); 
+        },
+        wait:500,
+        highlight: true,
+        captureLength: 3 });
+      // this.search_field.keydown(function(evt) {
+      //   return _this.keydown_checker(evt);
+      // });
+    
       if (this.is_multiple) {
         this.search_choices.click(function(evt) {
           return _this.choices_click(evt);

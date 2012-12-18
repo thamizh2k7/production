@@ -136,7 +136,7 @@ $(document).ready ->
 				name: @model.get "name"
 				author: @model.get "author"
 				mrp: @model.get "price"
-				rent_price: (@model.get("price") * @model.get("publisher").rental)/100
+				rent_price: ((@model.get("price") * @model.get("publisher").rental)/100).toFixed(0)
 				cart_message: cart_message
 				rented_message: rented_message
 			if sociorent.collections.cart_object.get(@model.id)

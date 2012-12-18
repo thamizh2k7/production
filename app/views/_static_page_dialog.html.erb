@@ -39,6 +39,11 @@
 	<div id="colleges_page" title="<%= colleges.page_title %>" class="sub">
 	  <div><%= raw colleges.page_content %></div>
 	</div>
+	
+	<% faq = StaticPage.where(:page_name => "faq").first %>
+	<div id="faq_page" title="<%= faq.page_title %>" class="sub">
+	  <div><%= raw faq.page_content %></div>
+	</div>
 
 	<% terms_of_use = StaticPage.where(:page_name => "terms_of_use").first %>
 	<div id="terms_of_use_page" title="<%= terms_of_use.page_title %>" class="sub">

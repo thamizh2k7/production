@@ -17,6 +17,7 @@
       <div>You have selected to pay via bank deposit</div>
       <div>Unique ID:<%= @user.unique_id%></div>
       <div>Bank Details:</div>
+      <div><%= @order.bank.bank_name%></div>
       <div><%= raw @order.bank.details %></div>
     <% elsif @order.order_type == "cheque" %>
       <div>You have selected to pay via Cheque, please mail it to us at the provided address: </div>

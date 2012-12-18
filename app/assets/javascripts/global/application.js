@@ -34,7 +34,7 @@ $(document).ready(function(){
 		current = $(this).attr("href");
 		// page=current.replace("_"," ")
 		// page=page.slice(1).toUpperCase()
-
+		
 		$("#static_page_dialog").dialog('option','title',$(current).attr('title'))
 		$("#static_page_dialog .sub").hide();
 		$(current).show();
@@ -54,5 +54,7 @@ $(document).ready(function(){
 	$(".open_university").click(function(){
 			$("#university_dialog").dialog("open");	
 	});
+	if($("#page_not_found").html()!="")
+		$("#page_not_found").fadeIn(1000).delay(5000).fadeOut(300);
 	$(".rails_notice").delay(5000).fadeOut(300);
 });

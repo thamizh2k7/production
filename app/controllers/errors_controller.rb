@@ -1,5 +1,6 @@
 class ErrorsController < ApplicationController
   def routing
-   render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+   flash[:warning] = "Page not found"
+   redirect_to "/"
   end
 end

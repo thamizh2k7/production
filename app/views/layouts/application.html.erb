@@ -16,7 +16,7 @@
         <div class="topbar_right right">
           <nav class="main_nav right">
             <ul>
-              <li><a href="#pricing_page" class="static_page_dialog_open">PRICING</a></li>
+              <li><a href="#faq_page" class="static_page_dialog_open">FAQ</a></li>
               <li><a href="#universities" class="open_university">UNIVERSITIES</a></li>
               <li><a href="http://blog.sociorent.in">BLOG</a></li>
               <% if current_user %>
@@ -33,6 +33,7 @@
   </div>
 
   <div class="font_page">
+   <div id="page_not_found"> <%= flash[:warning] %></div>
     <%= yield %>
   </div>
 

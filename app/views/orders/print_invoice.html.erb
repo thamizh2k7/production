@@ -1,6 +1,9 @@
 <%= stylesheet_link_tag "orders/print_invoice", :media => 'print, screen' %>
 
 <div id="container">
+	<div id="logo">
+		<img src="http://sociorent.com/assets/Sociorent.png" />
+	</div>
 	<div class="order_heading">
 		<div class="order_heading_left">
 			<p>Sociorent.Com</p>
@@ -11,13 +14,14 @@
 		
 		<div class="order_heading_right">
 			<% address=JSON.parse(@user.address)%>
+			<p><%= @user.name %></p>
 			<p><%= address["address_street_name1"]%></p>
 			<p><%= address["address_street_name2"]%></p>
 			<p><%= address["address_city"]%></p>
 			<p><%= address["address_state"]%> - <%= address["address_pincode"]%> </p>
 		</div>
 		<div class="clear"></div>
-		<p>Order No : <%= @order.random %></p>
+		<p><b>Order No</b> : <%= @order.random %></p>
 				<div class="clear"></div>
 
 		<div id="cart_header" >

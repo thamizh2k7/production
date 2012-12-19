@@ -5,7 +5,7 @@
   </head>
   <body>
   	<div>Dear <%= @user.name %></div>
-    <div><%= raw @general.order_email_content %></div>
+    <div><%= @general.order_email_content.html_safe %></div>
     <h4>Order details</h4>
     <div>Order Number: <%= @order.random %></div>
     <div>Order Total: <%= @order.total %></div>

@@ -77,3 +77,4 @@ StaticPage.create(:page_name => "pricing", :page_title => "Pricing", :page_conte
 StaticPage.create(:page_name => "colleges", :page_title => "Colleges", :page_content => "colleges", :is_active => true)
 StaticPage.create(:page_name => "terms_of_use", :page_title => "Terms of use", :page_content => "terms of use", :is_active => true)
 StaticPage.create(:page_name => "privacy_policy", :page_title => "Privacy policy", :page_content => "privacy policy", :is_active => true)
+StaticPage.create(:page_name => "faq", :page_title => "FAQ", :page_content => "FAQ", :is_active => true)

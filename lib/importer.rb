@@ -1,6 +1,6 @@
 require 'csv'
 
-csvfile = File.read("tmp/x.csv")
+csvfile = File.open("tmp/x.csv", "r:ISO-8859-1")
 CSV.parse(csvfile) do |row|
   begin
     unless row[7] == "" || row[7] == "0" || row[7] ==" - "

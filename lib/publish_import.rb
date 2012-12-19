@@ -8,14 +8,14 @@ csvfile = File.read("tmp/x.csv")
 
 CSV.parse(csvfile) do |row|
 
-	isbn = row[4]
+	isbn = row[0]
 	book = Book.where(:isbn13 => isbn).first
 	if book
 		puts "inside #{book.id}"
 		book.images.all.each {|a| a.destroy}
 		puts "destroyed images of #{book.id}"
-		book.images.create(:image_url => row[13])
-		puts row[13]
+		book.images.create(:image_url => row[1])
+		puts row[1]
 		puts " ---------------- "
 	end
  #  if row[26] !="" && row[26]!="0" && row[26]!=" - "

@@ -54,7 +54,7 @@
 	<% end %>
 	</div>
 	<div class="rental_total">Rental Amount: Rs.<%= @order.rental_total %></div>
-	<div class="deposit_total">Rental Deposit (refundable): Rs.<%= @order.deposit_total %></div>
+	<div class="deposit_total">Rental Deposit (refundable): Rs.<%= @order.deposit_total - @order.rental_total %></div>
 	<div class="clear"></div>
 	<div class="total">Total: Rs.<%= @order.total %> <i>(Shipping Charge Rs.50 if Rental deposit less than Rs.1000)</i></div>
 </div>

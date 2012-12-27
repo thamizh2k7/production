@@ -110,12 +110,19 @@ $(document).ready ->
 				accept_terms_of_use = true
 			else
 				false
+
 			post_data = {order_type :order_type, accept_terms_of_use: accept_terms_of_use}
 			if order_type == "bank"
 				post_data["bank_id"] = $("#bank_name").val()
 				if $("#bank_name").val() == ''
 					alert('please select bank')
-					return false
+					false
+			if order_type == "citrus_pay"
+				if $("#citruspay_form").valid()
+					citrus_data = $("#citruspay_form").serializeJSON()
+					post_data['citrus_data'] = citrus_data
+				else
+					false
 			$("#checkout_box_content").hide()
 			$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
 			sociorent.fn.show_notification()

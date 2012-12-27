@@ -58,6 +58,7 @@ gem 'active_merchant_ccavenue'
 
 gem 'tinymce-rails'
 gem 'httparty'
+gem 'ruby-hmac', '~>0.4', require: 'hmac-sha1'
 
 gem 'daemons'
 gem 'delayed_job_active_record'

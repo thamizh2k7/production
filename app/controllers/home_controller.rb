@@ -248,9 +248,26 @@ class HomeController < ApplicationController
     render :text=>pincodes and return
   end
 
-  def c
-    book_details = BookFinder.flipkart(params[:isbn])
-    render :json=>book_details
+  def citrus_pay
+    require Rails.root.join('lib','citruspay.rb')
+    citrus = Citruspay::Base.new('HS6Q0E1N40OUSYCJXMX5')
+    
+    post_data = {'merchantTxnId'=>  '00000433',
+      'amount' =>  '100.0',
+      'firstName'=>  'Test',
+      'lastName' => 'Test',
+      'address'=> 'Test',
+      'addressCity'=>  'Pune',
+      'addressState' => 'Goa',
+      'addressZip' =>  '123456',
+      'email' =>  'test@test.com',
+      'mobile' => '1234567890',
+      'paymentMode'=>  'NET_BANKING',
+      'issuerCode' =>  'CID009',
+      'returnUrl' =>  'http://localhost:3000/check_citrus'}
+    res=citrus.create_transaction(post_data)
+    render :json=>res.to_json and return
+
   end
   private
 

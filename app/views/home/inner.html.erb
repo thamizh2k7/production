@@ -216,9 +216,30 @@
 		  },
 		  focusCleanup: true
 		});
+		$("#citrus_payment_mode").live("change",function(){
+			if($(this).val()=="NET_BANKING")
+			{
+				$(".citrus_bank").slideDown();
+				$(".citrus_card").slideUp();
+			}
+			else
+			{
+				$(".citrus_bank").slideUp();
+				$(".citrus_card").slideDown();
+
+			}
+		});
+		$(".citrus_card").hide();
 
 		$("#user").sticky({topSpacing:0});
 		$("#search_books_form_box").sticky({topSpacing:42});
 
 	});
+$.fn.serializeJSON=function() {  
+    var json = {};  
+    $.map($(this).serializeArray(), function(n, i){  
+        json[n['name']] = n['value'];  
+    });  
+    return json;  
+}; 
 </script>

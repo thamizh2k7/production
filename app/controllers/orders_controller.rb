@@ -2,6 +2,7 @@ require 'koala'
 class OrdersController < ApplicationController
 	def create
 		require Rails.root.join('lib','Gharpay.rb')
+		require Rails.root.join('lib','citruspay.rb')
 		user = current_user
 		cart = user.cart
 		books = cart.books
@@ -19,12 +20,12 @@ class OrdersController < ApplicationController
 		total = deposit_total + shipping_charge
 		order_type = params[:order_type]
 		accept_terms_of_use = params[:accept_terms_of_use]
+		user_address=JSON.parse(user.address)
+		address=user_address.map{|k,v| "#{v}"}.join(',')
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type, :accept_terms_of_use => accept_terms_of_use)
 		if order_type=="gharpay"
 			order_array={}
-			user_address=JSON.parse(user.address)
-			address=user_address.map{|k,v| "#{v}"}.join(',')
 			dd=Time.now + (24*60*60*3)
 			delivery=dd.strftime("%d-%m-%Y")
     	order_array["customerDetails"]={"firstName"=>user.name,"contactNo"=>user.mobile_number,"address"=>address}
@@ -36,6 +37,22 @@ class OrdersController < ApplicationController
 	    	order.update_attributes(:gharpay_id=>gharpay_resp["orderID"])
 	    end
 		end
+		if order_type == "citrus_pay"
+			order_array = {"firstName" => user.name, "lastName"=>"","address"=>address,"addressCity"=>user_address["address_city"],"addressState"=>user_address["address_state"],"addressZip"=>user_address["address_pincode"],"mobile"=>user.mobile_number,"returnUrl"=>"/","paymentMode"=>params[:citrus_data][:paymentMode]}
+			if params[:citrus_data][:paymentMode]=="NET_BANKING"
+				order_array.merge({"issuerCode" => params[:citrus_data][:issuerCode]})
+			else 
+				order_array.merge({"cardType"=>params[:citrus_data][:cardType],"cardHolderName"=>params[:citrus_data][:cardHolderName],"expiryMonth"=>params[:citrus_data][:expiryMonth],"expiryYear"=>params[:citrus_data][:expiryYear],"cvvNumber"=>params[:citrus_data][:cvvNumber]})
+			end
+			begin
+				citrus = Citruspay::Base.new('HS6Q0E1N40OUSYCJXMX5')
+				res=citrus.create_transaction(order_array)
+				File.open("ssdfds.txt", 'w') { |file| file.write("Req: #{order_array}\n\r Resp: #{res}") }
+    	rescue
+				File.open("ssdfds.txt", 'w') { |file| file.write(res) }
+			end
+    	return
+    end
 		unless params[:bank_id].nil?
     	bank=Bank.where(:id=>params[:bank_id]).first
     	if bank

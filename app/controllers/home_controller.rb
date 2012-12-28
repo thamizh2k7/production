@@ -248,27 +248,12 @@ class HomeController < ApplicationController
     render :text=>pincodes and return
   end
 
-  def citrus_pay
-    require Rails.root.join('lib','citruspay.rb')
-    citrus = Citruspay::Base.new('HS6Q0E1N40OUSYCJXMX5')
-    
-    post_data = {'merchantTxnId'=>  '00000433',
-      'amount' =>  '100.0',
-      'firstName'=>  'Test',
-      'lastName' => 'Test',
-      'address'=> 'Test',
-      'addressCity'=>  'Pune',
-      'addressState' => 'Goa',
-      'addressZip' =>  '123456',
-      'email' =>  'test@test.com',
-      'mobile' => '1234567890',
-      'paymentMode'=>  'NET_BANKING',
-      'issuerCode' =>  'CID009',
-      'returnUrl' =>  'http://localhost:3000/check_citrus'}
-    res=citrus.create_transaction(post_data)
-    render :json=>res.to_json and return
-
+  def citrus_signature
+    sign_text = "#{params[:merchantId]}#{params[:orderAmount]}#{params[:merchantTxnId]}#{params[:currency]}"
+    signature = HMAC::SHA1.new(sign_text)
+    render :text=>signature
   end
+  
   private
 
   def intelligent_books(user)

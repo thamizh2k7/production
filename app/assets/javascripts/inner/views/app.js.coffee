@@ -118,11 +118,19 @@ $(document).ready ->
 					alert('please select bank')
 					false
 			if order_type == "citrus_pay"
-				if $("#citruspay_form").valid()
-					citrus_data = $("#citruspay_form").serializeJSON()
-					post_data['citrus_data'] = citrus_data
-				else
-					false
+				orderAmt = sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge
+				merchantId="00000433"
+				sign_params= "merchantId=" + merchantId + "&orderAmount=" + orderAmt	+ "&merchantTxnId=" + $("input[name=merchantTxnId]").val() + "&currency=INR";
+				$.ajax "/getSignature"
+					type:"post"
+					async:false
+					data: sign_params
+					success: (msg)->
+						console.log(msg)
+						$("input[name='secSignature']").val(msg)
+						$("input[name='orderAmount']").val(orderAmt)
+				false
+				#$("#citruspay_form").submit()
 			$("#checkout_box_content").hide()
 			$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
 			sociorent.fn.show_notification()

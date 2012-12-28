@@ -135,75 +135,13 @@
 		</div>
 		<div id="checkout_citruspay">
 			<p>Pay by using Citrus Pay</p>
-			<form id="citruspay_form">
-				<div class="control-group"> 
-					<label>Payment Method</label>
-					<div class="controls">
-				 		<select id="citrus_payment_mode" name="paymentMode"><option value="NET_BANKING">Net Banking</option><option value="DEBIT_CARD">Debit Card</option>
-				 		</select>
-					</div>
-				</div>
-				<div class="control-group citrus_bank"> 
-					<label>Select Bank</label>
-					<% banks={ "ICICI Bank"=>"CID001",
-											"AXIS Bank"=>"CID002",
-											"Citibank"=>"CID003",
-											"YES Bank"=>"CID004",
-											"SBI Bank"=>"CID005",
-											"Deutsche Bank"=>"CID006",
-											"Union	Bank"=>"CID007",
-											"Indian Bank"	=>"CID008",
-											"Federal Bank"=>"CID009",
-											"HDFC Bank"=>"CID010"}%>
-	  			<div class="controls">
-				 		<select name="issuerCode">
-				 			<% banks.each do|bank,code| %>
-				 				<option value="<%=code%>"><%=bank%></option>
-				 			<% end %>
-				 		</select>
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>Card Type</label>
-					<div class="controls">
-				 		<select name="cardType"><option value="VISA">Visa</option><option value="MCRD">Master Card</option><option value="MTRO">Maestro Card</option>
-				 		</select>
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>Card Number</label>
-					<div class="controls">
-				 		<input type="text" name="cardNumber">
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>Card Holder Name</label>
-					<div class="controls">
-				 		<input type="text" name="cardHolderName">
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>CVV Number</label>
-					<div class="controls">
-				 		<input type="text" name="cvvNumber">
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>Expiry Month</label>
-					<div class="controls">
-				 		<select name="expiryMonth"><% for month in 1..12 %>
-				 			<option value="<%=month%>"><%=month%></option><% end %>
-				 		</select>
-					</div>
-				</div>
-				<div class="control-group citrus_card">
-					<label>Expiry Year</label>
-					<div class="controls">
-				 		<select name="expiryYear"><% for year in 2013..2016 %>
-				 			<option value="<%=month%>"><%=year%></option><% end %>
-				 		</select>
-					</div>
-				</div>
+			<form id="citruspay_form" method="post" action="https://sandbox.citruspay.com/00000433">
+				<input type="hidden" name="secSignature">
+				<input type="hidden" name="merchantTxnId" value="">
+				<input type="hidden" name="orderAmount">
+				<input type="hidden" name="currency" value="INR">
+				<input type="hidden" name="reqtime" value="<%= Time.now.to_i %>">
+				<input type="hidden" name="returnUrl" value="<%= root_url%>capture">
 				<div class="control-group"> 
 					<label></label>
 					<div class="controls">

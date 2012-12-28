@@ -18,6 +18,12 @@ class OrdersController < ApplicationController
 		end
 		shipping_charge = deposit_total < 1000 ? 50 : 0
 		total = deposit_total + shipping_charge
+
+		if params[:TxStatus] && params[:TxStatus]=="false"
+			flash[:warning]="Transaction Failed. Try again"
+			redirect_to "/"
+			return
+		end
 		order_type = params[:order_type]
 		accept_terms_of_use = params[:accept_terms_of_use]
 		user_address=JSON.parse(user.address)
@@ -77,7 +83,11 @@ class OrdersController < ApplicationController
 
 		delayed_job_object = DelayedJob.new
 		delayed_job_object.order(user.id, order.id, @bank_sms_text)
-
+		if params[:TxStatus] && params[:TxStatus]=="true"
+			order.update_attributes(:citruspay_response=>{"TxRefNo"=>params[:TxRefNo],"pgTxnNo"=>params[:pgTxnNo]}.to_json())
+			flash[:notice]="Transaction successful. Open Your My Account to print invoice"
+			redirect_to "/" and return
+		end
 		render :json => order.to_json(:include => {:books => {:only => [:name, :price, :author, :id]}})
 	end
 

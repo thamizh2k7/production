@@ -5,7 +5,7 @@ Sociorent::Application.routes.draw do
   post "home/book_request"
   post "home/add_to_cart"
   post "home/remove_from_cart"
-  post "orders/create"
+  match "orders/create"
   match "/welcome" => "users#get_user_details"
   match "/get_bank_details/:id" => "home#get_bank_details"
   post "/users/save_user_details"
@@ -26,7 +26,7 @@ Sociorent::Application.routes.draw do
   match "validate/:type" => "home#validate"
   match "print_invoice/:order"=>"orders#print_invoice"
   match "pincodes" =>"home#gharpay_pincode"
-  match "citrus" =>"home#citrus_pay"
+  match "getSignature" =>"home#citrus_signature"
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

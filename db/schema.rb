@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217083948) do
+ActiveRecord::Schema.define(:version => 20121228070807) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -136,6 +136,23 @@ ActiveRecord::Schema.define(:version => 20121217083948) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "chapters", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "passing"
+    t.integer  "coverage"
+    t.string   "volume"
+    t.string   "weightage"
+    t.integer  "disp_order"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.integer  "unit_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "chapters", ["unit_id"], :name => "chapters_unit_id_fk"
+
   create_table "class_adoptions", :force => true do |t|
     t.integer  "rate"
     t.integer  "book_id"
@@ -207,6 +224,16 @@ ActiveRecord::Schema.define(:version => 20121217083948) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "exams", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "disp_order"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "general_images", :force => true do |t|
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
@@ -252,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20121217083948) do
     t.integer  "bank_id"
     t.string   "gharpay_id"
     t.boolean  "accept_terms_of_use"
+    t.string   "citruspay_response"
   end
 
   create_table "pincodes", :force => true do |t|
@@ -265,6 +293,32 @@ ActiveRecord::Schema.define(:version => 20121217083948) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.text     "questioninfo"
+    t.integer  "question_mode"
+    t.integer  "question_type"
+    t.boolean  "is_mobile",              :default => false
+    t.string   "question_source"
+    t.boolean  "is_similar_question",    :default => false
+    t.integer  "similar_to_question_id"
+    t.integer  "question_status",        :default => 1
+    t.integer  "difficultylevel"
+    t.integer  "question_importance"
+    t.integer  "question_bloom_level"
+    t.integer  "idealtime"
+    t.boolean  "isbossquestion",         :default => false
+    t.boolean  "isracingquestion",       :default => false
+    t.boolean  "isspeedquestion",        :default => false
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.string   "video_source"
+    t.boolean  "delta",                  :default => true,  :null => false
+    t.boolean  "boolean",                :default => true,  :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "question_code"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -334,6 +388,36 @@ ActiveRecord::Schema.define(:version => 20121217083948) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "subjects", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "passing"
+    t.integer  "coverage"
+    t.integer  "disp_order"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.integer  "exam_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "subjects", ["exam_id"], :name => "subjects_exam_id_fk"
+
+  create_table "units", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "passing"
+    t.integer  "coverage"
+    t.integer  "disp_order"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.integer  "subject_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "units", ["subject_id"], :name => "units_subject_id_fk"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

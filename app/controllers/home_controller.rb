@@ -248,9 +248,15 @@ class HomeController < ApplicationController
     render :text=>pincodes and return
   end
 
+  # function for setting citrus signature parameter for ajax call
   def citrus_signature
+    require 'openssl'
+    merchant_secret_key="1d82ceea715a4e10e21be75fd1f3f2d29724317f"
     sign_text = "#{params[:merchantId]}#{params[:orderAmount]}#{params[:merchantTxnId]}#{params[:currency]}"
-    signature = HMAC::SHA1.new(sign_text)
+    
+    # creating HMAC sha1 signature with secret key
+    digest  = OpenSSL::Digest::Digest.new('sha1')
+    signature = OpenSSL::HMAC.hexdigest(digest, merchant_secret_key, sign_text)
     render :text=>signature
   end
   

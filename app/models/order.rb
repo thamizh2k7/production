@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id, :accept_terms_of_use
+  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id, :accept_terms_of_use,:citruspay_response
 
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders

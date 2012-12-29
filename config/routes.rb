@@ -5,7 +5,7 @@ Sociorent::Application.routes.draw do
   post "home/book_request"
   post "home/add_to_cart"
   post "home/remove_from_cart"
-  match "orders/create"
+  post "/orders/create"
   match "/welcome" => "users#get_user_details"
   match "/get_bank_details/:id" => "home#get_bank_details"
   post "/users/save_user_details"

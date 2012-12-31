@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 	protect_from_forgery :except => :create
 	def create
 		require Rails.root.join('lib','Gharpay.rb')
-		require Rails.root.join('lib','citruspay.rb')
 		user = current_user
 		cart = user.cart
 		books = cart.books
@@ -20,7 +19,6 @@ class OrdersController < ApplicationController
 		end
 		shipping_charge = deposit_total < 1000 ? 50 : 0
 		total = deposit_total + shipping_charge
-
 		# check the transaction status, if cancelled then store nothing,, and redirect to books page
 		if params[:TxStatus] && params[:TxStatus]=="CANCELED"
 			flash[:warning]="Transaction Failed. Try again"
@@ -34,7 +32,7 @@ class OrdersController < ApplicationController
 		address=user_address.map{|k,v| "#{v}"}.join(',')
 		# creating an order
 		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type, :accept_terms_of_use => accept_terms_of_use)
-		if order_type=="gharpay"
+		if order_type == "gharpay"
 			order_array={}
 			dd=Time.now + (24*60*60*3)
 			delivery=dd.strftime("%d-%m-%Y")
@@ -43,9 +41,11 @@ class OrdersController < ApplicationController
     	order_array["productDetails"]=cart_items
 	    g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
 	    gharpay_resp = g.create_order(order_array)
-	    if gharpay_resp["status"]==true
+	    if gharpay_resp["status"] == true
 	    	order.update_attributes(:gharpay_id=>gharpay_resp["orderID"])
 	    end
+	  elsif order_type=="COD"
+	  	order.update_attributes(:COD_mobile=>params[:mobile_number])
 		end
 		
 		unless params[:bank_id].nil?
@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
     		uniqueid =" Unique ID:#{user.unique_id}"
     		bank_details = " The Bank Account Details:#{strip_html(bank.details)}"
     		@bank_sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
-    		# send_sms(user.mobile_number,sms_text)
+    		send_sms(user.mobile_number,sms_text)
     	end
     end
 
@@ -143,6 +143,22 @@ class OrdersController < ApplicationController
 			msg[:msg] = "Invalid order."
 		end
 		render :json => msg
+	end
+
+	def verify_code
+		result = 0
+		if params[:mobile]
+			code = rand(100000..999999)
+			session[:code] = code
+			sms_text= "Your verification code for you order is :#{session[:code]}"
+			puts session[:code]
+			result = 1 if send_sms(params[:mobile],sms_text)
+		elsif params[:code]
+			if params[:code].to_i == session[:code]
+				result = 1
+			end
+		end
+		render :text=>result and return
 	end
 	def print_invoice
 		@order=Order.where(:random=>params[:order]).first

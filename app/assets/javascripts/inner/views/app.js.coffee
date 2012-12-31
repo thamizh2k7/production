@@ -42,8 +42,10 @@ $(document).ready ->
 			"submit #compare_search_form"	: "cancel_submit"
 			"change #ambassador_select" : "select_reference"
 			"click #update_shipping" : "update_shipping"
+			"click #send_verify_code" : "send_verification"
 			"click #load_more" : "load_more"
-			"click #go_top" : "go_top"
+			"click #go_top" : "go_top" 
+			"click #reset_verification" : "resend_verification"
 			"click .print_invoice" : "print_invoice"
 
 		cancel_submit: ->
@@ -101,7 +103,30 @@ $(document).ready ->
 				$("#address_state").val(sociorent.models.user_object.get("address").address_state).chosen()
 			else
 				alert "Please accept terms of use"
-			
+		send_verification: ->
+			if (mobile = $("#verification_mobile").val() == "")
+				alert ("Enter Mobile Number")
+				false
+			else
+				$.ajax "/verify_code"
+					type : "post"
+					async :false
+					data : { "mobile" : $("#verification_mobile").val()}
+					success : (code_status) ->
+						console.log(code_status)
+						if(code_status == "1")
+							$("#send_verification_div").hide()
+							$("#verify_mobile_div").show()
+							alert("Verfication code sent. Check Your Mobile")
+						else
+							alert("Try Different Mobile Number")
+			false	
+		resend_verification: ->
+			$("#verify_mobile_div").hide()
+			$("#send_verification_div").show()
+			$("#verfication_mobile").val("")
+			$("#verification_code").val("")
+
 		create_order: (event)->
 			# get the order type
 			order_type = $(event.target).attr "data-attr"
@@ -112,62 +137,49 @@ $(document).ready ->
 				false
 
 			post_data = {order_type :order_type, accept_terms_of_use: accept_terms_of_use}
-			if order_type == "bank"
-				post_data["bank_id"] = $("#bank_name").val()
-				if $("#bank_name").val() == ''
-					alert('please select bank')
-					false
-			if order_type == "citrus_pay"
-				# calculating order amount
-				orderAmt = sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge
+			switch order_type
+				when "bank"
+					post_data["bank_id"] = $("#bank_name").val()
+					if $("#bank_name").val() == ''
+						alert('please select bank')
+						false
+					else
+						sociorent.fn.save_order(post_data,order_type)
 
-				# setting merchant id for getting signature
-				merchantId="aph4zl0gst"
-				# signature parameter
-				sign_params= "merchantId=" + merchantId + "&orderAmount=" + orderAmt	+ "&merchantTxnId=" + $("input[name=merchantTxnId]").val() + "&currency=INR";
-				# get the signature hmac sha1 encoded 
-				$.ajax "/getSignature"
-					type:"post"
-					async:false
-					data: sign_params
-					success: (signature)->
-						# set the signature to merchant key
-						$("#merchant_key").val("1d82ceea715a4e10e21be75fd1f3f2d29724317f")
-						$("input[name='secSignature']").val(signature)
-						$("input[name='orderAmount']").val(orderAmt)
-						# submitting the form to citruspay
-						$("#citruspay_form").submit()
-			
-			else
-				$("#checkout_box_content").hide()
-				$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
-				sociorent.fn.show_notification()
-				$.ajax "/orders/create" ,
-					type:"post"
-					async:true
-					data: post_data
-					success: (msg)->
-						sociorent.fn.hide_notification()
-						$("#checkout_box").dialog "close"
-						$("#order_box").dialog "open"
-						$("#order_id span").html msg.random
-						$(".print_invoice a").attr("data-attr",msg.random)
-						$(".print_invoice").show()
-						if order_type=="gharpay"
-							$("#order_gharpay").show()
-							$("#order_bank_cheque").hide()
-						else
-							$("#order_gharpay").hide()
-							$("#order_bank_cheque").show()
+				when "COD"
+					$.ajax "/verify_code"
+						type : "post"
+						async : false
+						data : { "code" : $("#verification_code").val() }
+						success : (verify_status) ->
+							console.log verify_status
+							if verify_status == "1"
+								post_data["mobile_number"] = $("#verification_mobile").val()
+								sociorent.fn.save_order(post_data,order_type)
+							else
+								alert("Wrong Verification Code. Try again")
+								false
 
-						sociorent.collections.order_object.add(msg)
-						sociorent.collections.cart_object.reset()
-						sociorent.fn.renderSearch()
-						sociorent.fn.renderCart()
-						$("#profile_orders_button").click()
-						$("#checkout_box_content").show()
-						$("#checkout_box_response").html ""
+				when  "citrus_pay"
+					# calculating order amount
+					orderAmt = sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge
 
+					# setting merchant id for getting signature
+					merchantId="aph4zl0gst"
+					# signature parameter
+					sign_params= "merchantId=" + merchantId + "&orderAmount=" + orderAmt	+ "&merchantTxnId=" + $("input[name=merchantTxnId]").val() + "&currency=INR";
+					# get the signature hmac sha1 encoded 
+					$.ajax "/getSignature"
+						type : "post"
+						async : false
+						data : sign_params
+						success : (signature)->
+							# set the signature to merchant key
+							$("#merchant_key").val("1d82ceea715a4e10e21be75fd1f3f2d29724317f")
+							$("input[name='secSignature']").val(signature)
+							$("input[name='orderAmount']").val(orderAmt)
+							# submitting the form to citruspay
+							$("#citruspay_form").submit()
 		compare_close: ->
 			sociorent.fn.hide_compare()
 

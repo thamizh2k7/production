@@ -144,7 +144,38 @@ $(document).ready ->
 		false
 	$(".print_invoice a").live "click", ->
 		$(this).attr("href","/print_invoice/"+$(this).attr("data-attr"))
+	
+	$("#verify_mobile_div").hide()
 
+	sociorent.fn.save_order = (post_data,order_type) ->
+		$("#checkout_box_content").hide()
+		$("#checkout_box_response").html "<div class='center'> Order processing...</div>"
+		sociorent.fn.show_notification()
+		$.ajax "/orders/create" ,
+			type:"post"
+			async:true
+			data: post_data
+			success: (msg)->
+				sociorent.fn.hide_notification()
+				$("#checkout_box").dialog "close"
+				$("#order_box").dialog "open"
+				$("#order_id span").html msg.random
+				$(".print_invoice a").attr("data-attr",msg.random)
+				$(".print_invoice").show()
+				if order_type=="gharpay"
+					$("#order_gharpay").show()
+					$("#order_bank_cheque").hide()
+				else
+					$("#order_gharpay").hide()
+					$("#order_bank_cheque").show()
+
+				sociorent.collections.order_object.add(msg)
+				sociorent.collections.cart_object.reset()
+				sociorent.fn.renderSearch()
+				sociorent.fn.renderCart()
+				$("#profile_orders_button").click()
+				$("#checkout_box_content").show()
+				$("#checkout_box_response").html ""
 	sociorent.fn.shipping_validation = (id)->
 		$("#"+id).validate
 			rules:

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :add_www_subdomain
+  #before_filter :add_www_subdomain
   rescue_from Exception, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownController, with: :render_404
@@ -10,10 +10,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   def send_sms(receipient,msg)
     user_pwd="Sathish@sociorent.com:Sathish1"
-    sender_id="TEST SMS"
+    sender_id="SOCRNT"
     url= "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=#{user_pwd}&senderID=#{sender_id}&receipientno=#{receipient}&dcs=0&msgtxt=#{msg}&state=4"
     agent =Mechanize.new
     page = agent.get(url)
+    resp=page.body.split(",")
+    puts page.body
+    puts resp
+    if resp[0]=="Status=1"
+      return false
+    elsif resp[0] == "Status=0"
+      return true
+    end
   end
   def render_404(exception = nil)
         flash[:warning]="Page not found"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228070807) do
+ActiveRecord::Schema.define(:version => 20121231100727) do
 
   create_table "ambassadors", :force => true do |t|
     t.integer  "college_id"
@@ -280,6 +280,7 @@ ActiveRecord::Schema.define(:version => 20121228070807) do
     t.string   "gharpay_id"
     t.boolean  "accept_terms_of_use"
     t.string   "citruspay_response"
+    t.string   "COD_mobile"
   end
 
   create_table "pincodes", :force => true do |t|

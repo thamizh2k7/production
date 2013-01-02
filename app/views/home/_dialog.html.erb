@@ -125,11 +125,34 @@
 			</div>
 		</div>
 		<div id="checkout_cheque"> 
-			<p>Send us a cheque at this address</p>
-			<div class="control-group">
-				<label></label>
-				<div class="controls">
-			 		<a class="btn create_order" data-attr="cheque"> Confirm</a>
+			<p>Pay Cash on Delivery</p>
+			<div id="send_verification_div">
+				<div class="control-group">
+					<label>Your Mobile Number(Verification code Sent to this Number)</label>
+					<div class="controls">
+				 		<input type="text" name="verification_mobile" id="verification_mobile" placeholder="Mobile Number"></a>
+					</div>
+				</div>
+				<div class="control-group">
+					<label></label>
+					<div class="controls">
+				 		<a class="btn" id="send_verify_code">Send Verification Code</a>
+					</div>
+				</div>
+			</div>
+			<div id="verify_mobile_div">
+				<div class="control-group">
+					<label>Verification Code</label>
+					<div class="controls">
+				 		<input type="text" name="verification_code" id="verification_code" placeholder="Verification Code">
+					</div>
+				</div>
+				<div class="control-group">
+					<label></label>
+					<div class="controls">
+				 		<a class="btn create_order" data-attr="COD"> Confirm</a>
+				 		<a class="btn" id="resend_verification">Resend Verifcation Code</a>
+					</div>
 				</div>
 			</div>
 		</div>

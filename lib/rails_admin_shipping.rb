@@ -65,8 +65,10 @@ module RailsAdmin
                 end
               end
               if book_order_ids.count > 0
-                msg = "Your Order, order id - #{@object.random}, was shipped via #{params[:courier_name]} with tracking number - #{params[:tracking_number]}. Please check your account for more details. Sociorent."
+
+                msg = "Your Sociorent.com Order #{@object.random} has been shipped through #{params[:courier_name]} with tracking number #{params[:tracking_number]} . Thank you."
                 send_sms(@object.user.mobile_number ,msg)
+                puts msg
               end
             	render :nothing => true
             end

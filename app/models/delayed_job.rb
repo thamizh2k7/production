@@ -3,10 +3,11 @@ require Rails.root.join('lib','Gharpay.rb')
 class DelayedJob
 	def send_sms(receipient,msg)
     user_pwd="Sathish@sociorent.com:Sathish1"
-    sender_id="TEST%20SMS"
+    sender_id="SOCRNT"
     url= "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=#{user_pwd}&senderID=#{sender_id}&receipientno=#{receipient}&dcs=0&msgtxt=#{msg}&state=4"
     agent =Mechanize.new
     page = agent.get(url)
+    puts page.body
   end
 
   def order(user_id, order_id, bank_sms_text)
@@ -31,13 +32,10 @@ class DelayedJob
 		UserMailer.order_email(user, order).deliver
 
 		# sms
-		sms_text=Sms.where(:sms_type=>"order").first.content
-    send_sms(user.mobile_number,"#{sms_text}. Your order id is #{order.random}, please visit sociorent for more information.")
-
-    if order.order_type == "bank"
+		if order.order_type == "bank"
     	send_sms(user.mobile_number,bank_sms_text)
-    elsif order.order_type == "cheque"
-    	send_sms(user.mobile_number,"Unique ID:#{user.unique_id}. Address to send the cheque to : #{general.address}")
+    else 
+    	send_sms(user.mobile_number,"Your order #{order.random} has been successfully received and will be processed. Please visit Sociorent.com to track the status of the order. Thank you.")
     end
 
     # gharpay

@@ -145,7 +145,8 @@ $(document).ready ->
 						false
 					else
 						sociorent.fn.save_order(post_data,order_type)
-
+				when "gharpay"
+					sociorent.fn.save_order(post_data,order_type)
 				when "COD"
 					$.ajax "/verify_code"
 						type : "post"

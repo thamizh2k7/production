@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     
     #send the sms when the user completes signup    
     sms_text=Sms.where(:sms_type=>"signup").first.content
-    send_sms(user.mobile_number,"Dear #{user.name}, #{sms_text}.Your Unique_ID:#{temp_id}")
+    send_sms(user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{temp_id} . You may now login to place your order. Thank you.")
     render :text => "1"
   end
 

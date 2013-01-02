@@ -47,20 +47,19 @@ class OrdersController < ApplicationController
 	  elsif order_type=="COD"
 	  	order.update_attributes(:COD_mobile=>params[:mobile_number])
 		end
-		
+
 		unless params[:bank_id].nil?
     	bank=Bank.where(:id=>params[:bank_id]).first
-    	if bank
+    	
+    	unless bank.nil?
     		#adding the bank to order
     		order.bank = bank
     		#sending the sms
-    		uniqueid =" Unique ID:#{user.unique_id}"
-    		bank_details = " The Bank Account Details:#{strip_html(bank.details)}"
-    		@bank_sms_text = "Sociorent.com #{uniqueid} #{bank_details}"
-    		send_sms(user.mobile_number,sms_text)
+    		@bank_sms_text = "Thank you for the order #{order.random} . Please use the unique ID #{user.unique_id} while depositing cash at the bank. Thank you."
+    		# send_sms(user.mobile_number,sms_text)
     	end
     end
-
+	
     # adding all the books in the cart to orders
 		order.books = cart.books
 		order.save
@@ -150,7 +149,7 @@ class OrdersController < ApplicationController
 		if params[:mobile]
 			code = rand(100000..999999)
 			session[:code] = code
-			sms_text= "Your verification code for you order is :#{session[:code]}"
+			sms_text= "Please enter the confirmation code #{session[:code]} to confirm the COD order. Thank you for using Sociorent.com."
 			puts session[:code]
 			result = 1 if send_sms(params[:mobile],sms_text)
 		elsif params[:code]

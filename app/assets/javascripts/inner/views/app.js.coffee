@@ -93,6 +93,7 @@ $(document).ready ->
 							$("#checkout_gharpay").show()
 						else
 							$("#checkout_gharpay").hide()
+				$("#reset_verification").click()
 			false
 
 		checkout: ->
@@ -104,8 +105,9 @@ $(document).ready ->
 			else
 				alert "Please accept terms of use"
 		send_verification: ->
-			if (mobile = $("#verification_mobile").val() == "")
-				alert ("Enter Mobile Number")
+			mobile = $("#verification_mobile").val() 
+			if (mobile == "" || !(mobile.match(/^\d{10}$/)))
+				alert ("Enter Mobile Number correctly")
 				false
 			else
 				$.ajax "/verify_code"
@@ -122,10 +124,12 @@ $(document).ready ->
 							alert("Try Different Mobile Number")
 			false	
 		resend_verification: ->
+			$("#verification_mobile").val("")
+			$("#verification_code").val("")
 			$("#verify_mobile_div").hide()
 			$("#send_verification_div").show()
-			$("#verfication_mobile").val("")
-			$("#verification_code").val("")
+			console.log $("#verification_mobile").val()
+			
 
 		create_order: (event)->
 			# get the order type

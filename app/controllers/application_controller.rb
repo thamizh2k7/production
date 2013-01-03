@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   end
   def render_404(exception = nil)
         flash[:warning]="Page not found"
+    #render :text=>exception and return
     redirect_to "/"
   end
 

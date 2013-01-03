@@ -13,16 +13,19 @@
     	<div><b><%= book.name %></b> <i>by <%= book.author %></i></div>
     <% end %>
     <br/><br/>
-    <% if @order.order_type == "bank" %>
+    <% case @order.order_type %>
+    <% when "bank" %>
       <div>You have selected to pay via bank deposit</div>
       <div>Unique ID:<%= @user.unique_id%></div>
       <div>Bank Details:</div>
       <div><%= @order.bank.bank_name%></div>
       <div><%= raw @order.bank.details %></div>
-    <% elsif @order.order_type == "cheque" %>
-      <div>You have selected to pay via Cheque, please mail it to us at the provided address: </div>
-      <div>Unique ID:<%= @user.unique_id%></div>
-      <div><%= raw @general.address %></div>
+    <% when "COD" %>
+      <div>Thank you for your order.</div>
+
+      <div>Your Order Number is <%= @order.random %>. You would need to pay Rs. <%= @order.total %> at the time of delivery.</div>
+
+      <div>You'll receive an email and SMS confirmation once the order is being shipped.</div>
     <% end %>
     <br/><br/>
     <a href="http://www.sociorent.com/">Sociorent</a>

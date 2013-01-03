@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
     end
 	
     # adding all the books in the cart to orders
-		order.books = cart.books
+		order.books = cart.books.uniq
 		order.save
     
 		# empty the cart

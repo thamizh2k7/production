@@ -5,12 +5,12 @@
 	  <legend>Give us a few more details</legend>
 	  <p><input type="text" placeholder="Mobile Number" name="mobile" id="mobile"></p>
 	  <p>
-	  	<select id="college">
+	  	<select id="college"><option value="">Enter College Name</option>
 	  		<% @college_names.each do |name| %>
 	  			<option value="<%= name %>"><%= name %></option>
 	  		<% end %>
 	  	</select>
-	  	<select id="streams">
+	  	<select id="streams"><option value="">Enter Stream</option>
 	  		<% @streams.each do |name| %>
 	  			<option value="<%= name %>"><%= name %></option>
 	  		<% end %>

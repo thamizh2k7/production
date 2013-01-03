@@ -107,7 +107,7 @@ $(document).ready ->
 		send_verification: ->
 			mobile = $("#verification_mobile").val() 
 			if (mobile == "" || !(mobile.match(/^\d{10}$/)))
-				alert ("Enter Mobile Number correctly")
+				alert ("Enter atleast 6 characters")
 				false
 			else
 				$.ajax "/verify_code"

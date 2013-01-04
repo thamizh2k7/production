@@ -165,9 +165,17 @@ $(document).ready ->
 				if order_type=="gharpay"
 					$("#order_gharpay").show()
 					$("#order_bank_cheque").hide()
-				else
+					$("#cash_on_delivery").hide()
+				else if order_type=="COD"
+					$("#cash_on_delivery").show()
+					$("#cash_on_delivery span").html msg.deposit_total
+					$("#order_bank_cheque").hide()
 					$("#order_gharpay").hide()
+				else
 					$("#order_bank_cheque").show()
+					$("#cash_on_delivery").hide()
+					$("#order_gharpay").hide()
+					
 
 				sociorent.collections.order_object.add(msg)
 				sociorent.collections.cart_object.reset()

@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
 		user = current_user
 		cart = user.cart
 		books = cart.books
+		
 		# total price - save this in orders
 		deposit_total = cart.books.sum(:price)
 		rental_total = 0
@@ -19,6 +20,7 @@ class OrdersController < ApplicationController
 		end
 		shipping_charge = deposit_total < 1000 ? 50 : 0
 		total = deposit_total + shipping_charge
+		
 		# check the transaction status, if cancelled then store nothing,, and redirect to books page
 		if params[:TxStatus] && params[:TxStatus]=="CANCELED"
 			flash[:warning]="Transaction Failed. Try again"

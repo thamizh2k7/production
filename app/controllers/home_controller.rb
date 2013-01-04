@@ -9,12 +9,13 @@ class HomeController < ApplicationController
       end
       # cart of the user
       cart = @user.cart
-      @cart = cart.books
+      @cart = cart.books if cart
       if session[:cart]
         @cart << Book.find(session[:cart].to_i)
         cart.save
         session[:cart] = nil
       end
+      
       # list of colleges and stream for my account
       @college_names = College.pluck(:name)
       @streams = Stream.pluck(:name)

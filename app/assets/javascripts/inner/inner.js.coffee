@@ -200,6 +200,8 @@ $(document).ready ->
 			success : (label) ->
 				$(label).closest(".control-group").removeClass "error"
 			validClass: "success"
+			messages :
+				address_pincode: "Please enter correct pincode"
 	sociorent.fn.shipping_validation("shipping_form")
 
 	sociorent.fn.show_notification = ()->

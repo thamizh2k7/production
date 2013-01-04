@@ -40,7 +40,7 @@ Sociorent::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => 'www.sociorent.com',
+    :domain               => 'baci.lindsaar.net',
     :user_name            => 'alert@sociorent.com',
     :password             => 'Sociorent1',
     :authentication       => 'plain',

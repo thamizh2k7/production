@@ -6,15 +6,16 @@ class OrdersController < ApplicationController
 		require Rails.root.join('lib','Gharpay.rb')
 		user = current_user
 		cart = user.cart
-		books = cart.books
+		books = cart.books.uniq
 		
 		# total price - save this in orders
-		deposit_total = cart.books.sum(:price)
+		deposit_total = 0
 		rental_total = 0
 		cart_items=[]
-		cart.books.each do |book|
+		books.each do |book|
 			rental_price = (book.price.to_i * book.publisher.rental.to_i)/100
 			rental_total += rental_price
+			deposit_total += book.price.to_i
 			product={"productID" =>book.isbn13,"unitCost"=>rental_price,"productDescription"=>book.name}
 			cart_items << product
 		end
@@ -63,7 +64,7 @@ class OrdersController < ApplicationController
     end
 	
     # adding all the books in the cart to orders
-		order.books = cart.books.uniq
+		order.books = books
 		order.save
     
 		# empty the cart

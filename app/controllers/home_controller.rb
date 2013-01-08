@@ -10,10 +10,10 @@ class HomeController < ApplicationController
       # cart of the user
       cart = @user.cart
       @cart = cart.books if cart
-      if session[:cart]
-        @cart << Book.find(session[:cart].to_i)
+      if session[:sociorent_cart_books_to_rent]
+        @cart << Book.find(session[:sociorent_cart_books_to_rent].to_i)
         cart.save
-        session[:cart] = nil
+        session[:sociorent_cart_books_to_rent] = nil
       end
       
       # list of colleges and stream for my account
@@ -122,11 +122,11 @@ class HomeController < ApplicationController
     if user
       cart = user.cart
       # add book to the cart
-      cart.books << book
+      cart.books << book unless cart.books.include?(book)
       cart.save
       render :json => book.to_json(:include => :publisher)
     else
-      session[:cart] = book.id
+      session[:sociorent_cart_books_to_rent] = book.id
       render :nothing => true
     end
   end
@@ -138,7 +138,7 @@ class HomeController < ApplicationController
     cart = user.cart
     # remove book from cart
     book_cart = cart.book_carts.where(:book_id => book).first
-    book_cart.delete
+    book_cart.delete if book_cart
     render :json => book.to_json(:include => :publisher)
   end
 

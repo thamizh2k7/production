@@ -37,7 +37,28 @@
 
 	<% colleges = StaticPage.where(:page_name => "colleges").first %>
 	<div id="colleges_page" title="<%= colleges.page_title %>" class="sub">
-	  <div><%= raw colleges.page_content %></div>
+	  <div>
+	  	<table class="table table-bordered">
+	  		<thead>
+          <tr>
+            <th>#</th>
+            <th>Ambassador Name</th>
+            <th>Ambassador College</th>
+           </tr>
+         </thead>
+	  		<tbody>
+			  	<% @ambas = Ambassador.all%>
+			  	<% c = 0 %>
+			  	<% @ambas.each do |a|%>
+				  	<tr>
+				  		<td><%= c+=1 %></td>
+				  		<td><%= a.ambassador_manager.name %></td>
+				  		<td><%=@college = College.find(a.college_id).name%></td>
+				  	</tr>
+			  	<% end %>
+	  	</tbody>
+	  </table>
+	  </div>
 	</div>
 	
 	<% faq = StaticPage.where(:page_name => "faq").first %>

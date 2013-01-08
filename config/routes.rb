@@ -92,7 +92,8 @@ Sociorent::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'home#index'
   
-  #match '*a', :to => 'errors#routing'
+  match '/system/*a'=> 'errors#ignore_routing'
+  match '*a', :to => 'errors#routing'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

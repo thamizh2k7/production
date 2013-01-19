@@ -17,7 +17,8 @@ ActiveAdmin.register Order do
 
   end
   member_action :shipping_order_form do 
-    @order= Order.find(params[:id])
+    @order = Order.find(params[:id])
+    @dates = @order.book_orders.select("DISTINCT(shipped_date)").pluck(:shipped_date)
     @book_orders = @order.book_orders.where(:shipped => false)
   end
   action_item :only => [:show] do

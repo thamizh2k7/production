@@ -31,6 +31,7 @@ Sociorent::Application.routes.draw do
   match "pincodes" =>"home#gharpay_pincode"
   match "getSignature" =>"home#citrus_signature"
   match "/verify_code" => "orders#verify_code"
+  match "/print_label" => "home#print_label"
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do

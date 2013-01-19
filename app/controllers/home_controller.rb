@@ -260,6 +260,14 @@ class HomeController < ApplicationController
     signature = OpenSSL::HMAC.hexdigest(digest, merchant_secret_key, sign_text)
     render :text=>signature
   end
+
+  def print_label
+    @order=Order.find(params[:order])
+    shipped_date = params[:date] || Time.now
+    @shipped=@order.book_orders.where("shipped_date=?",shipped_date.to_datetime().getutc)
+    @total_amount = @shipped.inject(0) {|sum, hash| sum + hash.book.price} #=> 30
+    render "print_label", :layout=>false
+  end
   
   private
 

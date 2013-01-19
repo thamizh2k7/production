@@ -1,6 +1,6 @@
 ActiveAdmin.register Ambassador do
   index do
-  	column "Ambassador", :sortable=>:true,  :ambassador do |amb|
+  	column "Ambassador", :ambassador do |amb|
   		amb.ambassador_manager.name
   	end
   	column "College", :amb_college do |amb|

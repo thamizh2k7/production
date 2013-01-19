@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
   belongs_to :bank
-
+  has_many :shippings
   belongs_to :user
   belongs_to :college
 
@@ -24,6 +24,4 @@ class Order < ActiveRecord::Base
   def order_type_enum
     ['cash', 'cheque', 'gharpay']
   end
-
-  
 end

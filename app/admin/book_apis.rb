@@ -111,4 +111,10 @@ ActiveAdmin.register BookApi do
 	  end
 	  redirect_to "/admin/books"
   end
+  action_item :only => [:index] do
+    link_to('Get Book Details',book_details_form_admin_book_apis_path())
+  end
+  action_item :only => [:index] do
+    link_to('Update Book Details',finalize_book_form_admin_book_apis_path())
+  end
 end

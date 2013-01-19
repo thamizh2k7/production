@@ -1,5 +1,7 @@
 ActiveAdmin.register User do
+  config.clear_action_items!
   index do
+    selectable_column
   	column :name
     column :email
     column :mobile_number

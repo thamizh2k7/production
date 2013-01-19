@@ -1,4 +1,5 @@
 ActiveAdmin.register Book do
+
 	collection_action :rented_books do
 		@number_of_books = 0
 	  count = 10

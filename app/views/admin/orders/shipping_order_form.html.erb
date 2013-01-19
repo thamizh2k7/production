@@ -1,3 +1,4 @@
+<% if @book_orders.count > 0  %>
 <h4>Update Shipping</h4>
 
 <div>
@@ -9,14 +10,19 @@
 		</div>
 	<% end %>
 	<br/>
-	<div>
-		<p><input type="text" id="courier_name" placeholder="Courier"></p>
-		<p><input type="text" id="tracking_number" placeholder="Tracking number"></p>
-		<p><input type="submit" class="btn btn-success" value="Shipped" id="update_shipping">
-	</div>
+		<div>
+			<p><input type="text" id="courier_name" placeholder="Courier"></p>
+			<p><input type="text" id="tracking_number" placeholder="Tracking number"></p>
+			<p><input type="submit" class="btn btn-success" value="Shipped" id="update_shipping">
+		</div>
+	<% else %>
+		<h5>All Books were Shipped</h5>
+	<% end %>
 	<div>
 		<% @dates.each do |date| %>
-			<p><a href="/print_label?order=<%=@order.id%>&date=<%=date%>" target="_blank">Print Invoice </a></p>
+			<% unless date.nil? %>
+				<p><a href="/print_label?order=<%=@order.id%>&date=<%=date%>" target="_blank">Invoice (<%=date%>)</a></p>
+			<% end %>
 		<% end %>
 	</div>
 </div>

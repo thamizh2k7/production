@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
- 
+  config.clear_action_items!
   index do
   	column :id
   	column "Order ID", :random

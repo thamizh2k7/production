@@ -16,7 +16,11 @@
 <table class="table">
 	<tr>
 		<td>Shipment Items Value </td>
-		<td>Rs.<%= @total_amount%>
+		<td>Rs.<%= @shipped_amount%> 
+			<% if @shipping_added %>
+				(50 Rs shipping charge added)
+			<% end %>
+		</td>
 	</tr>
 	<tr>
 		<td>Total Value </td>

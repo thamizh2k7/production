@@ -1,7 +1,7 @@
 ActiveAdmin.register Ambassador do
   index do
-  	column :id
-  	column "Ambassador",:ambassador do |amb|
+    selectable_column
+  	column "Ambassador", :ambassador do |amb|
   		amb.ambassador_manager.name
   	end
   	column "College", :amb_college do |amb|

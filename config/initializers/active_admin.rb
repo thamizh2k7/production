@@ -133,13 +133,14 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  #   config.register_stylesheet 'my_stylesheet.css'
+    config.register_stylesheet 'global/jquery-ui-1.8.24.custom.css'
 
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
   # To load a javascript file:
-  #   config.register_javascript 'my_javascript.js'
+    config.register_javascript 'global/jquery-ui-1.9.1.custom.min.js'
+    config.register_javascript 'global/jquery.ui.dialog.js'
 
 
   # == CSV options

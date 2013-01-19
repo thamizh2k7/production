@@ -2,36 +2,65 @@
 <%= stylesheet_link_tag "global/bootstrap.min.css", :media => 'print, screen' %>
 <div class="container" id="main_wrapper">
 	<div class="span10 offset1">
-		<p id="logo"><img src="assets/Sociorent.png" /></p>
+		<p id="logo">
+		<span id="logo_text">
+		<img src="assets/Sociorent.png" /> <br>
+		Sociorent Student Services Private Limited
+		</span>
+		<span id="invoice_title">INVOICE</span>
+		</p>
 		<p id="divider">===================================================================================================
 	</div>
 	<div class="span10 offset1">
-		<p class="span6" id="user_address">TO
+		<div class="span4">
+			Sociorent.com, Manyata Embassy Business Park, Magnolia,
+Block B, Level 4, Outer Ring Road, Nagawara, Bangalore – 560 045.
+Phone: +91-7353-11-2345.
+		</div>
+		<div class="span5">
+		<p class="span5" id="order_number">
+			Order: <%= @order.random%><br>
+			Date: <%= @shipped.first.shipped_date.strftime("%d/%m/%Y")%><br>
+			Customer ID : <%= @order.user.id %><br>
+			</p>
+
+			<p class="span5" id="user_invoice_address">TO
 		<%= @order.user.name %> <br>
 		<% addr=JSON.parse @order.user.address%>
 		<% addr.each do |k,v| %>
 		  <%=v%><br>
 		<% end %>
-</p>
-		<p class="span3" id="order_number">
-			Order# <%= @order.random%>
-			Ph: <%= @order.user.mobile_number %>
-			</p>
+	</p>
+
 	</div>
-	<div class="span10 offset1" id="price_box">
-		<table class="table-bordered" id="price_table">
+	<div class="span10 offset1" id="books_list">
+		<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
-          <td>Shipment Items Value</td>
-          <td>Rs. <%= @shipped_amount%> 
-          	<% if @shipping_added %>
-							<p id="shipping_price">*(50 Rs shipping charge added)</p>
-						<% end %>
-					</td>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
         </tr>
         <tr>
-          <td>Total Value</td>
-          <td>Rs. <%= @total_amount%></td>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
         </tr>
       </tbody>
     </table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119125729) do
+ActiveRecord::Schema.define(:version => 20130119222208) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20130119125729) do
     t.boolean  "accept_terms_of_use"
     t.string   "citruspay_response"
     t.string   "COD_mobile"
+    t.string   "status"
   end
 
   create_table "pincodes", :force => true do |t|

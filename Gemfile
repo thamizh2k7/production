@@ -43,7 +43,6 @@ gem 'capistrano'
 # gem 'debugger'
 
 gem 'devise'
-gem 'rails_admin'
 
 gem 'omniauth'
 gem 'oauth2'

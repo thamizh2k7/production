@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
   scope :Cancelled, (where :status => "cancel")
   scope :Shipped, (where :status => "shipped")
   scope :Approved, (where :status => "approved")
+  scope :Partially_Cancelled,(where :status=>"partial_cancel")
   after_create do |order|
   	unique = 0
   	until unique == 1

@@ -5,10 +5,7 @@ ActiveAdmin.register Ambassador do
   	column "Ambassador", :ambassador do |amb|
   		amb.ambassador_manager.name
   	end
-
-  	column "College", :amb_college do |amb|
-  		Ambassador.find(amb).college.name
-  	end
+  	column :college
 
   	default_actions
   end

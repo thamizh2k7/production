@@ -29,13 +29,28 @@ ActiveAdmin.register Order do
       row :order_type
       row :deposit_total
       row :COD_mobile
+      row :Address do 
+        html=""
+        begin
+        JSON.parse(order.user.address).each do |k,v|
+          html+="#{v}<br>"
+        end
+        rescue
+          order.user.address
+        end
+        raw html
+      end
       row :created_at do 
         order.created_at
       end
       row :items do
         #TODO : Print it Neatly
+        html=""
         order.books.select("name, isbn13").each do |b|
+          html+="#{b.name} -> "
+          html+="#{b.isbn13} <br>"
         end
+        raw html
       end
       row :status
     end

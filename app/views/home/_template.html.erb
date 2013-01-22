@@ -181,7 +181,7 @@
 		<div class="menu" href="#wishlist_box" id="profile_wishlist_button">Wishlist</div>
 		<div class="menu" href="#shipping_box" id="profile_shipping_button">Shipping Address</div>
 		<% unless @user.ambassador_manager.nil? %>
-		<div class="menu" href="#ambassador_box" id="ambassador_button">Referenced Users</div>
+		<div class="menu" href="#ambassador_box" id="ambassador_button">My Referrals</div>
 		<% end %>
 	</div>
 	<div id="user_dialog_right">
@@ -281,17 +281,49 @@
 			</form>
 		</div>
 		<% unless @user.ambassador_manager.nil? %>
-		<% users=@user.ambassador_manager.users %>
-		<div id="ambassador_box" class="menu_content">
-			<div class="reference_title">Referred Users</div>
-			<% if users.count >0 %>
-				<% users.each do |user| %>
-					<p> <%= user.name %> - <% user.college %></p> 
+			<% if @user.college.ambassadors.count == 1 %>
+				<% users=@user.college.users %>
+				<% if users.count == 1 %>
+					users = []
 				<% end %>
 			<% else %>
-				<legend> No more users referred by you. </legend>
+				<% users=@user.ambassador_manager.users %>
 			<% end %>
-		</div>
+			<div id="ambassador_box" class="menu_content">
+				<div class="reference_title">Referred Users</div>
+				<% if users.count > 0 %>
+					<table class="table table-bordered referal_list">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Order value</th>
+                  <th>Rental amount</th>
+                </tr>
+              </thead>
+              <tbody>
+					<% users.each do |user| %>
+						<%unless user.id == @user.id%>
+							<% order = user.orders %>
+							<% if order.count > 0 %>
+							 	<tr>
+	                <td><%=user.name%></td>
+	                <%current_order=0%>
+	                <% order.each do |ord| %>
+	                	<%= raw "</tr><tr><td></td>" if current_order > 0 %>
+	                	<td><%=ord.total%></td>
+	                	<td><%=ord.rental_total%></td>
+	                	<%current_order+=1%>
+	                <%end%>
+	              </tr>
+	            <%end%>
+						<% end %>
+					<% end %>
+				<% else %>
+					<legend> No refferals. </legend>
+				<% end %>
+					</tbody>
+        </table>
+			</div>
 		<% end %>
 	</div>
 	<div class="clear"></div>

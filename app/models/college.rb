@@ -13,4 +13,6 @@ class College < ActiveRecord::Base
 
   has_many :book_colleges
   has_many :books, :through => :book_colleges
+
+ 
 end

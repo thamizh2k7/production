@@ -16,7 +16,7 @@ ActiveAdmin.register Order do
   	selectable_column
   	column "Order ID", :random
   	column "User", :user_name do |order|
-  		order.user.name
+  		link_to(order.user.name,admin_user_path(order.user))
   	end
   	column :order_type
   	column :deposit_total

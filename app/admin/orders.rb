@@ -3,8 +3,13 @@ ActiveAdmin.register Order do
   scope :New
   scope :Approved
   scope :Shipped
+  scope :Unshipped
   scope :Cancelled
-  scope :Partially_Cancelled
+  scope :Partially_Unshipped_and_Shipped
+  scope :Partially_Cancelled_and_Shipped
+  scope :Partially_Cancelled_and_Unshipped
+  scope :Partially_Cancelled_and_Unshipped_and_Shipped
+
   config.clear_action_items!
   actions :all, :except => [:edit]
   index do
@@ -59,43 +64,51 @@ ActiveAdmin.register Order do
   member_action :shipping_order_form do 
     @order = Order.find(params[:id])
     @dates = @order.book_orders.select("DISTINCT(shipped_date)").pluck(:shipped_date)
-    @book_orders = @order.book_orders.where(:shipped => false)
+    @book_orders = @order.book_orders.where('shipped = false and status not in(1,5,4)')
   end
+
   member_action :cancel_order_form, :method => :get do
     @order = Order.find(params[:id])
-    @book_orders=@order.book_orders.where("status IS NULL or status= 'unshipped'")
+    @book_orders=@order.book_orders.where("status in (0,2,3,6,7)")
+    @cancelled_orders = @order.book_orders.where("status = 4")
   end
+
   member_action :cancel_order, :method=>:post do 
-    scope="all"
-    order= Order.find(params[:id])
+    scope=:ALL
+    
     if params[:book_order]
       book_order_ids = params[:book_order]
       book_order_ids.each do |id, value|
         book_order = BookOrder.find(id.to_i)
         if book_order
-          book_order.update_attributes(:status => "cancel")
+          book_order.update_attributes(:status => 4)
+          book_order.save
         end
       end
-      if order.book_orders.where(:status=>"cancel").count == order.book_orders.count
-        scope="cancelled"
-        order.update_attributes(:status=>"cancel")
-      else
-        order.update_attributes(:status=>"partial_cancel")
-        scope="partially_cancelled"
-      end
-      flash[:notice] = "OrderItems Cancelled Successfully!"
     end
-    redirect_to :action => :index,:scope=>scope
+
+    order= Order.find(params[:id])
+    state = get_status(order.book_orders.order('status desc'))
+
+    order.update_attributes(:status => state[:code])
+
+    flash[:notice] = "Order Items cancelled Successfully "
+
+    redirect_to :action => :index,:scope=> state[:value]
   end
 
 
   member_action :approve_order, :method=>:get do 
     @order = Order.find(params[:id])
-    @order.status = 'approved'
+    
+    @order.books.update_all({:status => 2}, ["status != 2"])
+    state = get_status(@order.book_orders.order('status desc'))
+      @order.status = state[:code]
     @order.save
-    @order.books.update_all({:status => 'unshipped'}, ["status != 'shipped'"])
+
+
     flash[:notice] = "Order Approved Successfully!"
-    redirect_to :action => :index, :scope =>"approved"
+    redirect_to :action => :index, :scope => state[:value]
   end
 
   action_item :only => [:show] do
@@ -117,7 +130,7 @@ ActiveAdmin.register Order do
       book_order_ids.each do |id, value|
         book_order = BookOrder.find(id.to_i)
         if book_order
-          book_order.update_attributes(:shipped => true, :status => "shipped", :shipped_date=>Time.now, :tracking_number => params[:tracking_number], :courier_name => params[:courier_name])
+          book_order.update_attributes(:shipped => true, :status => 1, :shipped_date=>Time.now, :tracking_number => params[:tracking_number], :courier_name => params[:courier_name])
         end
       end
       if book_order_ids.count > 0
@@ -125,9 +138,20 @@ ActiveAdmin.register Order do
         send_sms(@order.user.mobile_number ,msg)
         puts msg
       end
-      @order.update_attributes(:status => "shipped") if @order.book_orders.where(:shipped => false).count == 0
+
+      state = get_status(@order.book_orders.order('status desc'))
+
+      @order.update_attributes(:status => state[:code]) # if @order.book_orders.where(:shipped => false).count == 0
       flash[:notice]="Checked books are marked as shipped"
     end
-    redirect_to :action => :index, :scope=>"shipped"
+    redirect_to :action => :index, :scope=> state[:value]
   end
+
+
+controller do 
+  include ApplicationHelper
 end
+
+
+end
+

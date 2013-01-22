@@ -6,15 +6,26 @@
 	<%= form_tag("#{cancel_order_admin_order_path(@order)}",:id=>"cancel_order_form")%>
 	<% @book_orders.each do	|book_order| %>
 		<div>
-			<input type="checkbox" id="book_order_<%= book_order.id %>" name="book_order[<%= book_order.id %>]" class="cancel_order_checkbox" value="<%= book_order.shipped %>">
+			<input type="checkbox" id="book_order_<%= book_order.id %>" name="book_order[<%= book_order.id %>]" class="cancel_order_checkbox" value="<%= book_order.shipped %> <%= (book_order.status.to_i !=4) ? '':'checked' %>">
 			<label for="book_order_<%= book_order.id %>" style="display:inline;"><%= book_order.book.name %></label>
 		</div>
 	<% end %>
 	<div>
+		<br/>
 			<p><input type="submit" class="btn btn-success" value="Cancel Selected Items" id="cancel_order"></p>
 	</div>
 	<br/>
 	</form>
+
+	<br/> <b>Cancelled Items </b> <br/><br/>
+	<div id="cancelled_books">
+		<% @cancelled_orders.each do	|order| %>	
+			<li> <%= order.book.name %> </li>
+		<% end %>
+	</div>
+		
+	
+
 	<% else %>
 		<h5>All Books were Shipped</h5>
 	<% end %>

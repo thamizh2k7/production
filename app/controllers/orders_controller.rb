@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
 	# disabling the csrf token verification , since response coming from cross domain.
 	protect_from_forgery :except => :create
 	def create
-		require Rails.root.join('lib','Gharpay.rb')
 		user = current_user
 		cart = user.cart
 		books = cart.books.uniq
@@ -34,20 +33,8 @@ class OrdersController < ApplicationController
 		user_address=JSON.parse(user.address)
 		address=user_address.map{|k,v| "#{v}"}.join(',')
 		# creating an order
-		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type, :accept_terms_of_use => accept_terms_of_use, :status => 0)
-		if order_type == "gharpay"
-			order_array={}
-			dd=Time.now + (24*60*60*3)
-			delivery=dd.strftime("%d-%m-%Y")
-    	order_array["customerDetails"]={"firstName"=>user.name,"contactNo"=>user.mobile_number,"address"=>address}
-    	order_array["orderDetails"]={"deliveryDate"=>delivery,"pincode"=>user_address["address_pincode"],"orderAmount"=>total,"clientOrderID"=>order.random}
-    	order_array["productDetails"]=cart_items
-	    g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-	    gharpay_resp = g.create_order(order_array)
-	    if gharpay_resp["status"] == true
-	    	order.update_attributes(:gharpay_id=>gharpay_resp["orderID"])
-	    end
-	  elsif order_type=="COD"
+		order = user.orders.create(:total => total, :rental_total => rental_total, :deposit_total => deposit_total, :order_type => order_type, :accept_terms_of_use => accept_terms_of_use, :status => 'new')
+		if order_type=="COD"
 	  	order.update_attributes(:COD_mobile=>params[:mobile_number])
 		end
 

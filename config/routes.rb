@@ -28,7 +28,6 @@ Sociorent::Application.routes.draw do
   match "book/details/:id" => "home#book"
   match "validate/:type" => "home#validate"
   match "print_invoice/:order"=>"orders#print_invoice"
-  match "pincodes" =>"home#gharpay_pincode"
   match "getSignature" =>"home#citrus_signature"
   match "/verify_code" => "orders#verify_code"
   match "/print_label" => "home#print_label"

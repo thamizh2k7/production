@@ -196,10 +196,6 @@ class HomeController < ApplicationController
     resp = {}
     if user.update_attributes(:address=>params.except(:controller, :action).to_json)
       resp[:text] = "success"
-      g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-      if Pincode.where(:pincode=>params[:address_pincode]).count > 0
-        resp[:gharpay] = "true"
-      end
       resp[:user] = user.to_json(:include => {:college => {:only => :name}, :stream => {:only => :name}})
     else
       resp[:text] = "failed"
@@ -235,18 +231,6 @@ class HomeController < ApplicationController
       res=(res=="true") ? "false" : "true"
     end
     render :text=> res and return
-  end
-
-  def gharpay_pincode
-    require Rails.root.join('lib','Gharpay.rb')
-    g = Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-
-    #getting all the pincodes list from gharpay library..
-    pincodes = g.all_pincodes()
-    pincodes.each do |pincode|
-      Pincode.create(:pincode=>pincode)  if Pincode.where(:pincode=>pincode).count == 0
-    end
-    render :text=>pincodes and return
   end
 
   # function for setting citrus signature parameter for ajax call

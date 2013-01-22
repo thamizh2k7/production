@@ -252,7 +252,7 @@ class HomeController < ApplicationController
   # function for setting citrus signature parameter for ajax call
   def citrus_signature
     require 'openssl'
-    merchant_secret_key="1d82ceea715a4e10e21be75fd1f3f2d29724317f"
+    merchant_secret_key="d8d6f0e50ba34b74f5e82e26e9d321531ef6619b"
     sign_text = "#{params[:merchantId]}#{params[:orderAmount]}#{params[:merchantTxnId]}#{params[:currency]}"
     
     # creating HMAC sha1 signature with secret key

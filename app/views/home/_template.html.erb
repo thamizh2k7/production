@@ -286,7 +286,7 @@
 			<div class="reference_title">Referred Users</div>
 			<% if users.count >0 %>
 				<% users.each do |user| %>
-					<p><%= user.name %></p> %>
+					<p> <%= user.name %> - <% user.college %></p> 
 				<% end %>
 			<% else %>
 				<legend> No more users referred by you. </legend>

@@ -167,10 +167,10 @@ $(document).ready ->
 
 				when  "citrus_pay"
 					# calculating order amount
-					orderAmt = sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge
-
+					#orderAmt = sociorent.fn.calculate_cart_deposit_total() + sociorent.shipping_charge
+					orderAmt=1
 					# setting merchant id for getting signature
-					merchantId="aph4zl0gst"
+					merchantId="wnw4zo7md1"
 					# signature parameter
 					sign_params= "merchantId=" + merchantId + "&orderAmount=" + orderAmt	+ "&merchantTxnId=" + $("input[name=merchantTxnId]").val() + "&currency=INR";
 					# get the signature hmac sha1 encoded 
@@ -180,7 +180,6 @@ $(document).ready ->
 						data : sign_params
 						success : (signature)->
 							# set the signature to merchant key
-							$("#merchant_key").val("1d82ceea715a4e10e21be75fd1f3f2d29724317f")
 							$("input[name='secSignature']").val(signature)
 							$("input[name='orderAmount']").val(orderAmt)
 							# submitting the form to citruspay

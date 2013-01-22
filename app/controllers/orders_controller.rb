@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 		rental_total = 0
 		cart_items=[]
 		books.each do |book|
-			rental_price = (book.price.to_i * book.publisher.rental.to_i)/100
+			rental_price = ((book.price.to_i * book.publisher.rental.to_i)/100).ceil
 			rental_total += rental_price
 			deposit_total += book.price.to_i
 			product={"productID" =>book.isbn13,"unitCost"=>rental_price,"productDescription"=>book.name}

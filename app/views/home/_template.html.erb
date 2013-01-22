@@ -50,7 +50,7 @@
 			<div class="information_right"><b>Rs.<%%= price %></b></div>
 			<div class="clear"></div>
 			<div class="information_left"><b>rent</b></div>
-			<div class="information_right"><b>Rs.<%%= ((price * publisher.rental)/100).toFixed(0) %></b></div>
+			<div class="information_right"><b>Rs.<%%= Math.ceil((price * publisher.rental)/100) %></b></div>
 			<div class="clear"></div>
 			<div class="add_to_cart">Add to Cart</div>
 		</div>
@@ -122,7 +122,7 @@
 		<%%= isbn10 %>
 	</div> 
 	<div class="cart_price">
-		Rs. <%%= ((price * publisher.rental)/100).toFixed(0) %>
+		Rs. <%%= Math.ceil((price * publisher.rental)/100) %>
 	</div>
 	<div class="cart_price">
 		Rs. <%%= price %>

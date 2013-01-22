@@ -42,7 +42,7 @@ class DelayedJob
     if order.order_type=="gharpay"
     	cart_items=[]
 			order.books.each do |book|
-				rental_price = (book.price.to_i * book.publisher.rental.to_i)/100
+				rental_price = ((book.price.to_i * book.publisher.rental.to_i)/100).ceil
 				product={"productID" =>book.isbn13,"unitCost"=>rental_price,"productDescription"=>book.name}
 				cart_items << product
 			end

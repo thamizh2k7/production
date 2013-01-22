@@ -134,8 +134,8 @@ $(document).ready ->
 				original_image: original_image
 				name: @model.get "name"
 				author: @model.get "author"
-				mrp: @model.get "price"
-				rent_price: ((@model.get("price") * @model.get("publisher").rental)/100).toFixed(0)
+				mrp: Math.ceil(@model.get "price")
+				rent_price: Math.ceil((@model.get("price") * @model.get("publisher").rental)/100)
 				cart_message: cart_message
 				rented_message: rented_message
 			if sociorent.collections.cart_object.get(@model.id)

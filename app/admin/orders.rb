@@ -5,10 +5,9 @@ ActiveAdmin.register Order do
   scope :Shipped
   scope :Unshipped
   scope :Cancelled
-  scope :Partially_Unshipped_and_Shipped
-  scope :Partially_Cancelled_and_Shipped
-  scope :Partially_Cancelled_and_Unshipped
-  scope :Partially_Cancelled_and_Unshipped_and_Shipped
+  scope :Partially_unshipped
+  scope :Partially_shipped
+  scope :Partially_cancelled
 
   config.clear_action_items!
   actions :all, :except => [:edit]

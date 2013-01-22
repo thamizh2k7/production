@@ -11,12 +11,10 @@ class Order < ActiveRecord::Base
   scope :Shipped, (where :status => 1)
   scope :Unshipped, (where :status => 2)
   scope :Approved, (where 'status in (1,2,5,7)' )
-  scope :Partially_Unshipped_and_Shipped,(where :status => 3 )
-  scope :Partially_Cancelled_and_Shipped,(where :status => 5 )
-  scope :Partially_Cancelled_and_Unshipped,(where :status => 6 )
-  scope :Partially_Cancelled_and_Unshipped_and_Shipped,(where :status => 7 )
-
-
+  scope :Partially_unshipped, (where "status in (3,6,7)")
+  scope :Partially_shipped, (where "status in (3,5,7)")
+  scope :Partially_cancelled, (where "status in (5,6,7)")
+  
   before_create :on => :create do 
     self.status = 0
   end 

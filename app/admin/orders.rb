@@ -13,6 +13,7 @@ ActiveAdmin.register Order do
   config.clear_action_items!
   actions :all, :except => [:edit]
   index do
+    
   	selectable_column
   	column "Order ID", :random
   	column "User", :user_name do |order|
@@ -59,6 +60,7 @@ ActiveAdmin.register Order do
       end
       row :status
     end
+    active_admin_comments
   end
 
   member_action :shipping_order_form do 

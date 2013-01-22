@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   scope :Partially_Cancelled_and_Unshipped_and_Shipped,(where :status => 7 )
 
 
-  before_create :on => :create ,do 
+  before_create :on => :create do 
     self.status = 0
   end 
 

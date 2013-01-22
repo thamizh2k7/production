@@ -5,11 +5,6 @@ ActiveAdmin.register User do
   	column :name
     column :email
     column :mobile_number
-    column "Profile Image", :image do |user|
-      div do
-        image_tag(user.image,:width=>100)
-      end
-    end
     # column :address do |user|
     #   begin
     #     addr=JSON.parse user.address
@@ -24,7 +19,13 @@ ActiveAdmin.register User do
     # end
     column "College", :college
     column "Stream",:stream
-    column "Ambassador", :ambassador
+    column "Ambassador" do |user|
+      if user.ambassador
+        "#{user.ambassador.ambassador_manager.name}"
+      else
+        " - "
+      end
+    end
     default_actions
   end
   

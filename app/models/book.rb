@@ -91,7 +91,7 @@ class Book < ActiveRecord::Base
 
   def rent
     rent = self.publisher.rental
-    (self.price/100)*rent
+    ((self.price.to_f/100)*rent).ceil
   end
 
 end

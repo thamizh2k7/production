@@ -180,7 +180,7 @@ class HomeController < ApplicationController
   def make_review
     user = current_user
     book = Book.find(params[:book].to_i)
-    review = user.reviews.create(:content => CGI.escapeHTML(params[:content]), :book_id => book.id)
+    review = user.reviews.create(:content => CGI.escapeHTML(params[:content]), :book_id => book.id, :semester => params[:semester])
     render :json => review.to_json(:include => {:user => {:only => :name}})
   end
 

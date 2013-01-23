@@ -27,8 +27,8 @@ ActiveAdmin.register BookOrder do
 			"Rs. " +  book_order.order.total.to_s
 		end
 
-		column :Payment do |book_order|
-			book_order.order.payment_done ? "Done" : "Not Done"
+		column :order_type do |book_order|
+			book_order.order.order_type
 		end
 
 

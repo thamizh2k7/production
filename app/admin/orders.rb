@@ -57,7 +57,9 @@ ActiveAdmin.register Order do
         end
         raw html
       end
-      row :status
+      row :status do 
+        order.order_status
+      end
     end
     active_admin_comments
   end

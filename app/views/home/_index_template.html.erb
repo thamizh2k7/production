@@ -92,7 +92,11 @@
 	<div class="reviews_box">
 		<div class="reviews_caption">
 			<div class="reviews_caption_left">User Reviews</div>
-			<div class="reviews_caption_right">Leave a Review</div>
+			
+			<% if current_user %>
+				<div class="reviews_caption_right">Leave a Review</div>
+			<% end %>
+
 			<div class="clear"></div>
 		</div>
 		<div class="reviews">

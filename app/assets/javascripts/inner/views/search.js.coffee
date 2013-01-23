@@ -90,11 +90,7 @@ $(document).ready ->
 						book: that.model.id
 					success: (msg)->
 						sociorent.fn.hide_notification()
-						# can user make review
-						make_review = msg[0].splice(msg[0].length - 1)[0].make_review
-						unless make_review == 0
-							$(".reviews_form").show()
-							$(".reviews_caption_right").show()
+
 						# show reviews
 						sociorent.collections.review_object.reset msg[0]
 						sociorent.collections.review_object.sort({silent: true})

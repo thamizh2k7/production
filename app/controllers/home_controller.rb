@@ -52,9 +52,9 @@ class HomeController < ApplicationController
   def search
     resp = {}
     if params[:query] == ""
-      @books = intelligent_books(current_user)
-      @books += Book.first(6-@books.count) if @books.count < 6
-    else
+       @books = intelligent_books(current_user)
+       @books += Book.first(6-@books.count) if @books.count < 6
+     else
   	  @books = Book.search params[:query], :star => true
       unless params[:query].=~ /^[0-9]+$/
         resp[:suggestion] = params[:query]
@@ -71,16 +71,21 @@ class HomeController < ApplicationController
       #   puts weight
       #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%"
       # end
-    end
+     end
+
     # @books.delete(nil)
     if @books.count > 6
       resp[:load_more] = true
     else
       resp[:load_more] = false
     end
+
     @books = @books.first(6)
-    resp[:books] = @books.to_json(:include => :publisher)
-  	render :json => resp.to_json()
+    
+     resp[:books] = @books.to_json(:include => :publisher)
+  	
+    render :json => resp.to_json()
+
   end
 
   def load_more
@@ -143,37 +148,18 @@ class HomeController < ApplicationController
   end
 
   def get_adoption_rate
-    user = current_user
-    @book = Book.find(params[:book].to_i)
-    resp = []
-    class_adoption_resp = []
-    review_resp = []
-    if user
-      College.all.each do |college|
-        class_adoption = @book.class_adoptions.where(:college_id => college).first.to_json(:only => [:rate,:id], :include =>{:college => {:only => [:name]}})
-        unless class_adoption == "null"
-          class_adoption_resp << JSON.parse(class_adoption)
-        else
-          class_adoption = Hash.new
-          class_adoption["rate"] = @book.orders.where(:user_id => college.users).count
-          college_name = Hash.new
-          college_name["name"] = college.name
-          class_adoption["college"] = college_name
-          class_adoption_resp << class_adoption
-        end
-      end
-    end
+
+     user = current_user
+     @book = Book.find(params[:book].to_i)
+     resp = []
+    
+     review_resp = []
+    
+
     review_resp = JSON.parse @book.reviews.to_json(:include => {:user => {:only => :name}})
     # check if current user is allowed to make a review for this book
-    if user
-      if user.books.where(:id => @book).first.nil? || user.reviews.where(:book_id => @book).first
-        review_resp << {"make_review"=>0}
-      else
-        review_resp << {"make_review"=>1}
-      end
-    end
     resp << review_resp
-    resp << class_adoption_resp
+    #resp << class_adoption_resp
     render :json => resp.to_json()
   end
 

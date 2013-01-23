@@ -262,6 +262,52 @@ class HomeController < ApplicationController
     render "print_label", :layout=>false 
   end
 
+
+
+  def book_deatils
+
+    
+    unless params[:isbn].nil? 
+   
+     user = current_user
+     book = Book.find_by_isbn13(params[:isbn])
+
+
+    book1 = Book.find(book.id)
+        
+    review_resp = JSON.parse book1.reviews.to_json(:include => {:user => {:only => :name}})
+    
+    
+     resp ={
+      :name => book.name,
+      :author => book.author,
+      :book_image => "http://www.sociorent.in" + ((book.images.first.nil?) ?  "/assets/Sociorent.png" : book.images.first.image.url ).to_s,
+      :edition => book.edition,
+      :rank => book.rank,
+      :price => book.price,
+      :publisher => book.publisher,
+      :isbn10 => book.isbn10,
+      :isbn13 => book.isbn13,
+      :binding => book.binding,
+      :published => book.published,
+      :pages => book.pages,
+      :description => book.description,
+      :strengths => book.strengths,
+      :weaknesses => book.weaknesses,
+      :reviews => review_resp
+      }
+
+    render :json => resp.to_json()
+
+    else
+      return :json => []
+    end
+  end
+
+
+
+
+
   def print_invoice
     @order=Order.find(params[:order])
     shipped_date = params[:date] || Time.now

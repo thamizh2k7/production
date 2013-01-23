@@ -8,7 +8,7 @@ ActiveAdmin.register BookOrder do
 		selectable_column
 
 		column :order_id  do |book_order|
-			link_to book_order.order_id , admin_order_path(book_order)
+			link_to book_order.order.random , admin_order_path(book_order.order)
 		end
 
 		column :user_id do |book_order|

@@ -27,7 +27,7 @@ ActiveAdmin.register Order do
 
   show do |order|
     attributes_table do
-      row :id
+      row :random
       row :user_name do 
         order.user.name
       end

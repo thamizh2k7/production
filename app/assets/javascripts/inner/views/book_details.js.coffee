@@ -87,7 +87,8 @@ $(document).ready ->
 							content: content
 						success: (msg)->
 							sociorent.fn.hide_notification()
-							$(".reviews_form").html("").hide()
+							$(".reviews_form").hide()
+							$(".reviews_input").val("").show()
 							model = new sociorent.models.review msg
 							view = new sociorent.views.review
 								model: model
@@ -95,6 +96,7 @@ $(document).ready ->
 				false
 
 		focus_review_input: ->
+			$(".reviews_form").show()
 			$(".reviews_input").focus()
 			$("#book_details_box").animate({scrollTop: $("#book_details_box")[0].scrollHeight}, 300)
 

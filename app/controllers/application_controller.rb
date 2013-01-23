@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
   def send_sms(receipient,msg)
-    return true
     
     user_pwd="Sathish@sociorent.com:Sathish1"
     sender_id="SOCRNT"

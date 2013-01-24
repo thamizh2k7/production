@@ -51,4 +51,27 @@ module ApplicationHelper
 
 
 	end
+
+
+
+
+  def self.convert_order_status(status)
+  #contants for order status
+
+     state = { 
+      0 => 'New' ,
+      1 => 'Fully Shipped' ,
+      2 => 'Fully Unshipped' ,
+      3 => 'Partially Shipped and Unshipped' ,
+      4 => 'Fully Cancelled',
+      5 => 'Partially Cancelled and Partially Shipped',
+      6 => 'Partially Cancelled and Partially Unshipped',
+      7 => 'Partially Cancelled and Partially Unshipped and Partially Shipped',
+      8 => 'Approved' 
+    }
+
+    state[status];
+ end
+
 end
+

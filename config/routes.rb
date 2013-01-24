@@ -35,6 +35,7 @@ Sociorent::Application.routes.draw do
   match "/get_colleges" =>"users#get_colleges"
   match "/get_streams" => "users#get_streams"
 
+
   #matches #book/isbn
   get '/book/:isbn' => "home#book_deatils"
 
@@ -42,6 +43,10 @@ Sociorent::Application.routes.draw do
 
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
+
+  namespace :admin do
+    post 'orders/:id/edit' => 'orders#update'
   end
 
   devise_for :counters

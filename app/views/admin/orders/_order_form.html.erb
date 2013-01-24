@@ -1,0 +1,42 @@
+
+	<%= semantic_form_for :order do |f| %>
+
+	<fieldset class="inputs">
+
+	<ol>
+
+			<li>
+				<label class="label"> Order ID </label>  <b> <%= @ord.random %> </b>
+			</li>
+
+
+			<li>
+				<label class="label"> User </label>  <b> <%= link_to @ord.user.name , admin_user_path(@ord.user) %> </b>
+			</li>
+
+
+			<%= f.input :bank_id, :as => :select ,:collection => Bank.all , :selected => @ord.bank.id %>
+		    <%= f.input :total  %>
+		    <%= f.input :rental_total %>
+		    <%= f.input :order_type %>
+		    <%= f.input :payment_done %>
+		    <%= f.input :deposit_total %>
+
+		    <%= f.input :COD_mobile %>
+
+
+
+			<li>
+				<label class="label"> Status </label>  <b><%= @ord.order_status %> </b>
+			</li>
+
+			<li>
+				<label class="label"> CitrusPay Response </label>  <b> <%= @ord.citruspay_response.nil? ? "EMPTY" : @ord.citruspay_response %> </b>
+	    
+				<br/>
+		    <%= f.button  %>
+
+	</ol>
+	</fieldset>
+	    
+	<%  end %>

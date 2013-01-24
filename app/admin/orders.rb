@@ -40,12 +40,37 @@ ActiveAdmin.register Order do
   scope :Partially_shipped
 
   ##Partially Chipped scope
-  #Displays all the Partially Chipped orders
+  #Dislpays all the Partially Chipped orders
   scope :Partially_cancelled
+
+  ## Include helpers
+  #include the helper function that are available in the Application Helper
+  controller do 
+    include ApplicationHelper
+
+
+    def edit
+      
+      @ord = Order.find(params[:id])
+      super
+    end
+
+    def update
+      order = Order.find(params[:id])
+      #order.bank = Bank.find(params[:order][:bank_id])
+      if order.update_attributes(params[:order])
+        redirect_to admin_path
+      else
+          render :text => "te"
+      
+      end
+
+    end
+  end
 
 
   config.clear_action_items!
-  actions :all, :except => [:edit]
+  actions :all#, :except => [:edit]
   index do
     
   	selectable_column
@@ -61,6 +86,8 @@ ActiveAdmin.register Order do
   end
 
   show do |order|
+
+
     attributes_table do
       row :random
       row :user_name do 
@@ -113,7 +140,36 @@ ActiveAdmin.register Order do
     @book_orders = @order.book_orders.where('shipped = false and status not in(1,5,4)')
   end
 
+  form :partial => "order_form"
   
+
+    # form do |f|
+    
+    #  f.inputs do 
+
+    #   f.input :random , :label => "Order ID" ,:input_html => {:disabled => true } 
+    
+    #   f.input :bank
+    #   f.input :user , :input_html => {:disabled => true}
+
+    #   f.input :total  
+    #   f.input :rental_total 
+    #   f.input :order_type 
+    #   f.input :payment_done 
+    #   f.input :deposit_total 
+    #   f.input :citruspay_response ,:input_html => {:disabled => true } 
+    #   f.input :COD_mobile 
+    
+    #   f.template do |aa|
+    #     puts aa.inspect.to_s
+    #     puts "dsafs"
+    #   end
+    # end
+
+  #end
+
+
+
   #Cancel an Order
   #This action cancels the particular order which is displayed
   member_action :cancel_order_form, :method => :get do
@@ -208,12 +264,11 @@ ActiveAdmin.register Order do
   end
 
 
-## Include helpers
-#include the helper function that are available in the Application Helper
-controller do 
-  include ApplicationHelper
-end
-
 
 end
 
+
+
+    #  f.inputs :for => :bank do |ordr| 
+    #    f.input ordr 
+    # <% end 

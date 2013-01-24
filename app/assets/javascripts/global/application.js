@@ -66,6 +66,7 @@ $(document).ready(function(){
 
 //trigger hash once	
 
+
 if ( /^book\/\d{13}/i.test(window.location.hash.substr(1)) ){
 	
   	$.ajax( {
@@ -82,14 +83,52 @@ if ( /^book\/\d{13}/i.test(window.location.hash.substr(1)) ){
 
   			for (var i in data.reviews )
   			{
-  				$(".reviews_content").append(review(data.reviews[i]))
+  				$(".reviews_content").append(review(data.reviews[i]));
   			}
   			$(".reviews_content").show();
-			// view = new sociorent.views.review({model: data.reviews });
+  			
+			$(".reviews_form").submit(function(){
 
-			// $(".reviews_content").append(view.render().el)
-	  	}
-	  });
+			semester = $.trim($("#review_semester").val())
+
+			content = $.trim($("#review_text_content").val())
+
+			if(semester == "") {
+				alert("Please enter your Semester Eg: 1");
+				return false;
+			}
+			if(content == ""){
+				alert("Please write your review before submitting");
+				return false;
+			}
+			else{
+
+				console.log(data);
+				sociorent.fn.show_notification();
+
+				$.ajax({
+					url:"/home/make_review",
+				  	type: "post",			
+					async: true,
+				  	data: {
+				    book: data.id,
+				    content: content,
+				    semester: semester
+				  	},
+				  	success: function(msg) {
+					    sociorent.fn.hide_notification();
+					    $(".reviews_form").hide();
+					    $(".reviews_input").val("").show();
+
+						$(".reviews_content").append(review(msg));
+					  	}
+				});
+
+				return false;
+			}
+		});
+	 }
+  });
 
 
 }

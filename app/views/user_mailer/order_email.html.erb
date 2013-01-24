@@ -18,7 +18,7 @@
       <div>You have selected to pay via bank deposit</div>
       <div>Unique ID:<%= @user.unique_id%></div>
       <div>Bank Details:</div>
-      <div><%= @order.bank.bank_name%></div>
+      <div><%= @order.bank.name%></div>
       <div><%= raw @order.bank.details %></div>
     <% when "COD" %>
       <div>Thank you for your order.</div>

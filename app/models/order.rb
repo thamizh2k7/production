@@ -1,10 +1,15 @@
 class Order < ActiveRecord::Base
-  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id, :accept_terms_of_use,:citruspay_response,:COD_mobile, :status
+  attr_accessible :random, :total, :rental_total, :order_type, :payment_done, :deposit_total,:gharpay_id, :accept_terms_of_use,:citruspay_response,:COD_mobile, :status,:bank_id
   has_many :book_orders, :dependent => :destroy
   has_many :books, :through => :book_orders
+
+  
+
   belongs_to :bank
   belongs_to :user
-  belongs_to :college
+
+  accepts_nested_attributes_for :bank
+
   scope :All
   scope :New, (where :status => 0 )
   scope :Cancelled, (where :status => 4 )
@@ -14,7 +19,7 @@ class Order < ActiveRecord::Base
   scope :Partially_unshipped, (where "status in (3,6,7)")
   scope :Partially_shipped, (where "status in (3,5,7)")
   scope :Partially_cancelled, (where "status in (5,6,7)")
-  
+  accepts_nested_attributes_for :bank, :user
   before_create :on => :create do 
     self.status = 0
   end 

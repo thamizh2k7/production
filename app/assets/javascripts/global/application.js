@@ -67,71 +67,116 @@ $(document).ready(function(){
 //trigger hash once	
 
 
-if ( /^book\/\d{13}/i.test(window.location.hash.substr(1)) ){
-	
-  	$.ajax( {
-  		url:"/" + window.location.hash.substr(1),
-  		dataType:"json",
-  		success:function(data){
+	if (/^book\/\d{13}/i.test(window.location.hash.substr(1)) ){
 
-  			$(".reviews_content").html("");
-
-  			var temp = _.template($("#book_details_template").html());
-  			var review = _.template($("#review_template").html());
-
-			$("#book_details_box").html(temp(data)).dialog("open");//.css({top:0,position:fixed});
-
-  			for (var i in data.reviews )
-  			{
-  				$(".reviews_content").append(review(data.reviews[i]));
-  			}
-  			$(".reviews_content").show();
-  			
-			$(".reviews_form").submit(function(){
-
-			semester = $.trim($("#review_semester").val())
-
-			content = $.trim($("#review_text_content").val())
-
-			if(semester == "") {
-				alert("Please enter your Semester Eg: 1");
-				return false;
-			}
-			if(content == ""){
-				alert("Please write your review before submitting");
-				return false;
-			}
-			else{
-
-				console.log(data);
-				sociorent.fn.show_notification();
-
-				$.ajax({
-					url:"/home/make_review",
-				  	type: "post",			
-					async: true,
-				  	data: {
-				    book: data.id,
-				    content: content,
-				    semester: semester
-				  	},
-				  	success: function(msg) {
-					    sociorent.fn.hide_notification();
-					    $(".reviews_form").hide();
-					    $(".reviews_input").val("").show();
-
-						$(".reviews_content").append(review(msg));
-					  	}
-				});
-
-				return false;
+	  	$.ajax( {
+	  		url:"/" + window.location.hash.substr(1),
+	  		dataType:"json",
+	  		success:function(data){
+				sociorent.collections.search_object.reset(data);
+				sociorent.fn.renderSearch();
+				$(".search_books_single").trigger("click");
 			}
 		});
 	 }
+
   });
 
 
-}
+
+
+	
+  // 	$.ajax( {
+  // 		url:"/" + window.location.hash.substr(1),
+  // 		dataType:"json",
+  // 		success:function(data){
+
+  // 			//if sucess clear teh review
+  // 			$(".reviews_content").html("");
+
+  // 			//initialize the template
+  // 			var temp = _.template($("#book_details_template").html());
+  // 			var review = _.template($("#review_template").html());
+
+  // 			//open the dialog with data filled
+		// 	$("#book_details_box").html(temp(data)).dialog("open");//.css({top:0,position:fixed});
+
+		// 	//add teh review  this order must be maintained
+  // 			for (var i in data.reviews )
+  // 			{
+  // 				$(".reviews_content").append(review(data.reviews[i]));
+  // 			}
+  // 			$(".reviews_content").show();
+
+		// 	if $.inArray(@model.id, sociorent.models.user_object.get("wishlist")) > -1
+		// 		@$(".add_to_wishlist").html "Already in your Wishlist."
+		// 	if sociorent.collections.cart_object.get(@model.id)
+		// 		@$(".add_to_cart").css
+		// 			background: "#0F8159"
+		// 			cursor: 'default'
+
+
+  			
+ 	// 		$(".add_to_cart").click(function(){
+		// 		$.ajax("/home/add_to_cart", {
+		// 			  type: "post",
+		// 			  async: true,
+		// 			  data: {
+		// 			    book: data.id
+		// 			  },
+		// 			  success: function(msg) {
+		// 			    sociorent.fn.hide_notification();
+		// 			    sociorent.collections.cart_object.add(msg);
+		// 			    return sociorent.fn.renderCart();
+		// 			  }
+		// 			});
+		// 		});
+
+
+  // 			//on reivew submit perfom add review
+
+		// 	$(".reviews_form").submit(function(){
+
+		// 	semester = $.trim($("#review_semester").val())
+
+		// 	content = $.trim($("#review_text_content").val())
+
+		// 	if(semester == "") {
+		// 		alert("Please enter your Semester Eg: 1");
+		// 		return false;
+		// 	}
+		// 	if(content == ""){
+		// 		alert("Please write your review before submitting");
+		// 		return false;
+		// 	}
+		// 	else{
+
+		// 		console.log(data);
+		// 		sociorent.fn.show_notification();
+
+		// 		$.ajax({
+		// 			url:"/home/make_review",
+		// 		  	type: "post",			
+		// 			async: true,
+		// 		  	data: {
+		// 		    book: data.id,
+		// 		    content: content,
+		// 		    semester: semester
+		// 		  	},
+		// 		  	success: function(msg) {
+		// 			    sociorent.fn.hide_notification();
+		// 			    $(".reviews_form").hide();
+		// 			    $(".reviews_input").val("").show();
+
+		// 				$(".reviews_content").append(review(msg));
+		// 			  	}
+		// 		});
+
+		// 		return false;
+		// 	}
+		// });
+
+
 
 
 // var Router = Backbone.Router.extend({
@@ -183,7 +228,5 @@ if ( /^book\/\d{13}/i.test(window.location.hash.substr(1)) ){
 
 // 	Backbone.history.start();
 
-
-});
 
 

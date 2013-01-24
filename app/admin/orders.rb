@@ -48,6 +48,21 @@ ActiveAdmin.register Order do
   controller do 
     include ApplicationHelper
 
+    def new
+      @bank = []
+
+      Bank.all.each do |bank|
+        @bank.push([bank.name,bank.id])
+      end
+
+      @user = []
+      User.all.each do |user|
+        @bank.push([user.name,user.id])
+      end
+
+
+      super
+    end
 
     def edit
       

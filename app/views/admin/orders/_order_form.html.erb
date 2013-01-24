@@ -1,4 +1,63 @@
 
+
+<% if params[:id].nil? %>
+	
+	<%= form_for Order.new, :url => "/admin/orders/create", :method => :post do |f| %>
+
+	<fieldset class="inputs">
+
+	<ol>
+
+			<li> <%= f.label :user, "User" %> 	<%= text_area_tag 'isbn13'  %> </li>
+
+			<li> <%= f.label :isbn13, "ISBN13" %> 	<%= text_area_tag 'isbn13'  %> </li>
+
+		    <li> <%= f.label :total %> 	<%= f.text_field :total  %> </li>
+		    <li> <%= f.label :rental_total %> 	<%= f.text_field :rental_total, :input_html =>{:readonly => true} %> </li>
+
+		    <li> <%= f.label :order_type %> 
+		    	<%= radio_button_tag("payment_type","bank") %>  <span class="payment_type"> Bank  </span>
+		    	<%= radio_button_tag("payment_type","cod") %>  <span class="payment_type"> COD </span>
+		    	<%= radio_button_tag("payment_type","online") %>  <span class="payment_type"> Online </span>
+		   	</li>
+
+			<li> <%= f.label :bank_id ,"Bank" %> 	<%= f.select :bank_id ,@bank ,{:include_blank => 'None'}%> </li>
+		    <li> <%= f.label :COD_mobile %> 	 <%= f.text_field :COD_mobile %> </li>
+
+		    <li> <%= f.label :payment_done %> 	<%= f.check_box :payment_done %> </li>
+		    <li> <%= f.label :deposit_total %> 	<%= f.text_field :deposit_total %> </li>
+
+
+		    <%= f.submit %>
+
+
+			</ol>
+
+		</fieldset>
+
+
+		<script>
+
+		$(document).ready(function(){
+
+
+				$("#order_bank_id").attr("disabled","disabled");
+				$("#order_COD_mobile").attr("disabled","disabled");
+				$("#order_rental_total").attr("disabled","disabled");
+				$("#order_total").attr("disabled","disabled");
+				$("#order_deposit_total").attr("disabled","disabled");
+
+		});
+
+		
+		</script>
+
+
+	<% end %>
+
+
+<% else %>
+
 	<%= semantic_form_for :order do |f| %>
 
 	<fieldset class="inputs">
@@ -33,10 +92,13 @@
 			<li>
 				<label class="label"> CitrusPay Response </label>  <b> <%= @ord.citruspay_response.nil? ? "EMPTY" : @ord.citruspay_response %> </b>
 	    
-				<br/>
+
 		    <%= f.button  %>
 
 	</ol>
 	</fieldset>
 	    
 	<%  end %>
+
+
+<% end %>

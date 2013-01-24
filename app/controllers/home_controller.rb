@@ -279,6 +279,7 @@ class HomeController < ApplicationController
     
     
      resp ={
+      :id => book.id,
       :name => book.name,
       :author => book.author,
       :book_image => "http://www.sociorent.in" + ((book.images.first.nil?) ?  "/assets/Sociorent.png" : book.images.first.image.url ).to_s,

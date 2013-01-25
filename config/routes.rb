@@ -1,5 +1,7 @@
 Sociorent::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
+
   ActiveAdmin.routes(self)
   
   get 'aboutus' => 'static_pages#about_us'

@@ -56,10 +56,9 @@ ActiveAdmin.register Order do
       end
 
       @user = []
-      User.all.each do |user|
-        @bank.push([user.name,user.id])
+      User.order(:name).all.each do |user|
+        @user.push([user.email,user.id])
       end
-
 
       super
     end
@@ -68,6 +67,30 @@ ActiveAdmin.register Order do
       
       @ord = Order.find(params[:id])
       super
+    end
+
+    def fetch_amount
+
+        resp  = []
+        rent  = 0 
+        price = 0
+        params[:isbn].each do |isbn|
+
+
+            book = Book.find_by_sql("select (ceil(b.price * (p.rental / 100))) as rate,price from books b, publishers p where b.publisher_id = p.id and b.isbn13 ='" + isbn + "'")
+
+            if book.length == 1 
+              #puts "book " + book[0].inspect
+              rent += book[0].rate.to_i
+              price += book[0].price.to_i
+            end
+
+        end
+
+          resp.push(rent)
+          resp.push(price)
+
+      render :json => resp
     end
 
     def update
@@ -81,17 +104,96 @@ ActiveAdmin.register Order do
       end
 
     end
+
+    def create
+
+      error_message =""
+
+      puts params.inspect
+
+      if params[:payment_type] == 'bank' 
+        if params[:order][:bank_id].nil? or params[:order][:bank_id] == "" 
+            error_message ="Please Choose the Bank"
+        end
+      elsif  params[:payment_type] == 'COD' 
+          if params[:order][:COD_mobile].nil? or params[:order][:COD_mobile] =="" 
+          error_message ="Please Enter the COD mobile number"
+        end
+      elsif  params[:payment_type] == 'online' 
+          if params[:order][:citruspay_response].nil? or params[:order][:citruspay_response] =="" 
+          error_message ="Please Enter the citruspay response"
+        end
+
+      else
+          error_message ="Please select atleast one payment type"
+      end
+
+      if params[:order][:rental_total] == "" || params[:order][:total] == "" || params[:order][:deposit_total] == "" || params[:order][:rental_total] == "0"
+          error_message = "Please fetch the amounts by entering the ISBN 13"
+      end
+
+      if error_message != ""
+        render :js => "alert('" + error_message + "');"
+        return
+      end
+
+
+      order = Order.new
+      order.total = params[:order][:total]
+      order.rental_total = params[:order][:rental_total]
+      order.order_type =params[:payment_type]
+      order.payment_done = params[:payment_done]
+      order.rental_total = params[:order][:deposit_total]
+
+
+      params[:isbn13].split(",").each do |isbn|
+          
+          book = Book.find_by_isbn13(isbn)
+          unless book.nil? 
+            bookorder = order.book_orders.new({:shipped => 0 ,:status => 2})
+            bookorder.book = book
+          end
+
+      end
+
+      #order.book_orders.build
+
+      order.user = current_user
+
+      if params[:payment_type] == "online"
+        order.gharpay_id = params[:citruspay_response]
+      elsif params[:payment_type] == "COD_mobile"
+        order.COD_mobile = params[:COD_mobile]
+      elsif params[:payment_type] == "bank"
+        order.bank = Bank.find(params[:order][:bank_id])
+      end
+      
+      order.status = 0
+      order.accept_terms_of_use = true
+
+      if order.save 
+        msg = "Order Placed Sucessfully"
+        render :js => "alert('" + msg+ "'); window.location ='/admin/orders' "
+      return
+      else
+        msg = "Order Placing Failed"
+        render :js => "alert('" + msg+ "');"
+        return
+      end
+
+    end
   end
 
 
-  config.clear_action_items!
-  actions :all#, :except => [:edit]
+  #config.clear_action_items! 
+  actions :all #, :except => [:edit]
   index do
     
   	selectable_column
   	column "Order ID", :random
   	column "User", :user_name do |order|
-  		link_to(order.user.name,admin_user_path(order.user))
+      puts order.inspect
+  		link_to(order.user.name ,admin_user_path(order.user))
   	end
   	column :order_type
   	column :deposit_total

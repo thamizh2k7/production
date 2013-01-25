@@ -2,30 +2,34 @@
 
 <% if params[:id].nil? %>
 	
-	<%= form_for Order.new, :url => "/admin/orders/create", :method => :post do |f| %>
+	<%= form_for Order.new, :url => "/admin/orders/create", :method => :post ,:remote => true do |f| %>
 
 	<fieldset class="inputs">
 
 	<ol>
 
-			<li> <%= f.label :user, "User" %> 	<%= text_area_tag 'isbn13'  %> </li>
+			<li> <%= f.label :user, "User" %> 	<%= select_tag 'user' , options_for_select(@user)  %> </li>
 
 			<li> <%= f.label :isbn13, "ISBN13" %> 	<%= text_area_tag 'isbn13'  %> </li>
-
-		    <li> <%= f.label :total %> 	<%= f.text_field :total  %> </li>
-		    <li> <%= f.label :rental_total %> 	<%= f.text_field :rental_total, :input_html =>{:readonly => true} %> </li>
+			<li> <%= label_tag  "Fetch" %> 	<%= button_tag "Fetch" ,:id => "fetch_amounts" %> </li>
 
 		    <li> <%= f.label :order_type %> 
 		    	<%= radio_button_tag("payment_type","bank") %>  <span class="payment_type"> Bank  </span>
-		    	<%= radio_button_tag("payment_type","cod") %>  <span class="payment_type"> COD </span>
+		    	<%= radio_button_tag("payment_type","COD") %>  <span class="payment_type"> COD </span>
 		    	<%= radio_button_tag("payment_type","online") %>  <span class="payment_type"> Online </span>
 		   	</li>
 
 			<li> <%= f.label :bank_id ,"Bank" %> 	<%= f.select :bank_id ,@bank ,{:include_blank => 'None'}%> </li>
 		    <li> <%= f.label :COD_mobile %> 	 <%= f.text_field :COD_mobile %> </li>
-
+		    <li> <%= f.label :citruspay_response %>  <%= f.text_field :citruspay_response %> </li>
 		    <li> <%= f.label :payment_done %> 	<%= f.check_box :payment_done %> </li>
-		    <li> <%= f.label :deposit_total %> 	<%= f.text_field :deposit_total %> </li>
+
+		    <li> <%= f.label :rental_total ,"Total Rental Price" %> 	<%= f.text_field :rental_total, :input_html =>{:readonly => true} %> </li>
+		    <li> <%= f.label :total,"Total Book's Price" %> 	<%= f.text_field :total  %> </li>
+
+
+
+		    <li> <%= f.label :deposit_total ,"Final Price(Rs. 50 for Shipping)" ,:id =>"final_price_label" %> 	<%= f.text_field :deposit_total %> </li>
 
 
 		    <%= f.submit %>
@@ -36,24 +40,94 @@
 		</fieldset>
 
 
+	<% end %>
+
+
+ 		<%= javascript_include_tag "global/underscore" %>
 		<script>
+
+		function disableAll(){
+			$("#order_bank_id").attr("disabled","disabled");
+			$("#order_bank_id")[0].selectedIndex= 0;
+			$("#order_COD_mobile").attr("disabled","disabled");
+			$("#order_COD_mobile").val("");
+			$("#order_citruspay_response").val("");
+			$("#order_citruspay_response").attr("disabled","disabled");
+
+		}
 
 		$(document).ready(function(){
 
+				//one time
+				$("#order_rental_total").attr("readonly","true");
+				$("#order_total").attr("readonly","true");
+				$("#order_deposit_total").attr("readonly","true");
+				disableAll();
 
-				$("#order_bank_id").attr("disabled","disabled");
-				$("#order_COD_mobile").attr("disabled","disabled");
-				$("#order_rental_total").attr("disabled","disabled");
-				$("#order_total").attr("disabled","disabled");
-				$("#order_deposit_total").attr("disabled","disabled");
+				$("#payment_type_bank").change(function(){
+					disableAll();
+					if ($("#payment_type_bank :selected")){
+						$("#order_bank_id").removeAttr("disabled");
+					}
+
+				});
+
+				$("#payment_type_COD").change(function(){
+					disableAll();
+					if ($("#order_COD_mobile :selected")){
+						$("#order_COD_mobile").removeAttr("disabled");
+					}
+				});
+
+				$("#payment_type_online").change(function(){
+					disableAll();
+					if ($("#payment_type_online :selected")){
+						$("#order_citruspay_response").removeAttr("disabled");
+					}
+
+
+				});
 
 		});
 
-		
+		$("#isbn13").change(function(){
+			$("#order_rental_total").val("");
+			$("#order_total").val("");
+			$("#order_deposit_total").val("");
+		});
+
+		$("#fetch_amounts").click(function(){
+
+			$.ajax({
+				url: '/admin/orders/new/fetch_amounts',
+				data:{
+					isbn: _.uniq($("#isbn13").val().split(","))
+				},
+				type:"post",
+				success:function(data){
+					
+
+					$("#order_rental_total").val(data[0]);
+					$("#order_total").val(data[1]);
+					$("#order_deposit_total").val(data[0] + data[1]);
+
+					if (data[1] < 1000 ){
+						$("#order_deposit_total").val(50 + data[1]);
+						$("#final_price_label").val("Final Price(Rs. 50 for Shipping)");
+					}
+					else{
+						$("#order_deposit_total").val(data[1]);
+						$("#final_price_label").val("Final Price(Shipping Free)");
+					}
+				}
+
+			});
+			return false;
+		});
+
+
+		$("#payment_type_bank").trigger("change")
 		</script>
-
-
-	<% end %>
 
 
 <% else %>

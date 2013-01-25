@@ -10,7 +10,7 @@ ActiveAdmin.setup do |config|
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = "/"
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -153,3 +153,25 @@ ActiveAdmin.setup do |config|
 
   
 end
+
+
+
+module ActiveAdmin 
+  module Views 
+    module Pages 
+      class Base < Arbre::HTML::Document 
+
+        def build_footer
+            div :id => "active_admin_footer" do
+              'A product of <a href="http://www.devbrother.com"> CodeBramha </a> &copy;'.html_safe
+            end
+        end 
+
+
+        def display_name
+          ""
+        end        
+      end
+    end 
+  end 
+end 

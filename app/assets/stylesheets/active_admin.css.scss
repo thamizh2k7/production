@@ -61,9 +61,29 @@
 }
 
 
-
-/*New order */
-
-#order_bank_id{
-	
+#active_admin_footer{
+	clear:both;
+	bottom:0;
+	position:fixed;
+	width:100%;
+	text-align: center;
+	color:#999999;
+	background-color:#6a7176;
+	padding-top:0.5em;
+	padding-bottom:0.4em;
+	color:white;
 }
+
+#header{
+	position:absolute;
+	top:0;
+	display:block;
+}
+
+#active_admin_footer a{
+	text-decoration: none;
+	font-weight: bold;
+	color:white;
+}
+
+

@@ -1,7 +1,6 @@
 class ErrorsController < ApplicationController
 
   def routing
-   flash[:warning] = "Page not found"
    
   end
 

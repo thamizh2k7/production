@@ -24,9 +24,15 @@ ActiveAdmin.register Book do
 	    end
 	  end
     @rented_books = @rented_books.first(count)
+
+    #addin path for our own method to route to namespace
+    render "admin/books/rented_books"
+
+    #prepend_view_path "app/views/admin/books"
 	end
+
 	action_item :only => [:index] do
-    link_to('Rented Books',rented_books_admin_books_path())
+    link_to('Rented Books',rented_books_cb_admin_books_path())
   end
 
 
@@ -93,7 +99,7 @@ ActiveAdmin.register Book do
         row :category
         row :publisher
         row :images do |book|
-          image_tag(book.images.first.image, :width=>100)
+          image_tag(book.images.first.image, :width=>100) unless book.images.first.nil?  #if image is present
         end
     end
     active_admin_comments

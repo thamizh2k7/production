@@ -47,21 +47,30 @@ ActiveAdmin.register BookOrder do
 		# This is a column which displays the order id 
 		# and also provides a link to it.
 		column :order_id  do |book_order|
-			link_to book_order.order.random , admin_order_path(book_order.order)
+			link_to book_order.order.random , cb_admin_order_path(book_order.order)
 		end
 
 		## Column 3
 		# This is a column which displays the user id
 		# and also provides a link to it.
 		column :user_id do |book_order|
-			link_to User.find(book_order.order.user_id).name ,admin_user_path(User.find(book_order.order.user_id))
+			begin
+				link_to User.find(book_order.order.user_id).name ,cb_admin_user_path(User.find(book_order.order.user_id))
+			rescue
+				"User Deleted"
+			end
 		end
 
 		## Column 4
 		# This is a column which displays the name of the book
 		# and also provides a link to it. ##TODO##
 		column :book_id do |book_order|
-			link_to Book.find(book_order.book_id).name , admin_book_path(Book.find(book_order.book_id))
+			begin
+				link_to Book.find(book_order.book_id).name , cb_admin_book_path(Book.find(book_order.book_id))
+			rescue
+				"Book Deleted"
+			end
+
 		end
 
 		## Column 5

@@ -33,8 +33,8 @@ ActiveAdmin.setup do |config|
   # To set no namespace by default, use:
   #   config.default_namespace = false
   #
-  # Default:
-  # config.default_namespace = :admin
+  #Default:
+  config.default_namespace = :cb_admin
   #
   # You can customize the settings for each namespace by using
   # a namespace block. For example, to change the site title

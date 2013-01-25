@@ -108,7 +108,11 @@ class OrdersController < ApplicationController
     	@orders = Order.includes(:books).all
     else
     	college = College.where(:name => select).first
-    	@orders = college.orders
+    	@orders = []
+    	college.users.includes(:orders).each do |user|
+    		@orders += user.orders
+    	end
+    	
     end
     @orders.each do |order|
       if @rented_books.count <= count

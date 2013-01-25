@@ -13,3 +13,17 @@
  */
 
 /* defining fonts for the site */
+
+
+
+		.static_page_content{
+			width:80%;
+			margin:auto;
+		}
+
+		.static_page{
+			border-top: 1px solid #cccccc;
+			padding: 2em;
+			background: url("/assets/paper.jpg") repeat;
+		}
+

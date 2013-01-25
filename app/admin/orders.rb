@@ -97,10 +97,10 @@ ActiveAdmin.register Order do
       order = Order.find(params[:id])
       #order.bank = Bank.find(params[:order][:bank_id])
       if order.update_attributes(params[:order])
-        redirect_to cb_admin_path
+        redirect_to ab_admin_path
       else
           flash[:notice] = "Order updated Successfully"
-          redirect_to cb_admin_path
+          redirect_to ab_admin_path
       end
 
     end
@@ -173,7 +173,7 @@ ActiveAdmin.register Order do
 
       if order.save 
         msg = "Order Placed Sucessfully"
-        render :js => "alert('" + msg+ "'); window.location ='/cb_admin/orders' "
+        render :js => "alert('" + msg+ "'); window.location ='/ab_admin/orders' "
       return
       else
         msg = "Order Placing Failed"
@@ -193,7 +193,7 @@ ActiveAdmin.register Order do
   	column "Order ID", :random
   	column "User", :user_name do |order|
       puts order.inspect
-  		link_to(order.user.name ,cb_admin_user_path(order.user))
+  		link_to(order.user.name ,ab_admin_user_path(order.user))
   	end
   	column :order_type
   	column :deposit_total
@@ -342,15 +342,15 @@ ActiveAdmin.register Order do
   #Display these actions only on the show action
   #hide for rest of the action
   action_item :only => [:show] do
-    link_to('Shipping Details',shipping_order_form_cb_admin_order_path(order))
+    link_to('Shipping Details',shipping_order_form_ab_admin_order_path(order))
   end
 
   action_item :only => [:show] do
-    link_to('Approve Order',approve_order_cb_admin_order_path(order))
+    link_to('Approve Order',approve_order_ab_admin_order_path(order))
   end
 
   action_item :only => [:show] do
-    link_to('Cancel Order',cancel_order_form_cb_admin_order_path(order))
+    link_to('Cancel Order',cancel_order_form_ab_admin_order_path(order))
   end
 
   ## Shipping Order

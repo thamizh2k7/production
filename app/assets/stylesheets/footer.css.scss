@@ -1,0 +1,54 @@
+
+/**footer**/
+.footer{
+	background: #242424;
+}
+.footer ul li{
+	border-right: 3px solid #303030;
+    font-size: 15px;
+    padding:5px 20px;
+    width: 180px;
+    line-height:22px;
+}
+.footer ul li a{
+	 color: #919191;
+}
+.footer .grid_1{
+	padding:20px 0px;
+}
+.footer_cpy{
+	background: none repeat scroll 0 0 #1A1A1A;
+    color: #656565;
+    padding: 10px 0;
+}
+.footer_cpy span{
+	margin-left: 550px;
+}
+.links{
+	margin-right: 70px;
+}
+.foot_box ul li{
+	float: left;
+    height: 47px;
+    margin: 14px 8px 0 0;
+    padding: 0;
+    width: 47px;
+	border: 0;
+}
+.foot_box ul li a{
+	display: block;
+    height: 100%;
+    width: 100%;
+}
+.foot_box ul li a:hover{
+	background: url("/assets/home-sprite.png") no-repeat;
+}
+.foot_box ul li .fb:hover{
+	background-position: 0px -350px;
+}
+.foot_box ul li .twit:hover{
+	background-position: -55px -350px;
+}
+.foot_box ul li .blog:hover{
+	background-position: -110px -350px;
+}

@@ -1,5 +1,6 @@
 <%= stylesheet_link_tag "index/application" %>
 <%= stylesheet_link_tag "inner" %>
+<%= stylesheet_link_tag "footer" %>
 <%= javascript_include_tag "homepage/homepage" %>
 
 
@@ -108,58 +109,6 @@
 	</div>
 </div>
 
-<div class="footer">
-	<div class="wrapper">
-		<div class="right links">
-			<div class="grid_1">
-				<ul class="left">
-					<li><a href="#terms_of_use_page" class="static_page_dialog_open">Terms of Use</a></li>
-					<li><a href="#privacy_policy_page" class="static_page_dialog_open">Privacy Policy</a></li>
-					<li><a href="#contact_us_page" class="static_page_dialog_open">Contact Us</a></li>
-				</ul>
-				<ul class="left">
-					<li><a href="#about_us_page" class="static_page_dialog_open">About Us</a></li>
-					<li><a href="#pricing_page" class="static_page_dialog_open">FAQ</a></li>
-					<li><a href="#colleges_page" class="static_page_dialog_open">College ambassadors</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="foot_box left">
-			<ul>
-				<li><a class="fb" href="http://www.facebook.com/sociorent" target="_blank"></a></li>
-				<li><a class="twit" href="http://www.twitter.com/sociorent" target="_blank"></a></li>
-				<li><a class="blog" href="http://sociorent.com/blog" target="_blank"></a></li>
-			</ul>
-		</div>
-		<div class="cB"></div>
-	</div>
-</div>
-<div class="footer_cpy">
-	<div class="wrapper">
-		<span>&copy; Sociorent. All rights reserved.</span>
-	</div>
-</div>
-
-<div id="book_details" class="font-dialog"></div>
-
-<div id="login_box" class="font-dialog">
-	<div id="login_box_left">
-		<div id="login_box_left_login" class="boxes">
-			<div class="login_error_msg"></div><br>
-			<%= render :template => "devise/sessions/new" %>
-		</div>
-		<div id="login_box_left_password" class="boxes">
-			<%= render :template => "devise/passwords/new" %>
-		</div>
-		<div id="login_box_left_signup" class="boxes">
-			<%= render :template => "devise/registrations/new" %>
-		</div>
-	</div>
-	<div id="login_box_right">
-				<a class="fb_big_logi" href="/users/auth/facebook"></a>
-	</div>
-	<div class="clear"></div>
-</div>
 
 <script type="text/javascript">
 $("document").ready(function(){
@@ -280,8 +229,8 @@ $("document").ready(function(){
       	}
       	else{
       			$(".forgot_error").html("Error Occured");
-
       	}
+
       	$("#loading_div").fadeOut();
       }
     });

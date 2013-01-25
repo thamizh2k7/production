@@ -46,7 +46,9 @@ Sociorent::Application.routes.draw do
   end
 
   namespace :admin do
+    post 'orders/new/fetch_amounts' => 'orders#fetch_amount'
     post 'orders/:id/edit' => 'orders#update'
+    post 'orders/create' => 'orders#create'
   end
 
   devise_for :counters

@@ -111,7 +111,7 @@ $(document).ready ->
 
 		search_author: (ev)->
 			author = $.trim $(ev.target).html()
-			$("#book_details").dialog("close")
+			$("#book_details").isOpen() 
 			$("#search_books_input").val(author)
 			search()
 			false

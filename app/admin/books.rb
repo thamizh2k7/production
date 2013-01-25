@@ -32,7 +32,7 @@ ActiveAdmin.register Book do
 	end
 
 	action_item :only => [:index] do
-    link_to('Rented Books',rented_books_cb_admin_books_path())
+    link_to('Rented Books',rented_books_ab_admin_books_path())
   end
 
 

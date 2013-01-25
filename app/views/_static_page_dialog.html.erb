@@ -5,10 +5,7 @@
 		<div><%= raw pricing.page_content %></div>
 	</div>
 
-	<% about_us = StaticPage.where(:page_name => "about_us").first %>
-	<div id="about_us_page" title="<%= about_us.page_title %>" class="sub">
-	  <div><%= raw about_us.page_content %></div>
-	</div>
+
 
 	<% teams = StaticPage.where(:page_name => "teams").first %>
 	<div id="teams_page" title="<%= teams.page_title %>" class="sub">

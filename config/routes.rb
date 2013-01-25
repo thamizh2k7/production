@@ -45,7 +45,7 @@ Sociorent::Application.routes.draw do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
-  namespace :cb_admin do
+  namespace :ab_admin do
     post 'orders/new/fetch_amounts' => 'orders#fetch_amount'
     post 'orders/:id/edit' => 'orders#update'
     post 'orders/create' => 'orders#create'

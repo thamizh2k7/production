@@ -126,7 +126,8 @@
 		});
 
 
-		$("#payment_type_bank").trigger("change")
+		$("#payment_type_bank").trigger("change");
+		$("#payment_type_COD").change
 		</script>
 
 
@@ -147,8 +148,7 @@
 				<label class="label"> User </label>  <b> <%= link_to @ord.user.name , admin_user_path(@ord.user) %> </b>
 			</li>
 
-
-			<%= f.input :bank_id, :as => :select ,:collection => Bank.all , :selected => @ord.bank.id %>
+			<%= f.input :bank_id, :as => :select ,:collection => Bank.all , :selected => (@ord.bank.nil?) ? '' :@ord.bank.id  %>
 		    <%= f.input :total  %>
 		    <%= f.input :rental_total %>
 		    <%= f.input :order_type %>
@@ -163,11 +163,13 @@
 				<label class="label"> Status </label>  <b><%= @ord.order_status %> </b>
 			</li>
 
+
+
 			<li>
 				<label class="label"> CitrusPay Response </label>  <b> <%= @ord.citruspay_response.nil? ? "EMPTY" : @ord.citruspay_response %> </b>
-	    
+	    <br/>
 
-		    <%= f.button  %>
+		    <%= f.actions  %>
 
 	</ol>
 	</fieldset>

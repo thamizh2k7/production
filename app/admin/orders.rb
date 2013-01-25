@@ -66,6 +66,7 @@ ActiveAdmin.register Order do
     def edit
       
       @ord = Order.find(params[:id])
+      puts "Findddddddd "+ @ord.inspect
       super
     end
 

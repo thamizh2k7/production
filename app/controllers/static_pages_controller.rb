@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  layout "StaticPage"
 
   def about_us
   	@aboutus = StaticPage.where(:page_name => 'about_us').first

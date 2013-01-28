@@ -162,15 +162,10 @@ module ActiveAdmin
       class Base < Arbre::HTML::Document 
 
         def build_footer
-            div :id => "active_admin_footer" do
-              'A product of <a href="http://www.devbrother.com"> CodeBramha </a> &copy;'.html_safe
-            end
-        end 
-
-
-        def display_name
-          ""
-        end        
+          div :id => "active_admin_footer" do
+            'Active admin for Sociorent.com'.html_safe
+          end
+        end      
       end
     end 
   end 

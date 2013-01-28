@@ -2,8 +2,8 @@ class HomeController < ApplicationController
   def index
     @user=current_user
     if @user
-      # check if user has college
-      if @user.mobile_number.nil?
+      # check if user has mobile ,college, stream 
+      if @user.mobile_number.nil? || @user.college.nil? || @user.stream.nil?
         redirect_to "/welcome"
         return
       end
@@ -33,6 +33,20 @@ class HomeController < ApplicationController
       end
       # orders made by the user
       @orders = @user.orders
+      #referrals by ambassador 
+      unless @user.ambassador_manager.nil?
+        @users_of_ambassador = Hash.new
+        @ambassador = @user.ambassador_manager
+        @ambassador.colleges.includes(:users).each do |college|
+          # college ambassador count is one and ambassador should not be included
+          if college.ambassadors.count == 1 
+            @users_of_ambassador[college.name] = college.users.where("id <>?",@user.id)
+          elsif college.ambassadors.count > 1
+            @users_of_ambassador[college.name] = @ambassador.users
+          end
+        end
+      end
+
       # companies for internship
       @companies = Company.all
   		# render inner when user is logged in
@@ -52,9 +66,9 @@ class HomeController < ApplicationController
   def search
     resp = {}
     if params[:query] == ""
-      @books = intelligent_books(current_user)
-      @books += Book.first(6-@books.count) if @books.count < 6
-    else
+       @books = intelligent_books(current_user)
+       @books += Book.first(6-@books.count) if @books.count < 6
+     else
   	  @books = Book.search params[:query], :star => true
       unless params[:query].=~ /^[0-9]+$/
         resp[:suggestion] = params[:query]
@@ -71,16 +85,21 @@ class HomeController < ApplicationController
       #   puts weight
       #   puts "%%%%%%%%%%%%%%%%%%%%%%%%%%"
       # end
-    end
+     end
+
     # @books.delete(nil)
     if @books.count > 6
       resp[:load_more] = true
     else
       resp[:load_more] = false
     end
+
     @books = @books.first(6)
-    resp[:books] = @books.to_json(:include => :publisher)
-  	render :json => resp.to_json()
+    
+     resp[:books] = @books.to_json(:include => :publisher)
+  	
+    render :json => resp.to_json()
+
   end
 
   def load_more
@@ -143,44 +162,25 @@ class HomeController < ApplicationController
   end
 
   def get_adoption_rate
-    user = current_user
-    @book = Book.find(params[:book].to_i)
-    resp = []
-    class_adoption_resp = []
-    review_resp = []
-    if user
-      College.all.each do |college|
-        class_adoption = @book.class_adoptions.where(:college_id => college).first.to_json(:only => [:rate,:id], :include =>{:college => {:only => [:name]}})
-        unless class_adoption == "null"
-          class_adoption_resp << JSON.parse(class_adoption)
-        else
-          class_adoption = Hash.new
-          class_adoption["rate"] = @book.orders.where(:user_id => college.users).count
-          college_name = Hash.new
-          college_name["name"] = college.name
-          class_adoption["college"] = college_name
-          class_adoption_resp << class_adoption
-        end
-      end
-    end
+
+     user = current_user
+     @book = Book.find(params[:book].to_i)
+     resp = []
+    
+     review_resp = []
+    
+
     review_resp = JSON.parse @book.reviews.to_json(:include => {:user => {:only => :name}})
     # check if current user is allowed to make a review for this book
-    if user
-      if user.books.where(:id => @book).first.nil? || user.reviews.where(:book_id => @book).first
-        review_resp << {"make_review"=>0}
-      else
-        review_resp << {"make_review"=>1}
-      end
-    end
     resp << review_resp
-    resp << class_adoption_resp
+    #resp << class_adoption_resp
     render :json => resp.to_json()
   end
 
   def make_review
     user = current_user
     book = Book.find(params[:book].to_i)
-    review = user.reviews.create(:content => CGI.escapeHTML(params[:content]), :book_id => book.id)
+    review = user.reviews.create(:content => CGI.escapeHTML(params[:content]), :book_id => book.id, :semester => params[:semester])
     render :json => review.to_json(:include => {:user => {:only => :name}})
   end
 
@@ -196,10 +196,6 @@ class HomeController < ApplicationController
     resp = {}
     if user.update_attributes(:address=>params.except(:controller, :action).to_json)
       resp[:text] = "success"
-      g=Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-      if Pincode.where(:pincode=>params[:address_pincode]).count > 0
-        resp[:gharpay] = "true"
-      end
       resp[:user] = user.to_json(:include => {:college => {:only => :name}, :stream => {:only => :name}})
     else
       resp[:text] = "failed"
@@ -237,22 +233,10 @@ class HomeController < ApplicationController
     render :text=> res and return
   end
 
-  def gharpay_pincode
-    require Rails.root.join('lib','Gharpay.rb')
-    g = Gharpay::Base.new('gv%tn3fcc62r0YZM','ccxjk24y6y%%%d!#')
-
-    #getting all the pincodes list from gharpay library..
-    pincodes = g.all_pincodes()
-    pincodes.each do |pincode|
-      Pincode.create(:pincode=>pincode)  if Pincode.where(:pincode=>pincode).count == 0
-    end
-    render :text=>pincodes and return
-  end
-
   # function for setting citrus signature parameter for ajax call
   def citrus_signature
     require 'openssl'
-    merchant_secret_key="1d82ceea715a4e10e21be75fd1f3f2d29724317f"
+    merchant_secret_key="d8d6f0e50ba34b74f5e82e26e9d321531ef6619b"
     sign_text = "#{params[:merchantId]}#{params[:orderAmount]}#{params[:merchantTxnId]}#{params[:currency]}"
     
     # creating HMAC sha1 signature with secret key
@@ -277,6 +261,52 @@ class HomeController < ApplicationController
     end 
     render "print_label", :layout=>false 
   end
+
+
+
+  def book_deatils
+
+    
+    unless params[:isbn].nil? 
+   
+     user = current_user
+     book = Book.find_by_isbn13(params[:isbn])
+
+
+    book1 = Book.find(book.id)
+        
+    review_resp = JSON.parse book1.reviews.to_json(:include => {:user => {:only => :name}})
+    
+    
+     resp ={
+      :name => book.name,
+      :author => book.author,
+      :book_image => "http://www.sociorent.in" + ((book.images.first.nil?) ?  "/assets/Sociorent.png" : book.images.first.image.url ).to_s,
+      :edition => book.edition,
+      :rank => book.rank,
+      :price => book.price,
+      :publisher => book.publisher,
+      :isbn10 => book.isbn10,
+      :isbn13 => book.isbn13,
+      :binding => book.binding,
+      :published => book.published,
+      :pages => book.pages,
+      :description => book.description,
+      :strengths => book.strengths,
+      :weaknesses => book.weaknesses,
+      :reviews => review_resp
+      }
+
+    render :json => resp.to_json()
+
+    else
+      return :json => []
+    end
+  end
+
+
+
+
 
   def print_invoice
     @order=Order.find(params[:order])

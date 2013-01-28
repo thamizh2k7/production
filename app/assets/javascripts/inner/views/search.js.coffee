@@ -77,6 +77,11 @@ $(document).ready ->
 					$(".book_details .add_to_cart").html "In Your Cart"
 				$("#book_details_box").scrollTop("0px")
 				$("#book_details_box").dialog("open")
+
+				#add has for the url
+
+				window.location.hash = "book/" + @model.get "isbn13"
+
 				# update authors in book details
 				author = @model.get "author"
 				author_array = author.split ","
@@ -90,11 +95,7 @@ $(document).ready ->
 						book: that.model.id
 					success: (msg)->
 						sociorent.fn.hide_notification()
-						# can user make review
-						make_review = msg[0].splice(msg[0].length - 1)[0].make_review
-						unless make_review == 0
-							$(".reviews_form").show()
-							$(".reviews_caption_right").show()
+
 						# show reviews
 						sociorent.collections.review_object.reset msg[0]
 						sociorent.collections.review_object.sort({silent: true})
@@ -105,16 +106,8 @@ $(document).ready ->
 						# show class adoption rate
 						sociorent.collections.class_adoption_object.reset msg[1]
 						rate_sum = _.reduce sociorent.collections.class_adoption_object.models, (rate_sum, model)->
-							model.get("rate") + rate_sum
+							model.get("rate") + rate_sum 
 						, 0
-						# show total rented times in view
-						$(".class_adoption_caption span").html rate_sum
-						_.each sociorent.collections.class_adoption_object.models, (model)->
-							model.set
-								percent: parseInt((model.get("rate")/rate_sum)*100)
-							view = new sociorent.views.class_adoption
-								model: model
-							$(".class_adoption").append view.render().el
 
 
 		render: ->
@@ -134,8 +127,8 @@ $(document).ready ->
 				original_image: original_image
 				name: @model.get "name"
 				author: @model.get "author"
-				mrp: @model.get "price"
-				rent_price: ((@model.get("price") * @model.get("publisher").rental)/100).toFixed(0)
+				mrp: Math.ceil(@model.get "price")
+				rent_price: Math.ceil((@model.get("price") * @model.get("publisher").rental)/100)
 				cart_message: cart_message
 				rented_message: rented_message
 			if sociorent.collections.cart_object.get(@model.id)

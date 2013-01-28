@@ -28,13 +28,15 @@ Sociorent::Application.routes.draw do
   match "book/details/:id" => "home#book"
   match "validate/:type" => "home#validate"
   match "print_invoice/:order"=>"orders#print_invoice"
-  match "pincodes" =>"home#gharpay_pincode"
   match "getSignature" =>"home#citrus_signature"
   match "/verify_code" => "orders#verify_code"
   match "/print_label" => "home#print_label"
   match "/print_invoice" => "home#print_invoice"
   match "/get_colleges" =>"users#get_colleges"
   match "/get_streams" => "users#get_streams"
+
+  #matches #book/isbn
+  get '/book/:isbn' => "home#book_deatils"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

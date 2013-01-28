@@ -37,7 +37,7 @@ $(document).ready ->
 				book_image: @model.get "book_image"
 				name: @model.get "name"
 				author: @model.get "author"
-				price: @model.get "price"
+				price: Math.ceil(@model.get "price")
 				cart_message: cart_message
 			if sociorent.collections.cart_object.get(@model.id)
 				@$(".add_to_cart").css

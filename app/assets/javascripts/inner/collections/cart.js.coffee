@@ -59,6 +59,6 @@ sociorent.fn.calculate_cart_deposit_total = ()->
 sociorent.fn.calculate_cart_rental_total = ()->
 	total = 0
 	_.each sociorent.collections.cart_object.models, (model)->
-		rental = (parseInt(model.get("price")*model.get("publisher").rental)/100).toFixed(0)
+		rental = Math.ceil(parseInt(model.get("price")*model.get("publisher").rental)/100)
 		total += parseInt(rental)
 	total

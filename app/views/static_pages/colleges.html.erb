@@ -1,4 +1,27 @@
-
-	<div id="colleges_page" class="static_page" title=<%= @colleges.page_title %>  class="sub">
-		<div id="colleges_content" class="static_page_content"> <%= raw @colleges.page_content %></div>	  
+<div id="colleges_page" title="Ambassadors" class="sub container">
+	  <div>
+	  	<table class="table table-bordered">
+	  		<thead>
+          <tr>
+            <th>#</th>
+            <th>Ambassador Name</th>
+            <th>Ambassador College</th>
+           </tr>
+         </thead>
+	  		<tbody>
+			  	<% @ambas = Ambassador.includes(:colleges).all%>
+			  	<% c = 0 %>
+			  	<% @ambas.each do |a|%>
+				  	<tr>
+				  		<td><%= c+=1 %></td>
+				  		<td><%= a.ambassador_manager.name %></td>
+				  		<td><% a.colleges.each do |college| %>
+				  			<%= college.name %><br>
+				  		<% end %>
+				  		</td>
+				  	</tr>
+			  	<% end %>
+	  	</tbody>
+	  </table>
+	  </div>
 	</div>

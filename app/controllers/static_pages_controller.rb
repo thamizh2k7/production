@@ -8,11 +8,6 @@ class StaticPagesController < ApplicationController
   	@pricing = StaticPage.where(:page_name => 'pricing').first
   end
 
-
-  def colleges
-  	@colleges = StaticPage.where(:page_name => 'colleges').first
-  end
-
   def colleges
   	@colleges = StaticPage.where(:page_name => 'colleges').first
   end
@@ -28,10 +23,5 @@ class StaticPagesController < ApplicationController
   def termsofuse
   	@termsofuse = StaticPage.where(:page_name => 'terms_of_use').first
   end
-
-
-
   
-  
-
 end

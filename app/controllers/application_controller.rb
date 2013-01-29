@@ -42,5 +42,8 @@ class ApplicationController < ActionController::Base
     end
   end  
 
+def p2p_layout
+  'p2p_layout'
+end
   
 end

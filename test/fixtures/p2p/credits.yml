@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  type: 1
+  totalCredits: 1
+  available: 1
+
+two:
+  user: 
+  type: 1
+  totalCredits: 1
+  available: 1

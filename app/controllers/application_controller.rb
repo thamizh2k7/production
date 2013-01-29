@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :add_www_subdomain
+ # before_filter :add_www_subdomain
   rescue_from Exception, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownController, with: :render_404

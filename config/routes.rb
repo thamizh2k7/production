@@ -1,5 +1,7 @@
 Sociorent::Application.routes.draw do
 
+
+
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)
@@ -62,6 +64,12 @@ Sociorent::Application.routes.draw do
   end
 
   devise_for :counters
+
+  ##P2P Routes
+  namespace :p2p do
+      get '' => "index#index"
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

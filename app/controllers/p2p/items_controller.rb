@@ -19,7 +19,7 @@ class P2p::ItemsController < ApplicationController
     item.category = P2p::Category.find(params["item"]["category"])
 
     #echo params["item"]['attribute'].count
-
+    
      params["item"]['attribute'].each do |key,value|
       puts key + "   " + value
 

@@ -48,7 +48,11 @@ class ApplicationController < ActionController::Base
   ##P2P layout
   # this selects the layout for the p2p namespace
   def p2p_layout
-    'p2p_layout'
+    if request.xhr? 
+      return false;
+    else
+      return 'p2p_layout'
+    end
   end
 
   ##P2p Authentication

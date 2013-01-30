@@ -1,15 +1,21 @@
 <%= form_for @item , :html => {:class => "form-horizontal" ,:id =>"new_item" } do |item|%>
 
-
-	
 	<div class="control-group">
 		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
 		<div class="controls">
-			<%= select_tag "item[category]" ,:collection => P2p::Category.all %>
+			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("parent_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" %>
 		</div>
 	</div>
 
 	
+	<div class="control-group">
+		<%= label_tag "SubCategory" ,"Sub Category",:class=>"control-label" %>
+		<div class="controls">
+			<%= select_tag "item[category]" ,options_from_collection_for_select([],0,0),:prompt => "Select a sub Category" ,:id=> "item_sub_category" %>
+		</div>
+	</div>
+
+
 	<div class="control-group">
 		<%= item.label :title ,:class=>"control-label" %>
 		<div class="controls">
@@ -19,31 +25,96 @@
 
 	<div class="control-group">
 		<%= item.label :desc ,:class=>"control-label" %>
-		<!--TODO: Correct rows-->
 		<div class="controls">
-			<%= item.text_area :desc , :id => 'item_desc' ,:rows => 5 ,:cols => 70 %>
+			<%= item.text_area :desc ,:rows => 5%>
 		</div>
 	</div>
 
 
-	<%@attr.each do |attr| %>
-		<div class="control-group">
-			<%= item.label attr.name ,:class=>"control-label" %>
+	<div id="itemattributes">
 
-			<div class="controls">
-			<%= text_field_tag "item[attribute][" + attr.id.to_s + "]" %>
-			</div>
-		</div>
 
-	<% end %>
+	</div>
 
-		<div class="control-group">
-			<div class="controls">
-				<%= item.submit "Sell Item" ,:class=> "btn btn-primary" %>
-			</div>
-
-		</div>
+</div>
 
 <% end %>
 
 
+
+
+
+<script>
+
+
+
+		cat_fetch_error = function(){
+					$("#itemattributes").html('<div class="control-group"><div class="controls info-warning">Select category to show deatils </div></div>');	
+				}
+
+		cat_change =function(elem){
+
+			if ($("this").val()==""){
+				cat_fetch_error();
+				return false;
+			}
+			$.ajax({
+				url:'getattributes/' + $("this").val(),
+				type:"get",
+				success:function(data){
+						$("#itemattributes").html(data);
+				},
+				error:cat_fetch_error()
+
+			});
+		}
+
+	$("#item_category").change(function(elem){
+
+
+			var that =$("#item_sub_category")
+
+
+			if ($(this).val()==""){
+				cat_fetch_error();
+				return false;
+			}
+
+
+			$.ajax({
+				url:'getsubcategories/' + $(this).val(),
+				type:"get",
+				dataType:"json",
+				success:function(data){
+    					that.empty();
+    						that.append('<option value="">Select a Sub Category </option>');
+    					
+    					_.each(data,function(option){
+      						that.append('<option value="' + option.id + '">' + option.name + '</option>');
+    					
+
+    					});
+				}
+
+			});
+
+		});
+	$("#item_sub_category").change(function(elem){
+
+			if ($(this).val()==""){
+				cat_fetch_error();
+				return false;
+			}
+			$.ajax({
+				url:'getattributes/' + $(this).val(),
+				type:"get",
+				success:function(data){
+						$("#itemattributes").html(data);
+				},
+				error:cat_fetch_error()
+
+			});
+		});
+
+
+</script>

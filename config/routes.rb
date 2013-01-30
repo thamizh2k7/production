@@ -2,18 +2,6 @@ Sociorent::Application.routes.draw do
 
 
 
-  get "items/index"
-
-  get "items/new"
-
-  get "items/create"
-
-  get "items/update"
-
-  get "items/destroy"
-
-  get "items/edit"
-
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)
@@ -80,6 +68,10 @@ Sociorent::Application.routes.draw do
   ##P2P Routes
   namespace :p2p do
       get '' => "index#index"
+      get 'sellitem' => "items#new"
+
+
+      resources :items
   end
 
 

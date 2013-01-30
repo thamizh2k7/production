@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
  # before_filter :add_www_subdomain
-  rescue_from Exception, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from ActionController::UnknownController, with: :render_404
 
-  rescue_from AbstractController::ActionNotFound, with: :render_404 # To prevent Rails 3.2.8 deprecation warnings
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+ if Rails.env.production?
+    rescue_from Exception, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActionController::UnknownController, with: :render_404
+
+    rescue_from AbstractController::ActionNotFound, with: :render_404 # To prevent Rails 3.2.8 deprecation warnings
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+ end
 
   protect_from_forgery
   def send_sms(receipient,msg)
@@ -24,8 +27,8 @@ class ApplicationController < ActionController::Base
     end
   end
   def render_404(exception = nil)
-    flash[:warning]="Page not found"
-    redirect_to "/"
+     flash[:warning]="Page not found"
+     redirect_to "/"
   end
 
   private
@@ -42,8 +45,17 @@ class ApplicationController < ActionController::Base
     end
   end  
 
-def p2p_layout
-  'p2p_layout'
-end
-  
+  ##P2P layout
+  # this selects the layout for the p2p namespace
+  def p2p_layout
+    'p2p_layout'
+  end
+
+  ##P2p Authentication
+  def p2p_user_signed_in
+    if !(user_signed_in?)
+      redirect_to '/p2p'
+    end
+  end
+
 end

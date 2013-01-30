@@ -1,2 +1,49 @@
-<h1>P2p::Items#new</h1>
-<p>Find me in app/views/p2p/items/new.html.erb</p>
+<%= form_for @item , :html => {:class => "form-horizontal" ,:id =>"new_item" } do |item|%>
+
+
+	
+	<div class="control-group">
+		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
+		<div class="controls">
+			<%= select_tag "item[category]" ,:collection => P2p::Category.all %>
+		</div>
+	</div>
+
+	
+	<div class="control-group">
+		<%= item.label :title ,:class=>"control-label" %>
+		<div class="controls">
+			<%= item.text_field :title %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= item.label :desc ,:class=>"control-label" %>
+		<!--TODO: Correct rows-->
+		<div class="controls">
+			<%= item.text_area :desc , :id => 'item_desc' ,:rows => 5 ,:cols => 70 %>
+		</div>
+	</div>
+
+
+	<%@attr.each do |attr| %>
+		<div class="control-group">
+			<%= item.label attr.name ,:class=>"control-label" %>
+
+			<div class="controls">
+			<%= text_field_tag "item[attribute][" + attr.id.to_s + "]" %>
+			</div>
+		</div>
+
+	<% end %>
+
+		<div class="control-group">
+			<div class="controls">
+				<%= item.submit "Sell Item" ,:class=> "btn btn-primary" %>
+			</div>
+
+		</div>
+
+<% end %>
+
+

@@ -2,6 +2,18 @@ Sociorent::Application.routes.draw do
 
 
 
+  get "items/index"
+
+  get "items/new"
+
+  get "items/create"
+
+  get "items/update"
+
+  get "items/destroy"
+
+  get "items/edit"
+
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)

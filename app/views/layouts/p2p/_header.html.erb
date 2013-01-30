@@ -1,4 +1,7 @@
 <div id="header"> 
+	
+	<%= render 'home/login' %>
+
 	<div id="header_container">
 
 			<div id="top_logo" class="pull-left">
@@ -13,9 +16,26 @@
 			</div>
 
 			<div class="pull-right">
-				<span class="btn">Login </span>
+
+				<% if current_user %>
+
+					<strong class="btn"> <%= current_user.name  %> </strong> 
+					<span class="btn"> 
+						<!-- TODO: Correct Signout -->
+					<%= link_to "SignOut", destroy_user_session_url, :method => :delete %>
+					 </span>
+
+				<% else %>
+
+					<a href="#login_box" role="button" class="btn" data-toggle="modal">Login</a>
+					
+				<% end %>
+
 			</div>
 
 	</div>
 	<div class="clearfix"></div>
+
+
+	
 </div>

@@ -50,7 +50,7 @@ module RailsAdmin
         register_instance_option :controller do
 					Proc.new do
             if request.method == "GET"
-            	render :action => @action.template_name
+              render :action => @action.template_name
             else
               csvfile = params[:book_csv].read
               CSV.parse(csvfile) do |row|

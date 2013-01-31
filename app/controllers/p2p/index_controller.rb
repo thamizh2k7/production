@@ -18,7 +18,7 @@ class P2p::IndexController < ApplicationController
     @search_result=[]
     @category.each do |c| 
 
-      puts category
+      puts c
       #items=P2p::Item.select("title,price").where('category_id=c.id')
       items=c.items.select("title,price")
       @search_result += items

@@ -2,6 +2,8 @@ Sociorent::Application.routes.draw do
 
 
 
+  get "cities/index"
+
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)
@@ -71,7 +73,11 @@ Sociorent::Application.routes.draw do
       get 'sellitem' => "items#new"
       get 'getattributes/:id' => "items#get_attributes"
       get 'getsubcategories/:id' => "items#get_sub_categories"
+      get 'view/:id' => 'items#view'
 
+      get 'mystore' => 'items#inventory'
+
+      post 'getcity'  => 'cities#list'
       resources :items
   end
 

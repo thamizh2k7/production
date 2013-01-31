@@ -1,7 +1,7 @@
 class P2p::ItemsController < ApplicationController
 
 
-  before_filter :p2p_user_signed_in
+  before_filter :p2p_user_signed_in ,:except => [:view]
   layout :p2p_layout
 
   def new
@@ -10,6 +10,7 @@ class P2p::ItemsController < ApplicationController
    
 
   end
+
 
   def create
     @v = params["item"]['attribute']
@@ -59,5 +60,20 @@ class P2p::ItemsController < ApplicationController
     cat = P2p::Category.select("id,name").where("parent_id = " + params[:id])
     render :json => cat
   end
+
+
+  def view
+    @item = P2p::Item.find(params[:id])
+    @attr = @item.attrs(:includes => :attr)
+
+  end
+
+  def inventory
+    user = P2p::User.find(current_user)
+
+    @items = user.items
+    
+
+end
 
 end

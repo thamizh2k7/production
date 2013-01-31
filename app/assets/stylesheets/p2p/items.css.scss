@@ -1,3 +1,106 @@
 // Place all the styles related to the p2p/Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#view_item{
+	width:70%;
+	padding:2em;
+	display:block;
+	float:left;
+	border-right:1px solid #cccccc;
+	height:100%;
+}
+
+#view_item_image{
+	float:left;
+	padding:3px;
+	border:1px solid #cccccc;
+	margin-right:1em;
+}
+#view_item_image img{
+
+	width:23em;
+	height:25em;
+}
+
+#item_title{
+	margin-top:6px;
+	font-size:3em;
+	margin-bottom:15px;
+}
+
+#item_price{
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+#item_description{
+	width:100%;
+	margin-left:6px;
+	display:block;
+
+}
+
+#analytics{
+	margin-left:1em;	
+	display:block;
+	width:23%;
+	float:left;
+}
+
+
+
+#item_attributes{
+	margin-left:2em;
+}
+
+.input_as_label{
+	border:none;
+	color:red;
+}
+
+
+
+#action-buttons{
+	width:23%;
+	margin-top:1em;
+	margin-left:1em;
+	display:block;
+	float:left;
+}
+
+
+//list user items
+
+.thumbnail{
+	margin-bottom:10px;
+	padding:5px;
+}
+.thumb_img{
+	float:left;
+	width:100px;
+	height:100px;
+	display:block;
+	padding:4px;
+	border:1px solid #cccccc;
+	margin-right:1em;
+
+	img{
+		display:block;
+		width:100%;
+		height:100%;
+	}
+}
+
+.item_title{
+	font-weight:bold;
+	font-size:1.3em;
+}
+
+
+//new sell item form
+#new_item{
+	margin:auto;
+	width:50%;
+}

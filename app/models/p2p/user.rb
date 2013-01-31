@@ -4,5 +4,7 @@ class P2p::User < ActiveRecord::Base
 
   has_many :items
   has_many :credits
+
+
   
 end

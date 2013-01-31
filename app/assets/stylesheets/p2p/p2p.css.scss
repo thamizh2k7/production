@@ -90,5 +90,23 @@ body{
 
 /* Items page */
 
-#item_desc{
+.item_img_holder{
+	width:150px;
+	height:100px;
+	float:left;
+	display:block;
+	border:1px solid #cccccc;
+	padding:2px;
+
+	img{
+		border:1px solid #cccccc;
+	}
 }
+
+
+.item_content {
+	width:80%;
+	float:left;
+	display:block;
+}
+

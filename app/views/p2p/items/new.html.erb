@@ -1,3 +1,8 @@
+<%= stylesheet_link_tag 'p2p/items'%>
+<%= javascript_include_tag 'global/jquery.ui.autocomplete'%>
+<%= javascript_include_tag 'global/jquery.typewatch'%>
+
+<h2> List your Item </h2>
 <%= form_for @item , :html => {:class => "form-horizontal" ,:id =>"new_item" } do |item|%>
 
 	<div class="control-group">
@@ -37,6 +42,13 @@
 		</div>
 	</div>
 
+	<div class="control-group">
+		<%= item.label :city_id ,:class=>"control-label" %>
+		<div class="controls">
+			<%= item.text_field :city_id %>
+		</div>
+	</div>
+
 
 	<div id="itemattributes">
 
@@ -46,9 +58,6 @@
 </div>
 
 <% end %>
-
-
-
 
 
 <script>
@@ -123,5 +132,24 @@
 			});
 		});
 
+	$("#p2p_item_city_id").typeWatch({
+		callback: function(){
+			$.ajax({
+				url:'/p2p/getcity/',
+				type:"post",
+				dataType:"json",
+				data:{
+					'query': $("#p2p_item_city_id").val()
+				},
+				success:function(data){
+					$("#p2p_item_city_id").autoComplete({source: data});
+				}
+			});
+		},
+		wait:200,
+		highlight:true,
+		captureLength:2
+	});
 
 </script>
+

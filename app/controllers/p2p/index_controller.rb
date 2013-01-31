@@ -11,13 +11,17 @@ class P2p::IndexController < ApplicationController
 
   def search
     puts "called search"    
-    @category =P2p::Category.search "#{params[:id]}" 
+    @category = P2p::Category.search "#{params[:id]}" 
     #@products.to_json
     puts "--------res" 
     puts @category
-    
+    @search_result=[]
     @category.each do |c| 
-      puts c.id
+
+      puts category
+      #items=P2p::Item.select("title,price").where('category_id=c.id')
+      items=c.items.select("title,price")
+      @search_result += items
       # c.items.each do |item|
       #   puts item.title,item.price
       # end
@@ -25,7 +29,7 @@ class P2p::IndexController < ApplicationController
 
 
     end
-    render :text => @category.to_json
+    render :text => @search_result.to_json
   end 
 
 end

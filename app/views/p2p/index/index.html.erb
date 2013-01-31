@@ -19,6 +19,8 @@ $(document).ready(function(){
                  $("#mobiles").hide();
                  $("#electronics").hide();
               console.log("sucess---"); 
+              template=$("#product_template").html();
+              _.template(template,{product:data})
 
             },
             
@@ -55,3 +57,21 @@ $(document).ready(function(){
  <%= render :partial => "item",:locals =>{ :items => @electronics }%>
 </div>
 
+<script id='product_template' type='text/template'>
+  <div class="products">
+    
+      <div class="product_title">
+        <em><%= product.title %></em> <br/>--location : <%= product.location %>
+      </div>
+      
+      <div class="product_img">
+       <img src="" alt="Picture coming Soon...."></img>
+      </div>
+      
+      <div class="product_tag">
+      <em><del>&#2352;</del> <%= product.price %></em> 
+      </div>
+   
+  </div>
+
+</script>

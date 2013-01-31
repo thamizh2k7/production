@@ -1,13 +1,14 @@
 		
-File.open("tmp/isbn.txt","r:ISO-8859-1") do |file|
-	@isbns = file.gets().split(",")
-end
+# File.open("tmp/isbn.txt","r:ISO-8859-1") do |file|
+# 	@isbns = file.gets().split(",")
+# end
 puts "===================="
 puts "fetched isbn numbers"
 puts "===================="
 
 #store isbn for which we could not get the details
 isbn_failed=[]
+@isbns= ["9789381068816"]
 
 #Loop over all the isbns we got and fetch the details from
 #flipkart
@@ -47,6 +48,7 @@ isbn_failed=[]
       	@failed = true
       end
       puts "ISBN :#{isbn} completed"
+      puts book
 
       #if there is not details for the requested isbn
       # then store it in the failed isbn list

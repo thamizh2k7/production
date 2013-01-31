@@ -1,0 +1,19 @@
+<!--Partial template for ini=itial stage item view  -->
+<%items.each do |p| %>
+
+  <div class="product">
+    
+      <div class="product_title">
+        <em><%=p.title%></em> 
+      </div>
+      
+      <div class="product_img">
+       <img src="#" alt="Picture coming Soon...."></img>
+      </div>
+      
+      <div class="product_tag">
+      <em><del>&#2352;</del> <%=p.price %></em> 
+      </div>
+   
+  </div>
+<% end %>

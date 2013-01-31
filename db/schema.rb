@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129170804) do
+ActiveRecord::Schema.define(:version => 20130130094508) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -285,6 +285,7 @@ ActiveRecord::Schema.define(:version => 20130129170804) do
     t.integer  "parent_id"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "category_id",                 :null => false
   end
 
   create_table "p2p_categories", :force => true do |t|
@@ -317,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20130129170804) do
   add_index "p2p_item_attributes", ["item_id"], :name => "index_p2p_item_attributes_on_item_id"
 
   create_table "p2p_items", :force => true do |t|
-    t.integer  "product_id"
+    t.integer  "category_id"
     t.string   "title"
     t.text     "desc"
     t.integer  "paytype"
@@ -329,9 +330,11 @@ ActiveRecord::Schema.define(:version => 20130129170804) do
     t.integer  "reqCount",      :default => 0
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.integer  "user_id",                          :null => false
+    t.float    "price"
   end
 
-  add_index "p2p_items", ["product_id"], :name => "index_p2p_items_on_product_id"
+  add_index "p2p_items", ["category_id"], :name => "index_p2p_items_on_product_id"
 
   create_table "p2p_messages", :force => true do |t|
     t.integer  "sender"

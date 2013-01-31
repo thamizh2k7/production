@@ -1,2 +1,57 @@
-<h1>P2p::Index#index</h1>
-<p>Find me in app/views/p2p/index/index.html.erb</p>
+
+<%= stylesheet_link_tag "index/application" %>
+<%= stylesheet_link_tag "inner" %>
+<%= javascript_include_tag "global/jquery.typewatch" %>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $("#search_books_input").typeWatch({
+      callback:function(){ 
+
+        console.log("changed search text"); 
+        $.ajax('/p2p/'+$(search_books_input).val(), {
+            type: 'GET',
+            
+            success: function(data) {
+                console.log(data)
+                 $("#mobiles").hide();
+                 $("#electronics").hide();
+              console.log("sucess---"); 
+
+            },
+            
+           });
+      },
+      wait:250,
+      highlight:true,
+      captureLength:5 
+  });
+});
+</script>
+
+
+
+
+<div class="search_wrap">
+      <h2>What You Wanna Buy ? </h2>
+      <div class="searchbar">
+        <form method="get" action="#" id="search">
+          <input type="text" id="search_books_input" name="q"  placeholder="Enter Title, Mobile Name, Book Name" class="left search">
+          <input id="search_books_input_hidden" type="hidden">
+          <input type="submit" value="Search" class="left searchbutton">
+          <input type="button" value="X" class="left btn" id="searchClose">
+        </form>
+      </div>
+    </div>
+
+ <div id='mobiles'>
+   <h4>Mobile </h4>
+   <%= render :partial => "item",:locals =>{ :items => @mobiles }%>
+</div>
+<div id="electronics">
+ <h4>Electronics</h4>
+ <%= render :partial => "item",:locals =>{ :items => @electronics }%>
+</div>
+

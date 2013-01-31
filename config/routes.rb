@@ -48,6 +48,7 @@ Sociorent::Application.routes.draw do
   match "/get_streams" => "users#get_streams"
 
 
+
   #matches #book/isbn
   get '/book/:isbn' => "home#book_deatils"
 
@@ -69,7 +70,7 @@ Sociorent::Application.routes.draw do
   namespace :p2p do
       get '' => "index#index"
       get 'sellitem' => "items#new"
-
+      match "/:id" =>"index#search", :via =>[:get,:post]
 
       resources :items
   end

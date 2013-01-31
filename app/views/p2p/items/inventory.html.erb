@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag "p2p/items"%>
+
+<% @items.each do |item|%>
+
+
+	<!--  render 'p2p/items/item_full_banner' ,:item => item %>	-->
+
+
+
+  <div class="thumbnail">
+    
+      <div class="thumb_img">
+        <img src="/assets/nokia1.jpg" alt="Picture coming Soon...."></img>
+      </div>
+      
+      <div class="thumb_content">
+        <div class="item_title"><%= item.title %> </div>
+
+        <div class="item_price"> 
+        	Price <em><del>&#2352;</del> <%= item.price %></em>
+        </div>
+        <div class="location">
+        	Location : item.location
+        </div>
+        <a href="#"><span class="buy_now">Buy Now!</span></a>
+         Location 
+        <a href="#">View Images</a>
+      </div>
+      
+      
+   <div class="clearfix"> </div>
+  </div>
+
+
+	
+<% end %>

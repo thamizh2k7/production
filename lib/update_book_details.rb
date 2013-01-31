@@ -1,5 +1,5 @@
 require 'csv'
-csvfiles = Csvupload.where(:status=>nil)
+csvfiles = Csvupload.where("status= NULL or status = 'error'")
 csvfiles.each do |csvfile|
   File.open(csvfile.csv.path,"r:iso-8859-1") do |f|
     @csvs = f.read
@@ -46,6 +46,16 @@ csvfiles.each do |csvfile|
         # puts book
         if Book.where(:isbn13=>row[4]).count == 0
           book_save=Book.create(book)
+          if row[13] !="" && row[13]!="0" && row[13]!=" - "
+            begin
+              if book_save.images.nil? 
+                book_save.images.create(:image_url=>row[13])
+              else
+                book_save.images.first.update_attributes(:image_url=>row[13])   
+              end
+            rescue
+            end
+          end
         else
           book_save=Book.where(:isbn13=>row[4]).first
           #puts book_save
@@ -66,17 +76,6 @@ csvfiles.each do |csvfile|
         book_save.book_streams.create(:stream_id=>stream.id)
         book_save.publisher=publisher
 
-        if row[13] !="" && row[13]!="0" && row[13]!=" - "
-          begin
-            if book_save.images.nil? 
-              book_save.images.create(:image_url=>row[13])
-            else
-              book_save.images.first.update_attributes(:image_url=>row[13])   
-            end
-          rescue
-          end
-        end
-
         book_save.save
         csvfile.update_attributes(:total_books=>total_books, :books_uploaded=>@books_uploaded,:isbns_not_uploaded=>isbns_not_uploaded.join(","))
         puts "===================="
@@ -91,7 +90,7 @@ csvfiles.each do |csvfile|
     puts "==========================="
     puts "Error sync ------#{@isbn}"
     puts "==========================="
-    isbns_not_uploaded = @isbn
+    isbns_not_uploaded << @isbn
     puts isbns_not_uploaded
     csvfile.update_attributes(:total_books=>total_books, :books_uploaded=>@books_uploaded,:isbns_not_uploaded=>isbns_not_uploaded.join(","),:status=>"error")
     attempts += 1

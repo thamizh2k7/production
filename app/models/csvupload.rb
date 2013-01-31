@@ -3,8 +3,8 @@ class Csvupload < ActiveRecord::Base
   has_attached_file :csv
  	rails_admin do
   	edit do
-			field :csv
-		end
+  		field :csv
+  	end
 		list do
 			field :csv
 			field :status do 

@@ -75,14 +75,32 @@ $(document).ready(function(){
         </form>
       </div>
     </div>
+
 <div id="content">
- <div id='mobiles'>
-   <h4>Mobile </h4>
-   <%= render :partial => "item",:locals =>{ :items => @mobiles }%>
-</div>
-<div id="electronics">
- <h4>Electronics</h4>
- <%= render :partial => "item",:locals =>{ :items => @electronics }%>
-</div>
+
+  <% @list.each do |list| %>
+    <% if list.products.size > 0 %>
+
+     <div id='<%= list.name %>'>
+        <h4><%= list.name %></h4>
+
+           <% products = list.products %>
+
+           <% products.each do |prod| %>
+              <% if prod.items.size > 0 %>
+
+                <div id='<%= prod.name %>'>
+                  <h5> <%= prod.name %> </h5>
+                 <%= render :partial => "item",:locals =>{ :items => prod.items }%>
+                </div>
+
+             <% end %>
+           <% end %>
+
+     </div>
+
+    <% end %>
+  <% end %>
+
 </div>
 

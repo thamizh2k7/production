@@ -2,6 +2,7 @@ class P2p::Category < ActiveRecord::Base
   attr_accessible :name, :category_id,:priority
 
   belongs_to :category , :class_name => "P2p::Category"
+  has_many :products , :class_name => "P2p::Product"
   
   define_index do
     indexes :name

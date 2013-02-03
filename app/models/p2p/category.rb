@@ -1,9 +1,7 @@
 class P2p::Category < ActiveRecord::Base
-  attr_accessible :name, :parent_id
+  attr_accessible :name, :category_id,:priority
 
-  has_many :items
-  has_many :attrs , :class_name => "Attribute" 
-  belongs_to :parent_category , :class_name => "P2p::Category" , :foreign_key => "parent_id"
+  belongs_to :category , :class_name => "P2p::Category"
   
   define_index do
     indexes :name

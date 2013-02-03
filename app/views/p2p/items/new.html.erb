@@ -3,12 +3,14 @@
 <%= javascript_include_tag 'global/jquery.typewatch'%>
 
 <h2> List your Item </h2>
-<%= form_for @item , :html => {:class => "form-horizontal" ,:id =>"new_item" } do |item|%>
 
+<div id="item_classification" class=" form-horizontal">
+
+  <div class="content">
 	<div class="control-group">
 		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
 		<div class="controls">
-			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("parent_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" %>
+			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("category_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" %>
 		</div>
 	</div>
 
@@ -20,44 +22,106 @@
 		</div>
 	</div>
 
-
 	<div class="control-group">
-		<%= item.label :title ,:class=>"control-label" %>
+		<%= label_tag "Brand" ,"Brand",:class=>"control-label" %>
 		<div class="controls">
-			<%= item.text_field :title %>
+			<%= select_tag "item[brand]" ,options_from_collection_for_select([],0,0),:prompt => "Select a Brand" ,:id=> "item_brand" %>
 		</div>
 	</div>
+  </div>
 
 	<div class="control-group">
-		<%= item.label :desc ,:class=>"control-label" %>
 		<div class="controls">
-			<%= item.text_area :desc ,:rows => 5%>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<%= item.label :price ,:class=>"control-label" %>
-		<div class="controls">
-			<%= item.text_field :price %>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<%= item.label :city_id ,:class=>"control-label" %>
-		<div class="controls">
-			<%= item.text_field :city_id %>
+			<input class="btn btn-primary" value="Next" type="button" id="item_classification_next">
 		</div>
 	</div>
 
 
-	<div id="itemattributes">
+</div>
 
 
+<div id="item_location"  class=" form-horizontal">
+
+	<div class="content">
+	</div>
+
+	<div class="control-group">
+			
+		<div class="controls">
+			<input class="btn btn-primary" value="Previous" type="button" id="item_location_previous">			
+			<input class="btn btn-primary" value="Next" type="button" id="item_location_next">
+		</div>
 	</div>
 
 </div>
 
-<% end %>
+<div id="item_details"  class=" form-horizontal">
+
+  <div class="content">
+	<div class="control-group">
+		<%= label_tag "title","Title" ,:class=>"control-label" %>
+		<div class="controls">
+			<%= text_field_tag "title" %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag "desc" ,"Description",:class=>"control-label" %>
+		<div class="controls">
+			<%= text_area_tag "desc" ,"",:rows => 5 ,:cols => 10 %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag "price" ,"Price" , :class=>"control-label" %>
+		<div class="controls">
+			<%= text_field_tag "price" %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag "city_id" ,"City ",:class=>"control-label" %>
+		<div class="controls">
+			<%= text_field_tag "city_id" %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag "pay_via","Pay Via" ,:class=>"control-label" %>
+		<div class="controls">
+			<%= text_field_tag "pay_via" %>
+		</div>
+	</div>
+  </div>
+
+	<div class="control-group">
+		
+		<div class="controls">
+			<input class="btn btn-primary " value="Previous" type="button" id="item_details_previous">
+			<input class="btn btn-primary" value="Next" type="button" id="item_details_next">
+		</div>
+	</div>
+
+</div>
+
+
+<div id="item_spec"  class=" form-horizontal">
+
+	<div class="content">
+	</div>
+
+	<div class="control-group">
+		
+		<div class="controls">
+			<input class="btn btn-primary" value="Previous" type="button" id="item_spec_previous">
+			<input class="btn btn-primary" value="List now" type="button" id="item_spec_list">
+		</div>
+	</div>
+
+</div>
+
+</div>
+
 
 
 <script>
@@ -150,6 +214,49 @@
 		highlight:true,
 		captureLength:2
 	});
+
+	function centerMe(elem){
+				$(elem).css({
+			left:( ($(".active_content").outerWidth()/2) -($(elem).outerWidth()/2) ),
+			 top:( ($(window).height/2) - ($(elem).outerHeight()/2) )
+		});
+
+	}	
+
+	//hid and show each screen
+	$("#item_classification_next").click(function(){
+		$("#item_classification").toggle(1000);
+		$("#item_location").toggle(1000);
+	});
+
+	$("#item_location_next").click(function(){
+		$("#item_location").toggle(1000);
+		$("#item_details").toggle(1000);
+	});
+
+	$("#item_details_next").click(function(){
+		$("#item_details").toggle(1000);
+		$("#item_spec").toggle(1000);
+	});
+
+
+	function ui_setup(){
+		$("#footer").css({"bottom":0});
+
+		$(".active_content").css({height:"100%"});
+
+		centerMe("#item_classification");
+		centerMe("#item_location");
+		centerMe("#item_details");
+		centerMe("#item_spec");
+
+
+	}
+	//align all to center and watch them
+
+	$(window).resize(ui_setup);
+
+	ui_setup();
 
 </script>
 

@@ -24,8 +24,8 @@ class P2p::ItemsController < ApplicationController
      params["item"]['attribute'].each do |key,value|
       puts key + "   " + value
 
-       attr = P2p::ItemAttributes.new
-       attr.attr = P2p::Attribute.find(key.to_i)
+       attr = P2p::ItemSpec.new
+       attr.attr = P2p::Spec.find(key.to_i)
        attr.value = value
        item.attrs << attr
      end
@@ -57,7 +57,7 @@ class P2p::ItemsController < ApplicationController
   end
 
   def get_sub_categories
-    cat = P2p::Category.select("id,name").where("parent_id = " + params[:id])
+    cat = P2p::Category.select("id,name").where("cateogry_id = " + params[:id])
     render :json => cat
   end
 

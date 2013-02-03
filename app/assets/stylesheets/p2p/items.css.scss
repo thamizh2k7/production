@@ -104,3 +104,12 @@
 	margin:auto;
 	width:50%;
 }
+
+
+#item_classification,#item_location,#item_details,#item_spec{
+	position:absolute;
+}
+
+#item_location,#item_details,#item_spec{
+	display:none;
+}

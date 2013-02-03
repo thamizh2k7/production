@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-=======
-
 <%= stylesheet_link_tag "index/application" %>
 <%= stylesheet_link_tag "inner" %>
 <%= javascript_include_tag "global/jquery.typewatch" %>
@@ -32,7 +29,7 @@
 function search(){ 
 
     $.ajax({
-        url: '/p2p/'+$("#search_books_input").val(),
+        url: '/p2p/search/'+$("#search_books_input").val(),
         type: 'GET',
         dataType:"json",
 
@@ -58,7 +55,7 @@ $(document).ready(function(){
       callback:search,
       wait:250,
       highlight:true,
-      captureLength:5 
+      captureLength:2
   });
 });
 
@@ -89,4 +86,3 @@ $(document).ready(function(){
 </div>
 </div>
 
->>>>>>> p2p_searchForm

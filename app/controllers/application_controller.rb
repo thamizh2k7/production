@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
       return false;
     else
       return 'p2p_layout'
+      #return 'application'
     end
   end
 

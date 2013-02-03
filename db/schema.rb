@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130130201843) do
-=======
-ActiveRecord::Schema.define(:version => 20130130094508) do
->>>>>>> p2p_searchForm
+ActiveRecord::Schema.define(:version => 20130202173003) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -283,21 +279,15 @@ ActiveRecord::Schema.define(:version => 20130130094508) do
     t.string   "status"
   end
 
-  create_table "p2p_attributes", :force => true do |t|
-    t.string   "name"
-    t.integer  "display_type", :default => 1
-    t.integer  "parent_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "category_id",                 :null => false
-  end
-
   create_table "p2p_categories", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "priority"
   end
+
+  add_index "p2p_categories", ["category_id"], :name => "index_p2p_categories_on_category_id"
 
   create_table "p2p_cities", :force => true do |t|
     t.string   "name"
@@ -318,19 +308,20 @@ ActiveRecord::Schema.define(:version => 20130130094508) do
 
   add_index "p2p_credits", ["user_id"], :name => "index_p2p_credits_on_user_id"
 
-  create_table "p2p_item_attributes", :force => true do |t|
-    t.integer  "attribute_id"
+  create_table "p2p_item_specs", :force => true do |t|
+    t.integer  "spec_id"
     t.string   "value"
     t.integer  "item_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "p2p_item_attributes", ["attribute_id"], :name => "index_p2p_item_attributes_on_attribute_id"
-  add_index "p2p_item_attributes", ["item_id"], :name => "index_p2p_item_attributes_on_item_id"
+  add_index "p2p_item_specs", ["item_id"], :name => "index_p2p_item_specs_on_item_id"
+  add_index "p2p_item_specs", ["spec_id"], :name => "index_p2p_item_specs_on_spec_id"
 
   create_table "p2p_items", :force => true do |t|
-    t.integer  "category_id"
+    t.integer  "product_id"
+    t.integer  "user_id"
     t.string   "title"
     t.text     "desc"
     t.integer  "paytype"
@@ -340,22 +331,15 @@ ActiveRecord::Schema.define(:version => 20130130094508) do
     t.boolean  "approvedflag",  :default => false
     t.integer  "viewcount",     :default => 0
     t.integer  "reqCount",      :default => 0
+    t.float    "price"
+    t.integer  "city_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.integer  "user_id",                          :null => false
-<<<<<<< HEAD
-    t.integer  "price",                            :null => false
-    t.integer  "city_id"
   end
 
-  add_index "p2p_items", ["category_id"], :name => "index_p2p_items_on_product_id"
   add_index "p2p_items", ["city_id"], :name => "index_p2p_items_on_city_id"
-=======
-    t.float    "price"
-  end
-
-  add_index "p2p_items", ["category_id"], :name => "index_p2p_items_on_product_id"
->>>>>>> p2p_searchForm
+  add_index "p2p_items", ["product_id"], :name => "index_p2p_items_on_product_id"
+  add_index "p2p_items", ["user_id"], :name => "index_p2p_items_on_user_id"
 
   create_table "p2p_messages", :force => true do |t|
     t.integer  "sender"
@@ -370,9 +354,25 @@ ActiveRecord::Schema.define(:version => 20130130094508) do
 
   create_table "p2p_products", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "priority"
   end
+
+  add_index "p2p_products", ["category_id"], :name => "index_p2p_products_on_category_id"
+
+  create_table "p2p_specs", :force => true do |t|
+    t.string   "name"
+    t.integer  "display_type", :default => 1
+    t.integer  "parent_id"
+    t.integer  "category_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "priority"
+  end
+
+  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_product_id"
 
   create_table "p2p_users", :force => true do |t|
     t.integer  "user_id"

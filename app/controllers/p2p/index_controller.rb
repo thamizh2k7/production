@@ -3,8 +3,8 @@ class P2p::IndexController < ApplicationController
   layout :p2p_layout
 
   def index
-    @mobiles=P2p::Item.select("title,price").where('category_id=1').limit(4);
-    @electronics=P2p::Item.select("title,price").where('category_id=2').limit(4);
+    @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
+    @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
      
 
   end

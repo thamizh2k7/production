@@ -1,18 +1,19 @@
 <%= stylesheet_link_tag "index/application" %>
 <%= stylesheet_link_tag "inner" %>
+<%= stylesheet_link_tag "p2p/p2p" %>
 <%= javascript_include_tag "global/jquery.typewatch" %>
 <%= javascript_include_tag "global/underscore" %>
 
 <script id='product_template' type='text/template'>
     
-  <div class="products">
+  <div class="product">
    
       <div class="product_title">
-        <em><%%=elm.title %></em> <br/>--location : 
+        <em> <a href="/p2p/view/<%%= elm.id  %> "> <%%=elm.title %> </a> </em> <br/>
       </div>
       
       <div class="product_img">
-       <img src="" alt="Picture coming Soon...."></img>
+       <img src="/assets/nokia1.jpg" alt="Picture coming Soon...."  width="100px" height="100px"></img>
       </div>
       
       <div class="product_tag">
@@ -29,17 +30,12 @@
 function search(){ 
 
     $.ajax({
-        url: '/p2p/search/'+$("#search_books_input").val(),
+        url: '/p2p/search/' + $("#search_books_input").val(),
         type: 'GET',
         dataType:"json",
 
         success: function(data) {
-            console.log(data);
-            $("#mobiles").hide();
-            $("#electronics").hide();
-          
-            console.log("sucess---"); 
-          
+
             template=$("#product_template").html();
             $("#content").html("");
           _.each(data,function(elm){$("#content").append( _.template(template,{elm:elm}));});
@@ -89,9 +85,10 @@ $(document).ready(function(){
            <% products.each do |prod| %>
               <% if prod.items.size > 0 %>
 
-                <div id='<%= prod.name %>'>
+                <div id='<%= prod.name %>' class="abrand">
                   <h5> <%= prod.name %> </h5>
                  <%= render :partial => "item",:locals =>{ :items => prod.items }%>
+                 <div class="clearfix"></div>
                 </div>
 
              <% end %>

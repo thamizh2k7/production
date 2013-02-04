@@ -110,3 +110,36 @@ body{
 	display:block;
 }
 
+
+
+
+//Search index page
+.product{
+	width:170px;
+	display:block;
+	float:left;
+	margin-left:5px;
+
+}
+
+.product:hover{
+	background-color:lightyellow;
+}
+
+.abrand{
+	width:100%;
+	margin:2px;
+
+}
+
+
+.product_tag{
+	font-weight:bold;
+	margin-top:2px;
+	margin-left:5px;
+}
+
+.product_title{
+	font-weight:bold;
+	margin-bottom:2px;
+}

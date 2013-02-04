@@ -12,23 +12,30 @@ class P2p::IndexController < ApplicationController
 
   def search
     puts "called search"    
-    @category = P2p::Category.search "#{params[:id]}" 
+    @result = ThinkingSphinx.search "#{params[:id]}" ,:classes => [P2p::Item,P2p::Product,P2p::Category] 
     #@products.to_json
     puts "--------res" 
-    puts @category
+    puts @result
     @search_result=[]
-    @category.each do |c| 
 
-      puts c
-      #items=P2p::Item.select("title,price").where('category_id=c.id')
-      items=c.items.select("title,price")
-      @search_result += items
-      # c.items.each do |item|
-      #   puts item.title,item.price
-      # end
- 
-
-
+    @result.each do |res| 
+      puts "#{res} -> #{res.class.to_s}"
+       if res.class.to_s == "P2p::Category"
+        result_items = {}
+        res.products.each do |prod|
+          result_items = prod.items.limit(10)
+          @search_result += result_items
+        end
+        # res.items.select("title,price").each do |items|
+        #   @search_result << items
+        # end
+        puts "------->#{result_items}"
+       elsif res.class.to_s == "P2p::Product"
+        res1=P2p::Item.find(res.category_id)
+        @search_result << res1
+       else
+         @search_result << res
+       end
     end
     render :text => @search_result.to_json
   end 

@@ -5,5 +5,8 @@ class P2p::Product < ActiveRecord::Base
   belongs_to :category , :class_name => "P2p::Category"
   has_many :items , :class_name => "P2p::Item"
   
+  define_index do
+    indexes :name
+  end
   
 end

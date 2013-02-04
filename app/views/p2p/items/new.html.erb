@@ -4,8 +4,11 @@
 
 <h2> List your Item </h2>
 
+<%= form_for P2p::Item.new do %>
+
 <div id="item_classification" class=" form-horizontal">
 
+	<h4>Item Category</h4>
   <div class="content">
 	<div class="control-group">
 		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
@@ -42,6 +45,7 @@
 
 <div id="item_location"  class=" form-horizontal">
 
+	<h4>Item Location</h4>
 	<div class="content">
 	</div>
 
@@ -57,6 +61,7 @@
 
 <div id="item_details"  class=" form-horizontal">
 
+  <h4>Item Details</h4>
   <div class="content">
 	<div class="control-group">
 		<%= label_tag "title","Title" ,:class=>"control-label" %>
@@ -106,6 +111,7 @@
 
 
 <div id="item_spec"  class=" form-horizontal">
+	<h4>Item Specifications</h4>
 
 	<div class="content">
 	</div>
@@ -114,7 +120,7 @@
 		
 		<div class="controls">
 			<input class="btn btn-primary" value="Previous" type="button" id="item_spec_previous">
-			<input class="btn btn-primary" value="List now" type="button" id="item_spec_list">
+			<input class="btn btn-primary" value="List now" type="submit" id="item_spec_list">
 		</div>
 	</div>
 
@@ -122,7 +128,7 @@
 
 </div>
 
-
+<% end %>
 
 <script>
 
@@ -185,15 +191,37 @@
 				cat_fetch_error();
 				return false;
 			}
+
 			$.ajax({
 				url:'getattributes/' + $(this).val(),
 				type:"get",
 				success:function(data){
-						$("#itemattributes").html(data);
+						$("#item_spec .content").html(data);
 				},
 				error:cat_fetch_error()
 
 			});
+
+			that = $("#item_brand");
+
+			$.ajax({
+				url:'getbrand/' + $(this).val(),
+				type:"get",
+				success:function(data){
+    					that.empty();
+    						that.append('<option value="">Select a Brand </option>');
+    					
+    					_.each(data,function(option){
+      						that.append('<option value="' + option.id + '">' + option.name + '</option>');
+    					
+
+    					})
+    				},
+				error:cat_fetch_error()
+
+			});
+
+
 		});
 
 	$("#p2p_item_city_id").typeWatch({

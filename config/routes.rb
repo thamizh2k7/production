@@ -72,7 +72,7 @@ Sociorent::Application.routes.draw do
   namespace :p2p do
       get '' => "index#index"
       get 'sellitem' => "items#new"
-
+      get 'getbrand/:id' => "items#get_brands"
       get 'getattributes/:id' => "items#get_attributes"
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'

@@ -14,7 +14,7 @@
       </div>
       
       <div class="thumb_content">
-        <div class="item_title"><%= item.title %> </div>
+        <div class="item_title"><%= link_to item.title, "/p2p/view/" + item.id.to_s %> </div>
 
         <div class="item_price"> 
         	Price <em><del>&#2352;</del> <%= item.price %></em>

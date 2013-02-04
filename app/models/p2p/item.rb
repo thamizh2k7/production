@@ -4,7 +4,7 @@ class P2p::Item < ActiveRecord::Base
   belongs_to :product
   belongs_to :user
   belongs_to :city
-  has_many :specs
+  has_many :specs ,:class_name => "P2p::ItemSpec"
 
 
   attr_accessible :approvedflag, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price

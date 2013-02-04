@@ -11,8 +11,7 @@ class P2p::Item < ActiveRecord::Base
   
  define_index do
     indexes :title
-    set_property :enable_star =>1 
-    set_property :min_infix_len =>3
+    has created_at,updated_at
   end
 
 end

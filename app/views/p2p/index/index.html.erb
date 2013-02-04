@@ -41,7 +41,7 @@ function search(){
             console.log("sucess---"); 
           
             template=$("#product_template").html();
-          
+            $("#content").html("");
           _.each(data,function(elm){$("#content").append( _.template(template,{elm:elm}));});
          
        }

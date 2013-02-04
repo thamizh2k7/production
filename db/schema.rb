@@ -372,7 +372,7 @@ ActiveRecord::Schema.define(:version => 20130202173003) do
     t.integer  "priority"
   end
 
-  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_product_id"
+  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_category_id"
 
   create_table "p2p_users", :force => true do |t|
     t.integer  "user_id"

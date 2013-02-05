@@ -71,4 +71,5 @@ gem 'thinking-sphinx-raspell', '1.1.2',
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
 gem 'rails_admin'
+gem 'simple_form'
 

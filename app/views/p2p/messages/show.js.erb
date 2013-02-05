@@ -1,0 +1,6 @@
+var data = <%=raw @message.to_json()%>;
+var html = "<h3>"+data.subject+"</h3>";
+html+="<p>"+data.message+"</p>";
+$("#show_msg").html(html);
+$(".tab-content").hide();
+$("#show_msg").show();

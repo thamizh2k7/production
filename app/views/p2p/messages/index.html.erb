@@ -1,0 +1,40 @@
+<h2><%= current_user.name%> Messages</h2>
+
+
+		
+<div class="tabbable">
+	<div class="row">
+	<div class="span2">
+	  <ul class="nav nav-list">
+	    <li class="active"><a href="#compose" data-toggle="tab" >Compose</a></li>
+	    <li><a href="#inbox" data-toggle="tab">Inbox </a></li>
+	    <li><a href="#sent" data-toggle="tab">Sent </a></li>
+	    <li><a href="#deleted" data-toggle="tab">Deleted </a></li>
+	  </ul>
+	</div>
+	<div class="span10">
+
+		<div class="tab-content">
+	    <div class="tab-pane active" id="compose">
+	    	<%= render :partial=> "compose" %> 
+	    </div>
+	    
+	    <div class="tab-pane " id="inbox">
+	    	<%= render :partial=> "inbox" %> 
+	     </div>
+			
+		 <div class="tab-pane" id="sent">
+	    	<%= render :partial=> "sent" %> 
+	      </div>
+			
+		<div class="tab-pane " id="deleted">
+			<!--	 -->
+	    </div>
+		</div>
+		<div class="row" id="show_msg">
+			
+		</div>
+	</div>
+</div>
+</div>
+

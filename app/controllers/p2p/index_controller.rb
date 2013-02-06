@@ -35,7 +35,7 @@ class P2p::IndexController < ApplicationController
       # end
 
     puts "called search"    
-    @result = ThinkingSphinx.search "#{params[:id]}" ,:classes => [P2p::Item,P2p::Product,P2p::Category] 
+    @result = ThinkingSphinx.search "*#{params[:id]}*" ,:classes => [P2p::Item,P2p::Product] 
     #@products.to_json
     puts "--------res" 
     puts @result

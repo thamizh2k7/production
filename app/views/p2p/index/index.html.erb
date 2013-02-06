@@ -42,7 +42,7 @@ function search(){
         success: function(data) {
 
             template=$("#product_template").html();
-            $("#content").html("");
+            $("#search_result").html("");
           _.each(data,function(elm){$("#search_result").append( _.template(template,{elm:elm}));});
             $("#content").hide();
             
@@ -62,9 +62,9 @@ function search(){
 $(document).ready(function(){
   $("#search_books_input").typeWatch({
       callback:search,
-      wait:250,
+      wait:200,
       highlight:true,
-      captureLength:2
+      captureLength:3
   });
 });
 

@@ -19,6 +19,7 @@ class P2p::Item < ActiveRecord::Base
   
  define_index do
     indexes :title
+    
     has created_at,updated_at
   end
 

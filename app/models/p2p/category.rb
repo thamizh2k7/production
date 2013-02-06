@@ -7,7 +7,8 @@ class P2p::Category < ActiveRecord::Base
   define_index do
     indexes :name
     #indexes p2p_products(:name), :as=> :product_name
-    has created_at,updated_at
+    
+    #has created_at,updated_at
   end
 
 end

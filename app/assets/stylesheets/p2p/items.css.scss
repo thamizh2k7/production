@@ -10,18 +10,22 @@
 	float:left;
 	border-right:1px solid #cccccc;
 	height:100%;
+
 }
 
 #view_item_image{
-	float:left;
 	padding:3px;
 	border:1px solid #cccccc;
 	margin-right:1em;
+	border-radius:5px;
+	display:block;
+	margin-bottom:5px;
 }
-#view_item_image img{
 
-	width:23em;
+#view_image {
+	width:19em;
 	height:25em;
+	display:block;
 }
 
 #item_title{
@@ -33,6 +37,7 @@
 #item_price{
 	font-size:1.2em;
 	font-weight:bold;
+	color:maroon;
 }
 
 #item_description{
@@ -42,11 +47,12 @@
 
 }
 
-#analytics{
+#analytics,#action_buttons{
 	margin-left:1em;	
 	display:block;
-	width:23%;
+	width:20%;
 	float:left;
+	margin-top:20px;
 }
 
 
@@ -62,13 +68,6 @@
 
 
 
-#action-buttons{
-	width:23%;
-	margin-top:1em;
-	margin-left:1em;
-	display:block;
-	float:left;
-}
 
 
 //list user items
@@ -119,4 +118,70 @@
 .list_form{
 	display:block;
 
+}
+
+#addimg{
+	text-align:center;
+	padding-top:5px;
+	padding-bottom:5px;
+	cursor:pointer;
+	background-image:url("/assets/upload.jpg") ;
+	height:20px;
+	background-size: 30px 30px;
+	background-repeat:no-repeat;
+	width:30px;
+	float:left;
+	border-radius:3px;
+	border:1px solid red;
+	overflow:hidden;
+}
+
+#remove_image{
+	font-style:bold;
+	color:red;
+	display:inline;
+	cursor:pointer;
+	padding:3px;
+	right:0;
+	font-size:2em;
+
+	height:30px;
+	width:30px;
+	margin-left:10px;
+	text-align:center;
+	cursor:pointer;
+	float:left;
+}
+
+#remove_image:hover{
+	background-color:red;
+	color:white;
+}
+
+
+#file_add_image{
+	opacity:0;
+}
+
+
+#item_left{
+	float:left;
+	display:block;
+}
+
+.thumb_image{
+	width:50px;
+	height:50px;
+	float:left;
+	margin-left:3px;
+	cursor:pointer;
+
+}
+
+#image_list{
+	border:1px solid #cccccc;
+	display:block;
+	border-radius:3px;
+	width: 270px;
+	overflow:hidden;
 }

@@ -99,9 +99,7 @@ class P2p::ItemsController < ApplicationController
       
     end
     
-    
-
-end
+  end
 
   def sold
       @item = P2p::Item.find(params[:id])
@@ -109,6 +107,28 @@ end
       @item.save
 
       redirect_to '/p2p/view/' + @item.id.to_s
+
+  end
+
+  def add_image
+
+
+    item = P2p::Item.find(params["item_id"])
+    unless params["img"].nil?
+
+
+      params["img"].each do |img|
+
+        i = item.images.new(:img=>img)
+
+        i.save
+
+      end
+
+    end
+    #render :inline => params.inspect
+
+    redirect_to '/p2p/view/' + params[:item_id]
 
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205092615) do
+ActiveRecord::Schema.define(:version => 20130206074637) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -307,6 +307,18 @@ ActiveRecord::Schema.define(:version => 20130205092615) do
   end
 
   add_index "p2p_credits", ["user_id"], :name => "index_p2p_credits_on_user_id"
+
+  create_table "p2p_images", :force => true do |t|
+    t.integer  "items_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "img_file_name"
+    t.string   "img_content_type"
+    t.integer  "img_file_size"
+    t.datetime "img_updated_at"
+  end
+
+  add_index "p2p_images", ["items_id"], :name => "index_p2p_images_on_items_id"
 
   create_table "p2p_item_specs", :force => true do |t|
     t.integer  "spec_id"

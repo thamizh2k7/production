@@ -85,6 +85,7 @@ Sociorent::Application.routes.draw do
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'
 
+      post 'addimage' => "items#add_image"
 
       get 'sold/:id' => "items#sold"
 
@@ -99,6 +100,7 @@ Sociorent::Application.routes.draw do
       #match "message"=>"messages#index"
       resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
       resources :items
+      resources :images
 
   end
 

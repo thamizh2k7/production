@@ -18,7 +18,7 @@
 
     <a href="<%= "/p2p/view/" +  item.id.to_s %>" > 
       <div class="product_img">
-       <img src="/assets/nokia1.jpg" alt="Picture coming Soon...." width="100px" height="100px"></img>
+       <img src="<%= item.get_image[0][:url] %>" imgid="<%= item.get_image[0][:id] %>" alt="Picture coming Soon...." width="100px" height="100px"></img>
       </div>
 
       <div class="product_title">

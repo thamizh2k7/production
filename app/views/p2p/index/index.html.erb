@@ -1,6 +1,9 @@
 <%= stylesheet_link_tag "index/application" %>
 <%= stylesheet_link_tag "inner" %>
 <%= stylesheet_link_tag "p2p/p2p" %>
+<%= stylesheet_link_tag "global/jquery.lightbox-0.5" %>
+
+<%= javascript_include_tag "global/jquery.lightbox-0.5.pack" %>
 <%= javascript_include_tag "global/jquery.typewatch" %>
 <%= javascript_include_tag "global/underscore" %>
 <%= javascript_include_tag "global/jquery.isotope.min" %>
@@ -33,7 +36,8 @@
 
 
 $("#search_books_input").change(function(){
-  
+    console.log($.trim($("#search_books_input").val()).length + "len");
+
       if ($.trim($("#search_books_input").val()).length <=1){
         $("#content").show();
         $("#search_result").hide();

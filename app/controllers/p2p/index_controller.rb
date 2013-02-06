@@ -12,54 +12,50 @@ class P2p::IndexController < ApplicationController
 
   def search
 
-    
-
-      # unless request.respond_to?("xhr")
-
-      #     all_spec = {}
-
-      #     result = ThinkingSphinx.search "#{params[:id]}"
-            
-
-            
-      #       result.each do |res|
-      #         res.select("distinct product_id").product.categories.uniq.each do |cat|
-      #           cat.spec[cat.id] = cat.name
-      #         end
-      #       end
-          
-      #       render :view => 'search'
-      #     puts all_spec.inspect
-
-          
-      # end
-
     puts "called search"    
-    @result = ThinkingSphinx.search "*#{params[:id]}*" ,:classes => [P2p::Item,P2p::Product] 
+    @result = ThinkingSphinx.search "*#{params[:id]}*" ,:classes => [P2p::Item,P2p::Product,P2p::Category] 
     #@products.to_json
     puts "--------res" 
     puts @result
-    @search_result=[]
+    
+     @search_result=[]
+     @items_from_category={}
+     @items_from_product=[]
+     @items_from_search=[]
 
     @result.each do |res| 
       puts "#{res} -> #{res.class.to_s}"
        if res.class.to_s == "P2p::Category"
         result_items = {}
+        temp=[]
+        puts"category-name: #{res.name}"
         res.products.each do |prod|
-          result_items = prod.items.limit(10)
-          @search_result += result_items
+          result_items = prod.items.select("title,price").limit(10)
+          #@search_result += result_items
+          temp+= result_items
+          
         end
-        # res.items.select("title,price").each do |items|
-        #   @search_result << items
-        # end
-        puts "------->#{result_items}"
+          @items_from_category={"#{res.name}"=>temp}
+          puts "------->#{result_items}"
        elsif res.class.to_s == "P2p::Product"
-        res1=P2p::Item.find(res.category_id)
-        @search_result << res1
+        res1=P2p::Item.select("title,price").find(res.category_id)
+        if res1.nil?
+          @items_from_product+=res1
+        end
+        #@search_result << res1
+
        else
-         @search_result << res
+
+        @items_from_search << res
+        # @search_result << res
        end
-    end
+
+       @search_result={:category=>@items_from_category,:prducts=>@items_from_product,:items=>@items_from_search }
+
+
+  end
+
+
     render :text => @search_result.to_json
   end 
 

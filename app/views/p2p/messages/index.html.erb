@@ -1,3 +1,13 @@
+<%= javascript_include_tag "p2p/messages" %>
+<%= javascript_include_tag "global/jquery.ui.core" %>
+<%= javascript_include_tag "global/jquery.ui.widget" %>
+<%= javascript_include_tag "global/jquery.ui.accordion" %>
+
+<script type="text/javascript">
+$(document).ready({
+$("#inbox").accordion();
+});
+</script>
 <h2><%= current_user.name%> Messages</h2>
 
 
@@ -7,7 +17,18 @@
 	<div class="span2">
 	  <ul class="nav nav-list">
 	    <li class="active"><a href="#compose" data-toggle="tab" >Compose</a></li>
-	    <li><a href="#inbox" data-toggle="tab">Inbox </a></li>
+	    <li><a href="#inbox" data-toggle="tab">Inbox </a>
+           <div id="accordian">
+             <ul>
+            <li>Sell Request</li>
+	    	<div></div>
+	    	<li>Buy request</li>
+	    	<div> </div>
+	    	<li>Admin</li>
+	    	<div> </div>
+	    	</ul>
+            </div>
+	    </li>
 	    <li><a href="#sent" data-toggle="tab">Sent </a></li>
 	    <li><a href="#deleted" data-toggle="tab">Deleted </a></li>
 	  </ul>
@@ -16,11 +37,12 @@
 
 		<div class="tab-content">
 	    <div class="tab-pane active" id="compose">
-	    	<%= render :partial=> "compose" %> 
+	    	<%= render :partial=> "compose" %><div> </div>
 	    </div>
 	    
 	    <div class="tab-pane " id="inbox">
-	    	<%= render :partial=> "inbox" %> 
+	    	 <%= render :partial=> "inbox" %>
+
 	     </div>
 			
 		 <div class="tab-pane" id="sent">

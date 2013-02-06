@@ -6,7 +6,7 @@ class P2p::IndexController < ApplicationController
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
      
-    @list = P2p::Category.limit(2).order("priority")
+    @list = P2p::Category.limit(8).order("priority")
 
   end
 

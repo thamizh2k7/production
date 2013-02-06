@@ -43,15 +43,14 @@ function search(){
 
             template=$("#product_template").html();
             $("#content").html("");
-          _.each(data,function(elm){$("#search_result").append( _.template(template,{elm:elm}));});
-            $("#content").hide();
+          _.each(data,function(elm){$("#content").append( _.template(template,{elm:elm}));});
             
-            $('#search_result').isotope({
+            $('#content').isotope({
               itemSelector : '.product'
 
             });
 
-            $('#search_result').css({"height":"auto" ,"overflow":"auto"}).show();
+//            $('#search_result').css({"height":"auto" ,"overflow":"auto"}).show();
 
        }
 
@@ -90,23 +89,19 @@ $(document).ready(function(){
   <% @list.each do |list| %>
     <% if list.products.size > 0 %>
 
-     <div id='<%= list.name %>'>
-        <h4><%= list.name %></h4>
+     <div id='<%= list.name %>' class="acategory">
+        <div class="category_title"><%= list.name.pluralize %></div> 
 
-           <% products = list.products %>
+           <% products = list.products.limit(4) %>
 
            <% products.each do |prod| %>
               <% if prod.items.size > 0 %>
 
-                <div id='<%= prod.name %>' class="abrand">
-                  <h5> <%= prod.name %> </h5>
-                 <%= render :partial => "item",:locals =>{ :items => prod.items }%>
-                 <div class="clearfix"></div>
-                </div>
-
+                 <%= render :partial => "item",:locals =>{ :items => prod.items.limit(1) }%>
              <% end %>
            <% end %>
 
+        <div class="clearfix"></div>
      </div>
 
     <% end %>
@@ -121,5 +116,9 @@ $(document).ready(function(){
 <script>
 
 $(document).ready(function(){
-
+    $(".product").live("mouseenter",function(){
+      $(this).clearQueue().stop().animate({opacity:0.3}).animate({opacity:1});
+      console.log("aa");
+    })
+});
 </script>

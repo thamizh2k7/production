@@ -48,7 +48,7 @@ gem 'omniauth'
 gem 'oauth2'
 gem 'omniauth-facebook'
 
-gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip"
 
 gem 'koala'
 

@@ -117,13 +117,32 @@ body{
 
 
 //Search index page
+
+.acategory{
+	margin-bottom:20px;	
+}
+
+.category_title{
+	border-bottom:3px solid #4f6aa3;
+	font-weight:bold;
+	font-size:1.2em;
+	margin-bottom:15px;
+	padding-bottom:10px;
+
+
+}
+
 .product{
-	width:170px;
+	text-align:center;
+	width:120px;
 	display:block;
 	float:left;
 	margin-left:5px;
-	padding:5px;
+	padding:10px;
 	cursor:pointer;
+	background: #fff;
+	border:1px solid #eeeeee;
+	border-radius:10px;
 
 }
 
@@ -141,7 +160,6 @@ body{
 	width:100%;
 	margin:2px;
 	border-bottom:1px solid #cccccc;
-	padding-bottom:5px;
 
 }
 
@@ -151,6 +169,7 @@ body{
 	margin-top:2px;
 	margin-left:5px;
 	color:maroon;
+	text-align:left;
 }
 
 .product_title{
@@ -171,7 +190,7 @@ body{
 .font_page{
 	width:95%;
 	margin:auto;
-	min-height:340px;
+
 	margin-top:10px;
 	margin-bottom:10px;
 }
@@ -245,5 +264,14 @@ body{
 	background-color:white;
 	border:1px solid #cccccc;
 	border-radius:10px;
-	padding:5px;
+	padding:10px;
 }
+
+
+
+
+.search_wrap{
+	margin-top:-30px;
+	border:none;
+}
+

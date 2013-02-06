@@ -253,6 +253,9 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    simple_form (2.0.4)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -309,6 +312,7 @@ DEPENDENCIES
   rails_admin
   ruby-hmac (~> 0.4)
   sass-rails (~> 3.2.3)
+  simple_form
   thinking-sphinx
   thinking-sphinx-raspell (= 1.1.2)
   tinymce-rails

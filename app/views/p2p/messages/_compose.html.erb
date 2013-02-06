@@ -1,0 +1,15 @@
+<div class="compose">
+	 <%= simple_form_for @message,:validate=>true  do |f| %>
+	 	<%= f.input :receiver,
+	 	     :label_method => :email    
+	 	%>
+	 	<%= f.input :messagetype, 
+	 	collection: [ ["Sell Request",0],["Buy request",1],["Admin",2]]  
+	 	%>
+	 	<%= f.input :sender,:as => :hidden, :input_html => {:value => "#{@user.id}"}
+	 	%>
+	 	<%= f.input :message, input_html: {rows:10}%>
+	 	<%= f.button :submit, value:"send " %>
+	 <% end %>
+</div>
+

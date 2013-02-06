@@ -2,6 +2,14 @@ Sociorent::Application.routes.draw do
 
 
 
+  get "messages/index"
+
+  get "messages/create"
+
+  get "messages/destroy"
+
+  get "messages/new"
+
   get "cities/index"
 
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
@@ -77,6 +85,7 @@ Sociorent::Application.routes.draw do
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'
 
+
       get 'sold/:id' => "items#sold"
 
       get 'mystore(/:query)' => 'items#inventory'
@@ -86,6 +95,9 @@ Sociorent::Application.routes.draw do
 
       post 'getcity'  => 'cities#list'
       
+      #post "message/create/:id" => "messages#create"
+      #match "message"=>"messages#index"
+      resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
       resources :items
 
   end

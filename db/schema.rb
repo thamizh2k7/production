@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130205092615) do
+=======
+ActiveRecord::Schema.define(:version => 20130204134311) do
+>>>>>>> message
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -213,6 +217,19 @@ ActiveRecord::Schema.define(:version => 20130205092615) do
   add_index "counters", ["email"], :name => "index_counters_on_email", :unique => true
   add_index "counters", ["reset_password_token"], :name => "index_counters_on_reset_password_token", :unique => true
 
+  create_table "csvuploads", :force => true do |t|
+    t.integer  "books_uploaded"
+    t.integer  "total_books"
+    t.text     "isbns_not_uploaded"
+    t.string   "status"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "csv_updated_at"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -348,9 +365,13 @@ ActiveRecord::Schema.define(:version => 20130205092615) do
     t.string   "item_id"
     t.text     "message"
     t.datetime "readdatetime"
-    t.integer  "messagetype",  :default => 0
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "messagetype",   :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "flag"
+    t.string   "sender_status"
   end
 
   create_table "p2p_products", :force => true do |t|

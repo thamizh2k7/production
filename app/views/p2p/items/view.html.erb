@@ -22,7 +22,7 @@
 	<% if (current_user.nil? or @item.user.id != current_user.id) %>
 
 		<div id="action-buttons">
-			<div class="btn btn-primary"> Buy Now </div>
+			<div class="btn btn-info"> Buy Now </div>
 			<br/><br/>
 			<div class="btn btn-warning"> View Contact </div>
 		</div>
@@ -30,6 +30,12 @@
 	<% else %>
 
 		<div id="analytics">
+			<% if @item.solddate.nil? %>
+				<a href="/p2p/sold/<%= @item.id %>" class="btn btn-warning"> Sell Item</a>
+			<% else %>
+				<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
+			<%end %>
+
 			<h4> Analytics </h4>
 			<div id="view_count"> View Count: <%= @item.viewcount %> </div> <br/>
 			<div id="view_req_count"> Request Count : <%= @item.reqCount %> </div> <br/>

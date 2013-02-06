@@ -41,6 +41,9 @@ class P2p::ItemsController < ApplicationController
   end
 
   def destroy
+    item = P2p::Item.find(params[:id])
+    item.delete
+    redirect_to '/p2p/mystore'
   end
 
   def edit
@@ -67,9 +70,16 @@ class P2p::ItemsController < ApplicationController
 
 
   def view
-    @item = P2p::Item.find(params[:id])
-    @attr = @item.specs(:includes => :attr)
-    @item.viewcount= @item.viewcount.to_i + 1
+
+
+      @item = P2p::Item.find(params[:id])
+
+     @attr = @item.specs(:includes => :attr)
+
+      if current_user.nil?
+        @item.viewcount= @item.viewcount.to_i + 1
+      end
+
     @item.save 
     
   end
@@ -77,9 +87,29 @@ class P2p::ItemsController < ApplicationController
   def inventory
     user = P2p::User.find(current_user)
 
-    @items = user.items
+    if params[:query].present? 
+
+      if params[:query] == "sold"
+        @items = user.items.sold
+      end
+
+    else
+
+      @items = user.items.notsold
+      
+    end
+    
     
 
 end
+
+  def sold
+      @item = P2p::Item.find(params[:id])
+      @item.solddate =Time.now
+      @item.save
+
+      redirect_to '/p2p/view/' + @item.id.to_s
+
+  end
 
 end

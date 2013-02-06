@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202173003) do
+ActiveRecord::Schema.define(:version => 20130205092615) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -335,6 +335,7 @@ ActiveRecord::Schema.define(:version => 20130202173003) do
     t.integer  "city_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.datetime "deletedate"
   end
 
   add_index "p2p_items", ["city_id"], :name => "index_p2p_items_on_city_id"
@@ -372,7 +373,7 @@ ActiveRecord::Schema.define(:version => 20130202173003) do
     t.integer  "priority"
   end
 
-  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_category_id"
+  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_product_id"
 
   create_table "p2p_users", :force => true do |t|
     t.integer  "user_id"

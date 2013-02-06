@@ -3,18 +3,21 @@
 
   <div class="product">
     
-      <div class="product_title">
-        <em><%= link_to p.title , '/p2p/view/' + p.id.to_s %></em> 
-      </div>
-      
+
+    <a href="<%= "/p2p/view/" +  p.id.to_s %>" > 
       <div class="product_img">
        <img src="/assets/nokia1.jpg" alt="Picture coming Soon...." width="100px" height="100px"></img>
       </div>
-      
+
+      <div class="product_title">
+        <em><%= p.title  %></em> 
+      </div>
+            
       <div class="product_tag">
       <em><del>&#2352;</del> <%=p.price %></em> 
       </div>
    
-
+      </a>
+      
   </div>
 <% end %>

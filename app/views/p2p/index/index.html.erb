@@ -3,23 +3,28 @@
 <%= stylesheet_link_tag "p2p/p2p" %>
 <%= javascript_include_tag "global/jquery.typewatch" %>
 <%= javascript_include_tag "global/underscore" %>
+<%= javascript_include_tag "global/jquery.isotope.min" %>
 
 <script id='product_template' type='text/template'>
     
+    
+
   <div class="product">
-   
-      <div class="product_title">
-        <em> <a href="/p2p/view/<%%= elm.id  %> "> <%%=elm.title %> </a> </em> <br/>
-      </div>
-      
+    <a href="/p2p/view/<%%= elm.id  %> ">
+
       <div class="product_img">
        <img src="/assets/nokia1.jpg" alt="Picture coming Soon...."  width="100px" height="100px"></img>
       </div>
+   
+      <div class="product_title">
+        <em>  <%%=elm.title %>  </em> <br/>
+      </div>
+      
       
       <div class="product_tag">
       <em><del>&#2352;</del> <%%= elm.price %></em> 
       </div>
-     
+     </a>
   </div>
  
 </script>
@@ -38,8 +43,16 @@ function search(){
 
             template=$("#product_template").html();
             $("#content").html("");
-          _.each(data,function(elm){$("#content").append( _.template(template,{elm:elm}));});
-         
+          _.each(data,function(elm){$("#search_result").append( _.template(template,{elm:elm}));});
+            $("#content").hide();
+            
+            $('#search_result').isotope({
+              itemSelector : '.product'
+
+            });
+
+            $('#search_result').css({"height":"auto" ,"overflow":"auto"}).show();
+
        }
 
   });
@@ -101,3 +114,12 @@ $(document).ready(function(){
 
 </div>
 
+<div id="search_result">
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+
+</script>

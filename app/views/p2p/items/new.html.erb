@@ -1,19 +1,24 @@
 <%= stylesheet_link_tag 'p2p/items'%>
 <%= javascript_include_tag 'global/jquery.ui.autocomplete'%>
 <%= javascript_include_tag 'global/jquery.typewatch'%>
+<%= javascript_include_tag 'global/jquery.validate.min'%>
+
+
 
 <h2> List your Item </h2>
 
-<%= form_for P2p::Item.new do %>
+
+<%= form_for P2p::Item.new  do %>
 
 <div id="item_classification" class=" form-horizontal">
 
 	<h4>Item Category</h4>
+
   <div class="content">
 	<div class="control-group">
 		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
 		<div class="controls">
-			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("category_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" %>
+			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("category_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" ,:class => "required" %>
 		</div>
 	</div>
 
@@ -28,7 +33,7 @@
 	<div class="control-group">
 		<%= label_tag "Brand" ,"Brand",:class=>"control-label" %>
 		<div class="controls">
-			<%= select_tag "item[brand]" ,options_from_collection_for_select([],0,0),:prompt => "Select a Brand" ,:id=> "item_brand" %>
+			<%= select_tag "item[brand]" ,options_from_collection_for_select([],0,0),:prompt => "Select a Brand" ,:id=> "item_brand" ,:class => "required" %>
 		</div>
 	</div>
   </div>
@@ -66,28 +71,28 @@
 	<div class="control-group">
 		<%= label_tag "title","Title" ,:class=>"control-label" %>
 		<div class="controls">
-			<%= text_field_tag "title" %>
+			<%= text_field_tag "title" ,"",:class => "required" %>
 		</div>
 	</div>
 
 	<div class="control-group">
 		<%= label_tag "desc" ,"Description",:class=>"control-label" %>
 		<div class="controls">
-			<%= text_area_tag "desc" ,"",:rows => 5 ,:cols => 10 %>
+			<%= text_area_tag "desc" ,"",:rows => 5 ,:cols => 10,:class => "required"  %>
 		</div>
 	</div>
 
 	<div class="control-group">
 		<%= label_tag "price" ,"Price" , :class=>"control-label" %>
 		<div class="controls">
-			<%= text_field_tag "price" %>
+			<%= text_field_tag "price" ,"",:class => "required"  %>
 		</div>
 	</div>
 
 	<div class="control-group">
 		<%= label_tag "city_id" ,"City ",:class=>"control-label" %>
 		<div class="controls">
-			<%= text_field_tag "city_id" %>
+			<%= text_field_tag "city_id" ,"",:class => "required"  %>
 		</div>
 	</div>
 
@@ -126,7 +131,7 @@
 
 </div>
 
-</div>
+<div class="clearfix"></div>
 
 <% end %>
 
@@ -245,7 +250,7 @@
 
 	function centerMe(elem){
 				$(elem).css({
-			left:( ($(".active_content").outerWidth()/2) -($(elem).outerWidth()/2) ),
+			left:( ($(".font_page").outerWidth()/2) -($(elem).outerWidth()/2) ),
 			 top:( ($(window).height/2) - ($(elem).outerHeight()/2) )
 		});
 
@@ -271,7 +276,7 @@
 	function ui_setup(){
 		$("#footer").css({"bottom":0});
 
-		$(".active_content").css({height:"100%"});
+		$(".font_page").css({height:"100%"});
 
 		centerMe("#item_classification");
 		centerMe("#item_location");
@@ -282,9 +287,33 @@
 	}
 	//align all to center and watch them
 
+	$("#new_p2p_item").validate({
+		ignore: "",
+		errorPlacement: function(error, element) {
+
+			console.log(element[0].id);
+			
+			if (element[0].id == 'item_category') {
+				$("#item_classification").show(1000);
+			}
+			else if (element[0].id == 'title' ) {
+				$("#item_details").show(1000);
+			}
+
+			$("#item_spec").hide(1000);
+			return false;
+            //error.insertAfter(element);
+            //error.css("margin", "0 0 0 5px");
+        }    
+	});
+
+
 	$(window).resize(ui_setup);
 
+
 	ui_setup();
+
+
 
 </script>
 

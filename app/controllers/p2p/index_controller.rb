@@ -11,6 +11,29 @@ class P2p::IndexController < ApplicationController
   end
 
   def search
+
+    
+
+      # unless request.respond_to?("xhr")
+
+      #     all_spec = {}
+
+      #     result = ThinkingSphinx.search "#{params[:id]}"
+            
+
+            
+      #       result.each do |res|
+      #         res.select("distinct product_id").product.categories.uniq.each do |cat|
+      #           cat.spec[cat.id] = cat.name
+      #         end
+      #       end
+          
+      #       render :view => 'search'
+      #     puts all_spec.inspect
+
+          
+      # end
+
     puts "called search"    
     @result = ThinkingSphinx.search "#{params[:id]}" ,:classes => [P2p::Item,P2p::Product,P2p::Category] 
     #@products.to_json

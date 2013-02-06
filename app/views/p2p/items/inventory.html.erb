@@ -1,36 +1,36 @@
 <%= stylesheet_link_tag "p2p/items"%>
 
-<% @items.each do |item|%>
+<h3> Your Items for sale </h3>
 
+<% if params[:query] == 'sold' %>
+  <a href="/p2p/mystore/" class="btn btn-primary"> Go Back </a> <br/><br/>  
+<% else%>
+  <a href="/p2p/mystore/sold" class="btn btn-primary"> View Sold Items </a> <br/><br/>
+<% end %>
+
+<% @items.each do |item|%>
 
 	<!--  render 'p2p/items/item_full_banner' ,:item => item %>	-->
 
 
-
-  <div class="thumbnail">
+  <div class="product">
     
-      <div class="thumb_img">
-        <img src="/assets/nokia1.jpg" alt="Picture coming Soon...."></img>
-      </div>
-      
-      <div class="thumb_content">
-        <div class="item_title"><%= link_to item.title, "/p2p/view/" + item.id.to_s %> </div>
 
-        <div class="item_price"> 
-        	Price <em><del>&#2352;</del> <%= item.price %></em>
-        </div>
-        <div class="location">
-        	Location : item.location
-        </div>
-        <a href="#"><span class="buy_now">Buy Now!</span></a>
-         Location 
-        <a href="#">View Images</a>
+    <a href="<%= "/p2p/view/" +  item.id.to_s %>" > 
+      <div class="product_img">
+       <img src="/assets/nokia1.jpg" alt="Picture coming Soon...." width="100px" height="100px"></img>
       </div>
-      
-      
-   <div class="clearfix"> </div>
+
+      <div class="product_title">
+        <em><%= item.title  %></em> 
+      </div>
+            
+      <div class="product_tag">
+      <em><del>&#2352;</del> <%=item.price %></em> 
+      </div>
+   
+      </a>
+      <%= link_to "<img src='/assets/Trash-can-icon.png' width=20px height=20px alt='Delete Item'>".html_safe ,p2p_item_path(item),:method=> :delete ,:confirm => "Are you sure you want to delete? " %>
   </div>
 
-
-	
 <% end %>

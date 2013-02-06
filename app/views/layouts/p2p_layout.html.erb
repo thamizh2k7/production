@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>P2P</title>
+  <title>Rent Engineering Textbooks | Sociorent.com: A new companion for Engineering Students.</title>
 <meta name="Description" content="Sociorent.com - A new companion for Engineering Students. Rent books at flat 25% of the MRP. Free door delivery. Rental Period of 6 months."/>
 <meta name="Keywords" content="Rent books Online, Rent engineering books, book rental online, engineering books, engineering colleges india, rent books india, easy book rentals, cool book rentals/">
+  <title>Sociorent</title>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
-<!-- TODO: Add bootstrap responsive meta tag-->
+  <%= stylesheet_link_tag    "global/application", :media => "all" %>
+  <%= javascript_include_tag "global/application" %>
 
 
   <%= stylesheet_link_tag "global/bootstrap.min" %>
@@ -14,30 +17,87 @@
   <%= stylesheet_link_tag "p2p/p2p" %>
 
   <%= javascript_include_tag "global/underscore" %>
+
   <%= javascript_include_tag "p2p/p2p" %>
   <%= javascript_include_tag "global/bootstrap.min" %>
   <%= javascript_include_tag "global/jstorage.min" %>  
+  <%= javascript_include_tag "global/jquery.ui.dialog" %>
+
   
-  
+  <%= stylesheet_link_tag "footer" %>
   <%= csrf_meta_tags %>
-  
 </head>
+<body>
+
+  <%= render :partial => "layouts/header" %>
+
+  <div class="font_page">
+   <div id="page_not_found"> <%= flash[:warning] %></div>
+    <%= yield %>
+
+    <div class="clearfix"></div>
+  </div>
   
 
-<body >
-	
-	<%= render "layouts/p2p/header" %>
+  <div id="university_dialog" class="font-dialog">
+    <% logos=General.first.images %>
+    <% if logos%>
+      <ul class="university_logos">
+        <% logos.each do |logo| %>
+          <li><img src="<%= logo.image %>"></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No more logo of universities </p>
+    <% end %>
 
-  <% unless flash[:notice].nil? %>
-    <div class="info-warning"> <%= flash[:notice] %> </div>
+  </div>
+  <%#= render :partial => "/static_page_dialog" %>
+
+  <%= render :partial => "layouts/footer" %>
+
+      <% if ENV["RAILS_ENV"] == "production" %>
+      <!-- begin olark code --><script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+      window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+      /* custom configuration goes here (www.olark.com/documentation) */
+      olark.identify('9074-793-10-1645');/*]]>{/literal}*/</script><noscript><a href="https://www.olark.com/site/9074-793-10-1645/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript><!-- end olark code -->
+      <!-- google analytics code -->
+      <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-34925557-3']);
+      _gaq.push(['_setDomainName', 'sociorent.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>  <!-- end of egoogle analytics code -->
+
+
+    <script>
+
+    $(document).ready(function(){
+      $("#university_dialog").dialog({
+          autoOpen: false,
+          title:'Universities',
+          draggable: false,
+          dialogClass: 'user_dialog',
+          height: 500,
+          width: 1000,
+          resizable: false,
+          modal: true
+      });
+      $(".open_university").click(function(){
+          $("#university_dialog").dialog("open"); 
+      });
+
+
+    });
+    </script>
   <% end %>
-
-	<div id="body_content" class="active_content">
-  		<%= yield %>
-	</div>
-
-	<%= render "layouts/p2p/footer" %>
 </body>
-
-
 </html>

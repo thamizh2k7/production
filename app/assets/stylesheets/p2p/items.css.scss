@@ -107,7 +107,8 @@
 
 
 #item_classification,#item_location,#item_details,#item_spec{
-	position:absolute;
+	position:relative;
+	display:block;
 }
 
 #item_location,#item_details,#item_spec{
@@ -115,3 +116,7 @@
 }
 
 
+.list_form{
+	display:block;
+
+}

@@ -77,8 +77,12 @@ Sociorent::Application.routes.draw do
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'
 
-      get 'mystore' => 'items#inventory'
-      match "search/:id" =>"index#search", :via =>[:get,:post]
+      get 'sold/:id' => "items#sold"
+
+      get 'mystore(/:query)' => 'items#inventory'
+
+      
+      match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]
 
       post 'getcity'  => 'cities#list'
       

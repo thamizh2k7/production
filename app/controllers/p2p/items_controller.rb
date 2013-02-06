@@ -28,7 +28,7 @@ class P2p::ItemsController < ApplicationController
      end
 
     if item.save 
-      redirect_to "/p2p"
+      redirect_to "/p2p/view/" + item.id.to_s
     else
       flash.now[:notice] = "Cannot Create Item. Try again"
       render :new

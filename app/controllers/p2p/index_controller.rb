@@ -24,7 +24,9 @@ class P2p::IndexController < ApplicationController
      @items_from_search=[]
 
     @result.each do |res| 
+      
       puts "#{res} -> #{res.class.to_s}"
+      
        if res.class.to_s == "P2p::Category"
         result_items = {}
         temp=[]
@@ -35,7 +37,7 @@ class P2p::IndexController < ApplicationController
           temp+= result_items
           
         end
-          @items_from_category={"#{res.name}"=>temp}
+          @items_from_category=["#{res.name}"=>temp]
           puts "------->#{result_items}"
        elsif res.class.to_s == "P2p::Product"
         res1=P2p::Item.select("title,price").find(res.category_id)

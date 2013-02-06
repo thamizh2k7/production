@@ -61,7 +61,7 @@ function search(){
         dataType:"json",
 
         success: function(data) {
-            console.log(data.length);
+            console.log(data);
 
             if (data.length == 0 ){
                 $("#content").show();
@@ -115,7 +115,7 @@ $(document).ready(function(){
 <div id="content">
 
   <% @list.each do |list| %>
-    <% if list.products.size > 0 %>
+    <% if list.products.size > 0 and list.products[0].items.size > 0 %>
 
      <div id='<%= list.name %>' class="acategory">
         <div class="category_title"><%= list.name.pluralize %></div> 

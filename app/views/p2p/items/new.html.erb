@@ -18,7 +18,7 @@
 	<div class="control-group">
 		<%= label_tag "Category" ,"Category",:class=>"control-label" %>
 		<div class="controls">
-			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.where("category_id is null"),"id","name") ,:prompt => "Select a Category" ,:id => "item_category" ,:class => "required" %>
+			<%= select_tag "item[category]" ,options_from_collection_for_select(P2p::Category.all,"id","name") ,:prompt => "Select a Category" ,:id => "item_category" ,:class => "required" %>
 		</div>
 	</div>
 
@@ -189,16 +189,14 @@
 
 			});
 
-		});
-	$("#item_sub_category").change(function(elem){
+			load_attr_brand($(this).val());
 
-			if ($(this).val()==""){
-				cat_fetch_error();
-				return false;
-			}
+		});
+
+	function load_attr_brand(val){
 
 			$.ajax({
-				url:'getattributes/' + $(this).val(),
+				url:'getattributes/' + val,
 				type:"get",
 				success:function(data){
 						$("#item_spec .content").html(data);
@@ -210,7 +208,7 @@
 			that = $("#item_brand");
 
 			$.ajax({
-				url:'getbrand/' + $(this).val(),
+				url:'getbrand/' + val,
 				type:"get",
 				success:function(data){
     					that.empty();
@@ -226,6 +224,16 @@
 
 			});
 
+
+	}
+	$("#item_sub_category").change(function(elem){
+
+			if ($(this).val()==""){
+				cat_fetch_error();
+				return false;
+			}
+
+			load_attr_brand($(this).val());
 
 		});
 
@@ -271,6 +279,22 @@
 		$("#item_details").toggle(1000);
 		$("#item_spec").toggle(1000);
 	});
+
+	$("#item_location_previous").click(function(){
+		$("#item_location").toggle(1000);
+		$("#item_classification").toggle(1000);
+	});
+
+	$("#item_details_previous").click(function(){
+		$("#item_details").toggle(1000);
+		$("#item_location").toggle(1000);
+	});
+
+	$("#item_spec_previous").click(function(){
+		$("#item_spec").toggle(1000);
+		$("#item_details").toggle(1000);
+	});
+
 
 
 	function ui_setup(){

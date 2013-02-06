@@ -7,8 +7,6 @@
 
 <script id='product_template' type='text/template'>
     
-    
-
   <div class="product">
     <a href="/p2p/view/<%%= elm.id  %> ">
 
@@ -32,7 +30,26 @@
 
 <script type="text/javascript">
 
+
+
+$("#search_books_input").change(function(){
+  
+      if ($.trim($("#search_books_input").val()).length <=1){
+        $("#content").show();
+        $("#search_result").hide();
+        return;
+    }
+
+});
 function search(){ 
+      $("#search_books_input").removeClass("error");
+      
+
+    if ($.trim($("#search_books_input").val()).length <=1){
+        $("#content").show();
+        $("#search_result").hide();
+        return;
+    }
 
     $.ajax({
         url: '/p2p/search/' + $("#search_books_input").val(),
@@ -40,11 +57,22 @@ function search(){
         dataType:"json",
 
         success: function(data) {
+            console.log(data.length);
+
+            if (data.length == 0 ){
+                $("#content").show();
+                $("#search_result").hide();
+                $("#search_books_input").addClass("error");
+                return;
+            }
 
             template=$("#product_template").html();
 
-            $("#content").html("");
-          _.each(data,function(elm){$("#content").append( _.template(template,{elm:elm}));});
+            $("#search_result").html("");
+          _.each(data,function(elm){$("#search_result").append( _.template(template,{elm:elm}));});
+
+            $("#search_result").show();
+            $("#content").hide();
 
 //            $('#search_result').css({"height":"auto" ,"overflow":"auto"}).show();
 
@@ -59,7 +87,7 @@ $(document).ready(function(){
       callback:search,
       wait:200,
       highlight:true,
-      captureLength:3
+      captureLength:2
   });
 });
 
@@ -106,6 +134,7 @@ $(document).ready(function(){
 </div>
 
 <div id="search_result">
+
 </div>
 
 

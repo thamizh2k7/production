@@ -5,9 +5,9 @@
 		<th>Date</th>
 		<th> </th>
 	</tr>
-	<%unless @inbox.nil? %>
-	  <%if @inbox.count > 0 %>
-		<% @inbox.each do |message| %>
+	
+	  <%if inbox.count > 0 %>
+		<% inbox.each do |message| %>
 			<tr>
 				<td> <%=message.sender_id%></td>
 				<td><% if message.messagetype ==1 %> 
@@ -26,5 +26,5 @@
 	  <% else %>
 		<tr><td colspan=3>WoHooo you read all Messages</td></tr>
 	  <% end %>
-	<% end %>
+	
 </table>

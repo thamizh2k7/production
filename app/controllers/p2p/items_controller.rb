@@ -42,7 +42,7 @@ class P2p::ItemsController < ApplicationController
 
   def destroy
     item = P2p::Item.find(params[:id])
-    item.delete
+    item.destroy
     redirect_to '/p2p/mystore'
   end
 

@@ -38,7 +38,14 @@ class P2p::MessagesController < ApplicationController
   end
 
   def new
-    @mesage=P2p::Message.all
+    @mesage=P2p::Message.new
+
+    if request.xhr? 
+      render "messages/compose"
+    else
+      
+    end
+
   end
 
 

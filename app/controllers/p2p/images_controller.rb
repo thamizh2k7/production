@@ -5,7 +5,7 @@ class P2p::ImagesController < ApplicationController
 		img.img = nil
 		img.destroy
 
-		render :json => {:status => :1}
+		render :json => {:status => "1"}
 
 	end
 end

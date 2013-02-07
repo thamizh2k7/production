@@ -55,7 +55,7 @@ class P2p::IndexController < ApplicationController
             temp_item =[]
 
             items.each do |itm|
-              i = itm.get_image(1,0)[0][:url]
+              i = itm.get_image(1,1)[0][:url]
               itm = itm.attributes
               itm[:image] = i
               temp_item.push(itm)
@@ -118,7 +118,7 @@ class P2p::IndexController < ApplicationController
             temp_item =[]
 
             items.each do |itm|
-              i = itm.get_image(1,0)[0][:url]
+              i = itm.get_image(1,1)[0][:url]
               itm = itm.attributes
               itm[:image] = i
               temp_item.push(itm)
@@ -156,7 +156,7 @@ class P2p::IndexController < ApplicationController
       # end
 
         result.each do |r|
-          r[:image] = r.get_image(1,0)[0][:url]
+          r[:image] = r.get_image(1,1)[0][:url]
         end
 
         res["type"] ="item"

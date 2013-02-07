@@ -4,10 +4,10 @@
 <%= javascript_include_tag "global/jquery.ui.accordion" %>
 
 <script type="text/javascript">
-$(document).ready({
-$("#inbox").accordion();
-});
-</script>
+  $(function() {
+    $( "#accordion" ).accordion();
+  });
+  </script>
 <h2><%= current_user.name%> Messages</h2>
 
 
@@ -17,17 +17,39 @@ $("#inbox").accordion();
 	<div class="span2">
 	  <ul class="nav nav-list">
 	    <li class="active"><a href="#compose" data-toggle="tab" >Compose</a></li>
-	    <li><a href="#inbox" data-toggle="tab">Inbox </a>
+	    <li><a href="#inbox" data-toggle="tab">
+	    	Inbox(<%=@inbox.where('flag="unread"').count%>) 
+	        </a>
             
              <ul class="nav" id="accordian">
-            <li><a href="#sell_requests" data-toggle="tab" >Sell Requests</a></li>
-	    	<li><a href="#buy_requests" data-toggle="tab" >Buy Requests</a></li>
-	    	<li><a href="#admin_messages" data-toggle="tab" >ADMIN Messages</a></li>
+            <li><a href="#sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
+              (<%=@inbox.where('flag="unread" AND messagetype="1" ').count%>)
+            </a></li>
+	    	<li><a href="#buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
+              (<%=@inbox.where('flag="unread" AND messagetype="0" ').count%>)
+	    	</a></li>
+	    	<li><a href="#admin_messages" data-toggle="tab" >&nbsp;&nbsp;ADMIN Messages
+             (<%=@inbox.where('flag="unread" AND messagetype="2" ').count%>)
+	    	</a></li>
 	    	</ul>
            
 	    </li>
-	    <li><a href="#sent" data-toggle="tab">Sent </a></li>
-	    <li><a href="#deleted" data-toggle="tab">Deleted </a></li>
+	    <li><a href="#sent" data-toggle="tab">Sent(
+	     <%=@sent.where('sender_status="sent" ').count%>) </a>
+             <ul class="nav" id="accordian">
+            <li><a href="#sent_sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
+           (<%=@sent.where('sender_status="sent" AND messagetype="1" ').count%>)
+            </a>
+             </li>
+	    	<li><a href="#sent_buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
+             (<%=@sent.where('sender_status="sent" AND messagetype="0" ').count%>)
+	    	</a></li>
+	    	<li><a href="#sent_admin_messages" data-toggle="tab" >&nbsp;&nbsp;ADMIN Messages
+             (<%=@sent.where('sender_status="sent" AND messagetype="2" ').count%>)
+	    	</a></li>
+	    	</ul>
+	    </li>
+	     <!--<li><a href="#deleted" data-toggle="tab">Deleted </a></li> -->
 	  </ul>
 	</div>
 	<div class="span10">
@@ -38,7 +60,8 @@ $("#inbox").accordion();
 	    </div>
 	    
 	    <div class="tab-pane " id="inbox">
-	    	 <%= render :partial=> "inbox" %>
+	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox }%>
+	    	 
 
 	     </div>
 			
@@ -49,19 +72,34 @@ $("#inbox").accordion();
 		<div class="tab-pane " id="deleted">
 			<!--	 -->
 	    </div>
+	    <!--Inbox Sub Categories -->
 	     <div class="tab-pane" id="sell_requests">
 
+          <%= render :partial => "inbox",:locals =>{ :inbox => @inbox_sell_req }%>
+	    	 
 	      </div>
 	      <div class="tab-pane" id="buy_requests">
-
+	    	 <%= render :partial => "inbox",:locals =>{ :inbox =>@inbox.where("messagetype=0") }%>
 	      </div>
 	      <div class="tab-pane" id="admin_messages">
-
+	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox_admin_msg }%>
 	      </div>
+           <!--Sent Messages Sub Categories -->
+	      <div class="tab-pane" id="sent_sell_requests">
+          <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=1") }%>
+	    	 
+	      </div>
+	      <div class="tab-pane" id="sent_buy_requests">
+	    	 <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=0")  }%>
+	      </div>
+	      <div class="tab-pane" id="sent_admin_messages">
+	    	<%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=2")  }%>
+	      </div>
+
 		</div>
-		<div class="row" id="show_msg">
+		   <div class="row" id="show_msg">
 			
-		</div>
+		   </div> 
 	</div>
 </div>
 </div>

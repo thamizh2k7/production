@@ -6,7 +6,10 @@ class P2p::MessagesController < ApplicationController
      @message=@user.sent_messages.new
    
   	#Inbox => Both read and unread messages from scope
-	  @inbox = @user.received_messages.inbox 
+	  @inbox = @user.received_messages.inbox
+    @inbox_admin_msg = @user.received_messages.inbox.where("messagetype=2")
+    @inbox_sell_req = @user.received_messages.inbox.where("messagetype=1") 
+    @inbox_buy_req = @user.received_messages.inbox.where("messagetype=0") 
   
 	  # getting the sent messages from the scope
 	  @sent = @user.sent_messages.sent 
@@ -27,6 +30,7 @@ class P2p::MessagesController < ApplicationController
  
   def show
     @message=P2p::Message.find(params[:id])
+    @message.update_attributes(:flag=>"read") if @message.flag != "read"
      respond_to do |format|
       format.js
       format.html

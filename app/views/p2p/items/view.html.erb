@@ -68,12 +68,16 @@
 			</div>
 			<div class="modal-body">
 
-				<% if current_user %>
-						<p> <%= render "p2p/messages/compose" ,:message => P2p::Message.new ,:user_id => current_user.id ,:receiver => @item.user.id ,:item => @item.id %></p>
-			
-				<% else %>
-						Login to Send Buy Request
-				<% end %>
+				<p>
+					<% if current_user %>
+						
+
+							 <%= render "p2p/messages/compose" ,:message => P2p::Message.new ,:user_id => current_user.id ,:receiver => @item.user.id ,:item => @item.id %>
+				
+					<% else %>
+							Login to Send Buy Request
+					<% end %>
+				</p>
 
 			</div>
 			</div>
@@ -104,14 +108,44 @@
 
 		<div id="analytics">
 			<% if @item.solddate.nil? %>
-				<a href="/p2p/sold/<%= @item.id %>" class="btn btn-warning"> Its Sold!</a>
+				<a href="/p2p/sold/<%= @item.id %>" class="btn btn-success">Mark as Sold!</a>
+			<% else %>
+				<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
+			<%end %>
+			
+
+
+			<% if @item.deletedate.nil? %>
+				<a href="/p2p/delete/<%= @item.id %>" class="btn btn-danger" id="item_delete_button"> Delete </a>
 			<% else %>
 				<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
 			<%end %>
 
 			<h4> Analytics </h4>
-			<div id="view_count"> View Count: <%= @item.viewcount %> </div> <br/>
-			<div id="view_req_count"> Request Count : <%= @item.reqCount %> </div> <br/>
+			<div id="view_count"> 
+    
+    			View Count: <br/>
+    				<span class="progress ">
+    					<span class="bar  bar-warning" style="width:100%;">
+    						<span class="badge"> <%= @item.viewcount %> </span>
+    					</span>
+    				</span>
+    
+			</div>
+
+				  <br/><br/>
+
+			<div id="view_req_count"> 	
+    
+    			Request Count: <br/>
+    				<span class="progress  ">
+    					<span class="bar bar-success" style="width:<%= @item.reqCount.to_i %>%;">
+    							<span class="badge"> 	 <%= @item.reqCount %>  </span>
+    					</span>
+    				</span>
+    
+			</div>
+			
 		</div>
 
 	<% end %>
@@ -185,5 +219,8 @@ $(document).ready(function(){
 	});
 
 	<% end %>
+
+//delete the item
+
 </script>
 

@@ -26,9 +26,18 @@ class P2p::MessagesController < ApplicationController
       params[:p2p_message][:receiver] = P2p::User.find(params[:p2p_message][:receiver])
       params[:p2p_message][:sender] = P2p::User.find(params[:p2p_message][:sender])
 
+      if params[:p2p_message][:item_id] != "" 
+        item= P2p::Item.find(params[:p2p_message][:item_id])
+        item.reqCount += 1
+        
+      end
+
   	 @message=user.sent_messages.create(params[:p2p_message])
      @message.update_attributes(:sender_status=>"sent")
 
+    if params[:p2p_message][:item_id] != "" 
+      item.save
+    end
      puts @message.inspect + " saved "
 
       flash[:notice] = "Message sent Successfully"

@@ -3,9 +3,13 @@ var data = <%=raw @message.to_json()%>;
 
 data['messagetype'] = "<%= @message.message_type %>" ;
 
-var html = "<h3>" + "<a href='/p2p/view/" + <%=  @message.item_id %> + " > Empty </a> </h3>";
+var html = "<div id='view_message_content'> <h3> <%= @message.sender.user.name %> about # </h3>";
 
-html+="<p>"+data.message+"</p>";
+html+="<p> <i> On: <%= @message.created_at.strftime('%d-%m-%C%y').html_safe %>  </i> </p> ";
+html+="<p id='message_content'>" + data.message + "</p>";
+
+html +='</div>';
+
 
 $("#show_msg").html(html);
 $(".tab-content").hide();

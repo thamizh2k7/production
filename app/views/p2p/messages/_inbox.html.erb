@@ -1,9 +1,10 @@
-<table class="table">
+
+<table class="table table-bordered table-striped  table-hover">
 	<tr><th>Sender </th>
 		<th>Message Type</th>
 		<th>Message</th>
 		<th>Date</th>
-		<th> </th>
+		<th>Actions</th>
 	</tr>
 	
 	  <%if inbox.count > 0 %>
@@ -24,7 +25,7 @@
 				</tr>
 		<% end %>
 	  <% else %>
-		<tr><td colspan=3>WoHooo you read all Messages</td></tr>
+		<tr><td colspan=5>WoHooo you read all Messages</td></tr>
 	  <% end %>
 	
 </table>

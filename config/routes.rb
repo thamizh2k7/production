@@ -77,6 +77,8 @@ Sociorent::Application.routes.draw do
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'
 
+      get 'delete/:id' => "items#destroy"
+      
       post 'addimage' => "items#add_image"
 
       get 'sold/:id' => "items#sold"

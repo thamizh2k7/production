@@ -196,6 +196,7 @@ body{
 
 	margin-top:10px;
 	margin-bottom:10px;
+	min-height:500px;
 }
 
 
@@ -285,4 +286,14 @@ body{
 
 .btn:hover{
 	color:blue !important; 
+}
+
+
+//messages
+#view_message_content{
+	margin-left:30px;
+}
+
+#message_content{
+	margin-left:10px;
 }

@@ -41,8 +41,19 @@ class P2p::ItemsController < ApplicationController
   end
 
   def destroy
-    item = P2p::Item.find(params[:id])
-    item.destroy
+
+    begin
+      item = P2p::Item.find(params[:id])
+
+      raise "Cannot Delete" if item.user.id != current_user.id 
+    rescue
+      redirect_to "/p2p/mystore"
+      return
+    end
+    
+
+    item.deletedate = Time.now
+    item.save
     redirect_to '/p2p/mystore'
   end
 
@@ -71,8 +82,12 @@ class P2p::ItemsController < ApplicationController
 
   def view
 
-
-      @item = P2p::Item.find(params[:id])
+      begin
+        @item = P2p::Item.find(params[:id])
+      rescue
+        redirect_to '/p2p/mystore'
+        return
+      end
 
      @attr = @item.specs(:includes => :attr)
 

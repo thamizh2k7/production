@@ -1,3 +1,5 @@
+
+<h3> Send a New Message </h3>
 <div class="compose">
 
 
@@ -5,14 +7,14 @@
 
 
 
-	 	<% if item.nil?  %>
+	 	<% if item.to_s.empty?  %>
 
-				<%= f.input :item_id ,:value_method =>  ""  ,:as => :hidden 	%>
+				<%= f.input :item_id ,:input_html => {:value => ""}  ,:as => :hidden 	%>
 
 
 	 	<% else %>
 
-			<%= f.input :item_id ,:value_method =>  item  ,:as => :hidden %>
+			<%= f.input :item_id ,:input_html => {:value => item }  ,:as => :hidden %>
 
 	 	<% end %>
 

@@ -12,28 +12,37 @@
 
 
 		
-<div class="tabbable">
+<div class="tabbable " id="message_side_menu">	
 	<div class="row">
 	<div class="span2">
+
+
 	  <ul class="nav nav-list">
-	    <li class="active"><a href="#compose" data-toggle="tab" >Compose</a></li>
-	    <li><a href="#inbox" data-toggle="tab">
+	    <li class=""><a href="#compose" data-toggle="tab" >Compose</a></li>
+
+	    <li class="active"><a href="#inbox" data-toggle="tab">
 	    	Inbox(<%=@inbox.where('flag="unread"').count%>) 
 	        </a>
             
              <ul class="nav" id="accordian">
-            <li><a href="#sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
-              (<%=@inbox.where('flag="unread" AND messagetype="1" ').count%>)
-            </a></li>
+              
+            <!--
+	            <li><a href="#sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
+	              (<%=@inbox.where('flag="unread" AND messagetype="1" ').count%>)
+	            </a></li>
+            -->
+        	
+
 	    	<li><a href="#buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
               (<%=@inbox.where('flag="unread" AND messagetype="0" ').count%>)
 	    	</a></li>
-	    	<li><a href="#admin_messages" data-toggle="tab" >&nbsp;&nbsp;ADMIN Messages
+	    	<li><a href="#admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
              (<%=@inbox.where('flag="unread" AND messagetype="2" ').count%>)
 	    	</a></li>
 	    	</ul>
            
 	    </li>
+
 	    <li><a href="#sent" data-toggle="tab">Sent(
 	     <%=@sent.where('sender_status="sent" ').count%>) </a>
              <ul class="nav" id="accordian">
@@ -44,7 +53,7 @@
 	    	<li><a href="#sent_buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
              (<%=@sent.where('sender_status="sent" AND messagetype="0" ').count%>)
 	    	</a></li>
-	    	<li><a href="#sent_admin_messages" data-toggle="tab" >&nbsp;&nbsp;ADMIN Messages
+	    	<li><a href="#sent_admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
              (<%=@sent.where('sender_status="sent" AND messagetype="2" ').count%>)
 	    	</a></li>
 	    	</ul>
@@ -52,21 +61,24 @@
 	     <!--<li><a href="#deleted" data-toggle="tab">Deleted </a></li> -->
 	  </ul>
 	</div>
-	<div class="span10">
+	<div class="span10 " id="box_content">
 
 		<div class="tab-content">
-	    <div class="tab-pane active" id="compose">
+	    <div class="tab-pane " id="compose">
 	    	
 	    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" %>  <div> </div>
 	    </div>
 	    
-	    <div class="tab-pane " id="inbox">
+	    <div class="tab-pane active" id="inbox">
+
+	    	<h3> Inbox </h3>
 	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox }%>
 	    	 
 
 	     </div>
 			
 		 <div class="tab-pane" id="sent">
+		 	<h3> SentBox </h3>
 	    	<%= render :partial=> "sent" %> 
 	      </div>
 			
@@ -74,26 +86,35 @@
 			<!--	 -->
 	    </div>
 	    <!--Inbox Sub Categories -->
-	     <div class="tab-pane" id="sell_requests">
 
+	   <!--
+	     <div class="tab-pane" id="sell_requests">
+	     	<h3> Sell Request</h3>
           <%= render :partial => "inbox",:locals =>{ :inbox => @inbox_sell_req }%>
-	    	 
 	      </div>
+		-->
+
 	      <div class="tab-pane" id="buy_requests">
+	      	<h3> Buy Request</h3>
 	    	 <%= render :partial => "inbox",:locals =>{ :inbox =>@inbox.where("messagetype=0") }%>
 	      </div>
+
 	      <div class="tab-pane" id="admin_messages">
+	      	<h3> Admin Messages</h3>
 	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox_admin_msg }%>
 	      </div>
            <!--Sent Messages Sub Categories -->
 	      <div class="tab-pane" id="sent_sell_requests">
+	      	<h3> Sent Sell Request </h3>
           <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=1") }%>
 	    	 
 	      </div>
 	      <div class="tab-pane" id="sent_buy_requests">
+	      	<h3> Sent Buy Request </h3>
 	    	 <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=0")  }%>
 	      </div>
 	      <div class="tab-pane" id="sent_admin_messages">
+	      	<h3> Sent Admin </h3>
 	    	<%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=2")  }%>
 	      </div>
 
@@ -103,5 +124,4 @@
 		   </div> 
 	</div>
 </div>
-</div>
-
+</div>  

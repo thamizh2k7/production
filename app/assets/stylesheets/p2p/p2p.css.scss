@@ -134,7 +134,7 @@ body{
 
 .product{
 	text-align:center;
-	width:120px;
+	width:200px;
 	display:block;
 	float:left;
 	margin-left:5px;
@@ -143,7 +143,6 @@ body{
 	background: #fff;
 	border:1px solid #eeeeee;
 	border-radius:10px;
-
 }
 
 .product a{
@@ -163,6 +162,14 @@ body{
 
 }
 
+.product_img {
+	min-height:200px;
+	min-width: 200px;
+}
+.product_img img{
+	width:100px;
+	height:200px;
+}
 
 .product_tag{
 	font-weight:bold;
@@ -275,3 +282,11 @@ body{
 	border:none;
 }
 
+
+.btn{
+	color:black !important; 
+}
+
+.btn:hover{
+	color:blue !important; 
+}

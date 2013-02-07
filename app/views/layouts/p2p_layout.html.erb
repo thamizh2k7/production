@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rent Engineering Textbooks | Sociorent.com: A new companion for Engineering Students.</title>
+  <title> Sell and Buy things online | Sociorent.com: A new companion for Engineering Students.</title>
 <meta name="Description" content="Sociorent.com - A new companion for Engineering Students. Rent books at flat 25% of the MRP. Free door delivery. Rental Period of 6 months."/>
 <meta name="Keywords" content="Rent books Online, Rent engineering books, book rental online, engineering books, engineering colleges india, rent books india, easy book rentals, cool book rentals/">
   <title>Sociorent</title>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
   <%= stylesheet_link_tag    "global/application", :media => "all" %>
   <%= javascript_include_tag "global/application" %>
@@ -41,22 +40,6 @@
     <div class="clearfix"></div>
   </div>
   
-
-  <div id="university_dialog" class="font-dialog">
-    <% logos=General.first.images %>
-    <% if logos%>
-      <ul class="university_logos">
-        <% logos.each do |logo| %>
-          <li><img src="<%= logo.image %>"></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>No more logo of universities </p>
-    <% end %>
-
-  </div>
-  <%#= render :partial => "/static_page_dialog" %>
-
 
   <%= render :partial => "layouts/footer" %>
 

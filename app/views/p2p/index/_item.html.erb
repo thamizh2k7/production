@@ -6,18 +6,20 @@
 
     <a href="<%= "/p2p/view/" +  p.id.to_s %>" > 
       <div class="product_img">
-       <img src="/assets/nokia1.jpg" alt="Picture coming Soon...." width="100px" height="100px"></img>
+       <img src="<%= p.get_image(1,0)[0][:url]%>" alt="Picture coming Soon...." width="100px" height="50px"></img>
       </div>
 
+
       <div class="product_title">
-        <em><%= p.title  %></em> 
+        <em><%= p.title.slice(0,25)  %></em> 
       </div>
-            
+    </a>
+                
       <div class="product_tag">
       <em><del>&#2352;</del> <%=p.price %></em> 
       </div>
    
-      </a>
+      
       
   </div>
 <% end %>

@@ -8,7 +8,9 @@ class P2p::Item < ActiveRecord::Base
 
   has_many :images ,:class_name => 'P2p::Image'
 
-  attr_accessible :approvedflag, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price
+  attr_accessible :approvedflag, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img
+
+  attr_accessor :img
 
 
   default_scope where('deletedate is null')
@@ -23,7 +25,7 @@ class P2p::Item < ActiveRecord::Base
     has created_at,updated_at
   end
 
-  def get_image(count = 1 )
+  def get_image(count = 1 ,medium = 1)
     res=[]
 
 
@@ -32,19 +34,23 @@ class P2p::Item < ActiveRecord::Base
     else
 
       if count == 1  
-        res.push  ({:url => self.images.first.img.url ,:id =>self.images.first.id.to_s })
+        if medium ==1 
+            res.push  ({:url => self.images.first.img.url(:medium) ,:id =>self.images.first.id.to_s })
+        else
+          res.push  ({:url => self.images.first.img.url ,:id =>self.images.first.id.to_s })
+        end
       else
 
         self.images.each do |img|
-          res.push  ({:url => img.img.url , :id => img.id.to_s })
+          if medium == 1 
+            res.push  ({:url => img.img.url(:medium) , :id => img.id.to_s })
+          else
+            res.push  ({:url => img.img.url , :id => img.id.to_s })
+          end
         end
       end
 
     end
-
-
-    puts res.inspect
-
 
     res
   end

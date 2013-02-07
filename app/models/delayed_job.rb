@@ -20,7 +20,7 @@ class DelayedJob
 	    	token = user.token
 	    	graph  = Koala::Facebook::API.new(token)
 	    	books.each do |book|
-		    	book_url = "http://www.sociorent.in/book/details/#{book.id}"
+		    	book_url = "http://www.sociorent.com/book/details/#{book.id}"
 		    	graph.put_connections("me", "sociorent:rented", :book => book_url)
 		    end
 	    end

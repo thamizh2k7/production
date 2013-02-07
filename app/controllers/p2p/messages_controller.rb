@@ -3,7 +3,9 @@ class P2p::MessagesController < ApplicationController
   def index
   	
      @user=P2p::User.find(current_user.id)
-     @message=@user.sent_messages.new
+     @message = @user.sent_messages.new
+
+     puts @message.inspect + "message"
    
   	#Inbox => Both read and unread messages from scope
 	  @inbox = @user.received_messages.inbox
@@ -19,17 +21,31 @@ class P2p::MessagesController < ApplicationController
   end
 
   def create
-  	 @user=P2p::User.find(current_user.id)
+  	 user=P2p::User.find(current_user.id)
      
-  	 @message=@user.sent_messages.create(params[:message])
+      params[:p2p_message][:receiver] = P2p::User.find(params[:p2p_message][:receiver])
+      params[:p2p_message][:sender] = P2p::User.find(params[:p2p_message][:sender])
+
+  	 @message=user.sent_messages.create(params[:p2p_message])
      @message.update_attributes(:sender_status=>"sent")
+
+     puts @message.inspect + " saved "
+
       flash[:notice] = "Message sent Successfully"
-      redirect_to "p2p/messages/"
+
+      if request.xhr?
+
+      else
+        redirect_to "/p2p/messages/"
+      end
+      
     end
         
  
   def show
     @message=P2p::Message.find(params[:id])
+    
+
     @message.update_attributes(:flag=>"read") if @message.flag != "read"
      respond_to do |format|
       format.js
@@ -54,3 +70,4 @@ class P2p::MessagesController < ApplicationController
 
 
 end
+

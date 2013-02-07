@@ -2,14 +2,6 @@ Sociorent::Application.routes.draw do
 
 
 
-  get "messages/index"
-
-  get "messages/create"
-
-  get "messages/destroy"
-
-  get "messages/new"
-
   get "cities/index"
 
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'

@@ -56,7 +56,8 @@
 
 		<div class="tab-content">
 	    <div class="tab-pane active" id="compose">
-	    	<%= render :partial=> "compose" %><div> </div>
+	    	
+	    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" %>  <div> </div>
 	    </div>
 	    
 	    <div class="tab-pane " id="inbox">

@@ -12,7 +12,7 @@
 		<img src="<%= @item.get_image[0][:url] %>" imgid="<%= @item.get_image[0][:id] %>" alt="" id="view_image"></img>
 	</div>
 
-	<% unless current_user.nil? %>
+	<% if (!current_user.nil? and  @item.user.id == current_user.id) %>
 
 		<div id="addimg">
 				<%= form_tag "/p2p/addimage" ,:multipart => true , :id => "add_image_form" do %>
@@ -54,10 +54,35 @@
 	<% if (current_user.nil? or @item.user.id != current_user.id) %>
 
 		<div id="action_buttons">
-			<div class="btn btn-info"> Buy Now </div>
+			
+
+			<!-- seller info -->
+
+			<a href="#buy_now_modal" role="button" class="btn btn-info" data-toggle="modal" id="buy_now_button">Buy Now</a>
+
+			<!-- Modal -->
+			<div id="buy_now_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="buy_now_modalLabel" aria-hidden="true">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="buy_now_modalLabel">Send a Buy Request</h3>
+			</div>
+			<div class="modal-body">
+
+				<% if current_user %>
+						<p> <%= render "p2p/messages/compose" ,:message => P2p::Message.new ,:user_id => current_user.id ,:receiver => @item.user.id ,:item => @item.id %></p>
+			
+				<% else %>
+						Login to Send Buy Request
+				<% end %>
+
+			</div>
+			</div>
+
+			
+
 			<br/><br/>
 
-
+			<!-- seller info -->
 
 			<a href="#view_contact_modal" role="button" class="btn btn-warning" data-toggle="modal">Seller Info</a>
 			 
@@ -71,6 +96,8 @@
 			<p> Email : <%= @item.user.user.email  %> </p>
 			</div>
 			</div>
+
+
 		</div>
 
 	<% else %>
@@ -150,6 +177,13 @@ $(document).ready(function(){
 		imageBtnNext: "/assets/lightbox-btn-next.gif"
 	});
 
+//load compose form
+	<% if current_user.nil? %>
+	$("#buy_now_button").click(function(){
+		$("#login_box_button").trigger("click");
+		return false;
+	});
 
+	<% end %>
 </script>
 

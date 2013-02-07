@@ -175,12 +175,12 @@ $(document).ready(function(){
      <div id='<%= list.name %>' class="acategory">
         <div class="category_title"><%= list.name.pluralize %></div> 
 
-           <% products = list.products.limit(4) %>
+           <% products = list.products.limit(10) %>
 
            <% products.each do |prod| %>
               <% if prod.items.size > 0 %>
 
-                 <%= render :partial => "item",:locals =>{ :items => prod.items.limit(1) }%>
+                 <%= render :partial => "item",:locals =>{ :items => prod.items.limit(5) }%>
              <% end %>
            <% end %>
 

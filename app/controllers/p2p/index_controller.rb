@@ -6,7 +6,7 @@ class P2p::IndexController < ApplicationController
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
      
-    @list = P2p::Category.limit(8).order("priority")
+    @list = P2p::Category.limit(10).order("priority")
 
   end
 
@@ -48,7 +48,7 @@ class P2p::IndexController < ApplicationController
 
             cat = r.name
 
-            items =  r.products[0].items.select("id,title,price").limit(4)
+            items =  r.products[0].items.select("id,title,price").limit(10)
 
             next if items.size == 0  
 
@@ -105,7 +105,7 @@ class P2p::IndexController < ApplicationController
             #puts r.inspect + " category "
 
             #if temp.size == 0
-              items =  r.items.select("id,title,price").limit(4)
+              items =  r.items.select("id,title,price").limit(10)
 #              puts temp.inspect + " selected "
  #           else
   #            items = temp

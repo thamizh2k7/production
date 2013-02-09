@@ -1,0 +1,108 @@
+
+<%= stylesheet_link_tag 'p2p/browse'%>
+<%= stylesheet_link_tag 'p2p/search_category_menu'%>
+
+<%= javascript_include_tag 'p2p/jquery.masonry.min'%>
+
+<%= render 'p2p/index/search_menu' %>
+
+<div id="page_content">
+<br/>
+
+<div id="browse_left" class="pull-left">
+		<div  class=" menu" >
+							<div class="menu_title">Browse</div>
+
+						<div class="menu_contents">
+
+							<% unless @cat.category.nil? %>
+								<span class="arrow">V</span><a class="menu_element" href="/p2p/<%=@cat.category.name%>"><%=@cat.category.name%></a>
+
+								<span class="arrow">></span>
+
+							<% else %>
+								<span class="arrow">V</span>
+							<% end %>
+
+							<a class="menu_element" href="/p2p/<%=@cat.name%>">
+							
+								<%=@cat.name%>
+							</a>
+
+							<% if @products.class.to_s != "P2p::Product" %>
+								<% unless @cat.subcategories.nil? %>
+										<% @cat.subcategories.each do |cat| %>
+											<a class="menu_element sub_menu" href="/p2p/<%=@cat.name%>/<%= cat.name %>">
+												<%= cat.name %> 
+											</a>
+										<%end %>
+
+								<% end %>
+							<% end %>
+
+
+					<% if params.has_key?("prod") %>
+						<span class="menu_element "><%= @products.name %> <span id="prod_<%=@products.id%>">(<%= @products.items.count %>)</span> </span>
+					<% end %>
+						</div>
+
+						<div class="clearfix"></div>						
+		</div>
+
+	<div class="menu">
+		<div class="menu_title">Filters</div>
+	</div>
+
+
+</div>
+
+<div id="browse_content" class="pull-left span9">
+
+
+	<div id="browse_title"><%= @cat.name %></div>
+
+	<div id="browse_tags"></div>
+
+	<div id="browse_sort">
+
+		<span class="pull-right">Sort
+
+			<select id="sort_browse_items">
+				<option>Relevance</option>
+				<option>Price -> High to Low</option>
+				<option>Price -> High to Low</option>
+			</select>
+		</span>
+	</div>
+
+	<div id="browse_content_items">
+
+		<% unless params.has_key?("prod") %>
+				<% @products.each do |prod| %>
+						<div class=" search_acategory_content">
+							<%= render "p2p/index/item" ,:items => prod.items.limit(5) %>
+						</div>
+				<% end %>
+
+		<% else %>
+					<div class=" search_acategory_content">
+							<%= render "p2p/index/item" ,:items => @products.items.limit(20)  %>
+						</div>
+		<% end %>
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+</div>
+
+
+<script>
+	$(document).ready(function(){
+		$("#browse_content_items").masonry({
+			itemSelector:'.product',
+			isAnimated: true
+		});
+	});
+</script>

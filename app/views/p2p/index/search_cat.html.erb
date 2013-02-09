@@ -1,38 +1,51 @@
-<%=render 'p2p/index/search_menu' %>
 
-<div id="content">
+<%= stylesheet_link_tag 'p2p/search_category_menu'%>
+
+<%= render 'p2p/index/search_menu' %>
+
+<div id="page_content">
+<br/>
 
 
-	<% if params[:prod].present?  %>
+		<div  class=" menu pull-left" >
+							<div class="menu_title">Search Category</div>
 
-		<div class="category_title">
-			<%= @prod_name %> (<%= @products.items.count %>)
-			<a class="label label-info pull-right in_nav" href="/p2p/search/c/<%=@cat.name%>"><%= @cat.name %>  </a>
+						<div class="menu_contents">
+							<span class="menu_element">All Categories</span>
+							<% @products.each do |aprod| %>
+
+								<a class="menu_element" href="/p2p/<%= aprod.category.name %>/<%= aprod.name %>">
+									<%= aprod.name %> (<%= aprod.items.count %>) 
+								</a>
+							<% end %>
+
+						</div>
+
+						<div class="clearfix"></div>						
 		</div>
 
-		<%= render "p2p/index/item" ,:items => @items %>
 
-		<div class="clearfix"></div>
-
-	<% else %>
+<div id="search_content" class="pull-left span9">
 
 		<% @products.each do |prod| %>
-
-				<div class="category_title">
-					Featured in <%= prod.name %> 
+			<div class="search_acategory">
+				<div class="search_acategory_title">
+					Featured in <%= prod.name %>
 					<span class="pull-right">
-						<a  class=" label label-info in_nav" href="/p2p/search/c/<%=@cat.name%>/<%=prod.name%>">See all <%= prod.items.count %> </a>
+						<a  class=" label label-info in_nav" href="/p2p/<%=prod.category.name%>/<%=prod.name%>">See all <%= prod.items.count %> </a>
 					</span>
 				</div>
 
-				<%= render "p2p/index/item" ,:items => prod.items %>
+				<div class=" search_acategory_content">
+					<%= render "p2p/index/item" ,:items => prod.items.limit(5) %>
+				</div>
 
 				<div class="clearfix"></div>
-
+			</div>
 		<% end %>
-		
-	<% end %>
 
-
+	<div class="clearfix"></div>
 </div>
 
+<div class="clearfix"></div>
+</div>

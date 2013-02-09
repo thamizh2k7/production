@@ -146,10 +146,12 @@ function search(){
 
   <%=render 'p2p/index/search_menu' %>
 
-<br/><br/>
 <div id="content" class="span11">
+  
+
 
   <% @list.each do |list| %>
+
     <% if list.products.size > 0 and list.products[0].items.size > 0 %>
 
      <div id='<%= list.name %>' class="acategory">

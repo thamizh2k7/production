@@ -53,8 +53,9 @@
 		<div class="thumbnail">
 			<% i = 0 %>
 			<% thumbimage.each do |img| %>
-
-				<img src="<%= img[:url]%>" imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" viewimage="<%= viewimage[i][:url] %>"> </img>
+				<span class="thumb_img_holder">
+					<img src="<%= img[:url]%>" imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" viewimage="<%= viewimage[i][:url] %>"> </img>
+				</span>
 				<% i = i + 1 %>
 			<% end %>
 			<div class="clearfix"></div>
@@ -369,7 +370,7 @@ function edititem(){
 				if (data.status == 1){
 					var imgid = $("#view_image").attr("imgid");
 
-					$("#image_" + imgid).remove();
+					$("#image_" + imgid).parent().remove();
 					$(".thumb_img").trigger("click");
 				}
 			}
@@ -707,9 +708,9 @@ function edititem(){
 		});
 	<% end %>
 
-$(".thumb_img").click(function(){
-	$("#view_image").attr("src",$(this).attr("viewimage"));
-	$("#view_image").attr("imgid",$(this).attr("imgid"));
+$(".thumb_img_holder").click(function(){
+	$("#view_image").attr("src",$(this).children("img").attr("viewimage"));
+	$("#view_image").attr("imgid",$(this).children("img").attr("imgid"));
 });
 
 </script>

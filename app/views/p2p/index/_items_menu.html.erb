@@ -8,7 +8,7 @@
   	<ul class="dropdown-menu span2" role="menu" aria-labelledby="dLabel">
 		<% P2p::Category.where("category_id is null").each do |cat| %>
 
-				<li class="category"> <a href="/p2p/search/c/<%= cat.name %>"><%= cat.name %> </a></li>
+				<li class="category"> <a href="/p2p/<%= cat.name %>"><%= cat.name %> </a></li>
 				<%= render 'p2p/index/scat_menu' ,:scat => cat.subcategories %>
 			
 		<% end %>

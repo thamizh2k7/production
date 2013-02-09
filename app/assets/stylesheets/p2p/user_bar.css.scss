@@ -13,7 +13,7 @@
 		margin-left: 13%;
 
 		div{
-			margin-left: 60px;
+			margin-left: 0px !important;
 			margin-top: 4px;
 		}
 	}
@@ -31,6 +31,7 @@
 	.right{
 		float: right;
 		margin-right: 100px;
+		width:auto !important;
 
 		.cart_button_count{
 			background: #F65757;

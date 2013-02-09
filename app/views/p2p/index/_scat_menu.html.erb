@@ -2,7 +2,7 @@
 			
 				<% scat.each do |cat|%>
 
-						<li class="sub_category"> <a href="/p2p/search/c/<%= cat.name %>"> <%= cat.name %> </a> </li>
+						<li class="sub_category"> <a href="/p2p/<%=cat.category.name%>/<%=cat.name%>"> <%= cat.name %> </a> </li>
 						<%= render 'p2p/index/prod_menu' ,:prod => cat.products %>
 				
 				<% end %>

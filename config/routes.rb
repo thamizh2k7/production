@@ -91,13 +91,15 @@ Sociorent::Application.routes.draw do
       match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]
 
       post 'getcity'  => 'cities#list'
-      
+
+
       #post "message/create/:id" => "messages#create"
       #match "message"=>"messages#index"
       resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
       resources :items
       resources :images
 
+      get ':cat(/:prod)' => "index#browse"
   end
 
 

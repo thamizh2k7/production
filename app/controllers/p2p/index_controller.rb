@@ -6,11 +6,67 @@ class P2p::IndexController < ApplicationController
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
      
-    @list = P2p::Category.limit(10).order("priority")
+    @list = P2p::Category.order("priority")
 
   end
 
-  def search
+def search
+  response = get_search_suggestions(params[:id])
+
+  if response.size == 0
+
+  		suggested_word = suggest(params['id'])
+
+  		if suggested_word == "" 
+		  result = P2p::Category.limit(5).order("priority")
+
+		  result.each do |res|
+		  	response.push( {:label => "#{params[:id]} in #{res.name}" , :value => "/p2p/search/c/#{res.name}"} )
+		  end
+
+
+		  result = P2p::Product.limit(5).order("priority")
+
+		  result.each do |res|
+		  	response.push({:label=> "#{params[:id]} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{params[:id]}"} )
+		  end
+
+		else
+			response = get_search_suggestions(suggested_word)
+		end 
+
+  end
+  
+  render :json => response
+
+end
+
+
+def get_search_suggestions(query)
+	response =[]
+	  result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
+
+  result.each do |res|
+  	response.push( {:label => "#{query} in #{res.name}" , :value => "/p2p/search/c/#{res.name}"} )
+  end
+
+
+  result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
+
+  result.each do |res|
+  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{query}"} )
+  end
+
+  result = P2p::Item.search(query ,:match_mode => :any ,:star => true)
+
+  result.each do |res|
+  	response.push({:label=> "#{res.title}" ,:value => "/p2p/search/q/#{res.title}"} )
+  end
+  return response
+
+end  
+
+def search_list
 
     puts "called search"
 
@@ -36,7 +92,7 @@ class P2p::IndexController < ApplicationController
             temp_item =[]
 
             items.each do |itm|
-              i = itm.get_image(1,1)[0][:url]
+              i = itm.get_image(1,:search)[0][:url]
               itm = itm.attributes
               itm[:image] = i
               temp_item.push(itm)
@@ -93,7 +149,7 @@ class P2p::IndexController < ApplicationController
             temp_item =[]
 
             items.each do |itm|
-              i = itm.get_image(1,1)[0][:url]
+              i = itm.get_image(1,:search)[0][:url]
               itm = itm.attributes
               itm[:image] = i
               temp_item.push(itm)
@@ -131,7 +187,7 @@ class P2p::IndexController < ApplicationController
       # end
 
         result.each do |r|
-          r[:image] = r.get_image(1,1)[0][:url]
+          r[:image] = r.get_image(1,:search)[0][:url]
         end
 
         res["type"] ="item"
@@ -144,25 +200,58 @@ class P2p::IndexController < ApplicationController
     
     render :json => []
 
-  end
 
-  def search_cat
-
-    if params[:prod].present?
-          @cat = P2p::Category.find_by_name(params[:cat])
-          @products = @cat.products.find_by_name(params[:prod])
-          @prod_name = @products.name
-          @items = @products.items.all
-          
-    else
-      @cat = P2p::Category.find_by_name(params[:cat])
-      @cat_name = @cat.name
-      @products = @cat.products.limit(5)
-
-    end
-    
 
   end
 
-end
 
+	 def search_cat
+
+	      @cat = P2p::Category.find_by_name(params[:cat])
+	      @cat_name = @cat.name
+	      @products = @cat.products
+
+
+	end
+	
+	def suggest(word) 
+		speller = Aspell.new("en_US")
+		speller.suggestion_mode = Aspell::NORMAL
+
+		string = "my haert wil go on"
+
+		string.gsub(/[\w\']+/) do |word| 
+		  if !speller.check(word) 
+		    return speller.suggest(word).first
+		  else
+			return ""
+    	  end
+		end
+	end
+
+
+	def browse
+		@cat = P2p::Category.find_by_name(params[:cat])
+		if params.has_key?("prod") 
+			@products=@cat.products.find_by_name(params[:prod])
+
+			if @products.nil?
+				@cat = P2p::Category.find_by_name(params[:prod])
+				@products=@cat.products
+				params.delete("prod")
+			end
+		else
+			@products=@cat.products
+
+      if @products.empty? and !@cat.subcategories.nil?
+
+          @cat.subcategories.each do |cat|
+            @products +=cat.products
+          end
+
+      end
+		end
+
+	end
+
+ end

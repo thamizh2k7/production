@@ -1,8 +1,8 @@
 
 <%= render "/p2p/items/itemform" ,
-           :viewimage => @item.get_image(0,1) ,
-           :thumbimage => @item.get_image(0,2) ,
-           :fullimage => @item.get_image(0,0) ,
+           :viewimage => @item.get_image(0,:view) ,
+           :thumbimage => @item.get_image(0,:thumb) ,
+           :fullimage => @item.get_image(0,:full) ,
            :title => @item.title,
            :price => @item.price.to_i.to_s,
            :location => "",

@@ -28,9 +28,6 @@ body{
 
 	a,a:visited,a:active,a:focus{
 		text-decoration: none !important;
-		color:inherit;
-
-
 	}	
 
 	#body_content{
@@ -135,20 +132,22 @@ body{
 }
 
 .product{
-	text-align:center;
-	width:200px;
+	width:140px;
 	display:block;
 	float:left;
 	margin-left:5px;
 	padding:10px;
-	cursor:pointer;
 	background: #fff;
 	border:1px solid #eeeeee;
+
 	border-radius:10px;
 }
 
+.product:hover{
+	border:1px solid #666666;
+}
+
 .product a{
-	color:blue;
 	text-decoration:none;
 	font-weight:bold;
 }
@@ -165,8 +164,17 @@ body{
 }
 
 .product_img {
-	min-height:200px;
-	min-width: 200px;
+	height:135px;
+	width: 135px;
+	//border:1px solid yellow;
+	border-radius:3px;
+	display:table-cell;
+	vertical-align:middle;
+	}
+
+.product_img img{
+	margin:0 auto;
+	display:block;
 }
 
 .product_tag{
@@ -181,6 +189,11 @@ body{
 	font-weight:bold;
 	margin-bottom:2px;
 	margin-top:15px;	
+	color:blue !important;
+	width:140px;
+	height:1.3em;
+	//border:1px solid blue;
+	overflow:hidden;
 }
 
 .p2p_menu_button a{
@@ -195,9 +208,7 @@ body{
 .font_page{
 	width:95%;
 	margin:auto;
-
-	margin-top:10px;
-	margin-bottom:10px;
+	margin-bottom:15px;
 	min-height:500px;
 }
 
@@ -309,3 +320,7 @@ body{
 	background:url('/assets/p2p.png');
 	background-repeat:no-repeat;
 }
+
+.ui-autocomplete-loading {
+    background: white url('/assets/index/loading.gif') right center no-repeat !important;
+  }

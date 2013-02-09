@@ -73,3 +73,5 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'rails_admin'
 gem 'simple_form'
 
+#jquery datatable
+gem 'jquery-datatables-rails'

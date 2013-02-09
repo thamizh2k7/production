@@ -4,7 +4,7 @@
 <%= stylesheet_link_tag "global/jquery.lightbox-0.5" %>
 
 <%= javascript_include_tag "global/jquery.lightbox-0.5.pack" %>
-<%= javascript_include_tag "global/jquery.typewatch" %>
+
 <%= javascript_include_tag "global/underscore" %>
 <%= javascript_include_tag "global/jquery.isotope.min" %>
 
@@ -141,39 +141,19 @@ function search(){
 }
 
 
-$(document).ready(function(){
-  $("#search_books_input").typeWatch({
-      callback:search,
-      wait:200,
-      highlight:true,
-      captureLength:2
-  });
-});
-
 </script>
 
 
+  <%=render 'p2p/index/search_menu' %>
 
-
-<div class="search_wrap">
-      <h2>What You Wanna Buy ? </h2>
-      <div class="searchbar">
-        <form method="get" action="#" id="search">
-          <input type="text" id="search_books_input" name="q"  placeholder="Enter Title, Mobile Name, Book Name" class="left search">
-          <input id="search_books_input_hidden" type="hidden">
-          <input type="submit" value="Search" class="left searchbutton">
-          <input type="button" value="X" class="left btn" id="searchClose">
-        </form>
-      </div>
-    </div>
-
-<div id="content">
+<br/><br/>
+<div id="content" class="span11">
 
   <% @list.each do |list| %>
     <% if list.products.size > 0 and list.products[0].items.size > 0 %>
 
      <div id='<%= list.name %>' class="acategory">
-        <div class="category_title"><%= list.name.pluralize %> <span class="pull-right"> <a href="#"> see all </a> </span></div> 
+        <div class="category_title">Featured in <%= list.name.pluralize %> <span class="pull-right"> <a  class=" label label-info in_nav" href="/p2p/search/c/<%= list.name %>"> see all </a> </span></div> 
 
            <% products = list.products.limit(10) %>
 
@@ -192,7 +172,7 @@ $(document).ready(function(){
 
 </div>
 
-<div id="search_result">
+<div id="search_result" class="span11">
 
 </div>
 
@@ -206,3 +186,5 @@ $(document).ready(function(){
     })
 });
 </script>
+
+

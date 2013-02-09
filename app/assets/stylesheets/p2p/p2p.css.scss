@@ -26,8 +26,9 @@
 /* Body */
 body{
 
-	a{
-		text-decoration: none;
+	a,a:visited,a:active,a:focus{
+		text-decoration: none !important;
+
 
 	}	
 
@@ -269,10 +270,8 @@ body{
 	border:1px solid #cccccc;
 	border-radius:10px;
 	padding:10px;
+	margin-left:-0.2px;
 }
-
-
-
 
 .search_wrap{
 	margin-top:-30px;
@@ -296,4 +295,10 @@ body{
 
 #message_content{
 	margin-left:10px;
+}
+
+
+
+.in_nav{
+	color:white !important;	
 }

@@ -14,27 +14,8 @@ class P2p::IndexController < ApplicationController
 
     puts "called search"
 
-    # result =[]
-
     res ={}
 
-    # res = P2p::Category.find_by_name(params[:id])
-
-    # unless res.nil?
-    #   result.push({:type => "cat" })
-    #   temp =[]
-    #   res.products.limit(5).each do |prod|
-    #       if prod.items.size >0 
-    #         temp.push(prod.items.select("title,id,price").first)
-    #       end
-    #   end
-    #   result.push({:payload => temp })
-
-    #   render :json => res
-
-    # end
-
-    
 
     #search for Category
     result = P2p::Category.search(params[:id])
@@ -63,10 +44,6 @@ class P2p::IndexController < ApplicationController
               
             end
 
-
-
-
-
             temp_res.push(:cat => cat , :items => temp_item )
 
         end 
@@ -82,8 +59,6 @@ class P2p::IndexController < ApplicationController
     result = P2p::Product.search(params[:id])
 
     temp_res =[]
-
-    
 
     unless result.empty?
         res["type"] ="pro"
@@ -169,54 +144,25 @@ class P2p::IndexController < ApplicationController
     
     render :json => []
 
-  #   @result = ThinkingSphinx.search "*#{params[:id]}*" ,:classes => [P2p::Item,P2p::Product,P2p::Category] 
-  #   #@products.to_json
-  #   puts "--------res" 
-  #   puts @result
-    
-  #    @search_result=[]
-  #    @items_from_category={}
-  #    @items_from_product=[]
-  #    @items_from_search=[]
-
-  #   @result.each do |res| 
-      
-  #     puts "#{res} -> #{res.class.to_s}"
-      
-  #      if res.class.to_s == "P2p::Category"
-  #       result_items = {}
-  #       temp=[]
-  #       puts"category-name: #{res.name}"
-  #       res.products.each do |prod|
-  #         result_items = prod.items.select("title,price").limit(10)
-  #         #@search_result += result_items
-  #         temp+= result_items
-          
-  #       end
-  #         @items_from_category=["#{res.name}"=>temp]
-  #         puts "------->#{result_items}"
-  #      elsif res.class.to_s == "P2p::Product"
-  #       res1=P2p::Item.select("title,price").find(res.category_id)
-  #       if res1.nil?
-  #         @items_from_product+=res1
-  #       end
-  #       #@search_result << res1
-
-  #      else
-
-  #       @items_from_search << res
-  #       # @search_result << res
-  #      end
-
-  #      @search_result={:category=>@items_from_category,:prducts=>@items_from_product,:items=>@items_from_search }
-
-
-  # end
-
-
-  #   render :text => @search_result.to_json
-  # end 
   end
 
+  def search_cat
+
+    if params[:prod].present?
+          @cat = P2p::Category.find_by_name(params[:cat])
+          @products = @cat.products.find_by_name(params[:prod])
+          @prod_name = @products.name
+          @items = @products.items.all
+          
+    else
+      @cat = P2p::Category.find_by_name(params[:cat])
+      @cat_name = @cat.name
+      @products = @cat.products.limit(5)
+
+    end
+    
+
+  end
 
 end
+

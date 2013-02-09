@@ -1,0 +1,38 @@
+<%=render 'p2p/index/search_menu' %>
+
+<div id="content">
+
+
+	<% if params[:prod].present?  %>
+
+		<div class="category_title">
+			<%= @prod_name %> (<%= @products.items.count %>)
+			<a class="label label-info pull-right in_nav" href="/p2p/search/c/<%=@cat.name%>"><%= @cat.name %>  </a>
+		</div>
+
+		<%= render "p2p/index/item" ,:items => @items %>
+
+		<div class="clearfix"></div>
+
+	<% else %>
+
+		<% @products.each do |prod| %>
+
+				<div class="category_title">
+					Featured in <%= prod.name %> 
+					<span class="pull-right">
+						<a  class=" label label-info in_nav" href="/p2p/search/c/<%=@cat.name%>/<%=prod.name%>">See all <%= prod.items.count %> </a>
+					</span>
+				</div>
+
+				<%= render "p2p/index/item" ,:items => prod.items %>
+
+				<div class="clearfix"></div>
+
+		<% end %>
+		
+	<% end %>
+
+
+</div>
+

@@ -1,7 +1,13 @@
 class P2p::ImagesController < ApplicationController
 
 	def destroy
-		img = P2p::Image.find(params[:id])
+		begin
+			img = P2p::Image.find(params[:id])
+		rescue
+			render :json => {:status => "0"}
+			return
+		end
+		
 		img.img = nil
 		img.destroy
 

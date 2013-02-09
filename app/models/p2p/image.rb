@@ -2,7 +2,7 @@ class P2p::Image < ActiveRecord::Base
   # attr_accessible :title, :body
 
   attr_accessible :img
-  has_attached_file :img , :styles => { :medium => "275x300", :thumb => "100x100" }
+  has_attached_file :img , :styles => { :view => "275x275", :thumb => "50X50" }
 
   belongs_to :item
 

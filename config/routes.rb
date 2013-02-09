@@ -74,6 +74,7 @@ Sociorent::Application.routes.draw do
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"
       get 'getattributes/:id' => "items#get_attributes"
+      get 'getspec/:id' =>  "items#get_spec"
       get 'getsubcategories/:id' => "items#get_sub_categories"
       get 'view/:id' => 'items#view'
 
@@ -85,7 +86,8 @@ Sociorent::Application.routes.draw do
 
       get 'mystore(/:query)' => 'items#inventory'
 
-      
+      match 'search/c/:cat(/:prod)' => "index#search_cat"
+
       match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]
 
       post 'getcity'  => 'cities#list'

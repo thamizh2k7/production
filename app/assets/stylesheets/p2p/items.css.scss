@@ -1,8 +1,36 @@
-// Place all the styles related to the p2p/Items controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+input{
+	border:1px solid #cccccc !important;
+	margin:0;
+	border:none !important;
+	-webkit-appearance: none; 
+	outline: 1px solid #cccccc !important;
+	display:inline-block;
+	width:auto !important;
+	height:auto !important;
+	padding:5px;
+	border-radius:3px;
+}
+
+textarea{
+	min-height:200px !important;
+	min-height:100% !important;
+}
+.inlineinput{
+	display:inline-block;
+}
 
 
+#item_classification span{
+	margin-left:5px;
+	display: inline-block;
+}
+
+
+#item_specifications input{
+	display:inline-block;
+	text-align:center;	
+}	
 #view_item{
 	width:70%;
 	padding:2em;
@@ -10,25 +38,29 @@
 	float:left;
 	border-right:1px solid #cccccc;
 	height:100%;
-
 }
 
-#view_item_image{
+#item_image_holder{
+	width:280px;
+	min-height:320px;
+}
+#item_image{
 	padding:3px;
 	border:1px solid #cccccc;
 	margin-right:1em;
 	border-radius:5px;
-	display:block;
-	margin-bottom:5px;
 	width:275px;
-	height:300px;
+	display:block;
+	min-height:280px;
 }
 
 
 #item_title{
 	margin-top:6px;
-	font-size:3em;
-	margin-bottom:15px;
+	font-size:2em;
+	height:auto;
+	line-height:1em;
+	margin-bottom:10px;
 }
 
 #item_price{
@@ -37,84 +69,85 @@
 	color:maroon;
 }
 
-#item_description{
+#item_details{
+	display:block;
+	line-height:2.5em;
+}
+
+#item_desc{
+	display:block;
+	margin-left:5px;
+	margin-top:10px;
+	min-height:10
+	0px;
+}
+
+#item_desc_content,#item_spec_content{
+	margin-top:5px;
+	text-align:justify;
+}
+
+#item_spec{
+	margin-left:5px;
+	display:block;
+	min-height:200px;
+	margin-top:10px;
+}
+
+#add_image_info{
+	text-align:center;
+}
+#add_image{
+	display:none;
+	text-align:center;
+	background-color:black;
 	width:100%;
-	margin-left:6px;
-	display:block;
-
+	opacity:0.1;
+	color:white;
+	height:2em;
+	border-radius:3px;
+	cursor:pointer;
 }
-
-#analytics,#action_buttons{
-	margin-left:1em;	
-	display:block;
-	width:20%;
-	float:left;
-	margin-top:20px;
+#add_image_form{
+	position:absolute;
+	opacity:0;
 }
-
-
-
-#item_attributes{
-	margin-left:2em;
-}
-
 .input_as_label{
 	border:none;
 	color:red;
 }
 
-
-
+#item{
+	margin:0;
+}
 
 
 //list user items
 
 .thumbnail{
-	margin-bottom:10px;
-	padding:5px;
+	padding:1px;
+	margin-top:4px;
+	overflow:hidden;
+	width:280px;
 }
 .thumb_img{
 	float:left;
-	width:100px;
-	height:100px;
+	width:50px;
+	height:50px;
 	display:block;
 	padding:4px;
-	border:1px solid #cccccc;
-	margin-right:1em;
+	margin-right:0.5em;
+	cursor:pointer;
 
 	img{
 		display:block;
-		width:100%;
-		height:100%;
+
 	}
 }
 
 .item_title{
 	font-weight:bold;
 	font-size:1.3em;
-}
-
-
-//new sell item form
-#new_item{
-	margin:auto;
-	width:50%;
-}
-
-
-#item_classification,#item_location,#item_details,#item_spec{
-	position:relative;
-	display:block;
-}
-
-#item_location,#item_details,#item_spec{
-	display:none;
-}
-
-
-.list_form{
-	display:block;
-
 }
 
 #addimg{
@@ -130,31 +163,22 @@
 	float:left;
 	border-radius:3px;
 	overflow:hidden;
+
 }
 
 #remove_image{
-	font-style:bold;
-	color:red;
-	display:inline;
+	display:none;
 	cursor:pointer;
-	padding:3px;
-	right:0;
-	font-size:2em;
 	height:30px;
 	width:30px;
-	margin-left:10px;
-	text-align:center;
 	cursor:pointer;
 	float:left;
-}
-
-#remove_image:hover{
-	background-color:red;
-	color:white;
+	position:absolute;
+	margin-left:-30px;
 }
 
 
-#file_add_image{
+#image_upload_form{
 	opacity:0;
 }
 
@@ -181,4 +205,21 @@
 	overflow:hidden;
 }
 
+.specifications lable{
+	text-align:right;
+}
+
+#finish_edit,#cancel_edit,#edit_actions{
+	display:none;
+}
 //analytics 
+
+
+
+.item_label{
+	font-weight:bold;
+}
+
+.edit_hidden,.edit_hidden_spec{
+	display:none;
+}

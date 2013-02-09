@@ -5,40 +5,76 @@ class P2p::ItemsController < ApplicationController
   layout :p2p_layout
 
   def new
-   @item = P2p::Item.new
+   @item = P2p::User.find(current_user.id).items.new
 
   end
 
 
   def create
-    @v = params["item"]['attribute']
+
 
     item = P2p::User.find(current_user.id).items.new({:title => params["title"], :desc => params["desc"], :price => params["price"]})
 
-    item.product = P2p::Product.find(params["item"]["brand"].to_i)
+    item.product = P2p::Product.find(params["brand"])
 
     #echo params["item"]['attribute'].count
     
-     params["item"]['attribute'].each do |key,value|
-      
+     params["spec"].each do |key,value|
+        next if value == "" 
+
        attr = P2p::ItemSpec.new
        attr.spec = P2p::Spec.find(key.to_i)
        attr.value = value
        item.specs << attr
      end
 
+     data={}
     if item.save 
-      redirect_to "/p2p/view/" + item.id.to_s
+      data['status'] = 1;
+      data['id'] = item.id
     else
-      flash.now[:notice] = "Cannot Create Item. Try again"
-      render :new
+      data['status'] = 0;
+      data['msg'] = "Fails";
     end
 
+    render :json => data
 
   end
 
-  def update
-  end
+ def update
+
+
+    item = P2p::User.find(current_user.id).items.find(params[:id])
+
+    item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"]});
+
+    item.product = P2p::Product.find(params["brand"])
+
+    #echo params["item"]['attribute'].count
+    #clear all
+    item.specs.clear
+
+     params["spec"].each do |key,value|
+        next if value == "" 
+        
+       attr = P2p::ItemSpec.new
+       attr.spec = P2p::Spec.find(key.to_i)
+       attr.value = value
+       item.specs << attr
+     end
+
+     data={}
+    if item.save 
+      data['status'] = 1;
+      data['id'] = item.id
+    else
+      data['status'] = 0;
+      data['msg'] = "Fails";
+    end
+
+    render :json => data
+
+end
 
   def destroy
 
@@ -62,8 +98,16 @@ class P2p::ItemsController < ApplicationController
 
   def get_attributes
     cat = P2p::Category.find(params[:id])
-    @attr = cat.specs.select("id,name,display_type")
+    @attr = cat.specs.select("id,name,display_type").all
 
+  #  render :json => @attr
+  end
+
+  def get_spec
+    items = P2p::Item.find(params[:id])
+    spec = items.specs.select("id,value,spec_id")
+    
+    render :partial => "p2p/items/editspec" , :locals => {:spec => spec}
   #  render :json => @attr
   end
 
@@ -88,6 +132,24 @@ class P2p::ItemsController < ApplicationController
         redirect_to '/p2p/mystore'
         return
       end
+
+      if @item.product.category.category.nil?
+        @category_name = @item.product.category.name 
+        @category_id = @item.product.category.id
+
+        @sub_category_name = "" 
+        @sub_category_id =""
+      else
+        @sub_category_name = @item.product.category.name 
+        @sub_category_id = @item.product.category.id
+        
+        @category_name = @item.product.category.category.name 
+        @category_id = @item.product.category.category.id
+
+      end
+
+      @brand_name = @item.product.name 
+      @brand_id = @item.product.id
 
      @attr = @item.specs(:includes => :attr)
 

@@ -98,7 +98,6 @@
 	<% if userid.empty? or (ownerid != userid) %>
 
 		<div id="item_action_buttons">
-			<!-- seller info -->
 
 			<a href="#contact_seller_modal" role="button" class="btn btn-info span2 pull-left" data-toggle="modal" id="contact_seller_button">Contact Seller</a>
 
@@ -128,16 +127,24 @@
 
 			<!-- seller info -->
 
-			<a href="#buy_now_modal" role="button" class="btn btn-warning pull-left span1" data-toggle="modal" id="buy_now_button">Seller info</a>
+			<a href="#buy_now_modal" role="button" class="btn btn-success pull-left span1" data-toggle="modal" id="buy_now_button">Buy Now</a>
 			 
 			<!-- Modal -->
 			<div id="buy_now_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="buy_now_modalLabel" aria-hidden="true">
 			<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="buy_now_modalLabel">Seller Info</h3>
+			<h3 id="buy_now_modalLabel">Pay Via</h3>
 			</div>
 			<div class="modal-body">
-			<p> Email  </p>
+			<p> 
+					<a href="#" class="btn btn-info span4"> Sociorent </a>
+
+
+					<div class="span5 " style="text-align:center;color:maroon" > OR </div>
+
+
+					<a href="#" class="btn btn-info span4"> Directly </a>
+			 </p>
 			</div>
 			</div>
 

@@ -14,14 +14,17 @@
 		
 <div class="tabbable " id="message_side_menu">	
 	<div class="row">
-	<div class="span2">
+	<div class="span2 pull-left">
 
 
 	  <ul class="nav nav-list">
 	    <li class=""><a href="#compose" data-toggle="tab" >Compose</a></li>
+ 		
+ 		<li class="divider"></li>
 
 	    <li class="active"><a href="#inbox" data-toggle="tab">
-	    	Inbox(<%=@inbox.where('flag="unread"').count%>) 
+	    	<% unreadcount = @inbox.where('flag="unread"').count %>
+	    	Inbox<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
 	        </a>
             
              <ul class="nav" id="accordian">
@@ -34,34 +37,39 @@
         	
 
 	    	<li><a href="#buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
-              (<%=@inbox.where('flag="unread" AND messagetype="0" ').count%>)
+	    	<% unreadcount = @inbox.where('flag="unread" AND messagetype="0" ').count %>
+			<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
+
+              
 	    	</a></li>
 	    	<li><a href="#admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
-             (<%=@inbox.where('flag="unread" AND messagetype="2" ').count%>)
+	    	<% unreadcount = @inbox.where('flag="unread" AND messagetype="2" ').count %>
+			<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>	    	
+
+
 	    	</a></li>
 	    	</ul>
            
 	    </li>
+ 		<li class="divider"></li>
 
-	    <li><a href="#sent" data-toggle="tab">Sent(
-	     <%=@sent.where('sender_status="sent" ').count%>) </a>
+	    <li><a href="#sent" data-toggle="tab">Sent</a>
              <ul class="nav" id="accordian">
             <li><a href="#sent_sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
-           (<%=@sent.where('sender_status="sent" AND messagetype="1" ').count%>)
             </a>
              </li>
 	    	<li><a href="#sent_buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
-             (<%=@sent.where('sender_status="sent" AND messagetype="0" ').count%>)
+
 	    	</a></li>
 	    	<li><a href="#sent_admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
-             (<%=@sent.where('sender_status="sent" AND messagetype="2" ').count%>)
+
 	    	</a></li>
 	    	</ul>
 	    </li>
 	     <!--<li><a href="#deleted" data-toggle="tab">Deleted </a></li> -->
 	  </ul>
 	</div>
-	<div class="span10 " id="box_content">
+	<div class="span8 pull-left " id="box_content">
 
 		<div class="tab-content">
 	    <div class="tab-pane " id="compose">

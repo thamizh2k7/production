@@ -8,23 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+  <%= stylesheet_link_tag "p2p/p2p" %> 
   <%= stylesheet_link_tag "p2p/bootstrap.min" %>
-  <%= stylesheet_link_tag "global/bootstrap-responsive.min" %>
+  <%= stylesheet_link_tag "global/bootstrap-responsive.min" %>  
+  <%= stylesheet_link_tag "footer" %>
+  
 
-  <%= stylesheet_link_tag "p2p/p2p" %>
-
+  <%= javascript_include_tag "p2p/p2p" %>
   <%= javascript_include_tag "global/underscore" %>
   <%= javascript_include_tag "global/bootstrap.min" %>
   <%= javascript_include_tag "global/jstorage.min" %>  
   
-
-  <%= stylesheet_link_tag    "global/application", :media => "all" %>
-  <%= stylesheet_link_tag "p2p/p2p" %>
-
-  <%= javascript_include_tag "p2p/application" %>
-  <%= javascript_include_tag "p2p/p2p" %>
-  
-  <%= stylesheet_link_tag "footer" %>
   
 
   <%= csrf_meta_tags %>

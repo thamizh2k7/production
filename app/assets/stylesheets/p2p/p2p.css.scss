@@ -1,11 +1,14 @@
-//= require global/jquery-ui-1.10.0.tabs.min
-//=require p2p/user_bar
+/*
+*= require global/jquery-ui-1.10.0.tabs.min
+*= require p2p/user_bar
+*= require global/chosen
+*/
+
 
 /* Header  */
 
 #header{
-	background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
-	min-height:2em;
+	height:3em;
 }
 
 #header_container{
@@ -170,6 +173,9 @@ body{
 .product_img img{
 	margin:0 auto;
 	display:block;
+	max-width:100%;
+	max-height:100%;
+	border-radius: 10px;
 }
 
 .product_tag{
@@ -286,15 +292,6 @@ body{
 }
 
 
-.btn{
-	color:black !important; 
-}
-
-.btn:hover{
-	color:blue !important; 
-}
-
-
 //messages
 #view_message_content{
 	margin-left:30px;
@@ -325,10 +322,3 @@ body{
 	margin:0;
 }
 
-
-.btn{
-	cursor: default !important;
-}
-.btn-success:hover,.btn-warning:hover,.btn-info:hover,.btn-danger:hover,.btn-primary:hover{
-	color: white!important;
-}

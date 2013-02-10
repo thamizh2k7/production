@@ -1,5 +1,5 @@
 
-input{
+#item input{
 	border:1px solid #cccccc !important;
 	margin:0;
 	border:none !important;
@@ -45,6 +45,7 @@ textarea{
 #view_image{
 	margin:0 auto;
 	display:block;
+	border-radius: 10px;
 }
 
 #item_image_holder{
@@ -151,7 +152,7 @@ textarea{
 	img{
 		display:block;
 		margin:0 auto;
-
+		border-radius: 5px;
 
 	}
 }
@@ -342,4 +343,48 @@ textarea{
 	margin-top:2px;
 	font-size:0.8em;
 	font-weight:bold;
+}
+
+
+
+#buy_now_accordion{
+	margin-left:10px;
+
+}
+
+#buy_now_accordion h3{
+	display: block;
+}
+
+#buy_now_accordion div{
+	display: block;
+
+}
+
+#buy_now_accordion span{
+	display: block;
+	margin-left: -21px;
+}
+
+
+#left_item_spec{
+	max-width:100%;
+	max-height:100%;
+}
+#left_item_spec table{
+	width:100%;
+	font-size:0.8em;
+}
+
+#left_thumb_image{
+	border-radius: 8px;
+}
+
+/* MAp */
+
+#item_location_content{
+	border:1px solid #ccc;
+	height:200px;
+	width:250px;
+	display: block;
 }

@@ -31,7 +31,7 @@ class P2p::ItemsController < ApplicationController
      data={}
     if item.save 
       data['status'] = 1;
-      data['id'] = item.id
+      data['id'] = "#{item.product.category.name}/#{item.product.name}/#{item.title}"
     else
       data['status'] = 0;
       data['msg'] = "Fails";
@@ -66,7 +66,7 @@ class P2p::ItemsController < ApplicationController
      data={}
     if item.save 
       data['status'] = 1;
-      data['id'] = item.id
+      data['id'] = "#{item.product.category.name}/#{item.product.name}/#{item.title}"
     else
       data['status'] = 0;
       data['msg'] = "Fails";
@@ -128,7 +128,12 @@ end
 
       begin
         #@item = P2p::Item.find(params[:id])
-        @item = P2p::Item.find_by_name(params[:id])
+        @cat =  P2p::Category.find_by_name(params[:cat])
+        @prod=  @cat.products.find_by_name(params[:prod])
+        @item = @prod.items.find_by_title(params[:item])
+
+        raise "Nothing found" if @prod.nil? or  @item.nil? or @cat.nil?
+        
       rescue
         redirect_to '/p2p/mystore'
         return
@@ -184,7 +189,7 @@ end
       @item.solddate =Time.now
       @item.save
 
-      redirect_to '/p2p/view/' + @item.id.to_s
+      redirect_to "/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}"
 
   end
 
@@ -206,7 +211,7 @@ end
     end
     #render :inline => params.inspect
 
-    redirect_to '/p2p/view/' + params[:item_id]
+    redirect_to "/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}"
 
   end
 

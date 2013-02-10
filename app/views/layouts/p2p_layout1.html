@@ -5,7 +5,7 @@
 <meta name="Description" content="Sociorent.com - A new companion for Engineering Students. Rent books at flat 25% of the MRP. Free door delivery. Rental Period of 6 months."/>
 <meta name="Keywords" content="Rent books Online, Rent engineering books, book rental online, engineering books, engineering colleges india, rent books india, easy book rentals, cool book rentals/">
 
-<!-- TODO: Add bootstrap responsive meta tag-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
   <%= stylesheet_link_tag "p2p/bootstrap.min" %>
@@ -14,12 +14,11 @@
   <%= stylesheet_link_tag "p2p/p2p" %>
 
   <%= javascript_include_tag "global/underscore" %>
-  <%= javascript_include_tag "p2p/p2p" %>
   <%= javascript_include_tag "global/bootstrap.min" %>
   <%= javascript_include_tag "global/jstorage.min" %>  
   
 
-<%= stylesheet_link_tag    "global/application", :media => "all" %>
+  <%= stylesheet_link_tag    "global/application", :media => "all" %>
   <%= stylesheet_link_tag "p2p/p2p" %>
 
   <%= javascript_include_tag "p2p/application" %>
@@ -35,6 +34,8 @@
 
 <body>
 	
+  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+
 	<%= render "layouts/p2p/header" %>
 
   <% unless flash[:notice].nil? %>

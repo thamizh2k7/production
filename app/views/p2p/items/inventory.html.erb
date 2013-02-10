@@ -16,7 +16,7 @@
   <div class="product">
     
 
-    <a href="<%= "/p2p/view/" +  item.id.to_s %>" > 
+    <a href="/p2p/<%=item.product.category.name%>/<%=item.product.name%>/<%=item.title%>" > 
       <div class="product_img">
        <img src="<%= item.get_image[0][:url] %>" imgid="<%= item.get_image[0][:id] %>" alt="Picture coming Soon...." width="100px" height="100px"></img>
       </div>

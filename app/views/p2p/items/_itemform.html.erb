@@ -661,7 +661,7 @@ function edititem(){
 					type:'<%= (itemid.empty?) ? "post": "put"%>',
 					success:function(data){
 						if (data['status'] == 1){
-							window.location.href = "/p2p/view/" + data['id']
+							window.location.href = "/p2p/" + data['id']
 						}
 						else{
 							alert(data['status']);

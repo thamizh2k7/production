@@ -76,7 +76,6 @@ Sociorent::Application.routes.draw do
       get 'getattributes/:id' => "items#get_attributes"
       get 'getspec/:id' =>  "items#get_spec"
       get 'getsubcategories/:id' => "items#get_sub_categories"
-      get 'view/:id' => 'items#view'
 
       get 'delete/:id' => "items#destroy"
       
@@ -99,7 +98,9 @@ Sociorent::Application.routes.draw do
       resources :items
       resources :images
 
+      get ':cat/:prod/:item' => 'items#view'
       get ':cat(/:prod)' => "index#browse"
+
   end
 
 

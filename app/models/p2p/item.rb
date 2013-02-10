@@ -13,7 +13,7 @@ class P2p::Item < ActiveRecord::Base
 
   attr_accessor :img
 
-  validates :title ,:uniqueness => true
+  # validates :title ,:uniqueness => true  if :new_record?
 
   default_scope where('deletedate is null')
 

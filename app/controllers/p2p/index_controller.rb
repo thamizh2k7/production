@@ -206,12 +206,27 @@ def search_list
 
 
 	 def search_cat
-
 	      @cat = P2p::Category.find_by_name(params[:cat])
 	      @cat_name = @cat.name
-	      @products = @cat.products
+
+        if params.has_key?("prod")
+          
+          @products =[]
+          res = P2p::Item.search(params[:prod], :match_mode=> :any , :star => true)
+
+          res.each do |r|
+            @products.push(r.product) unless @products.include?(r.product)
+          end
+
+          @cat.products.find_all_by_name(params[:prod]).each do |r|
+            @products.push(r) unless @products.include?(r)
+          end
 
 
+        else
+
+	       @products = @cat.products
+        end
 	end
 	
 	def suggest(query_word) 

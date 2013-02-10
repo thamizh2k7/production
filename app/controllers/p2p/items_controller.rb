@@ -127,7 +127,8 @@ end
   def view
 
       begin
-        @item = P2p::Item.find(params[:id])
+        #@item = P2p::Item.find(params[:id])
+        @item = P2p::Item.find_by_name(params[:id])
       rescue
         redirect_to '/p2p/mystore'
         return

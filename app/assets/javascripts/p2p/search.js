@@ -1,7 +1,7 @@
 
   $(document).ready(function() {
     var cache = {};
-    $("#search_books_input").autocomplete({
+    $("#top_search_input").autocomplete({
       minLength: 2,
       source: function( request, response ) {
         console.log(request);

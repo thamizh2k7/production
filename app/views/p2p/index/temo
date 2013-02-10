@@ -135,3 +135,33 @@ function search(){
 
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="menu_holder" class="pull-left dropdown">
+
+<a class="btn dropdown-toggle btn-success span2" data-toggle="dropdown" href="#">Select Items</a>
+
+    <ul class="dropdown-menu span2" role="menu" aria-labelledby="dLabel" id="menu_categories">
+    <% P2p::Category.where("category_id is null").each do |cat| %>
+
+        <li class="category"> <a href="/p2p/<%= cat.name %>"><%= cat.name %> </a></li>
+        <%= render 'p2p/index/scat_menu' ,:scat => cat.subcategories %>
+      
+    <% end %>
+  </ul>
+

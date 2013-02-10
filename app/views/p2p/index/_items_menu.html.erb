@@ -1,17 +1,43 @@
 
 
 
-<div id="menu_holder" class="pull-left dropdown">
 
-<a class="btn dropdown-toggle btn-success span2" data-toggle="dropdown" href="#">Select Items</a>
+<div class="dropdown">
 
-  	<ul class="dropdown-menu span2" role="menu" aria-labelledby="dLabel" id="menu_categories">
-		<% P2p::Category.where("category_id is null").each do |cat| %>
+	
+		<a class="dropdown-toggle " data-toggle="dropdown" href="#">
+			<div class="menu_title">Select a Category</div>
+		</a>
 
-				<li class="category"> <a href="/p2p/<%= cat.name %>"><%= cat.name %> </a></li>
-				<%= render 'p2p/index/scat_menu' ,:scat => cat.subcategories %>
+	
+
+  	<ul class="dropdown-menu " role="menu" aria-labelledby="dLabel" id="menu_categories">
+  		<% P2p::Category.where("category_id is null").each do |cat| %>
+				
+					<% if cat.subcategories.count > 0 %>
+						<li class="dropdown-submenu">
+							<a href="/p2p/<%= cat.name %>"><%= cat.name %> </a>
+
+							<ul class="dropdown-menu">
+								<% cat.subcategories.order("priority").each do |scat| %>
+								<li> <a href="/p2p/<%=cat.name%>/<%=scat.name%>"><%= scat.name %></a></li>
+								<% end %>
+							</ul>
+						</li>
+					<% else %>
+
+						<li class="menu_element"> 
+							<a href="/p2p/<%= cat.name %>"><%= cat.name %> </a>
+						</li>
+					<%end%>
+
+					
+				
+
 			
 		<% end %>
 	</ul>
-
+	
+	<br/>
+	<div class="clearfix"></div>
 </div>

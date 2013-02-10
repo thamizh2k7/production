@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag 'p2p/users'%>
+<%= stylesheet_link_tag 'p2p/search_category_menu'%>
+
+
+<div id="dashboard_page" class="row">
+
+ 
+  <div id="left_menu" class="span2 pull-left">
+    <%= render "/p2p/index/items_menu" %>
+    <%= render "/p2p/users/menu" %>
+  </div>
+
+	<div class="span9" id="dashboard_content">
+
+		<div class="box span3">
+			<div class="box_title"> Sales Stastics </div>
+
+			<ul>
+				<li class="box_element">Total Items : 0</li>
+				<li class="box_element">Sold Items : 0 </li>
+				<li class="box_element">Waiting for Approval: 0</li>
+			</ul>
+		</div>
+	</div>
+
+</div>

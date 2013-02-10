@@ -83,14 +83,24 @@ end
 
       raise "Cannot Delete" if item.user.id != current_user.id 
     rescue
-      redirect_to "/p2p/mystore"
-      return
+      if request.xhr? 
+        render :json => {:status => 0}
+      else
+        redirect_to "/p2p/mystore"
+        return
+      end
     end
     
 
     item.deletedate = Time.now
     item.save
-    redirect_to '/p2p/mystore'
+
+    if request.xhr? 
+      render :json => {:status => 1}
+    else
+      redirect_to "/p2p/mystore"
+      return
+    end
   end
 
   def edit

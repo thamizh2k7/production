@@ -200,26 +200,29 @@
 			
 
 
-			<% if deletedate.nil? %>
-				<a href="/p2p/delete/<%= itemid %>" class="btn btn-danger" id="item_delete_button"> Delete </a>
-			<% else %>
-				<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
-			<%end %>
+			<% unless itemid.empty? %>		
+				<% if deletedate.nil? %>
+					<div class="btn btn-danger delete_item" itemid="<%=itemid%>" id="item_delete_button"> Delete </div>
+				<% else %>
+					<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
+				<%end %>
+			<% end %>
 		<% end %>				
 
+
 			<span class=" item_label"><h4> Analytics </h4></span>
-			<div id="view_count"> 
+			<div id="view_count" class=" span3"> 
     
     			<span class=" item_label">View Count: </span><br/>
     				<span class="progress ">
-    					<span class="bar  bar-warning" style="width:100%;">
+    					<span class="bar bar-warning" style="width:100%;">
     						<span class="badge"> <%= viewcount %> </span>
     					</span>
     				</span>
     
 			</div>
 
-			<div id="view_req_count"> 	
+			<div id="view_req_count" class="span3"> 	
     
     			<span class=" item_label">Request Count: </span><br/>
     				<span class="progress  ">
@@ -268,7 +271,7 @@
 
 			<button href="#initialize_modal" class="hidden" data-toggle="modal"  id="initialize_button">Contact Seller</button>
 			<!-- Modal -->
-			<div id="initialize_modal" class="modal show fade" tabindex="-1" role="dialog" aria-labelledby="initialize_modalLabel"  data-keyboard="false" aria-hidden="true">
+			<div id="initialize_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="initialize_modalLabel"  data-keyboard="false" aria-hidden="true">
 				<div class="modal-header">
 					<button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
 					<h3 id="initialize_modalLabel">List your Item</h3>
@@ -315,7 +318,7 @@
 				  	<% if itemid.empty? %>
     					<a href="javascript:history.back();" class="btn">Cancel</a>
     				<% else %>
-    					<a href="javascript:$('#initialize_modal .close').trigger('close')" class="btn">Cancel</a>
+    					<a href="javascript:$('#initialize_modal .close').trigger('click')" class="btn">Cancel</a>
     				<% end %>
 
     				<a href="javascript:validateform()" class="btn btn-primary">Save changes</a>
@@ -371,6 +374,22 @@
 	}
 
 
+
+
+      $("#item_delete_button").click(function(){
+        $.ajax({
+          url:"/p2p/items/" + $(this).attr("itemid"),
+          type:"delete",
+          dataType:"json",
+          data:{"authenticity_token" : AUTH_TOKEN},
+          success:function(data){
+          	console.log(data);
+            if (data.status == 1){
+              window.location.href="/p2p/mystore"
+            }
+          }
+        });
+      });
 
 
 function edititem(){
@@ -723,6 +742,7 @@ function edititem(){
 			$("#file_add_image").removeAttr("disabled");
 			$("#remove_image").css({"display":"inline-block"});
 
+			
 }
 <% end %>
 

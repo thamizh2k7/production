@@ -388,3 +388,13 @@ textarea{
 	width:250px;
 	display: block;
 }
+
+@media(max-width: 1200px){
+	#item_left_container{
+		display:none !important;
+	}
+}	
+
+#view_count,#view_req_count{
+	margin:0;
+}

@@ -1,7 +1,6 @@
 Sociorent::Application.routes.draw do
 
 
-
   get "cities/index"
 
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
@@ -70,6 +69,12 @@ Sociorent::Application.routes.draw do
 
   ##P2P Routes
   namespace :p2p do
+
+
+      resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
+      resources :items
+      resources :images
+
       get '' => "index#index"
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"
@@ -85,18 +90,18 @@ Sociorent::Application.routes.draw do
 
       get 'mystore(/:query)' => 'items#inventory'
 
+      get 'dashboard' => 'users#dashboard'
+      
+      get 'getmessages' => 'messages#getmessages'
+
       match 'search/c/:cat(/:prod)' => "index#search_cat"
 
       match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]
 
       post 'getcity'  => 'cities#list'
 
-      get 'getmessages' => 'messages#getmessages'
       #post "message/create/:id" => "messages#create"
       #match "message"=>"messages#index"
-      resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
-      resources :items
-      resources :images
 
       get ':cat/:prod/:item' => 'items#view'
       get ':cat(/:prod)' => "index#browse"

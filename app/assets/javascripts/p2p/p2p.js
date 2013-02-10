@@ -1,3 +1,4 @@
 //=require jquery
 //= require global/jquery.ui.core
-//= require global/jquery-ui
+//= require jquery_ujs
+

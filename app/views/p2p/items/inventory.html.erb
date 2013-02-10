@@ -1,36 +1,78 @@
 <%= stylesheet_link_tag "p2p/items"%>
-
-<h3> Your Items for sale </h3>
-
-<% if params[:query] == 'sold' %>
-  <a href="/p2p/mystore/" class="btn btn-primary"> Go Back </a> <br/><br/>  
-<% else%>
-  <a href="/p2p/mystore/sold" class="btn btn-primary"> View Sold Items </a> <br/><br/>
-<% end %>
-
-<% @items.each do |item|%>
-
-	<!--  render 'p2p/items/item_full_banner' ,:item => item %>	-->
+<%= stylesheet_link_tag "p2p/inventory"%>
+<%= stylesheet_link_tag 'p2p/search_category_menu'%>
 
 
-  <div class="product">
-    
-
-    <a href="/p2p/<%=item.product.category.name%>/<%=item.product.name%>/<%=item.title%>" > 
-      <div class="product_img">
-       <img src="<%= item.get_image[0][:url] %>" imgid="<%= item.get_image[0][:id] %>" alt="Picture coming Soon...." width="100px" height="100px"></img>
-      </div>
-
-      <div class="product_title">
-        <em><%= item.title  %></em> 
-      </div>
-            
-      <div class="product_tag">
-      <em><del>&#2352;</del> <%=item.price %></em> 
-      </div>
-   
-      </a>
-      <%= link_to "<img src='/assets/Trash-can-icon.png' width=20px height=20px alt='Delete Item'>".html_safe ,p2p_item_path(item),:method=> :delete ,:confirm => "Are you sure you want to delete? " %>
+<div class="row">
+  
+  <div id="left_menu" class="span2 pull-left">
+    <%= render "/p2p/index/items_menu" %>
+    <%= render "/p2p/users/menu" %>
   </div>
 
-<% end %>
+  
+  <div id="inventory_content" class="pull-left span9">
+
+    <% if params[:query] == 'sold' %>
+      <a href="/p2p/mystore/" class="btn btn-primary"> Go Back </a> <br/><br/>  
+    <% else%>
+      <a href="/p2p/mystore/sold" class="btn btn-primary"> View Sold Items </a> <br/><br/>
+    <% end %>
+
+
+    <% @items.each do |item|%>
+
+    	<!--  render 'p2p/items/item_full_banner' ,:item => item %>	-->
+
+
+      <div class="product">
+        
+        <%- #link_to '',"/p2p/items/#{item.id}" ,:method => :delete ,:class => " pull-right delete_item"-%>
+        <div class="delete_item pull-right" class= "pull-right"  itemid="<%=item.id%>"></div>
+
+        <a href="/p2p/<%=item.product.category.name%>/<%=item.product.name%>/<%=item.title%>" >           <div class="product_img">
+           <img src="<%= item.get_image[0][:url] %>" imgid="<%= item.get_image[0][:id] %>" alt="Picture coming Soon...." width="100px" height="100px"></img>
+          </div>
+
+          <div class="product_title">
+            <em><%= item.title  %></em> 
+          </div>
+        </a>
+
+        <div class="product_tag">
+          <em><del>&#2352;</del> <%=item.price %></em> 
+         </div>
+       
+          
+      </div>
+
+    <% end %>
+
+  </div>
+  
+</div>
+
+<script>
+
+  $(document).ready(function(){
+
+      $(".delete_item").live("click",function(){
+        var that = this;
+        $.ajax({
+          url:"/p2p/items/" + $(this).attr("itemid"),
+          type:"delete",
+          dataType:"json",
+          data:{"authenticity_token" : AUTH_TOKEN},
+          success:function(data){
+            console.log(data);
+            if (data.status == 1){
+              $(that).parent().remove();
+            }
+          }
+        });
+      });
+          
+
+        
+});
+</script>

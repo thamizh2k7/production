@@ -54,7 +54,7 @@ def get_search_suggestions(query)
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{query}"} )
+  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{query}"} ) if res.items.count >0
   end
 
   result = P2p::Item.search(query ,:match_mode => :any ,:star => true)

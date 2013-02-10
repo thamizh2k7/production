@@ -15,7 +15,9 @@ class P2p::Item < ActiveRecord::Base
 
   validates :title ,:uniqueness => true
 
-  default_scope where('deletedate is null and  approveddate is not null')
+  default_scope where('deletedate is null')
+
+  scope :notapproved , where('approveddate is null')
 
   scope :sold , where('solddate is not null')
 

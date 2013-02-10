@@ -2,8 +2,22 @@
 <%= javascript_include_tag "p2p/jquery.jeditable.mini" %>
 
 
+<div class="container">
 
+<div id="item_left_container" class="pull-left span2">
 
+	<span class="point_left left_element">
+		<img src="<%= thumbimage[0][:url] %>" imgid="<%= thumbimage[0][:id] %>" alt="" id="left_thumb_image" ></img>
+		<div class="clearfix"></div>
+	</span>
+
+	<span class="left_element left_element_hover" id="left_item_category"> 
+		<span class="arrow">></span>
+		<%= category %>
+	</span>		
+	
+	
+</div>
 
 <div id="item" class="pull-left span10">
 
@@ -14,9 +28,13 @@
 	<% end %>
 
 	<div id="edit_actions">
-		<a href="javascript:history.back();" class="btn btn-danger pull-right span1" id="cancel_edit"> Cancel Editing </a>
 
-		<div class="btn btn-success pull-right span1"  id="finish_edit"> Finished Editing </div>
+		<a href="javascript:history.back();" class="btn btn-danger pull-right span1" id="cancel_edit">
+			<span id="cancel_edit_btn" ></span> Cancel </a>
+
+		<div class="btn btn-success pull-right span1"  id="finish_edit">
+			<span id="finish_edit_btn" ></span> Save
+		</div>
 	
 		<code class="pull-right">All elements in <span style="color:blue">blue</span> are editable</code>
 	</div>
@@ -229,13 +247,6 @@
 	<div class="clearfix"></div>
 </div>
 
-<div id="similar_items" class=" pull-left">
-	similar items
-</div>
-
-
-
-
 			<button href="#initialize_modal" class="hidden" data-toggle="modal"  id="initialize_button">Contact Seller</button>
 			<!-- Modal -->
 			<div id="initialize_modal" class="modal show fade" tabindex="-1" role="dialog" aria-labelledby="initialize_modalLabel"  data-keyboard="false" aria-hidden="true">
@@ -322,6 +333,7 @@
 		item_values["brand"] = $("#item_brand1 :selected").val();
 		item_values["scat"] = "";
 
+		$("#left_item_category").html("<a href='/p2p/'" + $("#item_category1 :selected").text() + ">" + $("#item_category1 :selected").text() + "</a>");
 
 		$("#item_category").html($("#item_category1 :selected").text());
 		$("#item_brand").html($("#item_brand1 :selected").text());
@@ -714,3 +726,5 @@ $(".thumb_img_holder").click(function(){
 });
 
 </script>
+
+</div>

@@ -220,27 +220,6 @@ textarea{
 	text-align:right;
 }
 
-#finish_edit_btn{
-	background: url("/assets/glyphicons-halflings.png");
-	background-position: 650px 0px;
-	display: block;
-	width: 14px;
-	height: 14px;
-	float:left;
-	margin-top: 2px;
-}
-
-
-#cancel_edit_btn{
-	background: url("/assets/glyphicons-halflings.png");
-	background-position: 1097px 0px;
-	display: block;
-	width: 14px;
-	height: 14px;
-	float:left;
-	margin-top: 2px;
-}
-
 #finish_edit,#cancel_edit,#edit_actions{
 	display:none;
 }
@@ -296,50 +275,3 @@ textarea{
 
 /* new desing*/
 
-
-
-
-#item_left_container{
-	margin:0;
-	display:table-cell;
-	text-align: center;
-}
-
-#item{
-	border:1px solid #666666;
-	padding:10px;
-	border-radius:10px;
-}
-
-
-.point_left{
-	width:100%;
-	padding:5px;
-	background: url('/assets/pointleft.png') no-repeat right;
-}
-
-.left_element{
-	width:100%;	
-	margin-bottom:5px;
-	border-bottom: 1px solid #F65757;
-	width: 94%;
-	display: block;
-	cursor: pointer;
-	padding-bottom:5px;
-}
-
-
-.left_element_hover:hover{
-	background-color:#F65757;
-	color:white !important;
-	border-radius: 2px;
-}
-
-.arrow{
-	display: table-cell;
-	vertical-align: middle;
-	float:left;
-	margin-top:2px;
-	font-size:0.8em;
-	font-weight:bold;
-}

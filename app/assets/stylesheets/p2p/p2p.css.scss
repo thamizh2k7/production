@@ -324,3 +324,11 @@ body{
 #index_left{
 	margin:0;
 }
+
+
+.btn{
+	cursor: default !important;
+}
+.btn-success:hover,.btn-warning:hover,.btn-info:hover,.btn-danger:hover,.btn-primary:hover{
+	color: white!important;
+}

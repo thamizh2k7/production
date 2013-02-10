@@ -1,5 +1,7 @@
 
 <%= render "/p2p/items/itemform" ,
+           :thumbimage => @item.get_image(1,:thumb),
+           :viewimage => @item.get_image(1,:view),
            :image => @item.get_image(0,:view) ,
            :title => "Enter a New Title",
            :price => "Enter the Price",
@@ -17,3 +19,5 @@
            :brand => "Select one",
            :spec => ""
 %>
+
+#singh_ashish@yahoo.com

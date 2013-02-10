@@ -12,12 +12,17 @@
 						</div>
 					</div>
 					<div class="span5 pull-right" id="menuSet">
-						<div class="btn-group">
-					    <a class="btn topMenu" href="#">Homework Help</a>
-					    <a class="btn topMenu" href="#">eTextBooks</a>
-					    <a class="btn topMenu" href="#">Sign In</a>
-					    <a class="btn topMenu" href="#">Help</a>
-		  			</div>
+
+						<% if current_user.nil? %>
+							<a class="topMenu pull-right" href="/users/sign_in">Signin</a>
+						<% else %>
+
+						<%= link_to "SignOut", destroy_user_session_url, :method => :delete ,:class => "topMenu pull-right" %>
+
+						<a class="topMenu pull-right" href="/p2p/messages">Messages</a>
+						<a class="topMenu pull-right" href="/p2p/mystore">My Store</a>
+						<a class="topMenu pull-right" href="/p2p/sellitem">List New Item</a>
+					    <% end %>
 		  		</div>
 		  	</div>
 		</div>

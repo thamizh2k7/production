@@ -33,7 +33,7 @@
      <div id='<%= list.name %>' class="acategory">
         <div class="category_title">Featured in <%= list.name.pluralize %> <span class="pull-right"> <a  class=" label label-info in_nav" href="/p2p/search/c/<%= list.name %>"> see all </a> </span></div> 
 
-           <% products = list.products.limit(10) %>
+           <% products = list.products.limit(2) %>
 
            <% products.each do |prod| %>
               <% if prod.items.size > 0 %>

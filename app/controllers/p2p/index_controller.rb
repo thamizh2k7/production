@@ -23,7 +23,7 @@ def search
       result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
 
       result.each do |res|
-        response.push({:label=> "#{res.title}" ,:value => "/p2p/search/q/#{res.title}"} )
+        response.push({:label=> "#{res.title}" ,:value => "/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}"} )
       end
 
 		else
@@ -60,7 +60,7 @@ def get_search_suggestions(query)
   result = P2p::Item.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{res.title}" ,:value => "/p2p/search/q/#{res.title}"} )
+  	response.push({:label=> "#{res.title}" ,:value => "/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}"} )
   end
   return response
 

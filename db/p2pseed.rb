@@ -75,7 +75,8 @@ puts "aa"
 			 cat1.subcategories.create({:name => "C Language"})
 			 cat1.subcategories.create({:name => "C++"})
 			 cat1.subcategories.create({:name => "Ruby"})
-
+			 
+			cat1.save
 
 puts "aa"
 

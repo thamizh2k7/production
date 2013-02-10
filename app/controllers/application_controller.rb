@@ -51,7 +51,8 @@ class ApplicationController < ActionController::Base
     if request.xhr? 
       return false;
     else
-      return 'p2p_layout'
+      return 'p2p_layout1'
+      #return 'p2p_layout'
       #return 'application'
     end
   end

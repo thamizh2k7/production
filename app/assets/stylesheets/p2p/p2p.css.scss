@@ -26,6 +26,8 @@
 /* Body */
 body{
 
+	background: #fff url("/assets/bodyBg.png") repeat-x;
+
 	a,a:visited,a:active,a:focus{
 		text-decoration: none !important;
 	}	
@@ -282,7 +284,7 @@ body{
 	border:1px solid #cccccc;
 	border-radius:10px;
 	padding:10px;
-	margin-left:-0.2px;
+	margin-left:10px;
 }
 
 .search_wrap{
@@ -324,3 +326,8 @@ body{
 .ui-autocomplete-loading {
     background: white url('/assets/index/loading.gif') right center no-repeat !important;
   }
+
+
+#index_left{
+	margin:0;
+}

@@ -234,3 +234,44 @@ textarea{
 .edit_hidden,.edit_hidden_spec{
 	display:none;
 }
+
+
+
+/* new desing*/
+
+	#Itemlist {
+		margin-top: 20px;
+	}
+
+	#listHeader {
+		height: 20px;
+		background: url('/assets/texture.png') repeat;
+		margin: 0px 0px 15px 0px;
+		padding: 10px 15px;
+	}
+
+	.thumbnails li a {
+		text-decoration: none;
+	}
+
+	.thumbnail img{
+		margin-top: 5px;
+	}
+
+	#items {
+		min-height: 700px;
+		height: 700px;
+		overflow: auto;
+	}
+
+	#filter i {
+		float: right;
+		margin-top: 3px;
+	}
+
+	#filter i:hover {
+		background-color: red;
+	}
+
+/* new desing*/
+

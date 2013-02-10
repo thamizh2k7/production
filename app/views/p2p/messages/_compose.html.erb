@@ -1,9 +1,9 @@
 
-<h3> Send a New Message </h3>
-<div class="compose">
+<div id="compose_form_holder">
+	<div id="compose_form_title">
 
 
-	<%= simple_form_for message ,:validate => true  , :remote => !item.to_s.empty?  do |f| %>
+	<%= simple_form_for message ,:validate => true  , :html => {:class => "form-horizontal"}, :remote => !item.to_s.empty?  do |f| %>
 
 
 
@@ -33,7 +33,8 @@
 	 	%>
 	 	<%= f.input :sender,:as => :hidden, :input_html => {:value => user_id }
 	 	%>
-	 	<%= f.input :message, input_html: {rows:10}%>
-	 	<%= f.button :submit, value:"send " %>
+	 	<%= f.input :message, input_html: {rows:10,cols:20}%>
+	 	<div class="controls"><%= f.button :submit, value:"Send Message " %></div>
 	 <% end %>
+	</div>
 </div>

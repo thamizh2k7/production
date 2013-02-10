@@ -77,6 +77,45 @@ class P2p::MessagesController < ApplicationController
 
   end
 
+  def getmessages
+
+    response={:aaData => []}
+
+    messages = P2p::User.find(current_user.id).received_messages.inbox
+
+#       "sEcho": 1,
+  # "iTotalRecords": "57",
+  # "iTotalDisplayRecords": "57",
+
+
+      #response[:iTotalRecords] =  messages.count
+      response[:iTotalRecords] =  100
+      response[:iTotalDisplayRecords] =  100
+      response[:iStart] =  0
+
+    messages.each do |msg|
+
+      tme =Time.now - msg.created_at
+
+      if tme >= 86400
+        tme =  (tme/86400).to_i.to_s + " days ago"
+      elsif tme >=3600
+        tme =  (tme/3600).to_i.to_s + " hr ago"
+      else
+        tme = (tme/60).to_i.to_s + "min ago"
+      end
+  
+      response[:aaData].push(["<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
+                          msg.sender.user.name,
+                          msg.message,
+                          tme,
+                          msg.messagetype                          
+                          ])
+    end 
+
+    render :json => response
+
+  end
 
 end
 

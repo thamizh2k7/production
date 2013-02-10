@@ -92,7 +92,7 @@ Sociorent::Application.routes.draw do
 
       post 'getcity'  => 'cities#list'
 
-
+      get 'getmessages' => 'messages#getmessages'
       #post "message/create/:id" => "messages#create"
       #match "message"=>"messages#index"
       resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }

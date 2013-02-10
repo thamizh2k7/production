@@ -1,135 +1,99 @@
+<%= stylesheet_link_tag "p2p/messages" %>
+
+
 <%= javascript_include_tag "p2p/messages" %>
 <%= javascript_include_tag "global/jquery.ui.core" %>
 <%= javascript_include_tag "global/jquery.ui.widget" %>
 <%= javascript_include_tag "global/jquery.ui.accordion" %>
+
+
 
 <script type="text/javascript">
   $(function() {
     $( "#accordion" ).accordion();
   });
   </script>
-<h2><%= current_user.name%> Messages</h2>
 
+<div id="message_content" class="span11">
 
 		
 <div class="tabbable " id="message_side_menu">	
 	<div class="row">
-	<div class="span2 pull-left">
+		<div class="span2 pull-left" id="message_left_menu">
 
+		  <ul class="nav nav-list">
+		    <a href="#compose" data-toggle="tab" ><li id="compose_mail" >Compose</li></a>
+	 		
+		    <li class="active"><a href="#inbox" data-toggle="tab">
+		    	<% unreadcount = @inbox.where('flag="unread"').count %>
+		    	Inbox<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
+		        </a></li>
+	            
 
-	  <ul class="nav nav-list">
-	    <li class=""><a href="#compose" data-toggle="tab" >Compose</a></li>
- 		
- 		<li class="divider"></li>
+		    <li><a href="#sent" data-toggle="tab">Sent</a></li>
 
-	    <li class="active"><a href="#inbox" data-toggle="tab">
-	    	<% unreadcount = @inbox.where('flag="unread"').count %>
-	    	Inbox<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
-	        </a>
-            
-             <ul class="nav" id="accordian">
-              
-            <!--
-	            <li><a href="#sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
-	              (<%=@inbox.where('flag="unread" AND messagetype="1" ').count%>)
-	            </a></li>
-            -->
-        	
-
-	    	<li><a href="#buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
-	    	<% unreadcount = @inbox.where('flag="unread" AND messagetype="0" ').count %>
-			<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
-
-              
-	    	</a></li>
-	    	<li><a href="#admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
-	    	<% unreadcount = @inbox.where('flag="unread" AND messagetype="2" ').count %>
-			<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>	    	
-
-
-	    	</a></li>
-	    	</ul>
-           
-	    </li>
- 		<li class="divider"></li>
-
-	    <li><a href="#sent" data-toggle="tab">Sent</a>
-             <ul class="nav" id="accordian">
-            <li><a href="#sent_sell_requests" data-toggle="tab" >&nbsp;&nbsp;Sell Requests
-            </a>
-             </li>
-	    	<li><a href="#sent_buy_requests" data-toggle="tab" >&nbsp;&nbsp;Buy Requests
-
-	    	</a></li>
-	    	<li><a href="#sent_admin_messages" data-toggle="tab" >&nbsp;&nbsp;Admin Messages
-
-	    	</a></li>
-	    	</ul>
-	    </li>
-	     <!--<li><a href="#deleted" data-toggle="tab">Deleted </a></li> -->
-	  </ul>
-	</div>
-	<div class="span8 pull-left " id="box_content">
-
-		<div class="tab-content">
-	    <div class="tab-pane " id="compose">
-	    	
-	    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" %>  <div> </div>
-	    </div>
-	    
-	    <div class="tab-pane active" id="inbox">
-
-	    	<h3> Inbox </h3>
-	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox }%>
-	    	 
-
-	     </div>
-			
-		 <div class="tab-pane" id="sent">
-		 	<h3> SentBox </h3>
-	    	<%= render :partial=> "sent" %> 
-	      </div>
-			
-		<div class="tab-pane " id="deleted">
-			<!--	 -->
-	    </div>
-	    <!--Inbox Sub Categories -->
-
-	   <!--
-	     <div class="tab-pane" id="sell_requests">
-	     	<h3> Sell Request</h3>
-          <%= render :partial => "inbox",:locals =>{ :inbox => @inbox_sell_req }%>
-	      </div>
-		-->
-
-	      <div class="tab-pane" id="buy_requests">
-	      	<h3> Buy Request</h3>
-	    	 <%= render :partial => "inbox",:locals =>{ :inbox =>@inbox.where("messagetype=0") }%>
-	      </div>
-
-	      <div class="tab-pane" id="admin_messages">
-	      	<h3> Admin Messages</h3>
-	    	<%= render :partial => "inbox",:locals =>{ :inbox => @inbox_admin_msg }%>
-	      </div>
-           <!--Sent Messages Sub Categories -->
-	      <div class="tab-pane" id="sent_sell_requests">
-	      	<h3> Sent Sell Request </h3>
-          <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=1") }%>
-	    	 
-	      </div>
-	      <div class="tab-pane" id="sent_buy_requests">
-	      	<h3> Sent Buy Request </h3>
-	    	 <%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=0")  }%>
-	      </div>
-	      <div class="tab-pane" id="sent_admin_messages">
-	      	<h3> Sent Admin </h3>
-	    	<%= render :partial => "inbox",:locals =>{ :inbox => @sent.where("messagetype=2")  }%>
-	      </div>
-
+		  </ul>
 		</div>
-		   <div class="row" id="show_msg">
-			
-		   </div> 
+
+		<div class="span9 pull-left " id="box_content">
+
+			<div class="tab-content">
+			    <div class="tab-pane " id="compose">
+			    	
+			    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" %>  <div> </div>
+			    </div>
+			    
+			    <div class="tab-pane active" id="inbox">
+			    	<%= render "/p2p/messages/msg_table",:table_name => "inbox" %>
+			     </div>
+					
+				 <div class="tab-pane" id="sent">
+			    	<%= render "/p2p/messages/msg_table" ,:table_name => "sentbox" %> 
+			      </div>
+					
+				<div class="tab-pane " id="deleted">
+					<!--	 -->
+			    </div>
+
+			</div>
+			   <div class="row" id="show_msg">
+				
+			   </div> 
+		</div>
 	</div>
-</div>
 </div>  
+
+<script>
+
+	$(document).ready(function(){
+		$('.table').dataTable({
+		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+       	  "bScrollInfinite": false,
+          "sScrollY": "300px",
+          "sAjaxSource": '/p2p/getmessages/' ,
+          "aaSorting":[],
+          "bScrollCollapse": false,
+          "bFilter":false,
+       	  "bSort": false,
+          "iDisplayLength" : 10
+		});
+
+
+		
+
+		$('.table tbody td:nth-child(3) ').live('click', function () {
+			$('.table').hide(1000).delay(1000).show(1000);
+    	});
+
+    	$('.table tbody td:nth-child(3)').css({"cursor":"pointer"});
+
+    	$('.master_check').on("click",function(){
+    		var tbl=$("#" + $(this).attr("tbl")+ "_id");
+    		tbl.children("tbody tr td .msg_check").attr("checked","checked");
+
+    	});
+	});
+
+</script>
+
+</div>

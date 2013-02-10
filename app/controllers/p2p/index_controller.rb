@@ -17,19 +17,14 @@ def search
 
   		suggested_word = suggest(params['id'])
 
-  		if suggested_word == "" 
-		  result = P2p::Category.limit(5).order("priority")
-
-		  result.each do |res|
-		  	response.push( {:label => "#{params[:id]} in #{res.name}" , :value => "/p2p/search/c/#{res.name}"} )
-		  end
+  		if suggested_word == params[:id]
 
 
-		  result = P2p::Product.limit(5).order("priority")
+      result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
 
-		  result.each do |res|
-		  	response.push({:label=> "#{params[:id]} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{params[:id]}"} )
-		  end
+      result.each do |res|
+        response.push({:label=> "#{res.title}" ,:value => "/p2p/search/q/#{res.title}"} )
+      end
 
 		else
 			response = get_search_suggestions(suggested_word)
@@ -37,7 +32,12 @@ def search
 
   end
   
-  render :json => response
+  if response.empty?
+    render :json => [{:label => "No results found" ,:value => ""}]
+  else
+    render :json => response
+  end
+  
 
 end
 
@@ -214,19 +214,17 @@ def search_list
 
 	end
 	
-	def suggest(word) 
+	def suggest(query_word) 
 		speller = Aspell.new("en_US")
-		speller.suggestion_mode = Aspell::NORMAL
+		speller.suggestion_mode = Aspell::ULTRA
 
-		string = "my haert wil go on"
-
-		string.gsub(/[\w\']+/) do |word| 
+		query_word.split(" ").each do |word| 
 		  if !speller.check(word) 
-		    return speller.suggest(word).first
-		  else
-			return ""
+		    query_word.gsub! word , speller.suggest(word).first
     	  end
 		end
+
+    query_word
 	end
 
 

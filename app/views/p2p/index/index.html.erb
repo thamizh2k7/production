@@ -1,153 +1,47 @@
 <%= stylesheet_link_tag "index/application" %>
-<%= stylesheet_link_tag "inner" %>
 <%= stylesheet_link_tag "p2p/p2p" %>
-<%= stylesheet_link_tag "global/jquery.lightbox-0.5" %>
+<%= stylesheet_link_tag 'p2p/search_category_menu'%>
 
-<%= javascript_include_tag "global/jquery.lightbox-0.5.pack" %>
 
-<%= javascript_include_tag "global/underscore" %>
-<%= javascript_include_tag "global/jquery.isotope.min" %>
+<%=render 'p2p/index/search_menu' %>
 
-<script id='product_template' type='text/template'>
+<div id="index_left" class="span2 pull-left">
+
+    <div id="filter" class="span2">
+      <ul class="nav nav-list">
+        <li class="nav-header">OS</li>
+        <li class="active"><a href="#">Home <i class="icon-remove"></i></a></li>
+        <li><a href="#">Library</a></li>
+        <li><a href="#">Applications</a></li>
+
+        <li class="divider"></li>
+
+        <li class="nav-header">Memory</li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
+
+      </ul>
+    </div>
     
-  <div class="product">
-    <a href="/p2p/view/<%%= elm.id  %> ">
+    <div  class=" menu" >
+              <div class="menu_title">Browse</div>
 
-      <div class="product_img">
-       <img src="<%%= elm.image %>" alt="Picture coming Soon...."  width="100px" height="50px" />
-      </div>
-   
-      <div class="product_title">
-        <em>  <%%=elm.title %>  </em> <br/>
-      </div>
-      
-      
-      <div class="product_tag">
-      <em><del>&#2352;</del> <%%= elm.price %></em> 
-      </div>
-     </a>
-  </div>
- 
-</script>
+            <div class="menu_contents">
 
+                    <% P2p::Category.all.each do |cat| %>
+                      <a class="menu_element sub_menu" href="/p2p/<%=cat.name%>">
+                        <%= cat.name %> 
+                      </a>
+                <% end %>
 
-<script type="text/javascript">
+              </div>
+            <div class="clearfix"></div>            
+    </div>
 
+</div>
 
-
-$("#search_books_input").keyup(function(){
-    console.log($.trim($("#search_books_input").val()).length + "len");
-
-      if ($.trim($("#search_books_input").val()).length <=1){
-        $("#content").show();
-        $("#search_result").hide();
-        return;
-    }
-
-});
-function search(){ 
-      $("#search_books_input").removeClass("error");
-      
-
-    if ($.trim($("#search_books_input").val()).length <=1){
-        $("#content").show();
-        $("#search_result").hide();
-        return;
-    }
-
-    $.ajax({
-        url: '/p2p/search/' + $("#search_books_input").val(),
-        type: 'GET',
-        dataType:"json",
-
-        success: function(data) {
-            console.log(data);
-
-            if (data.length == 0 ){
-                $("#content").show();
-                $("#search_result").hide();
-                $("#search_books_input").addClass("error");
-                return;
-            }
-
-            template=$("#product_template").html();
-
-            $("#search_result").html("");
-
-
-            if(data['type'] == 'cat'){
-
-                  var temp = [];
-
-                _.each(data["data"],function(elm){
-
-                      temp.push("<h3>Results in " + elm.cat + "(" + elm["items"].length +")</h3>" );
-
-                        console.log(elm);
-                        
-                      _.each(elm["items"],function(item){ 
-                          temp.push( _.template(template,{elm:item}) );
-                      });
-
-                      temp.push("<div class='clearfix'></div>");
-                  });
-
-                  
-
-                  $("#search_result").append(temp.join("    "));
-
-            }
-
-
-
-            if(data['type'] == 'pro'){
-
-                  var temp = [];
-
-                _.each(data["data"],function(elm){
-
-                      temp.push("<h3>Results in " + elm.cat + "(" + elm["items"].length +")</h3>" );
-
-                        console.log(elm);
-                        
-                      _.each(elm["items"],function(item){ 
-                          temp.push( _.template(template,{elm:item}) );
-                      });
-
-                      temp.push("<div class='clearfix'></div>");
-                  });
-
-                  
-
-                  $("#search_result").append(temp.join("    "));
-
-            }
-
-            if (data['type'] == 'item'){
-
-            
-            _.each(data["data"],function(elm){$("#search_result").append( "<h3>Other Results(" + data["data"].length +")</h3>" + _.template(template,{elm:elm}) + "<div class='clearfix'></div>");});
-
-            }
-            $("#search_result").show();
-            $("#content").hide();
-
-
-
-
-       }
-
-  });
-}
-
-
-</script>
-
-
-  <%=render 'p2p/index/search_menu' %>
-
-<div id="content" class="span11">
-  
+<div id="content" class="span9 pull-left">
 
 
   <% @list.each do |list| %>
@@ -178,15 +72,5 @@ function search(){
 
 </div>
 
-
-<script>
-
-$(document).ready(function(){
-    $(".product").live("mouseenter",function(){
-      $(this).clearQueue().stop().animate({opacity:0.3}).animate({opacity:1});
-      console.log("aa");
-    })
-});
-</script>
 
 

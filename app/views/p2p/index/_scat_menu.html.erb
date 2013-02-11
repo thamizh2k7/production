@@ -6,7 +6,7 @@
 		<% P2p::Category.where("category_id is null").each do |cat|%>
 
 
-				<% if defined?("active_page") and cat.name == active_page %>
+				<% if defined?(active_page) and cat.name == active_page %>
 					<li class="active">
 				<% else %>
 					<li>
@@ -20,20 +20,16 @@
 
 				<% cat.subcategories.all.each do |scat| %>
 
-					<% if defined?("active_page") and scat.name == active_page %>
+					<% if defined?(active_page) and scat.name == active_page %>
 						<li class="active">
 					<% else %>
 						<li>
 					<% end %>
 
 						<a  href="/p2p/<%= scat.name %>">
-
 							<%= scat.name %>
 						</a>
-
-						<a class="bb" href="/p2p/<%= scat.name %>">
-							
-						</a>
+						
 					</li>
 				<% end %>
 

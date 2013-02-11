@@ -12,6 +12,14 @@ class P2p::IndexController < ApplicationController
   end
 
 def search
+
+
+  unless request.xhr?
+   redirect_to '/p2p'
+    return
+  end
+
+
   response = get_search_suggestions(params[:id])
 
   if response.size == 0
@@ -19,6 +27,8 @@ def search
   		suggested_word = suggest(params['id'])
 
   		if suggested_word == params[:id]
+
+
 
 
       result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
@@ -32,7 +42,10 @@ def search
 		end 
 
   end
+
+  response = response.first(15)
   
+
   if response.empty?
       render :json => [{:label => "No results found" ,:value => ""}]
       return
@@ -252,6 +265,10 @@ def search_list
       return
     end
 
+    if params.has_key?("filters")
+
+    end
+
 		if params.has_key?("prod") 
 			@products=@cat.products.find_all_by_name(params[:prod])
 
@@ -265,7 +282,7 @@ def search_list
 		else
 			@products=@cat.products.all
 
-      if @products.empty? and !@cat.subcategories.nil?
+      if !@cat.subcategories.nil?
           @cat.subcategories.each do |cat|
             @products +=cat.products.all
           end
@@ -274,5 +291,95 @@ def search_list
 		end
 
 	end
+
+
+
+  def browse_filter
+    @cat = P2p::Category.find_by_name(params[:cat])
+
+    puts @cat.inspect
+
+    if @cat.nil?
+      render :json => []
+      return
+    end
+
+    filter =[]
+    if params.has_key?("filter")
+
+        params[:filter].each do |key,val|
+          begin
+            temp = @cat.specs.find_by_name(key)
+            val_temp=[]
+            val.each do |v|
+              val_temp.push("'#{v}'")
+            end
+            filter.push( " (spec_id = #{temp.id}  and value in (#{val_temp.join(",")}) )" )
+          rescue
+          end
+       end
+
+    end
+
+
+    if params.has_key?("prod") 
+      products=@cat.products.find_by_name(params[:prod])
+
+
+      if filter.empty?
+
+      items = products.items.limit(20)
+
+      else
+
+      filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
+
+      items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+
+      end
+
+
+      res = []
+
+      items.each do |itm|
+        url = itm.get_image(1,:search)[0][:url]
+        itm = to_hash(itm)
+        itm[:url] = URI.encode("/p2p/<%=itm.product.category.name%>/<%=itm.product.name%>/<%=itm.title%>")
+        itm[:img] = url
+        res.push(itm)
+      end
+
+      render :json => res
+
+
+    else
+
+      if filter.empty?
+
+      items = @cat.items.limit(20)
+
+      else
+
+      filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
+
+      items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+
+      end
+
+
+      res = []
+
+      items.each do |itm|
+        url = itm.get_image(1,:search)[0][:url]
+        itm = to_hash(itm)
+        itm[:url] = URI.encode("/p2p/<%=itm.product.category.name%>/<%=itm.product.name%>/<%=itm.title%>")
+        itm[:img] = url
+        res.push(itm)
+      end
+
+      render :json => res
+    end
+
+  end
 
  end

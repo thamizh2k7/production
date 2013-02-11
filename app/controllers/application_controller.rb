@@ -64,4 +64,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def to_hash(obj)
+    hash = {}; obj.attributes.each { |k,v| hash[k] = v }
+    return hash
+  end
 end

@@ -98,15 +98,14 @@ Sociorent::Application.routes.draw do
 
       match 'search/c/:cat(/:prod)' => "index#search_cat"
 
-      match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]
+      match "search/:id" =>"index#search"
 
-      post 'getcity'  => 'cities#list'
+      match ":cat/filters" =>"index#browse_filter"
 
-      #post "message/create/:id" => "messages#create"
-      #match "message"=>"messages#index"
 
       get ':cat/:prod/:item' => 'items#view'
-      get ':cat(/:prod)' => "index#browse"
+
+      get ':cat(/:prod)' => "index#browse" 
 
   end
 

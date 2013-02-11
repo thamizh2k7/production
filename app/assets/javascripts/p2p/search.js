@@ -20,6 +20,9 @@
          $("#search_books_input").val("");
           window.location.href=elem.item.value
           return false;
+      },
+      focus:function(){
+        return false;
       }
     });
   });

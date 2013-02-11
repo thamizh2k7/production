@@ -66,7 +66,19 @@
 <script>
 
 	$(document).ready(function(){
-		$('.table').dataTable({
+		$('#inbox_id').dataTable({
+		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+       	  "bScrollInfinite": false,
+          "sScrollY": "300px",
+          "sAjaxSource": '/p2p/getmessages/' ,
+          "aaSorting":[],
+          "bScrollCollapse": false,
+          "bFilter":false,
+       	  "bSort": false,
+          "iDisplayLength" : 10
+		});
+
+		$('#sentbox_id').dataTable({
 		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
        	  "bScrollInfinite": false,
           "sScrollY": "300px",

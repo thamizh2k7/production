@@ -10,7 +10,7 @@ class P2p::Message < ActiveRecord::Base
   
   # scopes to the messages
   scope :inbox, where("flag = 'unread' or flag = 'read'")
-  scope :sent, where(:sender_status=>"sent")
+  scope :sentbox, where(:sender_status => "sent")
 
 
   	def message_type

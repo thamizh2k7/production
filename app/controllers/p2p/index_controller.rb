@@ -23,7 +23,7 @@ def search
       result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
 
       result.each do |res|
-        response.push({:label=> "#{res.title}" ,:value => "/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}"} )
+        response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
       end
 
 		else
@@ -47,20 +47,20 @@ def get_search_suggestions(query)
 	  result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push( {:label => "#{query} in #{res.name}" , :value => "/p2p/search/c/#{res.name}"} )
+  	response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/search/c/#{res.name}")} )
   end
 
 
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => "/p2p/search/c/#{res.category.name}/#{query}"} ) if res.items.count >0
+  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/search/c/#{res.category.name}/#{query}")} ) if res.items.count >0
   end
 
   result = P2p::Item.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{res.title}" ,:value => "/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}"} )
+  	response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
   end
   return response
 

@@ -1,22 +1,25 @@
 class P2p::MessagesController < ApplicationController
 	layout :p2p_layout
+
+  before_filter :p2p_user_signed_in 
+
   def index
   	
-     @user=P2p::User.find(current_user.id)
-     @message = @user.sent_messages.new
+      @user=P2p::User.find(current_user.id)
+      @message = @user.sent_messages.new
 
-     puts @message.inspect + "message"
+     # puts @message.inspect + "message"
    
   	#Inbox => Both read and unread messages from scope
-	  @inbox = @user.received_messages.inbox
-    @inbox_admin_msg = @user.received_messages.inbox.where("messagetype=2")
-    @inbox_sell_req = @user.received_messages.inbox.where("messagetype=1") 
-    @inbox_buy_req = @user.received_messages.inbox.where("messagetype=0") 
+	   @inbox = @user.received_messages.inbox
+  #   @inbox_admin_msg = @user.received_messages.inbox.where("messagetype=2")
+  #   @inbox_sell_req = @user.received_messages.inbox.where("messagetype=1") 
+  #   @inbox_buy_req = @user.received_messages.inbox.where("messagetype=0") 
   
-	  # getting the sent messages from the scope
-	  @sent = @user.sent_messages.sent 
-  #@mesage=P2p::Message.all
-  #@inbox=P2p::Message.inbox
+	 #  # getting the sent messages from the scope
+	 #  @sent = @user.sent_messages.sentbox
+  # #@mesage=P2p::Message.all
+  # #@inbox=P2p::Message.inbox
 
   end
 
@@ -81,8 +84,12 @@ class P2p::MessagesController < ApplicationController
 
     response={:aaData => []}
 
-    messages = P2p::User.find(current_user.id).received_messages.inbox
+    if params[:id] == 'inbox' 
 
+      messages = P2p::User.find(current_user.id).received_messages.inbox
+    else
+      messages = P2p::User.find(current_user.id).received_messages.sentbox
+    end
 #       "sEcho": 1,
   # "iTotalRecords": "57",
   # "iTotalDisplayRecords": "57",

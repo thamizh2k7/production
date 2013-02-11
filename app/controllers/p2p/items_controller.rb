@@ -31,7 +31,7 @@ class P2p::ItemsController < ApplicationController
      data={}
     if item.save 
       data['status'] = 1;
-      data['id'] = "#{item.product.category.name}/#{item.product.name}/#{item.title}"
+      data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
     else
       data['status'] = 0;
       data['msg'] = "Fails";
@@ -66,7 +66,7 @@ class P2p::ItemsController < ApplicationController
      data={}
     if item.save 
       data['status'] = 1;
-      data['id'] = "#{item.product.category.name}/#{item.product.name}/#{item.title}"
+      data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
     else
       data['status'] = 0;
       data['msg'] = "Fails";
@@ -199,7 +199,8 @@ end
       @item.solddate =Time.now
       @item.save
 
-      redirect_to "/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}"
+      #render :json => {:status => 1 ,:id => "/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}"}
+      redirect_to URI.encode("/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}")
 
   end
 
@@ -221,7 +222,7 @@ end
     end
     #render :inline => params.inspect
 
-    redirect_to "/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}"
+    redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
 
   end
 

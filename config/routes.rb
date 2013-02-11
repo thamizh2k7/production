@@ -92,7 +92,7 @@ Sociorent::Application.routes.draw do
 
       get 'dashboard' => 'users#dashboard'
       
-      get 'getmessages' => 'messages#getmessages'
+      get 'getmessages(/:id)' => 'messages#getmessages'
 
       match 'search/c/:cat(/:prod)' => "index#search_cat"
 

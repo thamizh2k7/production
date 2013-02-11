@@ -1,5 +1,7 @@
 class P2p::ImagesController < ApplicationController
 
+	before_filter :p2p_user_signed_in 
+	
 	def destroy
 		begin
 			img = P2p::Image.find(params[:id])

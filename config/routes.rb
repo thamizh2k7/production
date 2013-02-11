@@ -94,6 +94,8 @@ Sociorent::Application.routes.draw do
       
       get 'getmessages(/:id)' => 'messages#getmessages'
 
+      match 'search/q/:query' => "index#search_query"
+
       match 'search/c/:cat(/:prod)' => "index#search_cat"
 
       match "search(/:id(/*filters))" =>"index#search", :via =>[:get,:post]

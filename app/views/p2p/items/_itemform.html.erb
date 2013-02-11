@@ -2,9 +2,9 @@
 <%= javascript_include_tag "p2p/jquery.jeditable.mini" %>
 <%= javascript_include_tag "global/jquery.ui.accordion" %>
 
-<div class="container">
+<div class="row" id="body_content">
 
-<div id="item_left_container" class="pull-left span2">
+<div class="span2">
 
 	<span class="point_left left_element">
 		<img src="<%= thumbimage[0][:url] %>" imgid="<%= thumbimage[0][:id] %>" alt="" id="left_thumb_image" ></img>
@@ -45,7 +45,7 @@
 	<div id="item_title" class="editable"> <%= title %> </div> 	
 	
 	<% if userid == ownerid  and !itemid.empty? %>
-		<div class="pull-right btn btn-info" id="edit_item">Edit Item</div>
+		<div class="pull-right btn" id="edit_item">Edit Item</div>
 	<% end %>
 
 	<div id="edit_actions">
@@ -108,17 +108,17 @@
 
 			<span  class="pull-left" >
 				<span class=" item_label"> Category: </span>
-				<span class="label label-warning" catid="" id="item_category"> <%= category %></span>
+				<span class="label " catid="" id="item_category"> <%= category %></span>
 			</span>
 
 			<span class="pull-left">
 				<span class=" item_label"> Sub-Category: </span>
-				<span  class="label label-ok" scatid="" id="item_sub_category" > <%= subcategory%> </span>
+				<span  class="label " scatid="" id="item_sub_category" > <%= subcategory%> </span>
 			</span>
 
 			<span class="pull-left">
 				<span class=" item_label"> Brand: </span>
-				<span  class="label label-info"  bid="" id="item_brand" > <%= brand %></span>
+				<span  class="label"  bid="" id="item_brand" > <%= brand %></span>
 			</span>
 
 		<div class="clearfix"></div>
@@ -137,7 +137,7 @@
 
 	<% if userid.empty? or (ownerid != userid) %>
 
-		<div id="item_action_buttons">
+		<div id="item_action_buttons" class="span3">
 			<!-- seller info -->
 
 
@@ -195,14 +195,14 @@
 				<% if solddate.nil? %>
 					<a href="/p2p/sold/<%= itemid %>" class="btn btn-success">Mark as Sold!</a>
 				<% else %>
-					<span class="btn btn-info">Item Sold on <%= solddate.strftime("%d-%b-%C%y") %> </span>
+					<span class="btn">Item Sold on <%= solddate.strftime("%d-%b-%C%y") %> </span>
 				<%end %>
 			
 
 
 			<% unless itemid.empty? %>		
 				<% if deletedate.nil? %>
-					<div class="btn btn-danger delete_item" itemid="<%=itemid%>" id="item_delete_button"> Delete </div>
+					<div class="btn" itemid="<%=itemid%>" id="item_delete_button"> Delete </div>
 				<% else %>
 					<span class="btn btn-info">Item Sold on <%= @item.solddate.strftime("%d-%b-%C%y") %> </span>
 				<%end %>
@@ -215,7 +215,7 @@
     
     			<span class=" item_label">View Count: </span><br/>
     				<span class="progress ">
-    					<span class="bar bar-warning" style="width:100%;">
+    					<span class="bar" style="width:100%;">
     						<span class="badge"> <%= viewcount %> </span>
     					</span>
     				</span>
@@ -775,3 +775,4 @@ $(".thumb_img_holder").click(function(){
 </script>
 
 </div>
+

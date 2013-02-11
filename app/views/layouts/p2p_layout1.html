@@ -10,10 +10,15 @@
 
   <%= stylesheet_link_tag "p2p/p2p" %> 
   <%= stylesheet_link_tag "global/jquery-ui-1.8.24.custom" %>
-  <%= stylesheet_link_tag "p2p/bootstrap.min" %>
+    <%= stylesheet_link_tag '/assets/p2p/index/bootstrap.min' %>
   <%= stylesheet_link_tag "global/bootstrap-responsive.min" %>  
   <%= stylesheet_link_tag "footer" %>
   
+
+
+  <%= stylesheet_link_tag '/assets/p2p/index/common' %>
+  <%= stylesheet_link_tag '/assets/p2p/index/itemList' %>
+
   
   <%= javascript_include_tag "p2p/p2p" %>
   <%= javascript_include_tag "global/underscore" %>
@@ -32,21 +37,24 @@
 
 <body>
 	
-  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+  <div class="container">
 
-	<%= render "layouts/p2p/header" %>
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
 
-  <% unless flash[:notice].nil? %>
-    <div class="info-warning"> <%= flash[:notice] %> </div>
-  <% end %>
+  	<%= render "layouts/p2p/header" %>
 
-	<div class="container" id="body_content">
-  		<%= yield %>
-	</div>
+    <% unless flash[:notice].nil? %>
+      <div class="info-warning" id="flash_notice"> <%= flash[:notice] %> </div>
+    <% end %>
 
-	<%= render "layouts/footer" %>
+    <%= yield %>
 
-  <div class="clearfix"></div>
+  	<%= render "layouts/footer" %>
+
+    <div class="clearfix"></div>
+
+  </div>
+
 </body>
 
 

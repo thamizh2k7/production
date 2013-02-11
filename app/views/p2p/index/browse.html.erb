@@ -1,115 +1,98 @@
-
-<%= stylesheet_link_tag 'p2p/browse'%>
-<%= stylesheet_link_tag 'p2p/search_category_menu'%>
-
-<%= javascript_include_tag 'p2p/jquery.masonry.min'%>
-
-<div id="browse_page" class="container">
-
-<div id="browse_left" class="pull-left span2">
-
-		<%= render "/p2p/index/items_menu" %>
-		
-		<div  class=" menu" >
-							<div class="menu_title">Browse</div>
-
-						<div class="menu_contents">
-
-							<% unless @cat.category.nil? %>
-								<span class="arrow">V</span><a class="menu_element" href="/p2p/<%=@cat.category.name%>"><%=@cat.category.name%></a>
-
-								<span class="arrow">></span>
-
-							<% else %>
-								<span class="arrow">V</span>
-							<% end %>
-
-							<a class="menu_element" href="/p2p/<%=@cat.name%>">
-							
-								<%=@cat.name%>
-							</a>
-
-							<% if @products.class.to_s != "P2p::Product" %>
-								<% unless @cat.subcategories.nil? %>
-										<% @cat.subcategories.each do |cat| %>
-											<a class="menu_element sub_menu" href="/p2p/<%=@cat.name%>/<%= cat.name %>">
-												<%= cat.name %> 
-											</a>
-										<%end %>
-
-								<% end %>
-							<% end %>
+<div id="Itemlist" class="row">
+    <div id="filter" class="span2">
 
 
-					<% if params.has_key?("prod") %>
-						<span class="menu_element "><%= @products.name %> <span id="prod_<%=@products.id%>">(<%= @products.items.count %>)</span> </span>
-					<% end %>
-						</div>
+      <ul class="nav nav-list" id="browse_menu">
 
-						<div class="clearfix"></div>						
-		</div>
+        <%= render "scat_menu" , :active_page => @cat.name %>
 
-    <div id="filter" class=" menu">
-	      <div class="menu_title">Filters</div>      
-	      
-	      <ul class="nav nav-list">
-	        <li class="nav-header">OS</li>
-	        <li class="active"><a href="#">Home <i class="icon-remove"></i></a></li>
-	        <li><a href="#">Library</a></li>
-	        <li><a href="#">Applications</a></li>
-
-	        <li class="divider"></li>
-
-	        <li class="nav-header">Memory</li>
-	        <li><a href="#">Profile</a></li>
-	        <li><a href="#">Settings</a></li>
-	        <li><a href="#">Help</a></li>
-
-	      </ul>
-	    </div>
-
-	</div>
-
-<div id="browse_content" class="pull-left span9">
+        <li class="nav-header">OS</li>
+        <li class="active"><a href="#">Home <i class="icon-remove"></i></a></li>
+        <li><a href="#">Library</a></li>
+        <li><a href="#">Applications</a></li>
 
 
-	<div id="browse_title"><%= @cat.name %></div>
+        <li class="divider"></li>
 
-	<div id="browse_tags"></div>
+        <li class="nav-header">Memory</li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
 
+      </ul>
+    </div>
+
+<div id="items" class="span10">
+
+
+        <div id="listHeader" class="row">
+          <p class="fleft"> <b><%= @cat.name.pluralize.titlecase %> </b></p>
+          <p class="fright"><a href="/p2p/search/c/<%= @cat.name %>"> View All</a></p>
+        </div>
+
+<!--
 	<div id="browse_sort">
+
 
 		<span class="pull-right">Sort
 
-			<select id="sort_browse_items">
+
+		<select id="sort_browse_items">
 				<option>Relevance</option>
 				<option>Price -> High to Low</option>
 				<option>Price -> High to Low</option>
 			</select>
 		</span>
+
 	</div>
+-->
+	
 
-	<div id="browse_content_items">
+		<% @products.each do |prod| %>
+					      <div class="itemsRow">
 
-		<% unless params.has_key?("prod") %>
-				<% @products.each do |prod| %>
-						<div class=" search_acategory_content">
-							<%= render "p2p/index/item" ,:items => prod.items.limit(5) %>
-						</div>
-				<% end %>
+					        <div id="listHeader" class="row">
+					          <p class="fleft"> <b><%= prod.name.pluralize.titlecase %> </b></p>
+					          <p class="fright"><a href="/p2p/<%=@cat.name%>/<%=prod.name%>"> View All</a></p>
+					        </div>
 
-		<% else %>
-					<div class=" search_acategory_content">
-							<%= render "p2p/index/item" ,:items => @products.items.limit(20)  %>
-						</div>
-		<% end %>
-	</div>
+			        <ul class="thumbnails">
+			        
+			        <% prod.items.limit(5).each do |p| %>
 
-	<div class="clearfix"></div>
-</div>
+			          <li class="span2">
+			            <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
+			              <div class="thumbnail">
+			                <img src="<%=p.get_image(1,:search)[0][:url]%>" >
+			                <div class="caption">
+			                  <b><%= p.title.slice(0,10)  %></b>
+			                  <p>
 
-<div class="clearfix"></div>
-</div>
+			                    <ul>
+			                      <li><del>&#2352;</del> <%=p.price %></li>
+			<!--                              <li>Attribute 2</li>
+			                      <li>Attribute 3</li>
+			-->                              
+			                    </ul>
+			                  </p>
+
+			                </div>
+			              </div>
+			            </a>
+			          </li>
+			      <% end %>
+
+			      </ul>
+
+			</div>
+	<% end %>
+
+	
+
+
+  </div>
+
+ </div>
 
 
 <script>

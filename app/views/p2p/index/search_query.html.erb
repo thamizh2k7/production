@@ -12,19 +12,6 @@
 
         <%= render "scat_menu"  %>
 
-        <li class="nav-header">OS</li>
-        <li class="active"><a href="#">Home <i class="icon-remove"></i></a></li>
-        <li><a href="#">Library</a></li>
-        <li><a href="#">Applications</a></li>
-
-
-        <li class="divider"></li>
-
-        <li class="nav-header">Memory</li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
-
       </ul>
     </div>
 
@@ -33,19 +20,16 @@
 
 
 	<div class="itemsRow">
-			<% @products.each do |prod| %>
 				
-				<% next if prod.items.count ==0 %>
-
 		        <div id="listHeader" class="row">
-		          <p class="fleft"> <b><%= prod.name.pluralize.titlecase %> in <%=prod.category.name %></b></p>
-		          <p class="fright"><a href="/p2p/search/c/<%=prod.category.name%>/<%=prod.name%>"> View All</a></p>
+		          <p class="fleft"> <b>Results for <%= params[:query] %></b></p>
+		          <p class="fright"><a href="/p2p/search/q/<%=params[:query]%>"> View All</a></p>
 		        </div>
 
 
 	                <ul class="thumbnails">
 	                
-	                <% prod.items.limit(5).each do |p| %>
+	                <% @result.each do |p| %>
 
 	                  <li class="span2">
 	                    <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
@@ -70,9 +54,6 @@
 	              <% end %>
 
 	              </ul>
-
-			<% end %>
-
 
 	</div>
 

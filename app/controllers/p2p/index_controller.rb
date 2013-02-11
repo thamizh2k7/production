@@ -6,8 +6,9 @@ class P2p::IndexController < ApplicationController
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
      
-    @list = P2p::Category.order("priority")
+    @category = P2p::Category.order("priority")
 
+    flash[:notice] ="Test now"
   end
 
 def search
@@ -33,18 +34,27 @@ def search
   end
   
   if response.empty?
-    render :json => [{:label => "No results found" ,:value => ""}]
+      render :json => [{:label => "No results found" ,:value => ""}]
+      return
   else
-    render :json => response
+      render :json => response
+      return
   end
-  
+
+end
+
+
+def search_query
+  @result = P2p::Item.search(params[:query] ,:match_mode => :any ,:star => true)
+
 
 end
 
 
 def get_search_suggestions(query)
-	response =[]
-	  result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
+	response =[{:label => query ,:value => URI.encode("/p2p/search/q/#{query}")}]
+
+	result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
   	response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/search/c/#{res.name}")} )
@@ -110,6 +120,9 @@ def search_list
         render :json => res
         return
     end
+
+
+
 
     #search for product
     result = P2p::Product.search(params[:id])
@@ -210,20 +223,8 @@ def search_list
 	      @cat_name = @cat.name
 
         if params.has_key?("prod")
-          
-          @products =[]
-          res = P2p::Item.search(params[:prod], :match_mode=> :any , :star => true)
-
-          res.each do |r|
-            @products.push(r.product) unless @products.include?(r.product)
-          end
-
-          @cat.products.find_all_by_name(params[:prod]).each do |r|
-            @products.push(r) unless @products.include?(r)
-          end
-
-
-        else
+          @products = @cat.products.find_all_by_name(params[:prod])
+       else
 
 	       @products = @cat.products
         end
@@ -245,21 +246,28 @@ def search_list
 
 	def browse
 		@cat = P2p::Category.find_by_name(params[:cat])
+
+    if @cat.nil?
+      redirect_to "/p2p"
+      return
+    end
+
 		if params.has_key?("prod") 
-			@products=@cat.products.find_by_name(params[:prod])
+			@products=@cat.products.find_all_by_name(params[:prod])
 
 			if @products.nil?
 				@cat = P2p::Category.find_by_name(params[:prod])
-				@products=@cat.products
+				@products= @cat.products.all
 				params.delete("prod")
-			end
+		
+      end
+
 		else
-			@products=@cat.products
+			@products=@cat.products.all
 
       if @products.empty? and !@cat.subcategories.nil?
-
           @cat.subcategories.each do |cat|
-            @products +=cat.products
+            @products +=cat.products.all
           end
 
       end

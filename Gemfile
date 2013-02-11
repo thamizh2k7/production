@@ -75,3 +75,6 @@ gem 'simple_form'
 
 #jquery datatable
 gem 'jquery-datatables-rails'
+
+
+gem 'will_paginate'

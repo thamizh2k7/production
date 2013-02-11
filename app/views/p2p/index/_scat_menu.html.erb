@@ -1,10 +1,70 @@
-		<div id="sub_categories_menu" class="dropdown">
-			
-				<% scat.each do |cat|%>
 
-						<li class="sub_category"> <a href="/p2p/<%=cat.category.name%>/<%=cat.name%>"> <%= cat.name %> </a> </li>
-						<%= render 'p2p/index/prod_menu' ,:prod => cat.products %>
-				
+
+	<li class="nav-header">Browse </li>
+
+
+		<% P2p::Category.where("category_id is null").each do |cat|%>
+
+
+				<% if defined?("active_page") and cat.name == active_page %>
+					<li class="active">
+				<% else %>
+					<li>
 				<% end %>
-			
-		</div>
+
+				<a  href="/p2p/<%= cat.name %>">
+						<%= cat.name %>
+					</a>
+				</li>
+
+
+				<% cat.subcategories.all.each do |scat| %>
+
+					<% if defined?("active_page") and scat.name == active_page %>
+						<li class="active">
+					<% else %>
+						<li>
+					<% end %>
+
+						<a  href="/p2p/<%= scat.name %>">
+
+							<%= scat.name %>
+						</a>
+
+						<a class="bb" href="/p2p/<%= scat.name %>">
+							
+						</a>
+					</li>
+				<% end %>
+
+			<% end %>
+
+		
+
+
+	    <li class="divider"></li>
+
+
+
+	<script>
+
+		$(document).ready(function(){
+			var browseTop = $('#browse_menu').offset().top; 	
+
+			 $(window).scroll(function(){ // scroll event
+	 
+	 		   var windowTop = $(window).scrollTop(); // returns number
+
+	 		      if (browseTop < windowTop) {
+	      				$('#browse_menu').css({ position: 'fixed', top: 0 });
+	    			}
+	    		else {
+	      			$('#browse_menu').css('position','static');
+	    		}
+	 		});
+	 
+		});
+	 
+
+	</script>
+

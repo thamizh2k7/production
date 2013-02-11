@@ -1,16 +1,32 @@
-<%= stylesheet_link_tag 'p2p/users'%>
-<%= stylesheet_link_tag 'p2p/search_category_menu'%>
 
 
-<div id="dashboard_page" class="row">
+<div class="row" id="body_content" >
 
- 
-  <div id="left_menu" class="span2 pull-left">
-    <%= render "/p2p/index/items_menu" %>
-    <%= render "/p2p/users/menu" %>
-  </div>
+     <div id="filter" class="span2">
 
-	<div class="span9" id="dashboard_content">
+
+      <ul class="nav nav-list">
+
+        <%= render "/p2p/index/scat_menu" %>
+
+        <li class="nav-header">OS</li>
+        <li class="active"><a href="#">Home <i class="icon-remove"></i></a></li>
+        <li><a href="#">Library</a></li>
+        <li><a href="#">Applications</a></li>
+
+
+        <li class="divider"></li>
+
+        <li class="nav-header">Memory</li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
+
+      </ul>
+    </div>
+
+
+	<div class="span10">
 
 		<div class="box span3">
 			<div class="box_title"> Sales Stastics </div>

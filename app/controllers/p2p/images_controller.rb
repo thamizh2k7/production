@@ -1,6 +1,7 @@
 class P2p::ImagesController < ApplicationController
 
 	before_filter :p2p_user_signed_in 
+	layout :p2p_layout
 	
 	def destroy
 		begin

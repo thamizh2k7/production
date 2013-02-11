@@ -57,7 +57,6 @@ class P2p::MessagesController < ApplicationController
   def show
     @message=P2p::Message.find(params[:id])
     
-
     @message.update_attributes(:flag=>"read") if @message.flag != "read"
      respond_to do |format|
       format.js
@@ -84,21 +83,25 @@ class P2p::MessagesController < ApplicationController
 
     response={:aaData => []}
 
-    if params[:id] == 'inbox' 
-
-      messages = P2p::User.find(current_user.id).received_messages.inbox
+    if params.has_key?("iStart")
+      start = params[:iStart]
     else
-      messages = P2p::User.find(current_user.id).received_messages.sentbox
+      start = 1
     end
-#       "sEcho": 1,
-  # "iTotalRecords": "57",
-  # "iTotalDisplayRecords": "57",
 
+    if params[:id] == 'inbox' 
+      messages = P2p::User.find(current_user.id).received_messages.order("created_at desc").paginate( :page => start)
+      message_count = P2p::User.find(current_user.id).received_messages.count
+    elsif params[:id] == 'sentbox' 
+      messages = P2p::User.find(current_user.id).sent_messages.order("created_at desc").paginate( :page => start)
+      message_count = P2p::User.find(current_user.id).sent_messages.count
+    end
+#   
 
-      #response[:iTotalRecords] =  messages.count
-      response[:iTotalRecords] =  100
-      response[:iTotalDisplayRecords] =  100
-      response[:iStart] =  0
+    response[:iTotalRecords] =  message_count
+    response[:iTotalDisplayRecords] = message_count
+    #response[:iStart] =  (params.has_key("iStart") ? (params[:iStart].to_i + 10) : 0 
+
 
     messages.each do |msg|
 
@@ -112,6 +115,8 @@ class P2p::MessagesController < ApplicationController
         tme = (tme/60).to_i.to_s + "min ago"
       end
   
+      
+
       response[:aaData].push(["<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
                           msg.sender.user.name,
                           msg.message,
@@ -122,7 +127,7 @@ class P2p::MessagesController < ApplicationController
 
     render :json => response
 
-  end
+ end
 
 end
 

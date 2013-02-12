@@ -3,6 +3,15 @@
 	<li class="nav-header">Filters</li>
 
 
+		<li class="nav-header"> Sort </li>
+		<li>
+			<select class="span1" id="filter_sort">
+				<option value="0">Relevance</option>
+				<option value="1">Price Hight to low</option>
+				<option value="2">Price Low to hight</option>
+			</select>
+		</li>
+
 		<% category.specs.each do |spec|%>
 
 
@@ -86,6 +95,12 @@
 				$(that).children(".icon-remove").removeClass("hidden");
 			}
 
+			call_filter(spec,val,that);
+
+		}
+
+		function call_filter(spec,val,that){
+
 			$("#overlay").show();
 			$.ajax({
 				url:'/p2p/' + category + '/filters',
@@ -101,6 +116,7 @@
 				},
 				error:function(){
 					alert("Some Error Occured Try again");
+					$("#overlay").hide(100);
 					filters[spec].splice(filters[spec].indexOf(val),1)
 					$(that).removeClass('active');
 					$(that).children(".icon-remove").addClass("hidden");
@@ -109,6 +125,13 @@
 			});
 
 		}
+
+		$("#filter_sort").change(function(){
+
+			 filters['sort'] = $("#filter_sort").val();
+			 call_filter('sort',$("#filter_sort").val(),$("#filter_sort"));
+			 
+		});
 
 		$(document).ready(function(){
 

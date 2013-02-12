@@ -270,11 +270,11 @@ def search_list
     end
 
 		if params.has_key?("prod") 
-			@products=@cat.products.find_all_by_name(params[:prod])
+			@products=@cat.products.find_all_by_name(params[:prod]).order("priority").limit(5)
 
 			if @products.nil?
 				@cat = P2p::Category.find_by_name(params[:prod])
-				@products= @cat.products.all
+				@products= @cat.products.all.order("priority").limit(5)
 				params.delete("prod")
 		
       end
@@ -284,9 +284,8 @@ def search_list
 
       if !@cat.subcategories.nil?
           @cat.subcategories.each do |cat|
-            @products +=cat.products.all
+            @products +=cat.products.order("priority")
           end
-
       end
 		end
 
@@ -304,8 +303,37 @@ def search_list
       return
     end
 
+
     filter =[]
+    order_result = ""
+
     if params.has_key?("filter")
+
+
+        if params[:filter].has_key?("sort")
+
+          puts "in sort"
+
+          case params[:filter][:sort]
+              when "0"
+                order_result = "priority"
+                puts "in sort prio"
+              when "1"
+                order_result = "price desc"
+                puts "in sort price desc"
+
+              when "2"
+                order_result = "price asc"
+                puts "in sort price asc"
+              else
+              order_result = ""
+              puts "in sort none " + params[:filter][:sort]
+          end
+
+          puts "in sort" + order_result
+          params[:filter].delete(:sort)
+
+        end
 
         params[:filter].each do |key,val|
           begin
@@ -328,13 +356,22 @@ def search_list
 
       if filter.empty?
 
-      items = products.items.limit(20)
+        if order_result != ""
+          items = products.items.order(order_result).limit(20)
+        else
+          items = products.items.order(order_result).limit(20)
+        end
 
       else
 
+
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
-      items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+          if order_result != ""
+          items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').order(order_result).limit(20)
+        else
+          items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+        end
 
       end
 
@@ -356,13 +393,21 @@ def search_list
 
       if filter.empty?
 
-      items = @cat.items.limit(20)
+        if order_result !=""
+          items = @cat.items.order(order_result).limit(20)
+        else
+          items = @cat.items.limit(20)
+        end
 
       else
 
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
-      items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+      if order_result !=""
+        items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').order(order_result).limit(20)
+    else
+        items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+    end
 
       end
 

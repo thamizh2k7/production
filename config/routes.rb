@@ -72,8 +72,11 @@ Sociorent::Application.routes.draw do
 
 
       resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
+      #resources :credits, :path_names =>{:list=>"list", :decrement => 'delete', :new=> '' }
       resources :items
       resources :images
+      resources :credits ,:path_names => {:decrement => 'delete'}
+
 
       get '' => "index#index"
       get 'sellitem' => "items#new"
@@ -105,6 +108,8 @@ Sociorent::Application.routes.draw do
 
       get ':cat/:prod/:item' => 'items#view'
       get ':cat(/:prod)' => "index#browse"
+
+
 
   end
 

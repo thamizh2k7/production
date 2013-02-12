@@ -87,7 +87,7 @@ puts "aa"
 				scat.products.each do |prod|
 
 						10.times do  |i|
-							p = prod.items.create({:title => prod.name + ' ' + i.to_s ,:price => rand(1000..10000),:desc => "Test description for #{prod}#{i}. This description is short and has to be edited for getting a long description. Thank you."})
+							p = prod.items.create({:title => prod.name + ' ' + i.to_s ,:price => rand(1000..10000),:desc => "Test description for #{prod}#{i}. This description is short and has to be edited for getting a long description. Thank you." ,:condition => 'old'})
 							p.save
 							p.user = user
 							p.save
@@ -106,7 +106,7 @@ puts "aa"
 			cat.products.each do |prod|
 
 					10.times do  |i|
-						p = prod.items.create({:title => prod.name + ' ' + i.to_s ,:price => rand(1000..10000),:desc => "Test description for #{prod}#{i}. This description is short and has to be edited for getting a long description. Thank you."})
+						p = prod.items.create({:title => prod.name + ' ' + i.to_s ,:price => rand(1000..10000),:desc => "Test description for #{prod}#{i}. This description is short and has to be edited for getting a long description. Thank you.",:condition => 'old'})
 						p.save
 						p.user = user
 						p.save

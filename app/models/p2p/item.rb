@@ -10,7 +10,7 @@ class P2p::Item < ActiveRecord::Base
 
   has_many :images ,:class_name => 'P2p::Image'
 
-  attr_accessible :approveddate, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img
+  attr_accessible :approveddate, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition
 
   attr_accessor :img
 

@@ -13,7 +13,7 @@ class P2p::ItemsController < ApplicationController
   def create
 
 
-    item = P2p::User.find(current_user.id).items.new({:title => params["title"], :desc => params["desc"], :price => params["price"]})
+    item = P2p::User.find(current_user.id).items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
     item.product = P2p::Product.find(params["brand"])
 
@@ -46,7 +46,7 @@ class P2p::ItemsController < ApplicationController
 
     item = P2p::User.find(current_user.id).items.find(params[:id])
 
-    item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"]});
+    item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params[:condition]});
 
     item.product = P2p::Product.find(params["brand"])
 

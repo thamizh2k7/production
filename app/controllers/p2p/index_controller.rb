@@ -270,7 +270,7 @@ def search_list
     end
 
 		if params.has_key?("prod") 
-			@products=@cat.products.find_all_by_name(params[:prod]).order("priority").limit(5)
+			@products=@cat.products.order("priority").limit(5).find_all_by_name(params[:prod])
 
 			if @products.nil?
 				@cat = P2p::Category.find_by_name(params[:prod])
@@ -335,6 +335,19 @@ def search_list
 
         end
 
+        item_condition_filter = ""
+        if params[:filter].has_key?("condition")
+
+          temp = []
+          params[:filter][:condition].each do |fil|
+              temp.push("'" + fil + "'")
+          end
+
+          item_condition_filter = 'p2p_items.condition in (' + temp.join(",") + ") "
+
+
+        end
+
         params[:filter].each do |key,val|
           begin
             temp = @cat.specs.find_by_name(key)
@@ -347,8 +360,12 @@ def search_list
           end
        end
 
+       puts filter.inspect + "filter"
+
     end
 
+
+    item_where_condition = item_condition_filter
 
     if params.has_key?("prod") 
       products=@cat.products.find_by_name(params[:prod])
@@ -357,9 +374,9 @@ def search_list
       if filter.empty?
 
         if order_result != ""
-          items = products.items.order(order_result).limit(20)
+          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
         else
-          items = products.items.order(order_result).limit(20)
+          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
         end
 
       else
@@ -368,9 +385,9 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
           if order_result != ""
-          items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').order(order_result).limit(20)
+          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
         else
-          items = products.items.where(" p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').limit(20)
         end
 
       end
@@ -380,8 +397,8 @@ def search_list
 
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
-        itm = to_hash(itm)
-        itm[:url] = URI.encode("/p2p/<%=itm.product.category.name%>/<%=itm.product.name%>/<%=itm.title%>")
+        itm[:url] = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
+        itm = to_hash(itm)        
         itm[:img] = url
         res.push(itm)
       end
@@ -394,9 +411,9 @@ def search_list
       if filter.empty?
 
         if order_result !=""
-          items = @cat.items.order(order_result).limit(20)
+          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
         else
-          items = @cat.items.limit(20)
+          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).limit(20)
         end
 
       else
@@ -404,9 +421,9 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
-        items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').order(order_result).limit(20)
+        items = @cat.items.where( tem_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
     else
-        items = @cat.items.where("p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price').limit(20)
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').limit(20)
     end
 
       end
@@ -416,8 +433,8 @@ def search_list
 
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
+        itm[:url] = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
         itm = to_hash(itm)
-        itm[:url] = URI.encode("/p2p/<%=itm.product.category.name%>/<%=itm.product.name%>/<%=itm.title%>")
         itm[:img] = url
         res.push(itm)
       end

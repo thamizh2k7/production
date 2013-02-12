@@ -17,6 +17,9 @@
 	</span>		
 
 
+	<span class="left_element" id="left_item_condition"> 
+		Condition: <%=condition%>
+	</span>
 	<span class="left_element" id="left_item_spec"> 
 
 			<% unless spec.empty? %>
@@ -127,6 +130,11 @@
 		<div id="item_price"> 
 			<span class=" item_label">Price:<del>&#2352;</del> </span>
 			<span id="item_price_content"><%=price%> </span>
+		</div>
+
+		<div id="item_condition"> 
+			<span class=" item_label">Condition: </span>
+			<span id="item_condition_content"><%=condition%> </span>
 		</div>
 
 		<div id="item_location" class="pull-right">
@@ -402,6 +410,7 @@ function edititem(){
 				item_values['scat'] = "<%= subcategoryid %>";
 				item_values['brand'] = "<%= brandid %>";
 				item_values['price'] = "<%= price %>";
+				item_values['condition'] = "<%= condition %>";
 				item_values['desc'] = $("#item_desc_content").html();
 
 				<% spec.each do |aspec| %>
@@ -509,6 +518,7 @@ function edititem(){
 
 		editElem("#item_title",validate_title);
 		editElem("#item_price_content",validate_price("price"));
+		editElem("#item_condition_content",validate_length("condition","Condition",2));
 		editElem("#item_location_content",replaceText("location"));
 		editElem("#item_desc_content",validate_desc,"textarea");
 
@@ -649,6 +659,7 @@ function edititem(){
 				$("#item_desc").removeClass("error");
 				$("#item_title").removeClass("error");
 				$("#item_price").removeClass("error");
+				$("#item_condition").removeClass("error");
 				$("#item_specifications").removeClass("error");
 
 				if (!('cat' in item_values) || item_values['cat'] == "") {
@@ -672,6 +683,12 @@ function edititem(){
 				if (!('price' in item_values) || item_values['price'] == ""){
 					$("#item_price").addClass("error");
 					alert("Enter item price");
+					return false;
+				}
+
+				if (!('condition' in item_values) || item_values['condition'] == ""){
+					$("#item_condition").addClass("error");
+					alert("Enter item condition");
 					return false;
 				}
 
@@ -729,6 +746,7 @@ function edititem(){
 				$("#item_desc_content").css("color",color);
 				$("#item_title").css("color",color);
 				$("#item_price_content").css("color",color);
+				$("#item_condition_content").css("color",color);
 				$("#item_specifications td[id^=item_]").css("color",color);
 			}
 

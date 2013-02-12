@@ -12,6 +12,17 @@
 			</select>
 		</li>
 
+		<% item_condition_res = category.items.select("distinct p2p_items.condition") %>
+
+		<% if item_condition_res.count > 0 %>
+			<li class="nav-header"> Condition </li>
+			<% item_condition_res.each do |itm| %>
+				<li onclick="javascript:filter('condition','<%=itm.condition%>',this)">
+				 <a > <%= itm.condition %> </a> 
+				</li>
+			<% end %>
+		<% end %>
+
 		<% category.specs.each do |spec|%>
 
 
@@ -52,6 +63,7 @@
 
 				                    <ul>
 				                      <li><del>&#2352;</del> <%%=elm.price %></li>
+				                      <li>Condition:<%%=elm.condition%></li>
 							                    </ul>
 				                  </p>
 

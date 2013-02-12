@@ -34,13 +34,25 @@
 }
 
 #overlay{
-	width:100%;
-	height: 100%;
 	background-color: #666;
-	top:0;
 	position: fixed;
 	opacity:0.3;
 	display: none;
-
 }
 
+
+
+#items{
+	min-height:600px;
+}
+
+.icon-remove{
+	margin-top: 6px;
+	cursor: pointer;
+}
+
+#noitems{
+	display: inline-block;
+	text-align: center;
+
+}

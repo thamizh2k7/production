@@ -11,7 +11,7 @@
   <%= stylesheet_link_tag "p2p/p2p" %> 
   <%= stylesheet_link_tag "global/jquery-ui-1.8.24.custom" %>
     <%= stylesheet_link_tag '/assets/p2p/index/bootstrap.min' %>
-  <%= stylesheet_link_tag "global/bootstrap-responsive.min" %>  
+  <%#= stylesheet_link_tag "global/bootstrap-responsive.min" %>  
   <%= stylesheet_link_tag "footer" %>
   
 
@@ -44,9 +44,9 @@
 
   	<%= render "layouts/p2p/header" %>
 
-    <% unless flash[:notice].nil? %>
-      <div class="info-warning" id="flash_notice"> <%= flash[:notice] %> </div>
-    <% end %>
+    
+    <div class="info-warning" id="flash_notice">  </div>
+    
 
     <%= yield %>
 
@@ -55,6 +55,22 @@
     <div class="clearfix"></div>
 
   </div>
+
+
+
+  <script>
+
+    function showNotifications(content){
+    $("#flash_notice").html(content).fadeIn(1000).delay(500).fadeOut(1000);
+  }
+
+  <% unless flash[:notice].nil? %>
+    showNotifications("<%=flash[:notice]%>");
+  <% end %>
+
+
+  </script>
+
 
 </body>
 

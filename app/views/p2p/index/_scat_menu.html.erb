@@ -1,6 +1,15 @@
 
 
-	<li class="nav-header">Browse </li>
+		<% if  defined?(dropdown) %>
+			<div class="dropdown">
+			<a class="dropdown-toggle btn-primary btn"  href="#" data-toggle="dropdown" id="browse_button">Browse </a>
+		<% else %>
+			<li class="nav-header">Browse </li>
+		<% end %>
+
+		<% if  defined?(dropdown) %>
+				<ul class="dropdown-menu">
+		<% end %>
 
 
 		<% P2p::Category.where("category_id is null").each do |cat|%>
@@ -35,10 +44,16 @@
 
 			<% end %>
 
-		
 
+	    
 
-	    <li class="divider"></li>
+    	<% if  defined?(dropdown) %>
+			</ul>
+			</div>
+		<% end %>
+
+		<li class="divider"></li>
+
 
 
 
@@ -58,6 +73,10 @@
 	      			$('#browse_menu').css('position','static');
 	    		}
 	 		});
+
+			 $("#browse_button").mouseenter(function(){
+			 	$(this).trigger('click');
+			 });
 	 
 		});
 	 

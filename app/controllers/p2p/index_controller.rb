@@ -8,7 +8,6 @@ class P2p::IndexController < ApplicationController
      
     @category = P2p::Category.order("priority")
 
-    flash[:notice] ="Test now"
   end
 
 def search
@@ -16,6 +15,7 @@ def search
 
   unless request.xhr?
    redirect_to '/p2p'
+   flash[:notice] ="Invalid Request"
     return
   end
 
@@ -59,8 +59,6 @@ end
 
 def search_query
   @result = P2p::Item.search(params[:query] ,:match_mode => :any ,:star => true)
-
-
 end
 
 
@@ -70,14 +68,14 @@ def get_search_suggestions(query)
 	result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/search/c/#{res.name}")} )
+  	response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/#{res.name}")} )
   end
 
 
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/search/c/#{res.category.name}/#{query}")} ) if res.items.count >0
+  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/#{res.category.name}/#{query}")} ) if res.items.count >0
   end
 
   result = P2p::Item.search(query ,:match_mode => :any ,:star => true)
@@ -150,8 +148,6 @@ def search_list
         result.each do |r|
 
             cat = r.category.name
-
-            puts " in " + r.category.id.to_s
 
             next  if cat_done.include?(r.category.id) 
 
@@ -260,14 +256,12 @@ def search_list
 	def browse
 		@cat = P2p::Category.find_by_name(params[:cat])
 
-    if @cat.nil?
+    if @cat.nil? or @cat.products.count == 0
+      flash[:notice] ="Nothing found for your request"
       redirect_to "/p2p"
       return
     end
 
-    if params.has_key?("filters")
-
-    end
 
 		if params.has_key?("prod") 
 			@products=@cat.products.order("priority").limit(5).find_all_by_name(params[:prod])
@@ -306,6 +300,7 @@ def search_list
 
     filter =[]
     order_result = ""
+    item_condition_filter = ""
 
     if params.has_key?("filter")
 
@@ -335,7 +330,7 @@ def search_list
 
         end
 
-        item_condition_filter = ""
+
         if params[:filter].has_key?("condition")
 
           temp = []
@@ -364,6 +359,12 @@ def search_list
 
     end
 
+
+    if !filter.empty? and item_condition_filter != ""
+      item_condition_filter   += " and "
+    end
+
+    puts item_condition_filter   + 'condition'
 
     item_where_condition = item_condition_filter
 
@@ -421,7 +422,7 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
-        items = @cat.items.where( tem_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
     else
         items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').limit(20)
     end

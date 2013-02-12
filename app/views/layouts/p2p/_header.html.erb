@@ -6,7 +6,7 @@
       <div class="span2"><a href="/p2p"><img src="/assets/p2p/index/p2p_logo.png" alt="Logo" ></a></div>
       <div class="span4">
         <div class="input-append">
-          <input id="top_search_input" type="text" class="span4">
+          <input id="top_search_input" type="text" class="span4" autocomplete="off">
           <span class="add-on"><i class="icon-search"></i></span>
         </div>
       </div>
@@ -16,7 +16,28 @@
           <a class="btn topMenu" href="/p2p/messages">Messages</a>
           <a class="btn topMenu" href="/p2p/mystore">My Store</a>
           <a class="btn topMenu" href="/p2p/mystore">List New Item</a>
-          <%= link_to "SignOut", destroy_user_session_url, :method => :delete ,:class => "topMenu btn" %>
+
+
+          <% if current_user.nil? %>
+             <%= link_to "SignOut", destroy_user_session_url, :method => :delete ,:tabindex => "-1" %><
+          <% else %>
+
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+
+              Marudhu <span class="caret"></span>
+
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><%= link_to "SignOut", destroy_user_session_url, :method => :delete ,:tabindex => "-1" %></li>
+                <li><a tabindex="-1" href="#">Action</a></li>
+                <li><a tabindex="-1" href="#">Another action</a></li>
+                <li><a tabindex="-1" href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#">Separated link</a></li>
+              </ul>
+             </a>
+            <% end %>
+            
+        </ul>
         </div>
       </div>
     </div>

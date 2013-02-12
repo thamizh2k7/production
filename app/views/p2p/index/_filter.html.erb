@@ -1,4 +1,5 @@
 
+<div id="overlay"></div>
 
 	<li class="nav-header">Filters</li>
 
@@ -18,7 +19,9 @@
 			<li class="nav-header"> Condition </li>
 			<% item_condition_res.each do |itm| %>
 				<li onclick="javascript:filter('condition','<%=itm.condition%>',this)">
-				 <a > <%= itm.condition %> </a> 
+				<i class="icon-remove hide pull-right"></i>
+				 <a href="#"> <%= itm.condition %> </a> 
+
 				</li>
 			<% end %>
 		<% end %>
@@ -30,7 +33,7 @@
 
 				<% spec.itemspecs.select(" distinct value").each do |itemspec| %>
 					<li onclick="javascript:filter('<%=spec.name%>','<%=itemspec.value%>',this)">
-						<i class="icon-remove hidden pull-right"></i>
+						<i class="icon-remove hide pull-right"></i>
 						<a href="#"> <%= itemspec.value	%> </a>
 						
 					</li>
@@ -63,7 +66,7 @@
 
 				                    <ul>
 				                      <li><del>&#2352;</del> <%%=elm.price %></li>
-				                      <li>Condition:<%%=elm.condition%></li>
+				                      <li><%%=elm.condition%></li>
 							                    </ul>
 				                  </p>
 
@@ -92,19 +95,19 @@
 				if (filters[spec].indexOf(val) == -1){
 					filters[spec].push(val)
 					$(that).addClass('active');
-					$(that).children(".icon-remove").removeClass("hidden");
+					$(that).children(".icon-remove").removeClass("hide");
 
 				}else{
 					filters[spec].splice(filters[spec].indexOf(val),1)
 					$(that).removeClass('active');
-					$(that).children(".icon-remove").addClass("hidden");
+					$(that).children(".icon-remove").addClass("hide");
 				}
 			}
 			else{
 				filters[spec]=[]
 				filters[spec].push(val)
 				$(that).addClass('active');
-				$(that).children(".icon-remove").removeClass("hidden");
+				$(that).children(".icon-remove").removeClass("hide");
 			}
 
 			call_filter(spec,val,that);
@@ -112,8 +115,10 @@
 		}
 
 		function call_filter(spec,val,that){
+			
+			showOverlay();
 
-			$("#overlay").show();
+			
 			$.ajax({
 				url:'/p2p/' + category + '/filters',
 				data:{"filter": filters },
@@ -131,7 +136,7 @@
 					$("#overlay").hide(100);
 					filters[spec].splice(filters[spec].indexOf(val),1)
 					$(that).removeClass('active');
-					$(that).children(".icon-remove").addClass("hidden");
+					$(that).children(".icon-remove").addClass("hide");
 					
 				}
 			});
@@ -151,7 +156,19 @@
 				window.filters ={};
 	 		
 		});
-	 
+
+	showOverlay = function(){
+
+		$("#overlay").css({
+			"width":$("#items").outerWidth(),
+			"height":$("#items").outerHeight(),
+			"top":$("#items").offset().top,
+			"left":$("#items").offset().left,
+		});
+
+		$("#overlay").show();
+
+	}
 
 	</script>
 

@@ -86,6 +86,7 @@ end
       if request.xhr? 
         render :json => {:status => 0}
       else
+        flash[:notice] ="Nothing found for your request"
         redirect_to "/p2p/mystore"
         return
       end
@@ -98,6 +99,7 @@ end
     if request.xhr? 
       render :json => {:status => 1}
     else
+      flash[:notice] ="Nothing found for your request"
       redirect_to "/p2p/mystore"
       return
     end
@@ -145,6 +147,7 @@ end
         raise "Nothing found" if @prod.nil? or  @item.nil? or @cat.nil?
         
       rescue
+        flash[:notice] ="Nothing found for your request"
         redirect_to '/p2p/mystore'
         return
       end

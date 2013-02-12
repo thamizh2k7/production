@@ -48,6 +48,7 @@ class P2p::MessagesController < ApplicationController
       if request.xhr?
 
       else
+        flash[:notice] ="Nothing found for your request"
         redirect_to "/p2p/messages/"
       end
       

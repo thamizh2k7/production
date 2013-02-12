@@ -83,7 +83,7 @@
 				filters[spec]=[]
 				filters[spec].push(val)
 				$(that).addClass('active');
-				$(that).children(".icon-remove").addClass("hidden");
+				$(that).children(".icon-remove").removeClass("hidden");
 			}
 
 			$("#overlay").show();
@@ -98,6 +98,13 @@
 					$("#items").html(templ);
 					$("#overlay").hide(100);
 
+				},
+				error:function(){
+					alert("Some Error Occured Try again");
+					filters[spec].splice(filters[spec].indexOf(val),1)
+					$(that).removeClass('active');
+					$(that).children(".icon-remove").addClass("hidden");
+					
 				}
 			});
 

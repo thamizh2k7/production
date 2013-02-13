@@ -331,7 +331,7 @@ ActiveRecord::Schema.define(:version => 20130212110251) do
     t.datetime "img_updated_at"
   end
 
-  add_index "p2p_images", ["item_id"], :name => "index_p2p_images_on_items_id"
+  add_index "p2p_images", ["item_id"], :name => "index_p2p_images_on_item_id"
 
   create_table "p2p_item_specs", :force => true do |t|
     t.integer  "spec_id"
@@ -353,15 +353,15 @@ ActiveRecord::Schema.define(:version => 20130212110251) do
     t.datetime "solddate"
     t.datetime "paiddate"
     t.datetime "delivereddate"
-    t.datetime "approveddate"
-    t.integer  "viewcount",                   :default => 0
-    t.integer  "reqCount",                    :default => 0
+    t.boolean  "approveddate"
+    t.integer  "viewcount",     :default => 0
+    t.integer  "reqCount",      :default => 0
     t.float    "price"
     t.integer  "city_id"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.datetime "deletedate"
-    t.string   "condition",     :limit => 50
+    t.string   "condition"
   end
 
   add_index "p2p_items", ["city_id"], :name => "index_p2p_items_on_city_id"
@@ -369,15 +369,18 @@ ActiveRecord::Schema.define(:version => 20130212110251) do
   add_index "p2p_items", ["user_id"], :name => "index_p2p_items_on_user_id"
 
   create_table "p2p_messages", :force => true do |t|
+    t.integer  "sender"
+    t.integer  "receiver"
     t.string   "item_id"
     t.text     "message"
-    t.integer  "messagetype",     :default => 0
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "readdatetime"
+    t.integer  "messagetype",   :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "sender_id"
     t.integer  "receiver_id"
-    t.integer  "sender_status"
-    t.integer  "receiver_status",                :null => false
+    t.string   "flag"
+    t.string   "sender_status"
   end
 
   create_table "p2p_products", :force => true do |t|
@@ -400,7 +403,7 @@ ActiveRecord::Schema.define(:version => 20130212110251) do
     t.integer  "priority"
   end
 
-  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_product_id"
+  add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_category_id"
 
   create_table "p2p_users", :force => true do |t|
     t.integer  "user_id"

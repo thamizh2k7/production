@@ -14,14 +14,11 @@
 }
 
 .thumbnail img{
-	margin-top: 5px;
+	margin: 5px;
 }
 
 #items {
 	min-height: 700px;
-/*	height: 700px;	
-	overflow: auto;
-*/
 }
 
 #filter i {
@@ -47,8 +44,12 @@
 }
 
 .icon-remove{
-	margin-top: 6px;
+	margin-top: 3px;
 	cursor: pointer;
+}
+
+.icon-remove:hover {
+	border-top: 1px solid red;
 }
 
 #noitems{

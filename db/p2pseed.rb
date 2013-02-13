@@ -168,7 +168,7 @@
 				img = P2p::Image.new
 				img1 = P2p::Image.new
 				img2 = P2p::Image.new
-
+				puts "Seeding for #{itm}"
 			   	
 			   	img.picture_from_url(image_arr[rand(0..(image_arr.size-1))])
 			   	img.save
@@ -180,6 +180,8 @@
 			   	img2.save
 
 			   	itm.images << [img,img1,img2]
+			  puts "Done"
+			  puts "--------------------------------------"
 			end
 
 		end

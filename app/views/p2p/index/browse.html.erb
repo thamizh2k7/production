@@ -1,4 +1,3 @@
-
 <div id="Itemlist" class="row">
     <div id="filters" class="span2 ">
 
@@ -13,27 +12,6 @@
     </div>
 
 <div id="items" class="span10">
-
-	
-<!--
-	<div id="browse_sort">
-
-
-		<span class="pull-right">Sort
-
-
-		<select id="sort_browse_items">
-				<option>Relevance</option>
-				<option>Price -> High to Low</option>
-				<option>Price -> High to Low</option>
-			</select>
-		</span>
-
-	</div>
--->
-
-		
-
 		<% prod_count = 0 %>
 
 		<% @products.each do |prod| %>
@@ -70,10 +48,7 @@
 
 			                    <ul>
 			                      <li><del>&#2352;</del> <%=p.price %></li>
-			                      <li><%=p.condition%></li>
-			<!--                              <li>Attribute 2</li>
-			                      <li>Attribute 3</li>
-			-->                              
+			                      <li><%=p.condition%></li>                             
 			                    </ul>
 			                  </p>
 
@@ -84,11 +59,8 @@
 			      <% end %>
 
 			      </ul>
-
 			</div>
 	<% end %>
-
-	
 	<% if prod_count ==0 %>
 		<div class="noitems">No Items found </div>
 	<% end %>
@@ -98,17 +70,4 @@
 
  </div>
 
-
-<script>
-	$(document).ready(function(){
-		// $("#browse_content_items").masonry({
-		// 	itemSelector:'.product',
-		// 	isAnimated: true
-		// });
-
-	//jquery history plugin
-
-
-
-});
-</script>
+<%= javascript_include_tag "p2p/index"%>

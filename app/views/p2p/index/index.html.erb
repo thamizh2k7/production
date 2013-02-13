@@ -11,7 +11,7 @@
     <% if acategory.products.size > 0 and acategory.products[0].items.size > 0 %>
       <div class="itemsRow">
         <div id="listHeader" class="row">
-          <p class="fleft"> <b><%= acategory.name.pluralize.titlecase %> </b></p>
+          <p class="fleft"> <b><%= acategory.name.titlecase %> </b></p>
           <p class="fright"><a href="/p2p/search/c/<%= acategory.name %>"> View All</a></p>
         </div>
         <ul class="thumbnails">

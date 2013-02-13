@@ -20,8 +20,9 @@
                 <%=current_user.name%><b class="caret"></b>
               </a>
               <ul class="dropdown-menu submenu">
-                <li><%= link_to "SignOut", destroy_user_session_url, :method => :delete %></li>
                 <li><a href="#">My Profile</a></li>
+                <li><%= link_to "SignOut", destroy_user_session_url, :method => :delete %></li>
+                
               </ul>
             </li>
           <% end %>

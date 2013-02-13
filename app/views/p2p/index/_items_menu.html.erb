@@ -1,16 +1,8 @@
-
-
-
-
+<!-- browse menu across p2p -->
 <div class="dropdown">
-
-	
 		<a class="dropdown-toggle " data-toggle="dropdown" href="#">
 			<div class="menu_title">Select a Category</div>
 		</a>
-
-	
-
   	<ul class="dropdown-menu " role="menu" aria-labelledby="dLabel" id="menu_categories">
   		<% P2p::Category.where("category_id is null").each do |cat| %>
 				
@@ -30,11 +22,6 @@
 							<a href="/p2p/<%= cat.name %>"><%= cat.name %> </a>
 						</li>
 					<%end%>
-
-					
-				
-
-			
 		<% end %>
 	</ul>
 	

@@ -1,9 +1,10 @@
+<!-- Search filter menu cod -->
 
-<div id="overlay"></div>
+<!-- overlay to be displayed during filter request -->
+	<div id="overlay"></div>
+
 
 	<li class="nav-header">Filters</li>
-
-
 		<li class="nav-header"> Sort </li>
 		<li>
 			<select class="span1" id="filter_sort">
@@ -27,23 +28,18 @@
 		<% end %>
 
 		<% category.specs.each do |spec|%>
-
-
 			<li class="nav-header"> <%= spec.name %> </li>
-
 				<% spec.itemspecs.select(" distinct value").each do |itemspec| %>
 					<li onclick="javascript:filter('<%=spec.name%>','<%=itemspec.value%>',this)">
 						<i class="icon-remove hide pull-right"></i>
 						<a href="#"> <%= itemspec.value	%> </a>
-						
 					</li>
 				<% end %>
-			
-
 			<% end %>
-
 	    <li class="divider"></li>
 
+
+		<!-- Template for the search results -->
 	    <script type="template" id="item_template">
 
 		      <div class="itemsRow">
@@ -83,94 +79,8 @@
 
 	    </script>
 
-
-	<script>
-
-
-		function filter(spec,val,that){
-
-			console.log($(that));
-			
-			if (spec in filters){
-				if (filters[spec].indexOf(val) == -1){
-					filters[spec].push(val)
-					$(that).addClass('active');
-					$(that).children(".icon-remove").removeClass("hide");
-
-				}else{
-					filters[spec].splice(filters[spec].indexOf(val),1)
-					$(that).removeClass('active');
-					$(that).children(".icon-remove").addClass("hide");
-				}
-			}
-			else{
-				filters[spec]=[]
-				filters[spec].push(val)
-				$(that).addClass('active');
-				$(that).children(".icon-remove").removeClass("hide");
-			}
-
-			call_filter(spec,val,that);
-
-		}
-
-		function call_filter(spec,val,that){
-			
-			showOverlay();
-
-			
-			$.ajax({
-				url:'/p2p/' + category + '/filters',
-				data:{"filter": filters },
-				type:"post",
-				dataType:"json",
-				success:function(data){
-
-					var templ=_.template($("#item_template").html(),{data:data});
-					$("#items").html(templ);
-					$("#overlay").hide(100);
-
-				},
-				error:function(){
-					alert("Some Error Occured Try again");
-					$("#overlay").hide(100);
-					filters[spec].splice(filters[spec].indexOf(val),1)
-					$(that).removeClass('active');
-					$(that).children(".icon-remove").addClass("hide");
-					
-				}
-			});
-
-		}
-
-		$("#filter_sort").change(function(){
-
-			 filters['sort'] = $("#filter_sort").val();
-			 call_filter('sort',$("#filter_sort").val(),$("#filter_sort"));
-			 
-		});
-
-		$(document).ready(function(){
-
+<script>
 				window.category="<%=category.name%>";
-				window.filters ={};
-	 		
-		});
-
-	showOverlay = function(){
-
-		$("#overlay").css({
-			"width":$("#items").outerWidth(),
-			"height":$("#items").outerHeight(),
-			"top":$("#items").offset().top,
-			"left":$("#items").offset().left,
-		});
-
-		$("#overlay").show();
-
-	}
-
-	</script>
-
-
-
+				window.filterurl= "/p2p/<%=category.name%>/filters";
+</script>
+<%= javascript_include_tag 'p2p/browse_filter'%>

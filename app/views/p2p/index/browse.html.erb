@@ -26,10 +26,10 @@
 					      <div class="itemsRow">
 
 					        <div id="listHeader" class="row">
-					          <p class="fleft"> <b><%= prod.name.pluralize.titlecase %> </b></p>
+					          <p class="fleft"> <b><%= prod.name.titlecase %> </b></p>
 
 					          <% if @products.count > 1 %>
-					          	<p class="fright"><a href="/p2p/<%=@cat.name%>/<%=prod.name%>"> View All</a></p>
+					          	<p class="fright"><a href=<%= URI.encode("/p2p/#{@cat.name}/#{prod.name}") %>> View All</a></p>
 					          <% end %>
 
 					        </div>
@@ -39,7 +39,7 @@
 			        <% prod.items.order("rand()").limit(5).each do |p| %>
 
 			          <li class="span2">
-			            <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
+			            <a href=<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}") %>>
 			              <div class="thumbnail">
 			                <img src="<%=p.get_image(1,:search)[0][:url]%>" >
 			                <div class="caption">
@@ -70,4 +70,7 @@
 
  </div>
 
+<<<<<<< Updated upstream
 <%= javascript_include_tag "p2p/index"%>
+=======
+>>>>>>> Stashed changes

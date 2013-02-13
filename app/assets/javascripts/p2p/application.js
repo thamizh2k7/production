@@ -12,4 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-
+//= require global/jquery.ui.core
+//= require global/jquery.ui.widget
+//= require global/jquery.ui.menu
+//= require global/jquery.ui.position
+//= require global/jquery.ui.autocomplete
+//= require global/underscore
+//= require global/bootstrap.min
+//= require p2p/jquery.history.js
+//= require p2p/search.js
+//= require_tree .

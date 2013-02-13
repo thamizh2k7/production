@@ -38,7 +38,7 @@
 				<% next if prod.items.count ==0 %>
 
 		        <div id="listHeader" class="row">
-		          <p class="fleft"> <b><%= prod.name.pluralize.titlecase %> in <%=prod.category.name %></b></p>
+		          <p class="fleft"> <b><%= prod.name.titlecase %> in <%=prod.category.name %></b></p>
 		          <p class="fright"><a href="/p2p/search/c/<%=prod.category.name%>/<%=prod.name%>"> View All</a></p>
 		        </div>
 

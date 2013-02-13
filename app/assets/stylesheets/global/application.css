@@ -15,8 +15,7 @@
  *= require global/bootstrap-responsive.min
  *= require global/jquery-ui-1.10.0.tabs.min
  *= require global/jquery-ui-1.8.24.custom.css
-
- *lkjhlklk= require_tree .
+ *= require_tree .
  */
 
 /* defining fonts for the site */

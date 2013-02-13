@@ -58,7 +58,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    book_finder_api (0.0.14)
+    book_finder_api (0.0.17)
       mechanize
       nokogiri
     bootstrap-sass (2.2.2.0)
@@ -290,7 +290,7 @@ DEPENDENCIES
   active_merchant_ccavenue
   activeadmin
   activemerchant
-  book_finder_api (~> 0.0.14)
+  book_finder_api (~> 0.0.17)
   capistrano
   coffee-rails (~> 3.2.1)
   daemons

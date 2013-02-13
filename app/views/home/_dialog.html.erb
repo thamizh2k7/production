@@ -30,7 +30,8 @@
 		<div id="cart_options">
 			<div id="terms_and_conditions_box">
 				<input type="checkbox" id="order_terms_and_conditions" checked="checked">
-				<label for="order_terms_and_conditions">I Agree to the <a href="#terms_of_use_page" class="static_page_dialog_open terms_of_use">Terms of use</a></label>
+				<label for="order_terms_and_conditions">I Agree to the </label>
+				<a href="/terms_of_use" target="_blank" class="static_page_dialog_open terms_of_use">Terms of use</a>
 			</div>
 			<div id="cart_options_right">
 				Checkout
@@ -101,7 +102,7 @@
 				<div class="control-group">
 			    <label class="control-label" for="bank_name">Bank Name</label>
 			    <div class="controls">
-			    	<%= select_tag "name", options_for_select(Bank.all.map {|u| [u.name,u.id]}),:prompt=>"Select Bank" %>
+			    	<%= select_tag "bank_name", options_for_select(Bank.all.map {|u| [u.name,u.id]}),:prompt=>"Select Bank" %>
 			    </div>
 			  </div>
 			  <div class="control-group">

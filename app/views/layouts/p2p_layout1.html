@@ -46,10 +46,6 @@
 
   <script>
 
-    function showNotifications(content){
-    $("#flash_notice").html(content).fadeIn(1000).delay(500).fadeOut(1000);
-  }
-
   <% unless flash[:notice].nil? %>
     showNotifications("<%=flash[:notice]%>");
   <% end %>

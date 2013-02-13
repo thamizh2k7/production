@@ -1,4 +1,4 @@
-<!-- Search filter menu cod -->
+ <!--Search filter menu cod -->
 
 <!-- overlay to be displayed during filter request -->
 	<div id="overlay"></div>
@@ -40,15 +40,21 @@
 
 
 		<!-- Template for the search results -->
+		<!-- load only for inital request and not for load more-->
 	    <script type="template" id="item_template">
+		      
 
-		      <div class="itemsRow">
+	    	<%% if ( window.page_num == 1 ) { %>
+				<div class="itemsRow">
 
 		        <div id="listHeader" class="row">
 		          <p class="fleft"> <b> Results </b></p>
 		        </div>
-
- 	        <ul class="thumbnails" id="filter_replace">
+			<%% } %>
+			
+			<ul class="thumbnails" id="filter_replace">		        
+			
+ 	        
 
 		    	<%% _.each(data,function(elm){%>
 
@@ -81,10 +87,21 @@
 
 		    	</ul>
 
+		    <div id="load_more">
+		    	<div class="btn btn-primary">Load More.....</div>
+		    </div>
+
+
 	    </script>
 
 <script>
-				window.category="<%=category.name%>";
-				window.filterurl= "/p2p/<%=category.name%>/filters";
+	window.category="<%=category.name%>";
+	<% if params.has_key?(:prod) %>
+		window.filterurl= "/p2p/<%=category.name%>/<%=@products[0].name%>/filters";
+	<% else %>
+	window.filterurl= "/p2p/<%=category.name%>/filters";
+	<% end %>
+
 </script>
+
 <%= javascript_include_tag 'p2p/browse_filter'%>

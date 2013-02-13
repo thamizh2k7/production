@@ -36,7 +36,7 @@
 
 			        <ul class="thumbnails" id="filter_replace">
 			        
-			        <% prod.items.order("rand()").limit(5).each do |p| %>
+			        <% prod.items.order("rand()").each do |p| %>
 
 			          <li class="span2">
 			            <a href=<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}") %>>
@@ -61,7 +61,16 @@
 			      <% end %>
 
 			      </ul>
-			</div>
+
+			    <% if params.has_key?(:prod) %>
+		   		    <div id="load_more">
+				    	<div class="btn btn-primary">Load More.....</div>
+				    </div>
+			    <% end %>
+
+
+		</div>
+		
 	<% end %>
 	<% if prod_count ==0 %>
 		
@@ -71,3 +80,4 @@
   </div>
 
  </div>
+

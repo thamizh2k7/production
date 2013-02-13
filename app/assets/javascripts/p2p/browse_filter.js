@@ -1,7 +1,6 @@
 
 		function filter(spec,val,that){
 
-			console.log($(that));
 			
 			if (spec in filters){
 				if (filters[spec].indexOf(val) == -1){
@@ -26,6 +25,37 @@
 
 		}
 
+		function load_more(){
+
+			console.log('sdfad');
+			$.ajax({
+				url:window.filterurl,
+				data:{"filter": filters ,page: page_num},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					
+					if (data.length == 0 ) {
+						$("#load_more").html("No more items to load");	
+						return;
+					}
+					var templ=_.template($("#item_template").html(),{data:data});
+					$("#load_more").replaceWith(templ);
+					$("#overlay").hide(100);
+					window.page_num += 1;
+
+
+					
+				},
+				error:function(){
+					showNotifications("Something went wrong. Try again");
+					$("#overlay").hide(100);
+				}
+
+			});
+
+		}
+
 		function call_filter(spec,val,that){
 			
 			showOverlay();
@@ -33,7 +63,7 @@
 			
 			$.ajax({
 				url:window.filterurl,
-				data:{"filter": filters },
+				data:{"filter": filters ,page : 1 },
 				type:"post",
 				dataType:"json",
 				success:function(data){
@@ -41,10 +71,11 @@
 					var templ=_.template($("#item_template").html(),{data:data});
 					$("#items").html(templ);
 					$("#overlay").hide(100);
+					window.page_num =  2 ;
 
 				},
 				error:function(){
-					alert("Some Error Occured Try again");
+					showNotifications("Something went wrong. Try again");
 					$("#overlay").hide(100);
 					filters[spec].splice(filters[spec].indexOf(val),1)
 					$(that).removeClass('active');
@@ -66,7 +97,11 @@
 
 
 				window.filters ={};
-	 		
+				window.page_num =2;
+	
+			 	// bind  load more
+
+			 	$("#load_more").die('click').live('click',load_more);
 		});
 
 	showOverlay = function(){
@@ -81,3 +116,5 @@
 		$("#overlay").show();
 
 	}
+
+

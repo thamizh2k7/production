@@ -43,7 +43,8 @@
 
 
 #items{
-	min-height:600px;
+	min-height:800px;
+	margin-bottom: 20px;
 }
 
 .icon-remove{

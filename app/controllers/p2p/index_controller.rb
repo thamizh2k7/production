@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class P2p::IndexController < ApplicationController
 
    #check for user presence inside p2p
@@ -9,7 +11,7 @@ class P2p::IndexController < ApplicationController
   def index
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
-     
+
     @category = P2p::Category.order("priority")
 
   end
@@ -31,8 +33,6 @@ def search
   		suggested_word = suggest(params['id'])
 
   		if suggested_word == params[:id]
-
-
 
 
       result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
@@ -268,11 +268,11 @@ def search_list
 
 
 		if params.has_key?("prod") 
-			@products=@cat.products.order("priority").limit(5).find_all_by_name(params[:prod])
+			@products=@cat.products.order("priority").find_all_by_name(params[:prod])
 
 			if @products.nil?
 				@cat = P2p::Category.find_by_name(params[:prod])
-				@products= @cat.products.all.order("priority").limit(5)
+				@products= @cat.products.all.order("priority")
 				params.delete("prod")
 		
       end
@@ -287,7 +287,8 @@ def search_list
       end
 		end
 
-    #@products.paginate(:page => params[:page], :per_page => 5)
+    
+    @products.paginate(:page => params[:page], :per_page => 5)
 
 	end
 
@@ -381,9 +382,9 @@ def search_list
       if filter.empty?
 
         if order_result != ""
-          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
+          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
         else
-          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
+          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
         end
 
       else
@@ -392,9 +393,9 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
           if order_result != ""
-          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
+          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
         else
-          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').limit(20)
+          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
         end
 
       end
@@ -410,7 +411,7 @@ def search_list
         res.push(itm)
       end
 
-      render :json => res
+      render :json => res.paginate(:page => params[:page], :per_page => 10 )
 
 
     else
@@ -418,9 +419,9 @@ def search_list
       if filter.empty?
 
         if order_result !=""
-          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result).limit(20)
+          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
         else
-          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).limit(20)
+          items = @cat.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition)
         end
 
       else
@@ -428,10 +429,10 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result).limit(20)
-    else
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').limit(20)
-    end
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+      else
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
+      end
 
       end
 
@@ -446,7 +447,8 @@ def search_list
         res.push(itm)
       end
 
-      render :json => res
+      render :json => res.paginate(:page => params[:page], :per_page => 10)
+
     end
 
   end

@@ -48,7 +48,9 @@
 			          <li class="span2">
 			            <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
 			              <div class="thumbnail">
-			                <img src="<%=p.get_image(1,:search)[0][:url]%>" >
+			              		<div class="image_holder">
+			                		<img src="<%=p.get_image(1,:search)[0][:url]%>" >
+			                	</div>
 			                <div class="caption">
 			                  <b><%= p.title.slice(0,10)  %></b>
 			                  <p>

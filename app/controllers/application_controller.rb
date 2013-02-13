@@ -61,6 +61,23 @@ class ApplicationController < ActionController::Base
   def p2p_user_signed_in
     if !(user_signed_in?)
       redirect_to '/p2p'
+    else
+
+          @user=P2p::User.find(current_user.id)
+           
+           if @user.nil?     
+             new_user=P2p::User.create(current_user.id)  
+             new_user.save; 
+
+              @user=P2p::User.find(current_user.id)
+
+             credit=@user.credit.create(:available=>5,:totalCredits=>5,:type=>1)
+              credit.save() 
+            end
+
+            
+
+
     end
   end
 

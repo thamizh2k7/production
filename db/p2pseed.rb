@@ -125,9 +125,37 @@
 		seed_specs(P2p::Category.find_by_name('Keyboard'),'weight',[1,1.2,3.2,2.8,2.3,1.7,3.9])
 		seed_specs(P2p::Category.find_by_name('Keyboard'),'Year',[2012,2010,2002])
 
-		seed_specs(P2p::Category.find_by_name('Book'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
-		seed_specs(P2p::Category.find_by_name('Book'),'semester',[1,2,3,4,5,6,7,8])
-		seed_specs(P2p::Category.find_by_name('Book'),'college',['VIT','SRM','NIT','IIT'])
+		seed_specs(P2p::Category.find_by_name('Mathematics'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('Mathematics'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('Mathematics'),'college',['VIT','SRM','NIT','IIT'])
+
+		seed_specs(P2p::Category.find_by_name('Physics'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('Physics'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('Physics'),'college',['VIT','SRM','NIT','IIT'])
+
+		seed_specs(P2p::Category.find_by_name('Chemistry'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('Chemistry'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('Chemistry'),'college',['VIT','SRM','NIT','IIT'])
+
+		seed_specs(P2p::Category.find_by_name('C Language'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('C Language'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('C Language'),'college',['VIT','SRM','NIT','IIT'])
+
+		seed_specs(P2p::Category.find_by_name('C++'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('C++'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('C++'),'college',['VIT','SRM','NIT','IIT'])
+
+		seed_specs(P2p::Category.find_by_name('Ruby'),'Pages',[100,210,500,832,912,529,1029,823,923,458])
+		seed_specs(P2p::Category.find_by_name('Ruby'),'semester',[1,2,3,4,5,6,7,8])
+		seed_specs(P2p::Category.find_by_name('Ruby'),'college',['VIT','SRM','NIT','IIT'])
+
+
+
+			cat1.subcategories.create({:name => "Physics"})
+			cat1.subcategories.create({:name => "Chemistry"})
+			cat1.subcategories.create({:name => "C Language"})
+			cat1.subcategories.create({:name => "C++"})
+			cat1.subcategories.create({:name => "Ruby"})
 
 
 		#seed images inside the items

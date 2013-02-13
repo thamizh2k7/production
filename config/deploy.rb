@@ -6,7 +6,7 @@ set :scm_passphrase, ""
 set :branch, "master"
 set :deploy_via, :remote_cache
 require 'capistrano/ext/multistage'
-set :stages, ["staging", "development"]
-set :default_stage, "production"
+set :stages, ["production", "development"]
+set :default_stage, "development"
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

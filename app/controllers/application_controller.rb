@@ -61,24 +61,18 @@ class ApplicationController < ActionController::Base
   def p2p_user_signed_in
     if !(user_signed_in?)
       redirect_to '/p2p'
-    else
-
-          @user=P2p::User.find(current_user.id)
-           
-           if @user.nil?     
-             new_user=P2p::User.create(current_user.id)  
-             new_user.save; 
-
-              @user=P2p::User.find(current_user.id)
-
-             credit=@user.credit.create(:available=>5,:totalCredits=>5,:type=>1)
-              credit.save() 
-            end
-
-            
-
-
+      return false
     end
+  end
+
+  def check_p2p_user_presence
+
+
+      if P2p::User.find_by_user_id(current_user.id).nil?
+        redirect_to '/p2p/welcome'  
+        return false
+      end
+
   end
 
   def to_hash(obj)

@@ -5,7 +5,7 @@ class InboxDataTable
   delegate :params, :h, to: :@view
   def initialize(view,user)
     @view = view
-    @user = P2p::User.find(1)
+    @user = P2p::User.find_by_user_id(1)
   end
 
   def as_json(options = {})

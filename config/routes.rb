@@ -84,6 +84,8 @@ Sociorent::Application.routes.draw do
       get 'getattributes/:id' => "items#get_attributes"
       get 'getspec/:id' =>  "items#get_spec"
       get 'getsubcategories/:id' => "items#get_sub_categories"
+      get 'welcome' => 'users#welcome'
+      post 'welcome' => 'users#user_first_time'
 
       get 'delete/:id' => "items#destroy"
       

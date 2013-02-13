@@ -2,10 +2,14 @@ class P2p::ItemsController < ApplicationController
 
 
   before_filter :p2p_user_signed_in ,:except => [:view]
+
+   #check for user presence inside p2p
+   before_filter :check_p2p_user_presence
+
   layout :p2p_layout
 
   def new
-   @item = P2p::User.find(current_user.id).items.new
+   @item = P2p::User.find_by_user_id(current_user.id).items.new
 
   end
 
@@ -13,7 +17,7 @@ class P2p::ItemsController < ApplicationController
   def create
 
 
-    item = P2p::User.find(current_user.id).items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
+    item = P2p::User.find_by_user_id(current_user.id).items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
     item.product = P2p::Product.find(params["brand"])
 
@@ -44,7 +48,7 @@ class P2p::ItemsController < ApplicationController
  def update
 
 
-    item = P2p::User.find(current_user.id).items.find(params[:id])
+    item = P2p::User.find_by_user_id(current_user.id).items.find(params[:id])
 
     item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params[:condition]});
 
@@ -181,7 +185,7 @@ end
   end
 
   def inventory
-    user = P2p::User.find(current_user)
+    user = P2p::User.find_by_user_id(current_user)
 
     if params[:query].present? 
 

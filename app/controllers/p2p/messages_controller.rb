@@ -3,9 +3,12 @@ class P2p::MessagesController < ApplicationController
 
   before_filter :p2p_user_signed_in 
 
+  #check for user presence inside p2p
+  before_filter :check_p2p_user_presence
+
   def index
   	
-      @user=P2p::User.find(current_user.id)
+      @user=P2p::User.find_by_user_id(current_user.id)
       @message = @user.sent_messages.new
 
      # puts @message.inspect + "message"
@@ -24,10 +27,10 @@ class P2p::MessagesController < ApplicationController
   end
 
   def create
-  	 user=P2p::User.find(current_user.id)
+  	 user=P2p::User.find_by_user_id(current_user.id)
      
-      params[:p2p_message][:receiver] = P2p::User.find(params[:p2p_message][:receiver])
-      params[:p2p_message][:sender] = P2p::User.find(params[:p2p_message][:sender])
+      params[:p2p_message][:receiver] = P2p::User.find_by_user_id(params[:p2p_message][:receiver])
+      params[:p2p_message][:sender] = P2p::User.find_by_user_id(params[:p2p_message][:sender])
 
       if params[:p2p_message][:item_id] != "" 
         item= P2p::Item.find(params[:p2p_message][:item_id])
@@ -91,11 +94,11 @@ class P2p::MessagesController < ApplicationController
     end
 
     if params[:id] == 'inbox' 
-      messages = P2p::User.find(current_user.id).received_messages.order("created_at desc").paginate( :page => start)
-      message_count = P2p::User.find(current_user.id).received_messages.count
+      messages = P2p::User.find_by_user_id(current_user.id).received_messages.order("created_at desc").paginate( :page => start)
+      message_count = P2p::User.find_by_user_id(current_user.id).received_messages.count
     elsif params[:id] == 'sentbox' 
-      messages = P2p::User.find(current_user.id).sent_messages.order("created_at desc").paginate( :page => start)
-      message_count = P2p::User.find(current_user.id).sent_messages.count
+      messages = P2p::User.find_by_user_id(current_user.id).sent_messages.order("created_at desc").paginate( :page => start)
+      message_count = P2p::User.find_by_user_id(current_user.id).sent_messages.count
     end
 #   
 

@@ -350,3 +350,13 @@ body{
 li.dropdown:hover > ul.dropdown-menu{
     display: block;    
 }
+
+.center{
+	margin: 0 auto;
+	display: block;
+}
+
+.justified{
+	text-align: justify;
+	word-wrap:normal;
+}

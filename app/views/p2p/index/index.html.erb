@@ -12,7 +12,7 @@
       <div class="itemsRow">
         <div id="listHeader" class="row">
           <p class="fleft"> <b><%= acategory.name.titlecase %> </b></p>
-          <p class="fright"><a href="/p2p/search/c/<%= acategory.name %>"> View All</a></p>
+          <p class="fright"><a href="/p2p/<%= acategory.name %>"> View All</a></p>
         </div>
         <ul class="thumbnails">
           <% acategory.items.order("rand()").limit(5).each do |p| %>

@@ -61,4 +61,6 @@
 .image_holder{
 	width:120px;
 	height:120px;
+	display: block;
+	text-align: center;;
 }

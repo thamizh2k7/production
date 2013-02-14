@@ -1,6 +1,5 @@
-<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-	<%= stylesheet_link_tag "items/items_manifest"%>
-<% end %>
+
+<%= stylesheet_link_tag "items/items_manifest"%>
 
 <div class="main_wrapper">
 	<div class="row">
@@ -243,7 +242,8 @@
 
 
 
-					<% if defined? itemspec %>
+					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) )  %>
+
 						<b>Add More Specification here <br/></b>
 						<table class="table table-bordered table-striped hide" id="empty_specs">
 							<tr>

@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
  # before_filter :add_www_subdomain
 
+ # Helper method for all views
+ helper_method  :p2p_current_user
+
+
  if Rails.env.production?
 	 rescue_from Exception, with: :render_404
 	 rescue_from ActionController::RoutingError, with: :render_404
@@ -26,24 +30,12 @@ class ApplicationController < ActionController::Base
 		return true
 	 end
   end
+
   def render_404(exception = nil)
 	  flash[:warning]="Page not found"
 	  redirect_to "/"
   end
 
-  private
-  def add_www_subdomain
-	 unless /^www/.match(request.host)
-		redirect_to "http://www.sociorent.com"
-	 end
-  end
-  def authenticate_admin!
-	 authenticate_user! 
-	 unless current_user.is_admin?
-		flash[:alert] = "Unauthorized Access!"
-		redirect_to root_path 
-	 end
-  end  
 
   ##P2P layout
   # this selects the layout for the p2p namespace
@@ -57,6 +49,19 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
+
+  ##return p2pUser 
+  def p2p_current_user
+  	if current_user.nil?
+  		return nil
+  	else
+  		return P2p::User.find_by_user_id(current_user.id)
+  	end
+
+  end
+
+
+
   ##P2p Authentication
   def p2p_user_signed_in
 
@@ -67,24 +72,13 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
-  def p2p_current_user
-  	if current_user.nil?
-  		return nil
-  	else
-  		return P2p::User.find_by_user_id(current_user.id)
-  	end
-
-  end
-
   def check_p2p_user_presence
-	
 	# check for ucrrent user and ignore the user presnce if the user is not logged in
 	if current_user.nil?
 		return true 
 	end	
 
-
-	if p2p_current_user.nil?
+	if P2p::User.find_by_user_id(current_user.id).nil?
 	  redirect_to '/p2p/welcome'  
 	  return false
 	end
@@ -95,4 +89,24 @@ class ApplicationController < ActionController::Base
      hash = {}; obj.attributes.each { |k,v| hash[k.to_sym] = v }
 	 return hash
   end
+
+
+
+  ###########################
+
+  private
+	  def add_www_subdomain
+		 unless /^www/.match(request.host)
+			redirect_to "http://www.sociorent.com"
+		 end
+	  end
+	  def authenticate_admin!
+		 authenticate_user! 
+		 unless current_user.is_admin?
+			flash[:alert] = "Unauthorized Access!"
+			redirect_to root_path 
+		 end
+	  end  
+
+
 end

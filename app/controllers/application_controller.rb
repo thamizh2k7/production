@@ -67,6 +67,15 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
+  def p2p_current_user
+  	if current_user.nil?
+  		return nil
+  	else
+  		return P2p::User.find_by_user_id(current_user.id)
+  	end
+
+  end
+
   def check_p2p_user_presence
 	
 	# check for ucrrent user and ignore the user presnce if the user is not logged in
@@ -75,7 +84,7 @@ class ApplicationController < ActionController::Base
 	end	
 
 
-	if P2p::User.find_by_user_id(current_user.id).nil?
+	if p2p_current_user.nil?
 	  redirect_to '/p2p/welcome'  
 	  return false
 	end

@@ -8,13 +8,13 @@ class P2p::CreditsController < ApplicationController
    layout :p2p_layout
  
   def new
-   @user=P2p::User.find_by_user_id(current_user.id)
+   @user=p2p_current_user
    @credit=@user.credits.new
 
   end
 
   def create
-   @user=P2p::User.find_by_user_id(current_user.id)
+   @user=p2p_current_user
    @credit = @user.credits.new(params['p2p_credit'])
    if @credit.save
    	render :list
@@ -25,14 +25,14 @@ class P2p::CreditsController < ApplicationController
   end
 
   def delete
-    @user=P2p::User.find_by_user_id(current_user.id)
+    @user=p2p_current_user
      credit=@user.credits.find(params[:id])
      newcredit=credit.available
      credit.update_attributes(:available=>newcredit-1)   
   end
 
   def list
-  	@user=P2p::User.find_by_user_id(current_user.id)
+  	@user=p2p_current_user
       
      @credit= @user.credits 
        respond_to do |format|

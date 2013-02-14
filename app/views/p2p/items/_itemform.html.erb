@@ -1,4 +1,4 @@
-<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 	<%= stylesheet_link_tag "items/items_manifest"%>
 <% end %>
 
@@ -8,7 +8,7 @@
 			<ul class="breadcrumb">
 			  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 			  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
-			  <li><a  href="/p2p/category/brand"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
+			  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
 			  <li class="active"  data-name="title"  title="Enter Title"  id="item_title"><%=title.titleize%></li>
 			</ul>
 		</div>
@@ -22,7 +22,7 @@
 			  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
       	</div> 
 
-			<% elsif current_user.nil? || ownerid != P2p::User.find_by_user_id(current_user.id).id.to_s  %>
+			<% elsif current_user.nil? || ownerid != p2p_current_user.id.to_s  %>
 					
 					<!-- Buyer View -->
 				 <div class="btn-group" id="listing_action">
@@ -34,7 +34,7 @@
 			        </ul> 
 			      </div>
 
-			<% elsif ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s %>
+			<% elsif ownerid == p2p_current_user.id.to_s %>
 				  <!-- Seller View -->
 				<div class="btn-group" id="listing_action">
 
@@ -66,7 +66,7 @@
 			  <li class="span4">
           <div class="thumbnail">
 
-		<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
           	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon ">
           			<!-- image upload form -->
 
@@ -89,7 +89,7 @@
 				<% thumbimage.each do |img| %>
 		
 	              	<li class="thumbs">
-						<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+						<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 	              			<i class="icon-remove pull-right remove_image hide"></i>
 
 	              		<% end %>
@@ -274,7 +274,7 @@
 		$(".action_icon").tooltip();
 	
 
-<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 	window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
 	window.editsavetype = '<%= (itemid.empty?) ? "post": "put"%>';

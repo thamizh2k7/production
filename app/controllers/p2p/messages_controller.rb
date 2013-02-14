@@ -8,7 +8,7 @@ class P2p::MessagesController < ApplicationController
 
   def index
   	
-      @user=P2p::User.find_by_user_id(current_user.id)
+      @user=p2p_current_user
       @message = @user.sent_messages.new
 
      # puts @message.inspect + "message"
@@ -27,7 +27,7 @@ class P2p::MessagesController < ApplicationController
   end
 
   def create
-  	 user=P2p::User.find_by_user_id(current_user.id)
+  	 user=p2p_current_user
      
       params[:p2p_message][:receiver] = P2p::User.find_by_user_id(params[:p2p_message][:receiver])
       params[:p2p_message][:sender] = P2p::User.find_by_user_id(params[:p2p_message][:sender])
@@ -94,11 +94,11 @@ class P2p::MessagesController < ApplicationController
     end
 
     if params[:id] == 'inbox' 
-      messages = P2p::User.find_by_user_id(current_user.id).received_messages.order("created_at desc").paginate( :page => start)
-      message_count = P2p::User.find_by_user_id(current_user.id).received_messages.count
+      messages = p2p_current_user.received_messages.order("created_at desc").paginate( :page => start)
+      message_count = p2p_current_user.received_messages.count
     elsif params[:id] == 'sentbox' 
-      messages = P2p::User.find_by_user_id(current_user.id).sent_messages.order("created_at desc").paginate( :page => start)
-      message_count = P2p::User.find_by_user_id(current_user.id).sent_messages.count
+      messages = p2p_current_user.sent_messages.order("created_at desc").paginate( :page => start)
+      message_count = p2p_current_user.sent_messages.count
     end
 #   
 

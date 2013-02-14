@@ -22,8 +22,8 @@ class P2p::UsersController < ApplicationController
   			end
 
   			#get image
-        unless P2p::User.find_by_user_id(current_user.id).nil?
-  	      user=P2p::User.find_by_user_id(current_user.id)
+        unless p2p_current_user.nil?
+  	      user=p2p_current_user
           redirect_to '/p2p'
           return
         end
@@ -33,7 +33,7 @@ class P2p::UsersController < ApplicationController
   def user_first_time
 
 
-        if P2p::User.find_by_user_id(current_user.id).nil?
+        if p2p_current_user.nil?
           user = P2p::User.new
           user.user = current_user
           user.save

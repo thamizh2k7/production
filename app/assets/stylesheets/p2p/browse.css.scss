@@ -41,3 +41,23 @@ div.dropdown:hover > ul.dropdown-menu{
 	text-align:center;
 	display: block;
 }
+
+#browse_button {
+	margin-top: 5px;
+}
+
+#filter_sort {
+	margin: 5px;
+	width: 150px;
+}
+.spec-filter {
+	line-height: 15px;
+	font: 12px;
+}
+
+#browse_head {
+	margin: 10px 0px 0px -7px;
+	display: inline-block;
+	font-weight: bold;
+	color: black;
+}

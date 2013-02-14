@@ -30,9 +30,9 @@ def search
 
   if response.size == 0
 
-  		suggested_word = suggest(params['id'])
+      suggested_word = suggest(params['id'])
 
-  		if suggested_word == params[:id]
+      if suggested_word == params[:id]
 
 
       result = P2p::Item.search(suggested_word ,:match_mode => :any ,:star => true)
@@ -41,9 +41,9 @@ def search
         response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
       end
 
-		else
-			response = get_search_suggestions(suggested_word)
-		end 
+    else
+      response = get_search_suggestions(suggested_word)
+    end 
 
   end
 
@@ -67,33 +67,31 @@ end
 
 
 def get_search_suggestions(query)
-	response =[{:label => query ,:value => URI.encode("/p2p/search/q/#{query}")}]
+  response =[{:label => query ,:value => URI.encode("/p2p/search/q/#{query}")}]
 
-	result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
+  result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/#{res.name}")} )
+    response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/#{res.name}")} )
   end
 
 
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/#{res.category.name}/#{query}")} ) if res.items.count >0
+    response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/#{res.category.name}/#{query}")} ) if res.items.count >0
   end
 
   result = P2p::Item.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-  	response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+    response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
   end
   return response
 
 end  
 
 def search_list
-
-    puts "called search"
 
     res ={}
 
@@ -231,34 +229,35 @@ def search_list
   end
 
 
-	 def search_cat
-	      @cat = P2p::Category.find_by_name(params[:cat])
-	      @cat_name = @cat.name
+   def search_cat
+        @cat = P2p::Category.find_by_name(params[:cat])
+        @cat_name = @cat.name
 
         if params.has_key?("prod")
           @products = @cat.products.find_all_by_name(params[:prod])
        else
 
-	       @products = @cat.products
+         @products = @cat.products
         end
-	end
-	
-	def suggest(query_word) 
-		speller = Aspell.new("en_US")
-		speller.suggestion_mode = Aspell::ULTRA
+  end
+  
+  def suggest(query_word) 
+    speller = Aspell.new("en_US")
+    speller.suggestion_mode = Aspell::ULTRA
 
-		query_word.split(" ").each do |word| 
-		  if !speller.check(word) 
-		    query_word.gsub! word , speller.suggest(word).first
-    	  end
-		end
+    query_word.split(" ").each do |word| 
+      if !speller.check(word) 
+        query_word.gsub! word , speller.suggest(word).first
+        end
+    end
 
     query_word
-	end
+  end
 
 
-	def browse
-		@cat = P2p::Category.find_by_name(params[:cat])
+  def browse
+
+    @cat = P2p::Category.find_by_name(params[:cat])
 
     if @cat.nil? or @cat.products.count == 0
       flash[:notice] ="Nothing found for your request"
@@ -267,72 +266,100 @@ def search_list
     end
 
 
-		if params.has_key?("prod") 
-			@products=@cat.products.order("priority").find_all_by_name(params[:prod])
+    if params.has_key?("prod") 
+      @products=@cat.products.order("priority").find_all_by_name(params[:prod])
 
-			if @products.nil?
-				@cat = P2p::Category.find_by_name(params[:prod])
-				@products= @cat.products.all.order("priority")
-				params.delete("prod")
-		
+      if @products.nil?
+        @cat = P2p::Category.find_by_name(params[:prod])
+        @products= @cat.products.all.order("priority")
+        params.delete("prod")
+    
       end
 
-		else
-			@products=@cat.products.all
+    else
+      @products=@cat.products.all
 
       if !@cat.subcategories.nil?
           @cat.subcategories.each do |cat|
             @products +=cat.products.order("priority")
           end
       end
-		end
+    end
 
     
     @products.paginate(:page => params[:page], :per_page => 5)
 
-	end
+  end
 
 
 
   def browse_filter
-    @cat = P2p::Category.find_by_name(params[:cat])
 
-    puts @cat.inspect
+    if params.has_key?(:applied_filters)
+      if  request.xhr?
+          render :json =>  []
+          return
+      end
+    end
+
+    @cat = P2p::Category.find_by_name(params[:cat])
 
     if @cat.nil?
       render :json => []
       return
     end
 
-
     filter =[]
     order_result = ""
     item_condition_filter = ""
+
+
+
+    # check if we have filters already
+    if params.has_key?(:applied_filters)
+      
+        spec= params[:applied_filters].split('&')
+        (0..(spec.size() - 1 ) ).each do |i|
+      
+          begin
+              spec[i] = spec[i].split('=')
+          rescue
+          end
+
+        end
+
+        params[:filter] = {}
+
+        spec.each do |key,val|
+
+          begin
+            params[:filter][key] = val.split(',')
+          rescue
+          end
+
+        end
+
+        puts spec.inspect + " passed filter"
+
+    end
+
 
     if params.has_key?("filter")
 
 
         if params[:filter].has_key?("sort")
 
-          puts "in sort"
 
           case params[:filter][:sort]
               when "0"
                 order_result = "priority"
-                puts "in sort prio"
               when "1"
                 order_result = "price desc"
-                puts "in sort price desc"
-
               when "2"
                 order_result = "price asc"
-                puts "in sort price asc"
               else
               order_result = ""
-              puts "in sort none " + params[:filter][:sort]
           end
-
-          puts "in sort" + order_result
           params[:filter].delete(:sort)
 
         end
@@ -362,8 +389,6 @@ def search_list
           end
        end
 
-       puts filter.inspect + "filter"
-
     end
 
 
@@ -371,31 +396,40 @@ def search_list
       item_condition_filter   += " and "
     end
 
-    puts item_condition_filter   + 'condition'
-
     item_where_condition = item_condition_filter
 
-    if params.has_key?("prod") 
-      products=@cat.products.find_by_name(params[:prod])
+    if params.has_key?(:prod) 
+      @products=@cat.products.find_by_name(params[:prod])
 
 
       if filter.empty?
 
         if order_result != ""
-          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
+          items = @products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
         else
-          items = products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
+          items = @products.items.select('p2p_items.id,title,price,p2p_items.condition,product_id').where(item_where_condition).order(order_result)
         end
 
       else
 
+      filter_size = filter.size
 
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
           if order_result != ""
-          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+          items = @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  ( " + filter + " )   group by(id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
         else
-          items = products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
+          puts ""
+          puts ""
+          puts ""
+          puts ""
+          puts @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  ( " + filter + ")    group by(id) having count(*) = #{filter_size}  ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').explain
+          puts ""
+          puts ""
+          puts ""
+          puts ""
+
+          items = @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  (" + filter + ")   group by(id) having count(*) = #{filter_size}  )"  ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
         end
 
       end
@@ -405,13 +439,28 @@ def search_list
 
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
-        itm[:url] = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
-        itm = to_hash(itm)        
+        temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
+        itm = to_hash(itm)
+        itm[:url] = temp_url
         itm[:img] = url
         res.push(itm)
       end
 
-      render :json => res.paginate(:page => params[:page], :per_page => 10 )
+      if request.xhr?
+        render :json => res.paginate(:page => params[:page], :per_page => 10 )
+        return
+      else
+
+          #redirect if items is empty meaning noting found for filters
+        if res.count == 0
+          redirect_to '/p2p'
+          flash[:notice] = 'Nothing can be found for your request'
+          return
+        end
+
+        @items = res
+        return
+      end
 
 
     else
@@ -426,12 +475,14 @@ def search_list
 
       else
 
+      filter_size = filter.size
+      
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`  where (" + filter + ")   group by(id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
       else
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where " + filter + ")" ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`  where (" + filter + ")    group by(id) having count(*) = #{filter_size}) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
       end
 
       end
@@ -441,13 +492,28 @@ def search_list
 
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
-        itm[:url] = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
+        temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
         itm = to_hash(itm)
+        itm[:url] = temp_url 
         itm[:img] = url
         res.push(itm)
       end
 
-      render :json => res.paginate(:page => params[:page], :per_page => 10)
+      if request.xhr?
+        render :json => res.paginate(:page => params[:page], :per_page => 10 )
+        return;
+      else
+
+        if res.nil? 
+          #redirect if items is empty meaning noting found for filters
+          redirect_to '/p2p'
+          flash[:notice] = 'Nothing can be found for your request'
+          return
+        end
+
+        @items = res
+        return
+      end
 
     end
 

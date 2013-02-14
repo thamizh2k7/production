@@ -1,3 +1,4 @@
+
 <div id="Itemlist" class="row">
     <div id="filters" class="span2 ">
 
@@ -11,7 +12,20 @@
       </ul>
     </div>
 
-<div id="items" class="span10">
+<div class="span10">
+
+<div class="navbar">
+  <div class="navbar-inner">
+  	<a href="#" id="browse_head">Results</a>
+		<select class="pull-right" id="filter_sort">
+			<option value="0">Relevance</option>
+			<option value="1">Price Hight to low</option>
+			<option value="2">Price Low to high</option>
+		</select>
+  </div>
+</div>
+
+<div id="items">
 		<% prod_count = 0 %>
 
 		<% @products.each do |prod| %>
@@ -36,7 +50,7 @@
 
 			        <ul class="thumbnails" id="filter_replace">
 			        
-			        <% prod.items.order("rand()").each do |p| %>
+			      <% prod.items.order("rand()").each do |p| %>
 
 			          <li class="span2">
 			            <a href=<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}") %>>
@@ -60,6 +74,8 @@
 			          </li>
 			      <% end %>
 
+			      <div id="load_more_content"></div>
+
 			      </ul>
 
 			    <% if params.has_key?(:prod) %>
@@ -75,7 +91,7 @@
 	<% if prod_count ==0 %>
 		
 	<% end %>
-
+</div>
 
   </div>
 

@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def to_hash(obj)
-	 hash = {}; obj.attributes.each { |k,v| hash[k] = v }
+     hash = {}; obj.attributes.each { |k,v| hash[k.to_sym] = v }
 	 return hash
   end
 end

@@ -1,63 +1,55 @@
 
-
 <div id="Itemlist" class="row">
     <div id="filters" class="span2 ">
 
       <ul class="nav nav-list" id="browse_menu">
 
 		
-        <%= render "scat_menu" , :active_page => @cat.name %>
+        <%= render "scat_menu" , :active_page => @cat.name  ,:dropdown => true %>
 
         <%= render "p2p/index/filter" , :category => @cat %>
 
       </ul>
     </div>
 
-<div id="items" class="span10">
 
-<!--
-	<div id="browse_sort">
+<div class="span10">
+
+<div class="navbar">
+  <div class="navbar-inner">
+  	<a href="#" id="browse_head">Results</a>
+		<select class="pull-right" id="filter_sort">
+			<option value="0">Relevance</option>
+			<option value="1">Price Hight to low</option>
+			<option value="2">Price Low to high</option>
+		</select>
+  </div>
+</div>
 
 
-		<span class="pull-right">Sort
+<div id="items">
 
+				
 
-		<select id="sort_browse_items">
-				<option>Relevance</option>
-				<option>Price -> High to Low</option>
-				<option>Price -> High to Low</option>
-			</select>
-		</span>
-
-	</div>
--->
-	
-
-		<% @products.each do |prod| %>
-					      <div class="itemsRow">
-
-					        <div id="listHeader" class="row">
-					          <p class="fleft"> <b><%= prod.name.pluralize.titlecase %> </b></p>
-					          <p class="fright"><a href="/p2p/<%=@cat.name%>/<%=prod.name%>"> View All</a></p>
-					        </div>
+		      <div class="itemsRow">
 
 			        <ul class="thumbnails">
 			        
-			        <% prod.items.each do |p| %>
+			        <% @items.each do |itm| %>
 
 			          <li class="span2">
-			            <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
+			            <a href="<%=itm[:url]%>">
 			              <div class="thumbnail">
 			              		<div class="image_holder">
-			                		<img src="<%=p.get_image(1,:search)[0][:url]%>" >
+			                		<img src="<%=itm[:img]%>" >
 			                	</div>
 			                <div class="caption">
-			                  <b><%= p.title.slice(0,10)  %></b>
+			                  <b><%= itm[:title] %></b>
 			                  <p>
 
 			                    <ul>
-			                      <li><del>&#2352;</del> <%=p.price %></li>
-			                      <li><%=p.condition%></li>
+			                      <li><del>&#2352;</del> <%=itm[:price] %></li>
+			                      <li><%=itm[:condition]%></li>
 			<!--                              <li>Attribute 2</li>
 			                      <li>Attribute 3</li>
 			-->                              
@@ -70,7 +62,7 @@
 			          </li>
 			      <% end %>
 
-
+					<div id="load_more_content"></div>
 			      </ul>
 
 	   		    <div id="load_more">
@@ -78,12 +70,8 @@
 			    </div>
 
 			</div>
-	<% end %>
-
-	
-
-
-  </div>
+	</div>
 
  </div>
-
+ 
+</div>

@@ -346,6 +346,7 @@ def search_list
 
     if params.has_key?("filter")
 
+        @view_filter_set = params[:filter].dup
 
         if params[:filter].has_key?("sort")
 

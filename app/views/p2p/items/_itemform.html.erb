@@ -1,32 +1,63 @@
-<%= stylesheet_link_tag "items/items_manifest"%>
+<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+	<%= stylesheet_link_tag "items/items_manifest"%>
+<% end %>
+
 <div class="main_wrapper">
 	<div class="row">
 		<div class="span6">
 			<ul class="breadcrumb">
-			  <li><a href="#">Home</a> <span class="divider">/</span></li>
-			  <li><a href="#">Library</a> <span class="divider">/</span></li>
-			  <li class="active">Data</li>
+			  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
+			  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
+			  <li><a  href="/p2p/category/brand"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
+			  <li class="active"  data-name="title"  title="Enter Title"  id="item_title"><%=title.titleize%></li>
 			</ul>
 		</div>
 		<div class="span6">
-			<!-- Buyer View -->
-		 <!-- 	<div class="btn-group" id="listing_action">
-		 		<button class="btn">Contact Seller</button>
-		 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
-  			<ul class="dropdown-menu">
-          <li><a href="#">Through Sociorent</a></li>
-          <li><a href="#">Directly offline</a></li>
-        </ul> 
-      </div> -->
-			  
-			  <!-- Seller View -->
-			<div class="btn-group" id="listing_action">
-			  <button class="btn">Mark as sold</button>
+
+			<% if ownerid.empty?  %>
+
+			<!-- New Form -->
+		  	<div class="btn-group" id="listing_action">
 			  <button class="btn"><i  title="Remove Listing" class="action_icon icon-remove"></i></button>
 			  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
-        <button class="btn"><i title="View Messages" class="action_icon icon-envelope"></i> 5</button>
-      </div>
-			</div>
+      	</div> 
+
+			<% elsif current_user.nil? || ownerid != P2p::User.find_by_user_id(current_user.id).id.to_s  %>
+					
+					<!-- Buyer View -->
+				 <div class="btn-group" id="listing_action">
+			 		<button class="btn">Contact Seller</button>
+			 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
+		  			<ul class="dropdown-menu">
+		    	      <li><a href="#">Through Sociorent</a></li>
+			          <li><a href="#">Directly offline</a></li>
+			        </ul> 
+			      </div>
+
+			<% elsif ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s %>
+				  <!-- Seller View -->
+				<div class="btn-group" id="listing_action">
+
+				<!-- check if the item is sold or not -->
+				<% if solddate.nil? %>
+				  	<a href="/p2p/sold/<%= itemid %>" class="btn">Mark as sold</a>
+				<% else %>
+					<span class="btn" class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
+				<%end %>					
+				
+				<% if deletedate.nil? %>
+				  <button class="btn"><i  itemid="<%=itemid%>" id="item_delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
+				<%end %>
+
+
+				
+				  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
+		          <button class="btn"><i title="View Messages" class="action_icon icon-envelope"></i> <%reqcount %></button>
+	      		</div>
+
+			  <% end %>
+			</div> <!-- span6 action buttons-->
+
 		</div>
 	</div>
 	<div class="row">
@@ -34,33 +65,60 @@
 			<ul class="thumbnails">
 			  <li class="span4">
           <div class="thumbnail">
-          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon"><i class="icon-upload"></i>Upload</div>
-            <img src="/assets/p2p/items/holder320x320.png" alt="Item pic">
+
+		<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon ">
+          			<!-- image upload form -->
+
+				<%= form_tag "/p2p/addimage" ,:multipart => true , :remote => true , :id => "add_image_form"  do %>
+				<input type="hidden" value="<%= @item.id %>" name="item_id">
+    			<input type="file" name="img[]" id="file_add_image" disabled="disabled" multiple>
+				<% end %>
+
+          		<i class="icon-upload"></i>
+
+          		Upload</div>
+
+        <% end %>
+
+            <img src="<%= viewimage[0][:url] %>" imgid="<%= viewimage[0][:id] %>" alt="Item pic">
             <div class="caption thumb_holder">
               <ul class="thumbnails">
-              	<li class="thumbs">
-              		<i class="icon-remove pull-right"></i>
-              		<img src="/assets/p2p/items/holder50x50.png" alt="">
-              	</li>
-              	<li class="thumbs">
-              		<i class="icon-remove pull-right"></i>
-              		<img src="/assets/p2p/items/holder50x50.png" alt="">
-              	</li>
-              	<li class="thumbs">
-              		<i class="icon-remove pull-right"></i>
-              		<img src="/assets/p2p/items/holder50x50.png" alt="">
-              	</li>
-              	<li class="thumbs">
-              		<i class="icon-remove pull-right"></i>
-              		<img src="/assets/p2p/items/holder50x50.png" alt="">
-              	</li>
+
+        		<% i = 0 %>
+				<% thumbimage.each do |img| %>
+		
+	              	<li class="thumbs">
+						<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+	              			<i class="icon-remove pull-right remove_image hide"></i>
+
+	              		<% end %>
+
+	              		<img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" viewimage="<%= viewimage[i][:url] %>">
+	              	</li>
+	              <% i += 1 %>
+				<% end %>
+
               </ul>
             </div>
           </div>
         </li>
 			</ul>
 		</div>
+
+
+
 		<div class="span8">
+
+			<!-- category and subcategory container -->
+
+			<table class="table">
+			<tr>
+				<td>Category: <span id="item_category" data-type="select" data-original-title="Select Category" ><%=category%></span></td>
+				<td>Model: <span id="item_model" data-type="select" class="canEdit" data-source='["test","tset1"]'><%=brand%></span></td>
+			</tr>
+			</table>
+
 			<table class="table table-bordered table-striped">
             <colgroup>
               <col class="span1">
@@ -73,75 +131,63 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                 <span class="canEdit" data-name="username"  title="Enter Condition">Sample</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Condition
-                </td>
-                <td>
-                  Wrapping element for displaying data in a tabular format
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <a href="#more_details">View more</a>
-                </td>
-              </tr>
+
+            <!-- Price -->
+	          <tr>
+	            <td>
+	              Price:
+	            </td>
+	            <td>Rs.
+	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="item_price"> <%= price %> </span>
+	            </td>
+	          </tr>
+
+            <!-- Location -->
+	          <tr>
+	            <td>
+	              Condition:
+	            </td>
+	            <td>
+	             <span class="canEdit" data-name="username"  title="Enter Condition"  specname="condition" specid="0" id="item_condition"> <%= condition.titleize %> </span>
+	            </td>
+	          </tr>
+
+            <!-- Location -->
+	          <tr>
+	            <td>
+	              Location:
+	            </td>
+	            <td>
+	             <span class="canEdit" data-name="username"  title="Enter Location"  specname="location" specid="0" id="item_location"> <%= location.titleize %> </span>
+	            </td>
+	          </tr>
+
+	          <!-- load all spec -->
+			<% unless spec.empty? %>
+				<% unless itemid.empty? %>
+					<% spec_used = [] %>
+					<% spec.each do |aspec| %>
+						<% spec_used.push(aspec.spec.id)%>
+			              <tr>
+			                <td>
+			                  <%= aspec.spec.name %>
+			                </td>
+			                <td>
+			                 <span class="canEdit" data-name="username"  title="Enter <%= spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>"> <%= aspec.value.titleize %> </span>
+			                </td>
+			              </tr>
+			         <% end %>
+		         <% end %>
+
+		         <%if spec_used.size < spec.size %>
+			          <tr>
+			            <td colspan="2">
+			              <a href="#more_details">View more</a>
+			            </td>
+			          </tr>
+		          <% end %>
+
+	         <% end %>		          
 
             </tbody>
           </table>
@@ -150,90 +196,111 @@
 	<div class="row">
 		<div id="item_desc" class="span12">
 			<h4>Description</h4>
-		<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-		Cras justo odio, dapibus ac facilisis in, egestas eget quam.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+			<span id="desc_content" data-type="textarea" class="canEdit "><%= description %></span>
 		</div>
 	</div>
-	<div class="row">
-		<div class="span12" id="more_details">
-				<table class="table table-bordered table-striped">
-	            <colgroup>
-	              <col class="span1">
-	              <col class="span7">
-	            </colgroup>
-	            <thead>
-	              <tr>
-	                <th>Specification</th>
-	                <th>Value</th>
-	              </tr>
-	            </thead>
-	            <tbody>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                 <span class="canEdit" data-name="username"  title="Enter Condition">Sample</span>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>
-	                  Condition
-	                </td>
-	                <td>
-	                  Wrapping element for displaying data in a tabular format
-	                </td>
-	              </tr>
-	            </tbody>
-	          </table>
-			</div>
-		</div>
+
+<% unless spec.empty? %>
+	<% unless itemid.empty? %>
+
+		<% if spec_used.size < spec.size %>
+
+			<div class="row">
+				<div class="span12" id="more_details">
+						<table class="table table-bordered table-striped">
+			            <colgroup>
+			              <col class="span1">
+			              <col class="span7">
+			            </colgroup>
+			            <thead>
+			              <tr>
+			                <th>Specification</th>
+			                <th>Value</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+
+					<!-- load remaining spec -->
+
+						<% (spec_used..((spec.size)-1)).each do |i| %>
+				              <tr>
+				                <td>
+				                  <%= spec[i].spec.name %>
+				                </td>
+				                <td>
+				                 <span class="canEdit" data-name="username"  title="<%=spec[i].name%>"  specname="<%= spec[i].spec.name %>" specid="<%= spec[i].spec.id.to_s %>" id="item_<%= spec[i].spec.id %>"> <%= spec[i].value.titleize %> </span>
+				                </td>
+				              </tr>
+				         <% end %>
+			         
+			          </tbody>
+			         </table>
+					</div>
+				</div>
+		<% end %>
+     <% end %>
+ <% end %>		          
+
+
+
+					<% if defined? itemspec %>
+						<b>Add More Specification here <br/></b>
+						<table class="table table-bordered table-striped hide" id="empty_specs">
+							<tr>
+								<th>Specification</th>
+								<th>Value</th>
+							</tr>
+						<% itemspec.each do |spec| %>
+
+						 <% next if spec_used.include?(spec.id) %>
+					              <tr>
+					                <td>
+					                  <%= spec.name %>
+					                </td>
+					                <td>
+					                 <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>">  </span>
+					                </td>
+					              </tr>
+						<%end %>
+						</table>
+					<%end %>
+
+
 </div>
+
+<script>
+
+	
+		$(".action_icon").tooltip();
+	
+
+<% if !current_user.nil? and (ownerid == P2p::User.find_by_user_id(current_user.id).id.to_s) %>
+
+	window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
+	window.editsavetype = '<%= (itemid.empty?) ? "post": "put"%>';
+
+	//initialize
+	window.item_values ={};
+	item_values['spec']={};
+
+
+
+			<%if !itemid.empty?  and ownerid == userid %>
+				item_values['title'] = "<%= title %>";
+				item_values['cat'] = "<%= categoryid %>";
+				item_values['scat'] = "<%= subcategoryid %>";
+				item_values['brand'] = "<%= brandid %>";
+				item_values['price'] = "<%= price %>";
+				item_values['condition'] = "<%= condition %>";
+				item_values['desc'] = $("#desc_content").html();
+
+				<% spec.each do |aspec| %>
+					item_values['spec']['<%= aspec.spec.id%>'] = "<%= aspec.value %>";
+				<% end %>
+
+
+			<% end %>
+
+<% end %>
+
+</script>

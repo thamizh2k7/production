@@ -135,7 +135,7 @@ end
 
 
   def get_sub_categories
-    cat = P2p::Category.select("id,name").where("category_id = " + params[:id])
+    cat = P2p::Category.select("id as value ,name as text")
     render :json => cat
   end
 

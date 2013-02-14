@@ -417,19 +417,9 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
           if order_result != ""
-          items = @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  ( " + filter + " )   group by(id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+          items = @products.items.where( item_where_condition + " p2p_items.id in ( select item_id from `p2p_item_specs`   where  ( " + filter + " )   group by(item_id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
         else
-          puts ""
-          puts ""
-          puts ""
-          puts ""
-          puts @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  ( " + filter + ")    group by(id) having count(*) = #{filter_size}  ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').explain
-          puts ""
-          puts ""
-          puts ""
-          puts ""
-
-          items = @products.items.where( item_where_condition + " p2p_items.id in ( select distinct item_id from `p2p_item_specs`   where  (" + filter + ")   group by(id) having count(*) = #{filter_size}  )"  ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
+          items = @products.items.where( item_where_condition + " p2p_items.id in ( select item_id from `p2p_item_specs`   where  (" + filter + ")   group by(item_id) having count(*) = #{filter_size}  )"  ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
         end
 
       end
@@ -480,9 +470,9 @@ def search_list
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`  where (" + filter + ")   group by(id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select item_id from `p2p_item_specs`  where (" + filter + ")   group by(item_id) having count(*) = #{filter_size} ) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
       else
-        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select distinct item_id from `p2p_item_specs`  where (" + filter + ")    group by(id) having count(*) = #{filter_size}) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
+        items = @cat.items.where( item_where_condition + "p2p_items.id in ( select item_id from `p2p_item_specs`  where (" + filter + ")    group by(item_id) having count(*) = #{filter_size}) " ).select('p2p_items.id,title,price,p2p_items.condition,product_id')
       end
 
       end

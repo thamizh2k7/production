@@ -105,11 +105,12 @@ Sociorent::Application.routes.draw do
 
       match "search/:id" =>"index#search"
 
-      match ":cat/filters" =>"index#browse_filter"
+      
 
+      match ":cat/filters(/*applied_filters)" =>"index#browse_filter"
+      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"
 
       get ':cat/:prod/:item' => 'items#view'
-
       get ':cat(/:prod)' => "index#browse" 
 
   end

@@ -37,14 +37,13 @@
 	display: none;
 }
 
-
-
 #items{
-	min-height:600px;
+	min-height:800px;
+	margin-bottom: 20px;
 }
 
 .spec-filter .icon-remove{
-	margin-top: 3px;
+	margin-top: 4px;
 	cursor: pointer;
 }
 
@@ -57,7 +56,6 @@
 	text-align: center;
 
 }
-
 
 .image_holder{
 	width:120px;

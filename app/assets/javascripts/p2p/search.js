@@ -26,3 +26,9 @@
       }
     });
   });
+
+
+  // display the notification
+  function showNotifications(content){
+    $("#flash_notice").html(content).fadeIn(1000).delay(500).fadeOut(1000);
+  }

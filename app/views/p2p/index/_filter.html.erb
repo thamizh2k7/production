@@ -1,4 +1,4 @@
-<!-- Search filter menu cod -->
+ <!--Search filter menu cod -->
 
 <!-- overlay to be displayed during filter request -->
 	<div id="overlay"></div>
@@ -29,15 +29,17 @@
 
 
 		<!-- Template for the search results -->
+		<!-- load only for inital request and not for load more-->
 	    <script type="template" id="item_template">
+		      
 
-		      <div class="itemsRow">
+	    	<%% if ( window.page_num == 2 ) { %>
 
-		        <div id="listHeader" class="row">
-		          <p class="fleft"> <b> Results </b></p>
-		        </div>
+				<ul class="thumbnails" id="filter_replace">		        
 
- 	        <ul class="thumbnails" id="filter_replace">
+			<%% } %>
+			
+ 	        
 
 		    	<%% _.each(data,function(elm){%>
 
@@ -68,11 +70,32 @@
 
 					<%% });%>
 
-		    	</ul>
+		    	<div id="load_more_content"></div>
+
+			<%% if ( window.page_num == 2 ) { %>
+				</ul>
+		   		    <div id="load_more">
+				    	<div class="btn btn-primary">Load More.....</div>
+				    </div>
+
+
+			<%% }%>
 
 	    </script>
 
 <script>
-				window.category="<%=category.name%>";
-				window.filterurl= "/p2p/<%=category.name%>/filters";
+	window.category="<%=category.name%>";
+	<% if params.has_key?(:prod) %>
+
+		//@products will not be array for this particular action
+		<% if request[:action] == 'browse_filter' %>
+			window.filterurl= "/p2p/<%=category.name%>/<%=@products.name%>/filters";
+		<% else %>
+			window.filterurl= "/p2p/<%=category.name%>/<%=@products[0].name%>/filters";
+		<% end %>
+
+	<% else %>
+	window.filterurl= "/p2p/<%=category.name%>/filters";
+	<% end %>
+
 </script>

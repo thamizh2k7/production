@@ -88,7 +88,7 @@
 				if ($(elm).attr('spec-name') in old_filters && ($(elm).attr('spec-value') == old_filters[$(elm).attr('spec-name')] ) ){
 
 					spec = $(elm).attr('spec-name');
-					val = old_filters[$(elm).attr('spec-name')] ;
+					val = old_filters[$(elm).attr('spec-name')][0] ;
 
 					if (!(spec in filters))	filters[spec]=[]
 

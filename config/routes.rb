@@ -112,8 +112,6 @@ Sociorent::Application.routes.draw do
 
       get ':cat(/:prod)' => "index#browse" 
 
-
-
   end
 
 

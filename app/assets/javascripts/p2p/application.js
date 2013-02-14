@@ -18,7 +18,10 @@
 //= require global/jquery.ui.position
 //= require global/jquery.ui.autocomplete
 //= require global/underscore
-//= require global/bootstrap.min
+//= require bootstrap
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
 //= require p2p/jquery.history.js
 //= require p2p/search.js
-//= require_tree .
+//= require p2p/items.js
+// require_tree .

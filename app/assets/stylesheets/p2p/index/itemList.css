@@ -43,12 +43,12 @@
 	min-height:600px;
 }
 
-.icon-remove{
+.spec-filter .icon-remove{
 	margin-top: 3px;
 	cursor: pointer;
 }
 
-.icon-remove:hover {
+.spec-filter .icon-remove:hover {
 	border-top: 1px solid red;
 }
 

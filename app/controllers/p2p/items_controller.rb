@@ -11,6 +11,7 @@ class P2p::ItemsController < ApplicationController
   def new
    @item = p2p_current_user.items.new
 
+
   end
 
 
@@ -129,7 +130,7 @@ end
 
   def get_brands
     cat =P2p::Category.find(params[:id]) 
-    brand  = cat.products.select("id,name")
+    brand  = cat.products.select("id as value,name as text")
     render :json => brand
   end
 
@@ -175,12 +176,22 @@ end
       @brand_id = @item.product.id
 
      @attr = @item.specs(:includes => :attr)
+     
+     if p2p_current_user.id == @item.user_id
+        @messages = @item.messages.all
+     else
+        # intialize the request messages
+        @message = @item.messages.new
+        @buyerreqcount = @item.messages.find_all_by_sender_id(current_user.id).count
 
-      if current_user.nil?
+     end
+
+      if p2p_current_user.nil? or p2p_current_user.id != @item.user_id
         @item.viewcount= @item.viewcount.to_i + 1
+        @item.save
       end
 
-    @item.save 
+      
     
   end
 

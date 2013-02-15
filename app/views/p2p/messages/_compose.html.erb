@@ -1,40 +1,56 @@
 
+
+
 <div id="compose_form_holder">
 	<div id="compose_form_title">
 
 
-	<%= simple_form_for message ,:validate => true  , :html => {:class => "form-horizontal"}, :remote => !item.to_s.empty?  do |f| %>
+	<%= form_for message ,:validate => true  , :html => {:class => "form-horizontal"}, :remote => true  do |f| %>
 
 
+			<% if defined? admin and admin %>
+				<%= f.hidden_field :receiver_id, :value => 1 ,:readonly => true  %>
+			<% elsif defined? ownerid  %>
+				<%= f.hidden_field :receiver_id, :value => ownerid ,:readonly => true  %>
+				<%= f.hidden_field :item_id, :value => itemid ,:readonly => true  %>
+				<%= f.hidden_field :from,  :value =>  "view" %>
+			<% end %>
 
-	 	<% if item.to_s.empty?  %>
-
-				<%= f.input :item_id ,:input_html => {:value => ""}  ,:as => :hidden 	%>
-
-
+		<!-- 1 - admin mesage
+		2- buy request 
+		0 - reply
+		 -->
+		<% if defined? admin and admin %>
+		 	<%= f.hidden_field :messagetype, :value => 1 %>
+		<% elsif defined? ownerid %>
+			<%= f.hidden_field :messagetype,  :value =>  2 %>
 	 	<% else %>
-
-			<%= f.input :item_id ,:input_html => {:value => item }  ,:as => :hidden %>
-
+	 		<%= f.hidden_field :messagetype,  :value => 0 %>
 	 	<% end %>
+		<div class="control-group">
+			<%= f.label :message  ,"Personal Message", :class=> 'control-label' %>
+	 		<div class="controls"><%= f.text_area :message, :rows => 6,:cols => 25 %> 		</div>
+	 	</div>
 
-	 	<% if receiver.nil?  %>
+		<div class="control-group">
 
-			<%= f.input :receiver,    :label_method => :email   	%>
+	 		<div class="controls"><%= f.submit :submit, value:"Send Message" ,:id => "message_submit " , :class => "btn btn-primary"  %></div>
+	 	</div>
 
-
-	 	<% else %>
-
-			<%= f.input :receiver, :label_method => :email ,:input_html => {:readonly => true ,:value => receiver  } %>	 
-	 	<% end %>
-
-	 	<%= f.input :messagetype, 
-	 	collection: [ ["Sell Request",0],["Buy request",1],["Admin",2]]  
-	 	%>
-	 	<%= f.input :sender,:as => :hidden, :input_html => {:value => user_id }
-	 	%>
-	 	<%= f.input :message, input_html: {rows:10,cols:20}%>
-	 	<div class="controls"><%= f.button :submit, value:"Send Message " %></div>
 	 <% end %>
 	</div>
 </div>
+
+
+<script>
+
+	$(document).ready(function(){
+		$("#new_p2p_message").on('submit',function(){
+			$("#contact_seller_modal .close").trigger('click');
+			showNotifications("Sending your request to seller");
+			$("#new_p2p_message").submit();
+			return false;
+		});
+	});
+
+</script>

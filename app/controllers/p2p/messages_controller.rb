@@ -28,36 +28,42 @@ class P2p::MessagesController < ApplicationController
 
   def create
   	 user=p2p_current_user
-     
-      params[:p2p_message][:receiver] = P2p::User.find_by_user_id(params[:p2p_message][:receiver])
-      params[:p2p_message][:sender] = P2p::User.find_by_user_id(params[:p2p_message][:sender])
 
-      if params[:p2p_message][:item_id] != "" 
-        item= P2p::Item.find(params[:p2p_message][:item_id])
-        item.reqCount += 1
+      # if params[:p2p_message][:item_id] != "" 
+      #   item= P2p::Item.find(params[:p2p_message][:item_id])
+      #   item.reqCount += 1
         
-      end
+      # end
+      params[:p2p_message][:receiver_status] = 0
+      params[:p2p_message][:sender_status] = 2
 
+      # //remove from from the params to pass to create message
+      from = params[:p2p_message][:from]
+
+      params[:p2p_message].delete(:from)
+      
   	 @message=user.sent_messages.create(params[:p2p_message])
-     @message.update_attributes(:sender_status=>"sent")
 
-    if params[:p2p_message][:item_id] != "" 
-      item.save
-    end
-     puts @message.inspect + " saved "
+     unless @message.item.nil?
+      @message.item.reqCount +=1
+      @message.item.save
+     end
 
-      flash[:notice] = "Message sent Successfully"
+      
 
       if request.xhr?
+        if from
+          render :js => "showNotifications('Your request was sent'); return false;"
+        end
 
       else
-        flash[:notice] ="Nothing found for your request"
+        flash[:notice] = "Message sent Successfully"
         redirect_to "/p2p/messages/"
       end
       
     end
         
- 
+  
   def show
     @message=P2p::Message.find(params[:id])
     
@@ -70,6 +76,37 @@ class P2p::MessagesController < ApplicationController
   end  
 
   def destroy
+    
+    deleted_messages = []
+
+    params[:msgid].each do |id|
+
+        if params[:tbl] == 'inbox' 
+          if p2p_current_user.received_messages.inbox.find(id).update_attributes(:receiver_status => 3 ) 
+            deleted_messages.push(id)
+          end
+        elsif params[:tbl] == 'sentbox' 
+          if p2p_current_user.sent_messages.sentbox.find(id).update_attributes(:sender_status => 3 ) 
+            deleted_messages.push(id)
+          end
+        elsif params[:tbl] == 'deletebox' 
+            msg = P2p::Message.deleted(p2p_current_user).find(id)
+
+            if msg.sender == p2p_current_user.id
+                msg.update_attributes(:sender_status => 4 ) 
+            else
+                msg.update_attributes(:receiver_status => 4 ) 
+            end
+
+            deleted_messages.push(id)
+        end
+    end
+
+    unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
+
+    render :json => {:id =>  deleted_messages , :unreadcount => unreadcount}
+
+
   end
 
   def new
@@ -87,18 +124,21 @@ class P2p::MessagesController < ApplicationController
 
     response={:aaData => []}
 
-    if params.has_key?("iStart")
-      start = params[:iStart]
+    if params.has_key?("iDisplayStart")
+      start = (params[:iDisplayStart].to_i / 10) + 1
     else
       start = 1
     end
 
     if params[:id] == 'inbox' 
-      messages = p2p_current_user.received_messages.order("created_at desc").paginate( :page => start)
-      message_count = p2p_current_user.received_messages.count
+      messages = p2p_current_user.received_messages.inbox.order("created_at desc").paginate( :page => start ,:per_page => 10)
+      message_count = p2p_current_user.received_messages.inbox.count
     elsif params[:id] == 'sentbox' 
-      messages = p2p_current_user.sent_messages.order("created_at desc").paginate( :page => start)
-      message_count = p2p_current_user.sent_messages.count
+      messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").paginate( :page => start,:per_page => 10)
+      message_count = p2p_current_user.sent_messages.sentbox.count
+    elsif params[:id] == 'deletebox' 
+      messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").paginate( :page => start,:per_page => 10)
+      message_count = P2p::Message.deleted(p2p_current_user).count
     end
 #   
 
@@ -122,8 +162,9 @@ class P2p::MessagesController < ApplicationController
       
 
       response[:aaData].push(["<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
+                          msg.id,
                           msg.sender.user.name,
-                          msg.message,
+                          "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >msg.message</a></div>",
                           tme,
                           msg.messagetype                          
                           ])

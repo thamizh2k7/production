@@ -82,3 +82,4 @@ gem 'will_paginate'
 
 gem "twitter-bootstrap-rails"
 gem 'bootstrap-editable-rails'
+

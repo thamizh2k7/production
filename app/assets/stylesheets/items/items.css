@@ -63,3 +63,7 @@ li.thumbs img{
 .editable-input input {
 	float: left;
 }
+
+textarea{
+	resize:none;
+}

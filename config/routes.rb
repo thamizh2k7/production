@@ -71,11 +71,10 @@ Sociorent::Application.routes.draw do
   namespace :p2p do
 
 
-      resources :messages, :path_names =>{:index=>"inbox", :new => 'compose', :create=> 'send',  :show =>"show", }
-      #resources :credits, :path_names =>{:list=>"list", :decrement => 'delete', :new=> '' }
-      resources :items
-      resources :images
-      resources :credits ,:path_names => {:decrement => 'delete'}
+    resources :messages
+    resources :items
+    resources :images
+    resources :credits 
 
 
       get '' => "index#index"

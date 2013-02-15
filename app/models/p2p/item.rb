@@ -6,6 +6,8 @@ class P2p::Item < ActiveRecord::Base
   belongs_to :city
   has_many :specs ,:class_name => "P2p::ItemSpec"
  
+  has_many :messages ,:class_name => 'P2p::Message'
+  
   has_one :category ,:through => :product
 
   has_many :images ,:class_name => 'P2p::Image'

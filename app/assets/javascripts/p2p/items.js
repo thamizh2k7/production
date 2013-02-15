@@ -52,22 +52,22 @@ $(document).ready(function(){
 
 			$("#empty_specs").removeClass('hide');
 
-			$("#item_category").editable({
-				 source:function(){
-					 $.ajax({
-							url:'/p2p/getsubcategories/',
-							type:"get",
-							success:function(data){
-								return data;
-							},
-							error:function(){
-								return false;
-							}
 
-						});	
-				 }
+			$("#category").on('save',function(e,params){
+
+				console.log(params.newValue);
+
+				if (params.newValue != 0){
+					$.ajax({
+						url:'/p2p/getbrand/' + params.newValue,
+						type:"get",
+						async:false,
+						success:function(data){
+								$("#model").attr('data-source',JSON.stringify(data));
+						}
+					});
+				}
 			});
-
 
 			//validate location
 			$('#item_title').on('save', function(e, params) {
@@ -306,8 +306,5 @@ $(document).ready(function(){
 				});
 
 			};
-
-
-	
 
 });

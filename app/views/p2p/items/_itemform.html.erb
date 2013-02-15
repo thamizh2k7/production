@@ -21,11 +21,57 @@
 			  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
       	</div> 
 
-			<% elsif current_user.nil? || ownerid != p2p_current_user.id.to_s  %>
+
+			<% elsif p2p_current_user.nil? %>
+
+					<!-- Buyer View -->
+				 <div class="btn-group" id="listing_action">
+
+			 		<!-- contact seller modal  -->
+			 		<!-- Button to trigger modal -->
+			 		<i class="action_icon" title="You have sent <%=buyerreqcount%>">
+						<a href="#login_to_contactmodal" role="button" class="btn " data-toggle="modal"  >Contact Seller</a>
+					</i>
+					 
+					<!-- Modal -->
+					<div id="login_to_contactmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login_to_contactmodallLabel" aria-hidden="true">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					    <h3 id="login_to_contactmodalLabel">Login</h3>
+					  </div>
+					  <div class="modal-body">
+					    <p>Login to contact Seller</p>
+					  </div>
+					</div>
+
+			 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
+		  			<ul class="dropdown-menu">
+		    	      <li><a href="#">Through Sociorent</a></li>
+			          <li><a href="#">Directly offline</a></li>
+			        </ul> 
+			      </div>
+					
+
+			<% elsif ownerid != p2p_current_user.id.to_s  %>		
 					
 					<!-- Buyer View -->
 				 <div class="btn-group" id="listing_action">
-			 		<button class="btn">Contact Seller</button>
+
+			 		<!-- contact seller modal  -->
+			 		<!-- Button to trigger modal -->
+					<a href="#contact_seller_modal" role="button" class="btn" data-toggle="modal">Contact Seller</a>
+					 
+					<!-- Modal -->
+					<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
+					  </div>
+					  <div class="modal-body">
+					    <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
+					  </div>
+				</div>
+
 			 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
 		  			<ul class="dropdown-menu">
 		    	      <li><a href="#">Through Sociorent</a></li>
@@ -51,7 +97,7 @@
 
 				
 				  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
-		          <button class="btn"><i title="View Messages" class="action_icon icon-envelope"></i> <%reqcount %></button>
+		          <button class="btn"><i title="View Messages" class="action_icon icon-envelope"></i> <%=reqcount %></button>
 	      		</div>
 
 			  <% end %>
@@ -113,8 +159,8 @@
 
 			<table class="table">
 			<tr>
-				<td>Category: <span id="item_category" data-type="select" data-original-title="Select Category" ><%=category%></span></td>
-				<td>Model: <span id="item_model" data-type="select" class="canEdit" data-source='["test","tset1"]'><%=brand%></span></td>
+				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="<%=P2p::Category.select('id as value,name as text').all.to_json%>" ><%=category%></span></td>
+				<td>Model: <span id="model" data-type="select" class="canEdit" data-source='[]'><%=brand%></span></td>
 			</tr>
 			</table>
 
@@ -271,36 +317,42 @@
 <script>
 
 	
-		$(".action_icon").tooltip();
-	
+	$(".action_icon").tooltip();
 
-<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
+	<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
-	window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
-	window.editsavetype = '<%= (itemid.empty?) ? "post": "put"%>';
+		window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
+		window.editsavetype = '<%= (itemid.empty?) ? "post": "put"%>';
 
-	//initialize
-	window.item_values ={};
-	item_values['spec']={};
+		//initialize
+		window.item_values ={};
+		item_values['spec']={};
+
+				<%if !itemid.empty?  and ownerid == userid %>
+					item_values['title'] = "<%= title %>";
+					item_values['cat'] = "<%= categoryid %>";
+					item_values['scat'] = "<%= subcategoryid %>";
+					item_values['brand'] = "<%= brandid %>";
+					item_values['price'] = "<%= price %>";
+					item_values['condition'] = "<%= condition %>";
+					item_values['desc'] = $("#desc_content").html();
+
+					<% spec.each do |aspec| %>
+						item_values['spec']['<%= aspec.spec.id%>'] = "<%= aspec.value %>";
+					<% end %>
 
 
-
-			<%if !itemid.empty?  and ownerid == userid %>
-				item_values['title'] = "<%= title %>";
-				item_values['cat'] = "<%= categoryid %>";
-				item_values['scat'] = "<%= subcategoryid %>";
-				item_values['brand'] = "<%= brandid %>";
-				item_values['price'] = "<%= price %>";
-				item_values['condition'] = "<%= condition %>";
-				item_values['desc'] = $("#desc_content").html();
-
-				<% spec.each do |aspec| %>
-					item_values['spec']['<%= aspec.spec.id%>'] = "<%= aspec.value %>";
 				<% end %>
 
+	<% end %>
 
-			<% end %>
+	<% if itemid.empty? %>
+		$(document).ready(function(){
+			$('#enable').trigger("click");
+			console.log('clicked');
 
-<% end %>
+		});
+		
+	<% end %>
 
 </script>

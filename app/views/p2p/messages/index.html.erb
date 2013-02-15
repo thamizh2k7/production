@@ -64,7 +64,7 @@
 	$(document).ready(function(){
 		oInboxTable = $('#inbox_table').dataTable({
 		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"340px",
+		  'sScrollY':"400px",
           "sAjaxSource": '/p2p/getmessages/inbox' ,
           "aaSorting":[],
           "bScrollCollapse": false,
@@ -75,13 +75,17 @@
           "sPaginationType": "bootstrap",
 		  "bProcessing": true,
     	  "bServerSide": true,
-    	  "bInfo":false
+		  "fnServerParams": function ( aoData ) {
+		  	if ($.trim($("#search_inbox").val()) != ""){
+            	aoData.push( { "name" : "searchq" ,"value" : $("#search_inbox").val() } );
+            }
+          }
 
 		});
 
 		oSentBoxTable  = $('#sentbox_table').dataTable({
 		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"340px",
+		  'sScrollY':"400px",
           "aaSorting":[],
           "bScrollCollapse": false,
 		  "sAjaxSource": '/p2p/getmessages/sentbox' ,
@@ -91,12 +95,17 @@
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
 		  "bProcessing": true,
-    	  "bServerSide": true
+    	  "bServerSide": true,
+		  fnServerParams: function ( aoData ) {
+		  	if ($.trim($("#search_sentbox").val()) != ""){
+            	aoData.push( { "name" : "searchq" , "value": $("#search_sentbox").val() } );
+            }
+           }
 		});
 
 		oDeleteBoxTable  = $('#deletebox_table').dataTable({
 		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"340px",
+		  'sScrollY':"400px",
           "aaSorting":[],
           "bScrollCollapse": false,
 		  "sAjaxSource": '/p2p/getmessages/deletebox' ,
@@ -106,7 +115,12 @@
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
 		  "bProcessing": true,
-    	  "bServerSide": true
+    	  "bServerSide": true,
+		  fnServerParams: function ( aoData ) {
+		  	if ($.trim($("#search_deletebox").val()) != ""){
+            	aoData.push( { "name":"searchq","value" :$("#search_deletebox").val() } );
+            }
+          }
 		});
 
 
@@ -127,6 +141,22 @@
 
     	});
 
+
+		$(".search_messages").keyup(function(){
+
+			if ( $(this).val().length < 4 && $(this).val().length != 0) return false;
+
+			if ($(this).attr('tbl')=='inbox'){
+				oInboxTable.fnDraw();
+			}
+			else if ($(this).attr('tbl')=='sentbox'){
+				oSentBoxTable.fnDraw();
+			}
+			else if ($(this).attr('tbl')=='deletebox'){
+				oDeleteBoxTable.fnDraw();
+			}
+
+		});
 
 	});
 

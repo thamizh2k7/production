@@ -130,15 +130,40 @@ class P2p::MessagesController < ApplicationController
       start = 1
     end
 
+    search = ""
+    if params.has_key?(:searchq)
+      search = params[:searchq]
+    end
+
     if params[:id] == 'inbox' 
-      messages = p2p_current_user.received_messages.inbox.order("created_at desc").paginate( :page => start ,:per_page => 10)
-      message_count = p2p_current_user.received_messages.inbox.count
+
+      if search != ""
+        messages = p2p_current_user.received_messages.inbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start ,:per_page => 10)
+        message_count = p2p_current_user.received_messages.inbox.where("message like '%#{search}%'").count
+      else
+        messages = p2p_current_user.received_messages.inbox.order("created_at desc").paginate( :page => start ,:per_page => 10)
+        message_count = p2p_current_user.received_messages.inbox.count
+      end
+
+
     elsif params[:id] == 'sentbox' 
-      messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").paginate( :page => start,:per_page => 10)
-      message_count = p2p_current_user.sent_messages.sentbox.count
+      if search != ''
+        messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
+        message_count = p2p_current_user.sent_messages.sentbox.where("message like '%#{search}%'").count
+        
+      else
+        messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").paginate( :page => start,:per_page => 10)
+        message_count = p2p_current_user.sent_messages.sentbox.count
+      end
+      
     elsif params[:id] == 'deletebox' 
-      messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").paginate( :page => start,:per_page => 10)
-      message_count = P2p::Message.deleted(p2p_current_user).count
+      if search !=''
+        messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
+        message_count = P2p::Message.deleted(p2p_current_user).where("message like '%#{search}%'").count
+      else
+        messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").paginate( :page => start,:per_page => 10)
+      end
+      
     end
 #   
 
@@ -163,10 +188,11 @@ class P2p::MessagesController < ApplicationController
 
       response[:aaData].push(["<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
                           msg.id,
+                          msg.messagetype,
                           msg.sender.user.name,
-                          "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >msg.message</a></div>",
+                          "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
                           tme,
-                          msg.messagetype                          
+                          
                           ])
     end 
 

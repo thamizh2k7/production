@@ -4,8 +4,13 @@
 <div id="compose_form_holder">
 	<div id="compose_form_title">
 
+		<% if defined? class_name  %>
 
-	<%= form_for message ,:validate => true  , :html => {:class => "form-horizontal"}, :remote => true  do |f| %>
+		<% else %>
+			<%class_name = "" %>
+		<% end %>
+
+	<%= form_for message ,:validate => true  , :html => {:class => "form-horizontal #{class_name}"}, :remote => true  do |f| %>
 
 
 			<% if defined? admin and admin %>
@@ -14,6 +19,8 @@
 				<%= f.hidden_field :receiver_id, :value => ownerid ,:readonly => true  %>
 				<%= f.hidden_field :item_id, :value => itemid ,:readonly => true  %>
 				<%= f.hidden_field :from,  :value =>  "view" %>
+			<%else %>
+				<%= f.hidden_field :receiver_id, :value => 1 ,:readonly => true  %>
 			<% end %>
 
 		<!-- 1 - admin mesage
@@ -27,6 +34,8 @@
 	 	<% else %>
 	 		<%= f.hidden_field :messagetype,  :value => 0 %>
 	 	<% end %>
+
+	 	
 		<div class="control-group">
 			<%= f.label :message  ,"Personal Message", :class=> 'control-label' %>
 	 		<div class="controls"><%= f.text_area :message, :rows => 6,:cols => 25 %> 		</div>
@@ -46,9 +55,10 @@
 
 	$(document).ready(function(){
 		$("#new_p2p_message").on('submit',function(){
-			$("#contact_seller_modal .close").trigger('click');
-			showNotifications("Sending your request to seller");
-			$("#new_p2p_message").submit();
+			$("#compose_newmsg_modal .close").trigger('click');
+			$("#reply_to_modal .close").trigger('click');
+			showNotifications("Sending your message");
+			$(this).submit();
 			return false;
 		});
 	});

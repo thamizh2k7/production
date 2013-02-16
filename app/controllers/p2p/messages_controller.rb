@@ -67,11 +67,41 @@ class P2p::MessagesController < ApplicationController
   def show
     @message=P2p::Message.find(params[:id])
     
-    @message.update_attributes(:flag=>"read") if @message.flag != "read"
-     respond_to do |format|
-      format.js
-      format.html
-     end
+    if @message.receiver_id = p2p_current_user.id
+      
+      
+         @message.update_attributes(:receiver_status=>"1") if @message.receiver_status != "0"
+
+         name = @message.sender.user.name
+        id = @message.sender.id
+      
+
+    else
+      name = @message.receiver.user.name
+      id = @message.receiver.id
+      
+      return
+    end
+
+
+    dte = @message.created_at.strftime("%d-%m-%C%y")
+
+    if @message.messagetype == 1 #admin requet
+      sub = "Message from Admin"
+    elsif @message.messagetype == 2 #admin requet
+      sub = "Buy request from " + name
+    else
+      sub = "Message"
+    end
+
+    msg = @message.message
+
+    render :json => {:name => name , :sub => sub ,:msg => msg ,:dte => dte ,:receiver => id }
+
+     # respond_to do |format|
+     #  format.js
+     #  format.html
+     # end
 
   end  
 
@@ -110,15 +140,13 @@ class P2p::MessagesController < ApplicationController
   end
 
   def new
-    @mesage=P2p::Message.new
 
-    if request.xhr? 
-      render "messages/compose"
-    else
-      
-    end
+    @mesage= p2p_current_user.sent_messages.new
 
-  end
+    #render "p2p/messages/compose" ,:message => @message
+    #return
+
+ end
 
   def getmessages
 

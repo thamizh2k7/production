@@ -56,8 +56,8 @@ li.dropdown:hover > ul.dropdown-menu{
 
 /*messaes*/
 
-#message_container{
-		min-height: 600px;
+#box_content{
+		min-height: 640px;
 
 }
 
@@ -106,4 +106,17 @@ li.dropdown:hover > ul.dropdown-menu{
 
 .search_messages{
 	
+}
+
+.unread{
+	background-color: lightyellow !important; 
+}
+
+.mydivider{
+	border:1px solid black;
+	width:100%;
+}
+
+.message_message{
+	min-height:50px;
 }

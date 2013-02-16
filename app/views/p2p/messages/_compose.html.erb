@@ -16,13 +16,13 @@
 			<%= f.hidden_field :parent_id ,:readonly => true  %>
 			
 			<% if defined? admin and admin %>
-				<%= f.hidden_field :receiver_id, :value => 1 ,:readonly => true  %>
+				<%= f.hidden_field :receiver_id, :value => "1" ,:readonly => true  %>
 			<% elsif defined? ownerid  %>
 				<%= f.hidden_field :receiver_id, :value => ownerid ,:readonly => true  %>
 				<%= f.hidden_field :item_id, :value => itemid ,:readonly => true  %>
 				<%= f.hidden_field :from,  :value =>  "view" %>
 			<%else %>
-				<%= f.hidden_field :receiver_id, :value => 1 ,:readonly => true  %>
+				<%= f.hidden_field :receiver_id, :value => "1" ,:readonly => true  %>
 			<% end %>
 
 		<!-- 1 - admin mesage

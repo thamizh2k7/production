@@ -39,10 +39,21 @@ class P2p::MessagesController < ApplicationController
 
       # //remove from from the params to pass to create message
       from = params[:p2p_message][:from]
+      parent = params[:p2p_message][:parent_id]
 
       params[:p2p_message].delete(:from)
+      params[:p2p_message][:parent_id]=0
       
-  	 @message=user.sent_messages.create(params[:p2p_message])
+   	  @message=user.sent_messages.create(params[:p2p_message])
+
+      unless parent.nil?
+        begin
+          @message.parent_msg = P2p::Message.find(parent)
+        rescue
+          @message.parent_msg = nil
+        end
+
+      end
 
      unless @message.item.nil?
       @message.item.reqCount +=1
@@ -53,7 +64,7 @@ class P2p::MessagesController < ApplicationController
 
       if request.xhr?
         if from
-          render :js => "showNotifications('Your request was sent'); return false;"
+          render :js => "$('.close').trigger('click');showNotifications('Your request was sent'); return false;"
         end
 
       else
@@ -65,44 +76,59 @@ class P2p::MessagesController < ApplicationController
         
   
   def show
+
+    unless request.xhr?
+        @user=p2p_current_user
+        @message = @user.sent_messages.new
+        @inbox = @user.received_messages.inbox
+
+        render :action => :index
+        return 
+    end
+
     @message=P2p::Message.find(params[:id])
-    
-    if @message.receiver_id = p2p_current_user.id
-      
-      
-         @message.update_attributes(:receiver_status=>"1") if @message.receiver_status != "0"
 
-         name = @message.sender.user.name
-        id = @message.sender.id
-      
+    resp =[]
 
-    else
-      name = @message.receiver.user.name
-      id = @message.receiver.id
-      
-      return
+    while !@message.nil?
+
+      if @message.receiver_id = p2p_current_user.id
+        
+           @message.update_attributes(:receiver_status=>"1") if @message.receiver_status != "0"
+
+          name = @message.sender.user.name
+          id = @message.sender.id
+      else
+        name = @message.receiver.user.name
+        id = @message.receiver.id
+        
+        return
+      end
+
+
+      dte = @message.created_at.strftime("%d-%m-%C%y")
+
+      if @message.messagetype == 1 #admin requet
+        sub = "Message from Admin"
+      elsif @message.messagetype == 2 #admin requet
+        sub = "Buy request from " + name
+      else
+        sub = "Message"
+      end
+
+      msg = @message.message
+
+      resp.push( {:name => name , :sub => sub ,:msg => msg ,:dte => dte ,:receiver => id })
+
+      puts @message.inspect + "pp "
+
+      @message = @message.parent_msg
+
+      puts @message.inspect + "p  asdfp "
+
     end
 
-
-    dte = @message.created_at.strftime("%d-%m-%C%y")
-
-    if @message.messagetype == 1 #admin requet
-      sub = "Message from Admin"
-    elsif @message.messagetype == 2 #admin requet
-      sub = "Buy request from " + name
-    else
-      sub = "Message"
-    end
-
-    msg = @message.message
-
-    render :json => {:name => name , :sub => sub ,:msg => msg ,:dte => dte ,:receiver => id }
-
-     # respond_to do |format|
-     #  format.js
-     #  format.html
-     # end
-
+    render :json => resp
   end  
 
   def destroy
@@ -161,13 +187,31 @@ class P2p::MessagesController < ApplicationController
     search = ""
     if params.has_key?(:searchq)
       search = params[:searchq]
+      
+      puts search.slice(1,(search.size-1))+ "lsjdfak"
+
+      if search.index('#') == 0
+        begin
+          item = P2p::Item.find_by_title(search.slice(1,(search.size-1))).id
+        rescue 
+           item = 0
+        end 
+      end
+
     end
+
 
     if params[:id] == 'inbox' 
 
       if search != ""
-        messages = p2p_current_user.received_messages.inbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start ,:per_page => 10)
-        message_count = p2p_current_user.received_messages.inbox.where("message like '%#{search}%'").count
+            if item !=0
+              messages = p2p_current_user.received_messages.inbox.order("created_at desc").where("item_id=#{item}").paginate( :page => start ,:per_page => 10)
+              message_count = p2p_current_user.received_messages.inbox.where("item_id=#{item}").count      
+            else
+
+              messages = p2p_current_user.received_messages.inbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start ,:per_page => 10)
+              message_count = p2p_current_user.received_messages.inbox.where("message like '%#{search}%'").count
+          end
       else
         messages = p2p_current_user.received_messages.inbox.order("created_at desc").paginate( :page => start ,:per_page => 10)
         message_count = p2p_current_user.received_messages.inbox.count
@@ -176,8 +220,13 @@ class P2p::MessagesController < ApplicationController
 
     elsif params[:id] == 'sentbox' 
       if search != ''
-        messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
-        message_count = p2p_current_user.sent_messages.sentbox.where("message like '%#{search}%'").count
+          if item !=0
+              messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").where("item_id=#{item}").paginate( :page => start,:per_page => 10)
+              message_count = p2p_current_user.sent_messages.sentbox.where("item_id=#{item}").count
+          else
+            messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
+            message_count = p2p_current_user.sent_messages.sentbox.where("message like '%#{search}%'").count
+          end
         
       else
         messages = p2p_current_user.sent_messages.sentbox.order("created_at desc").paginate( :page => start,:per_page => 10)
@@ -186,8 +235,13 @@ class P2p::MessagesController < ApplicationController
       
     elsif params[:id] == 'deletebox' 
       if search !=''
-        messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
-        message_count = P2p::Message.deleted(p2p_current_user).where("message like '%#{search}%'").count
+            if item !=0
+              messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("item_id=#{item}").paginate( :page => start,:per_page => 10)
+                        message_count = P2p::Message.deleted(p2p_current_user).where("item_id=#{item}").count
+            else
+              messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
+              message_count = P2p::Message.deleted(p2p_current_user).where("message like '%#{search}%'").count
+            end
       else
         messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").paginate( :page => start,:per_page => 10)
       end

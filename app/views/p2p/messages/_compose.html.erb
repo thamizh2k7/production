@@ -13,6 +13,8 @@
 	<%= form_for message ,:validate => true  , :html => {:class => "form-horizontal #{class_name}"}, :remote => true  do |f| %>
 
 
+			<%= f.hidden_field :parent_id ,:readonly => true  %>
+			
 			<% if defined? admin and admin %>
 				<%= f.hidden_field :receiver_id, :value => 1 ,:readonly => true  %>
 			<% elsif defined? ownerid  %>
@@ -54,11 +56,19 @@
 <script>
 
 	$(document).ready(function(){
-		$("#new_p2p_message").on('submit',function(){
+
+		<% if class_name == '' %>
+			var obj = "#new_p2p_message"
+		<% else %>
+			var obj = "<%=class_name%>";
+		<% end %>
+
+		
+		$('#message_submit').on('submit',function(){
 			$("#compose_newmsg_modal .close").trigger('click');
 			$("#reply_to_modal .close").trigger('click');
 			showNotifications("Sending your message");
-			$(this).submit();
+			$(obj).submit();
 			return false;
 		});
 	});

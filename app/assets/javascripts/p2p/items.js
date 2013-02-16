@@ -54,19 +54,8 @@ $(document).ready(function(){
 
 
 			$("#category").on('save',function(e,params){
-
-				console.log(params.newValue);
-
-				if (params.newValue != 0){
-					$.ajax({
-						url:'/p2p/getbrand/' + params.newValue,
-						type:"get",
-						async:false,
-						success:function(data){
-								$("#model").attr('data-source',JSON.stringify(data));
-						}
-					});
-				}
+				$("#model").attr('data-source','/p2p/getbrand/'+params.newValue)
+				$('#model').editable();
 			});
 
 			//validate location
@@ -82,8 +71,12 @@ $(document).ready(function(){
 					$(this).addClass('error');
 				}
 			});
-
-
+			window.url = '/p2p'
+			$('#model').editable({
+  			selector: 'a',
+  			url: window.url,
+  			pk: 1
+			});
 
 			//validate price
 			$('#item_price').on('save', function(e, params) {

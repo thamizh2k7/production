@@ -76,7 +76,7 @@ Sociorent::Application.routes.draw do
     resources :images
     resources :credits 
 
-
+      post 'users/list' => 'users#list'
       get '' => "index#index"
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"

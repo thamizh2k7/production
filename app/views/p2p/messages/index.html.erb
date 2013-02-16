@@ -15,6 +15,7 @@
 
 		  <ul class="nav nav-list">
 		    
+		    
 		 		<!--message modal  -->
 		 		<!-- Button to trigger modal -->
 					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn "  >Compose</a>
@@ -28,7 +29,7 @@
 					  </div>
 					  <div class="modal-body">
 					    <p> 			    	
-				    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" %>
+				    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" , :toany => true %>
 						</p>
 					  </div>
 					</div>

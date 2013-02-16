@@ -62,6 +62,8 @@ class P2p::MessagesController < ApplicationController
      end
 
       
+      @sender_unreadcount = P2p::User.find(@receiver_id).received_messages.inbox.unread.count
+      @receiver_unreadcount = p2p_current_user.received_messages.inbox.unread.count
 
       # if request.xhr?
       #   if from
@@ -129,7 +131,15 @@ class P2p::MessagesController < ApplicationController
 
     end
 
+    unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
+    # publish to change th read count
+    PrivatePub.publish_to("/user_#{p2p_current_user.id}", "$('#unread_count').html('(#{unreadcount})');")
+    
+    
+
+
     render :json => resp
+
   end  
 
   def destroy
@@ -269,15 +279,23 @@ class P2p::MessagesController < ApplicationController
       end
   
       
+      if msg.receiver_status == 0
+        row_class = 'unread'
+      else
+        row_class = ''
+      end
 
-      response[:aaData].push(["<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
-                          msg.id,
-                          msg.messagetype,
-                          msg.sender.user.name,
-                          "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
-                          tme,
-                          
-                          ])
+
+      response[:aaData].push({
+                          "0" => "<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
+                          "1" => msg.id,
+                          "2" => msg.messagetype,
+                          "3" => msg.sender.user.name,
+                          "4" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
+                          "5" => tme,
+                          "DT_RowClass" => row_class
+                          })
+
     end 
 
     render :json => response

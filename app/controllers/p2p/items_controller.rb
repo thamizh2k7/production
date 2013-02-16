@@ -20,21 +20,37 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
-    item.product = P2p::Product.find(params["brand"])
+    item.product = P2p::Product.find(1)
+    #item.product = P2p::Product.find(params["brand"])
 
     #echo params["item"]['attribute'].count
     
+
      params["spec"].each do |key,value|
         next if value == "" 
+        
+        begin
+          attr = P2p::ItemSpec.new
+          attr.spec = P2p::Spec.find(key.to_i)
+          attr.value = value
+          item.specs << attr
+        rescue
+        end
 
-       attr = P2p::ItemSpec.new
-       attr.spec = P2p::Spec.find(key.to_i)
-       attr.value = value
-       item.specs << attr
      end
 
      data={}
     if item.save 
+
+      P2p::User.find(1).sent_messages.create({:receiver_id => p2p_current_user.id ,
+                                              :message => 'This is an auto generated system message. Your item is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+                                              });
+
       data['status'] = 1;
       data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
     else
@@ -243,5 +259,58 @@ end
     redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
 
   end
+
+  def approve
+
+    if params.has_key?(:query)
+
+      if params[:query] == 'disapprove'
+        P2p::Item.unscoped.find(params[:id]).update_attributes();
+        render :json => '0'
+        return
+      elsif params[:query] == 'approve'
+        item = P2p::Item.unscoped.find(params[:id])
+        item.update_attributes(:approveddate => Time.now)
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => p2p_current_user.id ,
+                                              :message => "This is an auto generated system message. Your item is verified , approved  and  will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+
+                                                  });
+          # private pub
+
+          unreadcount = item.user.received_messages.inbox.unread.count
+          if unreadcount > 0 
+            header_count = "$('#header_msg_count').html('(#{unreadcount})');"
+          else
+            header_count = "$('#header_msg_count').html('');"
+          end
+
+          if unreadcount > 0 
+            message_page_count = " $('#unread_count').html('(#{unreadcount})');"
+          else
+            message_page_count = " $('#unread_count').html('');"
+          end
+
+
+          PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count )
+          
+          
+
+        render :json => '1'
+        return
+      end
+
+      render :json => '0'
+      return
+    else
+      @items = P2p::Item.unscoped.notapproved.paginate(:page => params[:page] , :per_page => 20)
+    end
+  end
+
 
 end

@@ -100,6 +100,7 @@ Sociorent::Application.routes.draw do
       get 'mystore(/:query)' => 'items#inventory'
 
       get 'dashboard' => 'users#dashboard'
+      match 'approve(/:query)' => 'items#approve'
       
       get 'getmessages(/:id)' => 'messages#getmessages'
 

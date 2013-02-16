@@ -1,0 +1,134 @@
+
+<div class="row" id="body_content" >
+
+     <div id="filter" class="span2">
+
+      <ul class="nav nav-list">
+
+        <li class="nav-header">Menu</li>
+        <li><a href="/p2p">Home</a></li>
+        <% if p2p_current_user.id == 1 %>
+        	<li><a href="/p2p/approve">Approve Items</a></li>
+        <% end %>
+        <li><a href="/p2p/dashboard">Dashboard</a></li>
+        <li><a href="/p2p/messages">Messages</a></li>
+        <li><a href="/p2p/mystore">My Store</a></li>
+
+        <%= render "/p2p/index/scat_menu" %>
+
+      </ul>
+    </div>
+
+	<div class="span10">
+
+
+          <div id="listHeader" class="row">
+      <p class="fleft"> <b>Approve</b></p>
+      </a></p>
+    </div>
+
+
+
+  <div class="itemsRow">
+      <%= will_paginate(@items) %>
+        <ul class="thumbnails">    
+    <% @items.each do |p|%>
+
+            <li class="span2">
+                <div class="thumbnail">
+                  <div class="disapprove_item pull-right" itemid="<%=p.id%>"></div>
+                  <div class="approve_item pull-right" itemid="<%=p.id%>"></div>
+
+                  <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
+
+                  <img src="<%=p.get_image(1,:search)[0][:url]%>" >
+                  <div class="caption">
+                    <b><%= p.title.slice(0,10)  %></b>
+                    <p>
+
+                      <ul>
+                        <li><del>&#2352;</del> <%=p.price %></li>
+                        <li><del>&#2352;</del> <%=p.condition %></li>
+                        
+  <!--                              <li>Attribute 2</li>
+                        <li>Attribute 3</li>
+  -->                              
+                      </ul>
+                    </p>
+
+                  </div>
+
+                  </a>
+
+                </div>
+
+            </li>
+    
+
+        <% end %>
+
+        </ul>
+
+
+  </div>
+
+
+	</div>
+
+</div>
+
+
+<script>
+  $(document).ready(function(){
+
+      $('.disapprove_item').on('click',function(){
+          var that  = $(this);
+
+          $.ajax({
+            url:'/p2p/approve/disapprove',
+            data:{id: that.attr('itemid')},
+            dateType:'json',
+            type:'post',
+            success:function(data){
+                if (data ==  1) {
+                  showNotifications('Item DIsapproved');
+                  that.parent().parent().remove();
+                }
+                else{
+                  showNotifications('Something went wrong');
+                }
+            },
+            error:function(){
+                showNotifications('Something went wrong');
+            }
+          });
+      });
+
+
+      $('.approve_item').on('click',function(){
+          var that  = $(this);
+
+          $.ajax({
+            url:'/p2p/approve/approve',
+            data:{id: that.attr('itemid')},
+            dateType:'json',
+            type:'post',
+            success:function(data){
+                if (data ==  1) {
+                  showNotifications('Item Approved');
+                  that.parent().parent().remove();
+                }
+                else{
+                  showNotifications('Something went wrong');
+                }
+            },
+            error:function(){
+                showNotifications('Something went wrong');
+            }
+          });
+      });
+
+
+  });
+  
+</script>

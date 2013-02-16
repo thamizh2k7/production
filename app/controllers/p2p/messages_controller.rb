@@ -44,6 +44,7 @@ class P2p::MessagesController < ApplicationController
       params[:p2p_message].delete(:from)
       params[:p2p_message][:parent_id]=0
       
+      @receiver_id = params[:p2p_message][:receiver_id]
    	  @message=user.sent_messages.create(params[:p2p_message])
 
       unless parent.nil?
@@ -62,15 +63,15 @@ class P2p::MessagesController < ApplicationController
 
       
 
-      if request.xhr?
-        if from
-          render :js => "$('.close').trigger('click');showNotifications('Your request was sent'); return false;"
-        end
+      # if request.xhr?
+      #   if from
+      #     render :js => "$('.close').trigger('click');showNotifications('Your request was sent'); return false;"
+      #   end
 
-      else
-        flash[:notice] = "Message sent Successfully"
-        redirect_to "/p2p/messages/"
-      end
+      # else
+      #   flash[:notice] = "Message sent Successfully"
+      #   redirect_to "/p2p/messages/"
+      # end
       
     end
         

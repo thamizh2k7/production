@@ -24,4 +24,5 @@
 //= require p2p/jquery.history.js
 //= require p2p/search.js
 //= require p2p/items.js
+//= require private_pub
 // require_tree .

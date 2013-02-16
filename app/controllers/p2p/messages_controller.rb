@@ -134,8 +134,19 @@ class P2p::MessagesController < ApplicationController
     unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
     # publish to change th read count
 
-    header_count = "$('#header_msg_count').html('(#{unreadcount})');"
-    message_page_count = " $('#unread_count').html('(#{unreadcount})');"
+    
+
+    if unreadcount > 0 
+      header_count = "$('#header_msg_count').html('(#{unreadcount})');"
+    else
+      header_count = "$('#header_msg_count').html('');"
+    end
+
+    if unreadcount > 0 
+      message_page_count = " $('#unread_count').html('(#{unreadcount})');"
+    else
+      message_page_count = " $('#unread_count').html('');"
+    end
 
 
     PrivatePub.publish_to("/user_#{p2p_current_user.id}", header_count + message_page_count )

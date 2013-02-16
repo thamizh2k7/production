@@ -97,21 +97,25 @@
 
 	<script type="script/template" id="view_msg">
 
-						<div id="message_user_name" recevid=<%%=data['receiver']%>> Name:  
+		<%% _.each(data,function(dt){%>
+
+					<hr/>
+
+					<div id="message_user_name" recevid=<%%=dt['receiver']%>> Name:  
 						<span id="message_user_name_content">
-								<%%= data['name']%>
+								<%%= dt['name']%>
 						</span>
 					</div>
 
 					<div id="message_datetime"> Date:  
 						<span id="message_datetime_content">
-								<%%= data['dte'] %>
+								<%%= dt['dte'] %>
 						</span>
 					</div>
 
 					<div id="message_item"> Subject:  
 						<span id="message_item_content">
-								<%%= data['sub'] %>
+								<%%= dt['sub'] %>
 						</span>
 					</div>
 
@@ -119,10 +123,10 @@
 
 					<div id="message_message"> Message:  
 						<span id="message_message_content">
-								<%%= data['msg'] %>
+								<%%= dt['msg'] %>
 						</span>
 					</div>
-
+		<%% }) %>
 	</script>
 
 
@@ -248,7 +252,7 @@
 
 		$(".search_messages").keyup(function(){
 
-			if ( $(this).val().length < 4 && $(this).val().length != 0) return false;
+			if ( $(this).val().length < 3 && $(this).val().length != 0) return false;
 
 			if ($(this).attr('tbl')=='inbox'){
 				oInboxTable.fnDraw();
@@ -277,9 +281,16 @@
 		$('#reply_to_button').on('click',function(){
 
 			$("#reply_to_modal .reply_to_user #p2p_message_receiver_id").val($("#show_msg #message_user_name").attr('recevid'));
+			$("#reply_to_modal .reply_to_user #p2p_message_parent_id").val($(".reply_to_user").attr('msgid'));
 			console.log($("#reply_to_modal"));
 			//$("#message_user_name").attr("recev")
 		});
+
+
+		if (window.location.hash != ' '){
+			$("#search_inbox").val(window.location.hash);
+			$("#search_inbox").trigger('keyup');
+		}
 
 	});
 

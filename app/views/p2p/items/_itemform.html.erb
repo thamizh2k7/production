@@ -100,23 +100,8 @@
 
 		          	<!-- view Request messages modal  -->
 			 		<!-- Button to trigger modal -->
-					<a href="#request_messages_modal" role="button" class="btn" data-toggle="modal"><i title="View Messages" class="action_icon icon-envelope"></i> <%=reqcount%></a>
+					<a href="/p2p/messages/#<%=title%>" role="button" class="btn" data-toggle="modal"><i title="View Messages" class="action_icon icon-envelope"></i> <%=reqcount%></a>
 					 
-					<!-- Modal -->
-					<div id="request_messages_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="request_messages_modallLabel" aria-hidden="true">
-					  <div class="modal-header">
-					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					    <h3 id="request_messages_modalLabel">View Requests</h3>
-					  </div>
-					  <div class="modal-body">
-
-					    	<% @messages.each do |msg| %>
-					    		<li> <%= msg.message %> </li>
-					    	<% end %>
-					  </div>
-					</div>
-
-
 	      		</div>
 
 			  <% end %>

@@ -1,10 +1,12 @@
 class P2p::Message < ActiveRecord::Base
-  attr_accessible :item_id, :message, :messagetype, :created_at, :updated_at, :sender_id ,:receiver_id, :sender_status ,:receiver_status
+  attr_accessible :item_id, :message, :messagetype, :created_at, :updated_at, :sender_id ,:receiver_id, :sender_status ,:receiver_status,:parent_id
   
   
   # Associations to User
   belongs_to :sender, :class_name=>'P2p::User', :foreign_key=>'sender_id'
   belongs_to :receiver, :class_name=>'P2p::User', :foreign_key=>'receiver_id'
+
+  has_one :parent_msg ,:class_name => 'P2p::Message' , :foreign_key => 'parent_id'
 
   belongs_to :item
   

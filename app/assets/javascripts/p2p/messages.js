@@ -53,15 +53,17 @@
 					}
 			});
 
+			
 			//if nothing is selected reutnr 
 			if (delete_messages.length < 0 ){
 				alert('Please select atleast one message');
-				that.removeAttr('checked')
+				$("#" + that.attr('tbl') + " .master_check").removeAttr('checked');
 				return false;
 			}
 			
 			showOverlay();
 
+			showNotifications("Processing  " + delete_messages.length + " messages.! Please wait");
 			// delete the messages using ajax
 			$.ajax({
 				url:'/p2p/messages/0',
@@ -71,7 +73,7 @@
 				success:function(data){
 
 					// reset the checkbox
-					that.removeAttr('checked');
+					$("#" + that.attr('tbl') + " .master_check").removeAttr('checked');
 
 					if (data['unreadcount'] > 0){
 						$('#inbox_count').html("(" + data['unreadcount'] +  ")");
@@ -94,6 +96,11 @@
 
 					// #hide the overloy
 					$("#overlay").hide();
+					if (delete_messages.length > 0)
+						showNotifications("Successfully " + delete_messages.length + " messages");
+				},
+				error:function(){
+					showNotifications("Cannot delete any message");
 				}
 			});
 

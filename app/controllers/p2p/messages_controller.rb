@@ -237,13 +237,14 @@ class P2p::MessagesController < ApplicationController
       if search !=''
             if item !=0
               messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("item_id=#{item}").paginate( :page => start,:per_page => 10)
-                        message_count = P2p::Message.deleted(p2p_current_user).where("item_id=#{item}").count
+              message_count = P2p::Message.deleted(p2p_current_user).where("item_id=#{item}").count
             else
               messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").where("message like '%#{search}%'").paginate( :page => start,:per_page => 10)
               message_count = P2p::Message.deleted(p2p_current_user).where("message like '%#{search}%'").count
             end
       else
         messages = P2p::Message.deleted(p2p_current_user).order("created_at desc").paginate( :page => start,:per_page => 10)
+        message_count = P2p::Message.deleted(p2p_current_user).count
       end
       
     end

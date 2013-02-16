@@ -37,8 +37,8 @@
 		    <li class="active"><a href="#inbox" data-toggle="tab">
 		    	<% unreadcount = @inbox.unread.count %>
 		    	Inbox
-		    	<span id="inbox_count">
-		    		<%= (unreadcount > 0) ?  "(#{unreadcount.to_s})" : "" %>
+		    	<span>
+		    		<%= (unreadcount > 0) ?  ("(<a id='inbox_count'>#{unreadcount.to_s}</a>)").html_safe : "" %>
 		    	</span>
 		        </a></li>
 	            

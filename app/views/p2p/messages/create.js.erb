@@ -1,2 +1,6 @@
 $(".close").trigger("click");
 showNotifications('Message sent');
+<% @outgoing_channel = "/user_#{@receiver_id}"%>
+<% publish_to @outgoing_channel do %>
+  $("#inbox_count").html(parseInt($("#inbox_count").text()+1));
+<% end %>

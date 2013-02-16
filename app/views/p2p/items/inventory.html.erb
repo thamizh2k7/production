@@ -8,6 +8,10 @@
 
         <li class="nav-header">Menu</li>
         <li><a href="/p2p">Home</a></li>
+        <% if p2p_current_user.id == 1 %>
+          <li><a href="/p2p/approve">Approve Items</a></li>
+        <% end %>
+
         <li><a href="/p2p/dashboard">Dashboard</a></li>
         <li><a href="/p2p/messages">Messages</a></li>
         <li><a href="/p2p/mystore">My Store</a></li>

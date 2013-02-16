@@ -201,12 +201,12 @@ end
     if params[:query].present? 
 
       if params[:query] == "sold"
-        @items = user.items.sold
+        @items = user.items.sold.paginate(:page => params[:page] , :per_page => 20)
       end
 
     else
 
-      @items = user.items.notsold
+      @items = user.items.notsold.paginate(:page => params[:page] ,:per_page => 20 )
       
     end
     

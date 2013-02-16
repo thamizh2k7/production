@@ -14,8 +14,9 @@
 
 
 			<%= f.hidden_field :parent_id ,:readonly => true  %>
-			
-			<% if defined? admin and admin %>
+			<% if defined? toany and toany %>
+				<%= f.text_field :receiver_id %>
+			<% elsif defined? admin and admin %>
 				<%= f.hidden_field :receiver_id, :value => "1" ,:readonly => true  %>
 			<% elsif defined? ownerid  %>
 				<%= f.hidden_field :receiver_id, :value => ownerid ,:readonly => true  %>
@@ -71,6 +72,42 @@
 			$(obj).submit();
 			return false;
 		});
+
+		<% if defined? toany and toany %>
+
+		window.cache={}
+
+	    $("#p2p_message_receiver_id").autocomplete({
+	      minLength: 2,
+	      source: function( request, response ) {
+	        var term = request.term;
+	        if ( term in cache ) {
+	          response( cache[ term ] );
+	          return;
+	        }
+
+			$.ajax({
+				url:'/p2p/users/list',
+				data:{q:term},
+				dataType:"json",
+				type:'post',
+				success:function(data){
+		          cache[ term ] = data;
+          			response( data );
+
+				}
+			});
+
+	      },
+	      select:function(event,elem){
+	          
+	      },
+	      focus:function(){
+	        
+	      }
+	    });
+
+		<% end %>
 	});
 
 </script>

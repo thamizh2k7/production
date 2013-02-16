@@ -10,6 +10,19 @@ class P2p::UsersController < ApplicationController
   	
   end
 
+  def list
+    users = User.where("email like '%#{params[:q]}%'")
+    resp = []
+
+    users.each do |usr|
+      p2pusr = P2p::User.find_by_user_id(usr.id)
+      resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
+    end
+
+    render :json => resp
+
+  end
+
   def welcome
 
   			# check if signed in , purpose fully removed the before filter 

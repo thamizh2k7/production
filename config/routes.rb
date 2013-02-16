@@ -79,6 +79,9 @@ Sociorent::Application.routes.draw do
       match '/categories' => "categories#index"
       match '/categories/sub' => "categories#subcategory"
 
+      post 'users/list' => 'users#list'
+
+
       get '' => "index#index"
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"

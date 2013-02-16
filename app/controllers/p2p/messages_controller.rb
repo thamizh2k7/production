@@ -108,8 +108,8 @@ class P2p::MessagesController < ApplicationController
         return
       end
 
-
-      dte = @message.created_at.strftime("%d-%m-%C%y")
+ 
+     dte = @message.created_at.strftime("%d-%m-%C%y")
 
       if @message.messagetype == 1 #admin requet
         sub = "Message from Admin"
@@ -133,7 +133,12 @@ class P2p::MessagesController < ApplicationController
 
     unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
     # publish to change th read count
-    PrivatePub.publish_to("/user_#{p2p_current_user.id}", "$('#unread_count').html('(#{unreadcount})');")
+
+    header_count = "$('#header_msg_count').html('(#{unreadcount})');"
+    message_page_count = " $('#unread_count').html('(#{unreadcount})');"
+
+
+    PrivatePub.publish_to("/user_#{p2p_current_user.id}", header_count + message_page_count )
     
     
 
@@ -145,6 +150,11 @@ class P2p::MessagesController < ApplicationController
   def destroy
     
     deleted_messages = []
+
+    if !params.has_key?(:msgid) 
+      render :json=> []
+      return
+    end
 
     params[:msgid].each do |id|
 
@@ -170,6 +180,21 @@ class P2p::MessagesController < ApplicationController
     end
 
     unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
+
+   # private pub section
+    unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
+    # publish to change th read count
+    if unreadcount > 0 
+      header_count = "$('#header_msg_count').html('');"
+      message_page_count = " $('#unread_count').html('');"
+    else
+      header_count = "$('#header_msg_count').html('');"
+      message_page_count = " $('#unread_count').html();"
+    end
+
+    PrivatePub.publish_to("/user_#{p2p_current_user.id}", header_count + message_page_count )
+    
+    
 
     render :json => {:id =>  deleted_messages , :unreadcount => unreadcount}
 

@@ -14,7 +14,13 @@
 
           <% unless current_user.nil? %>
           
-          <li><a href="/p2p/messages">Messages</a></li>
+          <li>
+            <a href="/p2p/messages">
+              <div id="header_msg_count"> <%= p2p_current_user.received_messages.inbox.unread.count if p2p_current_user.received_messages.inbox.unread.count > 0  %> </div>
+              <span class="pull-left" >Messages</span>
+            </a>
+          </li>
+
           <li><a href="/p2p/mystore">My Store</a></li>
           <li><a href="/p2p/sellitem">List New Item</a></li>
           

@@ -37,11 +37,25 @@ class P2p::Item < ActiveRecord::Base
     res=[]
 
     if self.images.count == 0 
-      res.push({:url => "/assets/noimage.jpg" ,:id => 0})
+        if type  == :view
+          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+        elsif type == :thumb
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+        elsif type == :search 
+          res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+        end
+      
     else
 
       unless self.images.first.img.exists?
-        res.push({:url => "/assets/noimage.jpg" ,:id => 0})
+        if type  == :view
+          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+        elsif type == :thumb
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+        elsif type == :search 
+          res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+        end
+
         return res
       end
 
@@ -52,7 +66,15 @@ class P2p::Item < ActiveRecord::Base
       else
         img.each do |img|
           unless img.img.exists?
-            res.push({:url => "/assets/noimage.jpg" ,:id => 0})
+    
+            if type  == :view
+              res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            elsif type == :thumb
+              res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+            elsif type == :search 
+              res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+            end
+
           end
 
           res.push ({:url => img.img.url(type) , :id => img.id.to_s })

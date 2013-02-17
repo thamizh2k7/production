@@ -35,6 +35,29 @@ class P2p::Message < ActiveRecord::Base
     where("(sender_id = #{user.id} and sender_status=3) or (receiver_id = #{user.id} and receiver_status=3)")
   } 
 
+  after_create :publish_to_stream
+
+  def publish_to_stream
+
+    message_notification = "
+         $('#notificationcontainer').notify('create', 'new_message_notification', {
+              username: '#{self.sender.user.name}',
+              msg: '#{self.message.slice(0,40)}'
+          });
+      "
+
+    receiver_unreadcount = self.receiver.received_messages.inbox.unread.count
+
+      if receiver_unreadcount > 0 
+            unread_msg = "$('#unread_count').html('(<%=receiver_unreadcount%>)');"
+      else
+            unread_msg = "$('#unread_count').html('');"
+      end
+
+
+
+    PrivatePub.publish_to("/user_#{self.receiver.id}", unread_msg + message_notification )
+  end
 
   	def message_type
 

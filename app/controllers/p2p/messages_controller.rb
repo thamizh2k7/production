@@ -61,27 +61,8 @@ class P2p::MessagesController < ApplicationController
       @message.item.save
      end
 
-     @message_notification = "
-         $('#notificationcontainer').notify('create', 'new_message_notification', {
-              username: '#{@message.sender.user.name}',
-              msg: '#{@message.message.slice(0,20)}'
-          });
-      "
-      
-      @sender_unreadcount = P2p::User.find(@receiver_id).received_messages.inbox.unread.count
-      @receiver_unreadcount = p2p_current_user.received_messages.inbox.unread.count
 
-      # if request.xhr?
-      #   if from
-      #     render :js => "$('.close').trigger('click');showNotifications('Your request was sent'); return false;"
-      #   end
-
-      # else
-      #   flash[:notice] = "Message sent Successfully"
-      #   redirect_to "/p2p/messages/"
-      # end
-      
-    end
+ end
         
   
   def show

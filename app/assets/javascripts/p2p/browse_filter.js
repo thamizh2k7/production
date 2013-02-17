@@ -39,6 +39,7 @@ $(document).ready(function(){
 
 	// TO load more items
 	function load_more(){	
+		$("#load_more div").html(' <img src="/assets/ajax_small.gif"/> Loading more items..! Please wait');
 		$.ajax({
 			url:window.filterurl ,
 			data:{"filter": filters ,page: page_num},
@@ -53,11 +54,13 @@ $(document).ready(function(){
 				window.page_num += 1;
 				var templ=_.template($("#item_template").html(),{data:data});
 				$("#load_more_content").replaceWith(templ);
+				$("#load_more div").html("Load more...");
 				$("#overlay").hide(100);
 			},
 			error:function(){
 				showNotifications("Something went wrong. Try again");
 				$("#overlay").hide(100);
+				$("#load_more div").html("Load more...");
 			}
 		});
 
@@ -65,6 +68,9 @@ $(document).ready(function(){
 
 	// Main function working out the filter
 	function call_filter(spec,val,that){
+		
+		showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
+
 		showOverlay();
 		$.ajax({
 			url:window.filterurl ,
@@ -80,6 +86,8 @@ $(document).ready(function(){
 					else if (val.length > 0){
 						fil_url .push(key + '='+ val);
 					}
+
+					hideNotifications();
 				});
 
 				// Pushing into the histroy

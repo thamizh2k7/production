@@ -83,6 +83,8 @@
 
 		$(document).ready(function(){
 
+			//return if no filters
+			if (old_filters == null) return false;
 
 			if ('sort' in old_filters) {
 

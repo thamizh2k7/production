@@ -25,4 +25,6 @@
 //= require p2p/search.js
 //= require p2p/items.js
 //= require private_pub
+//= require p2p/jquery-scrolltofixed-min
+//= require p2p/category_menu
 // require_tree .

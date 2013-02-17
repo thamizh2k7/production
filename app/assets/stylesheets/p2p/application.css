@@ -10,3 +10,10 @@
 */
 
 
+
+
+/*#TODO  REMOVE AFTER ADDIN JQUERY UI FOR AUTOCOMPLETE IMAGE*/
+
+.ui-autocomplete-loading{
+	background:url('/assets/ajax_small.gif') no-repeat right center;
+}

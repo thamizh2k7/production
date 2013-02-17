@@ -87,6 +87,8 @@
 			if ('sort' in old_filters) {
 
 				$("#filter_sort").val(old_filters['sort']);
+				filters['sort']=old_filters['sort'];
+
 			}
 			_.each($('.spec-filter'),function(elm){
 

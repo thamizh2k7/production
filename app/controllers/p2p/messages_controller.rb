@@ -321,14 +321,21 @@ class P2p::MessagesController < ApplicationController
         row_class = ''
       end
 
+      
+
+      if msg.messagetype ==  2
+        msgtype = "<i class=' action  icon-shopping-cart '  title='Buy Request'></i>";
+      else
+        msgtype = "<i class=' action  icon-certificate ' title='Admin Messages'></i>";  
+      end
+
 
       response[:aaData].push({
                           "0" => "<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
-                          "1" => msg.id,
-                          "2" => msg.messagetype,
-                          "3" => msg.sender.user.name,
-                          "4" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
-                          "5" => tme,
+                          "1" => msgtype,
+                          "2" => msg.sender.user.name,
+                          "3" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
+                          "4" => tme,
                           "DT_RowClass" => row_class
                           })
 

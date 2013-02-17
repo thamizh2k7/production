@@ -107,8 +107,8 @@ Sociorent::Application.routes.draw do
 
       
 
-      match ":cat/filters(/*applied_filters)" =>"index#browse_filter"
-      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"
+      match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/ 
+      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/ 
 
       get ':cat/:prod/:item' => 'items#view'
       get ':cat(/:prod)' => "index#browse" 

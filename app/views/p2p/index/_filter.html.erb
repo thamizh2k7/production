@@ -3,7 +3,7 @@
 <!-- overlay to be displayed during filter request -->
 	<div id="overlay"></div>
 
-		<% item_condition_res = category.items.select("distinct p2p_items.condition") %>
+		<% item_condition_res = category.items.select("distinct p2p_items.condition").order('p2p_items.condition asc') %>
 
 		<% if item_condition_res.count > 0 %>
 			<li class="nav-header"> Condition </li>
@@ -18,14 +18,16 @@
 
 		<% category.specs.each do |spec|%>
 			<li class="nav-header"> <%= spec.name %> </li>
-				<% spec.itemspecs.select(" distinct value").each do |itemspec| %>
+				<% spec.itemspecs.select(" distinct value").order('value asc').sort.each do |itemspec| %>
 					<li class="spec-filter" spec-name="<%=spec.name%>" spec-value="<%=itemspec.value%>">
 						<i class="icon-remove icon-white hide pull-right"></i>
 						<a href="#"> <%= itemspec.value	%> </a>
 					</li>
 				<% end %>
 			<% end %>
+
 	    <li class="divider"></li>
+
 
 
 		<!-- Template for the search results -->

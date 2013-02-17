@@ -89,13 +89,13 @@ li.dropdown:hover > ul.dropdown-menu{
 
 
 
-.nav-list > .active > a{
+#message_side_menu .nav-list > .active > a{
 	background-color: white;
 	color:blue;
 	border-left: 3px solid blue;
 }
 
-.nav-list > .active > a:hover{
+#message_side_menu .nav-list > .active > a:hover{
 	background-color: #eeeeee;
 	color:blue;
 }

@@ -6,6 +6,7 @@
 *= require p2p/index/itemList
 *= require p2p/inventory
 *= require p2p/p2p
+*= require p2p/ui.notify
 *= require_tree .
 */
 

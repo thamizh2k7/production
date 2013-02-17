@@ -27,4 +27,5 @@
 //= require private_pub
 //= require p2p/jquery-scrolltofixed-min
 //= require p2p/category_menu
+//= require p2p/jquery.notify
 // require_tree .

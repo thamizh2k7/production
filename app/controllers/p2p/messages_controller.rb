@@ -61,6 +61,12 @@ class P2p::MessagesController < ApplicationController
       @message.item.save
      end
 
+     @message_notification = "
+         $('#notificationcontainer').notify('create', 'new_message_notification', {
+              username: '#{@message.sender.user.name}',
+              msg: '#{@message.message.slice(0,20)}'
+          });
+      "
       
       @sender_unreadcount = P2p::User.find(@receiver_id).received_messages.inbox.unread.count
       @receiver_unreadcount = p2p_current_user.received_messages.inbox.unread.count
@@ -337,7 +343,7 @@ class P2p::MessagesController < ApplicationController
 
 
       response[:aaData].push({
-                          "0" => "<input type='checkbox' class='msg_check' msgid=\"#{msg.id}\" >",
+                          "0" => "<input type='checkbox' class='msg_check' msgid='#{msg.id}' >",
                           "1" => msgtype,
                           "2" => msg.sender.user.name,
                           "3" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",

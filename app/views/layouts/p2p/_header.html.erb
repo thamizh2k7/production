@@ -44,5 +44,39 @@
   </div>
 </div>
 
+
+<!-- set the container hidden to avoid a flash of unstyled content
+when the page first loads -->
+<div id="notificationcontainer" style="display:none">
+ 
+    <!-- 
+    Later on, you can choose which template to use by referring to the 
+    ID assigned to each template.  Alternatively, you could refer
+    to each template by index, so in this example, "basic-tempate" is
+    index 0 and "advanced-template" is index 1.
+    -->
+    <div id="simple_notification">
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+        <h1><i class="action icon-envelope"></i>#{title}</h1>
+        <p>#{text}</p>
+    </div>
+
+     <div id="new_message_notification">
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+        <h1><i class="action icon-envelope"></i>You have a new message from #{username}</h1>
+        <p style="margin:10px;">#{msg}</p>
+    </div>
+ 
+</div>
+
+<script>
+
+  $(document).ready(function(){
+      $("#notificationcontainer").notify();
+
+  });
+
+</script>
   
 <%= javascript_include_tag '/assets/p2p/search'%>
+

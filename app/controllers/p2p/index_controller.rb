@@ -350,10 +350,12 @@ def search_list
 
         if params[:filter].has_key?("sort")
 
+           sortby =  params[:filter][:sort][0].to_s
+            params[:filter].delete(:sort)
 
-          case params[:filter][:sort]
-              when "0"
-                order_result = "priority"
+          case sortby
+              # when "0"
+              #   order_result = "priority"
               when "1"
                 order_result = "price desc"
               when "2"
@@ -361,7 +363,9 @@ def search_list
               else
               order_result = ""
           end
-          params[:filter].delete(:sort)
+
+
+          
 
         end
 

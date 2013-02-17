@@ -82,6 +82,12 @@
 		var old_filters =<%= raw @view_filter_set.to_json %>;
 
 		$(document).ready(function(){
+
+
+			if ('sort' in old_filters) {
+
+				$("#filter_sort").val(old_filters['sort']);
+			}
 			_.each($('.spec-filter'),function(elm){
 
 

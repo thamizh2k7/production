@@ -29,7 +29,7 @@
 
 			 		<!-- contact seller modal  -->
 			 		<!-- Button to trigger modal -->
-			 		<i class="action_icon" title="You have sent <%=buyerreqcount%>">
+			 		<i class="action_icon" title="You have sent <%= (p2p_current_user.nil?) ? 0 : buyerreqcount %>">
 						<a href="#login_to_contactmodal" role="button" class="btn " data-toggle="modal"  >Contact Seller</a>
 					</i>
 					 

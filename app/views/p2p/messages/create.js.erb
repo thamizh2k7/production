@@ -5,7 +5,7 @@ showNotifications('Message sent');
 <% @outgoing_channel = "/user_#{@receiver_id}"%>
 <% publish_to @outgoing_channel do %>
 	// reload the table
-	if (oInboxTable) {
+	if (typeof(oInboxTable) != "undefined" ) {
 		oInboxTable.fnDraw();
 	}
 

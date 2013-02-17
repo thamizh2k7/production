@@ -12,6 +12,8 @@ showNotifications('Message sent');
 	// change the unread count
   $("#unread_count").html("(<%=@sender_unreadcount%>)");
 
+	<%= @message_notification.html_safe %>
+
   $("#header_msg_count").html("(<%=@sender_unreadcount%>)");
 <% end %>
 

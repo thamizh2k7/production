@@ -55,7 +55,7 @@
 
 			
 			//if nothing is selected reutnr 
-			if (delete_messages.length < 0 ){
+			if (delete_messages.length < 1 ){
 				alert('Please select atleast one message');
 				$("#" + that.attr('tbl') + " .master_check").removeAttr('checked');
 				return false;
@@ -95,12 +95,15 @@
 					}
 
 					// #hide the overloy
-					$("#overlay").hide();
+					
 					if (delete_messages.length > 0)
 						showNotifications("Successfully " + delete_messages.length + " messages");
+
+					$("#overlay").hide();
 				},
 				error:function(){
 					showNotifications("Cannot delete any message");
+					$("#overlay").hide();
 				}
 			});
 

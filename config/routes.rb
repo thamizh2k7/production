@@ -76,6 +76,7 @@ Sociorent::Application.routes.draw do
     resources :images
     resources :credits 
 
+
       match '/categories' => "categories#index"
       match '/categories/sub' => "categories#subcategory"
 

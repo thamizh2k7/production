@@ -95,15 +95,18 @@ class P2p::MessagesController < ApplicationController
 
     while !@message.nil?
 
+      puts "Recive id : " + @message.receiver_id.to_s
+      puts " My id: " + p2p_current_user.id.to_s
+
       if @message.receiver_id = p2p_current_user.id
         
-           @message.update_attributes(:receiver_status=>"1") if @message.receiver_status != "0"
+           @message.update_attributes(:receiver_status => 1) if @message.receiver_status != 0
 
           name = @message.sender.user.name
           id = @message.sender.id
       else
-        name = @message.receiver.user.name
-        id = @message.receiver.id
+          name = @message.receiver.user.name
+          id = @message.receiver.id
         
         return
       end
@@ -180,9 +183,10 @@ class P2p::MessagesController < ApplicationController
         elsif params[:tbl] == 'deletebox' 
             msg = P2p::Message.deleted(p2p_current_user).find(id)
 
-            if msg.sender == p2p_current_user.id
+            if msg.sender.id == p2p_current_user.id
                 msg.update_attributes(:sender_status => 4 ) 
-            else
+            end
+            if msg.receiver.id == p2p_current_user.id
                 msg.update_attributes(:receiver_status => 4 ) 
             end
 
@@ -232,6 +236,7 @@ class P2p::MessagesController < ApplicationController
     end
 
     search = ""
+    item = 0
     if params.has_key?(:searchq)
       search = params[:searchq]
       
@@ -247,6 +252,7 @@ class P2p::MessagesController < ApplicationController
 
     end
 
+    puts " Search " + search + " Item " + item.to_s
 
     if params[:id] == 'inbox' 
 

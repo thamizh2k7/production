@@ -17,6 +17,7 @@ class P2p::Message < ActiveRecord::Base
   # 3 deleted
   #4 permenantly deleted
   #5 system generate
+  #6, welcome message
 
   scope :unread, where("receiver_status = 0")
   scope :inbox, where("receiver_status = 0 or receiver_status = 1 ")

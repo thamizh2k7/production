@@ -193,12 +193,12 @@ end
 
      @attr = @item.specs(:includes => :attr)
      
-     if p2p_current_user.id == @item.user_id
+     if !p2p_current_user.nil? and p2p_current_user.id == @item.user_id
         @messages = @item.messages.all
-     else
+     elsif !p2p_current_user.nil?
         # intialize the request messages
         @message = @item.messages.new
-        @buyerreqcount = @item.messages.find_all_by_sender_id(current_user.id).count
+        @buyerreqcount = @item.messages.find_all_by_sender_id(p2p_current_user.id).count
 
      end
 

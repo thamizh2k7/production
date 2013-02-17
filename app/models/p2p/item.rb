@@ -33,6 +33,49 @@ class P2p::Item < ActiveRecord::Base
     has created_at,updated_at
   end
 
+  after_create :publish_to_stream
+
+  def publish_to_stream
+
+    message_notification = "
+         $('#notificationcontainer').notify('create', 'new_item_notification', {
+              title: '#{self.title}',
+              msg: 'Your new listing has been sent to verification and will be approved quite soon'
+          });
+      "
+
+    admin_message_notification = "
+         $('#notificationcontainer').notify('create',  {
+              title: 'New Listing waiting for approval ',
+              text: '#{self.user.user.name}  has listed #{self.title} , and is waiting for your approval '
+          });
+      "
+
+    PrivatePub.publish_to("/user_#{self.user.id}", message_notification )
+    PrivatePub.publish_to("/user_1", admin_message_notification )
+
+    P2p::User.find(1).sent_messages.create({:receiver_id => self.item.user.id ,
+                                              :message => 'This is an auto generated system message. Your item is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+                                              });
+
+    P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                              :message => "This is an auto generated system message. #{iem.user.user.name} (#{item.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='" + URI.encode('/p2p/#{item.category.name}/#{item.product.name}/#{item.title}') + "'>#{item.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+                                              });
+
+
+
+  end
+
 
   def get_image(count = 1, type=:view)
     res=[]

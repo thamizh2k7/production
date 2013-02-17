@@ -42,15 +42,6 @@ class P2p::ItemsController < ApplicationController
      data={}
     if item.save 
 
-      P2p::User.find(1).sent_messages.create({:receiver_id => p2p_current_user.id ,
-                                              :message => 'This is an auto generated system message. Your item is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
-                                              :messagetype => 5,
-                                              :sender_id => 1,
-                                              :sender_status => 2,
-                                              :receiver_status => 0,
-                                              :parent_id => 0
-                                              });
-
       data['status'] = 1;
       data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
     else

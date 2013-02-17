@@ -321,6 +321,10 @@
 			$("#search_inbox").trigger('keyup');
 		}
 
+		//redraw tables to avoid the display issuee.. no idea why?
+		oInboxTable.fnAdjustColumnSizing();
+		oSentBoxTable.fnAdjustColumnSizing();
+		oDeleteBoxTable.fnAdjustColumnSizing();
 	});
 
 </script>

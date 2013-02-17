@@ -1,6 +1,8 @@
 
 <%= stylesheet_link_tag "items/items_manifest"%>
 
+
+
 <div class="main_wrapper">
 	<div class="row">
 		<div class="span6">
@@ -15,10 +17,16 @@
 
 			<% if ownerid.empty?  %>
 
+
+	
 			<!-- New Form -->
 		  	<div class="btn-group" id="listing_action">
 			  <button class="btn"><i  title="Remove Listing" class="action_icon icon-remove"></i></button>`	
-			  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
+
+			  <button class="btn "   id="enable">
+			  			<i title="Edit Listing" class="action_icon icon-pencil"></i>
+			  </button>
+
       	</div> 
 
 
@@ -29,9 +37,8 @@
 
 			 		<!-- contact seller modal  -->
 			 		<!-- Button to trigger modal -->
-			 		<i class="action_icon" title="You have sent <%= (p2p_current_user.nil?) ? 0 : buyerreqcount %>">
-						<a href="#login_to_contactmodal" role="button" class="btn " data-toggle="modal"  >Contact Seller</a>
-					</i>
+
+					<a href="#login_to_contactmodal" role="button" class="btn" data-toggle="modal">Contact Seller</a>
 					 
 					<!-- Modal -->
 					<div id="login_to_contactmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login_to_contactmodallLabel" aria-hidden="true">
@@ -59,7 +66,9 @@
 
 			 		<!-- contact seller modal  -->
 			 		<!-- Button to trigger modal -->
-					<a href="#contact_seller_modal" role="button" class="btn" data-toggle="modal">Contact Seller</a>
+			 		<i class="action_icon" title="You have sent <%= @buyerreqcount %> requests">
+						<a href="#contact_seller_modal" role="button" class="btn " data-toggle="modal"  >Contact Seller</a>
+					</i>
 					 
 					<!-- Modal -->
 					<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
@@ -85,9 +94,9 @@
 
 				<!-- check if the item is sold or not -->
 				<% if solddate.nil? %>
-				  	<a href="/p2p/sold/<%= itemid %>" class="btn">Mark as sold</a>
+				  	<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
 				<% else %>
-					<span class="btn" class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
+					<span class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
 				<%end %>					
 				
 				<% if deletedate.nil? %>
@@ -100,11 +109,32 @@
 
 		          	<!-- view Request messages modal  -->
 			 		<!-- Button to trigger modal -->
-					<a href="/p2p/messages/#<%=title%>" role="button" class="btn" data-toggle="modal"><i title="View Messages" d="reqcount_<%=itemid%>" class="action_icon icon-envelope"></i> <%=reqcount if reqcount > 0 %> </a>
-					 
-	      		</div>
+					<a href="/p2p/messages/#<%=title%>" role="button" class="btn" data-toggle="modal"><i title="View Messages for this listing" d="reqcount_<%=itemid%>" class="action_icon icon-envelope"></i> <%=reqcount if reqcount > 0 %> </a>
+
+				
+				  <button class="btn" id="viewcount"><i title="Number of view of this listing" class="action_icon icon-eye-open"></i><%= viewcount %></button>
+
+
+
+			 </div>	      		
 
 			  <% end %>
+
+			  <% if !itemid.empty? and p2p_current_user.id == 1 %>
+
+			  		<% if approvedate == "" %>
+	  				  <button class="btn" id="approve" itemid="<%=itemid%>"><i title="Approve this listing" class="action_icon icon-gift"></i></button>
+	  				<% end %>
+
+	  				<% if disapproveddate == "" %>
+	  				  <button class="btn" id="disapprove"  itemid="<%=itemid%>"><i title="DisApprove this listing" class="action_icon icon-ban-circle"></i></button>
+	  				<% end %>
+
+			  <%end %>
+
+
+					 
+
 			</div> <!-- span6 action buttons-->
 
 		</div>
@@ -116,7 +146,7 @@
           <div class="thumbnail">
 
 		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon ">
+          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon hide">
           			<!-- image upload form -->
 
 				<%= form_tag "/p2p/addimage" ,:multipart => true , :remote => true , :id => "add_image_form"  do %>
@@ -294,25 +324,28 @@
 
 					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) )  %>
 
-						<b>Add More Specification here <br/></b>
-						<table class="table table-bordered table-striped hide" id="empty_specs">
-							<tr>
-								<th>Specification</th>
-								<th>Value</th>
-							</tr>
-						<% itemspec.each do |spec| %>
+						<div id="add_more_spec" class="hide">
+							<b>Add More Specification here <br/></b>
+							<table class="table table-bordered table-striped hide" id="empty_specs">
+								<tr>
+									<th>Specification</th>
+									<th>Value</th>
+								</tr>
 
-						 <% next if spec_used.include?(spec.id) %>
-					              <tr>
-					                <td>
-					                  <%= spec.name %>
-					                </td>
-					                <td>
-					                 <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>">  </span>
-					                </td>
-					              </tr>
-						<%end %>
-						</table>
+							<% itemspec.each do |spec| %>
+
+								 <% next if !spec_used.nil?  and spec_used.include?(spec.id) %>
+						              <tr>
+						                <td>
+						                  <%= spec.name %>
+						                </td>
+						                <td>
+						                 <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>">  </span>
+						                </td>
+						              </tr>
+							<%end %>
+							</table>
+						</div>
 					<%end %>
 
 

@@ -102,6 +102,7 @@ Sociorent::Application.routes.draw do
 
       get 'dashboard' => 'users#dashboard'
       match 'approve(/:query)' => 'items#approve'
+      match 'disapprove' => 'items#disapprove'
       
       get 'getmessages(/:id)' => 'messages#getmessages'
 

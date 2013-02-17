@@ -12,6 +12,10 @@ $(document).ready(function(){
 				return false;
 			}
 
+			$("#add_more_spec").addClass('hide');
+
+			$("#upload_pic").addClass('hide');
+
 			$("#empty_specs").addClass('hide');
 
 			$("#item_title").css({'color':""});
@@ -30,18 +34,29 @@ $(document).ready(function(){
 			$(".remove_image").css({'display':'block'});
 
 			$(this).removeClass('btn-primary').attr('title','Edit Listing');
+
+			$("#enable i").addClass('icon-pencil');
+			$("#enable i").removeClass('icon-ok');
+			$("#enable i").attr('title','Edit Listing');
 		}
 		else {
 
 			$(this).addClass('btn-primary').attr('title','Save Changes');
 
+			$("#enable i").attr('title','Click here to save your changes');
+			$("#enable i").removeClass('icon-pencil');
+			$("#enable i").addClass('icon-ok');
+			
 			// enable upload form
 			// $("#file_add_image").removeProp("disabled");
 			$("#file_add_image").removeAttr("disabled");
 
 			$(".remove_image").css({'display':'block'});
+			$("#add_more_spec").removeClass('hide');
 
 			//enable the remove image butotn
+
+			$("#upload_pic").removeClass('hide');
 
 			$('.canEdit').editable();
 
@@ -299,5 +314,54 @@ $(document).ready(function(){
 				});
 
 			};
+
+
+	      $('#approve').on('click',function(){
+	          var that  = $(this);
+
+	          $.ajax({
+	            url:'/p2p/approve/approve',
+	            data:{id: that.attr('itemid')},
+	            dateType:'json',
+	            type:'post',
+	            success:function(data){
+	                if (data ==  1) {
+	                  showNotifications('Item Approved');
+	                  that.remove();
+	                }
+	                else{
+	                  showNotifications('Something went wrong');
+	                }
+	            },
+	            error:function(){
+	                showNotifications('Something went wrong');
+	            }
+	          });
+	      });
+
+	      $('#disapprove').on('click',function(){
+	          var that  = $(this);
+
+	          $.ajax({
+	            url:'/p2p/approve/disapprove',
+	            data:{id: that.attr('itemid')},
+	            dateType:'json',
+	            type:'post',
+	            success:function(data){
+	                if (data ==  1) {
+	                  showNotifications('Item Disapproved');
+	                  that.remove();
+	                }
+	                else{
+	                  showNotifications('Something went wrong');
+	                }
+	            },
+	            error:function(){
+	                showNotifications('Something went wrong');
+	            }
+	          });
+	      });	      
+
+
 
 });

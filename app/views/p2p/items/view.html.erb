@@ -23,6 +23,8 @@
            :brandid => @brand_id.to_s,
            :itemspec => @item.product.category.specs,
            :condition => @item.condition,
-           :requestmessage => @message
+           :requestmessage => @message,
+           :approvedate => @item.approveddate.to_s,
+           :disapproveddate => @item.disapproveddate.to_s
            
 %>

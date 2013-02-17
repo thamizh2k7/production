@@ -12,7 +12,7 @@ class P2p::Item < ActiveRecord::Base
 
   has_many :images ,:class_name => 'P2p::Image'
 
-  attr_accessible :approveddate, :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition
+  attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition
 
   attr_accessor :img
 
@@ -21,6 +21,7 @@ class P2p::Item < ActiveRecord::Base
   default_scope where('deletedate is null and approveddate is not null')
 
   scope :notapproved , where('approveddate is null')
+  scope :disapproved , where('disapproveddate is  not null')
 
   scope :sold , where('solddate is not null')
 

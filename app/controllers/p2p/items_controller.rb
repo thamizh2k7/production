@@ -163,7 +163,12 @@ end
         #@item = P2p::Item.find(params[:id])
         @cat =  P2p::Category.find_by_name(params[:cat])
         @prod=  @cat.products.find_by_name(params[:prod])
-        @item = @prod.items.find_by_title(params[:item])
+
+        if p2p_current_user.id == 1 
+          @item = @prod.items.unscoped.find_by_title(params[:item])
+        else
+          @item = @prod.items.find_by_title(params[:item])
+        end
 
         raise "Nothing found" if @prod.nil? or  @item.nil? or @cat.nil?
         
@@ -260,19 +265,74 @@ end
 
   end
 
+  def disapprove
+
+      @items = P2p::Item.unscoped.disapproved.paginate(:page => params[:page] , :per_page => 20)
+      render :approve
+
+  end
+
   def approve
 
     if params.has_key?(:query)
 
       if params[:query] == 'disapprove'
-        P2p::Item.unscoped.find(params[:id]).update_attributes();
-        render :json => '0'
+        item = P2p::Item.unscoped.find(params[:id])
+        item.update_attributes(:disapproveddate => Time.now , :approveddate => nil)
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => item.user.id ,
+                                              :message => "This is an auto generated system message. Your item #{item.title} has been disapproved due to some reasons . Reply to this message to know the reason.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+
+                                                  });
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                              :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.Your can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 1,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+
+                                                  });
+
+
+          unreadcount = item.user.received_messages.inbox.unread.count
+          if unreadcount > 0 
+            header_count = "$('#header_msg_count').html('(#{unreadcount})');"
+          else
+            header_count = "$('#header_msg_count').html('');"
+          end
+
+          if unreadcount > 0 
+            message_page_count = " $('#unread_count').html('(#{unreadcount})');"
+          else
+            message_page_count = " $('#unread_count').html('');"
+          end
+
+     @message_notification = "
+         $('#notificationcontainer').notify('create', {
+              title: 'Disapproval of Listing',
+              text: 'Your item #{item.title} has been disapproved by admin. Please check messages and reply to correct the issue'
+          });
+      "
+
+
+       PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count + @message_notification )
+
+
+        render :json => '1'
         return
+
       elsif params[:query] == 'approve'
         item = P2p::Item.unscoped.find(params[:id])
-        item.update_attributes(:approveddate => Time.now)
+        item.update_attributes(:approveddate => Time.now ,:disapproveddate => nil)
 
-        P2p::User.find(1).sent_messages.create({:receiver_id => p2p_current_user.id ,
+        P2p::User.find(1).sent_messages.create({:receiver_id => item.user.id ,
                                               :message => "This is an auto generated system message. Your item is verified , approved  and  will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                               :messagetype => 5,
                                               :sender_id => 1,
@@ -281,6 +341,17 @@ end
                                               :parent_id => 0
 
                                                   });
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                              :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 1,
+                                              :receiver_status => 0,
+                                              :parent_id => 0
+
+                                                  });
+
           # private pub
 
           unreadcount = item.user.received_messages.inbox.unread.count
@@ -296,8 +367,15 @@ end
             message_page_count = " $('#unread_count').html('');"
           end
 
+     @message_notification = "
+         $('#notificationcontainer').notify('create', {
+              title: 'Approval of Listing',
+              text: 'Your item #{item.title} has been approved by admin and will be listed on the side.'
+          });
+      "
 
-          PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count )
+
+          PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
           
           
 

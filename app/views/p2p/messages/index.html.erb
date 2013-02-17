@@ -69,9 +69,11 @@
 			</div>
 
 			   <div class="span9" id="show_msg">
-			   		<button class="btn back_to_table" tbl="">Back</button>
+			   		<button class="btn back_to_table" tbl="">
+			   			<i class="action icon-arrow-left" title="Reply"></i>
+			   			Back</button>
 			   		
-					<a href="#reply_to_modal" id="reply_to_button" role="button"  data-toggle="modal" class="btn "  >Reply</a>
+					<a href="#reply_to_modal" id="reply_to_button" role="button"  data-toggle="modal" class="btn "  ><i class="action icon-envelope" title="Reply"></i> Reply</a>
 
 					<!-- Modal -->
 					<div id="reply_to_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="reply_to_modallLabel" aria-hidden="true">
@@ -101,19 +103,25 @@
 
 		<%% _.each(data,function(dt){%>
 
-					<div class="message_user_name" recevid=<%%=dt['receiver']%>> Name:  
-						<span class="message_user_name_content">
-								<%%= dt['name']%>
-						</span>
-					</div>
-
-					<div class="message_datetime"> Date:  
+					<div class="message_datetime pull-right"> 
+					 <i class="action   icon-time" title="Time"></i>	 
 						<span class="message_datetime_content">
+
 								<%%= dt['dte'] %>
 						</span>
 					</div>
 
-					<div class="message_item"> Subject:  
+
+					<div class="message_user_name" recevid=<%%=dt['receiver']%>> 
+					<i class="action  icon-user" title="User"></i>	
+						<span class="message_user_name_content">
+								<%%= dt['name']%> to me
+						</span>
+					</div>
+
+
+					<div class="message_item">
+					<i class="action  icon-tag" title="Subject"></i>
 						<span class="message_item_content">
 								<%%= dt['sub'] %>
 						</span>
@@ -121,7 +129,7 @@
 
 					<hr>
 
-					<div class="message_message"> Message:  
+					<div class="message_message">
 						<span class="message_message_content">
 								<%%= dt['msg'] %>
 						</span>

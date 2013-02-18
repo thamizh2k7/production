@@ -198,11 +198,12 @@ end
 
      end
 
-      if p2p_current_user.nil? or p2p_current_user.id != @item.user_id
-        @item.viewcount= @item.viewcount.to_i + 1
-        @item.save
+     
+      if !p2p_current_user.nil? and p2p_current_user.id != @item.user_id
+        @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
       end
 
+      puts "View count " + @item.viewcount.to_s
       
     
   end

@@ -107,8 +107,12 @@ li.dropdown:hover > ul.dropdown-menu{
 	
 }
 
-.unread{
+.unread, .unread > td {
 	background-color: lightyellow !important; 
+}
+
+td , th{
+	text-align: center !important;
 }
 
 .mydivider{

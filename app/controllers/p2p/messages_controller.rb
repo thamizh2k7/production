@@ -308,11 +308,15 @@ class P2p::MessagesController < ApplicationController
       end
   
       
-      if msg.receiver_status == 0
+
+
+      if params[:id] == 'inbox'  and msg.receiver_status.to_s == "0"
         row_class = 'unread'
       else
         row_class = ''
       end
+
+      puts "class " + row_class + msg.receiver_status.to_s + "sfs " + params.inspect
 
       
 

@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class P2p::ItemsController < ApplicationController
 
   before_filter :p2p_user_signed_in ,:except => [:view]
@@ -9,7 +11,6 @@ class P2p::ItemsController < ApplicationController
 
   def new
    @item = p2p_current_user.items.new
-
 
   end
 
@@ -221,8 +222,8 @@ end
         end
       end
     else
-      puts 'in here'
-      @items = user.items.all.paginate(:page => params[:page] ,:per_page => 20 )
+
+      @items = user.items.all.paginate(:page => params[:page] ,:per_page => 20 ,:class=> 'bootstrap pagination' )
     end
     
   end

@@ -5,6 +5,7 @@ class P2p::CategoriesController < ApplicationController
   def index
   	@res = []
   	P2p::Category.all.each do |c|
+      next if c.products.size == 0 or c.specs.size == 0 
   		@res << {:value => c.id, :text => c.name}
   	end
   	render :json => @res

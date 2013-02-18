@@ -100,7 +100,7 @@
 				<%end %>					
 				
 				<% if deletedate.nil? %>
-				  <button class="btn"><i  itemid="<%=itemid%>" id="item_delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
+				  <button class="btn"><i  itemid="<%=itemid%>" id="delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
 				<%end %>
 
 
@@ -146,17 +146,20 @@
           <div class="thumbnail">
 
 		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon hide">
-          			<!-- image upload form -->
 
-				<%= form_tag "/p2p/addimage" ,:multipart => true , :remote => true , :id => "add_image_form"  do %>
-				<input type="hidden" value="<%= @item.id %>" name="item_id">
-    			<input type="file" name="img[]" id="file_add_image" disabled="disabled" multiple>
-				<% end %>
+			<% unless itemid.empty? %>
+	          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon hide">
+	          			<!-- image upload form -->
 
-          		<i class="icon-upload"></i>
+					<%= form_tag "/p2p/addimage" ,:multipart => true , :remote => true , :id => "add_image_form"  do %>
+					<input type="hidden" value="<%= @item.id %>" name="item_id">
+	    			<input type="file" name="img[]" id="file_add_image" disabled="disabled" multiple>
+					<% end %>
 
-          		Upload</div>
+	          		<i class="icon-upload"></i>
+
+	          		Upload</div>
+	          <% end %>
 
         <% end %>
 
@@ -169,7 +172,10 @@
 		
 	              	<li class="thumbs">
 						<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-	              			<i class="icon-remove pull-right remove_image hide"></i>
+
+							<% unless itemid.empty? %>
+	              				<i class="icon-remove pull-right remove_image hide"></i>
+	              			<% end %>
 
 	              		<% end %>
 
@@ -194,11 +200,11 @@
 			<table class="table">
 			<tr>
 				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/categories" ><%=category%></span></td>
-				<td>Model: <span id="model" data-type="select" data-source='/p2p/categories/sub_category'><%=brand%></span></td>
+				<td>Model: <span id="model" data-type="select" ><%=brand%></span></td>
 			</tr>
 			</table>
 
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped" id="table_specs">
             <colgroup>
               <col class="span1">
               <col class="span7">
@@ -241,9 +247,6 @@
 	            </td>
 	          </tr>
 
-	          <% if itemid.empty? %>
-	          	<tr id="new_spec_holder"><td></td><td></td></tr>
-	          <% end %>
 
 	          <!-- load all spec -->
 			<% unless spec.empty? %>

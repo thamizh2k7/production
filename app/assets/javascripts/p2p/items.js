@@ -68,18 +68,54 @@ $(document).ready(function(){
 			$("#empty_specs").removeClass('hide');
 
 
+			window.try = 0;
 			$("#category").on('save',function(e,params){
 				//set_category(params.newValue);
 
+
+				//$('#model').removeClass('editable').removeClass('editable-click').removeClass('editable-unsaved');
+				var temp = $('#model').parent().html();
+				var par = $('#model').parent();
+				$(par).html(temp);
+				$("#model").html("Select one");
 				$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
-				$("#model").editable();
+				item_values['brand'] = '';
+
+
+				//$("#model").editable({sourceCache:false});
 				
+				//$("#model").destroy();
+				$("#model").editable();
+
+
+
+										//validate location
+						$('#model').on('save', function(e, params) {
+			   				 //alert('Saved value: ' + params.newValue);
+			   				 alert('saving');
+							if (params.newValue != "") {
+								item_values['brand'] = params.newValue;
+								$(this).removeClass('error');
+							}
+							else{
+								item_values['brand']="";
+								params.newValue = params.oldValue;
+								$(this).addClass('error');
+							}
+						});
+
+
+
+				
+				showNotifications("Fetching specifications...! Please Wait..");
 
 				$.ajax({
 					url:'/p2p/getattributes/' + params.newValue,
 					type:"get",
 					success:function(data){
-						$("#new_spec_holder").replaceWith(data);
+
+						$('#table_specs .cat_spec').remove();
+						$(data).insertAfter($('#table_specs tr:last '));
 						$("[id^=item_]").editable();
 
 						//validate													//validate specification
@@ -109,36 +145,15 @@ $(document).ready(function(){
 
 					},
 					error:function(){
+
+						$('#table_specs .cat_spec').remove();
+						$('<tr class="error cat_spec"><td colspan = 2 >Specifications were not loaded. Something went wrong. Try again</td></tr>').insertAfter($('#table_specs tr:last '));
+
 						showNotifications('Some Error Occured. Please Try again');
 					}
 				});
 			});
 
-			function set_category(id) {
-				$.ajax({
-		      url:"/p2p/categories/set_category",
-		      type:"get",
-		      data:{"id" : id},
-		      success:function(data){
-		      
-		      }
-	    	});
-			}
-
-
-			//validate location
-			$('#model').on('save', function(e, params) {
-   				 //alert('Saved value: ' + params.newValue);
-				if (params.newValue != "") {
-					item_values['brand'] = params.newValue;
-					$(this).removeClass('error');
-				}
-				else{
-					item_values['brand']="";
-					params.newValue = params.oldValue;
-					$(this).addClass('error');
-				}
-			});
 
 
 			// //validate brand
@@ -259,7 +274,7 @@ $(document).ready(function(){
 
 
 	//delete the item
-    $("#item_delete_button").click(function(){
+    $("#delete_button").click(function(){
     	// if user says no stop deleting 
     	if (!confirm("Are you sure you want to delete this listing?")){
     		return true;
@@ -318,6 +333,12 @@ $(document).ready(function(){
 				if (!('title' in item_values) || item_values['title'] == ""){
 					$("#title").addClass("error");
 					alert("Enter item title");
+					return false;
+				}
+
+				if (!('brand' in item_values) || item_values['brand'] == ""){
+					$("#model").addClass("error");
+					alert("Enter item model");
 					return false;
 				}
 

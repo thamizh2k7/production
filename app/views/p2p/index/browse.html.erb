@@ -1,15 +1,20 @@
+<div id="pull_here" class="btn btn-info">Pull Filter </div>
 
 <div id="Itemlist" class="row">
+
     <div id="filters" class="span2 ">
 
-      <ul class="nav nav-list" id="browse_menu">
+    	<div id="dummy_filter_holder">
+	      <ul class="nav nav-list" id="browse_menu">
+			
+	        <%= render "scat_menu" , :active_page => @cat.name ,:dropdown => true %>
 
-		
-        <%= render "scat_menu" , :active_page => @cat.name ,:dropdown => true %>
+	        <%= render "p2p/index/filter" , :category => @cat %>
 
-        <%= render "p2p/index/filter" , :category => @cat %>
+	      </ul>
 
-      </ul>
+	  </div>
+
     </div>
 
 <div class="span10">

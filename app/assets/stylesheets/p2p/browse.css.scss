@@ -61,3 +61,17 @@ div.dropdown:hover > ul.dropdown-menu{
 	font-weight: bold;
 	color: black;
 }
+
+#filters{
+	display: block;
+
+}
+
+#dummy_filter_holder{
+	position: absolute;
+}
+
+#pull_here{
+	display: none;
+	position: absolute;
+}

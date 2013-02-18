@@ -69,9 +69,19 @@ $(document).ready(function(){
 
 
 			$("#category").on('save',function(e,params){
-				$("#model").attr('data-source','/p2p/getbrand/'+params.newValue)
-				$('#model').editable();
+				set_category(params.newValue);
 			});
+
+			function set_category(id) {
+				$.ajax({
+		      url:"/p2p/categories/set_category",
+		      type:"get",
+		      data:{"id" : id},
+		      success:function(data){
+		      
+		      }
+	    	});
+			}
 
 			//validate location
 			$('#item_title').on('save', function(e, params) {
@@ -361,7 +371,6 @@ $(document).ready(function(){
 	            }
 	          });
 	      });	      
-
 
 
 });

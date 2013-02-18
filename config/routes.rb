@@ -14,8 +14,6 @@ Sociorent::Application.routes.draw do
   get 'privacy_policy' => 'static_pages#privacypolicy'
   get 'terms_of_use' => 'static_pages#termsofuse'
 
-
-
   get "home/index"
   match "/search" => "home#search"
   post "home/book_request"
@@ -76,9 +74,11 @@ Sociorent::Application.routes.draw do
     resources :images
     resources :credits 
 
+      get "/categories/set_category" => "categories#set_category"
+      get "/categories/sub_category" => "categories#sub_category"
 
       match '/categories' => "categories#index"
-      match '/categories/sub' => "categories#subcategory"
+
 
       post 'users/list' => 'users#list'
 

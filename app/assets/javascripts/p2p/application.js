@@ -18,6 +18,9 @@
 //= require global/jquery.ui.position
 //= require global/jquery.ui.autocomplete
 //= require global/underscore
+//= require global/bootstrap-wysihtml5-0.0.2.min
+//= require global/wysihtml5-0.3.0.min
+//= require global/wysihtml5
 //= require bootstrap
 //= require bootstrap-editable
 //= require bootstrap-editable-rails

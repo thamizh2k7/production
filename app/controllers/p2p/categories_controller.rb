@@ -9,5 +9,19 @@ class P2p::CategoriesController < ApplicationController
   	end
   	render :json => @res
   end
+
+  def set_category
+  	session[:cat] = params[:id]
+  	render :text => session[:cat]
+  end
   
+  def sub_category
+  	@res = []
+  	cat = P2p::Category.find(session[:cat])
+  	cat.subcategories.each do |c|
+  		@res << {:value => c.id, :text => c.name}
+  	end
+  	render :json => @res
+  end
+
 end

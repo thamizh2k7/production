@@ -194,7 +194,7 @@
 			<table class="table">
 			<tr>
 				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/categories" ><%=category%></span></td>
-				<td>Model: <span id="model" class="" data-type="select" data-source=''><%=brand%></span></td>
+				<td>Model: <span id="model" class="canEdit" data-type="select" data-source='/p2p/categories/sub_category'><%=brand%></span></td>
 			</tr>
 			</table>
 
@@ -275,7 +275,7 @@
 	<div class="row">
 		<div id="item_desc" class="span12">
 			<h4>Description</h4>
-			<span id="desc_content" data-type="textarea" class="canEdit "><%= description %></span>
+			<span id="desc_content" data-type="wysihtml5" class="canEdit"><%= description %></span>
 		</div>
 	</div>
 

@@ -99,7 +99,7 @@ class P2p::MessagesController < ApplicationController
       end
 
  
-     dte = @message.created_at.strftime("%d-%m-%C%y")
+     dte = @message.created_at.strftime("%d-%h-%C%y %I:%M %p")
 
       if @message.messagetype == 1 #admin requet
         sub = "Message from Admin"
@@ -120,29 +120,6 @@ class P2p::MessagesController < ApplicationController
       puts @message.inspect + "p  asdfp "
 
     end
-
-    unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
-    # publish to change th read count
-
-    
-
-    if unreadcount > 0 
-      header_count = "$('#header_msg_count').html('(#{unreadcount})');"
-    else
-      header_count = "$('#header_msg_count').html('');"
-    end
-
-    if unreadcount > 0 
-      message_page_count = " $('#unread_count').html('(#{unreadcount})');"
-    else
-      message_page_count = " $('#unread_count').html('');"
-    end
-
-
-    PrivatePub.publish_to("/user_#{p2p_current_user.id}", header_count + message_page_count )
-    
-    
-
 
     render :json => resp
 
@@ -184,17 +161,17 @@ class P2p::MessagesController < ApplicationController
     unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
 
    # private pub section
-    unreadcount =  p2p_current_user.received_messages.inbox.unread.count 
+
     # publish to change th read count
     if unreadcount > 0 
-      header_count = "$('#header_msg_count').html('');"
-      message_page_count = " $('#unread_count').html('');"
+      header_count = ""
+      message_page_count = " "
     else
       header_count = "$('#header_msg_count').html('');"
       message_page_count = " $('#unread_count').html();"
     end
 
-    PrivatePub.publish_to("/user_#{p2p_current_user.id}", header_count + message_page_count )
+    PrivatePub.publish_to("/user_#{p2p_current_user.id}", (header_count + message_page_count).html_safe )
     
     
 
@@ -321,15 +298,15 @@ class P2p::MessagesController < ApplicationController
       
 
       if msg.messagetype ==  2
-        msgtype = "<i class=' action  icon-shopping-cart '  title='Buy Request'></i>";
+        msgtype = "  <i class=' action  icon-shopping-cart '  title='Buy Request'></i>  ";
       else
-        msgtype = "<i class=' action  icon-certificate ' title='Admin Messages'></i>";  
+        msgtype = "  <i class=' action  icon-list-alt ' title='Admin Messages'></i>  ";  
       end
 
 
       response[:aaData].push({
                           "0" => "<input type='checkbox' class='msg_check' msgid='#{msg.id}' >",
-                          "1" => msgtype,
+                          "1" => (msg.item.nil?) ?    msgtype + " ---" : msgtype +  msg.item.title,
                           "2" => msg.sender.user.name,
                           "3" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
                           "4" => tme,

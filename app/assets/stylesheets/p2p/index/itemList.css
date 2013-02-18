@@ -66,13 +66,6 @@
 
 
 .approve_item{
-
-	background: url("/assets/glyphicons-halflings.png")  no-repeat -289px -2px;
-
-	width: 13px;
-	height: 12px;
-	margin-top: 2px;
-	display: inline-block;
 	opacity: 0.3;
 }
 
@@ -84,15 +77,15 @@
 
 /*//item view page*/
 .disapprove_item{
-	background: url("/assets/glyphicons-halflings.png") no-repeat -314px -2px;;
-	width: 14px;
-	height: 14px;
-	margin-top: 2px;
-	display:inline-block;
 	opacity: 0.3;
-	margin-left: 5px;
 }
 
 .disapprove_item:hover{
 	opacity: 1;
+}
+
+
+.approve_item > i ,.disapprove_item > i{
+	margin-top: -2px;
+	margin-left: 2px;
 }

@@ -133,7 +133,7 @@ td , th{
 
 
 #body_container{
-	min-height: 600px;
+	min-height: 800px;
 }
 
 
@@ -152,4 +152,11 @@ td , th{
 .message_message_content{
 	text-align: justify;
 	margin:10px;
+}
+
+
+.dataTables_processing{
+	color:maroon;
+	position: fixed;
+	font-size: 1.2em;
 }

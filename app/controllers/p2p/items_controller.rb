@@ -1,6 +1,5 @@
 class P2p::ItemsController < ApplicationController
 
-
   before_filter :p2p_user_signed_in ,:except => [:view]
 
    #check for user presence inside p2p
@@ -184,10 +183,20 @@ end
 
       end
 
+
+
+      if !p2p_current_user.nil? and p2p_current_user.id != @item.user_id
+        @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
+
+
+      end
+
       @brand_name = @item.product.name 
       @brand_id = @item.product.id
 
      @attr = @item.specs(:includes => :attr)
+
+
      
      if !p2p_current_user.nil? and p2p_current_user.id == @item.user_id
         @messages = @item.messages.all
@@ -197,14 +206,6 @@ end
         @buyerreqcount = @item.messages.find_all_by_sender_id(p2p_current_user.id).count
 
      end
-
-     
-      if !p2p_current_user.nil? and p2p_current_user.id != @item.user_id
-        @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
-      end
-
-      puts "View count " + @item.viewcount.to_s
-      
     
   end
 
@@ -214,12 +215,12 @@ end
     if params[:query].present? 
 
       if params[:query] == "sold"
-        @items = user.items.sold.paginate(:page => params[:page] , :per_page => 20)
+        @items = user.items.paginate(:page => params[:page] , :per_page => 20)
       end
 
     else
 
-      @items = user.items.notsold.paginate(:page => params[:page] ,:per_page => 20 )
+      @items = user.items.paginate(:page => params[:page] ,:per_page => 20 )
       
     end
     
@@ -257,10 +258,32 @@ end
 
   end
 
+  def waiting
+
+        if p2p_current_user.id != 1
+      
+          @items = p2p_current_user.items.waiting.paginate(:page => params[:page] , :per_page => 20)
+        else
+          @items = P2p::Item.waiting.paginate(:page => params[:page] , :per_page => 20)
+        end
+
+    render :approve
+
+  end
+
+
   def disapprove
 
-      @items = P2p::Item.unscoped.disapproved.paginate(:page => params[:page] , :per_page => 20)
-      render :approve
+        if p2p_current_user.id != 1
+      
+          @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+        else
+          @items = P2p::Item.disapproved.paginate(:page => params[:page] , :per_page => 20)
+        end
+
+          
+
+    render :approve
 
   end
 
@@ -269,7 +292,7 @@ end
     if params.has_key?(:query)
 
       if params[:query] == 'disapprove'
-        item = P2p::Item.unscoped.find(params[:id])
+        item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:disapproveddate => Time.now , :approveddate => nil)
 
         P2p::User.find(1).sent_messages.create({:receiver_id => item.user.id ,
@@ -278,7 +301,8 @@ end
                                               :sender_id => 1,
                                               :sender_status => 2,
                                               :receiver_status => 0,
-                                              :parent_id => 0
+                                              :parent_id => 0,
+                                              :item_id => item.id
 
                                                   });
 
@@ -288,23 +312,11 @@ end
                                               :sender_id => 1,
                                               :sender_status => 1,
                                               :receiver_status => 0,
-                                              :parent_id => 0
+                                              :parent_id => 0,
+                                              :item_id => item.id
 
                                                   });
 
-
-          unreadcount = item.user.received_messages.inbox.unread.count
-          if unreadcount > 0 
-            header_count = "$('#header_msg_count').html('(#{unreadcount})');"
-          else
-            header_count = "$('#header_msg_count').html('');"
-          end
-
-          if unreadcount > 0 
-            message_page_count = " $('#unread_count').html('(#{unreadcount})');"
-          else
-            message_page_count = " $('#unread_count').html('');"
-          end
 
      @message_notification = "
          $('#notificationcontainer').notify('create', {
@@ -321,7 +333,7 @@ end
         return
 
       elsif params[:query] == 'approve'
-        item = P2p::Item.unscoped.find(params[:id])
+        item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:approveddate => Time.now ,:disapproveddate => nil)
 
         P2p::User.find(1).sent_messages.create({:receiver_id => item.user.id ,
@@ -330,7 +342,8 @@ end
                                               :sender_id => 1,
                                               :sender_status => 2,
                                               :receiver_status => 0,
-                                              :parent_id => 0
+                                              :parent_id => 0,
+                                              :item_id => item.id
 
                                                   });
 
@@ -340,7 +353,8 @@ end
                                               :sender_id => 1,
                                               :sender_status => 1,
                                               :receiver_status => 0,
-                                              :parent_id => 0
+                                              :parent_id => 0,
+                                              :item_id => item.id
 
                                                   });
 
@@ -363,8 +377,12 @@ end
          $('#notificationcontainer').notify('create', {
               title: 'Approval of Listing',
               text: 'Your item #{item.title} has been approved by admin and will be listed on the side.'
-          });
-      "
+          },{
+            expires:false,
+            click:function(){
+              window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{item.title}';
+            }
+          });"
 
 
           PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
@@ -377,8 +395,18 @@ end
 
       render :json => '0'
       return
+
     else
-      @items = P2p::Item.unscoped.notapproved.paginate(:page => params[:page] , :per_page => 20)
+
+        if p2p_current_user.id != 1
+           @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+          else
+           @items = P2p::Item.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
+        end
+        
+
+        
+
     end
   end
 

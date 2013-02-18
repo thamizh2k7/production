@@ -18,7 +18,7 @@
 		    
 		 		<!--message modal  -->
 		 		<!-- Button to trigger modal -->
-					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn "  >Compose</a>
+					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn"  > Compose</a>
 					</i>
 					 
 					<!-- Modal -->
@@ -151,13 +151,13 @@
 
 	$(document).ready(function(){
 		oInboxTable = $('#inbox_table').dataTable({
-		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+		  "sDom": "<'row-fluid'<'span6'><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 		  'sScrollY':"400px",
           "sAjaxSource": '/p2p/getmessages/inbox' ,
           "aaSorting":[],
           "bScrollCollapse": false,
           "bFilter":false,
-       	  "bSort": false,
+       	  "bSort": true,
           "iDisplayLength" : 10,
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
@@ -170,6 +170,10 @@
           }
 
 		});
+
+		// oInboxTable.afnSortData['time']=function(){
+		// 		return [{0:"a",1:"b",2:"anme",3:"fsdaf",4:"afsd"}];
+		// }
 
 		oSentBoxTable  = $('#sentbox_table').dataTable({
 		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
@@ -222,6 +226,7 @@
 		$('.showmessage').live('click', function () {
 			var that = $(this);
 
+
 			$.ajax({
 				url: '/p2p/messages/'	 + that.attr('msgid'),
 				type:'get',
@@ -229,12 +234,25 @@
 				dataType:'json',
 				success:function(data){
 
-					
-
 					var templ = _.template($("#view_msg").html());
 					$("#show_msg_content").html(templ({data:data}));
 
-					that.parent().parent().removeClass('unread');
+					if (that.parent().parent().hasClass('unread')){
+						that.parent().parent().removeClass('unread');
+						var count = Number($('#header_msg_count').text().replace("(","").replace(")","")) - 1 ;
+
+							console.log(count + 'count');
+
+						if ( count < 1 ){
+							$('#header_msg_count').html('');	
+							$('#unread_count').html('');
+						}
+						else{
+							$('#header_msg_count').html('('+ count + ')');
+							$('#unread_count').html('('+ count + ')');
+						}
+					}
+					
 					$('.back_to_table').attr('tbl',that.closest('table').attr('tbl'));
 					//set reply to user and set the msgid to it
 					$('.reply_to_user').attr('tbl',that.closest('table').attr('tbl'));

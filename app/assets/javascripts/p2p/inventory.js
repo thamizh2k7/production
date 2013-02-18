@@ -31,7 +31,7 @@ $(document).ready(function(){
             success:function(data){
                 if (data ==  1) {
                   showNotifications('Item DIsapproved');
-                  that.parent().parent().remove();
+                  that.parent().parent().fadeOut(1000);
                 }
                 else{
                   showNotifications('Something went wrong');
@@ -57,7 +57,7 @@ $(document).ready(function(){
             success:function(data){
                 if (data ==  1) {
                   showNotifications('Item Approved');
-                  that.parent().parent().remove();
+                  that.parent().parent().fadeOut(1000);
                 }
                 else{
                   showNotifications('Something went wrong');

@@ -61,8 +61,8 @@ class P2p::Item < ActiveRecord::Base
     PrivatePub.publish_to("/user_#{self.user.id}", message_notification )
     PrivatePub.publish_to("/user_1", admin_message_notification )
 
-    P2p::User.find(1).sent_messages.create({:receiver_id => self.item.user.id ,
-                                              :message => 'This is an auto generated system message. Your item is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
+    P2p::User.find(1).sent_messages.create({:receiver_id => self.user.id ,
+                                              :message => 'This is an auto generated system message. Your listing is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
                                               :messagetype => 5,
                                               :sender_id => 1,
                                               :sender_status => 2,
@@ -71,7 +71,7 @@ class P2p::Item < ActiveRecord::Base
                                               });
 
     P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-                                              :message => "This is an auto generated system message. #{iem.user.user.name} (#{item.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='" + URI.encode('/p2p/#{item.category.name}/#{item.product.name}/#{item.title}') + "'>#{item.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
+                                              :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='" + URI.encode('/p2p/#{self.category.name}/#{self.product.name}/#{self.title}') + "'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
                                               :messagetype => 5,
                                               :sender_id => 1,
                                               :sender_status => 2,

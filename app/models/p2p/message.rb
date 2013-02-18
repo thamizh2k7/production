@@ -49,14 +49,18 @@ class P2p::Message < ActiveRecord::Base
     receiver_unreadcount = self.receiver.received_messages.inbox.unread.count
 
       if receiver_unreadcount > 0 
-            unread_msg = "$('#unread_count').html('(<%=receiver_unreadcount%>)');"
+            unread_msg = "$('#unread_count').html('(#{receiver_unreadcount})');"
+            header_msg = "$('#header_msg_count').html('(#{receiver_unreadcount})');"
       else
             unread_msg = "$('#unread_count').html('');"
+            header_msg = "$('#header_msg_count').html('');"
       end
 
+      
 
 
-    PrivatePub.publish_to("/user_#{self.receiver.id}", unread_msg + message_notification )
+
+    PrivatePub.publish_to("/user_#{self.receiver.id}", header_msg + unread_msg + message_notification )
   end
 
   	def message_type

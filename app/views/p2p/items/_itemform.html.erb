@@ -10,7 +10,7 @@
 			  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 			  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
 			  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
-			  <li class="active"  data-name="title"  title="Enter Title"  id="item_title"><%=title.titleize%></li>
+			  <li class="active"  data-name="title"  title="Enter Title"  id="title"><%=title.titleize%></li>
 			</ul>
 		</div>
 		<div class="span6">
@@ -194,7 +194,7 @@
 			<table class="table">
 			<tr>
 				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/categories" ><%=category%></span></td>
-				<td>Model: <span id="model" class="canEdit" data-type="select" data-source='/p2p/categories/sub_category'><%=brand%></span></td>
+				<td>Model: <span id="model" data-type="select" data-source='/p2p/categories/sub_category'><%=brand%></span></td>
 			</tr>
 			</table>
 
@@ -217,7 +217,7 @@
 	              Price:
 	            </td>
 	            <td>Rs.
-	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="item_price"> <%= price %> </span>
+	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price %> </span>
 	            </td>
 	          </tr>
 
@@ -227,7 +227,7 @@
 	              Condition:
 	            </td>
 	            <td>
-	             <span class="canEdit" data-name="username"  title="Enter Condition"  specname="condition" specid="0" id="item_condition"> <%= condition.titleize %> </span>
+	             <span class="canEdit" data-name="username"  title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
 	            </td>
 	          </tr>
 
@@ -237,9 +237,13 @@
 	              Location:
 	            </td>
 	            <td>
-	             <span class="canEdit" data-name="username"  title="Enter Location"  specname="location" specid="0" id="item_location"> <%= location.titleize %> </span>
+	             <span class="canEdit" data-name="username"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
 	            </td>
 	          </tr>
+
+	          <% if itemid.empty? %>
+	          	<tr id="new_spec_holder"><td></td><td></td></tr>
+	          <% end %>
 
 	          <!-- load all spec -->
 			<% unless spec.empty? %>
@@ -273,9 +277,9 @@
 		</div>
 	</div>
 	<div class="row">
-		<div id="item_desc" class="span12">
+		<div id="desc" class="span12">
 			<h4>Description</h4>
-			<span id="desc_content" data-type="wysihtml5" class="canEdit"><%= description %></span>
+			<span id="desc_content" data-type="textarea" class="canEdit"><%= description %></span>
 		</div>
 	</div>
 

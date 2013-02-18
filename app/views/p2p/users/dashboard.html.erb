@@ -27,8 +27,16 @@
 						</a>
 					</li>
 					
-					<li class="box_element">Waiting for Approval: <span id="total_wapproval_count">  <%= p2p_current_user.items.waiting.count %>  </span> </li>
-					<li class="box_element">Disapproved: <span id="total_wapproval_count">  <%= p2p_current_user.items.disapproved.count %>  </span> </li>				
+					<li class="box_element"><a href="/p2p/waiting">
+						Waiting for Approval: <span id="total_wapproval_count">  <%= p2p_current_user.items.waiting.count %>  
+						</span>
+						</a>
+					</li>
+
+					<li class="box_element"><a href="/p2p/disapprove">
+						Disapproved: <span id="total_wapproval_count">  <%= p2p_current_user.items.disapproved.count %>  </span>
+						</a>
+					</li>				
 				</ul>
 			</div>
 		

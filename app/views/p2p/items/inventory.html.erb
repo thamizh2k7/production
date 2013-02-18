@@ -16,7 +16,7 @@
 
 
     <div id="listHeader" class="row">
-      <p class="fleft"> <b>My Store</b></p>
+      <p class="fleft"> <b> <%= (params.has_key?(:query) ? params[:query].titleize : "My Store" ) %> </b></p>
       </a></p>
     </div>
 

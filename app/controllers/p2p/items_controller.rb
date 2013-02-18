@@ -19,11 +19,10 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
-    item.product = P2p::Product.find(1)
-    #item.product = P2p::Product.find(params["brand"])
+    #item.product = P2p::Product.find(1)
+    item.product = P2p::Product.find(params["brand"])
 
     #echo params["item"]['attribute'].count
-    
 
      params["spec"].each do |key,value|
         next if value == "" 
@@ -215,13 +214,15 @@ end
     if params[:query].present? 
 
       if params[:query] == "sold"
-        @items = user.items.paginate(:page => params[:page] , :per_page => 20)
+        if p2p_current_user.id == 1 
+          @items = P2p::Item.sold.paginate(:page => params[:page] , :per_page => 20)
+        else
+          @items = user.items.sold.paginate(:page => params[:page] , :per_page => 20)
+        end
       end
-
     else
-
-      @items = user.items.paginate(:page => params[:page] ,:per_page => 20 )
-      
+      puts 'in here'
+      @items = user.items.all.paginate(:page => params[:page] ,:per_page => 20 )
     end
     
   end
@@ -326,7 +327,7 @@ end
       "
 
 
-       PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count + @message_notification )
+       PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )
 
 
         render :json => '1'
@@ -376,7 +377,7 @@ end
      @message_notification = "
          $('#notificationcontainer').notify('create', {
               title: 'Approval of Listing',
-              text: 'Your item #{item.title} has been approved by admin and will be listed on the side.'
+              text: 'Your item #{item.title} has been approved by admin and will be listed on the site.'
           },{
             expires:false,
             click:function(){

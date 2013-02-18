@@ -18,13 +18,13 @@ $(document).ready(function(){
 
 			$("#empty_specs").addClass('hide');
 
-			$("#item_title").css({'color':""});
+			$("#title").css({'color':""});
 
 			$('.canEdit').editable('toggleDisabled');
 
-			$("#item_title").editable('toggleDisabled');
+			$("#title").editable('toggleDisabled');
 
-			$("#item_category").editable('toggleDisabled');
+			$("#category").editable('toggleDisabled');
 
 			$(this).children().attr('data-original-title','Edit Item');
 
@@ -60,8 +60,8 @@ $(document).ready(function(){
 
 			$('.canEdit').editable();
 
-			$("#item_title").css({'color':'blue'});
-			$("#item_title").editable({
+			$("#title").css({'color':'blue'});
+			$("#title").editable({
 				placement:'bottom'
 			});
 
@@ -69,7 +69,49 @@ $(document).ready(function(){
 
 
 			$("#category").on('save',function(e,params){
-				set_category(params.newValue);
+				//set_category(params.newValue);
+
+				$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
+				$("#model").editable();
+				
+
+				$.ajax({
+					url:'/p2p/getattributes/' + params.newValue,
+					type:"get",
+					success:function(data){
+						$("#new_spec_holder").replaceWith(data);
+						$("[id^=item_]").editable();
+
+						//validate													//validate specification
+							$('[id^=item_]').on('save', function(e, params) {
+				   				 //alert('Saved value: ' + params.newValue);
+				   				 var that = $(this);
+				   				 console.log(that);
+
+				   				if (params.newValue.length > 0) {
+
+									if (params.newValue.length > 2) {
+										item_values['spec'][that.attr('specid')] = params.newValue;
+										$(this).removeClass('error');
+									}
+									else{
+										item_values['spec'][that.attr('specid')]="";
+										params.newValue = params.oldValue;
+										$(this).addClass('error');
+									}
+								}
+								else{
+									item_values['spec'][that.attr('specid')]="";
+								}
+
+							});
+
+
+					},
+					error:function(){
+						showNotifications('Some Error Occured. Please Try again');
+					}
+				});
 			});
 
 			function set_category(id) {
@@ -83,8 +125,42 @@ $(document).ready(function(){
 	    	});
 			}
 
+
 			//validate location
-			$('#item_title').on('save', function(e, params) {
+			$('#model').on('save', function(e, params) {
+   				 //alert('Saved value: ' + params.newValue);
+				if (params.newValue != "") {
+					item_values['brand'] = params.newValue;
+					$(this).removeClass('error');
+				}
+				else{
+					item_values['brand']="";
+					params.newValue = params.oldValue;
+					$(this).addClass('error');
+				}
+			});
+
+
+			// //validate brand
+			// $('#category').on('save', function(e, params) {
+   // 				 //alert('Saved value: ' + params.newValue);
+			// 	if (params.newValue != "") {
+			// 		item_values['title'] = params.newValue;
+
+
+			// 		$(this).removeClass('error');
+			// 	}
+			// 	else{
+			// 		item_values['title']="";
+			// 		params.newValue = params.oldValue;
+			// 		$(this).addClass('error');
+			// 	}
+			// });
+
+
+
+			//validate title
+			$('#title').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
 				if (params.newValue.length > 5) {
 					item_values['title'] = params.newValue;
@@ -96,15 +172,16 @@ $(document).ready(function(){
 					$(this).addClass('error');
 				}
 			});
-			window.url = '/p2p'
-			$('#model').editable({
-  			selector: 'a',
-  			url: window.url,
-  			pk: 1
-			});
+
+			// window.url = '/p2p'
+			// $('#model').editable({
+  	// 		selector: 'a',
+  	// 		url: window.url,
+  	// 		pk: 1
+			// });
 
 			//validate price
-			$('#item_price').on('save', function(e, params) {
+			$('#price').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
 				if (params.newValue.match(/^\d+$/) != null) {
 					item_values['price'] = params.newValue;
@@ -116,7 +193,7 @@ $(document).ready(function(){
 			});
 
 			//validate location
-			$('#item_location').on('save', function(e, params) {
+			$('#location').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
 				if (params.newValue.length > 3) {
 					item_values['location'] = params.newValue;
@@ -148,7 +225,7 @@ $(document).ready(function(){
 
 
 			//validate condition
-			$('#item_condition').on('save', function(e, params) {
+			$('#condition').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
    				 params.newValue = $.trim(params.newValue);
 
@@ -162,34 +239,6 @@ $(document).ready(function(){
 					$(this).addClass('error');
 				}
 			});
-
-			//validate specification
-			$('[id^=item_]').on('save', function(e, params) {
-   				 //alert('Saved value: ' + params.newValue);
-   				 var that = $(this);
-   				 console.log(that);
-
-   				if (params.newValue.length > 0) {
-
-					if (params.newValue.length > 3) {
-						item_values['spec'][that.attr('specid')] = params.newValue;
-						$(this).removeClass('error');
-					}
-					else{
-						item_values['spec'][that.attr('specid')]="";
-						params.newValue = params.oldValue;
-						$(this).addClass('error');
-					}
-				}
-				else{
-					item_values['spec'][that.attr('specid')]="";
-				}
-
-			});
-
-
-
-
 
 		}
 
@@ -267,19 +316,19 @@ $(document).ready(function(){
 				// }
 
 				if (!('title' in item_values) || item_values['title'] == ""){
-					$("#item_title").addClass("error");
+					$("#title").addClass("error");
 					alert("Enter item title");
 					return false;
 				}
 
 				if (!('price' in item_values) || item_values['price'] == ""){
-					$("#item_price").addClass("error");
+					$("#price").addClass("error");
 					alert("Enter item price");
 					return false;
 				}
 
 				if (!('condition' in item_values) || item_values['condition'] == ""){
-					$("#item_condition").addClass("error");
+					$("#condition").addClass("error");
 					alert("Enter item condition");
 					return false;
 				}

@@ -154,15 +154,22 @@ end
         @cat =  P2p::Category.find_by_name(params[:cat])
         @prod=  @cat.products.find_by_name(params[:prod])
 
-        if p2p_current_user.id == 1 
+
+        puts @cat.inspect + "sadf"
+        puts @prod.inspect + "sadfsdf"
+
+        if !p2p_current_user.nil? and  p2p_current_user.id == 1 
           @item = @prod.items.unscoped.find_by_title(params[:item])
         else
           @item = @prod.items.find_by_title(params[:item])
         end
 
-        raise "Nothing found" if @prod.nil? or  @item.nil? or @cat.nil?
+        puts @item.inspect + "asd"
+
+        raise "Nothing found" if   @item.nil? 
         
       rescue
+
         flash[:notice] ="Nothing found for your request"
         redirect_to '/p2p/mystore'
         return
@@ -184,12 +191,17 @@ end
       end
 
 
+      
 
-      if !p2p_current_user.nil? and p2p_current_user.id != @item.user_id
-        @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
-
-
+      if !p2p_current_user.nil? 
+        if  p2p_current_user.id != @item.user_id
+          @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
+        end
+      else
+          @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
       end
+
+
 
       @brand_name = @item.product.name 
       @brand_id = @item.product.id

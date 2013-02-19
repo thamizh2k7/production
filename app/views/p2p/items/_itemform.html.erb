@@ -90,22 +90,41 @@
 
 			<% elsif ownerid == p2p_current_user.id.to_s %>
 				  <!-- Seller View -->
-				<div class="btn-group" id="listing_action">
 
+			<div class="btn-group" id="listing_action">
 				<!-- check if the item is sold or not -->
-				<% if solddate.nil? %>
-				  	<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
+
+				<% if solddate.nil?  %>
+
+					<% if approvedate.to_s !='' %>
+
+				  			<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
+					<% else %>
+						
+				  			<a href="#" class=" action btn"  title="Listing has not been approved yet" > <i class="icon icon-shopping-cart"></i>Waiting for approval</a>
+			  	
+				  <% end %>
+			  
+
 				<% else %>
 					<span class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
 				<%end %>					
+
 				
+
 				<% if deletedate.nil? %>
 				  <button class="btn"><i  itemid="<%=itemid%>" id="delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
 				<%end %>
 
+				
 
 				
 				  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
+				  
+				  <button class="btn btn-success hide" id="save"><i title="Save changes" class="action_icon icon-ok-circle"></i></button>
+
+				  <button class="btn btn-danger hide" id="cancel"><i title="Cancel changes" class="action_icon icon-remove-circle"></i></button>
+
 
 		          	<!-- view Request messages modal  -->
 			 		<!-- Button to trigger modal -->
@@ -120,7 +139,7 @@
 
 			  <% end %>
 
-			  <% if !itemid.empty? and p2p_current_user.id == 1 %>
+			  <% if !itemid.empty? and !p2p_current_user.nil? and p2p_current_user.id == 1 %>
 
 			  		<% if approvedate == "" %>
 	  				  <button class="btn" id="approve" itemid="<%=itemid%>"><i title="Approve this listing" class="action_icon icon-gift"></i></button>
@@ -163,7 +182,9 @@
 
         <% end %>
 
-            <img src="<%= viewimage[0][:url] %>" imgid="<%= viewimage[0][:id] %>" alt="Item pic">
+        	<div id="view_image_holder">
+            	<img src="<%= viewimage[0][:url] %>" imgid="<%= viewimage[0][:id] %>" alt="Item pic" id="view_image">
+            </div>
             <div class="caption thumb_holder">
               <ul class="thumbnails">
 
@@ -254,7 +275,7 @@
 					<% spec_used = [] %>
 					<% spec.each do |aspec| %>
 						<% spec_used.push(aspec.spec.id)%>
-			              <tr>
+			              <tr class="specs">
 			                <td>
 			                  <%= aspec.spec.name %>
 			                </td>
@@ -372,7 +393,7 @@
 		window.item_values ={};
 		item_values['spec']={};
 
-				<%if !itemid.empty?  and ownerid == userid %>
+				<%if !itemid.empty?  and ownerid == p2p_current_user.id.to_s %>
 					item_values['title'] = "<%= title %>";
 					item_values['cat'] = "<%= categoryid %>";
 					item_values['scat'] = "<%= subcategoryid %>";

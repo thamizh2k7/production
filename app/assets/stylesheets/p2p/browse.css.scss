@@ -68,10 +68,13 @@ div.dropdown:hover > ul.dropdown-menu{
 }
 
 #dummy_filter_holder{
-	position: absolute;
+/*	position: absolute;
+	margin-left: "0px"
+*/
 }
 
 #pull_here{
 	display: none;
 	position: absolute;
 }
+

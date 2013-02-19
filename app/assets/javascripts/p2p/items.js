@@ -3,14 +3,32 @@ $(document).ready(function(){
 	//set initializing data
 
 	//set tooltip
+
+
+	$("#save").click(function(){
+
+
+		if (!saveItem()){
+			return false;
+		}
+
+
+	});
+
+
+
+
+	$("#cancel").click(function(){
+
+
+			window.location.reload();
+
+	});
+
 	$('#enable').click(function() {
 		$(this).toggleClass('active');
 		if ($('.canEdit').hasClass('editable')){
 
-
-			if (!saveItem()){
-				return false;
-			}
 
 			$("#add_more_spec").addClass('hide');
 
@@ -40,6 +58,10 @@ $(document).ready(function(){
 			$("#enable i").attr('title','Edit Listing');
 		}
 		else {
+
+			$("#enable").hide();
+			$("#save").show();
+			$("#cancel").show();
 
 			$(this).addClass('btn-primary').attr('title','Save Changes');
 
@@ -73,6 +95,12 @@ $(document).ready(function(){
 				//set_category(params.newValue);
 
 
+				if (params.newValue == item_values['cat']) return false ;
+
+				$(".specs").remove();
+
+				item_values['spec'] = [];
+
 				//$('#model').removeClass('editable').removeClass('editable-click').removeClass('editable-unsaved');
 				var temp = $('#model').parent().html();
 				var par = $('#model').parent();
@@ -92,7 +120,7 @@ $(document).ready(function(){
 										//validate location
 						$('#model').on('save', function(e, params) {
 			   				 //alert('Saved value: ' + params.newValue);
-			   				 alert('saving');
+			   				 //alert('saving');
 							if (params.newValue != "") {
 								item_values['brand'] = params.newValue;
 								$(this).removeClass('error');
@@ -318,6 +346,7 @@ $(document).ready(function(){
 
 			saveItem = function(){
 
+
 				// if (!('cat' in item_values) || item_values['cat'] == "") {
 				// 	$("#item_category").addClass("error");
 				// 	alert("Select a category");
@@ -377,6 +406,9 @@ $(document).ready(function(){
 					return false;
 				}
 
+
+				//showOverlay();
+				showNotifications('Saving item..! Please wait..!');
 
 				item_values['authenticity_token']= AUTH_TOKEN;
 				$.ajax({
@@ -441,6 +473,12 @@ $(document).ready(function(){
 	            }
 	          });
 	      });	      
+
+
+	      $('.thumbs').click(function(){
+	      		$('#view_image').attr('src',$(this).children('img').attr("viewimage"));
+	      		$('#view_image').attr('imgid',$(this).children('img').attr("imgid"));
+	      });
 
 
 });

@@ -392,7 +392,7 @@
 		//initialize
 		window.item_values ={};
 		item_values['spec']={};
-
+		window.edit = <%= (itemid.empty?) ? false : true %>;
 
 				<%if !itemid.empty?  and ownerid == p2p_current_user.id.to_s %>
 					item_values['title'] = "<%= title %>";

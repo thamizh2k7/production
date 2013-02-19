@@ -154,7 +154,7 @@
 		  "sDom": "<'row-fluid'<'span6'><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 		  'sScrollY':"400px",
           "sAjaxSource": '/p2p/getmessages/inbox' ,
-          "aaSorting":[],
+          "aaSorting":[[1,'asc']],
           "bScrollCollapse": false,
           "bFilter":false,
        	  "bSort": true,
@@ -343,7 +343,14 @@
 		oInboxTable.fnAdjustColumnSizing();
 		oSentBoxTable.fnAdjustColumnSizing();
 		oDeleteBoxTable.fnAdjustColumnSizing();
+
+		$('#inbox th:first').unbind();
+		$("#sentbox th:first").unbind();
+		$("#deletebox th:first").unbind();
+
+
 	});
+
 
 </script>
 

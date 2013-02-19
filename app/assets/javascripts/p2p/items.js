@@ -82,6 +82,10 @@ $(document).ready(function(){
 
 			$('.canEdit').editable();
 
+			if (window.edit){
+				$("#category").editable('toggleDisabled');
+			}
+
 			$("#title").css({'color':'blue'});
 			$("#title").editable({
 				placement:'bottom'

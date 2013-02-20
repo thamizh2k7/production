@@ -69,9 +69,9 @@ class P2p::Item < ActiveRecord::Base
                                               :receiver_status => 0,
                                               :parent_id => 0
                                               });
-
+    prod_url = URI.encode("/p2p/#{self.category.name}/#{self.product.name}/#{self.title}")
     P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-                                              :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='" + URI.encode('/p2p/#{self.category.name}/#{self.product.name}/#{self.title}') + "'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
+                                              :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='#{prod_url}'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
                                               :messagetype => 5,
                                               :sender_id => 1,
                                               :sender_status => 2,

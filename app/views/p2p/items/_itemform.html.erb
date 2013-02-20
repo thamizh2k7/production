@@ -221,7 +221,7 @@
 			<table class="table">
 			<tr>
 				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/categories" ><%=category%></span></td>
-				<td>Model: <span id="model" data-type="select" ><%=brand%></span></td>
+				<td>Model: <span id="model" title="Select Model" data-type="select" ><%=brand%></span></td>
 			</tr>
 			</table>
 
@@ -303,7 +303,7 @@
 	<div class="row">
 		<div id="desc" class="span12">
 			<h4>Description</h4>
-			<span id="desc_content" data-type="textarea" class="canEdit"><%= description %></span>
+			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="textarea" class="canEdit"><%= description %></span>
 		</div>
 	</div>
 
@@ -350,7 +350,7 @@
 
 
 
-					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) )  %>
+					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) ) and !spec_used.nil? and itemspec.count < spec_used.count %>
 
 						<div id="add_more_spec" class="hide">
 							<b>Add More Specification here <br/></b>

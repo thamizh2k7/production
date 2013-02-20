@@ -18,7 +18,6 @@
 //= require global/jquery.ui.position
 //= require global/jquery.ui.autocomplete
 //= require p2p/jquery.notify
-
 //= require global/underscore
 //= require bootstrap
 //= global/wysihtml5-0.3.0.min
@@ -27,7 +26,6 @@
 //= global/bootstrap-wysihtml5-0.0.2.min
 //= require private_pub
 //= require p2p/jquery.history
-
 //= require p2p/jquery-scrolltofixed-min
 //= require p2p/search
 //= require p2p/category_menu

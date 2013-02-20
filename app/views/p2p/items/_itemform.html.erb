@@ -94,29 +94,35 @@
 			<div class="btn-group" id="listing_action">
 				<!-- check if the item is sold or not -->
 
-				<% if solddate.nil?  %>
+				<% unless itemid.empty? %>
 
-					<% if !approvedate.to_s.nil? %>
+					<% if solddate.nil?  %>
 
-				  			<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
+						<% if !approvedate.to_s.nil? %>
+
+					  			<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
+						<% else %>
+							
+					  			<a href="#" class=" action btn"  title="Listing has not been approved yet" > <i class="icon icon-shopping-cart"></i>Waiting for approval</a>
+				  	
+					  <% end %>
+				  
+
 					<% else %>
-						
-				  			<a href="#" class=" action btn"  title="Listing has not been approved yet" > <i class="icon icon-shopping-cart"></i>Waiting for approval</a>
-			  	
-				  <% end %>
-			  
+						<span class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
+					<%end %>					
+
+					
+
+					<% if deletedate.nil? %>
+					  <button class="btn"><i  itemid="<%=itemid%>" id="delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
+					<%end %>
 
 				<% else %>
-					<span class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
-				<%end %>					
 
-				
+					  <button class="btn"><i  title="New Listing" class="action_icon icon-list"></i>New Listing</button>
 
-				<% if deletedate.nil? %>
-				  <button class="btn"><i  itemid="<%=itemid%>" id="delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
-				<%end %>
-
-				
+				<% end %>				
 
 				
 				  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>

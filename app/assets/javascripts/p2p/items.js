@@ -85,6 +85,7 @@ $(document).ready(function(){
 
 			if (window.edit){
 				$("#category").editable('toggleDisabled');
+				$('[id^=item_]').on('save',check_specs);
 			}
 
 			$("#title").css({'color':'blue'});
@@ -154,39 +155,8 @@ $(document).ready(function(){
 						$(data).insertAfter($('#table_specs tr:last '));
 						$("[id^=item_]").editable();
 
-						//validate													//validate specification
-							$('[id^=item_]').on('save', function(e, params) {
-				   				 //alert('Saved value: ' + params.newValue);
-				   				 var that = $(this);
-
-				   				if (params.newValue.length > 0) {
-
-									if (params.newValue.length > 2) {
-										item_values['spec'][that.attr('specid')] = params.newValue;
-										$(this).removeClass('error');
-										if ($('[id^=item_]')[Number($(this).attr('specid')) ]){
-
-											$($('[id^=item_]')[Number($(this).attr('specid'))]).tooltip('show');
-										}
-										else{
-											$(window).scrollTop = $("#desc_content").top;
-											$("#desc_content").tooltip('show');
-										}
-									}
-									else{
-										item_values['spec'][that.attr('specid')]="";
-										params.newValue = params.oldValue;
-										$(this).addClass('error');
-										$(this).tooltip('show');
-									}
-								}
-								else{
-									item_values['spec'][that.attr('specid')]="";
-									$(this).tooltip('show');
-								}
-
-							});
-
+						//validate specification
+							$('[id^=item_]').on('save',check_specs);
 
 					},
 					error:function(){
@@ -380,12 +350,6 @@ $(document).ready(function(){
 					return false;
 				}
 				
-				if (!('cat' in item_values) || item_values['cat'] == "") {
-					$("#category").addClass("error");
-					$("#category").tooltip('show');
-					return false;
-				}
-
 
 				if (!('brand' in item_values) || item_values['brand'] == ""){
 					$("#model").addClass("error");
@@ -506,3 +470,37 @@ $(document).ready(function(){
 
 
 });
+
+
+check_specs =  function(e, params) {
+				   				 //alert('Saved value: ' + params.newValue);
+				   				 var that = $(this);
+
+				   				if (params.newValue.length > 0) {
+
+									if (params.newValue.length > 1) {
+										item_values['spec'][that.attr('specid')] = params.newValue;
+										$(this).removeClass('error');
+										
+										if ($('[id^=item_]')[Number($(this).attr('specid')) ]){
+
+											$($('[id^=item_]')[Number($(this).attr('specid'))]).tooltip('show');
+										}
+										else{
+											$(window).scrollTop = $("#desc_content").top;
+											$("#desc_content").tooltip('show');
+										}
+									}
+									else{
+										item_values['spec'][that.attr('specid')]="";
+										params.newValue = params.oldValue;
+										$(this).addClass('error');
+										$(this).tooltip('show');
+									}
+								}
+								else{
+									item_values['spec'][that.attr('specid')]="";
+									$(this).tooltip('show');
+								}
+
+							}

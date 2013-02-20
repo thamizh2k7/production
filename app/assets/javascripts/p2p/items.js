@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-	// save the form onclick trigger
 
+	// save the form onclick trigger
 	$("#save").click(function(){
 
 		// call the save function if saved not return false

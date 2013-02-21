@@ -107,7 +107,9 @@ $(document).ready(function(){
 
 				item_values['spec']={};
 				
-				if (params.newValue == '1')
+				if (params.newValue == '1'){
+					
+				}
 
 				//$('#model').removeClass('editable').removeClass('editable-click').removeClass('editable-unsaved');
 				var temp = $('#model').parent().html();

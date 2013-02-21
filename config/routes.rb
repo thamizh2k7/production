@@ -77,6 +77,7 @@ Sociorent::Application.routes.draw do
     #scaffold controller and view
     resources :categories
     resources :specs
+    resources :products
 
       get "/categories/set_category" => "categories#set_category"
       get "/categories/sub_category" => "categories#sub_category"

@@ -111,10 +111,6 @@ $(document).ready(function(){
 				$(".specs").remove();
 
 				item_values['spec']={};
-				
-				if (params.newValue == '1'){
-					
-				}
 
 				//$('#model').removeClass('editable').removeClass('editable-click').removeClass('editable-unsaved');
 				var temp = $('#model').parent().html();
@@ -226,7 +222,7 @@ $(document).ready(function(){
 			//validate price
 			$('#price').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
-				if (params.newValue.match(/^\d+$/) != null) {
+				if (params.newValue.match(/^\d+\.?\d+$/) != null) {
 					item_values['price'] = params.newValue;
 					$(this).removeClass('error');
 					$("#condition").tooltip('show');
@@ -234,6 +230,7 @@ $(document).ready(function(){
 				}else{
 					item_values['price']="";
 					params.newValue = params.oldValue;
+					$(this).addClass('error');
 					$(this).tooltip('show');
 				}
 			});
@@ -241,6 +238,7 @@ $(document).ready(function(){
 			//validate location
 			$('#location').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
+
 				if (params.newValue.length > 3) {
 					item_values['location'] = params.newValue;
 					$(this).removeClass('error');

@@ -272,7 +272,7 @@
 	              Condition:
 	            </td>
 	            <td>
-	             <span class="canEdit" data-name="username"  title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
+	             <span class="canEdit" data-name="username" data-type="select" data-source="['new','used']" title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
 	            </td>
 	          </tr>
 
@@ -282,7 +282,7 @@
 	              Location:
 	            </td>
 	            <td>
-	             <span class="canEdit" data-name="username"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
+	             <span class="canEdit" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
 	            </td>
 	          </tr>
 

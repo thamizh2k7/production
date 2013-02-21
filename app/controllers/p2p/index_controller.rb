@@ -21,7 +21,7 @@ def search
 
 
   unless request.xhr?
-   redirect_to '/p2p'
+   redirect_to :p2p_root
    flash[:notice] ="Invalid Request"
     return
   end
@@ -35,11 +35,10 @@ def search
 
       if suggested_word == params[:id]
 
-
       result = P2p::Item.notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
 
       result.each do |res|
-        response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+        response.push({:label=> "#{res.title}" ,:value => URI.encode( url_for :p2p_item_url , {:cat => res.product.category.name ,:prod => res.product.name , :item => res.title}) })
       end
 
     else
@@ -68,27 +67,25 @@ end
 
 
 def get_search_suggestions(query)
-  response =[{:label => query ,:value => URI.encode("/p2p/search/q/#{query}")}]
+  response =[{:label => query ,:value => URI.encode(url_for(:p2p_search_query , {:query => query})}]
 
   result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
-  puts result.inspect + "fsad"
-
   result.each do |res|
-    response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/#{res.name}")} )
+    response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode(url_for :p2p_list_by_cat_prod,{:cat => res.name})} )
   end
 
 
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-    response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/#{res.category.name}/#{res.name}")} ) if res.items.count >0
+    response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode( url_for :p2p_list_by_cat_prod,{:cat => res.category.name , :prod => res.name })} ) if res.items.count >0
   end
 
   result = P2p::Item.notsold.approved.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-    response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+    response.push({:label=> "#{res.title}" ,:value => URI.encode( url_for :p2p_item_url {:cat => res.product.category.name ,:prod => res.product.name ,:item => res.title }))
   end
   return response
 
@@ -437,7 +434,7 @@ def search_list
 
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
-        temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
+        temp_url = URI.encode( url_for (:p2p_items , {:cat => itm.product.category.name ,:prod  => itm.product.name ,:item => itm.title}))
         itm = to_hash(itm)
         itm[:url] = temp_url
         itm[:img] = url

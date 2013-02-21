@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
 
+	$(".editable").on('shown',function(){alert('safs')});
+	
 	// save the form onclick trigger
 	$("#save").click(function(){
 

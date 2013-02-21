@@ -83,7 +83,7 @@ Sociorent::Application.routes.draw do
       post 'users/list' => 'users#list'
 
 
-      get '' => "index#index"
+      get '' => "index#index"  ,:as => :p2p_root
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"
       get 'getattributes/:id' => "items#get_attributes"
@@ -107,7 +107,7 @@ Sociorent::Application.routes.draw do
       
       get 'getmessages(/:id)' => 'messages#getmessages'
 
-      match 'search/q/:query' => "index#search_query"
+      match 'search/q/:query' => "index#search_query" ,:as => :p2p_search_query
 
       match 'search/c/:cat(/:prod)' => "index#search_cat"
 
@@ -118,8 +118,8 @@ Sociorent::Application.routes.draw do
       match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/ 
       match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/ 
 
-      get ':cat/:prod/:item' => 'items#view' ,:as => :item_url
-      get ':cat(/:prod)' => "index#browse" 
+      get ':cat/:prod/:item' => 'items#view' ,:as => :p2p_item_url
+      get ':cat(/:prod)' => "index#browse" ,:as => :p2p_list_by_cat_prod
 
   end
 

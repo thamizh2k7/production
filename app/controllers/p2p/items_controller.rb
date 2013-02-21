@@ -91,10 +91,13 @@ end
 
     begin
       item = P2p::Item.find(params[:id])
+      
+      raise "Cannot Delete" if item.user.id != current_user.id  and current_user.id != 1
+
       item.deletedate = Time.now
       item.save
 
-      raise "Cannot Delete" if item.user.id != current_user.id 
+      
     rescue
       if request.xhr? 
         render :json => {:status => 0}

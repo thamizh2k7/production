@@ -18,8 +18,9 @@
 		    
 		 		<!--message modal  -->
 		 		<!-- Button to trigger modal -->
-					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn"  > Compose</a>
-					</i>
+		 		<span>
+					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn "  > Compose</a>
+				</span>
 					 
 					<!-- Modal -->
 					<div id="compose_newmsg_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="compose_newmsg_modallLabel" aria-hidden="true">
@@ -35,7 +36,7 @@
 					</div>
 
 
-		    <li class="active"><a href="#inbox" data-toggle="tab">
+		    <li class="active"><a href="#inbox" data-toggle="tab"  id="inbox_link">
 		    	<% unreadcount = @inbox.unread.count %>
 		    	Inbox
 		    	<span id="unread_count">
@@ -44,8 +45,8 @@
 		        </a></li>
 	            
 
-		    <li><a href="#sent" data-toggle="tab">Sent</a></li>
-		    <li><a href="#delete" data-toggle="tab">Trash</a></li>
+		    <li><a href="#sent" data-toggle="tab" id="sentbox_link">Sent</a></li>
+		    <li><a href="#delete" data-toggle="tab" id="deletebox_link">Trash</a></li>
 
 		  </ul>
 		</div>
@@ -303,7 +304,7 @@
 		$('.back_to_table').click(function(){
 			$("#show_msg").hide();
 			if ($(this).attr('tbl') == 'inbox'){
-				$("#inbox").css({"display":""});
+				$("#inbox").css({"display":"block"});
 			}else if ($(this).attr('tbl') == 'sentbox'){
 				$("#sent").css({"display":""});
 			}

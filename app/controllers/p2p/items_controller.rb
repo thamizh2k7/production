@@ -427,4 +427,9 @@ end
   end
 
 
+  def getbook_details
+
+    render :json => Book.find_by_isbn13(params[:isbn13])
+  end
+
 end

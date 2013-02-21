@@ -1,7 +1,6 @@
 Sociorent::Application.routes.draw do
 
 
-  get "cities/index"
 
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
@@ -79,14 +78,16 @@ Sociorent::Application.routes.draw do
     resources :specs
     resources :products
 
-      get "/categories/set_category" => "categories#set_category"
-      get "/categories/sub_category" => "categories#sub_category"
+      get "categories/set_category" => "categories#set_category"
+      get "categories/sub_category" => "categories#sub_category"
 
-      match '/getcategories' => "categories#getcategories"
+      match 'getcategories' => "categories#getcategories"
 
+      match 'getcities' => "cities#list"
 
       post 'users/list' => 'users#list'
 
+      match 'getbook_details/:isbn13' => "items#getbook_details"
 
       get '' => "index#index"
       get 'sellitem' => "items#new"

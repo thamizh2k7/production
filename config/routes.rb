@@ -74,10 +74,13 @@ Sociorent::Application.routes.draw do
     resources :images
     resources :credits 
 
+    #scaffold controller and view
+    resources :categories
+
       get "/categories/set_category" => "categories#set_category"
       get "/categories/sub_category" => "categories#sub_category"
 
-      match '/categories' => "categories#index"
+      match '/getcategories' => "categories#getcategories"
 
 
       post 'users/list' => 'users#list'

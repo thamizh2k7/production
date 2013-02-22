@@ -87,6 +87,8 @@ Sociorent::Application.routes.draw do
 
       post 'users/list' => 'users#list'
 
+      post 'items/:id' => 'items#update'
+
       match 'getbook_details/:isbn13' => "items#getbook_details"
 
       get '' => "index#index"
@@ -98,9 +100,11 @@ Sociorent::Application.routes.draw do
       get 'welcome' => 'users#welcome'
       post 'welcome' => 'users#user_first_time'
 
+      match 'itempayment/:id' => 'items#sellitem_pricing'
       get 'delete/:id' => "items#destroy"
       
-      post 'addimage' => "items#add_image"
+      post 'addimage/:item_id' => "items#add_image"
+      get  'addimage/:form_id/form' => "items#sellitem_pricing"
 
       get 'sold/:id' => "items#sold"
 

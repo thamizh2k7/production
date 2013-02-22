@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 			$("#add_more_spec").addClass('hide');
 
-			$("#upload_pic").addClass('hide');
+			//$("#upload_pic").addClass('hide');
 
 			$("#empty_specs").addClass('hide');
 
@@ -46,7 +46,7 @@ $(document).ready(function(){
 			$(this).children().attr('data-original-title','Edit Item');
 
 			// disable upload form
-			$("#file_add_image").attr("disabled","disabled");
+			//$("#file_add_image").attr("disabled","disabled");
 
 			$(".remove_image").css({'display':'block'});
 
@@ -72,7 +72,7 @@ $(document).ready(function(){
 			
 			// enable upload form
 			// $("#file_add_image").removeProp("disabled");
-			$("#file_add_image").removeAttr("disabled");
+			$("#upload_pic").removeAttr("disabled");
 
 			$(".remove_image").css({'display':'block'});
 			$("#add_more_spec").removeClass('hide');
@@ -83,9 +83,11 @@ $(document).ready(function(){
 
 			$('.canEdit').editable();
 
+			$("#image_upload").removeAttr('disabled','disabled');
 			if (window.edit){
 				$("#category").editable('toggleDisabled');
 				$('[id^=item_]').on('save',check_specs);
+
 			}
 
 			$("#title").css({'color':'blue'});
@@ -234,7 +236,7 @@ $(document).ready(function(){
 			$('#location').on('save', function(e, params) {
    				 //alert('Saved value: ' + params.newValue);
 
-				if (params.newValue.length > 3) {
+				if (params.newValue.length !=0 ) {
 					item_values['location'] = params.newValue;
 					$(this).removeClass('error');
 					$('[id^=item_] :first').tooltip('show');
@@ -292,10 +294,6 @@ $(document).ready(function(){
 		}
    });   
 
-
-	$("#file_add_image").change(function(){
-		$("#add_image_form").submit();
-	});
 
 
 
@@ -375,6 +373,14 @@ $(document).ready(function(){
 					$("#item_desc").tooltip('show');
 					alert("Enter item description");
 					return false;
+
+				}
+
+				if (!('location' in item_values) || item_values['location'] == ""){
+					$("#location").addClass("error");
+					$("#location").tooltip('show');
+					alert("Enter item location");
+					return false;
 				}
 
 
@@ -390,29 +396,51 @@ $(document).ready(function(){
 					}
 				});
 
+
 				if (flag){
 					alert(" Enter Specifications" );
 					return false;
 				}
+				if ((window.image_count +  $("#image_upload")[0].files.length )>3 ){
+					showNotifications("No more than 3 images are allowed. Please delete some");
+					return false;
+				}
+
+
 
 
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');
 
-				item_values['authenticity_token']= AUTH_TOKEN;
-				$.ajax({
-					url:window.editsaveurl,
-					data:item_values,
-					type:window.editsavetype,
-					success:function(data){
-						if (data['status'] == 1){
-							window.location.href = "/p2p/" + data['id']
-						}
-						else{
-							alert(data['status']);
-						}
-					}
+
+				$("<input  class='hide' name='price' value='" + item_values['price'] + "'>").insertBefore("#image_upload");
+				$("<input  class='hide' name='title' value='" + item_values['title'] + "'>").insertBefore("#image_upload");
+				$("<input  class='hide' name='location' value='" + item_values['location'] + "'>").insertBefore("#image_upload");
+				$("<input class='hide' name='condition' value='" + item_values['condition'] + "'>").insertBefore("#image_upload");
+				$("<input class='hide' name='brand' value='" + item_values['brand'] + "'>").insertBefore("#image_upload");
+				$("<input class='hide' name='desc' value='" + item_values['desc'] + "'>").insertBefore("#image_upload");
+				$("<input class='hide' name='brand' value='" + item_values['brand'] + "'>").insertBefore("#image_upload");
+
+				_.each(item_values['spec'],function(value,key){
+					$("<input class='hide' name='spec[" + key + "]' value='" + value + "'>").insertBefore("#image_upload");					
 				});
+
+				if ($("#image_upload")[0].files.length > 3 ){
+					showNotifications('Image limit is 3. Please add only three files');
+					return false;
+				}else if ( !window.edit && $("#image_upload")[0].files.length == 0){
+					showNotifications('Add atleast one image');			
+					return false;
+				}
+
+
+				if (window.edit){
+					$("#fileupload").attr({
+						'action':window.editsaveurl						});
+
+				}
+
+				$("#fileupload").submit();
 
 			};
 
@@ -467,6 +495,10 @@ $(document).ready(function(){
 	      $('.thumbs').click(function(){
 	      		$('#view_image').attr('src',$(this).children('img').attr("viewimage"));
 	      		$('#view_image').attr('imgid',$(this).children('img').attr("imgid"));
+	      });
+
+	      $(".icon-repeat").click(function(){
+	      	$("#image_upload").val("");
 	      });
 
 

@@ -12,7 +12,11 @@ class P2p::Item < ActiveRecord::Base
 
   has_many :images ,:class_name => 'P2p::Image'
 
-  attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate
+  attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision
+
+  # 1- courier
+  # 2- direct
+  # 3 -online
 
   attr_accessor :img
 
@@ -92,7 +96,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg1" ,:id => 0})
         elsif type == :search 
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -103,7 +107,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg2" ,:id => 0})
         elsif type == :search 
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -114,7 +118,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg3" ,:id => 0})
         elsif type == :search 
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -133,7 +137,7 @@ class P2p::Item < ActiveRecord::Base
             if type  == :view
               res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
             elsif type == :thumb
-              res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+              res.push({:url => "/assets/p2p/noimage_thumb.jpg4" ,:id => 0})
             elsif type == :search 
               res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
             end

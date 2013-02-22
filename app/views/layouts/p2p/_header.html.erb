@@ -13,6 +13,10 @@
       <div class="navbar pull-right">
         <ul class="nav">
 
+          <li>
+            <a href="#"><%= session[:city] if session.has_key?(:city) %></a>
+          </li>
+
           <% unless current_user.nil? %>
 
           <% if params[:action] == 'index'  and params[:controller]== 'p2p/messages'%>

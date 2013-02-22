@@ -87,3 +87,5 @@ gem 'bootstrap-editable-rails'
 gem "private_pub"
 gem "thin"
 
+
+gem "geocoder"

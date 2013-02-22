@@ -52,6 +52,11 @@ class ApplicationController < ActionController::Base
 
   ##return p2pUser 
   def p2p_current_user
+  	
+  	if !session.has_key?(:city) or session[:city] == ""
+  		session[:city] = Geocoder.search('106.51.114.110')[0].data["city"]
+  	end
+
   	if current_user.nil?
   		return nil
   	else

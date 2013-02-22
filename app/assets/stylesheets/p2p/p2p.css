@@ -109,9 +109,6 @@ li.dropdown:hover > ul.dropdown-menu{
 	border-left: 3px solid white;	
 }
 
-.search_messages{
-	
-}
 
 .unread, .unread > td {
 	background-color: lightyellow !important; 
@@ -144,7 +141,7 @@ td , th{
 
 
 .search_messages{
-	height:24px !important;
+	height:25px !important;
 }
 
 .dataTables_length{
@@ -165,6 +162,8 @@ td , th{
 	color:maroon;
 	position: fixed;
 	font-size: 1.2em;
+	margin-left: 300px;
+	background-color: lightyellow;
 }
 
 
@@ -180,4 +179,12 @@ td , th{
 	font-weight: bold;
 	width:100%;
 	color:#0088cc;
+}
+
+.showmessage{
+	cursor: pointer;
+}
+
+#compose_newmsg_button{
+	display: block;
 }

@@ -96,3 +96,11 @@
 	display: block;
 	text-align: center;
 }
+
+
+.highlight{
+	color:maroon;
+	font-weight: bold;
+	text-shadow: -2px 2px 3px #ff2d95;
+
+}

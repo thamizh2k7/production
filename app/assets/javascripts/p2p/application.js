@@ -17,6 +17,8 @@
 //= require global/jquery.ui.menu
 //= require global/jquery.ui.position
 //= require global/jquery.ui.autocomplete
+//= require jquery_ujs
+//= require jquery-fileupload
 //= require p2p/jquery.notify
 //= require global/underscore
 //= require bootstrap

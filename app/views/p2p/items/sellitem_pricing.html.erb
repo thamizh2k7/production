@@ -1,0 +1,185 @@
+
+
+<h2>You are on final step..!</h2>
+
+
+
+<div class="form-horizontal">
+
+<div class="control-group">
+      <label class="control-label">  How do you wish to send the material.?</label>
+        <div class="controls">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+
+                      <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        Send by Courier...........
+                        </a>
+                      </div>
+
+                      <div id="collapseOne" class="accordion-body collapse ">
+
+                        <div class="accordion-inner form-horizontal">
+                          
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+
+                            <%= f.hidden_field :paytype  ,:value => 1%>
+                            
+
+                            <div class="control-group">
+                                 <label class="control-label"> Cities you would courier </label>
+                                 
+                                 <div class="controls">
+                                   <%#= f.collection_select :city ,P2p::City.all ,:id , :name  %>
+                                   <%= @item.city.name %>
+                                 </div>
+                            </div>
+
+                           
+
+                            <div class="control-group">
+                                 <label class="control-label">  ALl ove india :</label>
+                                 
+                                 <div class="controls">
+                                   <%= check_box_tag 'alloverindia'%>
+                                 </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                 <label class="control-label">  Terms and conditions</label>
+                                 
+                                 <div class="controls">
+                                    4% would be taken as commision
+                                    <br/><br/>
+                                   <%= check_box_tag 'terms'%> I Agree to the Terms and conditions
+                                 </div>
+                            </div>
+                              
+                            <div class="control-group">
+                                 
+                                 <div class="controls">
+                                   
+                                   <%= f.submit %>
+
+                                 </div>
+                            </div>
+
+                          <% end %>
+                         
+                         
+                         
+                        </div>
+                      </div>
+                    </div>
+
+                  <% if @item.city.name == "Bangalore" %>
+
+                  <div class="accordion-group">
+
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                          Send by Sociorent...........
+                          </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse ">
+
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+                            <div class="accordion-inner form-horizontal">
+                              
+                              <%= f.hidden_field :paytype  ,:value => 3%>
+                            
+                                <div class="control-group">
+                                     <label class="control-label"> Cities available </label>
+                                     
+                                     <div class="controls">
+                                     <%#= f.collection_select :city ,P2p::City.where(:pickup => 1) ,:id , :name  %>
+                                     <%= @item.city.name %>
+                                     </div>
+                                </div>
+
+                               
+                                <div class="control-group">
+                                     <label class="control-label">  Terms and conditions</label>
+                                     
+                                     <div class="controls">
+                                        4% would be taken as commision
+                                        <br/><br/>
+                                       <%= check_box_tag 'terms'%> I Agree to the Terms and conditions
+                                     </div>
+                                </div>
+                                  
+                                <div class="control-group">
+                                     
+                                     <div class="controls">
+                                       <%= f.submit %>
+                                     </div>
+                                </div>
+                                
+                               
+                               
+                             
+                            </div>
+                          </div>
+                        </div>
+
+                        <% end %>
+                      <% end %>
+
+
+
+                  <div class="accordion-group">
+
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                          Direct payment
+                          </a>
+                        </div>
+                        <div id="collapseThree" class="accordion-body collapse">
+
+                          <div class="accordion-inner form-horizontal">
+                                             
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+
+                            <%= f.hidden_field :paytype  ,:value => 2%>
+
+
+                            <div class="control-group">
+                                 <label class="control-label"> City </label>
+                                 
+                                 <div class="controls">
+                                   <%#= f.collection_select :city ,P2p::City.all ,:id , :name  %>
+                                   <%= @item.city.name %>
+                                 </div>
+                            </div>
+
+         
+                              <div class="control-group">
+                                   <label class="control-label"> Where would you exchange ? </label>
+                                   
+                                   <div class="controls">
+                                     <%= select_tag "meet_at",options_for_select([["Meet in Common Place",1],["Meet in home",2]]) %>
+                                   </div>
+                              </div>
+
+                               
+                              <div class="control-group">
+                                   
+                                   <div class="controls">
+                                     <%=f.submit %>
+                                   </div>
+                              </div>
+                            
+                          <% end %>
+
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+
+          </div>
+
+      </div>
+  </div> 

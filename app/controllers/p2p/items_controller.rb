@@ -20,10 +20,33 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
+    item.city = P2p::City.find_by_name(params[:location])
+
     #item.product = P2p::Product.find(1)
     item.product = P2p::Product.find(params["brand"])
 
-    #echo params["item"]['attribute'].count
+
+    #todo add image validation in server side
+
+ #   images = []
+
+
+
+    if params[:img].respond_to?('each')
+          params[:img].each do |img|
+             item.images << P2p::Image.new(:img=>img)
+            
+            puts "images in multip"
+#            images.push(i)
+          end
+      else
+
+        item.images.new(:img => params[:img])
+        puts "images in single"
+        #puts i.errors.inspect + "images "
+
+      end
+      #echo params["item"]['attribute'].count
 
      params["spec"].each do |key,value|
         next if value == "" 
@@ -39,16 +62,19 @@ class P2p::ItemsController < ApplicationController
      end
 
      data={}
+
+ 
     if item.save 
 
-      data['status'] = 1;
-      data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
-    else
-      data['status'] = 0;
-      data['msg'] = "Fails";
-    end
+      #redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
+      redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
 
-    render :json => data
+    else
+
+      flash[:notice] = "Failed "
+      redirect_to URI.encode("/p2p/") 
+
+    end
 
   end
 
@@ -60,6 +86,8 @@ class P2p::ItemsController < ApplicationController
     item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params[:condition]});
 
     item.product = P2p::Product.find(params["brand"])
+
+    item.city = P2p::City.find_by_name(params[:location])
 
     #echo params["item"]['attribute'].count
     #clear all
@@ -75,15 +103,33 @@ class P2p::ItemsController < ApplicationController
      end
 
      data={}
+
+
+
+    if params[:img].respond_to?('each')
+          params[:img].each do |img|
+             item.images << P2p::Image.new(:img=>img)
+            
+            puts "images in multip"
+#            images.push(i)
+          end
+      else
+
+        item.images.new(:img => params[:img])
+        puts "images in single"
+        #puts i.errors.inspect + "images "
+
+      end
+
+    
     if item.save 
-      data['status'] = 1;
-      data['id'] = URI.encode("#{item.product.category.name}/#{item.product.name}/#{item.title}")
+        flash[:notice] = "Saved changes"
+
     else
-      data['status'] = 0;
-      data['msg'] = "Fails";
+      flash[:notice] = "Failed to save"
     end
 
-    render :json => data
+    redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
 
 end
 
@@ -163,21 +209,31 @@ end
           @item = @prod.items.unscoped.find_by_title(params[:item])
         else
           @item = @prod.items.find_by_title(params[:item])
+
+          puts 'i immm'
         end
 
-        puts @item.inspect + "asf"
-
-        if p2p_current_user.nil? and @item.approveddate.nil?
-            raise "Nothing found" 
-        end
 
         raise "Nothing found" if   @item.nil? 
-        
-      rescue
+
+        if !p2p_current_user.nil? and @item.paytype.nil? and p2p_current_user.id == @item.user.id
+          redirect_to "/p2p/itempayment/#{@item.id}"
+          return
+        end
+
+        if (p2p_current_user.nil? and @item.approveddate.nil?) or @item.paytype.nil?
+            raise "Nothing found pyatype and not approved" 
+
+        end
+
+
+
+      rescue 
 
         flash[:notice] ="Nothing found for your request"
         redirect_to '/p2p/mystore'
         return
+
       end
 
       if @item.product.category.category.nil?
@@ -258,22 +314,60 @@ end
   def add_image
 
 
-    item = P2p::Item.find(params["item_id"])
-    unless params["img"].nil?
+    if params['item_id'] != ""
+
+      item = P2p::Item.find(params["item_id"])
+      unless params["img"].nil?
 
 
-      params["img"].each do |img|
+        if params[:img].respond_to?('each')
+          params["img"].each do |img|
 
-        i = item.images.new(:img=>img)
+            i = item.images.new(:img=>img)
+
+            i.save
+
+          end
+      else
+        
+        i = item.images.new(:img => params[:img])
 
         i.save
 
+
       end
 
+      render :json => {
+          :name  =>  "picture1.jpg",
+          :size =>  902604,
+          :url =>  "http:\/\/example.org\/files\/picture1.jpg",
+          :thumbnail_url => "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
+          :delete_url => "http:\/\/example.org\/files\/picture1.jpg",
+          :delete_type => "DELETE"
+        }
+
+    return
+
     end
+
+
+        session['img'] = []
+
+        params["img"].each do |img|
+
+          i = P2p::Image.new(:img=>img)
+
+          session['img'].push(i.id)
+          i.save
+
+        end
+  
+      render :text => session['img'].inspect    
+
+  end
     #render :inline => params.inspect
 
-    redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
+    
 
   end
 
@@ -433,6 +527,60 @@ end
   def getbook_details
 
     render :json => Book.find_by_isbn13(params[:isbn13])
+  end
+
+  def sellitem_pricing
+
+    
+    @item = P2p::Item.notsold.find(params[:id])
+
+    if params.has_key?(:commit) 
+
+
+        if params[:p2p_item][:paytype] == "1"
+          
+
+          @item.paytype = params[:p2p_item][:paytype]
+          @item.payinfo = params[:alloverindia]
+          @item.commision = 4
+
+          @item.save
+          flash[:notice] = "Changes Saved"
+          redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
+          return
+
+        elsif params[:p2p_item][:paytype] == "2"
+          
+
+          @item.paytype = params[:p2p_item][:paytype]
+          @item.payinfo = ''
+          @item.commision = 4
+
+          @item.save
+          flash[:notice] = "Changes Saved"
+          redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
+          return
+
+        elsif params[:p2p_item][:paytype] == "3"
+
+          @item.paytype = params[:p2p_item][:paytype]
+          @item.payinfo = params[:meet_at]
+          @item.commision = 0
+
+          @item.save
+          flash[:notice] = "Changes Saved"
+          redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
+          return
+
+        end
+
+
+    end
+
+    @item = P2p::Item.notsold.find(params[:id])
+
+
+      
   end
 
 end

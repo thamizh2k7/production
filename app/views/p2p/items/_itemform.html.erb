@@ -1,7 +1,6 @@
 
 <%= stylesheet_link_tag "items/items_manifest"%>
-
-
+<%= javascript_include_tag "p2p/jquery.form" %>
 
 <div class="main_wrapper">
 	<div class="row">
@@ -50,25 +49,32 @@
 			 		<!-- contact seller modal  -->
 			 		<!-- Button to trigger modal -->
 
-					<a href="#login_to_contactmodal" role="button" class="btn" data-toggle="modal">Contact Seller</a>
-					 
-					<!-- Modal -->
-					<div id="login_to_contactmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login_to_contactmodallLabel" aria-hidden="true">
-					  <div class="modal-header">
-					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					    <h3 id="login_to_contactmodalLabel">Login</h3>
-					  </div>
-					  <div class="modal-body">
-					    <p>Login to contact Seller</p>
-					  </div>
-					</div>
+			 		<% if defined?(paytype) and paytype == "2" %>
 
-			 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
-		  			<ul class="dropdown-menu">
-		    	      <li><a href="#">Through Sociorent</a></li>
-			          <li><a href="#">Directly offline</a></li>
-			        </ul> 
-			      </div>
+						<a href="#login_to_contactmodal" role="button" class="btn btn-primary " data-toggle="modal">Contact Seller</a>
+						 
+						<!-- Modal -->
+						<div id="login_to_contactmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login_to_contactmodallLabel" aria-hidden="true">
+						  <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						    <h3 id="login_to_contactmodalLabel">Login</h3>
+						  </div>
+						  <div class="modal-body">
+						    <p>Login to contact Seller</p>
+						  </div>
+						</div>
+
+					<% elsif paytype == "1" %>
+
+				 		<button class="btn btn-primary " >Buy via courier </button>
+
+					<% elsif paytype == "3" %>
+
+				 		<button class="btn btn-primary " >Buy via sociorent <i class="icon-white icon-star"></i></button>
+
+					<% end %>
+				</div>
+
 					
 
 			<% elsif ownerid != p2p_current_user.id.to_s  %>		
@@ -78,26 +84,34 @@
 
 			 		<!-- contact seller modal  -->
 			 		<!-- Button to trigger modal -->
-			 		<i class="action_icon" title="You have sent <%= @buyerreqcount %> requests">
-						<a href="#contact_seller_modal" role="button" class="btn " data-toggle="modal"  >Contact Seller</a>
-					</i>
-					 
-					<!-- Modal -->
-					<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
-					  <div class="modal-header">
-					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
-					  </div>
-					  <div class="modal-body">
-					    <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
-					  </div>
-				</div>
 
-			 		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Buy Now <span class="caret"></span></button>
-		  			<ul class="dropdown-menu">
-		    	      <li><a href="#">Through Sociorent</a></li>
-			          <li><a href="#">Directly offline</a></li>
-			        </ul> 
+			 		<% if defined?(paytype) and paytype == "2" %>
+
+				 		<i class="action_icon" title="You have sent <%= @buyerreqcount %> requests">
+							<a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  >Contact Seller</a>
+						</i>
+						 
+						<!-- Modal -->
+						<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+						  <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
+						  </div>
+						  <div class="modal-body">
+						  	Seller aggres to <%=payinfo if defined?(payinfo)%>
+						    <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
+						  </div>
+						</div>
+	
+					<% elsif paytype == "1" %>
+
+				 		<button class="btn btn-primary " >Buy via courier </button>
+
+					<% elsif paytype == "3" %>
+
+				 		<button class="btn btn-primary " >Buy via sociorent <i class="icon-white icon-star"></i></button>
+
+					<% end %>
 			      </div>
 
 			<% elsif ownerid == p2p_current_user.id.to_s %>
@@ -184,19 +198,27 @@
 
 		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
-			<% unless itemid.empty? %>
-	          	<div id="upload_pic" title="Upload more photos" class="pull-right action_icon hide">
+
+	          	<div id="upload_pic" title="Upload more photos" clas="action pull-right">
 	          			<!-- image upload form -->
 
-					<%= form_tag "/p2p/addimage" ,:multipart => true , :remote => true , :id => "add_image_form"  do %>
-					<input type="hidden" value="<%= @item.id %>" name="item_id">
-	    			<input type="file" name="img[]" id="file_add_image" disabled="disabled" multiple>
-					<% end %>
 
-	          		<i class="icon-upload"></i>
+	  <%= form_tag  "/p2p/items", :multipart => true, :id => "fileupload"   do %>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+          <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  %>
 
-	          		Upload</div>
-	          <% end %>
+
+  	<% end %>
+
+		<i class="icon-upload"></i>Upload
+		<i class="icon-repeat action" title="clear"></i>
+		
+
+		<div class="clearfix"></div>
+
+</div>
+
+
 
         <% end %>
 
@@ -407,7 +429,9 @@
 		window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
 		window.editsavetype = '<%= (itemid.empty?) ? "post": "put"%>';
 
+		$("#image_upload").val("");
 		//initialize
+		window.image_count = <%=viewimage.count%>;
 		window.item_values ={};
 		item_values['spec']={};
 		window.edit = <%= (itemid.empty?) ? false : true %>;
@@ -420,6 +444,7 @@
 					item_values['price'] = "<%= price %>";
 					item_values['condition'] = "<%= condition %>";
 					item_values['desc'] = $("#desc_content").html();
+					item_values['location'] = "<%=location%>";
 
 					<% spec.each do |aspec| %>
 						item_values['spec']['<%= aspec.spec.id%>'] = "<%= aspec.value %>";
@@ -439,4 +464,8 @@
 		
 	<% end %>
 
+
+   
+
 </script>
+

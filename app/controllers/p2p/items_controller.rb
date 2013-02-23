@@ -443,8 +443,12 @@ end
          $('#notificationcontainer').notify('create', {
               title: 'Disapproval of Listing',
               text: 'Your item #{item.title} has been disapproved by admin. Please check messages and reply to correct the issue'
-          });
-      "
+          },{
+            expires:false,
+            click:function(){
+              window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{item.title}';
+            }
+          });"
 
 
        PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )

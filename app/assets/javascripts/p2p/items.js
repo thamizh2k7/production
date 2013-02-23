@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 
+	$(".action_icon").tooltip();
 	// save the form onclick trigger
 	$("#save").click(function(){
 
@@ -260,6 +261,7 @@ $(document).ready(function(){
 			    var files = $(this)[0].files; // FileList object
 
 
+			    
 			    // Loop through the FileList and render image files as thumbnails.
 			    for (var i = 0, f; f = files[i]; i++) {
 
@@ -277,8 +279,7 @@ $(document).ready(function(){
 			        return function(e) {
 
 						$(".thumb_holder .thumbnails ").append('<li class="thumbs">\
-	              			<i class="icon-remove pull-right remove_image hide"></i>\
-	              			<img src="' + e.target.result + '"  class="thumb_img" viewimage="' + e.target.result + '">\
+	              			<img src="' + e.target.result + '"  imgid="-1" class="thumb_img pull-left" viewimage="' + e.target.result + '">\
 	              		</li>\
 	              		');
 
@@ -375,6 +376,7 @@ $(document).ready(function(){
 
 	//remove image funciton
 	$(".remove_image").click(function(){
+
 		var that = $(this);
 		$.ajax({
 
@@ -555,6 +557,23 @@ $(document).ready(function(){
 
 	      $(".icon-repeat").click(function(){
 	      	$("#image_upload").val("");
+	      });
+
+	      $("#clearuploads").on('click',function(){
+
+	      	window.image_count -= $("#image_upload")[0].files.length;
+	      	if (window.image_count <0) window.image_count = 0;
+
+
+	      	$("#image_upload").val('');
+
+
+	      	_.each($(".thumb_img"),function(elem){
+	      			if ($(elem).attr('imgid') == -1){
+	      				$(elem).parent().remove();
+	      			}
+	      	});
+
 	      });
 
 

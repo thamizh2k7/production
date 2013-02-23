@@ -12,14 +12,14 @@
 					  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 					  <li> New Listing <span class="divider">/</span></li>
 					  <li> New Listing <span class="divider">/</span></li>			  
-					  <li class="active"  data-name="title"  title="Enter Title" data-emptytext=""  id="title"><%=title.titleize  %></li>
+					  <li class="active action_icon"  data-name="title"  title="Enter Title" data-emptytext=""  id="title"><%=title.titleize  %></li>
 
 				<% else %>
 
 				  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 				  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
 				  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
-				  <li class="active"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
+				  <li class="active  action_icon"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
 				<% end %>
 
 			</ul>
@@ -32,10 +32,10 @@
 	
 			<!-- New Form -->
 		  	<div class="btn-group" id="listing_action">
-			  <button class="btn"><i  title="Remove Listing" class="action_icon icon-remove"></i></button>`	
+			  <button class="btn action_icon"   title="Remove Listing"><i  class=" icon-trash"></i></button>`	
 
-			  <button class="btn "   id="enable">
-			  			<i title="Edit Listing" class="action_icon icon-pencil"></i>
+			  <button class="btn action_icon"  title="Edit Listing"   id="enable">
+			  			<i  class=" icon-pencil"></i>
 			  </button>
 
       	</div> 
@@ -51,26 +51,16 @@
 
 			 		<% if defined?(paytype) and paytype == "2" %>
 
-						<a href="#login_to_contactmodal" role="button" class="btn btn-primary " data-toggle="modal">Contact Seller</a>
+						<a href="#head_login_modal" role="button" class="btn btn-primary " data-toggle="modal">Contact Seller</a>
 						 
-						<!-- Modal -->
-						<div id="login_to_contactmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login_to_contactmodallLabel" aria-hidden="true">
-						  <div class="modal-header">
-						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						    <h3 id="login_to_contactmodalLabel">Login</h3>
-						  </div>
-						  <div class="modal-body">
-						    <p>Login to contact Seller</p>
-						  </div>
-						</div>
 
 					<% elsif paytype == "1" %>
 
-				 		<button class="btn btn-primary " >Buy Now </button>
+				 		<a class="btn btn-primary action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i> Buy Now </a>
 
 					<% elsif paytype == "3" %>
 
-				 		<button class="btn btn-primary " >Buy via sociorent <i class="icon-white icon-star"></i></button>
+				 		<button class="btn btn-primary action_white"  title="Best way"> <i class="icon-white icon-star"></i> Buy via sociorent </button>
 
 					<% end %>
 				</div>
@@ -87,9 +77,7 @@
 
 			 		<% if defined?(paytype) and paytype == "2" %>
 
-				 		<i class="action_icon" title="You have sent <%= @buyerreqcount %> requests">
-							<a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  >Contact Seller</a>
-						</i>
+							<a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-user">Contact Seller</a>
 						 
 						<!-- Modal -->
 						<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
@@ -126,65 +114,76 @@
 
 						<% if !approvedate.to_s.nil? %>
 
-					  			<a href="/p2p/sold/<%= itemid %>" class=" action btn"  title="Mark this listing as sold" > <i class="icon icon-shopping-cart"></i>Mark as sold</a>
+					  			<a href="/p2p/sold/<%= itemid %>" class=" btn"   > <i class="  action_icon  icon-shopping-cart" title="Mark this listing as sold"></i> Mark as sold</a>
 						<% else %>
 							
-					  			<a href="#" class=" action btn"  title="Listing has not been approved yet" > <i class="icon icon-shopping-cart"></i>Waiting for approval</a>
+					  			<a href="#" class="  btn"  > <i class=" action_icon icon-shopping-cart"  title="Listing has not been approved yet"></i> Waiting for approval</a>
 				  	
 					  <% end %>
-				  
 
 					<% else %>
-						<span class="btn"> <i title="On <%= solddate.strftime("%d-%b-%C%y") %>" class="action_icon">  Listing Sold </i> </span>
+						<span class="btn  "> <i class="action_icon" title="On <%= solddate.strftime("%d-%b-%C%y") %>" >  Listing Sold </i> </span>
 					<%end %>					
+
 
 					
 
 					<% if deletedate.nil? %>
-					  <button class="btn" id="delete_button"  itemid="<%=itemid%>"><i   title="Remove Listing" class="action_icon icon-remove"></i></button>
+					  <button class="btn  "  id="delete_button"  itemid="<%=itemid%>"><i  class=" action_icon icon-trash" title="Remove Listing"></i></button>
 					<%end %>
 
 				<% else %>
 
-					  <button class="btn"><i  title="New Listing" class="action_icon icon-list"></i>New Listing</button>
+					  <button class="btn "  ><i   class="action_icon icon-list" title="New Listing"></i>New Listing</button>
 
 				<% end %>				
 
 				
-				  <button class="btn" id="enable"><i title="Edit Listing" class="action_icon icon-pencil"></i></button>
+				  <button class="btn " id="enable"><i  class="action_icon icon-pencil"  title="Edit Listing"></i></button>
 				  
-				  <button class="btn btn-success hide" id="save"><i title="Save changes" class="action_icon icon-ok-circle"></i></button>
+				  <button class="btn btn-success hide " id="save"  ><i  class=" action_icon icon-white icon-ok-circle" title="Save changes"></i></button>
 
-				  <button class="btn btn-danger hide" id="cancel"><i title="Cancel changes" class="action_icon icon-remove-circle"></i></button>
+				  <button class="btn btn-danger hide " id="cancel" ><i  class=" icon-white icon-remove-circle action_icon" title="Cancel changes"></i></button>
 
 
 		          	<!-- view Request messages modal  -->
 			 		<!-- Button to trigger modal -->
-					<a href="/p2p/messages/#<%=title%>" role="button" class="btn" data-toggle="modal"><i title="View Messages for this listing" d="reqcount_<%=itemid%>" class="action_icon icon-envelope"></i> <%=reqcount if reqcount > 0 %> </a>
+			 	<% unless itemid.empty? %>
+					<a href="/p2p/messages/#<%=title%>" role="button" class="btn " data-toggle="modal" ><i  d="reqcount_<%=itemid%>"  class="action_icon icon-envelope" title="View Messages for this listing">  </i>  <%=reqcount if defined?(reqcount) %> </a>
+				<% end %>
 
-				
-				  <button class="btn" id="viewcount"><i title="Number of view of this listing" class="action_icon icon-eye-open"></i><%= viewcount %></button>
+				<% unless itemid.empty? %>
+				  <button class="btn" id="viewcount" ><i  title="Number of view of this listing" class="action_icon icon-eye-open"></i><%= viewcount %></button>
+				<% end %>
+
+				  	 <% if paytype == "1" %>
+				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
+				  	 <%elsif paytype == "2"%>
+				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  > <i class="action_icon icon icon-user" title="Send by Courier"></i> Payment</a>
+					<%elsif paytype == "3"%>				  	 	
+				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-star" title="Send by Courier"></i> Payment</a>
+
+				  	 <% end %>
 
 
 
-			 </div>	      		
+
+				 </div>	      		
 
 			  <% end %>
 
 			  <% if !itemid.empty? and !p2p_current_user.nil? and p2p_current_user.id == 1 %>
 
 			  		<% if approvedate.nil?  %>
-	  				  <button class="btn" id="approve" itemid="<%=itemid%>"><i title="Approve this listing" class="action_icon icon-gift"></i></button>
+	  				  <button class="btn "  id="approve" itemid="<%=itemid%>"><i  class="action_icon icon-thumbs-up" title="Approve this listing"></i></button>
 	  				<% end %>
 
 	  				<% if disapproveddate.nil? %>
-	  				  <button class="btn" id="disapprove"  itemid="<%=itemid%>"><i title="DisApprove this listing" class="action_icon icon-ban-circle"></i></button>
+	  				  <button class="btn " id="disapprove"   itemid="<%=itemid%>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
 	  				<% end %>
 
 			  <%end %>
 
-
-					 
 
 			</div> <!-- span6 action buttons-->
 
@@ -199,20 +198,25 @@
 		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 
-	          	<div id="upload_pic" title="Upload more photos" clas="action pull-right">
-	          			<!-- image upload form -->
+          	<div id="upload_pic" title="Upload more photos" class="action_icon pull-right hide">
+
+	        <!-- image upload form -->
+
 
 
 	  <%= form_tag  "/p2p/items", :multipart => true, :id => "fileupload"   do %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    		<div id="form_temp"></div>
+
+    		<div id="form_temp "></div>
           <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  %>
 
 
   	<% end %>
 
 		<i class="icon-upload"></i>Upload
-		<i class="icon-repeat action" title="clear"></i>
+
+
+		<i id="clearuploads" class="icon-repeat action_icon pull-right" title="clear"></i>
 		
 
 		<div class="clearfix"></div>
@@ -277,13 +281,13 @@
 
 			<tr>
 				<td>Category </td>
-				<td> <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/getcategories" ><%=category%></span></td>
+				<td> <span class="canEdit action_icon" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/getcategories" ><%=category%></span></td>
 			</tr>
 
 			<tr>
 				<td>Model </td>
 				<td>
-					<span id="model" title="Select Model" data-type="select" ><%=brand%></span>
+					<span id="model" class="action_icon" title="Select Model" data-type="select" ><%=brand%></span>
 				</td>
 
 			</tr>
@@ -294,7 +298,7 @@
 	              Price
 	            </td>
 	            <td>Rs.
-	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
+	             <span class="canEdit action_icon" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
 	            </td>
 	          </tr>
 
@@ -304,7 +308,7 @@
 	             <span class="highlight"> Condition</span>
 	            </td>
 	            <td>
-	             <span class="canEdit highlight" data-name="username" data-type="select" data-source="['new','used']" title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
+	             <span class="canEdit highlight action_icon" data-name="username" data-type="select" data-source="['new','used']" title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
 	            </td>
 	          </tr>
 
@@ -314,7 +318,7 @@
 	              Location
 	            </td>
 	            <td>
-	             <span class="canEdit" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
+	             <span class="canEdit action_icon" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
 	            </td>
 	          </tr>
 
@@ -330,7 +334,7 @@
 			                  <%= aspec.spec.name %>
 			                </td>
 			                <td>
-			                 <span class="canEdit" data-name="username"  title="Enter <%= spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
+			                 <span class="canEdit action_icon" data-name="username"  title="Enter <%= spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
 			                </td>
 			              </tr>
 			         <% end %>
@@ -353,7 +357,7 @@
 	<div class="row">
 		<div id="desc" class="span12">
 			<h4>Description</h4>
-			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit" inputclass="desc_content_form"> <%= description.html_safe %> </span>
+			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form"> <%= description.html_safe %> </span>
 		</div>
 	</div>
 
@@ -432,8 +436,6 @@
 <script>
 
 	
-	$(".action_icon").tooltip();
-
 	<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 		window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
@@ -441,7 +443,9 @@
 
 		$("#image_upload").val("");
 		//initialize
-		window.image_count = <%=viewimage.count%>;
+		
+		window.image_count =  <%= (itemid.empty?) ? 0 : viewimage.count %>;
+
 		window.item_values ={};
 		item_values['spec']={};
 		window.edit = <%= (itemid.empty?) ? false : true %>;

@@ -36,3 +36,6 @@
 // require_tree .
 
 
+$(document).ready(function(){
+	$(".action_icon").tooltip();
+});

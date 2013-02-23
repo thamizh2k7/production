@@ -112,3 +112,21 @@
 #desc > .editable-container{
 	width:600px;
 }*/
+
+.accordion-heading{
+	cursor:pointer;
+	background-color: whitesmoke;
+}
+
+.accordion-heading:hover{
+	background-color: lightyellow;
+	font-weight: bold;
+}
+
+.accordion-heading a:hover,a,a:visited,a:focus{
+	text-decoration: none;
+}
+
+#image_upload{
+	cursor: pointer;
+}

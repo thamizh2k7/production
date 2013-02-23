@@ -102,6 +102,21 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def after_sign_in_path_for(resource)
+  	
+  	unless request.xhr?
+  		return request.env["HTTP_REFERER"] 
+  	end
+  	super
+  end
+
+  def after_sign_out_path_for(resource)
+  	unless request.xhr?
+  		return request.env["HTTP_REFERER"] 	
+
+  	end
+  	super
+  end
 
 
   ###########################

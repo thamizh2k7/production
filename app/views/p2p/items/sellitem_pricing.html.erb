@@ -8,11 +8,72 @@
       <label class="control-label">  How do you wish to send the material.?</label>
         <div class="controls">
                 <div class="accordion" id="accordion2">
-                    <div class="accordion-group">
+
+                  <% if @item.city.name == "Bangalore" %>
+
+                  <div class="accordion-group">
+
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                          <i class="icon icon-star"> </i> Send by Sociorent...........
+                          </a>
+                        </div>
+
+                      <% if @item.paytype == 3 %>
+                        <div id="collapseTwo" class="accordion-body collapse in">
+                      <% else %>
+                        <div id="collapseTwo" class="accordion-body collapse ">
+                      <% end %>
+
+
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+                            <div class="accordion-inner form-horizontal">
+                              
+                              <%= f.hidden_field :paytype  ,:value => 3%>
+                            
+                                <div class="control-group">
+                                     <label class="control-label"> Cities available </label>
+                                     
+                                     <div class="controls">
+                                     <%#= f.collection_select :city ,P2p::City.where(:pickup => 1) ,:id , :name  %>
+                                     <%= @item.city.name %>
+                                     </div>
+                                </div>
+
+                               
+                                <div class="control-group">
+                                     <label class="control-label">  Terms and conditions</label>
+                                     
+                                     <div class="controls">
+                                        4% would be taken as commision
+                                        <br/><br/>
+                                       <%= check_box_tag 'terms'%> I Agree to the 
+                                        <a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+                                     </div>
+                                </div>
+                                  
+                                <div class="control-group">
+                                     
+                                     <div class="controls">
+                                       <%= f.submit :class => 'btn btn-primary' %>
+                                     </div>
+                                </div>
+                                
+                               
+                               
+                             
+                            </div>
+                          </div>
+                        </div>
+
+                        <% end %>
+                      <% end %>
+
+                <div class="accordion-group">
 
                       <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                        Send by Courier...........
+                           <i class="icon icon-ok-sign"> </i> Send by Courier...........
                         </a>
                       </div>
 
@@ -78,7 +139,7 @@
                                  
                                  <div class="controls">
                                    
-                                   <%= f.submit %>
+                                   <%= f.submit :class => 'btn btn-primary' %>
 
                                  </div>
                             </div>
@@ -91,73 +152,13 @@
                       </div>
                     </div>
 
-                  <% if @item.city.name == "Bangalore" %>
-
-                  <div class="accordion-group">
-
-                        <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                          Send by Sociorent...........
-                          </a>
-                        </div>
-
-                      <% if @item.paytype == 3 %>
-                        <div id="collapseTwo" class="accordion-body collapse in">
-                      <% else %>
-                        <div id="collapseTwo" class="accordion-body collapse ">
-                      <% end %>
-
-
-                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
-                            <div class="accordion-inner form-horizontal">
-                              
-                              <%= f.hidden_field :paytype  ,:value => 3%>
-                            
-                                <div class="control-group">
-                                     <label class="control-label"> Cities available </label>
-                                     
-                                     <div class="controls">
-                                     <%#= f.collection_select :city ,P2p::City.where(:pickup => 1) ,:id , :name  %>
-                                     <%= @item.city.name %>
-                                     </div>
-                                </div>
-
-                               
-                                <div class="control-group">
-                                     <label class="control-label">  Terms and conditions</label>
-                                     
-                                     <div class="controls">
-                                        4% would be taken as commision
-                                        <br/><br/>
-                                       <%= check_box_tag 'terms'%> I Agree to the 
-                                        <a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
-                                     </div>
-                                </div>
-                                  
-                                <div class="control-group">
-                                     
-                                     <div class="controls">
-                                       <%= f.submit %>
-                                     </div>
-                                </div>
-                                
-                               
-                               
-                             
-                            </div>
-                          </div>
-                        </div>
-
-                        <% end %>
-                      <% end %>
-
 
 
                   <div class="accordion-group">
 
                         <div class="accordion-heading">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                          Direct payment
+                          <i class="icon icon-user"> </i> Direct payment
                           </a>
                         </div>
 
@@ -208,7 +209,7 @@
                               <div class="control-group">
                                    
                                    <div class="controls">
-                                     <%=f.submit %>
+                                     <%=f.submit :class => 'btn btn-primary' %>
                                    </div>
                               </div>
                             

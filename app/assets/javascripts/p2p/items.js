@@ -409,21 +409,6 @@ $(document).ready(function(){
 
 
 
-				//showOverlay();
-				showNotifications('Saving item..! Please wait..!');
-
-
-				$("<input  class='hide' name='price' value='" + item_values['price'] + "'>").insertBefore("#image_upload");
-				$("<input  class='hide' name='title' value='" + item_values['title'] + "'>").insertBefore("#image_upload");
-				$("<input  class='hide' name='location' value='" + item_values['location'] + "'>").insertBefore("#image_upload");
-				$("<input class='hide' name='condition' value='" + item_values['condition'] + "'>").insertBefore("#image_upload");
-				$("<input class='hide' name='brand' value='" + item_values['brand'] + "'>").insertBefore("#image_upload");
-				$("<input class='hide' name='desc' value='" + item_values['desc'] + "'>").insertBefore("#image_upload");
-				$("<input class='hide' name='brand' value='" + item_values['brand'] + "'>").insertBefore("#image_upload");
-
-				_.each(item_values['spec'],function(value,key){
-					$("<input class='hide' name='spec[" + key + "]' value='" + value + "'>").insertBefore("#image_upload");					
-				});
 
 				if ($("#image_upload")[0].files.length > 3 ){
 					showNotifications('Image limit is 3. Please add only three files');
@@ -433,6 +418,22 @@ $(document).ready(function(){
 					return false;
 				}
 
+
+				//showOverlay();
+				showNotifications('Saving item..! Please wait..!');
+
+				$("#form_temp").html('');
+				$('#form_temp').append($("<input  class='hide' name='price' value='" + item_values['price'] + "'>"));
+				$('#form_temp').append($("<input  class='hide' name='title' value='" + item_values['title'] + "'>"));
+				$('#form_temp').append($("<input  class='hide' name='location' value='" + item_values['location'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='condition' value='" + item_values['condition'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='desc' value='" + item_values['desc'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
+
+				_.each(item_values['spec'],function(value,key){
+					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));					
+				});
 
 				if (window.edit){
 					$("#fileupload").attr({

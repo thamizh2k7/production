@@ -114,10 +114,6 @@ li.dropdown:hover > ul.dropdown-menu{
 	background-color: lightyellow !important; 
 }
 
-td , th{
-	text-align: center !important;
-}
-
 .mydivider{
 	border:1px solid black;
 	width:100%;
@@ -187,4 +183,12 @@ td , th{
 
 #compose_newmsg_button{
 	display: block;
+}
+
+
+
+/* login box*/
+
+#forgot_box,#signup_box{
+	display: none;
 }

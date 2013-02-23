@@ -353,7 +353,7 @@ $(document).ready(function(){
 
 
 	//delete the item
-    $("#delete_button").click(function(){
+    $("#delete_button").on('click',function(){
     	// if user says no stop deleting 
     	if (!confirm("Are you sure you want to delete this listing?")){
     		return true;

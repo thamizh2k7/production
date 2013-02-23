@@ -22,10 +22,11 @@
 //= require p2p/jquery.notify
 //= require global/underscore
 //= require bootstrap
-//= global/wysihtml5-0.3.0.min
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
-//= global/bootstrap-wysihtml5-0.0.2.min
+//= require global/wysihtml5-0.3.0.min
+//= require global/bootstrap-wysihtml5-0.0.2.min
+//= require global/wysihtml5
 //= require private_pub
 //= require p2p/jquery.history
 //= require p2p/jquery-scrolltofixed-min

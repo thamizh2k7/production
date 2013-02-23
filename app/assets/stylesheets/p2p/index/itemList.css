@@ -99,8 +99,16 @@
 
 
 .highlight{
-	color:maroon;
-	font-weight: bold;
-	text-shadow: -2px 2px 3px #ff2d95;
-
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    color: rgb(0, 108, 204) !important;
+	font-weight: bolder;
 }
+
+/*
+#desc_content{
+	display: block;
+}
+
+#desc > .editable-container{
+	width:600px;
+}*/

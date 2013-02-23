@@ -54,7 +54,7 @@
 
 					<% elsif paytype == "1" %>
 
-				 		<button class="btn btn-primary " >Buy via courier </button>
+				 		<button class="btn btn-primary " >Buy Now </button>
 
 					<% elsif paytype == "3" %>
 
@@ -129,7 +129,7 @@
 					
 
 					<% if deletedate.nil? %>
-					  <button class="btn"><i  itemid="<%=itemid%>" id="delete_button" title="Remove Listing" class="action_icon icon-remove"></i></button>
+					  <button class="btn" id="delete_button"  itemid="<%=itemid%>"><i   title="Remove Listing" class="action_icon icon-remove"></i></button>
 					<%end %>
 
 				<% else %>
@@ -243,34 +243,43 @@
 
 
 
-		<div class="span8">
+		<div class="span6">
 
 			<!-- category and subcategory container -->
 
-			<table class="table">
-			<tr>
-				<td>Category: <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/getcategories" ><%=category%></span></td>
-				<td>Model: <span id="model" title="Select Model" data-type="select" ><%=brand%></span></td>
-			</tr>
-			</table>
 
 			<table class="table table-bordered table-striped" id="table_specs">
             <colgroup>
               <col class="span1">
               <col class="span7">
             </colgroup>
-            <thead>
+            
+             <thead>
               <tr>
                 <th>Specification</th>
                 <th>Value</th>
               </tr>
             </thead>
             <tbody>
+             	
+
+			<tr>
+				<td>Category </td>
+				<td> <span class="canEdit" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/getcategories" ><%=category%></span></td>
+			</tr>
+
+			<tr>
+				<td>Model </td>
+				<td>
+					<span id="model" title="Select Model" data-type="select" ><%=brand%></span>
+				</td>
+
+			</tr>
 
             <!-- Price -->
 	          <tr>
 	            <td>
-	              Price:
+	              Price
 	            </td>
 	            <td>Rs.
 	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price %> </span>
@@ -280,7 +289,7 @@
             <!-- Location -->
 	          <tr>
 	            <td>
-	             <span class="highlight"> Condition:</span>
+	             <span class="highlight"> Condition</span>
 	            </td>
 	            <td>
 	             <span class="canEdit highlight" data-name="username" data-type="select" data-source="['new','used']" title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
@@ -290,7 +299,7 @@
             <!-- Location -->
 	          <tr>
 	            <td>
-	              Location:
+	              Location
 	            </td>
 	            <td>
 	             <span class="canEdit" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
@@ -332,7 +341,7 @@
 	<div class="row">
 		<div id="desc" class="span12">
 			<h4>Description</h4>
-			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="textarea" class="canEdit"><%= description %></span>
+			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit" inputclass="desc_content_form"> <%= description.html_safe %> </span>
 		</div>
 	</div>
 

@@ -113,7 +113,7 @@ class P2p::ItemsController < ApplicationController
             puts "images in multip"
 #            images.push(i)
           end
-      else
+      elsif params.has_key?(:img)
 
         item.images.new(:img => params[:img])
         puts "images in single"
@@ -121,11 +121,19 @@ class P2p::ItemsController < ApplicationController
 
       end
 
-    
-    if item.save 
-        flash[:notice] = "Saved changes"
+      puts params.inspect
 
+      puts item.errors.full_messages
+
+      item.images.each do |img|
+        puts img.errors.full_messages 
+      end
+
+    if item.save 
+      flash[:notice] = "Saved changes"
+      puts "in success"
     else
+      puts "in fail"
       flash[:notice] = "Failed to save"
     end
 

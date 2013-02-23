@@ -59,11 +59,14 @@
 											$('#item_3').text(data['author']).editable('toggleDisabled');
 											$('#item_4').text(data['publisher_id']).editable('toggleDisabled');
 
+											$('#model').text(data['publisher_id']).editable('toggleDisabled');
+
 											item_values['price'] = data['price'];
 											item_values['desc'] = data['description'];
 											item_values['spec']['2'] = data['isbn10'];
 											item_values['spec']['3'] = data['author'];
 											item_values['spec']['4'] = data['publisher_id'];
+											item_values['brand'] = data['publisher_id'];
 										}
 									},
 									error:function(){

@@ -1,12 +1,10 @@
 $(document).ready(function(){
 
-	//set initializing data
 
-	//set tooltip
-
+	// save the form onclick trigger
 	$("#save").click(function(){
 
-
+		// call the save function if saved not return false
 		if (!saveItem()){
 			return false;
 		}
@@ -16,18 +14,21 @@ $(document).ready(function(){
 
 
 
-
+	// cancel edit function trigger
+	// #TODO: CHECK IF THE FORM IS CHANGED OR NOT AND REDIRECT ACCORDINGLY
 	$("#cancel").click(function(){
-
-
 			window.location.reload();
-
 	});
 
+	// EDIT Button click function..
+	// if edit is pressed for first time then open all editable elements
+	// 	if in edit rather than new dn enable the category and brand for edition
+	// if edit is pressed for second time then try to toggle all the editable elements to normal
 	$('#enable').click(function() {
 		$(this).toggleClass('active');
-		if ($('.canEdit').hasClass('editable')){
 
+		//close all editable elements
+		if ($('.canEdit').hasClass('editable')){
 
 			$("#add_more_spec").addClass('hide');
 
@@ -52,14 +53,18 @@ $(document).ready(function(){
 
 			$(this).removeClass('btn-primary').attr('title','Edit Listing');
 
+			// replace the edit icon
+			// #TODO: REMOVE THIS NOT NEEDED IN FUTURE
 			$("#enable i").addClass('icon-pencil');
 			$("#enable i").removeClass('icon-ok');
 			$("#enable i").attr('title','Edit Listing');
 		}
+		//Enable all the edits here.
 		else {
 			// show all the tooltips
 			$("#title").tooltip('show');
 
+			// hide the edit button and show the save and cancel button
 			$("#enable").hide();
 			$("#save").show();
 			$("#cancel").show();

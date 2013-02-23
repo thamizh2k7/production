@@ -6,10 +6,22 @@
 	<div class="row">
 		<div class="span6">
 			<ul class="breadcrumb">
-			  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
-			  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
-			  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
-			  <li class="active"  data-name="title"  title="Enter Title"  id="title"><%=title.titleize%></li>
+
+
+				<% if itemid.empty? %>
+					  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
+					  <li> New Listing <span class="divider">/</span></li>
+					  <li> New Listing <span class="divider">/</span></li>			  
+					  <li class="active"  data-name="title"  title="Enter Title" data-emptytext=""  id="title"><%=title.titleize  %></li>
+
+				<% else %>
+
+				  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
+				  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
+				  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
+				  <li class="active"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
+				<% end %>
+
 			</ul>
 		</div>
 		<div class="span6">
@@ -282,7 +294,7 @@
 	              Price
 	            </td>
 	            <td>Rs.
-	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price %> </span>
+	             <span class="canEdit" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
 	            </td>
 	          </tr>
 
@@ -415,7 +427,7 @@
 					<%end %>
 
 
-</div>
+
 
 <script>
 

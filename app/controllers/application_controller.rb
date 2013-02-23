@@ -54,9 +54,11 @@ class ApplicationController < ActionController::Base
   def p2p_current_user
   	
   	if !session.has_key?(:city) or session[:city] == ""
-  		session[:city] = Geocoder.search('106.51.114.110')[0].data["city"]
+  		#todo replace ip from request
+  		geocode  = Geocoder.search(request[:REMOTE_ADDR])
+  		session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
 
-  		city_id = P2p::find_by_name(session[:city])
+  		city_id = P2p::City.find_by_name(session[:city])
   		session[:city_id] = (city_id.nil? ) ? 0 : city_id;
   		
   	end

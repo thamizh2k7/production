@@ -531,10 +531,16 @@ end
 
   def sellitem_pricing
 
-    
-    @item = P2p::Item.notsold.find(params[:id])
 
-    if params.has_key?(:commit) 
+    if p2p_current_user.nil? 
+      flash[:notice] = "Nothing found for you request"
+       redirect_to '/p2p'
+        return
+    end
+    
+    @item = p2p_current_user.items.notsold.find(params[:id])
+
+    if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
 
 
         if params[:p2p_item][:paytype] == "1"
@@ -574,10 +580,12 @@ end
 
         end
 
+      elsif params.has_key?(:terms) and params[:terms] !='1'
+        flash.now[:notice] = 'Agree to the terms and conditions.'
 
     end
 
-    @item = P2p::Item.notsold.find(params[:id])
+    @item = p2p_current_user.items.notsold.find(params[:id])
 
 
       

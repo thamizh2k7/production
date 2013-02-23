@@ -73,10 +73,12 @@ Sociorent::Application.routes.draw do
     resources :images
     resources :credits 
 
-    #scaffold controller and view
-    resources :categories
-    resources :specs
-    resources :products
+    scope 'admin' do
+      #scaffold controller and view
+      resources :categories ,:products ,:specs
+
+        root :to => 'categories#index'
+    end
 
       get "categories/set_category" => "categories#set_category"
       get "categories/sub_category" => "categories#sub_category"

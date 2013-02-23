@@ -87,5 +87,9 @@ gem 'bootstrap-editable-rails'
 gem "private_pub"
 gem "thin"
 
-
+#getting user location
 gem "geocoder"
+
+#nested form
+gem "nested_form"
+

@@ -343,6 +343,7 @@ DEPENDENCIES
   mechanize
   meta_search (>= 1.1.0.pre)
   mysql2
+  nested_form
   oauth2
   omniauth
   omniauth-facebook

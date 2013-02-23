@@ -18,6 +18,7 @@
 //= require global/jquery.ui.position
 //= require global/jquery.ui.autocomplete
 //= require jquery_ujs
+//= require jquery_nested_form
 //= require jquery-fileupload
 //= require p2p/jquery.notify
 //= require global/underscore

@@ -52,14 +52,25 @@
 												text: 'We have filled out ceratin details for you. If some are missing please fill the others.'
 											});
 
-											$("#price").text(data['price']).editable('toggleDisabled');
-											$('#isbn10').text(data['isbn10']).editable('toggleDisabled');
-											$('#desc_content').text(data['description']).editable('toggleDisabled');
-											$('#item_2').text(data['isbn10']).editable('toggleDisabled');
-											$('#item_3').text(data['author']).editable('toggleDisabled');
-											$('#item_4').text(data['publisher_id']).editable('toggleDisabled');
+											// $("#price").text(data['price']).editable('toggleDisabled');
+											// $('#isbn10').text(data['isbn10']).editable('toggleDisabled');
+											// $('#desc_content').text(data['description']).editable('toggleDisabled');
+											// $('#item_2').text(data['isbn10']).editable('toggleDisabled');
+											// $('#item_3').text(data['author']).editable('toggleDisabled');
+											// $('#item_4').text(data['publisher_id']).editable('toggleDisabled');
 
-											$('#model').text(data['publisher_id']).editable('toggleDisabled');
+											// $('#model').text(data['publisher_id']).editable('toggleDisabled');
+
+
+
+											$("#price").text(data['price']);
+											$('#isbn10').text(data['isbn10']);
+											$('#desc_content').text(data['description']);
+											$('#item_2').text(data['isbn10']);
+											$('#item_3').text(data['author']);
+											$('#item_4').text(data['publisher_id']);
+											$('#model').text(data['publisher_id']).tooltip('hide');
+											
 
 											item_values['price'] = data['price'];
 											item_values['desc'] = data['description'];

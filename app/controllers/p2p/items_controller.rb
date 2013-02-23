@@ -288,7 +288,7 @@ end
         if !p2p_current_user.nil? and  p2p_current_user.id == 1 
           @item = @prod.items.unscoped.find_by_title(params[:item])
         else
-          @item = @prod.items.find_by_title(params[:item])
+          @item = p2p_current_user.items.find_by_title(params[:item])
 
           puts 'i immm'
         end
@@ -636,7 +636,7 @@ end
 
 
   def getbook_details
-    book = Book.select('description,isbn13,isbn10,binding,publisher_id,published,pages,price').find_by_isbn13(params[:isbn13])
+    book = Book.select('description,isbn13,isbn10,binding,publisher_id,published,pages,price,author').find_by_isbn13(params[:isbn13])
     
     if book.nil? 
       render :json => {

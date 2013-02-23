@@ -48,7 +48,7 @@
 			
  	        
 
-		    	<%% _.each(data,function(elm){%>
+		    	<%% _.each(data["res"],function(elm){%>
 
 				          <li class="span2">
 				            <a href="<%%=elm.url%>">
@@ -79,7 +79,7 @@
 
 		    	<div id="load_more_content"></div>
 
-			<%% if ( window.page_num == 2 ) { %>
+			<%% if ( (window.page_num == 2  ) && data.next == 1 )  { %>
 				</ul>
 		   		    <div id="load_more">
 				    	<div class="btn btn-primary">Load More.....</div>

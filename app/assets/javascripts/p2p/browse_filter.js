@@ -53,14 +53,14 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 
-				if (data.length == 0 ) {
-					$("#load_more").html("No more items to load");	
-					return;
-				}
 				window.page_num += 1;
 				var templ=_.template($("#item_template").html(),{data:data});
 				$("#load_more_content").replaceWith(templ);
-				$("#load_more div").html("Load more...");
+				if (data.next == 1){
+					$("#load_more div").html("Load more...");
+				}else{
+					$("#load_more div").hide();
+				}
 				$("#overlay").hide(100);
 			},
 			error:function(){

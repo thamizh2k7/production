@@ -63,7 +63,7 @@ end
 
 
 def search_query
-  @result = P2p::Item.notsold.approved.search(params[:query] ,:match_mode => :any ,:star => true)
+  @result = P2p::Item.notsold.approved.order('product_id').search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
 end
 
 
@@ -290,7 +290,7 @@ def search_list
     end
 
     
-    @products.paginate(:page => params[:page], :per_page => 5)
+    @products
 
   end
 
@@ -445,7 +445,9 @@ def search_list
       end
 
       if request.xhr?
-        render :json => res.paginate(:page => params[:page], :per_page => 10 )
+        temp_result = res.paginate(:page => params[:page], :per_page => 20 )
+        puts temp_result.next_page.to_s + "next page"
+        render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
         return
       else
 
@@ -498,8 +500,9 @@ def search_list
       end
 
       if request.xhr?
-        render :json => res.paginate(:page => params[:page], :per_page => 10 )
-        return;
+        temp_result = res.paginate(:page => params[:page], :per_page => 20 )
+        render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
+        return
       else
 
         if res.nil? 

@@ -53,7 +53,13 @@
 
 			        <ul class="thumbnails" id="filter_replace">
 			        
-			      <% prod.items.approved.notsold.order("rand()").each do |p| %>
+			        <% if params.has_key?(:prod) %>
+			        	<% items = prod.items.approved.notsold.paginate(:page => params[:page] ,:per_page => 20 ) %>
+			        <% else %>
+						<% items = prod.items.approved.notsold.order("rand()") %>
+			        <% end %>
+
+			      <% items.each do |p| %>
 
 			          <li class="span2">
 			            <a href=<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}") %>>
@@ -81,7 +87,7 @@
 
 			      </ul>
 
-			    <% if params.has_key?(:prod) %>
+			    <% if params.has_key?(:prod) and !items.next_page.nil? %>
 		   		    <div id="load_more">
 				    	<div class="btn btn-primary">Load More.....</div>
 				    </div>
@@ -91,9 +97,7 @@
 		</div>
 		
 	<% end %>
-	<% if prod_count ==0 %>
-		
-	<% end %>
+
 </div>
 
   </div>

@@ -1,6 +1,6 @@
 
 <%= stylesheet_link_tag "items/items_manifest"%>
-<%= javascript_include_tag "p2p/jquery.form" %>
+
 
 <div class="main_wrapper">
 	<div class="row">
@@ -205,6 +205,7 @@
 
 	  <%= form_tag  "/p2p/items", :multipart => true, :id => "fileupload"   do %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    		<div id="form_temp"></div>
           <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  %>
 
 

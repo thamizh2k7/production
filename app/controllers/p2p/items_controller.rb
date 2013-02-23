@@ -20,10 +20,80 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
 
-    item.city = P2p::City.find_by_name(params[:location])
+    begin
+      item.city = P2p::City.find_by_name(params[:location])
+
+      raise 'nothing found' if item.city? 
+
+    rescue
+
+      begin
+        city = P2p::City.create(:name => params[:location])
+        city.save
+        item.city = city
+
+
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1,
+                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same. Sincerally - Developers",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0,
+                                              :item_id => item.id
+                                             });
+
+      rescue
+          
+      end
+    end
 
     #item.product = P2p::Product.find(1)
-    item.product = P2p::Product.find(params["brand"])
+
+    #if the publisher is not in us..!
+    begin
+      item.product = P2p::Product.find(params["brand"])
+    rescue
+      begin
+        cat = P2p::Category.find(params[:cat])
+        product = cat.products.new(:name =>  Publisher.find(params["brand"]).name )
+        product.save
+
+        item.product = product
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0,
+                                              :item_id => item.id
+                                             });
+
+      rescue
+
+        begin
+          cat = P2p::Category.find(params[:cat])
+          product = cat.products.new(:name => params["brand"] )
+          product.save
+
+          item.product = product
+
+          P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                                :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
+                                                :messagetype => 5,
+                                                :sender_id => 1,
+                                                :sender_status => 2,
+                                                :receiver_status => 0,
+                                                :parent_id => 0,
+                                                :item_id => item.id
+                                               });
+
+        end
+      end
+    end
 
 
     #todo add image validation in server side
@@ -47,7 +117,9 @@ class P2p::ItemsController < ApplicationController
 
       end
       #echo params["item"]['attribute'].count
-
+      unless params['spec'].respond_to?('each') 
+        params['spec'] = [params['spec']]
+      end
      params["spec"].each do |key,value|
         next if value == "" 
         
@@ -395,12 +467,28 @@ end
 
   def disapprove
 
-        if p2p_current_user.id != 1
-      
-          @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+
+        if params.has_key?(:id)
+
+          if p2p_current_user.id != 1
+             @items = P2p::User.find(:id).items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+            elsif p2p_current_user.id == params[:id]
+             @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)    
+           else
+              flash[:notice] = 'Nothing found for your request'
+              redirect_to '/p2p'
+              return
+          end
         else
-          @items = P2p::Item.disapproved.paginate(:page => params[:page] , :per_page => 20)
+          if p2p_current_user.id != 1
+        
+            @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+          else
+            @items = P2p::Item.disapproved.paginate(:page => params[:page] , :per_page => 20)
+          end
+
         end
+
 
           
 
@@ -523,27 +611,53 @@ end
 
     else
 
-        if p2p_current_user.id != 1
-           @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
-          else
-           @items = P2p::Item.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
+        if params.has_key?(:id)
+
+          if p2p_current_user.id != 1
+             @items = P2p::User.find(:id).items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+            elsif p2p_current_user.id == params[:id]
+             @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
+           else
+              flash[:notice] = 'Nothing found for your request'
+              redirect_to '/p2p'
+              return
+          end
+
+        else
+
+            if p2p_current_user.id != 1
+               @items = P2p::Item.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+            else p2p_current_user.id == params[:id]
+               @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
+            end
         end
-        
-
-        
-
     end
   end
 
 
   def getbook_details
+    book = Book.select('description,isbn13,isbn10,binding,publisher_id,published,pages,price').find_by_isbn13(params[:isbn13])
+    
+    if book.nil? 
+      render :json => {
+          :description => '',
+          :isbn10 => '',
+          :binding => '',
+          :published => '',
+          :pages => '',
+          :price =>'',
+          :publisher_id => '',
+        } 
+        return
+    end
 
-    render :json => Book.find_by_isbn13(params[:isbn13])
+    publisher = book.publisher.name
+    book = to_hash(book)
+    book["publisher_id"] = publisher
+    render :json => book
   end
 
   def sellitem_pricing
-
-
     if p2p_current_user.nil? 
       flash[:notice] = "Nothing found for you request"
        redirect_to '/p2p'

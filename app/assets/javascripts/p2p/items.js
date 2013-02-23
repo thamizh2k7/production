@@ -111,6 +111,8 @@ $(document).ready(function(){
 
 				if (params.newValue == item_values['cat']) return false ;
 
+				item_values['cat'] = params.newValue;
+				
 				$(".specs").remove();
 
 				item_values['spec']={};
@@ -487,6 +489,7 @@ $(document).ready(function(){
 				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
 				$('#form_temp').append($("<input class='hide' name='desc' value='" + item_values['desc'] + "'>"));
 				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
+				$('#form_temp').append($("<input  class='hide' name='cat' value='" + item_values['cat'] + "'>"));
 
 				_.each(item_values['spec'],function(value,key){
 					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));					

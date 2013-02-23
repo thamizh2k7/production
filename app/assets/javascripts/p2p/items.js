@@ -249,6 +249,56 @@ $(document).ready(function(){
 				}
 			});
 
+			$("#image_upload").change(function(){
+
+
+			    var files = $(this)[0].files; // FileList object
+
+
+			    // Loop through the FileList and render image files as thumbnails.
+			    for (var i = 0, f; f = files[i]; i++) {
+
+			      // Only process image files.
+			      if (!f.type.match('image.*')) {
+			        continue;
+			      }
+
+			      window.image_count += 1;
+
+			      var reader = new FileReader();
+
+			      // Closure to capture the file information.
+			      reader.onload = (function(theFile) {
+			        return function(e) {
+
+						$(".thumb_holder .thumbnails ").append('<li class="thumbs">\
+	              			<i class="icon-remove pull-right remove_image hide"></i>\
+	              			<img src="' + e.target.result + '"  class="thumb_img" viewimage="' + e.target.result + '">\
+	              		</li>\
+	              		');
+
+			        };
+			      })(f);
+
+			      // Read in the image file as a data URL.
+			      reader.readAsDataURL(f);
+			    }
+
+				if ((window.image_count +  $("#image_upload")[0].files.length )>3 ){
+					showNotifications("No more than 3 images are allowed. Please delete some");
+					return false;
+				}
+
+				if ($("#image_upload")[0].files.length > 3 ){
+					showNotifications('Image limit is 3. Please add only three files');
+					return false;
+				}else if ( !window.edit && $("#image_upload")[0].files.length == 0){
+					showNotifications('Add atleast one image');			
+					return false;
+				}
+
+				$('#save i').tooltip('show');
+			});
 
 			//validate condition
 			$('#desc_content').on('save', function(e, params) {
@@ -258,7 +308,7 @@ $(document).ready(function(){
 				if (params.newValue.length > 20) {
 					item_values['desc'] = params.newValue;
 					$(this).removeClass('error');
-					$('#save i').tooltip('show');
+					$("#upload_pic").tooltip('show');
 				}
 				else{
 					item_values['desc']="";
@@ -493,7 +543,7 @@ $(document).ready(function(){
 	      });	      
 
 
-	      $('.thumbs').click(function(){
+	      $('.thumbs').on('click',function(){
 	      		$('#view_image').attr('src',$(this).children('img').attr("viewimage"));
 	      		$('#view_image').attr('imgid',$(this).children('img').attr("imgid"));
 	      });

@@ -79,19 +79,23 @@
 
 			 		<% if defined?(paytype) and paytype == "2" %>
 
-							<a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-user">Contact Seller</a>
+							<a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
 						 
 						<!-- Modal -->
 						<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+						 
 						  <div class="modal-header">
 						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
 						  </div>
+						 
 						  <div class="modal-body">
 						  	Seller aggres to <%=payinfo if defined?(payinfo)%>
 						    <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
 						  </div>
+
 						</div>
+
 	
 					<% elsif paytype == "1" %>
 
@@ -177,11 +181,11 @@
 				<% end %>
 
 				  	 <% if paytype == "1" %>
-				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
+				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
 				  	 <%elsif paytype == "2"%>
-				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  > <i class="action_icon icon icon-user" title="Send by Courier"></i> Payment</a>
+				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn "  > <i class="action_icon icon icon-user" title="Send by Courier"></i> Payment</a>
 					<%elsif paytype == "3"%>				  	 	
-				  	 	<a href="/p2p/itempayment<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-star" title="Send by Courier"></i> Payment</a>
+				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn "  >  <i class="action_icon icon icon-star" title="Send by Courier"></i> Payment</a>
 
 				  	 <% end %>
 

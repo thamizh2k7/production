@@ -691,7 +691,7 @@ end
         return
     end
     
-    @item = p2p_current_user.items.unscoped.notfinished.find(params[:id])
+    @item = p2p_current_user.items.notdeleted.notsold.find(params[:id])
     
 
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"

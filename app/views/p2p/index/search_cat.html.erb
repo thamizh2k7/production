@@ -1,4 +1,17 @@
 
+<% content_for :pagetitle  do %>
+
+	Browsing
+
+	<% if params.has_key?(:prod)  %>
+		<% @products.first.name %>
+	<% else %>
+		<% @cat.name %>
+	<% end %>
+
+    
+<%end %>
+
 
 
  

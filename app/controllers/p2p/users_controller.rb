@@ -1,7 +1,7 @@
 class P2p::UsersController < ApplicationController
 
   layout :p2p_layout 
-  before_filter :p2p_user_signed_in 
+  before_filter :p2p_user_signed_in  ,:except => [:guesslocation ,:setlocation]
 
   #check for user presence inside p2p
   before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time]
@@ -71,5 +71,51 @@ class P2p::UsersController < ApplicationController
 
         redirect_to '/p2p'
   end
+
+  def guesslocation
+
+    begin
+
+      if !session.has_key?(:city) or session[:city] == ""
+        #todo replace ip from request
+        geocode  = Geocoder.search(request[:REMOTE_ADDR])
+        session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
+
+        city_id = P2p::City.find_by_name(session[:city])
+        session[:city_id] = (city_id.nil? ) ? '' : city_id;
+
+        raise 'Location not found' if session[:city] == ""
+        render :json => {:status => 1 , :location => session[:city]}
+      else
+        render :json => {:status => 3 , :location => session[:city]}
+      end
+
+    rescue
+        render :json => {:status => 2}
+    end
+
+
+  end
+
+  def setlocation
+
+      if params[:location] == session[:city_id]
+        render :json => {:status => 3}
+        return
+      end
+
+    begin
+      city = P2p::City.find(params[:location])
+
+      session[:city] = city.name.titleize
+      session[:city_id] = city.id.to_s
+
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 2}
+    end
+    return
+  end
+
 
 end

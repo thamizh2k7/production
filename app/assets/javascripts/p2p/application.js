@@ -39,4 +39,75 @@
 
 $(document).ready(function(){
 	$(".action_icon").tooltip();
+
+	$("#head_user_location").click(function(){
+		$("#location_modal").modal('show');
+	});
+
+	$("#location_modal_save").click(function(){
+		$("#location_modal").modal('hide');
+
+		$("#head_user_location").css('background-color','');
+		$("#head_user_location i").removeClass('icon-white');
+
+		$.ajax({
+			url:'/p2p/location',
+			type:'post',
+			data:{location:$("#user_location :selected").val()},
+			dataType:'json',
+			success:function(data){
+				if (data.status == 1){
+					window.location.reload();
+					$("#head_user_location i").attr('title',$("#user_location :selected").text())
+											.tooltip('destroy')
+											.tooltip();
+					$("#head_user_location i").attr('cityid',$("#user_location :selected").val());
+				}
+				else if(data.status == 2){
+					$("#head_user_location").css('background-color','red');
+					$("#head_user_location i").addClass('icon-white');
+					$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+					
+				}
+			},
+			error:function(){
+				$("#head_user_location").css('background-color','red');
+				$("#head_user_location i").addClass('icon-white');
+				$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+				
+			}
+		});
+		
+		
+		return false;
+	});
+
+
+	//guess location of user if not set
+	if ($("#head_user_location").attr('cityid') == ''){
+		$.ajax({
+			url:'/p2p/guesslocation',
+			type:'post',
+			dataType:'json',
+			success:function(data){
+				if (data.status == 1){
+					window.location.reload();
+					$("#user_location").val(data.location);
+					$("#head_user_location i").attr('title',$("#user_location :selected").text()).tooltip('destroy').tooltip();
+				}
+				else if(data.status == 2){
+					$("#head_user_location").css('background-color','red');
+					$("#head_user_location i").addClass('icon-white');
+					$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+				}
+			},
+			error:function(){
+				$("#head_user_location").css('background-color','red');
+				$("#head_user_location i").addClass('icon-white');
+				$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+				
+			}
+		});
+	}
+
 });

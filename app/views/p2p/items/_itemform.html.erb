@@ -26,6 +26,8 @@
 		</div>
 		<div class="span6">
 
+
+
 			<% if ownerid.empty?  %>
 
 
@@ -93,13 +95,31 @@
 	
 					<% elsif paytype == "1" %>
 
-				 		<button class="btn btn-primary " >Buy via courier </button>
+				 		<button class="btn btn-primary " >Buy Now </button>
 
 					<% elsif paytype == "3" %>
 
-				 		<button class="btn btn-primary " >Buy via sociorent <i class="icon-white icon-star"></i></button>
+				 		<button class="btn btn-primary " >Buy Now <i class="icon-white icon-star"></i></button>
 
 					<% end %>
+
+
+
+					<%if p2p_current_user.id == 1 %>
+
+							<% unless solddate.nil?  %>
+								<span class="btn "> <i class="action_icon" title="On <%= solddate.strftime("%d-%b-%C%y") %>" >  Listing Sold </i> </span>
+							<%end %>					
+
+
+					<%if  deletedate !="" %>
+					  <button class="btn  "  ><i  class=" action_icon icon-check" title="Deleted Listing"></i></button>
+
+					<%end %>
+
+
+					<% end %>
+
 			      </div>
 
 			<% elsif ownerid == p2p_current_user.id.to_s %>
@@ -175,11 +195,11 @@
 			  <% if !itemid.empty? and !p2p_current_user.nil? and p2p_current_user.id == 1 %>
 
 			  		<% if approvedate.nil?  %>
-	  				  <button class="btn "  id="approve" itemid="<%=itemid%>"><i  class="action_icon icon-thumbs-up" title="Approve this listing"></i></button>
+	  				  <button class="btn alert-info"  id="approve" itemid="<%=itemid%>"><i  class="action_icon icon-thumbs-up" title="Approve this listing"></i></button>
 	  				<% end %>
 
 	  				<% if disapproveddate.nil? %>
-	  				  <button class="btn " id="disapprove"   itemid="<%=itemid%>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
+	  				  <button class="btn alert-info" id="disapprove"   itemid="<%=itemid%>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
 	  				<% end %>
 
 			  <%end %>

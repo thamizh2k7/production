@@ -1,3 +1,8 @@
+#todo check approving and not approving conditions...
+# must not be sold,, must be finished..
+
+#spec which are for notapproved and not done must not appear
+
 class P2p::Item < ActiveRecord::Base
 
 
@@ -22,8 +27,9 @@ class P2p::Item < ActiveRecord::Base
 
   # validates :title ,:uniqueness => true  if :new_record?
 
-  default_scope where('deletedate is null')
+  default_scope where('deletedate is null and paytype is not null')
 
+  
   scope :approved , where('approveddate is not null')
   scope :notapproved , where('approveddate is null')
   scope :disapproved , where('disapproveddate is  not null')
@@ -33,15 +39,21 @@ class P2p::Item < ActiveRecord::Base
 
   scope :deleted , where('deletedate is not  null')
   scope :notdeleted , where('deletedate is null')
+  
+  scope :notfinished , where(' deletedate is null and paytype is null')
 
   scope :sold , where('solddate is not null')
 
   scope :notsold , where('solddate is null')
   
  define_index do
-    indexes :title
+
+    #where ('deletedate is not null and paytype is not null and solddate is null')
+    where ('deletedate is null and paytype is not null and solddate is null')
+    indexes :title  
     
-    has created_at,updated_at
+
+
   end
 
   after_create :publish_to_stream

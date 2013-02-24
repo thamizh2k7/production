@@ -292,7 +292,7 @@ $(document).ready(function(){
 			      reader.readAsDataURL(f);
 			    }
 
-				if ((window.image_count +  $("#image_upload")[0].files.length )>3 ){
+				if ((window.image_count  )>3 ){
 					showNotifications("No more than 3 images are allowed. Please delete some");
 					return false;
 				}
@@ -430,7 +430,6 @@ $(document).ready(function(){
 				if (!('desc' in item_values) || item_values['desc'] == ""){
 					$("#item_desc").addClass("error");
 					$("#item_desc").tooltip('show');
-					alert("Enter item description");
 					return false;
 
 				}
@@ -564,14 +563,16 @@ $(document).ready(function(){
 
 	      $("#clearuploads").on('click',function(){
 
-	      	window.image_count -= $("#image_upload")[0].files.length;
-	      	if (window.image_count <0) window.image_count = 0;
-
+	      	if ($("#image_upload")[0].files.length == 0 ){
+	      		window.image_count = 0;
+	      	}else{
+	      		window.image_count -= $("#image_upload")[0].files.length;
+	      		if (window.image_count <0) window.image_count = 0;
+	      	}
 
 	      	$("#image_upload").val('');
 
-
-	      	_.each($(".thumb_img"),function(elem){
+			_.each($(".thumb_img"),function(elem){
 	      			if ($(elem).attr('imgid') == -1){
 	      				$(elem).parent().remove();
 	      			}

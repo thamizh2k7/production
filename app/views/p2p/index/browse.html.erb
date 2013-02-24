@@ -33,7 +33,7 @@
 
 		<% @products.each do |prod| %>
 
-			<% next if prod.items.count ==0 %>
+			<% next if prod.items.approved.notsold.count == 0 %>
 			
 
 			<% prod_count = 0 %>

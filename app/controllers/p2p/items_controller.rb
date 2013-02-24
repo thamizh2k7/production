@@ -286,9 +286,18 @@ end
         @prod=  @cat.products.find_by_name(params[:prod])
 
         if !p2p_current_user.nil? and  p2p_current_user.id == 1 
+          puts 'i immmasd'
+          puts @prod.inspect
+
           @item = @prod.items.unscoped.find_by_title(params[:item])
+
         else
-          @item = p2p_current_user.items.find_by_title(params[:item])
+
+          @item = @prod.items.find_by_title(params[:item])
+          puts @prod.items.explain
+          puts @item.inspect
+          
+          puts params[:item] + "saef"
 
           puts 'i immm'
         end
@@ -303,16 +312,10 @@ end
 
         if (p2p_current_user.nil? and @item.approveddate.nil?) or @item.paytype.nil?
             raise "Nothing found pyatype and not approved" 
-
         end
 
 
 
-      rescue 
-
-        flash[:notice] ="Nothing found for your request"
-        redirect_to '/p2p/mystore'
-        return
 
       end
 
@@ -368,11 +371,30 @@ end
     if params[:query].present? 
 
       if params[:query] == "sold"
-        if p2p_current_user.id == 1 
-          @items = P2p::Item.sold.paginate(:page => params[:page] , :per_page => 20)
+
+        if p2p_current_user.id == 1
+             if params.has_key?(:id)
+                  @items = P2p::User.find(params[:id]).items.sold.paginate(:page => params[:page] , :per_page => 20)
+                  @user = P2p::User.find(params[:id])
+                  @user_id = @user.id
+                  @user = @user.user.name + "(" +  @user.user.email  + ")"
+
+
+              else
+                  @items = P2p::Item.sold.paginate(:page => params[:page] , :per_page => 20)
+                  @user = "All users"
+                  @user_id = ""
+
+              end
         else
-          @items = user.items.sold.paginate(:page => params[:page] , :per_page => 20)
+              @items = p2p_current_user.items.sold.paginate(:page => params[:page] , :per_page => 20)
+              @user = p2p_current_user.user.name + "(" +  p2p_current_user.user.email  + ")"
+              @user_id = p2p_current_user.id
         end
+
+        render :approve    
+        return
+
       end
     else
 
@@ -453,47 +475,53 @@ end
 
   def waiting
 
-        if p2p_current_user.id != 1
-      
-          @items = p2p_current_user.items.waiting.paginate(:page => params[:page] , :per_page => 20)
+        if p2p_current_user.id == 1
+
+             if params.has_key?(:id)
+                  @items = P2p::User.find(params[:id]).items.waiting.paginate(:page => params[:page] , :per_page => 20)
+                  @user = P2p::User.find(params[:id])
+                  @user_id = @user.id
+                  @user = @user.user.name + "(" +  @user.user.email  + ")"
+              else
+                  @items = P2p::Item.waiting.paginate(:page => params[:page] , :per_page => 20)
+                  @user_id = ""
+                  @user = "All users"
+              end
         else
-          @items = P2p::Item.waiting.paginate(:page => params[:page] , :per_page => 20)
+            @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+
+            @user = p2p_current_user.user.name + "(" +  p2p_current_user.user.email  + ")"
+            @user_id = p2p_current_user.id
         end
 
-    render :approve
+        render :approve    
 
   end
 
 
   def disapprove
+        if p2p_current_user.id == 1
 
+             if params.has_key?(:id)
+                  @items = P2p::User.find(params[:id]).items.disapproved.paginate(:page => params[:page] , :per_page => 20)
 
-        if params.has_key?(:id)
+                  @user = P2p::User.find(params[:id])
+                  @user_id = @user.id
+                  @user = @user.user.name + "(" +  @user.user.email  + ")"
 
-          if p2p_current_user.id != 1
-             @items = P2p::User.find(:id).items.disapproved.paginate(:page => params[:page] , :per_page => 20)
-            elsif p2p_current_user.id == params[:id]
-             @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)    
-           else
-              flash[:notice] = 'Nothing found for your request'
-              redirect_to '/p2p'
-              return
-          end
+              else
+                  @items = P2p::Item.disapproved.paginate(:page => params[:page] , :per_page => 20)
+                  @user = "All users"
+                  @user_id = ""
+              end
         else
-          if p2p_current_user.id != 1
-        
-            @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
-          else
-            @items = P2p::Item.disapproved.paginate(:page => params[:page] , :per_page => 20)
-          end
+                  @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+                  @user = p2p_current_user.user.name + "(" +  p2p_current_user.user.email  + ")"
+                  @user_id = p2p_current_user.id
 
         end
 
-
-          
-
-    render :approve
-
+        render :approve    
   end
 
   def approve
@@ -611,28 +639,27 @@ end
 
     else
 
-        if params.has_key?(:id)
+        if p2p_current_user.id == 1
+            if params.has_key?(:id)
+                @items = P2p::User.find(params[:id]).items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+                  @user = P2p::User.find(params[:id])
+                  @user_id = @user.id
+                  @user = @user.user.name + "(" +  @user.user.email  + ")"
 
-          if p2p_current_user.id != 1
-             @items = P2p::User.find(:id).items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
-            elsif p2p_current_user.id == params[:id]
-             @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
-           else
-              flash[:notice] = 'Nothing found for your request'
-              redirect_to '/p2p'
-              return
-          end
-
-        else
-
-            if p2p_current_user.id != 1
-               @items = P2p::Item.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
-            else p2p_current_user.id == params[:id]
-               @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)    
+            else
+                @items = P2p::Item.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+                @user = "All users"
+                @user_id = ""
             end
+        else
+                @items = p2p_current_user.items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
+                @user = p2p_current_user.user.name + "(" +  p2p_current_user.user.email  + ")"
+                @user_id = p2p_current_user.id
+
         end
     end
   end
+
 
 
   def getbook_details
@@ -664,7 +691,8 @@ end
         return
     end
     
-    @item = p2p_current_user.items.notsold.find(params[:id])
+    @item = p2p_current_user.items.unscoped.notfinished.find(params[:id])
+    
 
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
 
@@ -711,7 +739,7 @@ end
 
     end
 
-    @item = p2p_current_user.items.notsold.find(params[:id])
+    #@item = p2p_current_user.items.unscoped.notfinished.find(params[:id])
 
 
       

@@ -110,14 +110,14 @@ Sociorent::Application.routes.draw do
 
       get 'sold/:id' => "items#sold"
 
-      get 'mystore(/:query)' => 'items#inventory'
+      get 'mystore(/:query(/user/:id))' => 'items#inventory'
 
       get 'dashboard' => 'users#dashboard'
       match 'approve(/:query)' => 'items#approve'
       match 'approve/user/:id' => 'items#approve'
       match 'disapprove' => 'items#disapprove'
       match 'disapprove/user/:id' => 'items#disapprove'
-      match 'waiting' => 'items#waiting'
+      match 'waiting(/user/:id)' => 'items#waiting'
       
       get 'getmessages(/:id)' => 'messages#getmessages'
 

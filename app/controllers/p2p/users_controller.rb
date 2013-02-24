@@ -10,13 +10,18 @@ class P2p::UsersController < ApplicationController
   	
   end
 
+  def dashboard_use
+    user_id
+  end
+
   def list
+    params[:q] = params[:user_id] if params.has_key?(:user_id)
     users = User.where("email like '%#{params[:q]}%'")
     resp = []
 
     users.each do |usr|
       p2pusr = P2p::User.find_by_user_id(usr.id)
-      resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
+        resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
     end
 
     render :json => resp

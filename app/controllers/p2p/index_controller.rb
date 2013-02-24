@@ -19,46 +19,59 @@ class P2p::IndexController < ApplicationController
 
 def search
 
+  begin
 
-  unless request.xhr?
-   redirect_to '/p2p'
-   flash[:notice] ="Invalid Request"
-    return
-  end
-
-
-  response = get_search_suggestions(params[:id])
-
-  if response.size == 0
-
-      suggested_word = suggest(params['id'])
-
-      if suggested_word == params[:id]
+    unless request.xhr?
+     redirect_to '/p2p'
+     flash[:notice] ="Invalid Request"
+      return
+    end
 
 
-      result = P2p::Item.notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
+    response = get_search_suggestions(params[:id])
 
-      result.each do |res|
-        response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
-      end
+    if response.size == 0
 
+        suggested_word = suggest(params['id'])
+
+        if suggested_word == params[:id]
+
+
+        result = P2p::Item.notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
+
+        result.each do |res|
+          response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+        end
+
+      else
+        response = get_search_suggestions(suggested_word)
+      end 
+
+    end
+
+    response = response.first(15)
+    
+
+    if response.empty?
+        render :json => [{:label => "No results found" ,:value => ""}]
+        return
     else
-      response = get_search_suggestions(suggested_word)
-    end 
+        render :json => response
+        return
+    end
 
+  # rescue 
+  #   if request.xhr?
+  #     render :json => []
+  #     return
+  #   else
+      
+  #     flash[:notice] = "Something went wrong"
+  #     redirect_to '/p2p'
+  #     return
+  #   end
+    
   end
-
-  response = response.first(15)
-  
-
-  if response.empty?
-      render :json => [{:label => "No results found" ,:value => ""}]
-      return
-  else
-      render :json => response
-      return
-  end
-
 end
 
 

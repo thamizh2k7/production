@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
  # before_filter :add_www_subdomain
 
  # Helper method for all views
- helper_method  :p2p_current_user
+ helper_method  :p2p_current_user ,:p2p_get_user_location
 
 
  # if Rails.env.production?
@@ -91,6 +91,16 @@ class ApplicationController < ActionController::Base
 	 return hash
   end
 
+  def p2p_get_user_location
+
+  	if session.has_key?(:city_id) and session[:city_id] != ""
+  		return session[:city_id]
+  	else
+  		return ''
+  	end
+
+
+  end
 
   def after_sign_in_path_for(resource)
   	

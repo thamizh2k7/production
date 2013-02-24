@@ -33,7 +33,7 @@
 
 		<% @products.each do |prod| %>
 
-			<% next if prod.items.approved.notsold.count == 0 %>
+			<% next if prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.count == 0 %>
 			
 
 			<% prod_count = 0 %>
@@ -54,9 +54,9 @@
 			        <ul class="thumbnails" id="filter_replace">
 			        
 			        <% if params.has_key?(:prod) %>
-			        	<% items = prod.items.approved.notsold.paginate(:page => params[:page] ,:per_page => 20 ) %>
+			        	<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.paginate(:page => params[:page] ,:per_page => 20 ) %>
 			        <% else %>
-						<% items = prod.items.approved.notsold.order("rand()") %>
+						<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.order("rand()") %>
 			        <% end %>
 
 			      <% items.each do |p| %>

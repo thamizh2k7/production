@@ -697,7 +697,7 @@ end
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
 
 
-        if params[:p2p_item][:paytype] == "1"
+        if params[:p2p_item][:paytype] == "1" #courier
           
 
           @item.paytype = params[:p2p_item][:paytype]
@@ -709,23 +709,23 @@ end
           redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
           return
 
-        elsif params[:p2p_item][:paytype] == "2"
+        elsif params[:p2p_item][:paytype] == "2" #direct
           
 
           @item.paytype = params[:p2p_item][:paytype]
-          @item.payinfo = ''
-          @item.commision = 4
+          @item.payinfo = params[:meet_at]
+          @item.commision = 0
 
           @item.save
           flash[:notice] = "Changes Saved"
           redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
           return
 
-        elsif params[:p2p_item][:paytype] == "3"
+        elsif params[:p2p_item][:paytype] == "3" #via sociorent
 
           @item.paytype = params[:p2p_item][:paytype]
-          @item.payinfo = params[:meet_at]
-          @item.commision = 0
+          @item.payinfo = ''
+          @item.commision = 4
 
           @item.save
           flash[:notice] = "Changes Saved"

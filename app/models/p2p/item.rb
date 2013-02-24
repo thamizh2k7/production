@@ -25,11 +25,22 @@ class P2p::Item < ActiveRecord::Base
 
   attr_accessor :img
 
+
   # validates :title ,:uniqueness => true  if :new_record?
 
-  default_scope where('deletedate is null and paytype is not null')
+  default_scope where("deletedate is null and paytype is not null"  )
 
-  
+
+
+  scope :by_location_or_allover , lambda { |location|
+    if location !=""
+      where ("(city_id = #{location} or (paytype=1 and payinfo ='1' ))")
+    else
+      return 
+    end
+    
+  }
+
   scope :approved , where('approveddate is not null')
   scope :notapproved , where('approveddate is null')
   scope :disapproved , where('disapproveddate is  not null')
@@ -165,5 +176,8 @@ class P2p::Item < ActiveRecord::Base
       res
     end
   end
+
+
+
 
 end

@@ -145,6 +145,8 @@ $(document).ready(function(){
 	// ***********************
 	// fixinf the filter
 
+		
+		
 				$(window).scroll(function(){
 
 						if ($("#dummy_filter_holder").length == 0) return false;
@@ -169,7 +171,7 @@ $(document).ready(function(){
 						}
 				});
 
-				var filter_initial_height = $("#dummy_filter_holder").offset().top;
+				window.filter_initial_height = $("#dummy_filter_holder").offset().top;
 
 				pull_here = function(){
 

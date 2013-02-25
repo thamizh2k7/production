@@ -459,23 +459,13 @@ $(document).ready(function(){
 					alert(" Enter Specifications" );
 					return false;
 				}
-				if ((window.image_count +  $("#image_upload")[0].files.length )>3 ){
-					showNotifications("No more than 3 images are allowed. Please delete some");
+				if ( (window.image_count >3) ){
+					showNotifications("No more than 3 images are allowed. Please delete some.");
+					return false;
+				}else if ((window.image_count == 0)){
+					showNotifications("Atleast one image is required.");
 					return false;
 				}
-
-
-
-
-
-				if ($("#image_upload")[0].files.length > 3 ){
-					showNotifications('Image limit is 3. Please add only three files');
-					return false;
-				}else if ( !window.edit && $("#image_upload")[0].files.length == 0){
-					showNotifications('Add atleast one image');			
-					return false;
-				}
-
 
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');

@@ -17,13 +17,12 @@ class P2p::ItemsController < ApplicationController
 
   def create
 
-
-    item = p2p_current_user.items.new({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params["condition"]})
+    item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
 
     begin
       item.city = P2p::City.find_by_name(params[:location])
 
-      raise 'nothing found' if item.city? 
+      raise 'nothing found' if item.city.nil? 
 
     rescue
 
@@ -53,11 +52,15 @@ class P2p::ItemsController < ApplicationController
 
     #if the publisher is not in us..!
     begin
-      item.product = P2p::Product.find(params["brand"])
+      
+      cat = P2p::Category.find(params[:cat])
+      item.product = cat.products.find_by_name(params[:brand])
+      raise "Product not found" if item.product.nil?
     rescue
       begin
+        
         cat = P2p::Category.find(params[:cat])
-        product = cat.products.new(:name =>  Publisher.find(params["brand"]).name )
+        product = cat.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
         product.save
 
         item.product = product
@@ -75,8 +78,9 @@ class P2p::ItemsController < ApplicationController
       rescue
 
         begin
+          
           cat = P2p::Category.find(params[:cat])
-          product = cat.products.new(:name => params["brand"] )
+          product = cat.products.new(:name => params[:brand] )
           product.save
 
           item.product = product
@@ -92,7 +96,9 @@ class P2p::ItemsController < ApplicationController
                                                });
 
         end
+
       end
+
     end
 
 
@@ -155,9 +161,9 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.find(params[:id])
 
-    item.update_attributes({:title => params["title"], :desc => params["desc"], :price => params["price"] ,:condition => params[:condition]});
+    item.update_attributes({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]});
 
-    item.product = P2p::Product.find(params["brand"])
+    item.product = P2p::Product.find(params[:brand])
 
     item.city = P2p::City.find_by_name(params[:location])
 
@@ -165,7 +171,7 @@ class P2p::ItemsController < ApplicationController
     #clear all
     item.specs.clear
 
-     params["spec"].each do |key,value|
+     params[:spec].each do |key,value|
         next if value == "" 
         
        attr = P2p::ItemSpec.new
@@ -289,10 +295,10 @@ end
           puts 'i immmasd'
           puts @prod.inspect
 
+
           @item = @prod.items.unscoped.find_by_title(params[:item])
 
         else
-
           @item = @prod.items.find_by_title(params[:item])
           puts @prod.items.explain
           puts @item.inspect
@@ -416,14 +422,14 @@ end
   def add_image
 
 
-    if params['item_id'] != ""
+    if params[:item_id] != ""
 
-      item = P2p::Item.find(params["item_id"])
-      unless params["img"].nil?
+      item = P2p::Item.find(params[:item_id])
+      unless params[:img].nil?
 
 
         if params[:img].respond_to?('each')
-          params["img"].each do |img|
+          params[:img].each do |img|
 
             i = item.images.new(:img=>img)
 
@@ -453,18 +459,18 @@ end
     end
 
 
-        session['img'] = []
+        session[:img] = []
 
-        params["img"].each do |img|
+        params[:img].each do |img|
 
           i = P2p::Image.new(:img=>img)
 
-          session['img'].push(i.id)
+          session[:img].push(i.id)
           i.save
 
         end
   
-      render :text => session['img'].inspect    
+      render :text => session[:img].inspect    
 
   end
     #render :inline => params.inspect
@@ -691,8 +697,9 @@ end
         return
     end
     
-    @item = p2p_current_user.items.notdeleted.notsold.find(params[:id])
+    @item = p2p_current_user.items.unscoped.notdeleted.notsold.find(params[:id])
     
+    puts @item.inspect
 
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
 

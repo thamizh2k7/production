@@ -16,7 +16,8 @@
       <% @category.each do |acategory| %>
 
         <!-- loop and display only if the categories has products and items in it. -->
-        <% if acategory.products.size > 0 and acategory.products[0].items.by_location_or_allover(p2p_get_user_location).size > 0 %>
+        <% if acategory.products.size > 0 %>
+
           <div class="itemsRow">
             <div id="listHeader" class="row">
               <p class="fleft"> <b><%= acategory.name.titlecase %> </b></p>

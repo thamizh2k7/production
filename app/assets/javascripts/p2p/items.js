@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	$('#upload_image').click(function(){
+       $('#image_upload').trigger('click');
+	});
 
 	$('#view_image_fancy').fancybox({
 		'speedIn'		:	500, 

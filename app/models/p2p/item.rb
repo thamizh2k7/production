@@ -26,7 +26,7 @@ class P2p::Item < ActiveRecord::Base
 
   attr_accessor :img
 
-  has_many :itemhistory , :class_name => 'P2p::ItemHistory'
+  has_many :itemhistories , :class_name => 'P2p::ItemHistory'
 
   # validates :title ,:uniqueness => true  if :new_record?
 
@@ -85,21 +85,10 @@ class P2p::Item < ActiveRecord::Base
 
       next if column == 'approveddate' or column == 'updated_at'
 
-      self.itemhistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
+      self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
       changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
     end
 
-
-    self.specs.each do |spec|
-        puts "dealing with #{spec}"
-      spec.changes.each do |column,value|
-          next if column == 'updated_at'
-
-        puts "dealing with #{spec} #{column}"
-          self.itemhistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
-          changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
-      end
-    end
 
 
     unless changed_column.empty?

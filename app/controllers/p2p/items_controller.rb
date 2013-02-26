@@ -757,6 +757,8 @@ end
 
       elsif params.has_key?(:terms) and params[:terms] !='1'
         flash.now[:notice] = 'Agree to the terms and conditions.'
+      elsif params.has_key?(:commit) and !params.has_key?(:terms)
+        flash.now[:notice] = 'Agree to the terms and conditions.'
 
     end
 

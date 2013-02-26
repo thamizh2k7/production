@@ -37,6 +37,7 @@
                             <div class="accordion-inner form-horizontal">
                               
                               <%= f.hidden_field :paytype  ,:value => 3%>
+
                             
                               <div class="control-group">
                                      <label class="control-label"> Enter your Pincode: </label>
@@ -46,22 +47,57 @@
                                      </div>
                                 </div>
 
+
+
+                              <% sociorent_charges = ( @item.product.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil   %>
+
+                              <div class="control-group">
+                                     <label class="control-label"> Charges Deducted: </label>
+                                     
+                                     <div class="controls">
+                                        <span class="highlight"> Rs. <%= sociorent_charges %> </span> (Courier charges + 4% of list price)  (rounded off to nearest integer)
+<!-- 
+                                         <code class="popover" data-content="Charges are subject to change." data-title="Information" data-html="true" data-delay="{show:0,hide:500}" data-trigger="hover">(subject to change)</code> -->
+
+                                         <code>(subject to change)</code>
+
+                                     </div>
+                                </div>
+
+                              <div class="control-group">
+                                     <label class="control-label"> Total amount you get: </label>
+                                     
+                                     <div class="controls">
+                                        <%=@item.price%> - <%= sociorent_charges %> = <span class="highlight">Rs. <%= (@item.price - sociorent_charges) %></span>
+
+                                         <code>(subject to change)</code>
+                                     </div>
+                                </div>
+
+
+
                                
                                 <div class="control-group">
                                      <label class="control-label">  Terms and conditions</label>
                                      
                                      <div class="controls">
-                                        4% would be taken as commision
-                                        <br/><br/>
-                                       <%= check_box_tag 'terms'%> I Agree to the 
-                                        <a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+                                       <%= check_box_tag 'terms'%>  I Agree to the charges deducted by sociorent.<a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+                                       <code>(subject to change)</code>
+                                         
                                      </div>
                                 </div>
                                   
                                 <div class="control-group">
                                      
                                      <div class="controls">
-                                       <%= f.submit :class => 'btn btn-primary' %>
+                                      <% if (@item.price - sociorent_charges ) <=0.0 %>
+                                          <span class="btn btn-danger">Create Listing</span> (Amount not accecptable)
+                                      <% elsif (@item.price - sociorent_charges ) <=40.0 %>
+                                          <%= f.submit :class => 'btn btn-warning' %> Amount you receive is quite less.
+                                      <% else %>
+                                          <%= f.submit "Create Listing",:class => 'btn btn-primary'  %>
+                                      <% end %>
+
                                      </div>
                                 </div>
                                 
@@ -79,7 +115,7 @@
 
                       <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                           <i class="icon icon-ok-sign"> </i> Send by Courier...........
+                           <i class="icon icon-gift"> </i> Send by Courier...........
                         </a>
                       </div>
 
@@ -145,7 +181,7 @@
                                  
                                  <div class="controls">
                                    
-                                   <%= f.submit :class => 'btn btn-primary' %>
+                                   <%= f.submit "Create Listing",:class => 'btn btn-primary' %>
 
                                  </div>
                             </div>
@@ -215,7 +251,7 @@
                               <div class="control-group">
                                    
                                    <div class="controls">
-                                     <%=f.submit :class => 'btn btn-primary' %>
+                                     <%=f.submit "Create Listing",:class => 'btn btn-primary' %>
                                    </div>
                               </div>
                             

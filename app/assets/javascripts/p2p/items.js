@@ -1,7 +1,17 @@
 $(document).ready(function(){
 
+	$('#view_image_fancy').fancybox({
+		'speedIn'		:	500, 
+		'speedOut'		:	200,
+		'centerOnScroll': true
+ 	});
 
-	$(".action_icon").tooltip();
+	$(".action_icon").tooltip('destroy');
+
+	$("#new_listing_info").popover('show');
+	setTimeout(function(){
+		$("#new_listing_info").popover('hide');
+	},2000);
 	// save the form onclick trigger
 	$("#save").click(function(){
 
@@ -28,11 +38,15 @@ $(document).ready(function(){
 	$('#enable').click(function() {
 		$(this).toggleClass('active');
 
+
 		//close all editable elements
 		if ($('.canEdit').hasClass('editable')){
 
+			$(".action_icon").tooltip('destroy');
+
 			$("#add_more_spec").addClass('hide');
 
+			$(".edit_visible").css({'display':'none'});
 			//$("#upload_pic").addClass('hide');
 
 			$("#empty_specs").addClass('hide');
@@ -62,9 +76,11 @@ $(document).ready(function(){
 		}
 		//Enable all the edits here.
 		else {
-			// show all the tooltips
-			$("#title").tooltip('show');
 
+			$(".action_icon").tooltip({"delay":{show:0,hide:100}});
+
+			$(".edit_visible").css({'display':'block'});
+			// show all the tooltips11
 			// hide the edit button and show the save and cancel button
 			$("#enable").hide();
 			$("#save").show();
@@ -100,6 +116,8 @@ $(document).ready(function(){
 			$("#title").editable({
 				placement:'bottom'
 			});
+			$("#title").tooltip('show');
+
 
 			$("#empty_specs").removeClass('hide');
 
@@ -544,6 +562,7 @@ $(document).ready(function(){
 
 	      $('.thumbs').on('click',function(){
 	      		$('#view_image').attr('src',$(this).children('img').attr("viewimage"));
+	      		$('#view_image_fancy').attr('href',$(this).children('img').attr("fancyimg"));
 	      		$('#view_image').attr('imgid',$(this).children('img').attr("imgid"));
 	      });
 
@@ -591,6 +610,7 @@ check_specs =  function(e, params) {
 										else{
 											$(window).scrollTop = $("#desc_content").top;
 											$("#desc_content").tooltip('show');
+											$("#desc_content")[0].scrollIntoView(false);
 										}
 									}
 									else{

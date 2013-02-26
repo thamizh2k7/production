@@ -56,16 +56,16 @@
 
 
 
-    <% if !p2p_current_user.nil? and  p2p_current_user.received_messages.unread.count > 0 %>
+    // <#% if !p2p_current_user.nil? and  p2p_current_user.received_messages.unread.count > 0 %>
       
-        $('#notificationcontainer').notify('create',{
-          title:"Pending Messages",
-          text:"You have <%=p2p_current_user.received_messages.unread.count %> messages unread"
-        });
+    //     $('#notificationcontainer').notify('create',{
+    //       title:"Pending Messages",
+    //       text:"You have <#%=p2p_current_user.received_messages.unread.count %> messages unread"
+    //     });
 
 
 
-    <% end %>
+    // <#% end %>
 
  });
   

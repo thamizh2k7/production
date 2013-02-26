@@ -13,8 +13,17 @@
 	text-decoration: none;
 }
 
-.thumbnail img{
-	margin: 5px;
+.thumbnails .thumbs{
+	width:50px;
+	height:50px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	border: 1px solid #ccc;
+}
+
+.thumbnails .thumbs img{
+	display: block;
 }
 
 #items {
@@ -93,15 +102,20 @@
 }
 
 #view_image_holder{
-	display: block;
+	width:320px;
+	height:320px;
+	display: table-cell;
 	text-align: center;
+	vertical-align: middle;
+	border: 1px solid red;
 }
 
 
 .highlight{
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
-    color: rgb(0, 108, 204) !important;
+    color: maroon !important;
 	font-weight: bolder;
+	font-size: 1.1em;
 }
 
 /*

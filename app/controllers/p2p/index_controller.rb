@@ -330,7 +330,6 @@ def search_list
     item_condition_filter = ""
 
 
-
     # check if we have filters already
     if params.has_key?(:applied_filters)
       

@@ -4,26 +4,31 @@
 
 <div class="main_wrapper">
 	<div class="row">
+
+	 
 		<div class="span6">
-			<ul class="breadcrumb">
+	
+		<ul class="breadcrumb">
 
+					<% if itemid.empty? %>
 
-				<% if itemid.empty? %>
+						  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
+						  <li> New Listing <span class="divider">/</span></li>
+						  <li> New Listing <span class="divider">/</span></li>
+						  <li> New Title <span class="divider">/</span></li>
+
+					<% else %>
+
 					  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
-					  <li> New Listing <span class="divider">/</span></li>
-					  <li> New Listing <span class="divider">/</span></li>			  
-					  <li class="active action_icon"  data-name="title"  title="Enter Title" data-emptytext=""  id="title"><%=title.titleize  %></li>
-
-				<% else %>
-
-				  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
-				  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
-				  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
-				  <li class="active  action_icon"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
-				<% end %>
+					  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
+					  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
+					  <li class="active  action_icon"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
+					<% end %>
 
 			</ul>
+    
 		</div>
+	 
 		<div class="span6">
 
 
@@ -158,7 +163,7 @@
 
 				<% else %>
 
-					  <button class="btn "  ><i   class="action_icon icon-list" title="New Listing"></i>New Listing</button>
+					  <button class="btn action_popover"  id="new_listing_info" data-html="true" data-content="Get the feel of previewing the listing while you are creating it. <br/><br/> <b>Just follow the guide and you are good to go</b>."  data-trigger="hover" title="Welcome <b><%= p2p_current_user.user.name %></b>" data-delay="{hide:500,show:0}" ><i   class="action_icon icon-list" title="New Listing"></i>New Listing</button>
 
 				<% end %>				
 
@@ -251,15 +256,18 @@
 
         <% end %>
 
+        	<%r = rand(0..(thumbimage.count-1))%>
         	<div id="view_image_holder">
-            	<img src="<%= viewimage[0][:url] %>" imgid="<%= viewimage[0][:id] %>" alt="Item pic" id="view_image">
+        		<a href="<%=fullimage[r][:url]%>" id="view_image_fancy">
+            		<img src="<%= viewimage[r][:url] %>" imgid="<%= viewimage[r][:id] %>" alt="Item pic" id="view_image">
+            	</a>
             </div>
             <div class="caption thumb_holder">
               <ul class="thumbnails">
 
         		<% i = 0 %>
 				<% thumbimage.each do |img| %>
-		
+			
 	              	<li class="thumbs">
 						<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
@@ -269,7 +277,8 @@
 
 	              		<% end %>
 
-	              		<img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" viewimage="<%= viewimage[i][:url] %>">
+
+	              		<img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=fullimage[i][:url]%>" viewimage="<%= viewimage[i][:url] %>">
 	              	</li>
 	              <% i += 1 %>
 				<% end %>
@@ -287,6 +296,7 @@
 
 			<!-- category and subcategory container -->
 
+			<center><code class="edit_visible"> All words in <span style="color:blue"> blue</span> are editable.Please click on them to edit</code></center>
 
 			<table class="table table-bordered table-striped" id="table_specs">
             <colgroup>
@@ -304,14 +314,20 @@
              	
 
 			<tr>
+				<td>Title </td>
+				<td> <span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=title.titleize  %></span></td>
+			</tr>
+
+
+			<tr>
 				<td>Category </td>
-				<td> <span class="canEdit action_icon" id="category" data-type="select" data-original-title="Select Category" data-source="/p2p/getcategories" ><%=category%></span></td>
+				<td> <span class="canEdit action_icon" id="category" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/p2p/getcategories" ><%=category%></span></td>
 			</tr>
 
 			<tr>
 				<td>Model </td>
 				<td>
-					<span id="model" class="action_icon" title="Select Model" data-type="select" ><%=brand%></span>
+					<span id="model" class="action_icon"  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=brand%></span>
 				</td>
 
 			</tr>
@@ -319,10 +335,13 @@
             <!-- Price -->
 	          <tr>
 	            <td>
-	              Price
+	              <span class="highlight">Price</span>
 	            </td>
-	            <td>Rs.
-	             <span class="canEdit action_icon" data-name="username"  title="Enter Price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
+	            <td>
+	            	<span class="highlight"> Rs.
+	            		 <span class="canEdit highlight action_icon" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
+	         		</span>
+
 	            </td>
 	          </tr>
 
@@ -332,17 +351,17 @@
 	             <span class="highlight"> Condition</span>
 	            </td>
 	            <td>
-	             <span class="canEdit highlight action_icon" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"> <%= condition.titleize %> </span>
+	             <span class="canEdit highlight action_icon" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= condition.titleize %> </span>
 	            </td>
 	          </tr>
 
             <!-- Location -->
 	          <tr>
 	            <td>
-	              Location
+	              <span class="highlight">Location</span>
 	            </td>
 	            <td>
-	             <span class="canEdit action_icon" data-name="username"  data-type="select" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"> <%= location.titleize %> </span>
+	             <span class="highlight canEdit action_icon" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" > <%= location.titleize %> </span>
 	            </td>
 	          </tr>
 
@@ -380,7 +399,7 @@
 	</div>
 	<div class="row">
 		<div id="desc" class="span12">
-			<h4>Description</h4>
+			<h4> <%= title.titleize %> Description</h4>
 			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form"> <%= description.html_safe %> </span>
 		</div>
 	</div>

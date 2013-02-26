@@ -194,3 +194,6 @@ li.dropdown:hover > ul.dropdown-menu{
 }
 
 
+.edit_visible{
+	display: none;
+}

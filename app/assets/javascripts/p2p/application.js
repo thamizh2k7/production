@@ -21,6 +21,7 @@
 //= require jquery_nested_form
 //= require jquery-fileupload
 //= require p2p/jquery.notify
+//= require p2p/jquery.fancybox-1.3.4
 //= require global/underscore
 //= require bootstrap
 //= require bootstrap-editable
@@ -28,6 +29,7 @@
 //= require global/wysihtml5-0.3.0.min
 //= require global/bootstrap-wysihtml5-0.0.2.min
 //= require global/wysihtml5
+//= require p2p/select2
 //= require private_pub
 //= require p2p/jquery.history
 //= require p2p/jquery-scrolltofixed-min
@@ -38,7 +40,7 @@
 
 
 $(document).ready(function(){
-	$(".action_icon").tooltip();
+//	$(".action_icon").tooltip();
 
 	$("#head_user_location").click(function(){
 		$("#location_modal").modal('show');

@@ -169,15 +169,25 @@ class P2p::ItemsController < ApplicationController
 
     #echo params["item"]['attribute'].count
     #clear all
-    item.specs.clear
+    #item.specs.clear
 
      params[:spec].each do |key,value|
-        next if value == "" 
         
-       attr = P2p::ItemSpec.new
-       attr.spec = P2p::Spec.find(key.to_i)
-       attr.value = value
-       item.specs << attr
+       
+       begin
+          attr = item.specs.finc_by_spec_id(key.to_i) 
+          attr.destroy if value == "" 
+          attr.value = value
+        rescue
+          if attr.nil? 
+            attr = item.specs.new
+            attr.spec = P2p::Spec.find(key.to_i)
+          else
+            flash[:notice] = "Something went wrong"
+            redirect_to '/p2p'
+            return
+          end
+         end
      end
 
      data={}
@@ -691,6 +701,7 @@ end
   end
 
   def sellitem_pricing
+
     if p2p_current_user.nil? 
       flash[:notice] = "Nothing found for you request"
        redirect_to '/p2p'
@@ -703,6 +714,8 @@ end
 
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
 
+        new_item =  ( @item.paytype.nil? ) ?  true : false
+
 
         if params[:p2p_item][:paytype] == "1" #courier
           
@@ -711,10 +724,6 @@ end
           @item.payinfo = params[:alloverindia]
           @item.commision = 4
 
-          @item.save
-          flash[:notice] = "Changes Saved"
-          redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
-          return
 
         elsif params[:p2p_item][:paytype] == "2" #direct
           
@@ -723,10 +732,6 @@ end
           @item.payinfo = params[:meet_at]
           @item.commision = 0
 
-          @item.save
-          flash[:notice] = "Changes Saved"
-          redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
-          return
 
         elsif params[:p2p_item][:paytype] == "3" #via sociorent
 
@@ -734,12 +739,21 @@ end
           @item.payinfo = ''
           @item.commision = 4
 
+        end
+
+
           @item.save
           flash[:notice] = "Changes Saved"
+
+          if new_item 
+            @item.new_item_created
+          else
+            
+          end
+
           redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
           return
 
-        end
 
       elsif params.has_key?(:terms) and params[:terms] !='1'
         flash.now[:notice] = 'Agree to the terms and conditions.'

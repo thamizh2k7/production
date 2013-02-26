@@ -17,6 +17,7 @@ class P2p::Item < ActiveRecord::Base
 
   has_many :images ,:class_name => 'P2p::Image'
 
+  
   attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision
 
   # 1- courier
@@ -25,6 +26,7 @@ class P2p::Item < ActiveRecord::Base
 
   attr_accessor :img
 
+  has_many :itemhistory , :class_name => 'P2p::ItemHistory'
 
   # validates :title ,:uniqueness => true  if :new_record?
 
@@ -67,9 +69,70 @@ class P2p::Item < ActiveRecord::Base
 
   end
 
-  after_create :publish_to_stream
 
-  def publish_to_stream
+  before_save do 
+    self.desc = self.desc.strip
+  end
+  after_update :update_changed_history
+
+  #after_create :publish_to_stream
+
+  def update_changed_history
+
+    changed_column =""
+
+    self.changes.each do |column,value|
+
+      next if column == 'approveddate' or column == 'updated_at'
+
+      self.itemhistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
+      changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
+    end
+
+
+    self.specs.each do |spec|
+        puts "dealing with #{spec}"
+      spec.changes.each do |column,value|
+          next if column == 'updated_at'
+
+        puts "dealing with #{spec} #{column}"
+          self.itemhistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
+          changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
+      end
+    end
+
+
+    unless changed_column.empty?
+
+        #PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
+        PrivatePub.publish_to("/user_1", "#{self.user.user.name} has changed the data in <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing and is waiting for your approval." )
+
+    
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1,
+                                                  :message => "This is an auto generated system message. #{self.user.user.name}  has changed <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing and is kept under your verification The changes are <br/>#{changed_column} <br/> Please review them. - System",
+                                                  :messagetype => 5,
+                                                  :sender_id => 1,
+                                                  :sender_status => 2,
+                                                  :receiver_status => 0,
+                                                  :parent_id => 0
+                                                  });
+
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => self.user.id ,
+                                                  :message => "This is an auto generated system message. Your <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing is kept under verification and will appear on the site with in 2hours. To send a message to admin just click reply and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                                  :messagetype => 5,
+                                                  :sender_id => 1,
+                                                  :sender_status => 2,
+                                                  :receiver_status => 0,
+                                                  :parent_id => 0
+                                                  });
+
+    end
+
+  end
+
+  def new_item_created
 
     message_notification = "
          $('#notificationcontainer').notify('create', 'new_item_notification', {
@@ -96,9 +159,8 @@ class P2p::Item < ActiveRecord::Base
                                               :receiver_status => 0,
                                               :parent_id => 0
                                               });
-    puts self.inspect + "self"
-
     prod_url = URI.encode("/p2p/#{self.category.name}/#{self.product.name}/#{self.title}")
+
     P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
                                               :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='#{prod_url}'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
                                               :messagetype => 5,

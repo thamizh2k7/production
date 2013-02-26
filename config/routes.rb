@@ -2,6 +2,8 @@ Sociorent::Application.routes.draw do
 
 
 
+  get "item_history/index"
+
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)

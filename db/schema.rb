@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225052209) do
+ActiveRecord::Schema.define(:version => 20130226074642) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -333,6 +333,18 @@ ActiveRecord::Schema.define(:version => 20130225052209) do
   end
 
   add_index "p2p_images", ["item_id"], :name => "index_p2p_images_on_item_id"
+
+  create_table "p2p_item_histories", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "columnname"
+    t.string   "oldvalue"
+    t.string   "newvalue"
+    t.boolean  "approved"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "p2p_item_histories", ["item_id"], :name => "index_p2p_item_histories_on_item_id"
 
   create_table "p2p_item_specs", :force => true do |t|
     t.integer  "spec_id"

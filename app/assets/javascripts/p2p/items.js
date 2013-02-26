@@ -72,7 +72,8 @@ $(document).ready(function(){
 
 			$("#add_more_spec").addClass('hide');
 
-			$(".edit_visible").css({'display':'none'});
+			
+			$(".edit_shown").addClass('edit_visible').removeClass('edit_shown');
 			//$("#upload_pic").addClass('hide');
 
 			$("#empty_specs").addClass('hide');
@@ -105,7 +106,8 @@ $(document).ready(function(){
 
 			$(".action_icon").tooltip({"delay":{show:0,hide:100}});
 
-			$(".edit_visible").css({'display':'block'});
+			$(".edit_visible").addClass('edit_shown').removeClass('edit_visible');
+			
 			// show all the tooltips11
 			// hide the edit button and show the save and cancel button
 			$("#enable").hide();

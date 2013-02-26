@@ -22,7 +22,7 @@
 					  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 					  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
 					  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
-					  <li class="active  action_icon"  data-name="title"  title="Enter Title"  id="title"> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
+					  <li class="active "> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
 					<% end %>
 
 			</ul>
@@ -329,7 +329,7 @@
             <tbody>
              	
 
-			<tr>
+			<tr class="edit_visible">
 				<td>Title </td>
 				<td> <span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=title.titleize  %></span></td>
 			</tr>

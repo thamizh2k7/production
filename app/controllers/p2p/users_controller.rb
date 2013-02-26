@@ -6,12 +6,10 @@ class P2p::UsersController < ApplicationController
   #check for user presence inside p2p
   before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time]
 
-  def dashboard
-  	
+  def dashboard  	
   end
 
   def dashboard_use
-    user_id
   end
 
   def list

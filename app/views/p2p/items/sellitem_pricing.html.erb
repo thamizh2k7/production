@@ -38,12 +38,11 @@
                               
                               <%= f.hidden_field :paytype  ,:value => 3%>
                             
-                                <div class="control-group">
-                                     <label class="control-label"> Cities available </label>
+                              <div class="control-group">
+                                     <label class="control-label"> Enter your Pincode: </label>
                                      
                                      <div class="controls">
-                                     <%#= f.collection_select :city ,P2p::City.where(:pickup => 1) ,:id , :name  %>
-                                     <%= @item.city.name %>
+                                     <%= f.collection_select :payinfo ,P2p::ServicePincode.all ,:id , :pincode ,:include_blank => "Type your pincode here.."  ,:selected => 0 %>
                                      </div>
                                 </div>
 

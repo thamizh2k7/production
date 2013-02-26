@@ -1,5 +1,31 @@
 $(document).ready(function(){
 
+	window.cache ={}
+    $("#check_availability").autocomplete({
+      minLength: 6,
+      source: function( request, response ) {
+        console.log(request);
+        var term = request.term;
+        if ( term in cache ) {
+          response( cache[ term ] );
+          return;
+        }
+ 
+        $.getJSON( "/p2p/getserviceavailability/" + $("#check_availability").attr('itemid') + '/'  + request.term,{}, function( data, status, xhr ) {
+          cache[ term ] = data;
+          response( data );
+        });
+      },
+      select:function(event,elem){
+         alert('go to payment');
+      },
+      focus:function(){
+        return false;
+      }
+    });
+
+
+
 	$('#view_image_fancy').fancybox({
 		'speedIn'		:	500, 
 		'speedOut'		:	200,

@@ -736,7 +736,7 @@ end
         elsif params[:p2p_item][:paytype] == "3" #via sociorent
 
           @item.paytype = params[:p2p_item][:paytype]
-          @item.payinfo = ''
+          @item.payinfo = params[:p2p_item][:payinfo]
           @item.commision = 4
 
         end

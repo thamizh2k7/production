@@ -83,7 +83,12 @@ class P2p::Item < ActiveRecord::Base
 
     self.changes.each do |column,value|
 
-      next if column == 'approveddate' or column == 'updated_at'
+      next if column == 'approveddate' or column == 'updated_at' or column =='viewcount' or column == 'reqCount'
+
+    puts self.changes[:paytype].to_s + 'safd'
+    
+      next if (column == 'paytype' or column =='payinfo' or column=='commision' ) and self.changes[:paytype][0].nil?
+
 
       self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
       changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"

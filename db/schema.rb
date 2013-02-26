@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226074642) do
+ActiveRecord::Schema.define(:version => 20130226134628) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -414,6 +414,12 @@ ActiveRecord::Schema.define(:version => 20130226074642) do
   end
 
   add_index "p2p_products", ["category_id"], :name => "index_p2p_products_on_category_id"
+
+  create_table "p2p_service_pincodes", :force => true do |t|
+    t.string   "pincode"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "p2p_specs", :force => true do |t|
     t.string   "name"

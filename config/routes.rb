@@ -77,7 +77,7 @@ Sociorent::Application.routes.draw do
 
     scope 'admin' do
       #scaffold controller and view
-      resources :categories ,:products ,:specs
+      resources :categories ,:products ,:specs ,:service_pincodes
 
         root :to => 'categories#index'
     end
@@ -97,6 +97,7 @@ Sociorent::Application.routes.draw do
 
       match 'getbook_details/:isbn13' => "items#getbook_details"
 
+      get 'getserviceavailability/:itemid/:pincode' => 'service_pincodes#check_availability'
       get '' => "index#index"
       get 'sellitem' => "items#new"
       get 'getbrand/:id' => "items#get_brands"

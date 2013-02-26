@@ -20,7 +20,8 @@
 				<%= f.label :receiver_id ,"Email" ,:class=> "control-label" %>
 
 				<div class="controls">
-					<%= f.text_field :receiver_id %>
+					<%= f.hidden_field :receiver_id %>
+					<%= text_field_tag "to_receiver_id" ,"",:placeholder => "Email"  %>
 				</div>
 
 			</div>
@@ -65,6 +66,12 @@
 
 <script>
 
+
+	$("#compose_newmsg_modal").on('shown',function(){
+		$("#to_receiver_id").val('');
+		$("#p2p_message_message").val('');
+	});
+
 	$(document).ready(function(){
 
 		<% if class_name == '' %>
@@ -87,7 +94,7 @@
 
     window.cache={}
 
-      $("#p2p_message_receiver_id").autocomplete({
+      $("#to_receiver_id").autocomplete({
         minLength: 2,
         source: function( request, response ) {
           var term = request.term;
@@ -110,10 +117,13 @@
 
         },
         select:function(event,elem){
+        	$("#p2p_message_receiver_id").val(elem.item.value);
+        	$("#to_receiver_id").val(elem.item.label);
+        	return false;
             
         },
         focus:function(){
-          
+          	return false;
         }
       });
 

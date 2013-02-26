@@ -3,6 +3,7 @@
 //= require dataTables/jquery.dataTables.bootstrap
 */
 
+
 	$(document).ready(function(){
 
 

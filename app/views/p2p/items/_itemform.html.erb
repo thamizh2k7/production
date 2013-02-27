@@ -393,7 +393,7 @@
 			                  <%= aspec.spec.name %>
 			                </td>
 			                <td>
-			                 <span class="canEdit action_icon" data-name="username"  title="Enter <%= spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
+			                 <span class="canEdit action_icon" data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
 			                </td>
 			              </tr>
 			         <% end %>
@@ -414,9 +414,9 @@
 		</div>
 	</div>
 	<div class="row">
-		<div id="desc" class="span12">
+		<div id="desc" class="span10">
 			<h4> <%= title.titleize %> Description</h4>
-			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form"> <%= description.html_safe %> </span>
+			<span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= description.html_safe %> </span>
 		</div>
 	</div>
 
@@ -448,7 +448,7 @@
 				                  <%= spec[i].spec.name %>
 				                </td>
 				                <td>
-				                 <span class="canEdit" data-name="username"  title="<%=spec[i].name%>"  specname="<%= spec[i].spec.name %>" specid="<%= spec[i].spec.id.to_s %>" id="item_<%= spec[i].spec.id %>"> <%= spec[i].value.titleize %> </span>
+				                 <span class="canEdit" data-name="username"  title="<%=spec[i].name%>"  specname="<%= spec[i].spec.name %>" specid="<%= spec[i].spec.id.to_s %>" id="item_<%= spec[i].spec.id %>" data-placement="right"> <%= spec[i].value.titleize %> </span>
 				                </td>
 				              </tr>
 				         <% end %>
@@ -481,7 +481,7 @@
 						                  <%= spec.name %>
 						                </td>
 						                <td>
-						                 <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>">  </span>
+						                 <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>" data-placement="right">  </span>
 						                </td>
 						              </tr>
 							<%end %>

@@ -68,8 +68,8 @@
 
 
 	$("#compose_newmsg_modal").on('shown',function(){
-		$("#to_receiver_id").val('');
-		$("#p2p_message_message").val('');
+		$("#compose_newmsg_modal #to_receiver_id").val('');
+		$("#compose_newmsg_modal #p2p_message_message").val('');
 	});
 
 	$(document).ready(function(){
@@ -94,7 +94,7 @@
 
     window.cache={}
 
-      $("#to_receiver_id").autocomplete({
+      $("#compose_newmsg_modal #to_receiver_id").autocomplete({
         minLength: 2,
         source: function( request, response ) {
           var term = request.term;
@@ -112,11 +112,14 @@
               cache[ term ] = data;
                 response( data );
 
+
         }
       });
 
         },
         select:function(event,elem){
+        	if (elem.item.value == -1 ) return false;
+
         	$("#p2p_message_receiver_id").val(elem.item.value);
         	$("#to_receiver_id").val(elem.item.label);
         	return false;

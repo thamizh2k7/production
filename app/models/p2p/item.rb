@@ -36,7 +36,7 @@ class P2p::Item < ActiveRecord::Base
 
   scope :by_location_or_allover , lambda { |location|
     if location !=""
-      where ("(city_id = #{location} or (paytype=1 and payinfo ='1' ))")
+      where ("(city_id = #{location} or (paytype=1 and payinfo.split(,)[1] ='1' ))")
     else
       return 
     end
@@ -87,7 +87,7 @@ class P2p::Item < ActiveRecord::Base
 
     puts self.changes[:paytype].to_s + 'safd'
     
-      next if (column == 'paytype' or column =='payinfo' or column=='commision' ) and self.changes[:paytype][0].nil?
+      next if (column == 'paytype' or column =='payinfo' or column=='commision' ) and self.changes.has_key?(:paytype) and self.changes[:paytype][0] == nil
 
 
       self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )

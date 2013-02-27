@@ -202,7 +202,7 @@
 				<% end %>
 
 				  	 <% if paytype == "1" %>
-				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn action_popover" data-content="You have selected to send this item via courier <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
+				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn action_popover" data-content="You have selected to send this item via courier in <%=payinfo.split(',')[0] %> business days <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
 				  	 <%elsif paytype == "2"%>
 				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn  action_popover" data-content="You have selected to deal with the buyer directly <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom"  > <i class="action_icon icon icon-user" title="PayDirectly"></i> Payment</a>
 					<%elsif paytype == "3"%>				  	 	

@@ -24,6 +24,10 @@ class P2p::UsersController < ApplicationController
         resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
     end
 
+    if resp.count ==0 
+        resp.push(:value => -1 , :label => "Nothing Found" )
+    end
+
     render :json => resp
 
   end

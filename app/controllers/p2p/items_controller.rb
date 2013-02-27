@@ -721,7 +721,7 @@ end
           
 
           @item.paytype = params[:p2p_item][:paytype]
-          @item.payinfo = params[:alloverindia]
+          @item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] ) 
           @item.commision = 4
 
 

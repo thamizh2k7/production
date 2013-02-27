@@ -27,13 +27,13 @@
 						</a>
 					</li>
 					
-					<li class="box_element"><a href="/p2p/waiting/<%=p2p_current_user%>">
+					<li class="box_element"><a href="/p2p/waiting/user/<%=p2p_current_user.id%>">
 						Waiting for Approval: <span id="total_wapproval_count">  <%= p2p_current_user.items.waiting.count %>  
 						</span>
 						</a>
 					</li>
 
-					<li class="box_element"><a href="/p2p/disapprove/<%=p2p_current_user%>">
+					<li class="box_element"><a href="/p2p/disapprove/user/<%=p2p_current_user.id%>">
 						Disapproved: <span id="total_wapproval_count">  <%= p2p_current_user.items.disapproved.count %>  </span>
 						</a>
 					</li>				

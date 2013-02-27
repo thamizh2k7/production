@@ -56,7 +56,7 @@
 
 		<div class="control-group">
 
-	 		<div class="controls"><%= f.submit :submit, value:"Send Message" ,:id => "message_submit " , :class => "btn btn-primary"  %></div>
+	 		<div class="controls"><%= f.submit :submit, value:"Send Message" ,:id => "message_submit" , :class => "btn btn-primary"  %></div>
 	 	</div>
 
 	 <% end %>
@@ -67,12 +67,29 @@
 <script>
 
 
+	$(document).ready(function(){
+
+
 	$("#compose_newmsg_modal").on('shown',function(){
 		$("#compose_newmsg_modal #to_receiver_id").val('');
 		$("#compose_newmsg_modal #p2p_message_message").val('');
 	});
 
-	$(document).ready(function(){
+	$("#compose_form_title #message_submit").click(function(){
+
+		if ($("#compose_newmsg_modal #p2p_message_receiver_id").val()==''){
+			showNotifications('Enter a Valid email');
+			return false;
+		}
+
+				
+			if ($("#p2p_message_message").val() == "") {
+				showNotifications('Enter a message');
+				return false;
+			}
+
+	});
+	
 
 		<% if class_name == '' %>
 			var obj = "#new_p2p_message"
@@ -82,6 +99,8 @@
 
 		
 		$('#message_submit').on('submit',function(){
+
+
 			$("#compose_newmsg_modal .close").trigger('click');
 			$("#reply_to_modal .close").trigger('click');
 			showNotifications("Sending your message");

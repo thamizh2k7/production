@@ -281,25 +281,28 @@
             <div class="caption thumb_holder">
               <ul class="thumbnails">
 
-        		<% i = 0 %>
-				<% thumbimage.each do |img| %>
-			
-	              	<li class="thumbs">
-						<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-
-							<% unless itemid.empty? %>
-	              				<i class="icon-remove pull-right remove_image hide"></i>
-	              			<% end %>
-
-	              		<% end %>
+        		<% unless itemid.empty? %>
 
 
-	              		<img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=fullimage[i][:url]%>" viewimage="<%= viewimage[i][:url] %>">
-	              	</li>
-	              <% i += 1 %>
+	        		<% i = 0 %>
+					<% thumbimage.each do |img| %>
+				
+
+		              	<li class="thumbs">
+							<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
+
+								<% unless itemid.empty? %>
+		              				<i class="icon-remove pull-right remove_image hide"></i>
+		              			<% end %>
+
+		              		<% end %>
+
+		              		<img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=fullimage[i][:url]%>" viewimage="<%= viewimage[i][:url] %>">
+		              	</li>
+		              <% i += 1 %>
+					<% end %>
 				<% end %>
-					<i id="clearuploads" class="icon-repeat action_icon pull-right" title="clear"></i>
-						<div class="clearfix"></div>
+<!-- 					<i id="clearuploads" class="icon-repeat action_icon pull-right" title="clear"></i> -->
 
 	      </ul>
             </div>

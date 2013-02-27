@@ -111,21 +111,17 @@ class P2p::ItemsController < ApplicationController
     if params[:img].respond_to?('each')
           params[:img].each do |img|
              item.images << P2p::Image.new(:img=>img)
-            
-            puts "images in multip"
-#            images.push(i)
-          end
+         end
       else
 
         item.images.new(:img => params[:img])
-        puts "images in single"
-        #puts i.errors.inspect + "images "
 
       end
-      #echo params["item"]['attribute'].count
+
       unless params['spec'].respond_to?('each') 
         params['spec'] = [params['spec']]
       end
+
      params["spec"].each do |key,value|
         next if value == "" 
         
@@ -165,65 +161,96 @@ class P2p::ItemsController < ApplicationController
 
     item.product = P2p::Product.find(params[:brand])
 
-    item.city = P2p::City.find_by_name(params[:location])
+
+    begin
+      item.city = P2p::City.find_by_name(params[:location])
+
+      raise 'nothing found' if item.city.nil? 
+
+    rescue
+
+      begin
+        city = P2p::City.create(:name => params[:location])
+        city.save
+        item.city = city
+
+
+
+        P2p::User.find(1).sent_messages.create({:receiver_id => 1,
+                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same. Sincerally - Developers",
+                                              :messagetype => 5,
+                                              :sender_id => 1,
+                                              :sender_status => 2,
+                                              :receiver_status => 0,
+                                              :parent_id => 0,
+                                              :item_id => item.id
+                                             });
+
+      rescue
+          
+      end
+    end
+
+
+    update_time = Time.now
+    
 
     #echo params["item"]['attribute'].count
     #clear all
     #item.specs.clear
 
-     params[:spec].each do |key,value|
-        
-       
-       begin
-          attr = item.specs.finc_by_spec_id(key.to_i) 
-          attr.destroy if value == "" 
-          attr.value = value
-        rescue
-          if attr.nil? 
-            attr = item.specs.new
-            attr.spec = P2p::Spec.find(key.to_i)
-          else
-            flash[:notice] = "Something went wrong"
-            redirect_to '/p2p'
-            return
-          end
+    ActiveRecord::Base.transaction do
+
+        item.updated_at = update_time
+
+         params[:spec].each do |key,value|
+           
+           begin
+
+              attr = item.specs.find_by_spec_id(key.to_i) 
+              attr.updated_at = update_time
+
+              if value == "" 
+                attr.save
+                attr.destroy 
+                next
+              end
+
+              attr.value = value
+             end
          end
-     end
 
-     data={}
-
+         data={}
 
 
-    if params[:img].respond_to?('each')
-          params[:img].each do |img|
-             item.images << P2p::Image.new(:img=>img)
-            
-            puts "images in multip"
-#            images.push(i)
+
+        if params[:img].respond_to?('each')
+              params[:img].each do |img|
+                 item.images << P2p::Image.new(:img=>img)
+                
+              end
+          elsif params.has_key?(:img)
+
+            item.images.new(:img => params[:img])
+            puts "images in single"
+
           end
-      elsif params.has_key?(:img)
 
-        item.images.new(:img => params[:img])
-        puts "images in single"
-        #puts i.errors.inspect + "images "
+          item.images.each do |img|
+            puts img.errors.full_messages 
+          end
 
-      end
+          
+        item.approveddate = false
 
-      puts params.inspect
-
-      puts item.errors.full_messages
-
-      item.images.each do |img|
-        puts img.errors.full_messages 
-      end
-
-    if item.save 
-      flash[:notice] = "Saved changes"
-      puts "in success"
-    else
-      puts "in fail"
-      flash[:notice] = "Failed to save"
-    end
+        if item.save 
+          flash[:notice] = "Saved changes"
+          puts "in success"
+        else
+          puts "in fail"
+          flash[:notice] = "Failed to save"
+        end
+  end
 
     redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
 

@@ -90,19 +90,19 @@ class P2p::Item < ActiveRecord::Base
 
       next if column == 'approveddate' or column == 'updated_at' or column =='viewcount' or column == 'reqCount'
 
-    puts self.changes[:paytype].to_s + 'safd'
-    
       next if (column == 'paytype' or column =='payinfo' or column=='commision' ) and self.changes.has_key?(:paytype) and self.changes[:paytype][0] == nil
-
 
       self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
       changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
     end
 
 
+    self.itemhistories.where(:created_at => self.updated_at).each do |itemhistory|
+      changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} -> #{itemhistory.newvalue}"
+    end
 
     unless changed_column.empty?
-
+        
         #PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
         PrivatePub.publish_to("/user_1", "#{self.user.user.name} has changed the data in <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing and is waiting for your approval." )
 

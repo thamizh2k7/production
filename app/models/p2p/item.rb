@@ -41,7 +41,7 @@ class P2p::Item < ActiveRecord::Base
 
   scope :by_location_or_allover , lambda { |location|
     if location !=""
-      where ("(city_id = #{location} or (paytype=1 and payinfo.split(,)[1] ='1' ))")
+      where ("(city_id = #{location} or (paytype=1 and payinfo like '%,1' ))")
     else
       return 
     end

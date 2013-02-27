@@ -24,6 +24,7 @@ class P2p::Item < ActiveRecord::Base
   #payinfo has the follwing structure for courier service
   # days to dispathc , allover india
 
+  # paytype
   # 1- courier
   # 2- direct
   # 3 -online

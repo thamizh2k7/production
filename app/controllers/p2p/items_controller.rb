@@ -493,9 +493,14 @@ end
 
         if p2p_current_user.id == 1
 
-             if params.has_key?(:id)
-                  @items = P2p::User.find(params[:id]).items.waiting.paginate(:page => params[:page] , :per_page => 20)
+              if params.has_key?(:id)
                   @user = P2p::User.find(params[:id])
+                  puts 'in user'
+
+                  @items = @user.items.waiting.paginate(:page => params[:page] , :per_page => 20)
+                  
+                  puts @items.inspect + "asd"
+
                   @user_id = @user.id
                   @user = @user.user.name + "(" +  @user.user.email  + ")"
               else
@@ -504,7 +509,7 @@ end
                   @user = "All users"
               end
         else
-            @items = p2p_current_user.items.disapproved.paginate(:page => params[:page] , :per_page => 20)
+            @items = p2p_current_user.items.waiting.paginate(:page => params[:page] , :per_page => 20)
 
             @user = p2p_current_user.user.name + "(" +  p2p_current_user.user.email  + ")"
             @user_id = p2p_current_user.id
@@ -615,6 +620,10 @@ end
 
                                                   });
 
+
+        #session[:verifycode] = rand(0..100000)
+
+        puts send_sms(item.user.user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{item.title.truncate(110)} . You may now login to place your order. Thank you.").to_s + " sms result"
           # private pub
 
           unreadcount = item.user.received_messages.inbox.unread.count

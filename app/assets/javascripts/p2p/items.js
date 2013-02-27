@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	$('#upload_image').click(function(){
+       $('#image_upload').trigger('click');
+	});
 
 	window.cache ={}
     $("#check_availability").autocomplete({

@@ -38,20 +38,7 @@
 						</a>
 					</li>				
 				</ul>
-			</div>
-		
-
-
-			<div class="box span3 pull-left">
-				<div class="box_title"> P2P Stastics </div>
-
-				<ul>
-					<li class="box_element">Total Items : <span id="total_item_count"> <%= P2p::Item.unscoped.count %> </span></li>
-					<li class="box_element">Sold Items : <span id="total_sold_count">   <%= P2p::Item.sold.count %>  </span> </li>
-					<li class="box_element">Waiting for Approval: <span id="total_wapproval_count">  <%= P2p::Item.unscoped.notapproved.count %>  </span> </li>
-					<li class="box_element">Disapproved: <span id="total_wapproval_count">  <%= P2p::Item.unscoped.disapproved.count %>  </span> </li>				
-				</ul>
-			</div>
+			</div>			
 		</div>
 
 	</div>

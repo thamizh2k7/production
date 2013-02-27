@@ -85,6 +85,8 @@ class P2p::UsersController < ApplicationController
         geocode  = Geocoder.search(request[:REMOTE_ADDR])
         session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
 
+        puts geocode.inspect 
+        
         city_id = P2p::City.find_by_name(session[:city])
         session[:city_id] = (city_id.nil? ) ? '' : city_id;
 

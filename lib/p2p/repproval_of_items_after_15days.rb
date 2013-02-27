@@ -1,3 +1,14 @@
+
+#set up cron job
+#minute hour day-of-month mounth day-of-week command
+
+#****************************************
+#give full path
+#crontab -e
+#0 0 * 0 0 bundle exec rails runner '/lib/p2p/disapproval_of_items_after_15days.rb'
+#****************************************
+
+
 #15 days approval limit or reapprove...
 
   #load Rails.root.to_s + '/lib/p2p/disapproval_of_items_after_15days.rb'

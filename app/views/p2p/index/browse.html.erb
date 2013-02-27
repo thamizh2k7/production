@@ -68,7 +68,7 @@
 			        <% if params.has_key?(:prod) %>
 			        	<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.paginate(:page => params[:page] ,:per_page => 20 ) %>
 			        <% else %>
-						<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.order("rand()") %>
+						<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.paginate(:page => params[:page] ,:per_page => 10 ) %>
 			        <% end %>
 
 			      <% items.each do |p| %>

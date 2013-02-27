@@ -20,6 +20,10 @@ class P2p::Item < ActiveRecord::Base
   
   attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision
 
+
+  #payinfo has the follwing structure for courier service
+  # days to dispathc , allover india
+
   # 1- courier
   # 2- direct
   # 3 -online

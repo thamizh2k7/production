@@ -189,17 +189,19 @@ $(document).ready(function(){
 					}else{
 							$("#dummy_filter_holder").css({'position':'absolute'});
 
+					
+					if ($(window).scrollTop() < filter_initial_height) {
+							$("#dummy_filter_holder").clearQueue().animate({top:filter_initial_height,'position':'relative','width':'auto'},200);
+					}else{
+
 							$("#dummy_filter_holder").clearQueue().animate({top:$(window).scrollTop() ,
 										'width':'105px'
-									});	
-					}
-					
-					if (	parseInt($("#dummy_filter_holder").css('top')) > filter_initial_height) {
-							$("#dummy_filter_holder").clearQueue().animate({top:filter_initial_height,'position':'relative','width':'auto'});
+									},200);	
 					}
 
 
 				}
+			}
 
 				$("#pull_here").click(pull_here);
 

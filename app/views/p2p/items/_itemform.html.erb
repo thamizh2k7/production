@@ -5,9 +5,9 @@
 <div class="main_wrapper">
 	<div class="row">
 
-	 
+
 		<div class="span6">
-	
+
 		<ul class="breadcrumb">
 
 					<% if itemid.empty? %>
@@ -21,14 +21,14 @@
 
 					  <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
 					  <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
-					  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>			  
+					  <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>
 					  <li class="active "> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
 					<% end %>
 
 			</ul>
-    
+
 		</div>
-	 
+
 		<div class="span6">
 
 
@@ -36,16 +36,16 @@
 			<% if ownerid.empty?  %>
 
 
-	
+
 			<!-- New Form -->
 		  	<div class="btn-group" id="listing_action">
-			  <button class="btn action_icon"   title="Remove Listing"><i  class=" icon-trash"></i></button>`	
+			  <button class="btn action_icon"   title="Remove Listing"><i  class=" icon-trash"></i></button>`
 
 			  <button class="btn action_icon"  title="Edit Listing"   id="enable">
 			  			<i  class=" icon-pencil"></i>
 			  </button>
 
-      	</div> 
+      	</div>
 
 
 			<% elsif p2p_current_user.nil? %>
@@ -59,7 +59,7 @@
 			 		<% if defined?(paytype) and paytype == "2" %>
 
 						<a href="#head_login_modal" role="button" class="btn btn-primary " data-toggle="modal">Contact Seller</a>
-						 
+
 
 					<% elsif paytype == "1" %>
 
@@ -72,10 +72,10 @@
 					<% end %>
 				</div>
 
-					
 
-			<% elsif ownerid != p2p_current_user.id.to_s  %>		
-					
+
+			<% elsif ownerid != p2p_current_user.id.to_s  %>
+
 					<!-- Buyer View -->
 				 <div class="btn-group" id="listing_action">
 
@@ -93,15 +93,15 @@
 
 							<!-- Modal -->
 							<div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
-							 
+
 							  <div class="modal-header">
 							    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 							    <h3 id="mobile_verify_modalLabel">Verify your mobile</h3>
 							  </div>
-							 
+
 							  <div class="modal-body form-horizontal">
 							  	Before you send a message to seller, verify your mobile.
-							  	
+
 							  	<div class="control-group">
 							  		<label class="control-label"> Verification Code:</label>
 							  	<div class="controls">
@@ -110,10 +110,10 @@
 								  	</button>
 							  	</div>
 							  </div>
-							  	
+
 							  	<div class="control-group">
 							  		<label class="control-label"> Enter Code:</label>
-								  	
+
 								  	<div class="controls">
 										<input type="text" id="verify_mobile" class="input text" >
 								  	</div>
@@ -122,7 +122,7 @@
 
 							  	<div class="control-group">
 							  		<label class="control-label"> </label>
-								  	
+
 								  	<div class="controls">
 										<button class="btn " id="verify_code_submit">Verify Code</button>
 								  	</div>
@@ -133,15 +133,15 @@
 							</div>
 
 
-						<% end %>						 
+						<% end %>
 						<!-- Modal -->
 						<div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
-						 
+
 						  <div class="modal-header">
 						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
 						  </div>
-						 
+
 						  <div class="modal-body">
 						  	Seller aggres to <%=payinfo if defined?(payinfo)%>
 						    <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
@@ -149,23 +149,23 @@
 
 						</div>
 
-	
+
 					<% elsif paytype == "1" %>
 
-				 		<button class="btn btn-primary action_popover " >Buy Now </button>
+				 		<button class="btn btn-primary action_popover">Buy Now </button>
 
 					<% elsif paytype == "3" %>
 
 						<a href="#check_availability_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
-						 
+
 						<!-- Modal -->
 						<div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
-						 
+
 						  <div class="modal-header">
 						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						    <h3 id="check_availability_modalLabel">Check availability in your area</h3>
 						  </div>
-						 
+
 						  <div class="modal-body">
 						  	<p>
 								Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=itemid%>' id='check_availability'> <span id='availability_check_msg'>
@@ -182,7 +182,7 @@
 
 							<% unless solddate.nil?  %>
 								<span class="btn "> <i class="action_icon" title="On <%= solddate.strftime("%d-%b-%C%y") %>" >  Listing Sold </i> </span>
-							<%end %>					
+							<%end %>
 
 
 					<%if  deletedate !="" %>
@@ -209,17 +209,17 @@
 
 					  			<a href="/p2p/sold/<%= itemid %>" class=" btn"   > <i class="  action_icon  icon-shopping-cart" title="Mark this listing as sold"></i> Mark as sold</a>
 						<% else %>
-							
+
 					  			<a href="#" class="  btn"  > <i class=" action_icon icon-shopping-cart"  title="Listing has not been approved yet"></i> Waiting for approval</a>
-				  	
+
 					  <% end %>
 
 					<% else %>
 						<span class="btn  "> <i class="action_icon" title="On <%= solddate.strftime("%d-%b-%C%y") %>" >  Listing Sold </i> </span>
-					<%end %>					
+					<%end %>
 
 
-					
+
 
 					<% if deletedate.nil? %>
 					  <button class="btn  "  id="delete_button"  itemid="<%=itemid%>"><i  class=" action_icon icon-trash" title="Remove Listing"></i></button>
@@ -229,11 +229,11 @@
 
 					  <button class="btn action_popover"  id="new_listing_info" data-html="true" data-content="Get the feel of previewing the listing while you are creating it. <br/><br/> <b>Just follow the guide and you are good to go</b>."  data-trigger="hover" title="Welcome <b><%= p2p_current_user.user.name %></b>" data-delay="{hide:500,show:0}" ><i   class="action_icon icon-list" title="New Listing"></i>New Listing</button>
 
-				<% end %>				
+				<% end %>
 
-				
+
 				  <button class="btn " id="enable"><i  class="action_icon icon-pencil"  title="Edit Listing"></i></button>
-				  
+
 				  <button class="btn btn-success hide " id="save"  ><i  class=" action_icon icon-white icon-ok-circle" title="Save changes"></i></button>
 
 				  <button class="btn btn-danger hide " id="cancel" ><i  class=" icon-white icon-remove-circle action_icon" title="Cancel changes"></i></button>
@@ -253,7 +253,7 @@
 				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn action_popover" data-content="You have selected to send this item via courier in <%=payinfo.split(',')[0] %> business days <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >  <i class="action_icon icon icon-gift" title="Send by Courier"></i> Payment</a>
 				  	 <%elsif paytype == "2"%>
 				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn  action_popover" data-content="You have selected to deal with the buyer directly <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom"  > <i class="action_icon icon icon-user" title="PayDirectly"></i> Payment</a>
-					<%elsif paytype == "3"%>				  	 	
+					<%elsif paytype == "3"%>
 				  	 	<a href="/p2p/itempayment/<%=itemid%>" class="btn  action_popover" data-content="You have selected sociorent to pickup and safely deliver the item. <br/> Click on the button to change it." data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom"  >  <i class="action_icon icon icon-star" title="Send by sociorent"></i> Payment</a>
 
 				  	 <% end %>
@@ -261,7 +261,7 @@
 
 
 
-				 </div>	      		
+				 </div>
 
 			  <% end %>
 
@@ -306,7 +306,7 @@
 
   	<% end %>
 
-		
+
 </div>
 
 
@@ -334,7 +334,7 @@
 
 	        		<% i = 0 %>
 					<% thumbimage.each do |img| %>
-				
+
 
 		              	<li class="thumbs">
 							<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
@@ -372,7 +372,7 @@
               <col class="span1">
               <col class="span7">
             </colgroup>
-            
+
              <thead>
               <tr>
                 <th>Specification</th>
@@ -380,7 +380,7 @@
               </tr>
             </thead>
             <tbody>
-             	
+
 
 			<tr class="edit_visible">
 				<td>Title </td>
@@ -460,7 +460,7 @@
 			          </tr>
 		          <% end %>
 
-	         <% end %>		          
+	         <% end %>
 
             </tbody>
           </table>
@@ -505,27 +505,27 @@
 				                </td>
 				              </tr>
 				         <% end %>
-			         
+
 			          </tbody>
 			         </table>
 					</div>
 				</div>
 		<% end %>
      <% end %>
- <% end %>		          
+ <% end %>
 
 
 							<!-- Modal -->
 							<div id="sellitem_pricing_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="sellitem_pricing_modallLabel" aria-hidden="true">
-							 
+
 							  <div class="modal-header">
 							    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 							    <h3 id="sellitem_pricing_modalLabel">Final Step</h3>
 							  </div>
-							 
+
 							  <div class="modal-body form-horizontal">
-							  	
-							  	
+
+
 							  </div>
 							</div>
 
@@ -565,7 +565,7 @@
 <script>
 
 
-	
+
 	<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 		window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';
@@ -573,7 +573,7 @@
 
 		$("#image_upload").val("");
 		//initialize
-		
+
 		window.image_count =  <%= (itemid.empty?) ? 0 : viewimage.count %>;
 
 		window.item_values ={};
@@ -609,7 +609,7 @@
 
 
 		});
-		
+
 	<% end %>
 
 
@@ -618,7 +618,7 @@
 
 						$(document).ready(function(){
 
-							
+
 
 							  			$("#send_verify_code").click(function(){
 							  				$(this).html('Sending verification code').attr('disabled','disabled');
@@ -687,7 +687,7 @@
 							  		});
 
 			// <#% end %>
-   
+
 
 </script>
 

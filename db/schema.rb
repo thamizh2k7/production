@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226172158) do
+ActiveRecord::Schema.define(:version => 20130228122319) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -335,6 +335,22 @@ ActiveRecord::Schema.define(:version => 20130226172158) do
 
   add_index "p2p_images", ["item_id"], :name => "index_p2p_images_on_item_id"
 
+  create_table "p2p_item_deliveries", :force => true do |t|
+    t.string   "courier_name"
+    t.string   "tracking_no"
+    t.string   "shipping_charge"
+    t.datetime "shipping_date"
+    t.datetime "delivery_date"
+    t.string   "citrus_pay_id"
+    t.decimal  "commission",      :precision => 10, :scale => 2
+    t.integer  "p2p_item_id"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  add_index "p2p_item_deliveries", ["p2p_item_id"], :name => "index_p2p_item_deliveries_on_p2p_item_id"
+  add_index "p2p_item_deliveries", ["tracking_no"], :name => "index_p2p_item_deliveries_on_tracking_no"
+
   create_table "p2p_item_histories", :force => true do |t|
     t.integer  "item_id"
     t.string   "columnname"
@@ -365,19 +381,16 @@ ActiveRecord::Schema.define(:version => 20130226172158) do
     t.text     "desc"
     t.integer  "paytype"
     t.datetime "solddate"
-    t.datetime "paiddate"
-    t.datetime "delivereddate"
-    t.integer  "viewcount",                                     :default => 0
-    t.integer  "reqCount",                                      :default => 0
+    t.integer  "viewcount",       :default => 0
+    t.integer  "reqCount",        :default => 0
     t.float    "price"
     t.integer  "city_id"
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "condition"
     t.datetime "disapproveddate"
     t.datetime "approveddate"
     t.string   "payinfo"
-    t.decimal  "commision",       :precision => 3, :scale => 2
     t.datetime "deletedate"
   end
 

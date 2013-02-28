@@ -23,7 +23,7 @@ class P2p::ItemsController < ApplicationController
     begin
       item.city = P2p::City.find_by_name(params[:location])
 
-      raise 'nothing found' if item.city.nil? 
+      raise 'nothing found' if item.city.nil?
 
     rescue
 
@@ -31,7 +31,7 @@ class P2p::ItemsController < ApplicationController
         item.city.create(:name => params[:location])
 
       rescue
-          
+
       end
     end
 
@@ -39,14 +39,14 @@ class P2p::ItemsController < ApplicationController
 
     #if the publisher is not in us..!
     begin
-      
-      
+
+
       item.product = item.category.products.find_by_name(params[:brand])
       raise "Product not found" if item.product.nil?
     rescue
       begin
-        
-        
+
+
         item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
 
         # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
@@ -62,10 +62,10 @@ class P2p::ItemsController < ApplicationController
       rescue
 
         begin
-          
-          
+
+
           item.category.products.new(:name => params[:brand] )
-          
+
           # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
           #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
           #                                       :messagetype => 5,
@@ -98,15 +98,15 @@ class P2p::ItemsController < ApplicationController
           item.images.new(:img => params[:img])
 
         end
-    
 
-      unless params['spec'].respond_to?('each') 
+
+      unless params['spec'].respond_to?('each')
         params['spec'] = [params['spec']]
       end
 
      params["spec"].each do |key,value|
-        next if value == "" 
-        
+        next if value == ""
+
         begin
           attr = P2p::ItemSpec.new
           attr.spec = P2p::Spec.find(key.to_i)
@@ -123,7 +123,7 @@ class P2p::ItemsController < ApplicationController
         if params[:paytype] == "1" #courier
 
           item.paytype = 1
-          item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] ) 
+          item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] )
           item.commision = 4
 
         elsif params[:paytype] == "2" #direct
@@ -144,14 +144,14 @@ class P2p::ItemsController < ApplicationController
 
     end
 
- 
+
     if !params.has_key?(:paytype)
       @item = item
       render :sellitem_pricing
       return
     end
 
-    if item.save 
+    if item.save
 
       redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
      # redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
@@ -159,7 +159,7 @@ class P2p::ItemsController < ApplicationController
     else
 
       flash[:notice] = "Failed "
-      redirect_to URI.encode("/p2p/") 
+      redirect_to URI.encode("/p2p/")
 
     end
 
@@ -178,7 +178,7 @@ class P2p::ItemsController < ApplicationController
     begin
       item.city = P2p::City.find_by_name(params[:location])
 
-      raise 'nothing found' if item.city.nil? 
+      raise 'nothing found' if item.city.nil?
 
     rescue
 
@@ -200,13 +200,13 @@ class P2p::ItemsController < ApplicationController
                                              });
 
       rescue
-          
+
       end
     end
 
 
     update_time = Time.now
-    
+
 
     #echo params["item"]['attribute'].count
     #clear all
@@ -217,15 +217,15 @@ class P2p::ItemsController < ApplicationController
         item.updated_at = update_time
 
          params[:spec].each do |key,value|
-           
+
            begin
 
-              attr = item.specs.find_by_spec_id(key.to_i) 
+              attr = item.specs.find_by_spec_id(key.to_i)
               attr.updated_at = update_time
 
-              if value == "" 
+              if value == ""
                 attr.save
-                attr.destroy 
+                attr.destroy
                 next
               end
 
@@ -240,7 +240,7 @@ class P2p::ItemsController < ApplicationController
         if params[:img].respond_to?('each')
               params[:img].each do |img|
                  item.images << P2p::Image.new(:img=>img)
-                
+
               end
           elsif params.has_key?(:img)
 
@@ -250,13 +250,13 @@ class P2p::ItemsController < ApplicationController
           end
 
           item.images.each do |img|
-            puts img.errors.full_messages 
+            puts img.errors.full_messages
           end
 
-          
+
         item.approveddate = false
 
-        if item.save 
+        if item.save
           flash[:notice] = "Saved changes"
           puts "in success"
         else
@@ -273,15 +273,15 @@ end
 
     begin
       item = P2p::Item.find(params[:id])
-      
+
       raise "Cannot Delete" if item.user.id != current_user.id  and current_user.id != 1
 
       item.deletedate = Time.now
       item.save
 
-      
+
     rescue
-      if request.xhr? 
+      if request.xhr?
         render :json => {:status => 0}
         return
       else
@@ -290,10 +290,10 @@ end
         return
       end
     end
-    
 
 
-    if request.xhr? 
+
+    if request.xhr?
       render :json => {:status => 1}
       return
     else
@@ -316,13 +316,13 @@ end
   def get_spec
     items = P2p::Item.find(params[:id])
     spec = items.specs.select("id,value,spec_id")
-    
+
     render :partial => "p2p/items/editspec" , :locals => {:spec => spec}
   #  render :json => @attr
   end
 
   def get_brands
-    cat =P2p::Category.find(params[:id]) 
+    cat =P2p::Category.find(params[:id])
     brand  = cat.products.select("id as value,name as text")
     render :json => brand
   end
@@ -341,25 +341,18 @@ end
         @cat =  P2p::Category.find_by_name(params[:cat])
         @prod=  @cat.products.find_by_name(params[:prod])
 
-        if !p2p_current_user.nil? and  p2p_current_user.id == 1 
-          puts 'i immmasd'
-          puts @prod.inspect
-
-
+        if !p2p_current_user.nil? and  p2p_current_user.id == 1
           @item = @prod.items.unscoped.find_by_title(params[:item])
-
         else
           @item = @prod.items.find_by_title(params[:item])
           puts @prod.items.explain
           puts @item.inspect
-          
-          puts params[:item] + "saef"
 
-          puts 'i immm'
+          puts params[:item] + "saef"
         end
 
 
-        raise "Nothing found" if   @item.nil? 
+        raise "Nothing found" if   @item.nil?
 
         if !p2p_current_user.nil? and @item.paytype.nil? and p2p_current_user.id == @item.user.id
           redirect_to "/p2p/itempayment/#{@item.id}"
@@ -367,7 +360,7 @@ end
         end
 
         if (p2p_current_user.nil? and @item.approveddate.nil?) or @item.paytype.nil?
-            raise "Nothing found paytype and not approved" 
+            raise "Nothing found paytype and not approved"
         end
 
 
@@ -376,25 +369,31 @@ end
       end
 
       if @item.product.category.category.nil?
-        @category_name = @item.product.category.name 
+        @category_name = @item.product.category.name
         @category_id = @item.product.category.id
 
-        @sub_category_name = "" 
+        @sub_category_name = ""
         @sub_category_id =""
       else
-        @sub_category_name = @item.product.category.name 
+        @sub_category_name = @item.product.category.name
         @sub_category_id = @item.product.category.id
-        
-        @category_name = @item.product.category.category.name 
+
+        @category_name = @item.product.category.category.name
         @category_id = @item.product.category.category.id
 
       end
 
 
-      
 
-      if !p2p_current_user.nil? 
+
+      if !p2p_current_user.nil?
         if  p2p_current_user.id != @item.user_id
+
+          case @item.paytype
+          when 1 :
+             @item_amount =(@item.price *0.04)
+          when 3 :
+            @item_amount =
           @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
         end
       else
@@ -403,13 +402,13 @@ end
 
 
 
-      @brand_name = @item.product.name 
+      @brand_name = @item.product.name
       @brand_id = @item.product.id
 
      @attr = @item.specs(:includes => :attr)
 
 
-     
+
      if !p2p_current_user.nil? and p2p_current_user.id == @item.user_id
         @messages = @item.messages.all
      elsif !p2p_current_user.nil?
@@ -418,13 +417,13 @@ end
         @buyerreqcount = @item.messages.find_all_by_sender_id(p2p_current_user.id).count
 
      end
-    
+
   end
 
   def inventory
     user = p2p_current_user
 
-    if params[:query].present? 
+    if params[:query].present?
 
       if params[:query] == "sold"
 
@@ -448,7 +447,7 @@ end
               @user_id = p2p_current_user.id
         end
 
-        render :approve    
+        render :approve
         return
 
       end
@@ -456,7 +455,7 @@ end
 
       @items = user.items.all.paginate(:page => params[:page] ,:per_page => 20 ,:class=> 'bootstrap pagination' )
     end
-    
+
   end
 
   def sold
@@ -487,7 +486,7 @@ end
 
           end
       else
-        
+
         i = item.images.new(:img => params[:img])
 
         i.save
@@ -519,13 +518,13 @@ end
           i.save
 
         end
-  
-      render :text => session[:img].inspect    
+
+      render :text => session[:img].inspect
 
   end
     #render :inline => params.inspect
 
-    
+
 
   end
 
@@ -538,7 +537,7 @@ end
                   puts 'in user'
 
                   @items = @user.items.waiting.paginate(:page => params[:page] , :per_page => 20)
-                  
+
                   puts @items.inspect + "asd"
 
                   @user_id = @user.id
@@ -555,7 +554,7 @@ end
             @user_id = p2p_current_user.id
         end
 
-        render :approve    
+        render :approve
 
   end
 
@@ -582,7 +581,7 @@ end
 
         end
 
-        render :approve    
+        render :approve
   end
 
   def approve
@@ -667,13 +666,13 @@ end
           # private pub
 
           unreadcount = item.user.received_messages.inbox.unread.count
-          if unreadcount > 0 
+          if unreadcount > 0
             header_count = "$('#header_msg_count').html('(#{unreadcount})');"
           else
             header_count = "$('#header_msg_count').html('');"
           end
 
-          if unreadcount > 0 
+          if unreadcount > 0
             message_page_count = " $('#unread_count').html('(#{unreadcount})');"
           else
             message_page_count = " $('#unread_count').html('');"
@@ -692,8 +691,8 @@ end
 
 
           PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
-          
-          
+
+
 
         render :json => '1'
         return
@@ -729,8 +728,8 @@ end
 
   def getbook_details
     book = Book.select('description,isbn13,isbn10,binding,publisher_id,published,pages,price,author').find_by_isbn13(params[:isbn13])
-    
-    if book.nil? 
+
+    if book.nil?
       render :json => {
           :description => '',
           :isbn10 => '',
@@ -739,7 +738,7 @@ end
           :pages => '',
           :price =>'',
           :publisher_id => '',
-        } 
+        }
         return
     end
 
@@ -749,22 +748,22 @@ end
     render :json => book
   end
 
-  
+
   def sellitem_pricing
 
     if request.xhr?
       layout :false
     end
 
-    if p2p_current_user.nil? 
+    if p2p_current_user.nil?
       flash[:notice] = "Nothing found for you request"
        redirect_to '/p2p'
         return
     end
-    
+
     #@item = P2p::Item.first
     @item = p2p_current_user.items.unscoped.notdeleted.notsold.find(params[:id])
-    
+
     puts @item.inspect
 
     if params.has_key?(:commit) and params.has_key?(:terms) and params[:terms] == "1"
@@ -773,15 +772,15 @@ end
 
 
         if params[:p2p_item][:paytype] == "1" #courier
-          
+
 
           @item.paytype = params[:p2p_item][:paytype]
-          @item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] ) 
+          @item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] )
           @item.commision = 4
 
 
         elsif params[:p2p_item][:paytype] == "2" #direct
-          
+
 
           @item.paytype = params[:p2p_item][:paytype]
           @item.payinfo = params[:meet_at]
@@ -800,10 +799,10 @@ end
           @item.save
           flash[:notice] = "Changes Saved"
 
-          if new_item 
+          if new_item
             @item.new_item_created
           else
-            
+
           end
 
           redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
@@ -820,7 +819,7 @@ end
     #@item = p2p_current_user.items.unscoped.notfinished.find(params[:id])
 
 
-      
+
   end
 
 end

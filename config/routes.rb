@@ -90,6 +90,10 @@ Sociorent::Application.routes.draw do
       match 'getcities' => "cities#list"
 
       post 'users/list' => 'users#list'
+      post 'users/verifymobile/code' => 'users#getcode'
+      post 'users/verifymobile/:code' => 'users#verifycode'
+
+
       post 'location' => 'users#setlocation'
       post 'guesslocation' => 'users#guesslocation'
 

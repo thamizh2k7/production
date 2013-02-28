@@ -121,5 +121,28 @@ class P2p::UsersController < ApplicationController
     return
   end
 
+  def getcode
+
+      session[:verify] = rand(10000..99999)
+
+      #todo sendsms
+      render :json => {:status => 1}
+  end
+
+  def verifycode
+      if session.has_key?(:verify) and params[:code] == session[:verify].to_s
+        
+        session.delete(:verify)
+
+        user = P2p::User.find(p2p_current_user.id)
+        puts user.inspect + 'user'
+        user.update_attributes(:mobileverified => 1)
+        puts user.inspect + 'user1'
+
+        render :json => {:status => 1}
+      else
+        render :json => {:status => 0}
+      end
+  end
 
 end

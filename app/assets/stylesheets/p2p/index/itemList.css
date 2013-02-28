@@ -120,6 +120,10 @@ f#Itemlist {
 	word-wrap:break-word;
 }
 
+#desc{
+	min-height:100px;
+	margin-bottom: 20px;
+}
 /*
 #desc > .editable-container{
 	width:600px;

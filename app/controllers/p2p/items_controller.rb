@@ -52,6 +52,7 @@ class P2p::ItemsController < ApplicationController
     begin
 
 
+<<<<<<< Updated upstream
           item.product = item.category.products.find_by_name(params[:brand])
           raise "Product not found" if item.product.nil?
         rescue
@@ -59,6 +60,9 @@ class P2p::ItemsController < ApplicationController
             if item.category.name != 'Books'
               render :json => {:status => 0} and return
             end
+=======
+        item.product = item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
+>>>>>>> Stashed changes
 
             item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]) )
 
@@ -76,6 +80,10 @@ class P2p::ItemsController < ApplicationController
 
             begin
 
+<<<<<<< Updated upstream
+=======
+          item.product = item.category.products.new(:name => params[:brand] )
+>>>>>>> Stashed changes
 
               item.category.products.new(:name => params[:brand] )
 
@@ -139,19 +147,16 @@ class P2p::ItemsController < ApplicationController
 
           item.paytype = 1
           item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] )
-          item.commision = 4
 
         elsif params[:paytype] == "2" #direct
 
           item.paytype = 1
           item.payinfo = params[:meet_at]
-          item.commision = 0
 
         elsif params[:paytype] == "3" #via sociorent
 
           item.paytype = 3
           item.payinfo = params[:payinfo]
-          item.commision = 4
 
         end
 

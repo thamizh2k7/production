@@ -92,4 +92,3 @@ gem "geocoder"
 
 #nested form
 gem "nested_form"
-

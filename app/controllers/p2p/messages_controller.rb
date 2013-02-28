@@ -315,7 +315,7 @@ class P2p::MessagesController < ApplicationController
                           "0" => "<input type='checkbox' class='msg_check' msgid='#{msg.id}' >",
                           "1" => (msg.item.nil?) ?    msgtype + " Sociorent" : msgtype +  msg.item.title,
                           "2" => msg.sender.user.name,
-                          "3" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15) + '...'}</a></div>",
+                          "3" => "<div class='showmessage' msgid='#{msg.id}' ><a href='#' >#{msg.message.slice(0,15).gsub('<br>','').gsub('<br/>','') + '...'}</a></div>",
                           "4" => tme,
                           "DT_RowClass" => row_class
                           })

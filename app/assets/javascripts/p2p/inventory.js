@@ -62,7 +62,7 @@ $(document).ready(function(){
             dateType:'json',
             type:'post',
             success:function(data){
-                if (data ==  1) {
+                if (data ==  '1') {
                   showNotifications('Item Approved');
                   that.parent().parent().fadeOut(1000);
                 }

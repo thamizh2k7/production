@@ -112,6 +112,9 @@ f#Itemlist {
 	font-size: 1.1em;
 }
 
+#desc{
+    min-height: 200px;
+}
 
 #desc_content{
 	word-wrap:break-word;

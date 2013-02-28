@@ -44,6 +44,14 @@ class P2p::Message < ActiveRecord::Base
               username: '#{self.sender.user.name}',
               msg: '#{self.message.slice(0,40)}'
           });
+
+        if (oInboxTable){
+          oInboxTable.fnDraw();
+        }elseif (oSentBoxTable){
+          oSentBoxTable.fnDraw();
+        }elseif (oDeleteBoxTable){
+          oDeleteBoxTable.fnDraw();
+        }
       "
 
     receiver_unreadcount = self.receiver.received_messages.inbox.unread.count

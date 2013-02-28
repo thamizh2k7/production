@@ -80,7 +80,7 @@ class P2p::Item < ActiveRecord::Base
   end
   after_update :update_changed_history
 
-  #after_create :publish_to_stream
+  after_create :new_item_created
 
   def update_changed_history
 
@@ -138,7 +138,16 @@ class P2p::Item < ActiveRecord::Base
               title: '#{self.title}',
               msg: 'Your new listing has been sent to verification and will be approved quite soon'
           });
-      "
+
+        if (oInboxTable){
+            oInboxTable.fnDraw();
+          }elseif (oSentBoxTable){
+            oSentBoxTable.fnDraw();
+          }elseif (oDeleteBoxTable){
+            oDeleteBoxTable.fnDraw();
+        }
+"
+
 
     admin_message_notification = "
          $('#notificationcontainer').notify('create',  {

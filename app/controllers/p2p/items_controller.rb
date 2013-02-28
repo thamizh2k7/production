@@ -1,5 +1,6 @@
 require 'will_paginate/array'
 
+
 class P2p::ItemsController < ApplicationController
 
   before_filter :p2p_user_signed_in ,:except => [:view]
@@ -19,17 +20,19 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
 
-    item.category = cat = P2p::Category.find(params[:cat])
+    item.category = P2p::Category.find(params[:cat].to_i)
     begin
       item.city = P2p::City.find_by_name(params[:location])
 
-      raise 'nothing found' if item.city.nil?
+      if item.city.nil?
+        raise 'nothing found'
+      end
 
     rescue
 
       begin
-        item.city.create(:name => params[:location])
-
+        item.city = P2p::City.new(:name => params[:location])
+                  #todo add send message to admin
       rescue
 
       end
@@ -38,45 +41,57 @@ class P2p::ItemsController < ApplicationController
     #item.product = P2p::Product.find(1)
 
     #if the publisher is not in us..!
+
+    begin
+
+      item.product = item.category.products.find(params[:brand].to_i)
+      raise "Product not found" if item.product.nil?
+
+    rescue
+
     begin
 
 
-      item.product = item.category.products.find_by_name(params[:brand])
-      raise "Product not found" if item.product.nil?
-    rescue
-      begin
+          item.product = item.category.products.find_by_name(params[:brand])
+          raise "Product not found" if item.product.nil?
+        rescue
+          begin
+            if item.category.name != 'Books'
+              render :json => {:status => 0} and return
+            end
+
+            item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]) )
+
+            # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+            #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
+            #                                       :messagetype => 5,
+            #                                       :sender_id => 1,
+            #                                       :sender_status => 2,
+            #                                       :receiver_status => 0,
+            #                                       :parent_id => 0,
+            #                                       :item_id => item.id
+            #                                      });
+
+          rescue
+
+            begin
 
 
-        item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
+              item.category.products.new(:name => params[:brand] )
 
-        # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-        #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
-        #                                       :messagetype => 5,
-        #                                       :sender_id => 1,
-        #                                       :sender_status => 2,
-        #                                       :receiver_status => 0,
-        #                                       :parent_id => 0,
-        #                                       :item_id => item.id
-        #                                      });
+              # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+              #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
+              #                                       :messagetype => 5,
+              #                                       :sender_id => 1,
+              #                                       :sender_status => 2,
+              #                                       :receiver_status => 0,
+              #                                       :parent_id => 0,
+              #                                       :item_id => item.id
+              #                                      });
 
-      rescue
+            end
 
-        begin
-
-
-          item.category.products.new(:name => params[:brand] )
-
-          # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-          #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
-          #                                       :messagetype => 5,
-          #                                       :sender_id => 1,
-          #                                       :sender_status => 2,
-          #                                       :receiver_status => 0,
-          #                                       :parent_id => 0,
-          #                                       :item_id => item.id
-          #                                      });
-
-        end
+          end
 
       end
 
@@ -145,9 +160,14 @@ class P2p::ItemsController < ApplicationController
     end
 
 
+
+
     if !params.has_key?(:paytype)
+
       @item = item
+
       render :sellitem_pricing
+
       return
     end
 
@@ -363,9 +383,10 @@ end
             raise "Nothing found paytype and not approved"
         end
 
+        rescue
 
-
-
+            redirect_to '/p2p'
+            return
       end
 
       if @item.product.category.category.nil?
@@ -390,10 +411,12 @@ end
         if  p2p_current_user.id != @item.user_id
 
           case @item.paytype
-          when 1 :
-             @item_amount =(@item.price *0.04)
-          when 3 :
-            @item_amount =
+            when 1 
+               @item_amount =@item.price * 0.04
+            when 3 
+              @item_amount =@item.price *0.04
+          end
+
           @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
         end
       else
@@ -656,13 +679,26 @@ end
                                               :receiver_status => 0,
                                               :parent_id => 0,
                                               :item_id => item.id
-
-                                                  });
+                                             });
 
 
         #session[:verifycode] = rand(0..100000)
 
-        puts send_sms(item.user.user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{item.title.truncate(110)} . You may now login to place your order. Thank you.").to_s + " sms result"
+        begin
+          send_sms(item.user.user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{item.title.truncate(110)} . You may now login to place your order. Thank you.")
+        rescue
+            P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+                                                    :message => "This is an auto generated system message. A approval message cant be sent to #{item.user.user.mobile_number } (#{item.user.user.email},  #{item.user.user.name} ).<br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                    :messagetype => 5,
+                                                    :sender_id => 1,
+                                                    :sender_status => 1,
+                                                    :receiver_status => 0,
+                                                    :parent_id => 0,
+                                                    :item_id => item.id
+                                                   });
+
+        end
+
           # private pub
 
           unreadcount = item.user.received_messages.inbox.unread.count

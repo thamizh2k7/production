@@ -7,13 +7,13 @@ class P2p::City < ActiveRecord::Base
 
 
         P2p::User.find(1).sent_messages.create({:receiver_id => 1,
-                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{self.name} was not found in your system and hence is created automatically for you, when the #{self.items.first.user.email} requested on listing a item We urge you to check the same. Sincerally - Developers",
+                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{self.name} was not found in your system and hence is created automatically for you. We urge you to check the same. Sincerally - Developers",
                                               :messagetype => 5,
                                               :sender_id => 1,
                                               :sender_status => 2,
                                               :receiver_status => 0,
                                               :parent_id => 0,
-                                              :item_id => self.items.first.user.id
+                                              :item_id => nil
                                              });
 
 	end  

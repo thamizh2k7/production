@@ -199,7 +199,9 @@ li.dropdown:hover > ul.dropdown-menu{
 	display: none;
 }
 
-
+.boxes{
+	padding-left:30px;
+}
 .edit_visible{
 	display: none;
 }

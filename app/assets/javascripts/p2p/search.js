@@ -10,6 +10,31 @@
             }
         });
 
+    // Login script
+    $("#devise_pages a").live("click",function(){
+      var action = $(this).text();
+      $("#head_login_modalLabel").html(action);
+      $("#login_popup_content .boxes").hide();
+      switch(action)
+      {
+        case "Login":
+           $("#login_box").fadeIn();
+          break;
+        case "Sign Up":
+           $("#signup_box").fadeIn();
+          break;
+        case "Forgot Password?":
+           $("#forgot_box").fadeIn();
+          break;
+      }
+      $("#devise_pages a").css("display","none");
+      $("#devise_pages a").each(function(ele){
+        if($(this).text() != action)
+          $(this).show()
+      });
+      return false;
+    });
+
     $("#top_search_input").autocomplete({
       minLength: 2,
       source: function( request, response ) {
@@ -19,7 +44,7 @@
           response( cache[ term ] );
           return;
         }
- 
+
         $.getJSON( "/p2p/search/" + request.term,{}, function( data, status, xhr ) {
           cache[ term ] = data;
           response( data );

@@ -2,7 +2,7 @@ require 'will_paginate/array'
 
 
 class P2p::ItemsController < ApplicationController
-
+  protect_from_forgery :except => :update_online_payment
   before_filter :p2p_user_signed_in ,:except => [:view]
 
    #check for user presence inside p2p
@@ -172,7 +172,6 @@ class P2p::ItemsController < ApplicationController
     end
 
     if item.save
-
       redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
      # redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
 
@@ -410,12 +409,12 @@ end
       if !p2p_current_user.nil?
         if  p2p_current_user.id != @item.user_id
 
-          case @item.paytype
-            when 1 
-               @item_amount =@item.price * 0.04
-            when 3 
-              @item_amount =@item.price *0.04
-          end
+          # case @item.paytype
+          # when 1
+          #    @item_amount =(@item.price *0.04)
+          # when 3
+          #   @item_amount =(@item.price *0.04)
+          # end
 
           @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
         end
@@ -858,4 +857,21 @@ end
 
   end
 
+  def update_online_payment
+    # check the transaction status, if cancelled then store nothing,, and redirect to books page
+    if params[:TxStatus]
+      item_delivery = P2p::ItemDelivery.find_by_txn_id(params[:TxId])
+      case params[:TxStatus]
+        when "CANCELED"
+          item_delivery.item.update_attributes(:solddate=>Time.now)
+          flash[:warning]="Transaction Failed. Try again"
+        when "SUCCESS"
+          flash[:warning] = "Transaction success"
+      end
+
+      item_delivery.update_attributes(:citrus_pay_id=>params[:TxStatus],:citrus_reason=>params[:TxMsg],:citrus_ref_no=>params[:TxRefNo])
+
+      redirect_to "/p2p/dashboard"
+    end
+  end
 end

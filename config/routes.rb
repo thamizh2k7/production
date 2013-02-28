@@ -7,13 +7,14 @@ Sociorent::Application.routes.draw do
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)
-  
+
   get 'aboutus' => 'static_pages#about_us'
   get 'pricing' => 'static_pages#pricing'
   get 'college_ambassadors' => 'static_pages#colleges'
   get 'contactus' => 'static_pages#contactus'
   get 'privacy_policy' => 'static_pages#privacypolicy'
   get 'terms_of_use' => 'static_pages#termsofuse'
+
 
   get "home/index"
   match "/search" => "home#search"
@@ -47,8 +48,6 @@ Sociorent::Application.routes.draw do
   match "/get_colleges" =>"users#get_colleges"
   match "/get_streams" => "users#get_streams"
 
-
-
   #matches #book/isbn
   get '/book/:isbn' => "home#book_deatils"
 
@@ -73,7 +72,7 @@ Sociorent::Application.routes.draw do
     resources :messages
     resources :items
     resources :images
-    resources :credits 
+    resources :credits
 
     scope 'admin' do
       #scaffold controller and view
@@ -113,7 +112,7 @@ Sociorent::Application.routes.draw do
 
       match 'itempayment/:id' => 'items#sellitem_pricing'
       get 'delete/:id' => "items#destroy"
-      
+
       post 'addimage/:item_id' => "items#add_image"
       get  'addimage/:form_id/form' => "items#sellitem_pricing"
 
@@ -127,7 +126,7 @@ Sociorent::Application.routes.draw do
       match 'disapprove' => 'items#disapprove'
       match 'disapprove/user/:id' => 'items#disapprove'
       match 'waiting(/user/:id)' => 'items#waiting'
-      
+
       get 'getmessages(/:id)' => 'messages#getmessages'
 
       match 'search/q/:query' => "index#search_query"
@@ -136,13 +135,17 @@ Sociorent::Application.routes.draw do
 
       match "search/:id" =>"index#search"
 
-      
+      #citruspay response catching
+      match "getCitursSignature" => "items#get_citrus_signature"
+      match "update_citrus" => "items#update_online_payment"
 
-      match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/ 
-      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/ 
+
+
+      match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/
+      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/
 
       get ':cat/:prod/:item' => 'items#view' ,:as => :item_url
-      get ':cat(/:prod)' => "index#browse" 
+      get ':cat(/:prod)' => "index#browse"
 
   end
 

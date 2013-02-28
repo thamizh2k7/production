@@ -152,13 +152,31 @@
 
 					<% elsif paytype == "1" %>
 
-				 		<button class="btn btn-primary action_popover">Buy Now </button>
+					<form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+				<input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+				<input type="hidden" name="secSignature" id="citruspay_signature">
+				<input type="hidden" name="merchantTxnId">
+				<input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+				<input type="hidden" name="currency" value="INR">
+				<input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+				<input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+					</form>
+
+				 		<button class="btn btn-primary action_popover" id= "pay_now_citrus_pay">Buy Now </button>
 
 					<% elsif paytype == "3" %>
 
-						<a href="#check_availability_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
-
-						<!-- Modal -->
+						<a href="#check_availability_modal" role="button" id="pay_now_citrus_pay" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
+						<form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+				<input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+				<input type="hidden" name="secSignature" id="citruspay_signature">
+				<input type="hidden" name="merchantTxnId">
+				<input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+				<input type="hidden" name="currency" value="INR">
+				<input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+				<input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+					</form>
+					<!-- Modal -->
 						<div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
 
 						  <div class="modal-header">
@@ -565,7 +583,7 @@
 <script>
 
 
-
+	window.item_id = '<%= @item.id%>';
 	<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 		window.editsaveurl = '<%= (itemid.empty?) ? "/p2p/items": "/p2p/items/" + itemid %>';

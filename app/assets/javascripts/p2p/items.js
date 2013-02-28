@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-
-
 	$('#upload_image').click(function(){
        $('#image_upload').trigger('click');
 	});
@@ -16,7 +14,7 @@ $(document).ready(function(){
           response( cache[ term ] );
           return;
         }
- 
+
         $.getJSON( "/p2p/getserviceavailability/" + $("#check_availability").attr('itemid') + '/'  + request.term,{}, function( data, status, xhr ) {
           cache[ term ] = data;
           response( data );
@@ -30,10 +28,8 @@ $(document).ready(function(){
       }
     });
 
-
-
 	$('#view_image_fancy').fancybox({
-		'speedIn'		:	500, 
+		'speedIn'		:	500,
 		'speedOut'		:	200,
 		'centerOnScroll': true
  	});
@@ -52,10 +48,7 @@ $(document).ready(function(){
 			return false;
 		}
 
-
 	});
-
-
 
 	// cancel edit function trigger
 	// #TODO: CHECK IF THE FORM IS CHANGED OR NOT AND REDIRECT ACCORDINGLY
@@ -70,7 +63,6 @@ $(document).ready(function(){
 	$('#enable').click(function() {
 		$(this).toggleClass('active');
 
-
 		//close all editable elements
 		if ($('.canEdit').hasClass('editable')){
 
@@ -78,7 +70,6 @@ $(document).ready(function(){
 
 			$("#add_more_spec").addClass('hide');
 
-			
 			$(".edit_shown").addClass('edit_visible').removeClass('edit_shown');
 			//$("#upload_pic").addClass('hide');
 
@@ -113,7 +104,7 @@ $(document).ready(function(){
 			$(".action_icon").tooltip({"delay":{show:0,hide:100}});
 
 			$(".edit_visible").addClass('edit_shown').removeClass('edit_visible');
-			
+
 			// show all the tooltips11
 			// hide the edit button and show the save and cancel button
 			$("#enable").hide();
@@ -125,7 +116,7 @@ $(document).ready(function(){
 			$("#enable i").attr('title','Click here to save your changes');
 			$("#enable i").removeClass('icon-pencil');
 			$("#enable i").addClass('icon-ok');
-			
+
 			// enable upload form
 			// $("#file_add_image").removeProp("disabled");
 			$("#upload_pic").removeAttr("disabled");
@@ -164,7 +155,7 @@ $(document).ready(function(){
 				if (params.newValue == item_values['cat']) return false ;
 
 				item_values['cat'] = params.newValue;
-				
+
 				$(".specs").remove();
 
 				item_values['spec']={};
@@ -177,9 +168,8 @@ $(document).ready(function(){
 				$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
 				item_values['brand'] = '';
 
-
 				//$("#model").editable({sourceCache:false});
-				
+
 				//$("#model").destroy();
 				$("#model").editable();
 
@@ -202,9 +192,6 @@ $(document).ready(function(){
 							}
 						});
 
-
-
-				
 				showNotifications("Fetching specifications...! Please Wait..");
 
 				$.ajax({
@@ -233,9 +220,7 @@ $(document).ready(function(){
 				$('#model').tooltip('show');
 			});
 
-
-
-			// //validate brand
+		// //validate brand
 			// $('#category').on('save', function(e, params) {
    // 				 //alert('Saved value: ' + params.newValue);
 			// 	if (params.newValue != "") {
@@ -250,8 +235,6 @@ $(document).ready(function(){
 			// 		$(this).addClass('error');
 			// 	}
 			// });
-
-
 
 			//validate title
 			$('#title').on('save', function(e, params) {
@@ -315,7 +298,7 @@ $(document).ready(function(){
 			    var files = $(this)[0].files; // FileList object
 
 
-			    
+
 			    // Loop through the FileList and render image files as thumbnails.
 			    for (var i = 0, f; f = files[i]; i++) {
 
@@ -352,7 +335,7 @@ $(document).ready(function(){
 					showNotifications('Image limit is 3. Please add only three files');
 					return false;
 				}else if ( !window.edit && $("#image_upload")[0].files.length == 0){
-					showNotifications('Add atleast one image');			
+					showNotifications('Add atleast one image');
 					return false;
 				}
 
@@ -401,14 +384,11 @@ $(document).ready(function(){
 		if ($(this).hasClass('active')){
 			$(this).children().attr('data-original-title','Please click on blue text to edit');
 		}
-   });   
-
-
-
+   });
 
 	//delete the item
     $("#delete_button").on('click',function(){
-    	// if user says no stop deleting 
+    	// if user says no stop deleting
     	if (!confirm("Are you sure you want to delete this listing?")){
     		return true;
     	}
@@ -425,7 +405,6 @@ $(document).ready(function(){
 	      }
 	    });
   });
-
 
 	//remove image funciton
 	$(".remove_image").click(function(){
@@ -447,8 +426,6 @@ $(document).ready(function(){
 		});
 	});
 
-
-
 			saveItem = function(){
 
 
@@ -458,7 +435,7 @@ $(document).ready(function(){
 					$("#title").tooltip('show');
 					return false;
 				}
-				
+
 
 				if (!('brand' in item_values) || item_values['brand'] == ""){
 					$("#model").addClass("error");
@@ -505,7 +482,6 @@ $(document).ready(function(){
 					}
 				});
 
-
 				if (flag){
 					alert(" Enter Specifications" );
 					return false;
@@ -532,7 +508,7 @@ $(document).ready(function(){
 				$('#form_temp').append($("<input  class='hide' name='cat' value='" + item_values['cat'] + "'>"));
 
 				_.each(item_values['spec'],function(value,key){
-					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));					
+					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));
 				});
 
 				if (window.edit){
@@ -542,7 +518,6 @@ $(document).ready(function(){
 				}
 
 				//$("#fileupload").submit();
-
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');
 
@@ -568,7 +543,7 @@ $(document).ready(function(){
 
 
 					    $("#direct_payment_submit").on('click',function(){
-					       
+
 					       if (!($("#direct_payment_form #terms")[0].checked) ){
 					       		showNotifications('Agree to Terms and conditions');
 					       		return false;
@@ -576,7 +551,7 @@ $(document).ready(function(){
 
 					       $('#form_temp').append($("<input  class='hide' name='paytype' value='2'>"));
 					       $('#form_temp').append($("<input  class='hide' name='meet_at' value='" + $("#direct_payment_form #meet_at").val() + "'>"));
-					       
+
 
 					       $("#fileupload").submit();
 
@@ -585,7 +560,7 @@ $(document).ready(function(){
 					    });
 
 					    $("#courier_payment_submit").on('click',function(){
-					       
+
 					       if (!($("#courier_payment_form #terms")[0].checked) ){
 					       		showNotifications('Agree to Terms and conditions');
 					       		return false;
@@ -594,8 +569,8 @@ $(document).ready(function(){
 					       $('#form_temp').append($("<input  class='hide' name='paytype' value='1'>"));
 					       $('#form_temp').append($("<input  class='hide' name='dispatch_day' value='" + $("#dispatch_day").val() + "'>"));
 					       $('#form_temp').append($("<input  class='hide' name='alloverindia' value='" + $("#alloverindia").val() + "'>"));
-					       
-					       
+
+
 
 					       $("#fileupload").submit();
 
@@ -604,7 +579,7 @@ $(document).ready(function(){
 					    });
 
 					$("#sociorent_payment_submit").on('click',function(){
-					       
+
 					       if (!($("#sociorent_payment_form #terms")[0].checked) ){
 					       		showNotifications('Agree to Terms and conditions');
 					       		return false;
@@ -624,10 +599,7 @@ $(document).ready(function(){
 				});
 			}
 
-
-
 			};
-
 
 	      $('#approve').on('click',function(){
 	          var that  = $(this);
@@ -673,7 +645,7 @@ $(document).ready(function(){
 	                showNotifications('Something went wrong');
 	            }
 	          });
-	      });	      
+	      });
 
 
 	      $('.thumbs').on('click',function(){
@@ -704,9 +676,31 @@ $(document).ready(function(){
 	      	});
 
 	      });
+	  $("#pay_now_citrus_pay").live("click",function(){
+	  	var merchantId="wnw4zo7md1";
+	  	var orderAmt =$("#OrderAmount").val();
+	  	var signature_data;
+			// signature parameter
+			sign_params= "merchantId=" + merchantId + "&item_id=" + window.item_id	+ "&merchantTxnId=" + $("input[name=merchantTxnId]").val() + "&currency=INR";
+			// get the signature hmac sha1 encoded
+			$.ajax({
+						url:"/getSignature",
+						type : "post",
+						dataType: "json",
+						async : false,
+						data : sign_params,
+						success : function(data){
+							console.log("came");
+							// set the signature to merchant key
+							signature_data = data;
+							$("input[name='secSignature']").val(signature_data.signature);
+							$("input[name='merchantTxnId']").val(signature_data.txn_id);
+							$("#citruspay_form").submit();
+							// submitting the form to citruspay
 
-
-});
+					}});
+		});
+	});
 
 
 check_specs =  function(e, params) {
@@ -718,7 +712,7 @@ check_specs =  function(e, params) {
 									if (params.newValue.length > 1) {
 										item_values['spec'][that.attr('specid')] = params.newValue;
 										$(this).removeClass('error');
-										
+
 										if ($('[id^=item_]')[Number($(this).attr('specid')) ]){
 
 											$($('[id^=item_]')[Number($(this).attr('specid'))]).tooltip('show');

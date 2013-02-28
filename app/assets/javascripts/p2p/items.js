@@ -332,10 +332,9 @@ $(document).ready(function(){
 			      reader.onload = (function(theFile) {
 			        return function(e) {
 
-						$(".thumb_holder .thumbnails ").append('<li class="thumbs">\
+						$(".thumb_holder .thumbnails ").append('<li class="thumbs"><i class="icon-remove pull-right hide remove_image "></i>\
 	              			<img src="' + e.target.result + '"  imgid="-1" class="thumb_img pull-left" viewimage="' + e.target.result + '">\
-	              		</li>\
-	              		');
+	              		</li>');
 
 			        };
 			      })(f);
@@ -547,6 +546,7 @@ $(document).ready(function(){
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');
 
+			if (!window.edit){
 				item_values['authenticity_token']= AUTH_TOKEN;
 				$.ajax({
 					url:window.editsaveurl,
@@ -620,13 +620,9 @@ $(document).ready(function(){
 
 					    });
 
-					    					    
-
-
-
-
 					}
 				});
+			}
 
 
 

@@ -101,15 +101,6 @@ f#Itemlist {
 	margin-left: 2px;
 }
 
-#view_image_holder{
-	width:320px;
-	height:320px;
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
-}
-
-
 .highlight_force_color{
 	color: maroon !important;
 }	

@@ -9,7 +9,7 @@
 <%= render "/p2p/items/itemform" ,
            :viewimage => @item.get_image(0,:view) ,
            :thumbimage => @item.get_image(0,:thumb) ,
-           :fullimage => @item.get_image(0,:full) ,
+           :fullimage => @item.get_image(0,:view) ,
            :title => @item.title,
            :price => @item.price.to_i.to_s,
            :location => @item.city.name ,

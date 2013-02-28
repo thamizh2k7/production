@@ -303,10 +303,11 @@
     		<div id="form_temp"></div>
           <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  %>
 
-
+          <%=  %>
   	<% end %>
 
-		
+	<span class="clearuploads action_icon pull-right" title="Clear all uploads"><i class="icon-repeat"></i></span>
+
 </div>
 
 
@@ -328,6 +329,8 @@
             </div>
             <div class="caption thumb_holder">
               <ul class="thumbnails">
+
+
 
         		<% unless itemid.empty? %>
 

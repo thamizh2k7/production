@@ -82,8 +82,6 @@ class P2p::MessagesController < ApplicationController
 
     while !@message.nil?
 
-      puts "Recive id : " + @message.receiver_id.to_s
-      puts " My id: " + p2p_current_user.id.to_s
 
       if @message.receiver_id = p2p_current_user.id
         

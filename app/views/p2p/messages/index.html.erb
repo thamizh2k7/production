@@ -1,7 +1,7 @@
 <% content_for :pagetitle  do %>
 
 	Messages - <%=p2p_current_user.user.name %>
-    
+
 <%end %>
 
 
@@ -15,20 +15,20 @@
 
 <div id="message_content" class="span12">
 
-		
-<div class="tabbable " id="message_side_menu">	
+
+<div class="tabbable " id="message_side_menu">
 	<div class="row">
 		<div class="span2 pull-left" id="message_left_menu">
 
 		  <ul class="nav nav-list">
-		    
-		    
+
+
 		 		<!--message modal  -->
 		 		<!-- Button to trigger modal -->
 		 		<span>
 					<a href="#compose_newmsg_modal" id="compose_newmsg_button" role="button"  data-toggle="modal" class="btn "   > Compose</a>
 				</span>
-					 
+
 					<!-- Modal -->
 					<div id="compose_newmsg_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="compose_newmsg_modallLabel" aria-hidden="true">
 					  <div class="modal-header">
@@ -36,7 +36,7 @@
 					    <h3 id="compose_newmsg_modalLabel">Send a message to Admin</h3>
 					  </div>
 					  <div class="modal-body">
-					    <p> 			    	
+					    <p>
 				    	<%= render "p2p/messages/compose" ,:message => @message ,:user_id => current_user.id ,:receiver => nil ,:item => "" , :toany => ((p2p_current_user.id ==1 ) ? true : false ) %>
 						</p>
 					  </div>
@@ -50,7 +50,7 @@
 		    		<%= (unreadcount > 0) ?  "(#{unreadcount})" : "" %>
 		    	</span>
 		        </a></li>
-	            
+
 
 		    <li><a href="#sent" data-toggle="tab" id="sentbox_link">Sent</a></li>
 		    <li><a href="#delete" data-toggle="tab" id="deletebox_link">Trash</a></li>
@@ -61,17 +61,17 @@
 		<div class="span10" id="box_content">
 
 			<div class="tab-content">
-			    
+
 			    <div class="tab-pane active" id="inbox">
 			    	<%= render "/p2p/messages/msg_table",:table_name => "inbox" %>
 			     </div>
-					
+
 				 <div class="tab-pane" id="sent">
-			    	<%= render "/p2p/messages/msg_table" ,:table_name => "sentbox" %> 
+			    	<%= render "/p2p/messages/msg_table" ,:table_name => "sentbox" %>
 			      </div>
 
 				 <div class="tab-pane" id="delete">
-			    	<%= render "/p2p/messages/msg_table" ,:table_name => "deletebox" %> 
+			    	<%= render "/p2p/messages/msg_table" ,:table_name => "deletebox" %>
 			      </div>
 
 			</div>
@@ -80,7 +80,7 @@
 			   		<button class="btn back_to_table" tbl="">
 			   			<i class="action icon-arrow-left" title="Reply"></i>
 			   			Back</button>
-			   		
+
 					<a href="#reply_to_modal" id="reply_to_button" role="button"  data-toggle="modal" class="btn "  ><i class="action icon-envelope" title="Reply"></i> Reply</a>
 
 					<!-- Modal -->
@@ -90,7 +90,7 @@
 					    <h3 id="reply_to_modalLabel">Reply to <span id="reply_to_user">[user]</span> </h3>
 					  </div>
 					  <div class="modal-body">
-					    <p> 			    	
+					    <p>
 				    		<%= render "p2p/messages/compose" ,:message => @message  ,:class_name => "reply_to_user" %>
 						</p>
 					  </div>
@@ -99,7 +99,7 @@
 					<br/><br/>
 
 			   		<div id="show_msg_content"></div>
-			   </div> 
+			   </div>
 
 
 
@@ -111,8 +111,8 @@
 
 		<%% _.each(data,function(dt){%>
 
-					<div class="message_datetime pull-right"> 
-					 <i class="action   icon-time" title="Time"></i>	 
+					<div class="message_datetime pull-right">
+					 <i class="action   icon-time" title="Time"></i>
 						<span class="message_datetime_content">
 
 								<%%= dt['dte'] %>
@@ -120,8 +120,8 @@
 					</div>
 
 
-					<div class="message_user_name" recevid=<%%=dt['receiver']%>> 
-					<i class="action  icon-user" title="User"></i>	
+					<div class="message_user_name" recevid=<%%=dt['receiver']%>>
+					<i class="action  icon-user" title="User"></i>
 						<span class="message_user_name_content">
 								<%%= dt['name']%>
 						</span>
@@ -142,8 +142,8 @@
 								<%%= dt['msg'] %>
 						</span>
 					</div>
-					
-					<div class="mydivider"></div>					
+
+					<div class="mydivider"></div>
 
 		<%% }) %>
 	</script>
@@ -163,18 +163,16 @@
 
 	$(document).ready(function(){
 		oInboxTable = $('#inbox_table').dataTable({
-		  "sDom": "<'row-fluid'<'span6'><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"400px",
-          "sAjaxSource": '/p2p/getmessages/inbox' ,
-          "aoColumns":[{"bSortable":false},{"bSort":true},{"bSortable":false},null,{"bSort":true}],
-          "bScrollCollapse": false,
+					"sDom": "<r><f>t<i><p>",
+		  		"sAjaxSource": '/p2p/getmessages/inbox' ,
           "bFilter":false,
-       	  "bSort": true,
-          "iDisplayLength" : 10,
+         	"iDisplayLength" : 10,
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
-		  "bProcessing": true,
-    	  "bServerSide": true,
+		  		"bProcessing": true,
+    	  	"bServerSide": true,
+     	  	"aoColumns": [{ sWidth: '4%',"bSortable":false },{ sWidth: '25%',"bSortable":false},{ sWidth: '25%',"bSortable":false},{ sWidth: '25%' },{ sWidth: '20%' }],
+
 		  "fnServerParams": function ( aoData ) {
 		  	if ($.trim($("#search_inbox").val()) != ""){
             	aoData.push( { "name" : "searchq" ,"value" : $("#search_inbox").val() } );
@@ -186,21 +184,28 @@
 		// oInboxTable.afnSortData['time']=function(){
 		// 		return [{0:"a",1:"b",2:"anme",3:"fsdaf",4:"afsd"}];
 		// }
+		// sDom: "<p><r><f>t<i>"
+		// aaSorting: [[ 3, "desc" ]]
+		// bProcessing: true
+		// oLanguage:
+		// 	sProcessing: "<img src='/assets/global/loading.gif'>"
+		// bServerSide: true
+		// sPaginationType: "bootstrap"
+		// "bAutoWidth": false
+		// sAjaxSource: "/messages/type/inbox.json"
+		// fnServerData: (sSource, aoData, fnCallback) ->
 
 		oSentBoxTable  = $('#sentbox_table').dataTable({
-		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"400px",
-          "aaSorting":[],
-          "bScrollCollapse": false,
-		  "sAjaxSource": '/p2p/getmessages/sentbox' ,
+					"sDom": "<r><f>t<i><p>",
+		  		"sAjaxSource": '/p2p/getmessages/sentbox' ,
           "bFilter":false,
-          "aoColumns":[{"bSortable":false},{"bSort":true},{"bSortable":false},null,{"bSort":true}],
-       	  "bSort": true,
-          "iDisplayLength" : 10,
+         	"iDisplayLength" : 10,
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
-		  "bProcessing": true,
-    	  "bServerSide": true,
+		  		"bProcessing": true,
+    	  	"bServerSide": true,
+     	  	"aoColumns": [{ sWidth: '4%',"bSortable":false },{ sWidth: '25%',"bSortable":false},{ sWidth: '25%',"bSortable":false},{ sWidth: '25%' },{ sWidth: '20%' }],
+
 		  fnServerParams: function ( aoData ) {
 		  	if ($.trim($("#search_sentbox").val()) != ""){
             	aoData.push( { "name" : "searchq" , "value": $("#search_sentbox").val() } );
@@ -209,19 +214,15 @@
 		});
 
 		oDeleteBoxTable  = $('#deletebox_table').dataTable({
-		  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-		  'sScrollY':"400px",
-          "aaSorting":[],
-          "bScrollCollapse": false,
-		  "sAjaxSource": '/p2p/getmessages/deletebox' ,
-		  "aoColumns":[{"bSortable":false},{"bSort":true},{"bSortable":false},null,{"bSort":true}],
+					"sDom": "<r><f>t<i><p>",
+		  		"sAjaxSource": '/p2p/getmessages/deletebox' ,
           "bFilter":false,
-       	  "bSort": true,
-          "iDisplayLength" : 10,
+         	"iDisplayLength" : 10,
           "bAutoWidth": false,
           "sPaginationType": "bootstrap",
-		  "bProcessing": true,
-    	  "bServerSide": true,
+		  		"bProcessing": true,
+    	  	"bServerSide": true,
+     	  	"aoColumns": [{ sWidth: '4%',"bSortable":false },{ sWidth: '25%',"bSortable":false},{ sWidth: '25%',"bSortable":false},{ sWidth: '25%' },{ sWidth: '20%' }],
 		  fnServerParams: function ( aoData ) {
 		  	if ($.trim($("#search_deletebox").val()) != ""){
             	aoData.push( { "name":"searchq","value" :$("#search_deletebox").val() } );
@@ -236,7 +237,7 @@
 
     	});
 
-		//set css for the clickable column	
+		//set css for the clickable column
 		$('.showmessage').live('click', function () {
 			var that = $(this);
 
@@ -258,7 +259,7 @@
 							console.log(count + 'count');
 
 						if ( count < 1 ){
-							$('#header_msg_count').html('');	
+							$('#header_msg_count').html('');
 							$('#unread_count').html('');
 						}
 						else{
@@ -266,13 +267,13 @@
 							$('#unread_count').html('('+ count + ')');
 						}
 					}
-					
+
 					$('.back_to_table').attr('tbl',that.closest('table').attr('tbl'));
 					//set reply to user and set the msgid to it
 					$('.reply_to_user').attr('tbl',that.closest('table').attr('tbl'));
 					$('.reply_to_user').attr('msgid',that.attr('msgid'));
 
-					
+
 					if ($(".back_to_table").attr('tbl') == 'inbox'){
 						$("#inbox").hide();
 					}else if ($(".back_to_table").attr('tbl') == 'sentbox'){
@@ -290,7 +291,7 @@
 				// 	showNotifications("Something went wrong try again");
 				// }
 			});
-			
+
 			return false;
 
     	});

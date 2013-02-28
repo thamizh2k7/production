@@ -41,7 +41,7 @@
 }
 
 li.dropdown:hover > ul.dropdown-menu{
-    display: block;    
+    display: block;
 }
 
 .center{
@@ -106,12 +106,12 @@ li.dropdown:hover > ul.dropdown-menu{
 	color:blue;
 }
 .nav-list >  a{
-	border-left: 3px solid white;	
+	border-left: 3px solid white;
 }
 
 
 .unread, .unread > td {
-	background-color: lightyellow !important; 
+	background-color: lightyellow !important;
 }
 
 .mydivider{
@@ -184,7 +184,13 @@ li.dropdown:hover > ul.dropdown-menu{
 #compose_newmsg_button{
 	display: block;
 }
-
+.pagination{
+	float: right;
+	margin:0px !important;
+}
+.dataTables_info{
+	float: left;
+}
 
 
 /* login box*/
@@ -197,3 +203,4 @@ li.dropdown:hover > ul.dropdown-menu{
 .edit_visible{
 	display: none;
 }
+

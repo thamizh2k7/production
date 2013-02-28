@@ -19,6 +19,7 @@ class P2p::ItemsController < ApplicationController
 
     item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
 
+    item.category = cat = P2p::Category.find(params[:cat])
     begin
       item.city = P2p::City.find_by_name(params[:location])
 
@@ -27,21 +28,7 @@ class P2p::ItemsController < ApplicationController
     rescue
 
       begin
-        city = P2p::City.create(:name => params[:location])
-        city.save
-        item.city = city
-
-
-
-        P2p::User.find(1).sent_messages.create({:receiver_id => 1,
-                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same. Sincerally - Developers",
-                                              :messagetype => 5,
-                                              :sender_id => 1,
-                                              :sender_status => 2,
-                                              :receiver_status => 0,
-                                              :parent_id => 0,
-                                              :item_id => item.id
-                                             });
+        item.city.create(:name => params[:location])
 
       rescue
           
@@ -53,47 +40,41 @@ class P2p::ItemsController < ApplicationController
     #if the publisher is not in us..!
     begin
       
-      cat = P2p::Category.find(params[:cat])
-      item.product = cat.products.find_by_name(params[:brand])
+      
+      item.product = item.category.products.find_by_name(params[:brand])
       raise "Product not found" if item.product.nil?
     rescue
       begin
         
-        cat = P2p::Category.find(params[:cat])
-        product = cat.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
-        product.save
+        
+        item.category.products.new(:name =>  Publisher.find_by_name(params[:brand]).name )
 
-        item.product = product
-
-        P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-                                              :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
-                                              :messagetype => 5,
-                                              :sender_id => 1,
-                                              :sender_status => 2,
-                                              :receiver_status => 0,
-                                              :parent_id => 0,
-                                              :item_id => item.id
-                                             });
+        # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+        #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
+        #                                       :messagetype => 5,
+        #                                       :sender_id => 1,
+        #                                       :sender_status => 2,
+        #                                       :receiver_status => 0,
+        #                                       :parent_id => 0,
+        #                                       :item_id => item.id
+        #                                      });
 
       rescue
 
         begin
           
-          cat = P2p::Category.find(params[:cat])
-          product = cat.products.new(:name => params[:brand] )
-          product.save
-
-          item.product = product
-
-          P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
-                                                :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
-                                                :messagetype => 5,
-                                                :sender_id => 1,
-                                                :sender_status => 2,
-                                                :receiver_status => 0,
-                                                :parent_id => 0,
-                                                :item_id => item.id
-                                               });
+          
+          item.category.products.new(:name => params[:brand] )
+          
+          # P2p::User.find(1).sent_messages.create({:receiver_id => 1 ,
+          #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
+          #                                       :messagetype => 5,
+          #                                       :sender_id => 1,
+          #                                       :sender_status => 2,
+          #                                       :receiver_status => 0,
+          #                                       :parent_id => 0,
+          #                                       :item_id => item.id
+          #                                      });
 
         end
 
@@ -106,17 +87,18 @@ class P2p::ItemsController < ApplicationController
 
  #   images = []
 
+    if params.has_key?(:paytype)
 
+      if params[:img].respond_to?('each')
+            params[:img].each do |img|
+               item.images << P2p::Image.new(:img=>img)
+           end
+        else
 
-    if params[:img].respond_to?('each')
-          params[:img].each do |img|
-             item.images << P2p::Image.new(:img=>img)
-         end
-      else
+          item.images.new(:img => params[:img])
 
-        item.images.new(:img => params[:img])
-
-      end
+        end
+    
 
       unless params['spec'].respond_to?('each') 
         params['spec'] = [params['spec']]
@@ -135,13 +117,44 @@ class P2p::ItemsController < ApplicationController
 
      end
 
-     data={}
+
+      # set payment type
+
+        if params[:paytype] == "1" #courier
+
+          item.paytype = 1
+          item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] ) 
+          item.commision = 4
+
+        elsif params[:paytype] == "2" #direct
+
+          item.paytype = 1
+          item.payinfo = params[:meet_at]
+          item.commision = 0
+
+        elsif params[:paytype] == "3" #via sociorent
+
+          item.paytype = 3
+          item.payinfo = params[:payinfo]
+          item.commision = 4
+
+        end
+
+
+
+    end
 
  
+    if !params.has_key?(:paytype)
+      @item = item
+      render :sellitem_pricing
+      return
+    end
+
     if item.save 
 
-      #redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
-      redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
+      redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
+     # redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
 
     else
 
@@ -354,7 +367,7 @@ end
         end
 
         if (p2p_current_user.nil? and @item.approveddate.nil?) or @item.paytype.nil?
-            raise "Nothing found pyatype and not approved" 
+            raise "Nothing found paytype and not approved" 
         end
 
 
@@ -736,7 +749,12 @@ end
     render :json => book
   end
 
+  
   def sellitem_pricing
+
+    if request.xhr?
+      layout :false
+    end
 
     if p2p_current_user.nil? 
       flash[:notice] = "Nothing found for you request"
@@ -744,6 +762,7 @@ end
         return
     end
     
+    #@item = P2p::Item.first
     @item = p2p_current_user.items.unscoped.notdeleted.notsold.find(params[:id])
     
     puts @item.inspect

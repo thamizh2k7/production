@@ -1,19 +1,5 @@
+<h3> Choose Payment Options</h3>
 
-<% content_for :pagetitle  do %>
-
-  Payment methods for <%=@item.title %>
-    
-<%end %>
-
-<h2>You are on final step..!</h2>
-
-
-
-<div class="form-horizontal">
-
-<div class="control-group">
-      <label class="control-label">  How do you wish to send the material.?</label>
-        <div class="controls">
                 <div class="accordion" id="accordion2">
 
                   <% if !@item.city.nil? and @item.city.name == "Bangalore" and @item.category.name !="Books" %>
@@ -33,7 +19,7 @@
                       <% end %>
 
 
-                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}",:html => {:id => 'sociorent_payment_form'}  do |f| %>
                             <div class="accordion-inner form-horizontal">
                               
                               <%= f.hidden_field :paytype  ,:value => 3%>
@@ -95,7 +81,7 @@
                                       <% elsif (@item.price - sociorent_charges ) <=40.0 %>
                                           <%= f.submit :class => 'btn btn-warning' %> Amount you receive is quite less.
                                       <% else %>
-                                          <%= f.submit "Create Listing",:class => 'btn btn-primary'  %>
+                                          <%= f.submit "Create Listing", :id=>'sociorent_payment_submit',:class => 'btn btn-primary'  %>
                                       <% end %>
 
                                      </div>
@@ -109,7 +95,9 @@
                         </div>
 
                         <% end %>
+  
                       <% end %>
+
 
                 <div class="accordion-group">
 
@@ -127,7 +115,7 @@
 
                         <div class="accordion-inner form-horizontal">
                           
-                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}"  ,:html => {:id=> 'courier_payment_form' }  do |f| %>
 
                             <%= f.hidden_field :paytype  ,:value => 1%>
                             
@@ -193,7 +181,7 @@
                                  
                                  <div class="controls">
                                    
-                                   <%= f.submit "Create Listing",:class => 'btn btn-primary' %>
+                                   <%= f.submit "Create Listing",:id => 'courier_payment_submit',:class => 'btn btn-primary' %>
 
                                  </div>
                             </div>
@@ -205,7 +193,6 @@
                         </div>
                       </div>
                     </div>
-
 
 
                   <div class="accordion-group">
@@ -225,7 +212,7 @@
 
                           <div class="accordion-inner form-horizontal">
                                              
-                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" do |f| %>
+                          <%= form_for @item , :url => "/p2p/itempayment/#{@item.id}" ,:html => {:id => 'direct_payment_form' } do |f| %>
 
                             <%= f.hidden_field :paytype  ,:value => 2%>
 
@@ -263,7 +250,7 @@
                               <div class="control-group">
                                    
                                    <div class="controls">
-                                     <%=f.submit "Create Listing",:class => 'btn btn-primary' %>
+                                     <%=f.submit "Create Listing",:id=>'direct_payment_submit',:class => 'btn btn-primary' %>
                                    </div>
                               </div>
                             
@@ -275,7 +262,5 @@
 
                 </div>
 
-          </div>
+              </div>
 
-      </div>
-  </div> 

@@ -145,4 +145,26 @@ class P2p::UsersController < ApplicationController
       end
   end
 
+  def paymenthistory
+
+  end
+
+  def favouriteusers
+    @fav = p2p_current_user.favouriteusers
+  end
+
+  def setfavourite
+    
+    begin
+      fav = p2p_current_user.favouriteusers.new
+      fav.p2puser = P2p::Item.find(params[:id]).id
+      
+      render :json => {:status => 1}
+
+    rescue
+      render :json => {:status => 0}      
+    end
+
+  end
+
 end

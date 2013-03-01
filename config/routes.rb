@@ -126,6 +126,7 @@ Sociorent::Application.routes.draw do
       match 'disapprove' => 'items#disapprove'
       match 'disapprove/user/:id' => 'items#disapprove'
       match 'waiting(/user/:id)' => 'items#waiting'
+      match 'favourites' => 'users#favouriteusers'
 
       get 'getmessages(/:id)' => 'messages#getmessages'
 

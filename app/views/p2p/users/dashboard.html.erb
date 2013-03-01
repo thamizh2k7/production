@@ -13,35 +13,37 @@
 
 	<div class="span10">
 
-			<div class="box span3 pull-left ">
-				<div class="box_title"> Your  Stastics </div>
-
-				<ul>
-					<li class="box_element"> <a href="/p2p/mystore">
-						Total Items : <span id="total_item_count"> <%= p2p_current_user.items.count %> </span>
-						</a>
-					</li>
-
-					<li class="box_element"><a href="/p2p/mystore/sold">
-						Sold Items : <span id="total_sold_count">   <%= p2p_current_user.items.sold.count %>  </span>
-						</a>
-					</li>
-					
-					<li class="box_element"><a href="/p2p/waiting/user/<%=p2p_current_user.id%>">
-						Waiting for Approval: <span id="total_wapproval_count">  <%= p2p_current_user.items.waiting.count %>  
-						</span>
-						</a>
-					</li>
-
-					<li class="box_element"><a href="/p2p/disapprove/user/<%=p2p_current_user.id%>">
-						Disapproved: <span id="total_wapproval_count">  <%= p2p_current_user.items.disapproved.count %>  </span>
-						</a>
-					</li>				
-				</ul>
-			</div>			
+			<div class="span8 pull-left ">
+				<h3>Your  Stastics </h3>
 
 
-			<% if p2p_current_user.id == 1%>
+					Total Items
+				    <div class="progress">
+    					<div class="bar" style="width: 100%;"> <span class="badge"><%= p2p_current_user.items.count %></span></div>
+    				</div>
+
+					Total Sold
+				    <div class="progress progress-success">
+    					<div class="bar" style="width: <%= (p2p_current_user.items.sold.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"><%= p2p_current_user.items.sold.count %> </span> </div>
+    				</div>
+
+
+
+					Waiting for approval
+				    <div class="progress progress-success">
+    					<div class="bar" style="width: <%= ( p2p_current_user.items.waiting.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"> <%= p2p_current_user.items.waiting.count %> </span></div>
+    				</div>
+
+
+					Disapproved
+				    <div class="progress progress-success">
+    					<div class="bar" style="width: <%= ( p2p_current_user.items.disapproved.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"> <%= p2p_current_user.items.disapproved.count %> </span>/div>
+    				</div>
+	</div>
+
+	<br/>
+
+			<% if false and p2p_current_user.id == 1%>
 				<div class="box span3 pull-left">
 				<div class="box_title"> P2P Stastics </div>
 

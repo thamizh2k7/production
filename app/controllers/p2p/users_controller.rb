@@ -124,7 +124,8 @@ class P2p::UsersController < ApplicationController
   def getcode
 
       session[:verify] = rand(10000..99999)
-
+      msg = "Your Sociorent.com Order 1234 has been shipped through #{session[:verify]} with tracking number . Thank you."
+      sendsms(p2p_current_user.user.mobile_number,msg)
       #todo sendsms
       render :json => {:status => 1}
   end

@@ -3,28 +3,29 @@
 <%end %>
 
 
-      <div  class="span10">
-        <ul class="nav nav-pills" id="browse_menu">
-          <li class="nav-header"> Browse P2P </li>
-          <%used_cat = [] %>
-           <% P2p::Category.where("category_id is null").order('priority').limit(6).each do |cat|%>
-              <% used_cat.push(cat.id) %>
+      <div  class="row">
+        <div class="span11">
 
-                  <li>
-                      <a  href="/p2p/<%= cat.name %>">
+        <ul class="nav nav-pills btn-group" id="index_browse_menu">
+          
+          <%used_cat = [] %>
+           <% P2p::Category.where("category_id is null and priority is not null").order('priority').limit(7).each do |cat|%>
+              <% used_cat.push(cat.id) %>
+                  <li class="btn btn-small" id="welcome_cat_pills">
+                      <a  href="/p2p/<%= cat.name %>" >
                         <%= cat.name %>
                       </a>
                   </li>
             <% end %>
 
-            <li class="dropdown">
+            <li class="dropdown btn btn-small">
               
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Others  <b class="caret"></b>
               </a>
               
               <ul class="dropdown-menu">
-                <% P2p::Category.order('priority').where("id not in(#{used_cat.join(',')})").each do |cat|%>
+                <% P2p::Category.order('priority').where("id not in(#{used_cat.join(',')}) or priority is null").each do |cat|%>
                     <li>
                       <a  href="/p2p/<%= cat.name %>">
                         <%= cat.name %>
@@ -38,6 +39,7 @@
 
            </ul>
       </ul>
+    </div>
     </div>
 
 <!-- List Section --> 

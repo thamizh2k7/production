@@ -210,3 +210,12 @@ li.dropdown:hover > ul.dropdown-menu{
 	font-size: 1.6em;
 }
 
+
+
+#index_browse_menu{
+	font-size: 2em !important;
+}
+
+#menuSet{
+	margin-top: -5px;
+}

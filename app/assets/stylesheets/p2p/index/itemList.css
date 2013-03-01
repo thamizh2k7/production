@@ -184,3 +184,7 @@ f#Itemlist {
 	display: table-cell;
 	vertical-align: middle;
 }
+
+#clearuploads{
+	cursor: pointer;
+}

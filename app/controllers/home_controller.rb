@@ -248,7 +248,7 @@ class HomeController < ApplicationController
         random = r.rand(1000000..9999999)
         if P2p::ItemDelivery.where(:txn_id=>random).count == 0
           unique =1
-          item.item_deliveries.create(:txn_id=>random)
+          item.item_deliveries.create(:txn_id=>random,:buyer => p2p_current_user.id)
         end
       end
       params[:orderAmount] = order_amount

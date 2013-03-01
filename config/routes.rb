@@ -76,8 +76,8 @@ Sociorent::Application.routes.draw do
 
     scope 'admin' do
       #scaffold controller and view
-      resources :categories ,:products ,:specs ,:service_pincodes
-
+      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries
+ 
         root :to => 'categories#index'
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301120400) do
+ActiveRecord::Schema.define(:version => 20130301145903) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -359,8 +359,10 @@ ActiveRecord::Schema.define(:version => 20130301120400) do
     t.string   "txn_id"
     t.string   "citrus_reason"
     t.string   "citrus_ref_no"
+    t.integer  "buyer"
   end
 
+  add_index "p2p_item_deliveries", ["buyer"], :name => "index_p2p_item_deliveries_on_buyer"
   add_index "p2p_item_deliveries", ["p2p_item_id"], :name => "index_p2p_item_deliveries_on_p2p_item_id"
   add_index "p2p_item_deliveries", ["tracking_no"], :name => "index_p2p_item_deliveries_on_tracking_no"
 

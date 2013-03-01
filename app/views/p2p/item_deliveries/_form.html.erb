@@ -1,0 +1,116 @@
+<%= simple_form_for(@p2p_item_delivery) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<div class="control-group">
+  		
+  		<%= f.label :txn_id ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.txn_id %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :courier_name ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.courier_name %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :tracking_no ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.tracking_no %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :shipping_date ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.shipping_date %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :shipping_charge ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.shipping_charge %>
+  		</div>
+
+  	</div>
+
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :delivery_date ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.delivery_date %>
+  		</div>
+
+  	</div>
+
+
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :citrus_pay_id ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.citrus_pay_id %>
+  		</div>
+
+  	</div>
+
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :commission ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.commission %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :citrus_reason ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.commission %>
+  		</div>
+
+  	</div>
+
+ 	<div class="control-group">
+  		
+  		<%= f.label :citrus_ref_no ,:class=> 'control-label' %>
+  		
+  		<div class="controls">
+  			<%= f.citrus_ref_no %>
+  		</div>
+
+  	</div>
+
+
+ </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>

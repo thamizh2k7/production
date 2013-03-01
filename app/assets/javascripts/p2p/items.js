@@ -676,7 +676,12 @@ $(document).ready(function(){
 	      	});
 
 	      });
+
+	      
+
 	  $("#pay_now_citrus_pay").live("click",function(){
+
+	  	showNotifications('Redirecting to Payment Gateway. Please wait...!');
 	  	var merchantId="wnw4zo7md1";
 	  	var orderAmt =$("#OrderAmount").val();
 	  	var signature_data;
@@ -690,15 +695,19 @@ $(document).ready(function(){
 						async : false,
 						data : sign_params,
 						success : function(data){
-							console.log("came");
+							showNotifications('Redirecting to Payment Gateway..... Please wait...!');
+							
 							// set the signature to merchant key
 							signature_data = data;
+							$("input[name='reqtime']").val(signature_data.time);
 							$("input[name='secSignature']").val(signature_data.signature);
 							$("input[name='merchantTxnId']").val(signature_data.txn_id);
 							$("#citruspay_form").submit();
 							// submitting the form to citruspay
+							return false;
 
 					}});
+			return false;
 		});
 	});
 

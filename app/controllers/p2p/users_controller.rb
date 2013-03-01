@@ -157,11 +157,12 @@ class P2p::UsersController < ApplicationController
     
     begin
       fav = p2p_current_user.favouriteusers.new
-      fav.p2puser = P2p::Item.find(params[:id]).id
-      
+      fav.fav_id = P2p::Item.find(params[:itemid].to_i).user.id
+      fav.save
+
       render :json => {:status => 1}
 
-    rescue
+    rescue Exception => ex
       render :json => {:status => 0}      
     end
 

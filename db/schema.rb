@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301044900) do
+ActiveRecord::Schema.define(:version => 20130301120400) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -327,8 +327,10 @@ ActiveRecord::Schema.define(:version => 20130301044900) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "fav_id"
   end
 
+  add_index "p2p_favourites", ["fav_id"], :name => "index_p2p_favourites_on_fav_id"
   add_index "p2p_favourites", ["user_id"], :name => "index_p2p_favourites_on_user_id"
 
   create_table "p2p_images", :force => true do |t|

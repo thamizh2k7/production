@@ -169,4 +169,15 @@ class P2p::UsersController < ApplicationController
 
   end
 
+  def paymentdetails
+      if params.has_key?(:bought)
+        @payments = p2p_current_user.payments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
+      else
+        @payments = p2p_current_user.soldpayments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
+      end
+
+    #@payments = @payments || []
+    
+  end
+
 end

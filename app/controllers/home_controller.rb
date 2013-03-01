@@ -248,7 +248,13 @@ class HomeController < ApplicationController
         random = r.rand(1000000..9999999)
         if P2p::ItemDelivery.where(:txn_id=>random).count == 0
           unique =1
-          item.item_deliveries.create(:txn_id=>random,:buyer => p2p_current_user.id)
+
+          if item.paytype = 3
+            item.item_deliveries.create(:txn_id=>random,:buyer => p2p_current_user,:commission => item.category.commission ,:shipping_charge => item.category.courier_charge)
+          else
+            item.item_deliveries.create(:txn_id=>random,:buyer => p2p_current_user,:commission => item.category.commission ,:shipping_charge => 0 )
+          end
+
         end
       end
       params[:orderAmount] = order_amount

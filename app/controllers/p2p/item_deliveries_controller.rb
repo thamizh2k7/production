@@ -5,7 +5,7 @@ class P2p::ItemDeliveriesController < ApplicationController
   # GET /p2p/item_deliveries
   # GET /p2p/item_deliveries.json
   def index
-    @p2p_item_deliveries = P2p::ItemDelivery.all.paginate(:page => params[:page] ,:per_page => 10)
+    @p2p_item_deliveries = P2p::ItemDelivery.order('updated_at desc').paginate(:page => params[:page] ,:per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,7 +37,20 @@ class P2p::ItemDeliveriesController < ApplicationController
 
   # GET /p2p/item_deliveries/1/edit
   def edit
-    @p2p_item_delivery = P2p::ItemDelivery.find(params[:id])
+    begin
+      @p2p_item_delivery = p2p_current_user.soldpayments.find(params[:id])
+
+      rescue
+        begin
+         @p2p_item_delivery = p2p_current_user.payments.find(params[:id])
+
+        rescue Exception => e
+          redirect_to '/p2p'     
+          return
+        end
+
+    end
+
   end
 
   # POST /p2p/item_deliveries
@@ -63,11 +76,11 @@ class P2p::ItemDeliveriesController < ApplicationController
 
     respond_to do |format|
       if @p2p_item_delivery.update_attributes(params[:p2p_item_delivery])
-        format.html { redirect_to @p2p_item_delivery, notice: 'Item delivery was successfully updated.' }
+        format.html { redirect_to '/p2p/paymentdetails', notice: 'Item delivery was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @p2p_item_delivery.errors, status: :unprocessable_entity }
+        format.json { render json: 'p2p/paymentdetails', status: :unprocessable_entity }
       end
     end
   end

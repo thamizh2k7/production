@@ -91,6 +91,7 @@ Sociorent::Application.routes.draw do
       post 'users/list' => 'users#list'
       post 'users/verifymobile/code' => 'users#getcode'
       post 'users/verifymobile/:code' => 'users#verifycode'
+      get  'paymentdetails(/:bought)' => 'users#paymentdetails'
 
 
       post 'location' => 'users#setlocation'
@@ -128,6 +129,8 @@ Sociorent::Application.routes.draw do
       match 'waiting(/user/:id)' => 'items#waiting'
       get  'favourites' => 'users#favouriteusers'
       post 'favourites' => 'users#setfavourite'
+
+      #post 'payments' => 'users#userpayments'
 
       get 'getmessages(/:id)' => 'messages#getmessages'
 

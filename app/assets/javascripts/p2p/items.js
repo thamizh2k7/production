@@ -21,7 +21,12 @@ $(document).ready(function(){
         });
       },
       select:function(event,elem){
-         alert('go to payment');
+      		$(elem).val(elem.item.label);
+      		$("#check_availability_modal").modal('hide');
+      		if (elem.item.value == 1 ){
+         		pay_now_citrus_pay();
+         	}
+
       },
       focus:function(){
         return false;
@@ -585,6 +590,11 @@ $(document).ready(function(){
 					       		return false;
 					       }
 
+					       if ($("#sociorent_payment_form #p2p_item_payinfo").val() == "" ){
+					       		showNotifications('Select one pincode');
+					       		return false;
+					       }
+
 					       $('#form_temp').append($("<input  class='hide' name='paytype' value='3'>"));
 					       $('#form_temp').append($("<input  class='hide' name='payinfo' value='" + $("#payinfo").val() + "'>"));
 
@@ -678,8 +688,7 @@ $(document).ready(function(){
 	      });
 
 	      
-
-	  $("#pay_now_citrus_pay").live("click",function(){
+		pay_now_citrus_pay =  function(){
 
 	  	showNotifications('Redirecting to Payment Gateway. Please wait...!');
 	  	var merchantId="wnw4zo7md1";
@@ -708,7 +717,9 @@ $(document).ready(function(){
 
 					}});
 			return false;
-		});
+		};
+
+		$("#pay_now_citrus_pay").live("click",pay_now_citrus_pay);
 	});
 
 

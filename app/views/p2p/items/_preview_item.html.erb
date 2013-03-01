@@ -214,8 +214,8 @@
           <button class="btn btn-primary action_popover" id= "pay_now_citrus_pay">Buy Now </button>
 
       <% elsif paytype == "3" %>
-
-          <a href="#check_availability_modal" role="button" id="pay_now_citrus_pay" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
+          
+          <a href="#check_availability_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
           <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
             <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
             <input type="hidden" name="secSignature" id="citruspay_signature">

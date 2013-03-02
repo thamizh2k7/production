@@ -6,7 +6,19 @@ class P2p::UsersController < ApplicationController
   #check for user presence inside p2p
   before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time]
 
-  def dashboard  	
+  def dashboard
+    puts p2p_current_user.items
+    @sold_count = p2p_current_user.items.sold.count
+    @sold_count = 1 if p2p_current_user.items.sold.count == 0
+
+    @waiting_count = p2p_current_user.items.waiting.count
+    @waiting_count = 1 if @waiting_count == 0
+
+    @disapproved_count = p2p_current_user.items.disapproved.count
+    @disapproved_count = 1 if @disapproved_count == 0
+
+    @total_sold_count = p2p_current_user.items.count
+    @total_sold_count = 1 if p2p_current_user.items.count == 0
   end
 
   def dashboard_use

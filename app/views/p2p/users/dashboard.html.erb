@@ -19,25 +19,25 @@
 
 					Total Items
 				    <div class="progress">
-    					<div class="bar" style="width: 100%;"> <span class="badge"><%= p2p_current_user.items.count %></span></div>
+    					<div class="bar" style="width: 100%;"> <span class="badge"><%= @total_sold_count %></span></div>
     				</div>
 
 					Total Sold
 				    <div class="progress progress-success">
-    					<div class="bar" style="width: <%= (p2p_current_user.items.sold.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"><%= p2p_current_user.items.sold.count %> </span> </div>
+    					<div class="bar" style="width: <%= (@sold_count/@total_sold_count) * 100 %>%;"> <span class="badge"><%= @sold_count %> </span> </div>
     				</div>
 
 
 
 					Waiting for approval
 				    <div class="progress progress-success">
-    					<div class="bar" style="width: <%= ( p2p_current_user.items.waiting.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"> <%= p2p_current_user.items.waiting.count %> </span></div>
+    					<div class="bar" style="width: <%= ( @waiting_count/@total_sold_count) * 100 %>%;"> <span class="badge"> <%= @waiting_count %> </span></div>
     				</div>
 
 
 					Disapproved
 				    <div class="progress progress-success">
-    					<div class="bar" style="width: <%= ( p2p_current_user.items.disapproved.count/p2p_current_user.items.count) * 100 %>%;"> <span class="badge"> <%= p2p_current_user.items.disapproved.count %> </span>/div>
+    					<div class="bar" style="width: <%= ( @disapproved_count/@total_sold_count) * 100 %>%;"> <span class="badge"> <%= @disapproved_count %> </span></div>
     				</div>
 	</div>
 

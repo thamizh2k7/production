@@ -1,5 +1,38 @@
   <%= stylesheet_link_tag '/assets/p2p/header' %>
 
+
+
+
+
+<!-- Header -->
+  <div class="topbar">
+    <div class="wrapper">
+      <div class="grid_1">
+        <a class="pull-left logo" href="/p2p/"><h1>sociorent</h1></a>
+        <div class="topbar_right pull-right">
+          <nav class="main_nav pull-right">
+            <ul>
+              <!-- <li><a href="#faq_page" class="static_page_dialog_open">FAQ</a></li>
+              <li><a href="#universities" class="open_university">UNIVERSITIES</a></li> -->
+              <li><a href="http://www.sociorent.com/blog">BLOG</a></li>
+              <% if current_user %>
+                <li><a class="selected" id="my_account_button">MY ACCOUNT</a></li>
+              <% else %>
+                <li><a class="selected open_login_popup" href="#" id="login_box_button">LOGIN</a></li>
+              <% end %>
+            </ul>
+          </nav>
+          <div class="clearfix"></div>
+          <div class="contact_socio pull-right">
+            <a href="mailto:care@sociorent.com"><img src="/assets/index/mail_icon.png">care@sociorent.com</a> | <img src="/assets/index/phone.png">+91-73531-12345 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cB"></div>
+  </div>
+
+<!-- 
   <%#= request.env["HTTP_REFERER"]  %>
 
 <div id="header" class="row">
@@ -122,7 +155,7 @@
     </div>
 
 </div>
-
+ -->
 
 <!-- set the container hidden to avoid a flash of unstyled content
 when the page first loads -->

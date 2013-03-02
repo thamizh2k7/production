@@ -25,6 +25,15 @@
 	opacity: 1;
 }
 
+a { 
+	text-decoration: none;
+}
+
+a:visited { color: #049; }
+.green{
+	color: #0F8159;
+}
+
 
 #body_content{
 	margin-top: 10px;
@@ -133,6 +142,7 @@ li.dropdown:hover > ul.dropdown-menu{
 
 #body_container{
 	min-height: 800px;
+	margin: 10px 0 10px 0;
 }
 
 
@@ -219,3 +229,103 @@ li.dropdown:hover > ul.dropdown-menu{
 #menuSet{
 	margin-top: -5px;
 }
+
+/* new head css*/
+
+/**header**/
+.topbar{
+	border-top: 8px solid #0F8159;
+	background: url("/assets/paper.jpg") repeat;
+}
+.logo{
+	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;
+  height: 70px;
+  width: 301px;
+	margin: 10px 0 25px;
+}
+.logo h1{
+	text-indent: -999px;
+}
+
+[class*="grid"] {
+    float: left;
+    min-height: 1px;
+	padding:5px;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+.wrapper{
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+.main_nav{
+	margin-top: 25px;
+}
+.main_nav li a{
+	display: block;
+	color: #797979;
+	padding: 15px 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.main_nav li a:hover{
+	background: #E9EAEA;
+	color: #0F8159;
+}
+.main_nav li a.selected{
+	background: #F65757;
+	color: #fff;
+	padding: 8px 20px;
+	margin-top:7px;
+	border-radius: 3px 3px 3px 3px;
+}
+.main_nav li{
+	float: left;
+}
+
+.contact_socio{
+	color:#797979;
+	font-size: 14px;
+	padding-top: 10px;
+}
+
+.contact_socio img{
+	height: 16px;
+	padding: 0px 5px;
+	margin-top: -5px;
+}
+
+.contact_socio 	a{
+	color:#797979;
+}
+
+.grid_1{
+	width: 100%;
+}
+
+.cB {
+    clear: both;
+}
+li {
+	list-style: none;
+}
+
+.disc{
+	li{
+		list-style: inside disc;
+	}
+}
+.square{
+	li{
+		list-style: inside square;
+	}
+}
+
+body {
+  background: white;
+  font-size: 13px;
+  font-family: 'PT Sans', sans-serif !important;
+}
+

@@ -18,7 +18,9 @@
               <% if current_user %>
                 <li><a class="selected" id="my_account_button">MY ACCOUNT</a></li>
               <% else %>
-                <li><a class="selected open_login_popup" href="#" id="login_box_button">LOGIN</a></li>
+                <li>
+                  <a href="#head_login_modal" class="selected " role="button" data-toggle="modal">Login</a>
+                </li>
               <% end %>
             </ul>
           </nav>
@@ -124,25 +126,32 @@
             <% else %>
               <li>
                 <!-- Button to trigger modal -->
-                <a href="#head_login_modal" role="button" data-toggle="modal">Login</a>
+                <!-- <a href="#head_login_modal" role="button" data-toggle="modal">Login</a> -->
 
                 <!-- Modal -->
-                <div id="head_login_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="head_login_modalLabel" aria-hidden="true">
+                <div id="head_login_modal" class="modal hide fade span9" tabindex="-1" role="dialog" aria-labelledby="head_login_modalLabel" aria-hidden="true">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="head_login_modalLabel">Login</h3>
                 </div>
 
-                <div class="modal-body" id="login_popup_content">
+                <div class="modal-body span7" id="login_popup_content">
+
+                  <div class="pull-right">
+                        <a class="fb_big_logi" href="/users/auth/facebook"></a>
+                  </div>
+
                   <div id="login_box" class="boxes">
                     <%= render :template => "devise/sessions/new" %>
                   </div>
+
                   <div id="signup_box" class="boxes">
                     <%= render :template => "devise/registrations/new" %>
                   </div>
                   <div id="forgot_box" class="boxes">
                     <%= render :template => "devise/passwords/new" %>
                   </div>
+
                 </div>
 
                 </div>
@@ -155,7 +164,7 @@
     </div>
 
 </div>
- -->
+ 
 
 <!-- set the container hidden to avoid a flash of unstyled content
 when the page first loads -->

@@ -329,3 +329,35 @@ body {
   font-family: 'PT Sans', sans-serif !important;
 }
 
+
+
+/* agent */
+.fb_big_logi{
+	background: url("/assets/home-sprite.png") no-repeat scroll -1px -79px transparent;
+    display: block;
+    height: 50px;
+    margin: 20px 0 0;
+    width: 239px;
+}
+.signup_link{
+	font-size: 18px;
+	margin-top: 20px;
+	padding: 12px;
+}
+.signup_link:active{
+	color:greep !important;		
+}
+
+.tite_rent {
+	color: #F65757;
+}
+
+.signup_link span{
+	font-size: 12px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 13px;
+}
+
+#head_login_modal{
+	width:600px !important;
+}

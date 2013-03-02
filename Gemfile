@@ -92,3 +92,5 @@ gem "geocoder"
 
 #nested form
 gem "nested_form"
+
+gem "rack","~>1.4.1"

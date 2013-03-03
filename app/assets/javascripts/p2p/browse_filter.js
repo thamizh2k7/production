@@ -149,6 +149,8 @@ $(document).ready(function(){
 		
 				$(window).scroll(function(){
 
+
+
 						if ($("#dummy_filter_holder").length == 0) return false;
 
 						var stop =  $(window).scrollTop() > ($("#dummy_filter_holder").offset().top + $("#dummy_filter_holder").height() -100) ;

@@ -53,18 +53,27 @@ class ApplicationController < ActionController::Base
   ##return p2pUser 
   def p2p_current_user
 
-	session[:isadmin] = false
+  	begin
+		session[:isadmin] = false
 
-  	if current_user.nil?
-  		return nil
-  	else
-  		user = P2p::User.find_by_user_id(current_user.id)
-  		if user.email ="admin@admin.com"
-  			session[:isadmin] = true
-  		end
+		socio_admin = User.find_by_email('admin@admin.com')
+		session[:admin_id] = P2p::User.find_by_user_id(socio_admin.id)
 
-  		return user
-  	end
+	  	if current_user.nil?
+	  		return nil
+	  	else
+	  		user = P2p::User.find_by_user_id(current_user.id)
+	  		if user.user.is_admin 
+	  			session[:isadmin] = true
+	  		end
+
+
+
+	  		return user
+	  	end
+
+	  rescue
+	  end
 
   end
 

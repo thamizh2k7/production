@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+
+
+
 	$('#upload_image').click(function(){
        $('#image_upload').trigger('click');
 	});
@@ -183,6 +186,16 @@ $(document).ready(function(){
 				$("#model").html("Select one");
 				$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
 				item_values['brand'] = '';
+
+				
+				//add custom brand
+				$('#add_new_model').on('keyup',function(){
+					if ($.trim ( $(this).val() ) != '' ) {
+						item_values['brand'] = $.trim ( $(this).val() );
+						$("#model").val('');
+					}
+				});
+
 
 				//$("#model").editable({sourceCache:false});
 

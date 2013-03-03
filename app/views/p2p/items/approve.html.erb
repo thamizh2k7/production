@@ -1,13 +1,12 @@
 <% content_for :pagetitle  do %>
 
-  <% session[:isadmin] %>
+  <% if session[:isadmin] %>
   <%= params[:action].titleize %> listings for <%= @user %>
   <% else %>
     <%= params[:action].titleize %> - <%= p2p_current_user.user.name %>
   <% end %>
     
 <%end %>
-
 
 <div class="row" id="body_content" >
 

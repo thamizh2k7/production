@@ -19,7 +19,7 @@
 		<li class="divider"></li>
 
 
-        <% if p2p_current_user.id == 1%>
+        <% if session[:isadmin] %>
                 <li class="nav-header">Admin</li>
                 <li><a href="/p2p/admin/categories">Categories</a></li>
                 <li><a href="/p2p/admin/products">Products</a></li>

@@ -9,6 +9,7 @@
             <div class="btn-group">
               
               <%used_cat = [] %>
+              <%used_cat.push(0)%>
 
                <% P2p::Category.where("category_id is null and priority is not null").order('priority').limit(7).each do |cat|%>
 
@@ -20,6 +21,7 @@
 
                 <% end %>
 
+                <% if P2p::Category.order('priority').where("id not in(#{used_cat.join(',')}) or priority is null").count > 0 %>
 
                   <a class="btn dropdown-toggle" data-toggle="dropdown">
                     Others  <b class="caret"></b>
@@ -34,7 +36,7 @@
                         </li>
                     <% end %>
                   </ul>
-
+                <% end %>
       </div>
     </div>
 

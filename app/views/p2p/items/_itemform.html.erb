@@ -196,7 +196,7 @@
 
 
 
-					<%if p2p_current_user.id == 1 %>
+					<%if session[:isadmin] %>
 
 							<% unless solddate.nil?  %>
 								<span class="btn "> <i class="action_icon" title="On <%= solddate.strftime("%d-%b-%C%y") %>" >  Listing Sold </i> </span>
@@ -283,7 +283,7 @@
 
 			  <% end %>
 
-			  <% if !itemid.empty? and !p2p_current_user.nil? and p2p_current_user.id == 1 %>
+			  <% if !itemid.empty? and !p2p_current_user.nil? and session[:isadmin] %>
 
 			  		<% if approvedate.nil?  %>
 	  				  <button class="btn alert-info"  id="approve" itemid="<%=itemid%>"><i  class="action_icon icon-thumbs-up" title="Approve this listing"></i></button>

@@ -371,7 +371,7 @@ end
         @cat =  P2p::Category.find_by_name(params[:cat])
         @prod=  @cat.products.find_by_name(params[:prod])
 
-        if !p2p_current_user.nil? and  p2p_current_user.id == 1
+        if !p2p_current_user.nil? and  session[:isadmin]
           @item = @prod.items.unscoped.find_by_title(params[:item])
         else
           @item = @prod.items.find_by_title(params[:item])
@@ -460,7 +460,7 @@ end
 
       if params[:query] == "sold"
 
-        if p2p_current_user.id == 1
+        if session[:isadmin]
              if params.has_key?(:id)
                   @items = P2p::User.find(params[:id]).items.sold.paginate(:page => params[:page] , :per_page => 20)
                   @user = P2p::User.find(params[:id])
@@ -563,7 +563,7 @@ end
 
   def waiting
 
-        if p2p_current_user.id == 1
+        if session[:isadmin]
 
               if params.has_key?(:id)
                   @user = P2p::User.find(params[:id])
@@ -593,7 +593,7 @@ end
 
 
   def disapprove
-        if p2p_current_user.id == 1
+        if session[:isadmin]
 
              if params.has_key?(:id)
                   @items = P2p::User.find(params[:id]).items.disapproved.paginate(:page => params[:page] , :per_page => 20)
@@ -749,7 +749,7 @@ end
 
     else
 
-        if p2p_current_user.id == 1
+        if session[:isadmin]
             if params.has_key?(:id)
                 @items = P2p::User.find(params[:id]).items.approved.notsold.paginate(:page => params[:page] , :per_page => 20)
                   @user = P2p::User.find(params[:id])

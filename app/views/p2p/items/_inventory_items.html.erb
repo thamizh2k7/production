@@ -38,7 +38,7 @@
 
                             <div class="thumbnail alert <%= approve_class[apprval_class] %>">
 
-                            <% if p2p_current_user.id ==1  %>
+                            <% if session[:isadmin]  %>
                               <% if p.deletedate.nil? %>
                                 
                                 <% if p.disapproveddate.nil? %>

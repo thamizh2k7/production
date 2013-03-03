@@ -53,14 +53,22 @@ class ApplicationController < ActionController::Base
   ##return p2pUser 
   def p2p_current_user
 
+	session[:isadmin] = false
+
   	if current_user.nil?
   		return nil
   	else
-  		return P2p::User.find_by_user_id(current_user.id)
+  		user = P2p::User.find_by_user_id(current_user.id)
+  		if user.email ="admin@admin.com"
+  			session[:isadmin] = true
+  		end
+
+  		return user
   	end
 
   end
 
+ 
 
 
   ##P2p Authentication

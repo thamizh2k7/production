@@ -2,14 +2,14 @@
 <% content_for :pagetitle  do %>
 
 	Result for <%=params[:query]%>
-    
+
 <%end %>
 
 
 
 
- 
-  <!-- List Section --> 
+
+  <!-- List Section -->
 <div id="Itemlist" class="row">
 
     <div id="filter" class="span2">
@@ -23,25 +23,25 @@
 
 	<div id="items" class="span10">
 
-	
+
 
 	<div class="itemsRow">
-				
+
 		        <div id="listHeader" class="row">
 		          <p class="fleft"> <b>Results for <%= params[:query] %></b></p>
 		          <p class="fright"><a href="/p2p/search/q/<%=params[:query]%>"> View All</a></p>
 		        </div>
 
-				<%= will_paginate (@result)%>
+							<%= will_paginate(@result) if @result.count >0 %>
 
 	                <ul class="thumbnails">
-	                
+
 	                <% @result.each do |p| %>
 
 	                  <li class="span2">
 	                    <a href="/p2p/<%=p.product.category.name%>/<%=p.product.name%>/<%=p.title%>">
 	                      <div class="thumbnail">
-	                      	
+
 	                      	<div class="image_holder">
 	                        	<img src="<%=p.get_image(1,:search)[0][:url]%>" >
 	                        </div>
@@ -55,7 +55,7 @@
 	                              <li> <%=p.condition %></li>
 	<!--                              <li>Attribute 2</li>
 	                              <li>Attribute 3</li>
-	-->                              
+	-->
 	                            </ul>
 	                          </p>
 
@@ -68,12 +68,12 @@
 
 	              </ul>
 
-			    <% unless @result.next_page.nil? %>
+			    <% unless @result.count <= 0 || @result.next_page.nil? %>
 		   		    <div id="load_more">
 				    	<div class="btn btn-primary">Load More.....</div>
 				    </div>
 			    <% end %>
-	              
+
 	</div>
 
 

@@ -17,7 +17,7 @@
         }
     // Login script
     $('#login_button').hide();
-    
+
     $("#devise_pages a").live("click",function(){
       var action = $(this).text();
       $("#head_login_modalLabel").html(action);
@@ -41,7 +41,6 @@
            $("#forgot_box").fadeIn();
            show_all_session_button();
            $('#forgot_pass_button').hide();
-
           break;
       }
       $("#devise_pages a").css("display","none");
@@ -52,6 +51,14 @@
       return false;
     });
 
+    //search is now form
+
+    $(".search_btn").click(function(){
+
+      $("#item_search_form").submit();
+    });
+
+    //auto complete for the search
     $("#top_search_input").autocomplete({
       minLength: 2,
       source: function( request, response ) {
@@ -68,9 +75,8 @@
         });
       },
       select:function(event,elem){
-         $("#search_books_input").val("");
-          window.location.href=elem.item.value
-          return false;
+        //after selecting the item from autocomplete submit the form
+        $("#item_search_form").submit();
       },
       focus:function(){
         return false;

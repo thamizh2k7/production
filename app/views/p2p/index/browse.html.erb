@@ -8,24 +8,17 @@
 		<%= @cat.name %>
 	<% end %>
 
-    
+
 <%end %>
 
 
 <div id="Itemlist" class="row">
-
-    <div id="filter" class="span2 ">
-
-
-	      <ul class="nav nav-tab" id="browse_menu">
-			
-	        <%#= render "scat_menu" , :active_page => @cat.name ,:dropdown => true %>
-
-	        <%= render "p2p/index/filter" , :category => @cat %>
-
-	      </ul>
-
-    </div>
+	<div id="filter" class="span2 ">
+	  <ul class="nav nav-tab" id="browse_menu">
+	    <%#= render "scat_menu" , :active_page => @cat.name ,:dropdown => true %>
+	    <%= render "p2p/index/filter" , :category => @cat %>
+	  </ul>
+	</div>
 
 <div class="span10">
 
@@ -46,7 +39,7 @@
 		<% @products.each do |prod| %>
 
 			<% next if prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.count == 0 %>
-			
+
 
 			<% prod_count = 0 %>
 
@@ -64,7 +57,7 @@
 					        </div>
 
 			        <ul class="thumbnails" id="filter_replace">
-			        
+
 			        <% if params.has_key?(:prod) %>
 			        	<% items = prod.items.by_location_or_allover(p2p_get_user_location).approved.notsold.paginate(:page => params[:page] ,:per_page => 20 ) %>
 			        <% else %>
@@ -74,7 +67,7 @@
 			      <% items.each do |p| %>
 
 			          <li class="span2 aitem_holder">
-                      
+
                         <div class="thumbnail">
                                 <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}")%>">
                                   <div class="aitem_left">
@@ -92,8 +85,8 @@
                                 </a>
 
                                 <div class="item_category">
-                                  
-                                  in 
+
+                                  in
                                   <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}") %>">
                                     <%= p.product.name  %>
                                   </a>
@@ -125,7 +118,7 @@
 
 
 		</div>
-		
+
 	<% end %>
 
 

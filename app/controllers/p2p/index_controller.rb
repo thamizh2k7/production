@@ -15,8 +15,21 @@ class P2p::IndexController < ApplicationController
     # load the categories based on their priority
 
     @category = P2p::Category.order("priority")
-
-  end
+    @main_categories = P2p::Category.main_categories.includes(:items)
+    category_count = 0
+    @category_items = Hash.new
+    if category_count<5
+      @main_categories.each do |main_cate|
+        if main_cate.items.listing_items_by_location(p2p_get_user_location).count > 0
+          @category_items["#{main_cate.name}"] = []
+          main_cate.items.listing_items_by_location(p2p_get_user_location).limit(3).each do |item|
+            @category_items["#{main_cate.name}"] << item
+          end
+          category_count += 1
+        end
+      end
+    end
+   end
 
 def search
   begin
@@ -27,15 +40,15 @@ def search
     end
     response = get_search_suggestions(params[:id])
     if response.size == 0
-      suggested_word = suggest(params['id'])
-      if suggested_word == params[:id]
-        result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
-        result.each do |res|
-          response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
-        end
-      else
+      #suggested_word = suggest(params['id'])
+     # # if suggested_word == params[:id]
+     #    result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
+     #    result.each do |res|
+     #      response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+     #    end
+     #  else
         response = get_search_suggestions(suggested_word)
-      end
+     #end
     end
     response = response.first(15)
     if response.empty?
@@ -61,7 +74,22 @@ end
 
 
 def search_query
-  @result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.order('product_id').search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
+  item = P2p::Item
+  item_count = 0
+  if params[:category] !=""
+    item = P2p::Category.find(params[:category]).items
+    item_count = item.count
+  end
+  if params[:query] !="" && ((params[:category]!="" && item_count > 0 ) || params[:category] =="")
+    puts "falled in sphinx"
+    @result = item.listing_items_by_location(p2p_get_user_location).search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
+  elsif params[:category]!="" && params[:query] ==""
+    puts "Falled in cate"
+    @result = item.paginate(:page => params[:page] ,:per_page => 20)
+  else
+    puts "NO rec"
+    @result = []
+  end
 end
 
 
@@ -70,12 +98,9 @@ def get_search_suggestions(query)
 
   result = P2p::Category.search(query ,:match_mode => :any ,:star => true)
 
-  puts result.inspect + "fsad"
-
   result.each do |res|
     response.push( {:label => "#{query} in #{res.name}" , :value => URI.encode("/p2p/#{res.name}")} )
   end
-
 
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
@@ -84,9 +109,9 @@ def get_search_suggestions(query)
   end
 
   result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(query ,:match_mode => :any ,:star => true)
-
+  puts result.inspect
   result.each do |res|
-    response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
+      response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") }) unless res.nil?
   end
   return response
 

@@ -51,14 +51,14 @@
           <% end %>
     </div>
     <div class="clearfix"></div>
-      <div class="row search_bar">
-          <input id="top_search_input" type="text" class="span6" placeholder="What are you looking for">
+      <form method="get" id="item_search_form" action="/p2p/search/q/">
+        <div class="row search_bar">
+          <input id="top_search_input" type="text" class="span6" name="query" placeholder="What are you looking for">
           <%=select_tag "category" ,options_for_select( P2p::Category.all.collect{|cate|  [cate.name,cate.id]}),:prompt=>"All categories",:class=>"span2"%>
           <a class='btn search_btn'><span> Search <i class="icon-search"></i></span></a>
-      </div>
-       <input type="hidden" id ="user_city" value ="<%= (session.has_key?(:city_id)) ? session[:city_id] : "" %>">
-
+        </div>
+        <input type="hidden" id ="user_city" value ="<%= (session.has_key?(:city_id)) ? session[:city_id] : "" %>">
+      </form>
     <div class="clear"></div>
-
   </div>
 </div>

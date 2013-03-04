@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	// TO Apply filter on all attributes has spec filter class
 	$(".spec-filter").click(function(){
 		var spec = $(this).attr('spec-name');
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	// TO load more items
 	function load_more(){
 
-		$("#dummy_filter_holder").css({"position":"relative"});	
+		$("#dummy_filter_holder").css({"position":"relative"});
 
 		$("#load_more div").html(' <img src="/assets/ajax_small.gif"/> Loading more items..! Please wait');
 		$.ajax({
@@ -74,7 +74,7 @@ $(document).ready(function(){
 
 	// Main function working out the filter
 	function call_filter(spec,val,that){
-		
+
 		showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
 
 		showOverlay();
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 
-				
+
 				var fil_url =[];
 				_.each(filters,function(val,key){
 					if (typeof(val) == 'Array' && val.length > 0 ){
@@ -100,7 +100,7 @@ $(document).ready(function(){
 
 				// Pushing into the histroy
 				History.pushState('filter','filter',window.filterurl + '/'  + fil_url.join('&'));
-				
+
 				window.page_num =  2 ;
 
 				var templ=_.template($("#item_template").html(),{data:data});
@@ -113,7 +113,7 @@ $(document).ready(function(){
 				filters[spec].splice(filters[spec].indexOf(val),1)
 				$(that).removeClass('active');
 				$(that).children(".icon-remove").addClass("hidden");
-				
+
 			}
 		});
 	}
@@ -122,14 +122,14 @@ $(document).ready(function(){
 	$("#filter_sort").change(function(){
 		 filters['sort'] = $("#filter_sort").val();
 		 call_filter('sort',$("#filter_sort").val(),$("#filter_sort"));
-	});	
+	});
 
  	// bind load more
  	$("#load_more").die().live('click',load_more);
 
  	// Showing overlay while fetching contents
 	showOverlay = function(){
-		
+
 		$("#overlay").css({
 			"width":$("#items").outerWidth(),
 			"height":$("#items").outerHeight(),
@@ -145,8 +145,8 @@ $(document).ready(function(){
 	// ***********************
 	// fixinf the filter
 
-		
-		
+
+
 				$(window).scroll(function(){
 
 
@@ -187,18 +187,18 @@ $(document).ready(function(){
 							$("#dummy_filter_holder").clearQueue().animate({
 									top:(  ($(document).height() -130) - $("#dummy_filter_holder").outerHeight()  ) ,
 									'width':'105px'
-								});	
+								});
 					}else{
 							$("#dummy_filter_holder").css({'position':'absolute'});
 
-					
+
 					if ($(window).scrollTop() < filter_initial_height) {
 							$("#dummy_filter_holder").clearQueue().animate({top:filter_initial_height,'position':'relative','width':'auto'},200);
 					}else{
 
 							$("#dummy_filter_holder").clearQueue().animate({top:$(window).scrollTop() ,
 										'width':'105px'
-									},200);	
+									},200);
 					}
 
 
@@ -208,5 +208,5 @@ $(document).ready(function(){
 				$("#pull_here").click(pull_here);
 
 // end of fixinf
-	
+
 });

@@ -1,8 +1,5 @@
  <!--Search filter menu cod -->
-
-
 <div id="pull_here" class="btn btn-info">Filters </div>
-
 <div id="dummy_filter_holder" class="nav nav-list">
 
 <!-- overlay to be displayed during filter request -->
@@ -15,7 +12,7 @@
 			<% item_condition_res.each do |itm| %>
 				<li class="spec-filter" spec-name="condition" spec-value="<%=itm.condition%>">
 				<i class="icon-remove  pull-right hidden"></i>
-				 <a href="#"> <%= itm.condition %> </a> 
+				 <a href="#"> <%= itm.condition %> </a>
 
 				</li>
 			<% end %>
@@ -33,25 +30,23 @@
 
 	    <li class="divider"></li>
 
-
-
 		<!-- Template for the search results -->
 		<!-- load only for inital request and not for load more-->
 	    <script type="template" id="item_template">
-		      
+
 
 	    	<%% if ( window.page_num == 2 ) { %>
 
-				<ul class="thumbnails" id="filter_replace">		        
+				<ul class="thumbnails" id="filter_replace">
 
 			<%% } %>
-			
- 	        
+
+
 
 		    	<%% _.each(data["res"],function(elm){%>
 
 				          <li class="span2 aitem_holder">
-				            
+
 	   			              <div class="thumbnail">
 
 	   			              <a href="<%%=elm.url%>">
@@ -72,8 +67,8 @@
 				                </a>
 
                                 <div class="item_category">
-                                  
-                                  in 
+
+                                  in
                                   <a href="<%%= elm.prod_url%>">
                                     <%%= elm.prod  %>
                                   </a>
@@ -88,7 +83,7 @@
                                 </div>
 
                               <div class="clearfix"></div>
-                      </div>				      
+                      </div>
                       </li>
 
 					<%% });%>

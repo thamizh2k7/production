@@ -9,7 +9,7 @@
       <li> Browse by Category</li>
       <%used_cat = [] %>
         <%used_cat.push(0)%>
-        <% P2p::Category.where("category_id is null and priority is not null").order('priority').limit(5).each do |cat|%>
+        <% @main_categories.each do |cat|%>
           <% used_cat.push(cat.id) %>
           <li>
             <a  href="/p2p/<%= cat.name %>" class="btn" ><%= cat.name %></a></li>
@@ -21,15 +21,12 @@
     <div id="Itemlist" class="row">
 
         <div id="items" class="span12">
-          <% @category.each do |acategory| %>
 
+          <% @category_items.each_with_index do |(category_name,items),index| %>
             <!-- loop and display only if the categories has products and items in it. -->
-            <% if acategory.products.size > 0  and (acategory.items.by_location_or_allover(p2p_get_user_location).approved.notsold.order("reqCount , viewcount").limit(5).count > 0) %>
-
-
-              <div class="itemsRow">
-                <div id="listHeader" class="row"><a href="/p2p/<%= acategory.name %>">
-                  <p class="header_title"> <b><%= acategory.name.titlecase %> </b></p>
+               <div class="itemsRow">
+                <div id="listHeader" class="row"><a href="/p2p/<%= category_name %>">
+                  <p class="header_title"> <b><%= category_name %> </b></p>
                   <p class="header_view_all">View All</p></a>
                 </div>
                 <ul class="thumbnails">
@@ -39,16 +36,10 @@
                   #TODO: THE NEW ITEMS WILL NEVER TURN UP TOP IN THE LIST
 
                   SO DO SOMETHING FOR THAT(DISCUSS)
-        -->
-
-             <% acategory.items.by_location_or_allover(p2p_get_user_location).approved.notsold.order("reqCount , viewcount").limit(5).each do |p| %>
-
-
-
+        -->     <% items.each do |p| %>
                     <li class="span2 aitem_holder">
-
                         <div class="thumbnail">
-                                <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}")%>">
+                                <a href="<%= URI.encode("/p2p/#{p.category.name}/#{p.product.name}/#{p.title}")%>">
                                   <div class="aitem_left">
                                       <div class="image_holder">
                                         <img src="<%=p.get_image(1,:search)[0][:url]%>" >
@@ -79,7 +70,7 @@
                                         <div class="item_condition"><%=p.condition%></div>
                                       <div class="item_price">Price:<del>&#2352;</del> <%=p.price %>
                                 </div>
-
+                                <div class="buy_now"><a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}")%>">Buy Now</a></div>
                               <div class="clearfix"></div>
                       </div>
                       <div class="clearfix"></div>
@@ -87,14 +78,8 @@
                 <% end %>
                 </ul>
               </div>
-
             <% end %>
-
-          <% end %>
-
-
         </div>
-          <!-- List Section -->
+        <!-- List Section -->
     </div>
-
 </div>

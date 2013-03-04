@@ -297,7 +297,13 @@ $(document).ready(function(){
 					$("#condition").tooltip('show');
 
 				}else{
-					item_values['price']="";
+					i
+Login
+Username 	: 	
+Password 	: 	
+Login
+Username 	: 	
+Password 	: 	tem_values['price']="";
 					params.newValue = params.oldValue;
 					$(this).addClass('error');
 					$(this).tooltip('show');

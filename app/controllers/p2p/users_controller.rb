@@ -7,18 +7,45 @@ class P2p::UsersController < ApplicationController
   before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time]
 
   def dashboard
-    puts p2p_current_user.items
+    
+    @total_items = p2p_current_user.items.count
+
+
     @sold_count = p2p_current_user.items.sold.count
-    @sold_count = 1 if p2p_current_user.items.sold.count == 0
+    
+    if @sold_count == 0 
+      @sold_percentage = 0
+    else
+      @sold_percentage = ((@sold_count/@total_items).ceil) * 100
+    end
+    #@sold_count = 1 if p2p_current_user.items.sold.count == 0
 
     @waiting_count = p2p_current_user.items.waiting.count
-    @waiting_count = 1 if @waiting_count == 0
+    if @waiting_count == 0 
+      @waiting_percentage = 0
+    else
+      @waiting_percentage = ((@waiting_count/@total_items).ceil) * 100
+    end
+    
+    #@waiting_count = 1 if @waiting_count == 0
 
     @disapproved_count = p2p_current_user.items.disapproved.count
-    @disapproved_count = 1 if @disapproved_count == 0
+    if @disapproved_count == 0 
+      @disapproved_percentage = 0
+    else
+      @disapproved_percentage = ((@disapproved_count/@total_items).ceil) *100
+    end
 
-    @total_sold_count = p2p_current_user.items.count
-    @total_sold_count = 1 if p2p_current_user.items.count == 0
+
+    @approved_count = p2p_current_user.items.approved.count
+    if @approved_count == 0 
+      @approved_percentage = 0
+    else
+      @approved_percentage = ((@approved_count/@total_items).ceil) *100
+    end    
+#    @disapproved_count = 1 if @disapproved_count == 0
+
+ #   @total_sold_count = 1 if p2p_current_user.items.count == 0
   end
 
   def dashboard_use

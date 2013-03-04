@@ -26,7 +26,7 @@
 	opacity: 1;
 }
 
-a,a:visited,a:focus { 
+a,a:visited,a:focus {
 	text-decoration: none;
 	color:inherit;
 }
@@ -151,7 +151,6 @@ li.dropdown:hover > ul.dropdown-menu{
 
 
 #body_container{
-	min-height: 800px;
 	margin: 10px 0 10px 0;
 }
 
@@ -258,7 +257,7 @@ li.dropdown:hover > ul.dropdown-menu{
 	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;
   height: 70px;
   width: 301px;
-	margin: 10px 0 25px;
+  margin-top:-12px;
 }
 .logo h1{
 	text-indent: -999px;
@@ -278,7 +277,7 @@ li.dropdown:hover > ul.dropdown-menu{
 }
 
 .main_nav{
-	margin-top: 25px;
+	margin-top: 7px;
 }
 .main_nav li a{
 	display: block;
@@ -362,7 +361,7 @@ body {
 	padding: 12px;
 }
 .signup_link:active{
-	color:greep !important;		
+	color:greep !important;
 }
 
 .tite_rent {
@@ -397,10 +396,19 @@ body {
 #index_menu_holder{
 	margin-bottom: 10px;
 	display: block;
+	text-align: center
+}
+#index_menu_holder ul li{
+	display: inline-block;
 }
 
 
 
 .hidden{
 	display:none !important;
+}
+.search_bar{
+
+	margin: 0px auto;
+	text-align: center;
 }

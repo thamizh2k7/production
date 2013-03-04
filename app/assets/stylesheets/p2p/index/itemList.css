@@ -8,6 +8,15 @@ f#Itemlist {
 	margin: 0px 0px 15px 0px;
 	padding: 10px 15px;
 }
+.header_title{
+	float: left;
+	width: 50%;
+}
+.header_view_all{
+	float: right;
+	text-align: right;
+	width: 50%;
+}
 
 #items {
 	min-height: 700px;
@@ -107,7 +116,7 @@ f#Itemlist {
 }
 
 .big{
-	font-size:2em;	
+	font-size:2em;
 	line-height: 1.7em;
 }
 
@@ -257,7 +266,7 @@ f#Itemlist {
 
 .item_price{
 	height: 20px;
-	overflow: hidden;			
+	overflow: hidden;
 }
 
 		.add_to_cart{

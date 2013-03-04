@@ -1,6 +1,6 @@
 class P2p::UsersController < ApplicationController
 
-  layout :p2p_layout 
+  layout :p2p_layout
   before_filter :p2p_user_signed_in  ,:except => [:guesslocation ,:setlocation]
 
   #check for user presence inside p2p
@@ -61,7 +61,7 @@ class P2p::UsersController < ApplicationController
         resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
     end
 
-    if resp.count ==0 
+    if resp.count ==0
         resp.push(:value => -1 , :label => "Nothing Found" )
     end
 
@@ -71,10 +71,10 @@ class P2p::UsersController < ApplicationController
 
   def welcome
 
-  			# check if signed in , purpose fully removed the before filter 
+  			# check if signed in , purpose fully removed the before filter
   			# because it would create loop
 
-  			if current_user.nil? 
+  			if current_user.nil?
   				redirect_to '/p2p'
           flash[:notice] = 'Nothing could be found for your request'
   				return
@@ -122,8 +122,8 @@ class P2p::UsersController < ApplicationController
         geocode  = Geocoder.search(request[:REMOTE_ADDR])
         session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
 
-        puts geocode.inspect 
-        
+        puts geocode.inspect
+
         city_id = P2p::City.find_by_name(session[:city])
         session[:city_id] = (city_id.nil? ) ? '' : city_id;
 
@@ -171,7 +171,7 @@ class P2p::UsersController < ApplicationController
 
   def verifycode
       if session.has_key?(:verify) and params[:code] == session[:verify].to_s
-        
+
         session.delete(:verify)
 
         user = P2p::User.find(p2p_current_user.id)
@@ -194,7 +194,7 @@ class P2p::UsersController < ApplicationController
   end
 
   def setfavourite
-    
+
     begin
       fav = p2p_current_user.favouriteusers.new
       fav.fav_id = P2p::Item.find(params[:itemid].to_i).user.id
@@ -203,7 +203,7 @@ class P2p::UsersController < ApplicationController
       render :json => {:status => 1}
 
     rescue Exception => ex
-      render :json => {:status => 0}      
+      render :json => {:status => 0}
     end
 
   end
@@ -216,7 +216,7 @@ class P2p::UsersController < ApplicationController
       end
 
     #@payments = @payments || []
-    
+
   end
 
 end

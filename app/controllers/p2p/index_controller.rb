@@ -11,66 +11,51 @@ class P2p::IndexController < ApplicationController
   def index
     # @mobiles=P2p::Item.select("title,price").where('product_id=1').limit(4);
     # @electronics=P2p::Item.select("title,price").where('product_id=2').limit(4);
-    
+
     # load the categories based on their priority
+
     @category = P2p::Category.order("priority")
 
   end
 
 def search
-
   begin
-
     unless request.xhr?
      redirect_to '/p2p'
      flash[:notice] ="Invalid Request"
       return
     end
-
-
     response = get_search_suggestions(params[:id])
-
     if response.size == 0
-
-        suggested_word = suggest(params['id'])
-
-        if suggested_word == params[:id]
-
-
+      suggested_word = suggest(params['id'])
+      if suggested_word == params[:id]
         result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(suggested_word ,:match_mode => :any ,:star => true)
-
         result.each do |res|
           response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") })
         end
-
       else
         response = get_search_suggestions(suggested_word)
-      end 
-
+      end
     end
-
     response = response.first(15)
-    
-
     if response.empty?
-        render :json => [{:label => "No results found" ,:value => ""}]
-        return
+      render :json => [{:label => "No results found" ,:value => ""}]
+      return
     else
-        render :json => response
-        return
+      render :json => response
+      return
     end
-
-  # rescue 
+  # rescue
   #   if request.xhr?
   #     render :json => []
   #     return
   #   else
-      
+
   #     flash[:notice] = "Something went wrong"
   #     redirect_to '/p2p'
   #     return
   #   end
-    
+
   end
 end
 
@@ -105,7 +90,7 @@ def get_search_suggestions(query)
   end
   return response
 
-end  
+end
 
 def search_list
 
@@ -126,7 +111,7 @@ def search_list
 
             items =  r.products[0].items.by_location_or_allover(p2p_get_user_location).select("id,title,price").limit(10)
 
-            next if items.size == 0  
+            next if items.size == 0
 
             temp_item =[]
 
@@ -136,15 +121,15 @@ def search_list
               itm[:image] = i
               temp_item.push(itm)
 
-              
+
             end
 
             temp_res.push(:cat => cat , :items => temp_item )
 
-        end 
+        end
 
-          res["data"] = temp_res   
-        
+          res["data"] = temp_res
+
 
         render :json => res
         return
@@ -167,7 +152,7 @@ def search_list
 
             cat = r.category.name
 
-            next  if cat_done.include?(r.category.id) 
+            next  if cat_done.include?(r.category.id)
 
             cat_done.push( r.category.id)
 
@@ -184,7 +169,7 @@ def search_list
 #            end
 
 
-            next if items.size == 0  
+            next if items.size == 0
 
             temp_item =[]
 
@@ -194,7 +179,7 @@ def search_list
               itm[:image] = i
               temp_item.push(itm)
 
-              
+
             end
 
 
@@ -203,21 +188,21 @@ def search_list
 
             temp_res.push(:cat => cat , :items => temp_item )
 
-        end 
+        end
 
-          res["data"] = temp_res   
-        
+          res["data"] = temp_res
+
 
         render :json => res
         return
     end
 
-    
+
     #search for items
     result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.select("title").search(params[:id] ,:star => true ,:match_mode => :any)
 
     unless result.empty?
-        
+
       #   res["type"] ="redirect"
       #   res["data"] = "/p2p/view/" + result[0].id.to_s
 
@@ -236,8 +221,8 @@ def search_list
         render :json => res
         return
     end
-    
-    
+
+
     render :json => []
 
 
@@ -256,13 +241,13 @@ def search_list
          @products = @cat.products
         end
   end
-  
-  def suggest(query_word) 
+
+  def suggest(query_word)
     speller = Aspell.new("en_US")
     speller.suggestion_mode = Aspell::ULTRA
 
-    query_word.split(" ").each do |word| 
-      if !speller.check(word) 
+    query_word.split(" ").each do |word|
+      if !speller.check(word)
         query_word.gsub! word , speller.suggest(word).first
         end
     end
@@ -282,14 +267,14 @@ def search_list
     end
 
 
-    if params.has_key?("prod") 
+    if params.has_key?("prod")
       @products=@cat.products.order("priority").find_all_by_name(params[:prod])
 
       if @products.nil?
         @cat = P2p::Category.find_by_name(params[:prod])
         @products= @cat.products.all.order("priority")
         params.delete("prod")
-    
+
       end
 
     else
@@ -302,7 +287,7 @@ def search_list
       end
     end
 
-    
+
     @products
 
   end
@@ -332,10 +317,10 @@ def search_list
 
     # check if we have filters already
     if params.has_key?(:applied_filters)
-      
+
         spec= params[:applied_filters].split('&')
         (0..(spec.size() - 1 ) ).each do |i|
-      
+
           begin
               spec[i] = spec[i].split('=')
           rescue
@@ -380,7 +365,7 @@ def search_list
           end
 
 
-          
+
 
         end
 
@@ -418,7 +403,7 @@ def search_list
 
     item_where_condition = item_condition_filter
 
-    if params.has_key?(:prod) 
+    if params.has_key?(:prod)
       @products=@cat.products.find_by_name(params[:prod])
 
 
@@ -450,7 +435,7 @@ def search_list
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
         temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
-        
+
         prod_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}")
         prod = itm.product.name
 
@@ -460,7 +445,7 @@ def search_list
         itm = to_hash(itm)
         itm[:url] = temp_url
         itm[:img] = url
-        
+
         itm[:prod_url] = prod_url
         itm[:prod] = prod
 
@@ -502,7 +487,7 @@ def search_list
       else
 
       filter_size = filter.size
-      
+
       filter =  (filter.size > 1) ? filter.join(" or ") : filter[0]
 
       if order_result !=""
@@ -519,7 +504,7 @@ def search_list
       items.each do |itm|
         url = itm.get_image(1,:search)[0][:url]
         temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
-        
+
         prod_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}")
         prod = itm.product.name
 
@@ -529,7 +514,7 @@ def search_list
         itm = to_hash(itm)
         itm[:url] = temp_url
         itm[:img] = url
-        
+
         itm[:prod_url] = prod_url
         itm[:prod] = prod
 
@@ -538,14 +523,14 @@ def search_list
 
         res.push(itm)
       end
-      
+
       if request.xhr?
         temp_result = res.paginate(:page => params[:page], :per_page => 20 )
         render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
         return
       else
 
-        if res.nil? 
+        if res.nil?
           #redirect if items is empty meaning noting found for filters
           redirect_to '/p2p'
           flash[:notice] = 'Nothing can be found for your request'

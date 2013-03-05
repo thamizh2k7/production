@@ -281,7 +281,6 @@ def search_list
 
 
   def browse
-
     @cat = P2p::Category.find_by_name(params[:cat])
 
     if @cat.nil? or @cat.products.count == 0
@@ -289,8 +288,6 @@ def search_list
       redirect_to "/p2p"
       return
     end
-
-
     if params.has_key?("prod")
       @products=@cat.products.order("priority").find_all_by_name(params[:prod])
 
@@ -300,20 +297,15 @@ def search_list
         params.delete("prod")
 
       end
-
     else
       @products=@cat.products.all
-
       if !@cat.subcategories.nil?
           @cat.subcategories.each do |cat|
-            @products +=cat.products.order("priority")
+            @products += cat.products.order("priority")
           end
       end
     end
-
-
     @products
-
   end
 
 

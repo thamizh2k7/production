@@ -812,7 +812,7 @@ end
 
           @item.paytype = params[:p2p_item][:paytype]
           @item.payinfo =  params[:dispatch_day] + "," + ( (params[:alloverindia].nil?) ? "" : params[:alloverindia] )
-          @item.commision = 4
+
 
 
         elsif params[:p2p_item][:paytype] == "2" #direct
@@ -820,14 +820,13 @@ end
 
           @item.paytype = params[:p2p_item][:paytype]
           @item.payinfo = params[:meet_at]
-          @item.commision = 0
+
 
 
         elsif params[:p2p_item][:paytype] == "3" #via sociorent
 
           @item.paytype = params[:p2p_item][:paytype]
           @item.payinfo = params[:p2p_item][:payinfo]
-          @item.commision = 4
 
         end
 

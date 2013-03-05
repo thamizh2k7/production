@@ -9,14 +9,13 @@
 
 
 <div id="Itemlist" class="row">
-    <div id="filters" class="span2 ">
+	<div class="span3">
 
-        <%#= render "scat_menu" , :active_page => @cat.name  ,:dropdown => true %>
+		<%= render '/p2p/menu_partial/browse_menu' , :category => @cat %>
 
-        <%= render "p2p/index/filter" , :category => @cat %>
-
-    </div>
-
+	<div id="filter" class="">
+	    <%= render "p2p/index/filter" , :category => @cat %>
+	</div>
 
 <div class="span10">
 

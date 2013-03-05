@@ -32,11 +32,17 @@ f#Itemlist {
 }
 
 #overlay{
-	background-color: #666;
+	background-color: #ddd;
 	position: fixed;
 	opacity:0.3;
 	display: none;
+	font-size: 3em;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align: center;
+	padding-top: 20px;
 }
+
 
 #items{
 	min-height:800px;

@@ -1,11 +1,30 @@
 $(document).ready(function(){
 
 	// TO Apply filter on all attributes has spec filter class
-	$(".spec-filter").click(function(){
-		var spec = $(this).attr('spec-name');
-		var val = $(this).attr('spec-value');
-		filter(spec,val,this);
-		return false;
+	// $(".spec-filter").click(function(){
+	// 	var spec = $(this).attr('spec-name');
+	// 	var val = $(this).attr('spec-value');
+	// 	filter(spec,val,this);
+	// 	return false;
+	// });
+
+	$(".spec_filter_check").on('change',function(){
+			var spec = $(this).attr('spec-name');
+			var val = $(this).attr('spec-value');
+			filter(spec,val,this);
+			return false;
+	});
+
+	$('.spec-filter').on('click',function(){
+			
+		if ($(this).children('.spec_filter_check').attr('checked') != undefined ){
+			$(this).children('.spec_filter_check').removeAttr('checked');
+		}else{
+			$(this).children('.spec_filter_check').attr('checked','checked');
+		}
+
+		$(this).children('.spec_filter_check').trigger('change');
+		
 	});
 
 	// For storing the applied filter

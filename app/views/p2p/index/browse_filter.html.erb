@@ -4,7 +4,7 @@
 
 		<%= @cat.name %>
 
-    
+
 <%end %>
 
 
@@ -16,8 +16,9 @@
 	<div id="filter" class="">
 	    <%= render "p2p/index/filter" , :category => @cat %>
 	</div>
+</div>
 
-<div class="span10">
+<div class="span9">
 
 <div class="navbar">
   <div class="navbar-inner">
@@ -33,25 +34,22 @@
 
 <div id="items">
 
-				
+
 
 		      <div class="itemsRow">
 
 			        <ul class="thumbnails">
-			        
+
 			        <% @items.each do |itm| %>
 
-			          <li class="span2 aitem_holder">
-                      
+			          <li class="span3 aitem_holder">
+
                         <div class="thumbnail">
-                                <a href="<%= itm[:url] %>">
+                              	<a href="<%= itm[:url] %>">
                                   <div class="aitem_left">
-                                      <div class="image_holder">
                                         <img src="<%=itm[:img]%>" >
-                                      </div>
                                   </div>
                                 </a>
-
                               <div class="aitem_right">
                                  <a href="<%= itm[:url] %>">
                                   <div  title="<%= itm[:title] %>">
@@ -60,8 +58,8 @@
                                 </a>
 
                                 <div class="item_category">
-                                  
-                                  in 
+
+                                  in
                                   <a href="<%= itm[:prod_url] %>">
                                     <%= itm[:prod] %>
                                   </a>
@@ -75,10 +73,10 @@
                                         <div class="item_condition"><%=itm[:condition] %></div>
                                       <div class="item_price">Price:<del>&#2352;</del> <%=itm[:price] %>
                                 </div>
-
+                                <div class="buy_now"><a href="<%= itm[:url] %>">Buy Now</a></div>
                               <div class="clearfix"></div>
                       </div>
-                      
+
                       <div class="clearfix"></div>
 
 			          </li>
@@ -95,7 +93,7 @@
 	</div>
 
  </div>
- 
+
 </div>
 
 <div class="remove_onload">
@@ -131,13 +129,13 @@
 
 			});
 
-	
+
 
 			$(".remove_onload").remove();
 		});
-		
-		
-		
+
+
+
 	</script>
 
 </div>

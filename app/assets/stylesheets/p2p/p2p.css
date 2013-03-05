@@ -456,9 +456,10 @@ padding-left: 10px;
 }
 
 #dummy_filter_holder .spec-filter input[type="checkbox"]{
-	margin-top: -1px;
+	margin-top: 2px;
 	float:left;
 	display: block;
+	margin-left:4px;
 }
 
 #filter_holder_title{
@@ -475,4 +476,5 @@ padding-left: 10px;
 .spec_filter_check_label{
 	float:left;
 	width:85%;
+	padding-left:10px;
 }

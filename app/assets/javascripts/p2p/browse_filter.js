@@ -16,7 +16,7 @@ $(document).ready(function(){
 	});
 
 	$('.spec-filter').on('click',function(){
-			
+
 		if ($(this).children('.spec_filter_check').attr('checked') != undefined ){
 			$(this).children('.spec_filter_check').removeAttr('checked');
 		}else{
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		}
 
 		$(this).children('.spec_filter_check').trigger('change');
-		
+
 	});
 
 	// For storing the applied filter
@@ -166,7 +166,7 @@ $(document).ready(function(){
 
 
 
-				$(window).scroll(function(){
+				//$(window).scroll(function(){
 
 
 

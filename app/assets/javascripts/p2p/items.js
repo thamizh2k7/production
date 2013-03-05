@@ -441,7 +441,13 @@ $(document).ready(function(){
 	//remove image funciton
 	$(".remove_image").click(function(){
 
+		if (window.image_count == 1 ){
+			showNotifications('Add more images to delete this.');
+			return false;
+		}
+		
 		var that = $(this);
+
 
 		$.ajax({
 

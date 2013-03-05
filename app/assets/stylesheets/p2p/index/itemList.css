@@ -348,3 +348,16 @@ f#Itemlist {
 #item_top_details_buttons{
 	text-align: center;
 }
+
+.remove_image,.thumbs{
+	cursor: pointer;
+}
+
+.icon-trash{
+	color:red;
+}
+
+.btn-group-vertical .btn{
+
+	text-align: left;
+}

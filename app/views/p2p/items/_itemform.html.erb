@@ -318,7 +318,7 @@
 				    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 
 				    		<div id="form_temp"></div>
-				          <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  %>
+				          <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  ,:accept => "image/*"  %>
 
 				  	<% end %>
 
@@ -407,8 +407,7 @@
 			<tr>
 				<td>Model </td>
 				<td>
-					<span id="model" class="action_icon"  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-
-					type="select" ><%=brand%></span> 
+					<span id="model" class="action_icon"  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=brand%></span> 
 
 					<%if itemid.empty? %>
 						<input type="text" id="add_new_model" placeholder="Other Model" size=10>

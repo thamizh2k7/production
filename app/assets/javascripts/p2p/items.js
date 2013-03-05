@@ -1,7 +1,11 @@
 $(document).ready(function(){
 
+	$(document).on('click',function(e){
+		if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
+	});
 
 
+	$('.action_icon').tooltip({delay:{show:0,hide:100}});
 
 	$('#upload_image').click(function(){
        $('#image_upload').trigger('click');
@@ -343,7 +347,7 @@ $(document).ready(function(){
 			      reader.onload = (function(theFile) {
 			        return function(e) {
 
-						$(".thumb_holder .thumbnails ").append('<li class="thumbs"><i class="icon-remove pull-right hide remove_image "></i>\
+						$(".thumb_holder .thumbnails ").append('<li class="thumbs"><!--<i class="icon-remove pull-right hide remove_image "></i> -->\
 	              			<img src="' + e.target.result + '"  imgid="-1" class="thumb_img pull-left" viewimage="' + e.target.result + '">\
 	              		</li>');
 

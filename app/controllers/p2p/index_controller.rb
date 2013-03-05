@@ -105,7 +105,7 @@ def get_search_suggestions(query)
   result = P2p::Product.search(query ,:match_mode => :any ,:star => true)
 
   result.each do |res|
-    response.push({:label=> "#{query} in #{res.category.name} (#{res.items.count})" ,:value => URI.encode("/p2p/#{res.category.name}/#{res.name}")} ) if res.items.count >0
+    response.push({:label=> "#{query} in #{res.category.name}",:value => "#{res.name}"}) if res.items.count >0
   end
 
   result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(query ,:match_mode => :any ,:star => true)
@@ -114,7 +114,6 @@ def get_search_suggestions(query)
       response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name}/#{res.product.name}/#{res.title}") }) unless res.nil?
   end
   return response
-
 end
 
 def search_list

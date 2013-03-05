@@ -75,6 +75,10 @@
         });
       },
       select:function(event,elem){
+        var category_val = elem.item.label.split(" in ");
+        console.log(category_val);
+        if(category_val[1] != undefined)
+          $("#category option:contains(Mobile)").attr("selected","selected")
         //after selecting the item from autocomplete submit the form
         $("#item_search_form").submit();
       },

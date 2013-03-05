@@ -77,10 +77,10 @@
 												<div class="item_title"><%= p.title.titleize  %></div>
 											</div>
 										</a>
-										<div class="item_category">	in
+										<div class="item_category">
 											<a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}") %>">
 												<%= p.product.name  %>
-											</a>,
+											</a>
 											<a href="<%= URI.encode("/p2p/#{p.product.category.name}")%>">
 											<%= p.category.name  %>
 											</a>

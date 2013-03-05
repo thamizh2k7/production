@@ -11,7 +11,7 @@
 
 			<%= render '/p2p/menu_partial/search_menu'  %>
 	</div>
-		
+
 	<div id="items" class="span9">
 
 	<div class="itemsRow">
@@ -26,7 +26,6 @@
 	                <ul class="thumbnails">
 
 	                <% @result.each do |p| %>
-	                <% 5.times do %>
 	                  <li class="span3 aitem_holder">
                         <div class="thumbnail">
                                 <a href="<%= URI.encode("/p2p/#{p.category.name}/#{p.product.name}/#{p.title}")%>">
@@ -43,17 +42,12 @@
                                 </a>
 
                                 <div class="item_category">
-
-                                  in
                                   <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}") %>">
                                     <%= p.product.name  %>
                                   </a>
-                                  ,
                                   <a href="<%= URI.encode("/p2p/#{p.product.category.name}")%>">
                                     <%= p.category.name  %>
                                   </a>
-
-
                                 </div>
                                         <div class="item_condition"><%=p.condition%></div>
                                       <div class="item_price">Price:<del>&#2352;</del> <%=p.price %>
@@ -63,10 +57,7 @@
                       </div>
                       <div class="clearfix"></div>
                     </li>
-                    <% end %>
 	              <% end %>
-
-
 	              </ul>
 
 			    <% unless @result.count <= 0 || @result.next_page.nil? %>

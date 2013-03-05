@@ -400,8 +400,20 @@ body {
 }
 #index_menu_holder ul li{
 	display: inline-block;
+	padding: 5px 20px;
+	background-color: whiteSmoke;
+background-image: -moz-linear-gradient(top, white, #DED);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#DED));
+background-image: -webkit-linear-gradient(top, white, #DED);
+background-image: -o-linear-gradient(top, white, #DED);
+background-image: linear-gradient(to bottom, white, #DED);
 }
-
+#index_menu_holder ul li:hover{
+	background-position: 0 30px;
+	}
+#index_menu_holder ul li a{
+	text-decoration: none;
+}
 
 
 .hidden{
@@ -481,4 +493,8 @@ padding-left: 10px;
 .icon-credit-card{
 text-shadow: 0px 0px 4px yellow;
 color: white;
+}
+.browse_by_cate{
+display: table;
+vertical-align: middle;
 }

@@ -78,8 +78,8 @@ class P2p::IndexController < ApplicationController
       puts "Falled in cate"
       @result = item.paginate(:page => params[:page] ,:per_page => 20)
     else
-      puts "NO rec"
-      @result = []
+      flash[:notice]="No query has been entered"
+      redirect_to "/p2p"
     end
   end
 

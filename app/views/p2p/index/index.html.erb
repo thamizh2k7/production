@@ -5,15 +5,16 @@
   <!-- listing the Categories Browse By category -->
   <div class="clearfix"></div>
   <div  class="row" id="index_menu_holder">
-    <ul class="span11">
-      <li> Browse by Category</li>
+    <div class="span11">
+    <ul class="btn-group">
       <%used_cat = [] %>
         <%used_cat.push(0)%>
         <% @main_categories.each do |cat|%>
           <% used_cat.push(cat.id) %>
-          <li>
-            <a  href="/p2p/<%= cat.name %>" class="btn" ><%= cat.name %></a></li>
+          <li class="btn">
+            <a href="/p2p/<%= cat.name %>" ><%= cat.name %></a></li>
         <% end %>
+      </ul>
       </div>
     </div>
 
@@ -51,17 +52,12 @@
                                 </a>
 
                                 <div class="item_category">
-
-                                  in
                                   <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}") %>">
                                     <%= p.product.name  %>
                                   </a>
-                                  ,
                                   <a href="<%= URI.encode("/p2p/#{p.product.category.name}")%>">
                                     <%= p.category.name  %>
                                   </a>
-
-
                                 </div>
                                         <div class="item_condition"><%=p.condition%></div>
                                       <div class="item_price">Price:<del>&#2352;</del> <%=p.price %>

@@ -4,11 +4,11 @@
 
     var cache = {};
 
-        $("#top_search_input").keyup(function(e){
-            if (e.which == 13 && $.trim($(this).val()) !=""){
-                window.location.href = '/p2p/search/q/' + $.trim($(this).val());
-            }
-        });
+        // $("#top_search_input").keyup(function(e){
+        //     if (e.which == 13 && $.trim($(this).val()) !=""){
+        //         window.location.href = '/p2p/search/q/' + $.trim($(this).val());
+        //     }
+        // });
 
         show_all_session_button = function(){
           $("#signup_button").show();
@@ -76,7 +76,9 @@
       },
       select:function(event,elem){
         //after selecting the item from autocomplete submit the form
+        $("#top_search_input").val('');
         $("#item_search_form").submit();
+        return false;
       },
       focus:function(){
         return false;

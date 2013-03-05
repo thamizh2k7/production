@@ -55,7 +55,7 @@
 
     $(".search_btn").click(function(){
 
-      $("#item_search_form").submit();
+      $("#top_search_form").submit();
     });
 
     //auto complete for the search
@@ -81,7 +81,7 @@
           $("#category option:contains(Mobile)").attr("selected","selected")
         //after selecting the item from autocomplete submit the form
         $("#top_search_input").val('');
-        $("#item_search_form").submit();
+        $("#top_search_form").submit();
         return false;
       },
       focus:function(){

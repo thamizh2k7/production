@@ -1,0 +1,16 @@
+
+
+
+<div id="browse_sub_cat_menu">
+
+	<div id="filter_holder_title">cat.name</div>
+<!-- overlay to be displayed during filter request -->
+	
+					<% cat.subcategories.each do |scat| %>
+						<div class="sub_category">
+							<%= link_to "#{scat.name}" , "/p2p/#{scat.name}" %>
+						</div>
+					<% end %>
+
+			</div>
+</div>

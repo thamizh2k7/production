@@ -17,7 +17,7 @@
 
 					<% item_condition_res.each do |itm| %>
 						<div class="spec-filter">
-							<input  class="spec_filter_check" type="checkbox"  spec-name="condition" spec-value="<%=itm.condition%>">	<span class="spec_filter_check_label"><%#= itm.condition %> 123456789012333333</span>
+							<input  class="spec_filter_check" type="checkbox"  spec-name="condition" spec-value="<%=itm.condition%>">	<span class="spec_filter_check_label"><%= itm.condition %> </span>
 
 						</div>
 					<% end %>

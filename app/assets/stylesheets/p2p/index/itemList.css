@@ -178,7 +178,6 @@ f#Itemlist {
 }
 
 #item_top_buy_button{
-	margin-left: 40px;
 	display: table-cell;
 	vertical-align: middle;
 }
@@ -342,6 +341,11 @@ f#Itemlist {
 }
 
 #item_top_buy_button .btn{
-	padding:15px 25px 15px 25px;
+	padding: 10px 13px;
 	font-weight: bold;
+	font-size: 21px;
+}
+
+.table-striped th{
+	background: #F9F9F9;
 }

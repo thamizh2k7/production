@@ -95,7 +95,7 @@
       <% end %>
   </div>
 
-    <div class="span2 pull-right" id="item_top_buy_button">
+    <div class="span3 pull-right" id="item_top_buy_button">
 
 
       <% if p2p_current_user.nil? %>
@@ -108,16 +108,16 @@
 
             <% if defined?(paytype) and paytype == "2" %>
 
-                <a href="#head_login_modal" role="button" class="btn btn-primary " data-toggle="modal">Contact Seller</a>
+                <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal">Contact Seller</a>
 
 
             <% elsif paytype == "1" %>
 
-                <a class="btn btn-primary action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i> Buy this now </a>
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
 
             <% elsif paytype == "3" %>
 
-                <a class="btn btn-primary action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i> Buy this now  via Sociorent </a>
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
 
             <% end %>
 
@@ -128,11 +128,11 @@
           <% if defined?(paytype) and paytype == "2" %>
 
               <% if p2p_current_user.mobileverified == true %>
-                  <a href="#contact_seller_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
               <% else %>
-                  <a href="#contact_seller_modal" role="button" class="btn btn-primary hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
 
-                  <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+                  <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
 
                   <!-- Modal -->
                   <div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
@@ -148,7 +148,7 @@
                       <div class="control-group">
                         <label class="control-label"> Verification Code:</label>
                         <div class="controls">
-                          <button class="btn btn-primary" id="send_verify_code">
+                          <button class="btn  btn-primary" id="send_verify_code">
                             Send
                           </button>
                         </div>
@@ -204,11 +204,11 @@
                 <input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
               </form>
 
-              <button class="btn btn-primary action_popover" id= "pay_now_citrus_pay">Buy this now </button>
+              <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
 
           <% elsif paytype == "3" %>
 
-              <a href="#check_availability_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy this now</a>
+              <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
               <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
                 <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
                 <input type="hidden" name="secSignature" id="citruspay_signature">
@@ -422,9 +422,9 @@
         });
 
 
-        $("#item_top_buy_button").animate({
-            'padding-top': (($("#item_top_details_details").height()/2) -  ($("#item_top_buy_button").height()/2))
-        });
+        // $("#item_top_buy_button").animate({
+        //     'padding-top': (($("#item_top_details_details").height()/2) -  ($("#item_top_buy_button").height()/2))
+        // });
 
 
         $("#itemfavourite").click(function(){

@@ -13,11 +13,16 @@
 
 
 <div id="Itemlist" class="row">
-	<div id="filter" class="span2 ">
-	    <%= render "p2p/index/filter" , :category => @cat %>
+	<div class="span3">
+
+		<%= render '/p2p/menu_partial/browse_menu' , :category => @cat %>
+
+		<div id="filter" class="">
+		    <%= render "p2p/index/filter" , :category => @cat %>
+		</div>
 	</div>
 
-<div class="span10">
+<div class="span9">
 
 <div class="navbar">
   <div class="navbar-inner">

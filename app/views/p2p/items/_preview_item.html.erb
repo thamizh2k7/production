@@ -75,6 +75,9 @@
     <div class="span4" id="item_top_details_details">
       <div class="big"> Condition: <span class="highlight"> <%= condition %> </span></div>
       <div class="big"> Price: <span class="highlight"> <%= price %> </span></div>
+    </div>
+
+
       <!-- <div class="item_top_details_detail"> Available in:  <%= @item.city.name %> </div> -->
 
     <!--
@@ -87,46 +90,6 @@
       <%#end%>
      -->
 
-      <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != ownerid %>
-
-          <span class="item_top_details_detail" id="itemsharefb">
-
-              <div id='fb-root'></div>
-              <script src='http://connect.facebook.net/en_US/all.js'></script>
-              <p><a onclick='postToFeed(); return false;'>Post to Feed</a></p>
-              <p id='msg'></p>
-            <script> 
-              FB.init({appId: "424914297573197", status: true, cookie: true});
-
-              function postToFeed() {
-
-
-                // calling the API ...
-                var obj = {
-                  method: 'feed',
-                  redirect_uri: "http://localhost:3000/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>",
-                  link: 'https://developers.facebook.com/docs/reference/dialogs/',
-                  picture: "http://localhost:3000<%=thumbimage[0][:url]%>",
-                  name: "<%=@item.title%> ",
-                  caption: "P2P - Sociorent",
-                  description: "<%=description.truncate(100).gsub!(/(<[^>]*>)|\n|\t/s) {" "}%>"
-                };
-
-                function callback(response) {
-                  document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-                }
-
-                FB.ui(obj, callback);
-              }
-            
-            </script>
-
-
-          </span>
-
-          <span class="item_top_details_detail btn" id="itemfavourite"><%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></span>
-      <% end %>
-  </div>
 
     <div class="span3 pull-right" id="item_top_buy_button">
 
@@ -277,6 +240,47 @@
       <% end %>
       </div>
 
+    <div class="span7" id="item_top_details_buttons">
+      <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != ownerid %>
+
+          <span class="item_top_details_detail" id="itemsharefb">
+
+              <span id='fb-root'></span>
+              <script src='http://connect.facebook.net/en_US/all.js'></script>
+              <a class="btn" onclick='postToFeed(); return false;'><i class="icon-facebook-sign"></i> Share</a>
+            <script> 
+              FB.init({appId: "424914297573197", status: true, cookie: true});
+
+              function postToFeed() {
+
+
+                // calling the API ...
+                var obj = {
+                  method: 'feed',
+                  redirect_uri: "http://localhost:3000/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>",
+                  link: 'https://developers.facebook.com/docs/reference/dialogs/',
+                  picture: "http://localhost:3000<%=thumbimage[0][:url]%>",
+                  name: "<%=@item.title%> ",
+                  caption: "P2P - Sociorent",
+                  description: "<%=description.truncate(100).gsub!(/(<[^>]*>)|\n|\t/s) {" "}%>"
+                };
+
+                function callback(response) {
+                  document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+                }
+
+                FB.ui(obj, callback);
+              }
+            
+            </script>
+
+
+          </span>
+
+          <span class="item_top_details_detail btn" id="itemfavourite"><%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></span>
+      <% end %>
+  </div>
+
   </div>
 
     <hr/>
@@ -293,7 +297,311 @@
 
           <tr class="edit_visible">
             <td>Title </td>
-            <td> <span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=title.titleize  %></span></td>
+            <td> <span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="     -->
+
+
+    <div class="span3 pull-right" id="item_top_buy_button">
+
+
+      <% if p2p_current_user.nil? %>
+
+          <!-- Buyer View -->
+          <div class="btn-group" id="listing_action">
+
+            <!-- contact seller modal  -->
+            <!-- Button to trigger modal -->
+
+            <% if defined?(paytype) and paytype == "2" %>
+
+                <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal">Contact Seller</a>
+
+
+            <% elsif paytype == "1" %>
+
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
+
+            <% elsif paytype == "3" %>
+
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
+
+            <% end %>
+
+          </div>
+      <% elsif p2p_current_user.id.to_s != ownerid %>
+
+
+          <% if defined?(paytype) and paytype == "2" %>
+
+              <% if p2p_current_user.mobileverified == true %>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+              <% else %>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
+
+                  <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+
+                  <!-- Modal -->
+                  <div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
+
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="mobile_verify_modalLabel">Verify your mobile</h3>
+                    </div>
+
+                    <div class="modal-body form-horizontal">
+                      Before you send a message to seller, verify your mobile.
+
+                      <div class="control-group">
+                        <label class="control-label"> Verification Code:</label>
+                        <div class="controls">
+                          <button class="btn  btn-primary" id="send_verify_code">
+                            Send
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label"> Enter Code:</label>
+
+                        <div class="controls">
+                          <input type="text" id="verify_mobile" class="input text" >
+                        </div>
+
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label"> </label>
+
+                        <div class="controls">
+                          <button class="btn " id="verify_code_submit">Verify Code</button>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+              <% end %>
+              <!-- Modal -->
+              <div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
+                </div>
+
+                <div class="modal-body">
+                  Seller aggres to <%=payinfo if defined?(payinfo)%>
+                  <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
+                </div>
+
+              </div>
+
+
+          <% elsif paytype == "1" %>
+
+              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                <input type="hidden" name="secSignature" id="citruspay_signature">
+                <input type="hidden" name="merchantTxnId">
+                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                <input type="hidden" name="currency" value="INR">
+                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+                <input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+              </form>
+
+              <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
+
+          <% elsif paytype == "3" %>
+
+              <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
+              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                <input type="hidden" name="secSignature" id="citruspay_signature">
+                <input type="hidden" name="merchantTxnId">
+                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                <input type="hidden" name="currency" value="INR">
+                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+                <input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+              </form>
+              <!-- Modal -->
+              <div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="check_availability_modalLabel">Check availability in your area</h3>
+                </div>
+
+                <div class="modal-body">
+                  <p>
+                    Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=itemid%>' id='check_availability'> <span id='availability_check_msg'>
+                  </p>
+                </div>
+
+              </div>
+
+          <% end %>
+      <% else %>
+          <!-- Buyer View -->
+          <div class="btn-group" id="listing_action">
+
+            <div class="badge badge-success ">Preview</div>
+          </div>
+      <% end %>
+      </div>
+
+     -->
+
+
+    <div class="span3 pull-right" id="item_top_buy_button">
+
+
+      <% if p2p_current_user.nil? %>
+
+          <!-- Buyer View -->
+          <div class="btn-group" id="listing_action">
+
+            <!-- contact seller modal  -->
+            <!-- Button to trigger modal -->
+
+            <% if defined?(paytype) and paytype == "2" %>
+
+                <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal">Contact Seller</a>
+
+
+            <% elsif paytype == "1" %>
+
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
+
+            <% elsif paytype == "3" %>
+
+                <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
+
+            <% end %>
+
+          </div>
+      <% elsif p2p_current_user.id.to_s != ownerid %>
+
+
+          <% if defined?(paytype) and paytype == "2" %>
+
+              <% if p2p_current_user.mobileverified == true %>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+              <% else %>
+                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
+
+                  <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
+
+                  <!-- Modal -->
+                  <div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
+
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h3 id="mobile_verify_modalLabel">Verify your mobile</h3>
+                    </div>
+
+                    <div class="modal-body form-horizontal">
+                      Before you send a message to seller, verify your mobile.
+
+                      <div class="control-group">
+                        <label class="control-label"> Verification Code:</label>
+                        <div class="controls">
+                          <button class="btn  btn-primary" id="send_verify_code">
+                            Send
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label"> Enter Code:</label>
+
+                        <div class="controls">
+                          <input type="text" id="verify_mobile" class="input text" >
+                        </div>
+
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label"> </label>
+
+                        <div class="controls">
+                          <button class="btn " id="verify_code_submit">Verify Code</button>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+              <% end %>
+              <!-- Modal -->
+              <div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
+                </div>
+
+                <div class="modal-body">
+                  Seller aggres to <%=payinfo if defined?(payinfo)%>
+                  <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
+                </div>
+
+              </div>
+
+
+          <% elsif paytype == "1" %>
+
+              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                <input type="hidden" name="secSignature" id="citruspay_signature">
+                <input type="hidden" name="merchantTxnId">
+                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                <input type="hidden" name="currency" value="INR">
+                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+                <input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+              </form>
+
+              <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
+
+          <% elsif paytype == "3" %>
+
+              <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
+              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                <input type="hidden" name="secSignature" id="citruspay_signature">
+                <input type="hidden" name="merchantTxnId">
+                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                <input type="hidden" name="currency" value="INR">
+                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+                <input type="hidden" name="returnUrl" value="<%= root_url%>p2p/update_citrus">
+              </form>
+              <!-- Modal -->
+              <div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="check_availability_modalLabel">Check availability in your area</h3>
+                </div>
+
+                <div class="modal-body">
+                  <p>
+                    Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=itemid%>' id='check_availability'> <span id='availability_check_msg'>
+                  </p>
+                </div>
+
+              </div>
+
+          <% end %>
+      <% else %>
+          <!-- Buyer View -->
+          <div class="btn-group" id="listing_action">
+
+            <div class="badge badge-success ">Preview</div>
+          </div>
+      <% end %>
+      </div>
+
+right" data-placeholder="Enter a title" ><%=title.titleize  %></span></td>
           </tr>
 
 
@@ -385,11 +693,11 @@
       <!-- Price -->
       <tr>
         <td>
-          <span class="highlight">Price</span>
+          <span >Price</span>
         </td>
         <td>
-                <span class="highlight <%= (itemid.empty? ? '' : 'highlight_force_color')%>"> Rs.
-                   <span class="canEdit highlight action_icon  <%= (itemid.empty? ? '' : 'highlight_force_color')%>" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
+                <span > Rs.
+                   <span data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> <%= price  unless price.nil? %> </span>
               </span>
 
         </td>
@@ -398,20 +706,20 @@
       <!-- Location -->
       <tr>
         <td>
-          <span class="highlight"> Condition</span>
+          <span > Condition</span>
         </td>
         <td>
-          <span class="canEdit highlight action_icon  <%= (itemid.empty? ? '' : 'highlight_force_color')%>" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= condition.titleize %> </span>
+          <span  data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= condition.titleize %> </span>
         </td>
       </tr>
 
       <!-- Location -->
       <tr>
         <td>
-          <span class="highlight">Location</span>
+          <span >Location</span>
         </td>
         <td>
-          <span class="highlight canEdit action_icon  <%= (itemid.empty? ? '' : 'highlight_force_color')%>" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" > <%= location.titleize %> </span>
+          <span  data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" > <%= location.titleize %> </span>
         </td>
       </tr>
 

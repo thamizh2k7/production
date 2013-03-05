@@ -57,10 +57,17 @@ $(document).ready(function(){
 			data:{location:$("#user_location :selected").val()},
 			dataType:'json',
 			success:function(data){
-
+				if (data.status == 1){
+					window.location.reload();
+					$("#user_location").val(data.location);
+					$("#head_user_location i").attr('title',$("#user_location :selected").text()).tooltip('destroy').tooltip();
+				}
+				else if(data.status == 2){
+					$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+				}
 			},
 			error:function(){
-
+				$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
 			}
 		});
 		return false;

@@ -118,7 +118,6 @@ f#Itemlist {
 .item_top_details_detail{
 	line-height: 1.3em;
 	font-size: 1.3em;
-	margin-top: 15px;
 }
 
 .big{
@@ -348,4 +347,8 @@ f#Itemlist {
 
 .table-striped th{
 	background: #F9F9F9;
+}
+
+#item_top_details_buttons{
+	text-align: center;
 }

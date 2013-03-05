@@ -196,11 +196,21 @@ class P2p::UsersController < ApplicationController
   def setfavourite
 
     begin
-      fav = p2p_current_user.favouriteusers.new
-      fav.fav_id = P2p::Item.find(params[:itemid].to_i).user.id
-      fav.save
+      fav_id = P2p::Item.find(params[:itemid].to_i).user.id
 
-      render :json => {:status => 1}
+      fav = p2p_current_user.favouriteusers.find_by_fav_id(fav_id)
+
+      if fav.nil?
+        flag = 1
+        fav = p2p_current_user.favouriteusers.new
+        fav.fav_id = fav_id
+        fav.save
+      else      
+        flag = 0   
+        fav.destroy
+      end
+
+      render :json => {:status => 1 ,:fav => flag }
 
     rescue Exception => ex
       render :json => {:status => 0}

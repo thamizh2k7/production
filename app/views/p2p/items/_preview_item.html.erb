@@ -6,17 +6,14 @@
 <div class="row">
 
 
-  <div class="span12">
-
-    <ul class="breadcrumb">
-      <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
-      <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
-      <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>
-      <li class="active "> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
-
-    </ul>
-
-  </div>
+<div class="span12">
+  <ul class="breadcrumb">
+    <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
+    <li><a href="/p2p/<%=category%>"><%=category.titleize %></a> <span class="divider">/</span></li>
+    <li><a  href="/p2p/<%=category%>/<%=brand%>"><%=brand.titleize %></a> <span class="divider">/</span></li>
+    <li class="active "> <%=link_to title.titleize ,{:cat => category ,:prod => brand ,:item => title } %> </li>
+  </ul>
+</div>
 
 
 <div class="row">
@@ -30,15 +27,14 @@
         <div id="view_image_holder">
 
           <% unless itemid.empty? %>
-
               <a href="<%=fullimage[r][:url]%>" id="view_image_fancy">
                 <img src="<%= viewimage[r][:url] %>" imgid="<%= viewimage[r][:id] %>" alt="Item pic" id="view_image">
               </a>
           <% else %>
               <div id="upload_image"></div>
           <% end %>
-
         </div>
+
         <div class="caption thumb_holder">
           <ul class="thumbnails">
 
@@ -89,11 +85,11 @@
 
 
   <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != ownerid %>
-      
+
       <div class="item_top_details_detail" id="itemsharefb">Share this</div>
-      
-      <div class="item_top_details_detail" id="<%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? 'itemfavourite': 'itemfavourited' %>"><%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? 'Favourite this!': 'Already Favourite' %></div>
-      
+
+      <div class="item_top_details_detail btn" id="itemfavourite"><%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></div>
+
 
   <% end %>
 
@@ -121,7 +117,7 @@
 
         <% elsif paytype == "3" %>
 
-          <a class="btn btn-primary action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i> Buy Now  via Sociorent </a>
+            <a class="btn btn-primary action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i> Buy Now  via Sociorent </a>
 
         <% end %>
 
@@ -214,7 +210,7 @@
           <button class="btn btn-primary action_popover" id= "pay_now_citrus_pay">Buy Now </button>
 
       <% elsif paytype == "3" %>
-          
+
           <a href="#check_availability_modal" role="button" class="btn btn-primary" data-toggle="modal"  ><i class="icon-white icon-star"></i>Buy Now</a>
           <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
             <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
@@ -243,16 +239,16 @@
 
       <% end %>
 
-      <% else %>
+  <% else %>
 
 
       <!-- Buyer View -->
       <div class="btn-group" id="listing_action">
 
-            <div class="badge badge-success ">Preview</div>
+        <div class="badge badge-success ">Preview</div>
       </div>
 
-<% end %>
+  <% end %>
 
 </div>
 
@@ -369,38 +365,43 @@
 
 <script>
 
-  window.item_id = '<%= @item.id %>';
+    window.item_id = '<%= @item.id %>';
 
-  $(document).ready(function(){
+    $(document).ready(function(){
 
 
-    $('#view_image_fancy').fancybox({
-      'speedIn'   : 500,
-      'speedOut'    : 200,
-      'centerOnScroll': true
+        $('#view_image_fancy').fancybox({
+            'speedIn'   : 500,
+            'speedOut'    : 200,
+            'centerOnScroll': true
+        });
+
+
+        $("#item_top_buy_button").animate({
+            'padding-top': (($("#item_top_details").height()/2) -  ($("#item_top_buy_button").height()/2))
+        });
+
+
+        $("#itemfavourite").click(function(){
+            $.ajax({
+                url:'/p2p/favourites',
+                data:{itemid:window.item_id},
+                type:"post",
+                dataType:"json",
+                success:function(data){
+                    if (data.status == 1){
+                        if (data.fav ==1 ){
+                          $("#itemfavourite i ").addClass('already_fav');
+                        }
+                        else{
+                          $("#itemfavourite i ").removeClass('already_fav');
+                        }
+                        
+                    }
+                }
+            });
+        });
+
     });
 
-
-      $("#item_top_buy_button").animate({
-        'padding-top': (($("#item_top_details").height()/2) -  ($("#item_top_buy_button").height()/2))
-      });
-
-
-      $("#itemfavourite").click(function(){
-        $.ajax({
-          url:'/p2p/favourites',
-          data:{itemid:window.item_id},
-          type:"post",
-          dataType:"json",
-          success:function(data){
-              if (data.status == 1){
-                $("#itemfavourite").unbind('click').html('Favourited');
-              }
-          }
-        });
-      });
-
-
-  });
-  
 </script>

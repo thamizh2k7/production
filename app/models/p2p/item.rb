@@ -194,7 +194,7 @@ class P2p::Item < ActiveRecord::Base
 
     #send message to all fav users
 
-    fav_users = P2p::Favourite.find_by_fav_id(self.user.id) || []
+    fav_users = P2p::Favourite.find_all_by_fav_id(self.user.id) || []
 
     fav_users.each do |fav|
 

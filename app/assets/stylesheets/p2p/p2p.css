@@ -498,3 +498,8 @@ color: white;
 display: table;
 vertical-align: middle;
 }
+
+.message_message a,.message_message a:visited,.message_message a:hover{
+		font-weight: bold;
+		text-decoration: underline;
+}

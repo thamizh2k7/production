@@ -81,11 +81,11 @@ $(document).ready(function(){
 				}else{
 					$("#load_more div").hide();
 				}
-				$("#overlay").hide(100);
+				$("#filter_loading_image").addClass('hide');
 			},
 			error:function(){
 				showNotifications("Something went wrong. Try again");
-				$("#overlay").hide(100);
+				$("#filter_loading_image").addClass('hide');
 				$("#load_more div").html("Load more...");
 			}
 		});
@@ -97,7 +97,8 @@ $(document).ready(function(){
 
 		showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
 
-		showOverlay();
+		$("#filter_loading_image").removeClass('hide');
+
 		$.ajax({
 			url:window.filterurl ,
 			data:{"filter": filters ,page : 1 },
@@ -125,11 +126,11 @@ $(document).ready(function(){
 
 				var templ=_.template($("#item_template").html(),{data:data});
 				$("#items").html(templ);
-				$("#overlay").hide(100);
+				$("#filter_loading_image").addClass('hide');
 			},
 			error:function(){
 				showNotifications("Something went wrong. Try again");
-				$("#overlay").hide(100);
+				$("#filter_loading_image").addClass('hide');
 				filters[spec].splice(filters[spec].indexOf(val),1)
 				$(that).removeClass('active');
 				$(that).children(".icon-remove").addClass("hidden");

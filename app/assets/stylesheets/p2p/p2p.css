@@ -142,11 +142,6 @@ li.dropdown:hover > ul.dropdown-menu{
 
 #header_msg_count{
 	color: rgb(246, 87, 87);
-	float: right;
-	display: block;
-	margin-top: -10px;
-	font-weight: bold;
-	font-size: 1.2em;
 }
 
 

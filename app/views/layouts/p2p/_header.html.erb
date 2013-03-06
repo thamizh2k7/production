@@ -6,7 +6,8 @@
       <div class="grid_1">
         <div class="pull-left">
           <a class="pull-left logo" href="/p2p/"><h1>sociorent</h1></a><br>
-          <span class="Location">Location</span><%=select_tag "user_location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]}),:prompt=>"Your Location?"%>
+          
+          <span class="Location">Location</span><%=select_tag "user_location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]} , p2p_get_user_location ),:prompt=>"Your Location?"%>
         </div>
         <div class="topbar_right pull-right">
           <div>

@@ -349,3 +349,11 @@
 .btn-group-vertical .btn {
 	text-align:left
 }
+.picture_upload_preview{
+	position:relative;
+}
+.remove_image{
+	position: absolute;
+	right: 1px;
+	top: 1px;
+}

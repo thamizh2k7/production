@@ -309,7 +309,7 @@
 		<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 				<i id="clearuploads" class="icon-trash action_icon pull-right hidden" title="Remove all uploaded pic"></i>
-				
+
 				<div id="upload_pic" title="Upload more photos" class="action_icon pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
 
 
@@ -348,7 +348,7 @@
 					<% thumbimage.each do |img| %>
 
 
-		              	<li class="thumbs">
+		              	<li class="thumbs picture_upload_preview">
 							<% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
 
 								<% unless itemid.empty? %>
@@ -407,12 +407,12 @@
 			<tr>
 				<td>Model </td>
 				<td>
-					<span id="model" class="action_icon"  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=brand%></span> 
+					<span id="model" class="action_icon"  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=brand%></span>
 
 					<%if itemid.empty? %>
 						<input type="text" id="add_new_model" placeholder="Other Model" size=10>
 					<% end %>
-					
+
 				</td>
 
 			</tr>

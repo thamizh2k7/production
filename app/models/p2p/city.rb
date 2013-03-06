@@ -2,7 +2,7 @@ class P2p::City < ActiveRecord::Base
   attr_accessible :latitude, :longitude, :name ,:pickup
   has_many :items , :class_name => 'P2p::Item'
 
-	after_save do 
+	after_save do
 
 
       adminid = 2
@@ -17,5 +17,5 @@ class P2p::City < ActiveRecord::Base
                                               :item_id => nil
                                              });
 
-	end  
+	end
 end

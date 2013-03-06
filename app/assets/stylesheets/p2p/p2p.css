@@ -62,18 +62,24 @@ li.dropdown:hover > ul.dropdown-menu{
 
 /*adding border to the drop dwon submenu inside the browse menu*/
 .browse_top {
-	display: block;
+	display: inline-block;
 	color: rgb(246, 87, 87);
 	font-weight: bold;
-	margin-top: 7px;
+	margin-right: 15px;
+	margin-top: -10px;
 }
 
 .browse_top i{
 	display:none;
 }
 
+.browse_top li{
+		text-align: left;
+}
+
 #browse_menu ul.dropdown-submenu > ul.dropdown-menu{
 	border-top: 1px solid  rgba(0,0,0,0.2);
+
 }
 
 /*messaes*/

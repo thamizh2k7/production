@@ -185,7 +185,7 @@ li.dropdown:hover > ul.dropdown-menu{
 }
 
 
-table tr td{
+.message_show_trigger{
 	cursor: pointer;
 }
 

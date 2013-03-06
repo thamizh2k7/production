@@ -18,8 +18,23 @@
 	margin-bottom: 12px;
 }
 #user_location{
-	margin-top: 10px;
-	background: none;
-	border: 1px solid #DED;
-	border-bottom: 4px solid #DED;
+
+	border: none;
+	outline: none;
+	padding-left: 0px;
+	width:auto;
+	background-color: transparent;	
+	font-weight: bold;
+	color:#F65757;
+  display: inline-block;
+  -moz-appearance:none;
+  appearance:none;
+  cursor:pointer;
+	-webkit-appearance: none;    
+
+}
+
+.location_li{
+	margin-top: -0.7em;
+	display: inline-block;
 }

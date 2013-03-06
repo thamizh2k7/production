@@ -238,6 +238,13 @@
     	});
 
 		//set css for the clickable column
+
+		$('td').live('click',function(){
+			if ($(this).index() == 0) return true;
+
+			$(this).closest('tr').children('td:nth-child(4)').children('.showmessage').trigger('click');
+		});
+
 		$('.showmessage').live('click', function () {
 			var that = $(this);
 

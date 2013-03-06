@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+	$("#Itemlist .navbar-inner").scrollToFixed({
+		'unfixed' : function() {
+			$("#Itemlist .navbar-inner").css('top',0);
+		}
+	});
+
 	// TO Apply filter on all attributes has spec filter class
 	// $(".spec-filter").click(function(){
 	// 	var spec = $(this).attr('spec-name');
@@ -95,7 +101,7 @@ $(document).ready(function(){
 	// Main function working out the filter
 	function call_filter(spec,val,that){
 
-		showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
+		//showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
 
 		$("#filter_loading_image").removeClass('hide');
 
@@ -106,6 +112,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 
+				$(window).scrollTop(0);
 
 				var fil_url =[];
 				_.each(filters,function(val,key){

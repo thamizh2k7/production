@@ -706,6 +706,8 @@ $(document).ready(function(){
 
 	      $("#clearuploads").on('click',function(){
 
+	      	$("#image_upload").val('');
+
 	      	if ($("#image_upload")[0].files.length == 0 ){
 	      		window.image_count = 0;
 	      	}else{
@@ -713,7 +715,7 @@ $(document).ready(function(){
 	      		if (window.image_count <0) window.image_count = 0;
 	      	}
 
-	      	$("#image_upload").val('');
+	      	
 
 			_.each($(".thumb_img"),function(elem){
 	      			if ($(elem).attr('imgid') == -1){

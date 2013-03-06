@@ -27,6 +27,7 @@
 
 			</ul>
 
+
 		</div>
 
 		<div class="span6">
@@ -545,11 +546,7 @@
 							  </div>
 							</div>
 
-
-
-
-
-					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) ) and !spec_used.nil? and itemspec.count < spec_used.count %>
+					<% if defined? itemspec and (!current_user.nil? and (ownerid == p2p_current_user.id.to_s) ) and !spec_used.nil? and itemspec.count > spec_used.count %>
 
 						<div id="add_more_spec" class="hide">
 							<b>Add More Specification here <br/></b>

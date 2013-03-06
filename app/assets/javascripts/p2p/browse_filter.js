@@ -1,5 +1,23 @@
 $(document).ready(function(){
 
+	//scrill up function
+	$(window).scroll(function(){
+        if ($(this).scrollTop() > ($("#filter").height()/2) ) {
+            $('.scrollup').fadeIn();
+        } else {
+            $('.scrollup').fadeOut();
+        }
+  });
+
+	$('.scrollup').click(function(){
+    $("html, body").animate({ scrollTop: 0 }, 600);
+    return false;
+    });
+
+	//end of scroll up
+
+
+
 	$("#Itemlist .navbar-inner").scrollToFixed({
 		'unfixed' : function() {
 			$("#Itemlist .navbar-inner").css('top',0);

@@ -149,6 +149,8 @@ $(document).ready(function(){
 
 			//enable the remove image butotn
 
+			$("#category_item").editable();
+
 			$("#upload_pic").removeClass('hide');
 
 			$('.canEdit').editable();

@@ -47,9 +47,13 @@ class P2p::Message < ActiveRecord::Base
 
         if (oInboxTable){
           oInboxTable.fnDraw();
-        }elseif (oSentBoxTable){
+        }
+        
+        if (oSentBoxTable){
           oSentBoxTable.fnDraw();
-        }elseif (oDeleteBoxTable){
+        }
+
+        if (oDeleteBoxTable){
           oDeleteBoxTable.fnDraw();
         }
       "

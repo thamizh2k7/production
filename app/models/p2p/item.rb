@@ -151,9 +151,12 @@ class P2p::Item < ActiveRecord::Base
 
         if (oInboxTable){
             oInboxTable.fnDraw();
-          }elseif (oSentBoxTable){
+        }
+        
+        if (oSentBoxTable){
             oSentBoxTable.fnDraw();
-          }elseif (oDeleteBoxTable){
+        }
+          if (oDeleteBoxTable){
             oDeleteBoxTable.fnDraw();
         }
 "

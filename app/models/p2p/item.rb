@@ -191,7 +191,9 @@ class P2p::Item < ActiveRecord::Base
 
     #send message to all fav users
 
-    P2p::Favourite.find_by_fav_id(self.user.id).each do |fav|
+    fav_users = P2p::Favourite.find_by_fav_id(self.user.id) || []
+
+    fav_users.each do |fav|
 
         admin.sent_messages.create({:receiver_id => fav.p2puser.id,
                                                   :message => "This is an auto generated system message. Your favourite user #{self.user.user.name} has listed a new item. <a href='#{prod_url}'>#{self.title}</a> Give it a check. <br/> Thank you.. <br/> Sincerly, <br/> Admin",

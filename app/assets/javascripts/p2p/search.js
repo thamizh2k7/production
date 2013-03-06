@@ -84,10 +84,9 @@
           return false;
         }
 
-        $("#top_search_input").val(category_val[0]);  
-
+        $("#top_search_input").val(elem.item.label);
         //after selecting the item from autocomplete submit the form
-        
+
         $("#top_search_form").submit();
         return false;
       },

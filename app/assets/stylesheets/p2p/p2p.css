@@ -63,7 +63,6 @@ li.dropdown:hover > ul.dropdown-menu{
 /*adding border to the drop dwon submenu inside the browse menu*/
 .browse_top {
 	display: inline-block;
-	color: rgb(246, 87, 87);
 	font-weight: bold;
 	margin-right: 15px;
 	margin-top: -10px;

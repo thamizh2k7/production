@@ -323,7 +323,12 @@
 	position:relative;
 }
 .remove_image{
-	position: absolute;
-	right: 1px;
-	top: 1px;
+
+	  background: none repeat scroll 0 0 #DDD;
+    border-radius: 10px;
+    color: black;
+    font-size: 8px;
+    position: absolute;
+    right: -4px;
+    top: -5px;
 }

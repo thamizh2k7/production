@@ -16,7 +16,8 @@
 				<script>
 					<% if done and attr.name.downcase.starts_with?("isbn")  %>
 
-											
+										
+							$('#model').closest('tr').find('td:first').text('Publisher');
 
 							$('#notificationcontainer').notify('create',{
 								title:'A little to you',

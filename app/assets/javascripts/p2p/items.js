@@ -153,6 +153,7 @@ $(document).ready(function(){
 
 			$('.canEdit').editable();
 
+
 			$("#image_upload").removeAttr('disabled','disabled');
 			if (window.edit){
 				$("#category_item").editable('toggleDisabled');
@@ -193,10 +194,13 @@ $(document).ready(function(){
 				
 				//add custom brand
 				$('#add_new_model').on('keyup',function(){
-					if ($.trim ( $(this).val() ) != '' ) {
+					
+
+					if ($.trim($(this).val()) != '' ) {
 						item_values['brand'] = $.trim ( $(this).val() );
-						$("#model").val('');
+						$("#model").editable('setValue','',false);
 					}
+
 				});
 
 
@@ -215,6 +219,7 @@ $(document).ready(function(){
 								$(this).removeClass('error');
 
 								$("#price").tooltip('show');
+								$('#add_new_model').val('');
 							}
 							else{
 								item_values['brand']="";
@@ -347,7 +352,7 @@ $(document).ready(function(){
 			      reader.onload = (function(theFile) {
 			        return function(e) {
 
-						$(".thumb_holder .thumbnails ").append('<li class="thumbs"><!--<i class="icon-remove pull-right hide remove_image "></i> -->\
+						$(".thumb_holder .thumbnails ").append('<li class="thumbs"><!--<i class="icon-white icon-remove pull-right hide remove_image "></i> -->\
 	              			<img src="' + e.target.result + '"  imgid="-1" class="thumb_img pull-left" viewimage="' + e.target.result + '">\
 	              		</li>');
 

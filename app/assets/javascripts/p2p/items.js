@@ -306,7 +306,7 @@ $(document).ready(function(){
 
 				}else{
 					item_values['price']="";
-					params.newValue = params.oldValue;
+					$(this).editable('setValue','');
 					$(this).addClass('error');
 					$(this).tooltip('show');
 				}
@@ -464,6 +464,7 @@ $(document).ready(function(){
 				if (data.status == 1){
 					var imgid = that.siblings('img').attr("imgid");
 					that.parent().remove();
+					widow.image_count -= 1;
 					$(".thumbs :first").trigger("click");
 				}
 			}

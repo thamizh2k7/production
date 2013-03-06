@@ -224,9 +224,8 @@
 	.aitem_left {
 		display:table;
 		float:left;
-		width:110px;
 		vertical-align:middle;
-		height:100%
+
 	}
 
 	.aitem_left img {

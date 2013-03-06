@@ -498,3 +498,19 @@ vertical-align: middle;
 		font-weight: bold;
 		text-decoration: underline;
 }
+
+.results_top_loading{
+	position: relative;
+
+}
+
+
+#filter_loading_image{
+	top: 13px;
+	position: absolute;
+	left: 39%;
+	font-size: 1.5em;
+	font-style: italic;
+
+
+}

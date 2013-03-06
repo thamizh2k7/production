@@ -2,6 +2,8 @@
 <%= stylesheet_link_tag "items/items_manifest"%>
 
 
+						
+
 <div class="main_wrapper">
 	<div class="row">
 
@@ -227,9 +229,13 @@
 						<% if !approvedate.nil? %>
 
 					  			<a href="/p2p/sold/<%= itemid %>" class=" btn"   > <i class="  action_icon  icon-shopping-cart" title="Mark this listing as sold"></i> Mark as sold</a>
-						<% else %>
+						
+						<% elsif disapproveddate.nil? %>
 
 					  			<a href="#" class="  btn"  > <i class=" action_icon icon-shopping-cart"  title="Listing has not been approved yet"></i> Waiting for approval</a>
+						
+						<% else %>
+					  			<a href="#" class="  btn"  > <i class=" action_icon icon-ban-circle"  title="Disapproved"></i> Disapproved</a>
 
 					  <% end %>
 

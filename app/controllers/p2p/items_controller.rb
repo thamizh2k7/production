@@ -11,6 +11,9 @@ class P2p::ItemsController < ApplicationController
 
   def create
     item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
+   # render :json => item
+
+    
     item.category = P2p::Category.find(params[:cat].to_i)
     begin
       item.city = P2p::City.find_by_name(params[:location])

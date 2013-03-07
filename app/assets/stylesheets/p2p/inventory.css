@@ -62,3 +62,7 @@
 .nav-list .active > a:hover{
 	color:#222;
 }
+
+.instructions li{
+	list-style-type: disc;
+}

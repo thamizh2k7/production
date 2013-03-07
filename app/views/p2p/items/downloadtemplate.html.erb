@@ -21,6 +21,21 @@
 
 	<div id="items" class="span9">
 
+
+
+		<h3> Upload Bulk data </h3>
+
+		<%= form_tag "/p2p/upload_csv" ,:method => 'post' ,:multipart => true do %>
+		
+			Category: <%= select_tag "category" ,  options_from_collection_for_select(@cat,"id" ,"name") %>
+			<br/>
+			CSV File <input type="file" name="csvfile">
+
+			<br/>
+			<button type ="submit" id ="upload_template" class="btn " >Upload </button>
+		<% end %>
+
+
 		<h3> Download Template </h3>
 
 		<%= form_tag "/p2p/gettemplate" ,:method => 'post' do %>
@@ -31,6 +46,17 @@
 			<br/>
 			<button type ="submit" id ="download_template" class="btn " >Download </button>
 		<% end %>
+
+
+		<h5>Instructions</h5>
+
+		<ul class="instructions">
+			<li>  Download the template for the Category you need. </li>
+			<li>  Fill the as much details as possible in the corresponding column accurately. </li>
+			<li>  For images provide the url. Atleast one is required. </li>
+			<li>   </li>
+
+		</ul>
 
 	</div>
 

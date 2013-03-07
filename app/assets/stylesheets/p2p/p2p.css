@@ -452,7 +452,6 @@ padding-left: 10px;
 
 #dummy_filter_holder .spec-filter{
 	font-size: 0.9em;
-	display: block;
 	margin-top: 3px;
 	margin-left: 3px;
 	cursor:pointer;
@@ -518,4 +517,13 @@ vertical-align: middle;
 	font-style: italic;
 
 
+}
+
+.filter_spec_input{
+	border: 1px solid #ccc;
+	margin: 2px 6px 2px 6px !important;
+	width: 89%;
+	line-height: 15px;
+	height: 10px !important;
+	padding: 1px;
 }

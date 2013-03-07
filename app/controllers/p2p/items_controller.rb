@@ -684,4 +684,34 @@ class P2p::ItemsController < ApplicationController
       puts "caught#{e}"
     end
   end
+
+  def downloadtemplate
+
+    if params.has_key?(:category_template)
+
+        cat = P2p::Category.find(params[:category_template])
+
+        require 'csv'
+
+
+        item = ['brand','title','price','condition','location','desc','image1','image2','image3']
+
+        if cat.name =="Books"
+          item[0] = 'Publisher'
+        end
+
+        item = item + cat.specs.pluck('name')
+
+        csv_string = CSV.generate do |csv|
+          csv << item
+        end
+
+        send_data(csv_string ,:filename => cat.name + ".csv")
+        return
+
+    else
+      @cat = P2p::Category.all
+    end
+
+  end
 end

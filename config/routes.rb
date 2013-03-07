@@ -81,6 +81,8 @@ Sociorent::Application.routes.draw do
         root :to => 'categories#index'
     end
 
+      match 'gettemplate' => 'items#downloadtemplate'
+
       get "categories/set_category" => "categories#set_category"
       get "categories/sub_category" => "categories#sub_category"
 

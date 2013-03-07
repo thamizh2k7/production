@@ -1,4 +1,4 @@
-
+f
 
 
 .clearfix{
@@ -16,7 +16,7 @@
 	background: url("/assets/glyphicons-halflings.png") no-repeat -314px -2px;;
 	width: 14px;
 	height: 14px;
-	margin-top: 2px;
+	margin-top: 5px;
 	display:inline-block;
 	opacity: 0.3;
 	margin-left: 5px;
@@ -232,11 +232,13 @@ li.dropdown:hover > ul.dropdown-menu{
 
 #menuSet{
 	text-align: right;
+	margin-bottom: -25px;
 }
 
 #menuSet li{
 	display:inline-block;
-	margin-left: 15px;
+	margin-left: 10px;
+
 }
 
 #menuSet li:hover ,#menuSet li:focus{
@@ -536,26 +538,26 @@ vertical-align: middle;
 ::-webkit-scrollbar {
     width: 5px;
 }
- 
+
 ::-webkit-scrollbar:window-inactive {
 	display: none;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #666; 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0); 
+    background: #666;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: #eee; 
+	background: #eee;
 }
 
 /*scroll ar*/

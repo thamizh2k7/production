@@ -324,6 +324,7 @@ class P2p::IndexController < ApplicationController
         itm = to_hash(itm)
         itm[:url] = temp_url
         itm[:img] = url
+        itm[:title] =itm[:title].truncate(20)
         itm[:prod_url] = prod_url
         itm[:prod] = prod
         itm[:cat_url] = cat_url
@@ -372,6 +373,7 @@ class P2p::IndexController < ApplicationController
         itm = to_hash(itm)
         itm[:url] = temp_url
         itm[:img] = url
+        itm[:title] =itm[:title].truncate(20)
         itm[:prod_url] = prod_url
         itm[:prod] = prod
         itm[:cat_url] = cat_url

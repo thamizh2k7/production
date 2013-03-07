@@ -7,7 +7,9 @@ class P2p::Image < ActiveRecord::Base
   has_attached_file :img , :styles => { :view => "290X290", :thumb => "50X50#" ,:search => "110X155#" ,:full => "640X480" },
   					:default_url => '/assets/noimage.jpg'
 
-	before_save :download_remote_image, :if => :image_url_provided?
+#	before_save :download_remote_image, :if => :image_url_provided?
+
+  #paper clip infinte loop fior before validate
 
   belongs_to :item
 
@@ -18,6 +20,6 @@ class P2p::Image < ActiveRecord::Base
   end
 
   def download_remote_image
-    self.image = open(self.image_url)
+    self.img = open(self.image_url)
   end
 end

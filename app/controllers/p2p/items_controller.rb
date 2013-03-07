@@ -638,6 +638,10 @@ class P2p::ItemsController < ApplicationController
         
         item = ['brand','title','price','condition','location','desc','image1','image2','image3']
 
+        if cat.name =="Books"
+          item[0] = 'Publisher'
+        end
+
         item = item + cat.specs.pluck('name')
 
         csv_string = CSV.generate do |csv|

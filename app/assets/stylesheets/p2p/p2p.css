@@ -457,6 +457,7 @@ padding-left: 10px;
 	cursor:pointer;
 	overflow: hidden;
 	width:90%;
+	display: block;
 }
 
 #dummy_filter_holder .filters_value{
@@ -486,7 +487,6 @@ padding-left: 10px;
 
 .spec_filter_check_label{
 	float:left;
-	width:85%;
 	padding-left:10px;
 }
 .icon-credit-card{

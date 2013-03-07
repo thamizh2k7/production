@@ -25,12 +25,12 @@
 	<% end %>
 
 	<div class="filters_value">
-		<% 2.times do %>
+
 		<% spec.itemspecs.select("distinct value").where("value !=''").order('value asc').each do |itemspec| %>
 		<div class="spec-filter" >
 			<input class="spec_filter_check" type="checkbox" spec-name="<%=spec.name%>" spec-value="<%=itemspec.value%>">		<span class="spec_filter_check_label"><%= itemspec.value	%></span>
 		</div>
-		<% end %><% end %>
+		<% end %>
 	</div>
 	<% end %>
 	<li class="divider"></li>

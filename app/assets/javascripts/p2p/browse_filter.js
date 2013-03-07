@@ -5,11 +5,11 @@ filter_spec_by_text = function (val,elem){
 			_.each($(elem).find('.spec_filter_check'),function(spec){
 				console.log($(spec).attr('spec-value') + ' al');
 				if (regexp.test($(spec).attr('spec-value'))){
-						$(spec).parent().removeClass('hide');	
+						$(spec).parent().removeClass('hidden');	
 				}
 				else{
 					
-					$(spec).parent().addClass('hide');
+					$(spec).parent().addClass('hidden');
 				}
 			});
 

@@ -154,7 +154,7 @@ class P2p::Item < ActiveRecord::Base
         if (oInboxTable){
             oInboxTable.fnDraw();
         }
-        
+
         if (oSentBoxTable){
             oSentBoxTable.fnDraw();
         }
@@ -277,6 +277,23 @@ class P2p::Item < ActiveRecord::Base
 
       res
     end
+  end
+  def is_valid_data?
+    condition = ['brand new','like new','used','old']
+    result = true
+    result = false if /^\d+\.?\d*$/.match(self.price) == nil
+    result = false if /^\d+\.?\d*$/.match(self.price) == nil
+    find = false
+    condition.each do |cond|
+      if cond == self.condition.downcase()
+        self.condition = cond.titleize()
+        find = true
+        break
+      end
+    end
+    result = find
+    result = false if location == ""
+    result
   end
 
 

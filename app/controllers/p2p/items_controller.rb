@@ -13,7 +13,7 @@ class P2p::ItemsController < ApplicationController
     item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
    # render :json => item
 
-    
+
     item.category = P2p::Category.find(params[:cat].to_i)
     begin
       item.city = P2p::City.find_by_name(params[:location])
@@ -447,7 +447,7 @@ class P2p::ItemsController < ApplicationController
         if (oInboxTable){
             oInboxTable.fnDraw();
         }
-        
+
         if (oSentBoxTable){
             oSentBoxTable.fnDraw();
         }
@@ -522,7 +522,7 @@ class P2p::ItemsController < ApplicationController
         if (oInboxTable){
             oInboxTable.fnDraw();
         }
-        
+
         if (oSentBoxTable){
             oSentBoxTable.fnDraw();
         }
@@ -623,6 +623,65 @@ class P2p::ItemsController < ApplicationController
       end
       item_delivery.update_attributes(:citrus_pay_id=>params[:TxStatus],:citrus_reason=>params[:TxMsg],:citrus_ref_no=>params[:TxRefNo])
       redirect_to "/p2p/paymentdetails/bought"
+    end
+  end
+
+  def upload_csv
+    require 'csv'
+    require 'iconv'
+    category = P2p::Category.find(params[:category_id])
+    csvfile = params[:csv_file]
+    # checking extensions
+    case File.extname(csvfile.original_filename)
+      when ".csv" then spreadsheet = Csv.new(csvfile.path, nil, :ignore)
+      when ".xls" then spreadsheet = Excel.new(csvfile.path, nil, :ignore)
+      when ".xlsx" then spreadsheet = Excelx.new(csvfile.path, nil, :ignore)
+    else
+      flash[:warning] = "Unknown File type"
+      redirect_to p2p_upload_csv_path and return
+    end
+    # assigning the headers
+    header = spreadsheet.row(1)
+    total_rows = header.count
+
+    # parsing the spreadsheet
+    begin
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      row_ar = row.to_a
+      begin
+        product= category.products.find_or_create_by_name(row_ar[0])
+        item = current_user.items.new
+        image_3 = header_count-9
+        #checking the validation
+        image_valid = true if row_ar[image_3]!= "" || row_ar[image_3-1] || row_ar[image_3-2]!=""
+        spec_valid = false
+        (header_count-9..header_count).each do |i|
+          spec_valid = true if row_ar[i] !=""
+        end
+        if item.is_valid_data? && spec_valid == true && image_valid == true
+          #saving to database
+          item[:price] = row["price"]
+          item[:condition] = row["condition"]
+          item[:location] = row["location"]
+          #saving itemspecs
+          (header_count-9..header_count).each do |i|
+            if row_ar[i]!=""
+              spec = category.specs.find_by_name(row_ar[i][1])
+              item.specs.create(:spec_id=>spec.id,:value=>row_ar[i])
+            end
+          end
+          #save images
+          (image_3-2..image_3).each do |i|
+            item.images.create(:image_url=>row_ar[i]) if /http:\/\/[^"]+\.jpg|png|jpeg/.match(row_ar[i])!= nil )
+          item.save
+        end
+      rescue Exception =>e
+        puts "caught#{e}"
+        next
+      end
+    rescue
+      puts "caught#{e}"
     end
   end
 end

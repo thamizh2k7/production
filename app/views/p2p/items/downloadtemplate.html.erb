@@ -23,32 +23,55 @@
 
 
 
-		<h3> Upload Bulk data </h3>
+		<h3> Upload Bulk Listing </h3>
 
-		<%= form_tag "/p2p/upload_csv" ,:method => 'post' ,:multipart => true do %>
+		<%= form_tag "/p2p/upload_csv" ,:method => 'post' ,:multipart => true ,:class => 'form-horizontal' do %>
 		
-			Category: <%= select_tag "category" ,  options_from_collection_for_select(@cat,"id" ,"name") %>
-			<br/>
-			CSV File <input type="file" name="csvfile">
+			<div class="control-group">
+				<label class="control-label">Category</label>
+				<div class="controls">
+			 		<%= select_tag "category" ,  options_from_collection_for_select(@cat,"id" ,"name") %>
+				</div>
+			</div>
 
-			<br/>
-			<button type ="submit" id ="upload_template" class="btn " >Upload </button>
+
+			<div class="control-group">
+				<label class="control-label">CSV File</label>
+				<div class="controls">
+			 		<input type="file" name="csvfile">
+				</div>
+			</div>
+
+
+			<div class="control-group">
+
+				<div class="controls">
+					<button type ="submit" id ="upload_template" class="btn " > Upload </button>
+				</div>
+			</div>
+
 		<% end %>
 
+		<hr/>
 
 		<h3> Download Template </h3>
 
-		<%= form_tag "/p2p/gettemplate" ,:method => 'post' do %>
+		<%= form_tag "/p2p/gettemplate" ,:method => 'post' , :class => 'form-horizontal' do %>
 		
-			Category: 
-			<%= select_tag "category_template" ,  options_from_collection_for_select(@cat,"id" ,"name") %>
 
-			<br/>
+			<div class="control-group">
+				<label class="control-label">Category</label>
+				<div class="controls">
+			 		<%= select_tag "category_template" ,  options_from_collection_for_select(@cat,"id" ,"name") %>
+				</div>
+			</div>
+
 			<button type ="submit" id ="download_template" class="btn " >Download </button>
+
 		<% end %>
 
 
-		<h5>Instructions</h5>
+		<h5>Template Instructions</h5>
 
 		<ul class="instructions">
 			<li>  Download the template for the Category you need. </li>

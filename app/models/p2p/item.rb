@@ -99,12 +99,12 @@ class P2p::Item < ActiveRecord::Base
 
     self.changes.each do |column,value|
 
-      next if column == 'approveddate' or column == 'disapproveddate'  or column == 'updated_at' or column =='viewcount' or column == 'reqCount'
+        next if column == 'approveddate' or column == 'disapproveddate'  or column == 'updated_at' or column =='viewcount' or column == 'reqCount'
 
-      next if (column == 'paytype' or column =='payinfo' or column=='commision' ) and self.changes.has_key?(:paytype) and self.changes[:paytype][0] == nil
+        next if column =='paytype' and self.changes[:paytype].nil?
 
-      self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
-      changed_column += "<li> #{column} from #{value[1]} -> #{value[0]}</li>"
+        self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
+
     end
 
 
@@ -115,7 +115,7 @@ class P2p::Item < ActiveRecord::Base
     unless changed_column.empty?
 
         #PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
-        PrivatePub.publish_to("/user_1", "#{self.user.user.name} has changed the data in <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing and is waiting for your approval." )
+        PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='/p2p/#{self.category.name}/#{self.product.name}/#{self.title}'>#{self.title}</a> listing and is waiting for your approval." )
 
 
 

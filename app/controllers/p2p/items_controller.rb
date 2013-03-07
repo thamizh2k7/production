@@ -175,7 +175,9 @@ class P2p::ItemsController < ApplicationController
       item.images.each do |img|
         puts img.errors.full_messages
       end
-      item.approveddate = false
+      
+      item.approveddate = nil
+
       if item.save
         flash[:notice] = "Saved changes"
         puts "in success"

@@ -32,7 +32,7 @@
 
 
 <% if session[:user_type] == 1 #vendor user%>
-	<li class="<%= (params[:action] == "gettemplate") ? "active" : "" %>"><a href="/p2p/gettemplate"><i class="icon-table "></i>Bulk Upload</a></li>
+	<li class="<%= (params[:action] == "downloadtemplate") ? "active" : "" %>"><a href="/p2p/gettemplate"><i class="icon-table "></i>Bulk Upload</a></li>
 
 <% end %>
 

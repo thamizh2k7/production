@@ -43,6 +43,10 @@
 	background-color: rgb(246, 87, 87);
 }
 
+.nav-header i{
+	margin-right: 10px;
+}
+
 .nav-header.browse_top {
 	display: block;
 	margin-top: 5px;

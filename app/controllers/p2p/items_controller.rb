@@ -175,7 +175,7 @@ class P2p::ItemsController < ApplicationController
       item.images.each do |img|
         puts img.errors.full_messages
       end
-      
+
       item.approveddate = nil
 
       if item.save
@@ -687,9 +687,7 @@ class P2p::ItemsController < ApplicationController
             next
           end
 
-
           item.city = P2p::City.find_or_create_by_name(CGI::unescape(row[4]))
-
 
           image_3 = 10
           #checking the validation
@@ -697,13 +695,11 @@ class P2p::ItemsController < ApplicationController
           spec_valid = false
           (11..header_count).each do |i|
 
-
-            if (CGI::unescape(row[i]) !="")
-              spec_valid = true
-              break
-            end
+          if (CGI::unescape(row[i]) !="")
+            spec_valid = true
+            break
+          end
         end
-
           if spec_valid == true && image_valid == true
 
             specs= category.specs.pluck('id')
@@ -711,11 +707,10 @@ class P2p::ItemsController < ApplicationController
             #saving itemspecs
             (11..(header_count-1)).each do |i|
               if !(row[i].nil?) and CGI::unescape(row[i])!=""
-                
+
                 item.specs.new(:spec_id=>specs[11-i],:value=>CGI::unescape(row[i]))
               end
             end
-
 
             #save images
             (image_3-2..image_3).each do |i|
@@ -729,7 +724,6 @@ class P2p::ItemsController < ApplicationController
             if item.is_valid_data?
               item.save
             end
-
           end
         rescue Exception => e
           puts "caught#{e}"
@@ -766,7 +760,6 @@ class P2p::ItemsController < ApplicationController
 
         send_data(csv_string ,:filename => cat.name + ".csv")
         return
-
     else
       @cat = P2p::Category.all
     end

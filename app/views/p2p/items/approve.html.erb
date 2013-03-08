@@ -5,7 +5,7 @@
   <% else %>
     <%= params[:action].titleize %> - <%= p2p_current_user.user.name %>
   <% end %>
-    
+
 <%end %>
 
 <div class="row" id="body_content" >
@@ -14,7 +14,7 @@
 
       <ul class="nav nav-list">
 
-        <%= render "/p2p/users/dashboard_menu.html.erb" %>
+        <%= render "/p2p/users/dashboard_menu" %>
         <%#= render "/p2p/index/scat_menu" %>
 
       </ul>
@@ -34,7 +34,7 @@
       </div>
     <% end %>
 
-      Details for: <%= @user %> <br/><br/>  
+      Details for: <%= @user %> <br/><br/>
 
 
       <%= render '/p2p/items/inventory_items_button' %>

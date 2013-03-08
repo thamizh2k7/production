@@ -540,7 +540,8 @@ vertical-align: middle;
 }
 
 ::-webkit-scrollbar:window-inactive {
-	display: none;
+	/*display: none;*/
+	background-color: transparent;
 }
 /* Track */
 ::-webkit-scrollbar-track {

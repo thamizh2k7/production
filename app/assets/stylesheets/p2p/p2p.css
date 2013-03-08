@@ -561,3 +561,7 @@ vertical-align: middle;
 }
 
 /*scroll ar*/
+
+.ui-autocomplete{
+	z-index:3000 !important;
+}

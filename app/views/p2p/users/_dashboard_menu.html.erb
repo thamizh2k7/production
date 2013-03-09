@@ -1,6 +1,6 @@
 
 	<% if session[:isadmin]%>
-		
+
 		<%	waiting_count     = P2p::Item.waiting.count  %>
 		<%	disapproved_count = P2p::Item.disapproved.count  %>
 		<%	approved_count    = P2p::Item.approved.count  %>
@@ -32,7 +32,9 @@
 
 
 <% if session[:user_type] == 1 #vendor user%>
+	<li class="<%= (params[:action] == "vendorsdetails") ? "active" : "" %>"><a href="/p2p/dashboard/vendors"><i class="icon-group "></i>Vendors</a></li>
 	<li class="<%= (params[:action] == "downloadtemplate") ? "active" : "" %>"><a href="/p2p/gettemplate"><i class="icon-table "></i>Bulk Upload</a></li>
+
 
 <% end %>
 
@@ -45,7 +47,6 @@
 <li class="<%= (params[:action] == "waiting") ? "active" : "" %>" ><a href="/p2p/approve"><a href="/p2p/waiting "><i class="icon-certificate info text-info" ></i>Waiting <%= waiting_count%> </a></li>
 
 <li class="divider"></li>
-<li><a href="/p2p/vendor/">Upload CSV</a></li>
 <% if session[:isadmin] %>
   <li class="nav-header">Admin</li>
   <li><a href="/p2p/admin/categories"><i class="icon-book"></i>Categories</a></li>

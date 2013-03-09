@@ -10,13 +10,13 @@ Download Template <%=p2p_current_user.user.name %>
 	</div>
 
 	<div id="items" class="span9">
-		<%unless  @not_processed.nil? %>
-		<h3> Your pending Approval uploaded Files </h3>
+		<%unless  @not_processed.count ==0 %>
+		<h4> Your pending Approval uploaded Files </h4>
 		<% @not_processed.each do |csv_file| %>
 			<p><%= link_to(csv_file.upload_csv_file_name, csv_file.upload_csv.url)%></p>
 		<% end%>
 		<% end%>
-		<h3> Upload Bulk Listing </h3>
+		<h4> Upload Bulk Listing </h4>
 		<%= form_tag "/p2p/upload_csv" ,:method => 'post' ,:multipart => true ,:class => 'form-horizontal' do %>
 			<div class="control-group">
 				<label class="control-label">Category</label>
@@ -41,7 +41,7 @@ Download Template <%=p2p_current_user.user.name %>
 
 		<hr/>
 
-		<h3> Download Template </h3>
+		<h4> Download Template </h4>
 
 		<%= form_tag "/p2p/gettemplate" ,:method => 'post' , :class => 'form-horizontal' do %>
 			<div class="control-group">

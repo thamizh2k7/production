@@ -4,12 +4,12 @@
 <div id="body_content" class="row">
 	<div  class="span3">
 		<ul class="nav nav-list">
-			<%#= render "/p2p/users/dashboard_menu.html.erb" %>
-		
+			<%= render "/p2p/users/dashboard_menu.html.erb" %>
+
 		</ul>
 	</div>
-	<div id="items" class="span9">
-    <div class="row">
+	<div class="span9">
+			<h4>Vendors </h4>
      <%= will_paginate @users %>
     	<%= form_tag '/p2p/dashboard/setvendors' ,:method => :put  do %>
 
@@ -27,7 +27,7 @@
 			  	<%@vendors.each do |usr| %>
 			    <tr>
 	         <td> <%#=usr[0]%>
-	        <i class= '<%=usr[3]==1?"icon-star" : "icon-star-empty" %>'> </i> 
+	        <i class= '<%=usr[3]==1?"icon-star" : "icon-star-empty" %>'> </i>
 	        </td>
 			      <td><strong><%=usr[1]%></strong></td>
 			      <td><%=usr[2]%></td>
@@ -41,7 +41,7 @@
 
 			    </tr>
 			    <%end%>
-			    
+
 			  </tbody>
 			</table>
 
@@ -49,6 +49,5 @@
 			<% end %>
 
 
-    </div> 
-	</div>
+    </div>
 </div>

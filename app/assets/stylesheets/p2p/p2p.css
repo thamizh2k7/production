@@ -1,5 +1,3 @@
-f
-
 
 .clearfix{
 	clear:both;
@@ -565,4 +563,13 @@ vertical-align: middle;
 
 .ui-autocomplete{
 	z-index:3000 !important;
+}
+
+
+#search_inbox,#search_sentbox,#search_deletebox{
+	padding: 1px !important;
+}
+
+#inbox_table_wrapper,#sentbox_table_wrapper,#deletebox_table_wrapper{
+	margin-top: 15px;
 }

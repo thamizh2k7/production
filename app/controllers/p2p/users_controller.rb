@@ -269,8 +269,8 @@ class P2p::UsersController < ApplicationController
     end
 
     #get vendors
-    @vendors=P2p::User.where('user_type = 1').paginate(:page => params[:vendor_page],:per_page => 10 )
-    @users=P2p::User.where('user_type = 0').paginate(:page => params[:user_page],:per_page => 10 )
+    @vendors=P2p::User.where('user_type = 1').paginate(:page => params[:vendor_page],:per_page => 1 )
+    @users=P2p::User.where('user_type = 0').paginate(:page => params[:user_page],:per_page => 1 )
   end
 
   # def togglevendor

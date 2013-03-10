@@ -62,7 +62,7 @@
 										<%= submit_tag "Remove Vendors", :class=>"btn" %>
 										<% end %>
 
-										<%= will_paginate @vendors , :param_name => :vendor_page ,:params => {:visible_type=> 1} %> 
+										<%= will_paginate @vendors , :param_name => :vendor_page ,:params => {:visible_type=> 1} , :renderer => BootstrapPagination::Rails %> 
 					</div>
 
 					<div class="tab-pane <%= (( (params.has_key?(:visible_type) and params[:visible_type] == "0") ) ? 'active' : '')%>" id="tab2">
@@ -102,7 +102,7 @@
 										<%= submit_tag "Make Vendors", :class=>"btn" %>
 										<% end %>
 
-										<%= will_paginate @users ,:param_name => :user_page, :params => {:visible_type=> 0} %> 
+										<%= will_paginate @users ,:param_name => :user_page, :params => {:visible_type=> 0} ,:renderer => BootstrapPagination::Rails %> 
 
 					</div>
 

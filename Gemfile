@@ -79,6 +79,7 @@ gem 'jquery-datatables-rails'
 
 
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 gem "twitter-bootstrap-rails"
 gem 'bootstrap-editable-rails'

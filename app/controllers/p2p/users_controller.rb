@@ -241,18 +241,44 @@ class P2p::UsersController < ApplicationController
   
   # Vendor 
   def vendorsdetails
-    @vendors=Array.new
-    @users=P2p::User.all.paginate(:page => params[:page],:per_page => 10)
-    @users.each do |user| 
-     @vendors << [user.id,user.user.name,user.user.email,user.user_type]
-    end   
+
+    if params.has_key?(:cmd)
+
+      if params[:cmd] == 'set' 
+
+        params[:user].each do |user_id|
+          user = P2p::User.find(user_id.to_i)
+          user.update_attributes(:user_type => 1)
+        end
+
+      elsif params[:cmd] == 'remove'
+          
+          users =  params[:user] - params[:user_old]
+
+          users.each do |user_id|
+            user = P2p::User.find(user_id.to_i)
+            user.update_attributes(:user_type => 0)
+          end
+
+      else
+        redirect_to '/p2p/vendors' ,:notice => 'Nothing found for your request'
+        return
+      end
+
+
+    end
+
+    #get vendors
+    @vendors=P2p::User.where('user_type = 1').paginate(:page => params[:vendor_page],:per_page => 10 )
+    @users=P2p::User.where('user_type = 0').paginate(:page => params[:user_page],:per_page => 10 )
   end
 
-  def togglevendor
-    params[:user].each_with_index do |(user_id,status),index|
-      user = P2p::User.find(user_id.to_i)
-      user.update_attributes(:user_type =>status.to_i)
-    end
-    redirect_to :action => "vendorsdetails"
-  end
+  # def togglevendor
+  #   params[:user].each_with_index do |(user_id,status),index|
+  #     user = P2p::User.find(user_id.to_i)
+  #     user.update_attributes(:user_type =>status.to_i)
+  #   end
+  #   redirect_to :action => "vendorsdetails"
+  # end
+
 end

@@ -298,37 +298,6 @@ class P2p::ItemsController < ApplicationController
       @buyerreqcount = @item.messages.find_all_by_sender_id(p2p_current_user.id).count
     end
 
-    # @view_local = {
-    #  :viewimage => @item.get_image(0,:view) ,
-    #  :thumbimage => @item.get_image(0,:thumb) ,
-    #  :fullimage => @item.get_image(0,:view) ,
-    #  :title => @item.title,
-    #  :price => @item.price.to_i.to_s,
-    #  :location => @item.city.name ,
-    #  :ownerid => @item.user_id.to_s,
-    #  :userid => (current_user.nil? ) ? "" : current_user.id.to_s,
-    #  :itemid => @item.id.to_s,
-    #  :solddate => @item.solddate,
-    #  :deletedate => @item.deletedate,
-    #  :viewcount => @item.viewcount.to_s,
-    #  :reqcount => @item.reqCount,
-    #  :description => @item.desc,
-    #  :category => @category_name,
-    #  :subcategory => @sub_category_name,
-    #  :brand => @brand_name,
-    #  :spec => @attr,
-    #  :categoryid => @category_id.to_s,
-    #  :subcategoryid => @sub_category_id.to_s,
-    #  :brandid => @brand_id.to_s,
-    #  :itemspec => @item.product.category.specs,
-    #  :condition => @item.condition,
-    #  :requestmessage => @message,
-    #  :approvedate =>  @item.approveddate,
-    #  :disapproveddate => @item.disapproveddate,
-    #  :paytype => @item.paytype.to_s,
-    #  :payinfo => @item.payinfo
-    # }
-
     @fullimage = @item.get_image(0,:view) 
     @thumbimage = @item.get_image(0,:thumb) 
     @viewimage = @item.get_image(0,:view) 

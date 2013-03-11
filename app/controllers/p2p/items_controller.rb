@@ -279,7 +279,7 @@ class P2p::ItemsController < ApplicationController
     end
 
     if !p2p_current_user.nil?
-      if  p2p_current_user.id != @item.user_id
+      if  p2p_current_user.id != @item.user_id and !session[:isadmin]
         @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
       end
     else
@@ -298,20 +298,57 @@ class P2p::ItemsController < ApplicationController
       @buyerreqcount = @item.messages.find_all_by_sender_id(p2p_current_user.id).count
     end
 
+    # @view_local = {
+    #  :viewimage => @item.get_image(0,:view) ,
+    #  :thumbimage => @item.get_image(0,:thumb) ,
+    #  :fullimage => @item.get_image(0,:view) ,
+    #  :title => @item.title,
+    #  :price => @item.price.to_i.to_s,
+    #  :location => @item.city.name ,
+    #  :ownerid => @item.user_id.to_s,
+    #  :userid => (current_user.nil? ) ? "" : current_user.id.to_s,
+    #  :itemid => @item.id.to_s,
+    #  :solddate => @item.solddate,
+    #  :deletedate => @item.deletedate,
+    #  :viewcount => @item.viewcount.to_s,
+    #  :reqcount => @item.reqCount,
+    #  :description => @item.desc,
+    #  :category => @category_name,
+    #  :subcategory => @sub_category_name,
+    #  :brand => @brand_name,
+    #  :spec => @attr,
+    #  :categoryid => @category_id.to_s,
+    #  :subcategoryid => @sub_category_id.to_s,
+    #  :brandid => @brand_id.to_s,
+    #  :itemspec => @item.product.category.specs,
+    #  :condition => @item.condition,
+    #  :requestmessage => @message,
+    #  :approvedate =>  @item.approveddate,
+    #  :disapproveddate => @item.disapproveddate,
+    #  :paytype => @item.paytype.to_s,
+    #  :payinfo => @item.payinfo
+    # }
+
+    @fullimage = @item.get_image(0,:view) 
+    @thumbimage = @item.get_image(0,:thumb) 
+    @viewimage = @item.get_image(0,:view) 
+
     # decide the paycontne and title for popover
-    if paytype == 1
-      @paytype_content = "You have selected to send this item via courier in #{payinfo.split(',')[0]} business days <br/> Click on the button to change it." 
+    @item_message_url = "/p2p/messages/#{@item.title}"
+    @payurl = "/p2p/itempayment/#{@item.id}"
+    if @item.paytype == 1
+      @paytype_content = "You have selected to send this item via courier in #{@item.payinfo.split(',')[0]} business days <br/> Click on the button to change it." 
       @paytype_title = "Send by Courier"
-    elsif paytype == 2
+    elsif @item.paytype == 2
       @paytype_content = "You have selected to deal with the buyer directly <br/> Click on the button to change it."
       @paytype_title = "Pay Directly"
-    elsif paytype == 3
+    elsif @item.paytype == 3
       @paytype_content = "You have selected sociorent to pickup and safely deliver the item. <br/> Click on the button to change it"
       @paytype_title = "Send by Sociorent"
     end
 
     #random image
-    @rand_image = rand(0..(thumbimage.count-1))
+    @rand_image = rand(0..(@item.get_image(0,:thumb).count-1))
 
   end
 

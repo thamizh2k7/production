@@ -39,14 +39,6 @@
                 <% i = 0 %>
                 <% @thumbimage.each do |img| %>
                     <li class="thumbs">
-                      <% if !current_user.nil? and (ownerid == p2p_current_user.id.to_s) %>
-
-                          <% unless itemid.empty? %>
-                              <i class="icon-remove pull-right remove_image hide"></i>
-                          <% end %>
-
-                      <% end %>
-
                       <img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=@fullimage[i][:url]%>" viewimage="<%= @viewimage[i][:url] %>">
                     </li>
                     <% i += 1 %>
@@ -77,26 +69,26 @@
             <!-- contact seller modal  -->
             <!-- Button to trigger modal -->
 
-            <% if defined?(@paytype) and @paytype == "2" %>
+            <% if @item.paytype == 2 %>
 
                 <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal">Contact Seller</a>
 
 
-            <% elsif @paytype == "1" %>
+            <% elsif @item.paytype == 1 %>
 
                 <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
 
-            <% elsif @paytype == "3" %>
+            <% elsif @item.paytype == 3 %>
 
                 <a class="btn  btn-warning action_icon" href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
 
             <% end %>
 
           </div>
-      <% elsif p2p_current_user.id.to_s != ownerid %>
+      <% elsif p2p_current_user.id.to_s != @item.user.id %>
 
 
-          <% if defined?(@paytype) and @paytype == "2" %>
+          <% if defined?(@item.paytype) and @item.paytype == 2 %>
 
               <% if p2p_current_user.mobileverified == true %>
                   <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i>Contact Seller</a>
@@ -156,14 +148,14 @@
                 </div>
 
                 <div class="modal-body">
-                  Seller aggres to <%=payinfo if defined?(payinfo)%>
-                  <p><%= render 'p2p/messages/compose' , :ownerid => ownerid ,:itemid => itemid ,:message => requestmessage %></p>
+                  Seller aggres to <%=@item.payinfo%>
+                  <p><%= render 'p2p/messages/compose' , :ownerid => @item.user.id ,:itemid => @item.id ,:message =>  @item.messages.new %></p>
                 </div>
 
               </div>
 
 
-          <% elsif @paytype == "1" %>
+          <% elsif @item.paytype == 1 %>
 
               <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
                 <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
@@ -177,7 +169,7 @@
 
               <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
 
-          <% elsif @paytype == "3" %>
+          <% elsif @item.paytype == 3 %>
 
               <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
               <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
@@ -199,7 +191,7 @@
 
                 <div class="modal-body">
                   <p>
-                    Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=itemid%>' id='check_availability'> <span id='availability_check_msg'>
+                    Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=@item.id%>' id='check_availability'> <span id='availability_check_msg'>
                   </p>
                 </div>
 
@@ -232,9 +224,9 @@
                 // calling the API ...
                 var obj = {
                   method: 'feed',
-                  redirect_uri: "http://<%=request.host%>:3000/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>",
+                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>",
                   link: 'https://developers.facebook.com/docs/reference/dialogs/',
-                  picture: "http://<%=request.host%>:3000<%=@thumbimage[0][:url]%>",
+                  picture: "http://<%=request.host%>:<%=request.port%><%=@thumbimage[0][:url]%>",
                   name: "<%=@item.title%> ",
                   caption: "P2P - Sociorent",
                   description: "<%=@item.desc.encode('UTF-8').truncate(100)%>"
@@ -252,7 +244,7 @@
 
           </span>
       
-      <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != ownerid %>
+      <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != @item.user.id %>
 
           <span class="item_top_details_detail btn" id="itemfavourite"><%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></span>
       <% elsif p2p_current_user.nil?  %>

@@ -5,12 +5,20 @@ $(document).ready(function(){
 	});
 
 	// save the form onclick trigger
-	$("#save").click(function(){
+	$("#save_top").click(function(){
 		// call the save function if saved not return false
 		if (!saveItem()){
 			return false;
 		}
 	});
+
+	$("#save_bottom").click(function(){
+		// call the save function if saved not return false
+		if (!saveItem()){
+			return false;
+		}
+	});
+
 
 
 	// EDIT Button click function..
@@ -120,7 +128,8 @@ edit_item =function(){
 		// show all the tooltips11
 		// hide the edit button and show the save and cancel button
 		$("#enable").hide();
-		$("#save").show();
+		$("#save_top").show();
+		$("#save_bottom").show();
 		$("#cancel").show();
 
 		$(this).addClass('btn-primary').attr('title','Save Changes');
@@ -189,7 +198,6 @@ edit_item =function(){
 					return false;
 				}
 
-				$('#save i').tooltip('show');
 			});
 
 		// enable xeditable
@@ -257,6 +265,12 @@ edit_item =function(){
 						if (params.newValue != "") {
 							item_values['brand'] = params.newValue;
 							$(this).removeClass('error');
+							
+							if (params.newValue == 'Other'){
+								$("#add_new_model").removeClass('hidden');
+							}else{
+								$("#add_new_model").addClass('hidden');
+							}
 
 							$("#price").tooltip('show');
 							$('#add_new_model').val('');
@@ -301,7 +315,7 @@ edit_item =function(){
 		//validate title
 		$('#title').on('save', function(e, params) {
  				 //alert('Saved value: ' + params.newValue);
-			if (params.newValue.length > 5) {
+			if (params.newValue.length > 2) {
 				item_values['title'] = params.newValue;
 				$(this).removeClass('error');
 				$('#category_item').tooltip('show');

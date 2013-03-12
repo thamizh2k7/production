@@ -164,16 +164,16 @@
 	              <tr class="edit_visible">
 	                <td>Title </td>
 	                <td>
-	                	<span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
+	                	<span class=" action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
 	               	</td>
 	              </tr>
 	              <tr>
 	                  <td>Category </td>
-	                  <td> <span class="canEdit action_icon" id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/p2p/getcategories" ><%=@item.category.name %></span></td>
+	                  <td> <span class=" action_icon" id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/p2p/getcategories" ><%=@item.category.name %></span></td>
 	              </tr>
 	              <tr>
 	                <td>
-	                	<%= (@item.category.name =="Books") ? 'Publisher' : 'Model'%>
+	                	<%= (@item.category.name =="Books") ? 'Type' : 'Model'%>
 	                </td>
 	                <td>
 	                	<span id="model" class="action_icon "  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" >
@@ -189,7 +189,7 @@
 	                 <td>
 	                    <span class="highlight highlight_force_color">
 	                    	Rs.
-	                        <span class="canEdit highlight action_icon  highlight_force_color" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
+	                        <span class=" highlight action_icon  highlight_force_color" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
 	                        	<%= @item.price %>
 	                        </span>
 	                    </span>
@@ -201,7 +201,7 @@
 	                  <span class="highlight"> Condition</span>
 	                </td>
 	                <td>
-	                  <span class="canEdit highlight action_icon  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
+	                  <span class=" highlight action_icon  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
 	                </td>
 	              </tr>
 
@@ -211,7 +211,7 @@
 	                  <span class="highlight">Location</span>
 	                </td>
 	                <td>
-	              	  <span class="highlight canEdit action_icon highlight_force_color" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
+	              	  <span class="highlight  action_icon highlight_force_color" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
 	              	  	<%= @item.city.name %>
 	              	  </span>
 	                 </td>
@@ -227,7 +227,7 @@
 	                        <%= aspec.spec.name %>
 	                      </td>
 	                      <td>
-	                        <span class="canEdit action_icon" data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
+	                        <span class=" action_icon" data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
 	                        	<%= aspec.value.titleize  unless aspec.value.nil? %>
 	                        </span>
 	                      </td>
@@ -252,7 +252,7 @@
 	     <div class="row">
 	          <div id="desc" class="span10">
 	               <h4> <%= @item.title.titleize %> Description</h4>
-	               <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
+	               <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class=" action_icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
 	          </div>
 	     </div>
 
@@ -279,7 +279,7 @@
 	                <tr>
 	                  <td> <%= @attr[i].spec.name %> </td>
 	                  <td>
-	                    <span class="canEdit" data-name="username"  title="<%=@attr[i].name%>"  specname="<%= @attr[i].spec.name %>" specid="<%= @attr[i].spec.id.to_s %>" id="item_<%= @attr[i].spec.id %>" data-placement="right">
+	                    <span data-name="username"  title="<%=@attr[i].name%>"  specname="<%= @attr[i].spec.name %>" specid="<%= @attr[i].spec.id.to_s %>" id="item_<%= @attr[i].spec.id %>" data-placement="right">
 	                    	<%= @attr[i].value.titleize %>
 	                    </span>
 	                  </td>
@@ -306,7 +306,7 @@
 	              <tr>
 	                <td><%= spec.name %> </td>
 	                <td>
-	                  <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>" data-placement="right">  </span>
+	                  <span data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>" data-placement="right">  </span>
 	                </td>
 	              </tr>
 	           <% end %>

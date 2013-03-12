@@ -197,15 +197,49 @@ class P2p::IndexController < ApplicationController
           order_result = ""
         end
       end
+
+      if params[:filter].has_key?(:price)
+        temp =[]
+          params[:filter][:price].each do |fil|
+            fil1 = fil.split('..')
+            temp.push(" between " + fil1[0] + " and " + fil1[1] + " ")
+        end
+        item_price = ""
+
+        temp.each do |rng|
+          item_price += ((item_price.empty?) ? "" : " or ") + ' p2p_items.price ' + rng + " "
+        end
+
+        item_condition_filter += "(#{item_price})"
+      end
+
       # second from the query
       # by parsing each and every filter
+
+      if item_condition_filter!=""
+              item_condition_filter   += " and "
+      end
+
+      if params[:filter].has_key?(:model)
+        params[:prod] = params[:filter][:model]
+        item_condition_filter += " p2p_items.product_id in (#{ params[:filter][:model].join(',')}) "
+      end
+      
       if params[:filter].has_key?("condition")
         temp = []
+        
         params[:filter][:condition].each do |fil|
           temp.push("'" + fil + "'")
         end
-        item_condition_filter = 'p2p_items.condition in (' + temp.join(",") + ") "
+        
+
+        if item_condition_filter!=""
+                item_condition_filter   += " and "
+        end
+
+        item_condition_filter += ' p2p_items.condition in (' + temp.join(",") + ")  "
       end
+
       params[:filter].each do |key,val|
         begin
           temp = @cat.specs.find_by_name(key)
@@ -221,6 +255,7 @@ class P2p::IndexController < ApplicationController
     if !filter.empty? and item_condition_filter != ""
       item_condition_filter   += " and "
     end
+
     item_where_condition = item_condition_filter
     #if we have prod then search inside it..
     #eg.. if the filter is applied in nokia..
@@ -232,12 +267,9 @@ class P2p::IndexController < ApplicationController
     end
     #if search inside the product,, search so
     # or else search inside the category.
-    if params.has_key?(:prod)
-      @products=@cat.products.find_by_name(params[:prod])
-      items = @products.by_location_or_allover(p2p_get_user_location).items.notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
-    else
-      items = @cat.items.by_location_or_allover(p2p_get_user_location).items.notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
-    end
+
+    items = @cat.items.by_location_or_allover(p2p_get_user_location).notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+
     #formt the output appropiatly,
     # required by view
     res = []

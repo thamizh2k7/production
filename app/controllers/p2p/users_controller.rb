@@ -34,11 +34,11 @@ class P2p::UsersController < ApplicationController
     end
 
     # convert the float values back to integer values
-    # @total_items = @total_items.to_i
-    # @sold_count = @sold_count.to_i
-    # @disapproved_count= @disapproved_count.to_i
-    # @approved_count = @approved_count.to_i
-    # @waiting_count =  @waiting_count.to_i
+    @total_items = @total_items.to_i
+    @sold_count = @sold_count.to_i
+    @disapproved_count= @disapproved_count.to_i
+    @approved_count = @approved_count.to_i
+    @waiting_count =  @waiting_count.to_i
   end
 
   def list

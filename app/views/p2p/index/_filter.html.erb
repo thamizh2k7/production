@@ -15,7 +15,8 @@
 		<% end %>
 	</div>
 	<% end %>
-	<% category.specs.each do |spec|%>
+	
+	<% category.specs.where(:show_filter => 1).each do |spec|%>
 	<% next if spec.itemspecs.select(" distinct value").where("value !=''").count == 0 %>
 	<div class="filter_title"> <%= spec.name %>  </div>
 

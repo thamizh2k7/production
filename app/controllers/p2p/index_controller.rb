@@ -197,6 +197,7 @@ class P2p::IndexController < ApplicationController
           order_result = ""
         end
       end
+<<<<<<< HEAD
 
       if params[:filter].has_key?(:price)
         temp =[]
@@ -225,6 +226,10 @@ class P2p::IndexController < ApplicationController
         item_condition_filter += " p2p_items.product_id in (#{ params[:filter][:model].join(',')}) "
       end
       
+=======
+      # second from the query
+      # by parsing each and every filter
+>>>>>>> p2p_clean_controllers
       if params[:filter].has_key?("condition")
         temp = []
         
@@ -267,6 +272,7 @@ class P2p::IndexController < ApplicationController
     end
     #if search inside the product,, search so
     # or else search inside the category.
+<<<<<<< HEAD
 
     items = @cat.items.by_location_or_allover(p2p_get_user_location).notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
 
@@ -298,6 +304,42 @@ class P2p::IndexController < ApplicationController
       render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
       return
     else
+=======
+    if params.has_key?(:prod)
+      @products=@cat.products.find_by_name(params[:prod])
+      items = @products.by_location_or_allover(p2p_get_user_location).items.notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+    else
+      items = @cat.items.by_location_or_allover(p2p_get_user_location).items.notsold.approved.where(  item_where_condition ).select('p2p_items.id,title,price,p2p_items.condition,product_id').order(order_result)
+    end
+    #formt the output appropiatly,
+    # required by view
+    res = []
+    items.each do |itm|
+      url = itm.get_image(1,:search)[0][:url]
+      temp_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}/#{itm.title}")
+      prod_url = URI.encode("/p2p/#{itm.product.category.name}/#{itm.product.name}")
+      prod = itm.product.name
+      cat = itm.product.category.name
+      cat_url = URI.encode("/p2p/#{itm.product.category.name}")
+      itm = to_hash(itm)
+      itm[:url] = temp_url
+      itm[:img] = url
+      itm[:title] =itm[:title].truncate(20)
+      itm[:prod_url] = prod_url
+      itm[:prod] = prod
+      itm[:cat_url] = cat_url
+      itm[:cat] = cat
+      res.push(itm)
+    end
+    #if we are called byt ajax, send teh value alone,
+    # else render the whole page witht the filtered items..
+    if request.xhr?
+      temp_result = res.paginate(:page => params[:page], :per_page => 20 )
+      puts temp_result.next_page.to_s + "next page"
+      render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
+      return
+    else
+>>>>>>> p2p_clean_controllers
       #redirect if items is empty meaning no items found for filters
       if res.count == 0
         redirect_to '/p2p'

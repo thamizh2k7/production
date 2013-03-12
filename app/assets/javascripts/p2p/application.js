@@ -94,7 +94,6 @@ $(document).ready(function(){
 	// 			$("#head_user_location").css('background-color','red');
 	// 			$("#head_user_location i").addClass('icon-white');
 	// 			$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
-
 	// 		}
 	// 	});
 

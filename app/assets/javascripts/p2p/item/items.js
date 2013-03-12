@@ -265,11 +265,17 @@ edit_item =function(){
 						if (params.newValue != "") {
 							item_values['brand'] = params.newValue;
 							$(this).removeClass('error');
-							
+
 							if (params.newValue == 'Other'){
 								$("#add_new_model").removeClass('hidden');
+								$("#add_new_model").editable('show');
+								$("#model").addClass('hidden');
+
+								item_values['brand'] = '';
+
 							}else{
 								$("#add_new_model").addClass('hidden');
+								$("#add_new_model").editable('destroy');
 							}
 
 							$("#price").tooltip('show');
@@ -282,6 +288,26 @@ edit_item =function(){
 							$("#model").tooltip('show');
 						}
 					});
+
+
+					$('#add_new_model').on('save', function(e, params) {
+		   				 //alert('Saved value: ' + params.newValue);
+		   				 //alert('saving');
+						if (params.newValue != "") {
+							item_values['brand'] = params.newValue;
+							$("#price").tooltip('show');
+							$('#model').text(params.newValue);
+							$("#add_new_model").addClass('hidden');
+							$("#model").removeClass('hidden');
+							
+						}
+						else{
+							item_values['brand']="";
+							params.newValue = params.oldValue;
+							$(this).addClass('error');
+						}
+					});
+
 
 			showNotifications("Fetching specifications...! Please Wait..");
 

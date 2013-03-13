@@ -117,10 +117,7 @@ class P2p::CategoriesController < ApplicationController
   def get_brands
     cat =P2p::Category.find(params[:id])
     brand  = cat.products.select("id as value,name as text")
-<<<<<<< HEAD
     brand << "Other"
-=======
->>>>>>> p2p_clean_controllers
     render :json => brand
     return
   end

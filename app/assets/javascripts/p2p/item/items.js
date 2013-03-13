@@ -245,14 +245,6 @@ edit_item =function(){
 			$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
 			item_values['brand'] = '';
 
-			
-			//add custom brand
-			$('#add_new_model').on('keyup',function(){
-				if ($.trim($(this).val()) != '' ) {
-					item_values['brand'] = $.trim ( $(this).val() );
-					$("#model").editable('setValue','',false);
-				}
-			});
 
 			//make the model editable
 			$("#model").editable();

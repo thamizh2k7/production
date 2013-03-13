@@ -147,8 +147,14 @@ class ApplicationController < ActionController::Base
   	else
   		return ''
   	end
+  end
 
-
+  def p2p_is_admin
+  	if !session[:isadmin]
+  		redirect_to '/p2p'
+  		return false
+  	end
+  	return true
   end
 
   def after_sign_in_path_for(resource)

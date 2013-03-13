@@ -113,11 +113,11 @@
 		              </button>
 
 		              <a href="<%=@item_message_url%>" role="button" class="btn " data-toggle="modal" ><i  d="reqcount_<%=@item.id%>"  class="action-icon icon-envelope" title="View Messages for this listing">  </i>  <%= @item.reqCount %> </a>
-
-
 		            <% end %>
 
+		            
 	              <button class="btn" id="viewcount" ><i  title="Number of view of this listing" class="action-icon icon-eye-open"></i><%= @item.viewcount %></button>
+
 
 	        </div> <!-- span6 action buttons-->
 	      </div>
@@ -379,3 +379,9 @@
 <%= javascript_include_tag 'p2p/item/common' %>
 <%= javascript_include_tag 'p2p/item/items' %>
 <%= javascript_include_tag 'p2p/item/view' %>
+
+<script>
+$(document).ready(function(){
+		$('.action-icon').tooltip('destroy');
+});
+</script>

@@ -86,7 +86,7 @@ class P2p::ItemsController < ApplicationController
         params['spec'] = [params['spec']]
       end
       params["spec"].each do |key,value|
-        next if value == ""
+        next if value.length == 0 or value == "null" or value =='undefined'
         begin
           attr = P2p::ItemSpec.new
           attr.spec = P2p::Spec.find(key.to_i)

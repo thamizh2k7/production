@@ -86,6 +86,7 @@ class P2p::IndexController < ApplicationController
   end
 
   # search inside a category
+  #for urls like /p2p/books
   def search_cat
     @cat = P2p::Category.find_by_name(params[:cat])
     @cat_name = @cat.name

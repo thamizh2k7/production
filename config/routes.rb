@@ -132,8 +132,8 @@ Sociorent::Application.routes.draw do
       match 'waiting(/user/:id)' => 'items#waiting'
       get  'favourites' => 'users#favouriteusers'
       post 'favourites' => 'users#setfavourite'
-      match 'vendors(/:cmd)' => 'users#vendorsdetails' 
-      
+      match 'vendors(/:cmd)' => 'users#vendorsdetails'
+
 
       #post 'payments' => 'users#userpayments'
 
@@ -208,6 +208,7 @@ Sociorent::Application.routes.draw do
   root :to => 'home#index'
 
   match '/system/*a', :to => 'errors#ignore_routing'
+    match '/assets/*a', :to => 'errors#ignore_routing'
 
   match '*a', :to => 'errors#routing'
   # See how all your routes lay out with "rake routes"

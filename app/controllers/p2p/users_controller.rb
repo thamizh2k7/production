@@ -67,7 +67,7 @@ class P2p::UsersController < ApplicationController
       return
     end
     #get image
-    unless p2p_current_user.nil?
+    unless session[:userid].nil?
       user=p2p_current_user
       redirect_to '/p2p'
       return
@@ -77,11 +77,11 @@ class P2p::UsersController < ApplicationController
   #send the first time initializing messages..
   def user_first_time
     admin =P2p::User.find_by_user_id(session[:admin_id])
-    if p2p_current_user.nil?
+    if session[:userid].nil?
       user = P2p::User.new
       user.user = current_user
       user.save
-      admin.sent_messages.create({:receiver_id => p2p_current_user.id ,
+      admin.sent_messages.create({:receiver_id => session[:userid] ,
                                   :message => "Hi #{p2p_current_user.user.name},  <br/> Welcome to Peer2Peer. This is an online platform for you to sell and buy products from other students in any college across india. Make most use of the site. Any queries, just compose a message and send it to me in message section. Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                   :messagetype => 6,
                                   :sender_id => admin.id,
@@ -147,7 +147,7 @@ class P2p::UsersController < ApplicationController
   def verifycode
     if session.has_key?(:verify) and params[:code] == session[:verify].to_s
       session.delete(:verify)
-      user = P2p::User.find(p2p_current_user.id)
+      user = P2p::User.find(session[:userid])
       puts user.inspect + 'user'
       user.update_attributes(:mobileverified => 1)
       puts user.inspect + 'user1'

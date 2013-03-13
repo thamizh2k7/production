@@ -38,14 +38,14 @@
 
 <% end %>
 
-<li class="divider"></li>
+<!-- <li class="divider"></li>
 
 <li class="nav-header">Your Items</li>
 <li class="<%= (params[:action] == "inventory" and params.has_key?(:query) and params[:query] == "sold" ) ? "active" : "" %>" ><a href="/p2p/approve"><a href="/p2p/mystore/sold"><i class="icon-ok-circle"></i>Sold <%= sold_count%> </a></li>
 <li class="<%= (params[:action] == "approve") ? "active" : "" %>" ><a href="/p2p/approve"> <i class="icon-certificate text-success" style="color:green;"></i> Approved <%= approved_count%> </a></li>
 <li class="<%= (params[:action] == "disapprove") ? "active" : "" %>" ><a href="/p2p/approve"><a href="/p2p/disapprove"><i class="icon-certificate text-error" ></i>Disapproved<%= disapproved_count%> </a></li>
 <li class="<%= (params[:action] == "waiting") ? "active" : "" %>" ><a href="/p2p/approve"><a href="/p2p/waiting "><i class="icon-certificate info text-info" ></i>Waiting <%= waiting_count%> </a></li>
-
+ -->
 <li class="divider"></li>
 <% if session[:isadmin] %>
   <li class="nav-header">Admin</li>

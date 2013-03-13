@@ -209,6 +209,11 @@ class P2p::IndexController < ApplicationController
 
         temp.each do |rng|
           item_price += ((item_price.empty?) ? "" : " or ") + ' p2p_items.price ' + rng + " "
+          
+          if item_condition_filter!=""
+              item_condition_filter   += " and "
+          end
+
         end
 
         item_condition_filter += "(#{item_price})"
@@ -217,9 +222,6 @@ class P2p::IndexController < ApplicationController
       # second from the query
       # by parsing each and every filter
 
-      if item_condition_filter!=""
-              item_condition_filter   += " and "
-      end
 
       if params[:filter].has_key?(:model)
         params[:prod] = params[:filter][:model]

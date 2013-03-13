@@ -4,12 +4,17 @@ $(document).ready(function(){
 		if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
 	});
 
+	
+	
 	// save the form onclick trigger
 	$("#save_top").click(function(){
 		// call the save function if saved not return false
 		if (!saveItem()){
 			return false;
 		}
+		
+		$('.action-icon').tooltip('destroy');
+
 	});
 
 	$("#save_bottom").click(function(){
@@ -98,7 +103,6 @@ check_specs =  function(e, params) {
 				}
 				else{
 					$(window).scrollTop = $("#desc_content").top;
-					$("#desc_content").tooltip('show');
 					$("#desc_content")[0].scrollIntoView(false);
 				}
 		}
@@ -106,7 +110,6 @@ check_specs =  function(e, params) {
 			item_values['spec'][that.attr('specid')]="";
 			params.newValue = params.oldValue;
 			$(this).addClass('error');
-			$(this).tooltip('show');
 		}
 	}
 	else{
@@ -118,8 +121,6 @@ check_specs =  function(e, params) {
 // edit item form
 edit_item =function(){
 
-		$(".action_icon").tooltip({"delay":{show:0,hide:100}});
-
 		$(".edit_visible").addClass('edit_shown').removeClass('edit_visible');
 
 		$('#clearuploads').removeClass('hidden');
@@ -130,11 +131,12 @@ edit_item =function(){
 		$("#enable").hide();
 		$("#save_top").show();
 		$("#save_bottom").show();
-		$("#cancel").show();
+		$("#cancel_top").show();
+		$("#cancel_bottom").show();
 
-		$(this).addClass('btn-primary').attr('title','Save Changes');
+		$(this).attr('title','Save Changes');
 
-		$("#enable i").attr('title','Click here to save your changebefores').removeClass('icon-pencil').addClass('icon-ok');
+		$("#enable i").attr('title','Click here to save your changes').removeClass('icon-pencil').addClass('icon-ok');
 
 		// enable upload form
 		// $("#file_add_image").removeProp("disabled");
@@ -147,11 +149,11 @@ edit_item =function(){
 
 			$("#image_upload").change(function(){
 
+					// get the files uploaded ..
+					// Read locally..
+					// then display on the page
 
 			    var files = $(this)[0].files; // FileList object
-
-
-
 			    // Loop through the FileList and render image files as thumbnails.
 			    for (var i = 0, f; f = files[i]; i++) {
 

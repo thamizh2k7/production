@@ -60,7 +60,7 @@
 				                  <%if session[:isadmin]%>
 				                  	<button class="btn alert-info"  id="approve" itemid="<%=@item.id%>"><i  class="action-icon icon-thumbs-up" title="Approve this listing"></i></button>
 			                  	<%end %>
-		              <% elsif @item.disapproveddate.nil? %>
+		              	<% elsif @item.disapproveddate.nil? %>
 			                  <!-- if admin display the approve button -->
 
 			                  <a href="/p2p/sold/<%= @item.id %>" class=" btn"   >
@@ -70,43 +70,52 @@
 												<% if session[:isadmin]%>
 			                  	<button class="btn alert-info" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
 			                  <% end %>
-                	<% else %>
+                		<% else %>
 			                  <a href="#" class="  btn"  >
 			                  	<i class=" action-icon icon-ban-circle"  title="Disapproved"></i>
 				                  	Disapproved
 			                  </a>
-             			<% end %>
+             				<% end %>
+             					<% if @item.user.id == p2p_current_user.id %>
+	                  		<a href="<%=@payurl%>" class="btn action_popover" data-content="<%=@paytype_content%>" data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >
+		      	           	<i class="action-icon icon icon-gift" title="<%=@paytype_title%>"></i>
+		    	              	Payment
+	  		                </a>
+	  		            	<% end %>
+	  		            <% else %>
+       									<span class="btn action_popover"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
 
-	                  <a href="<%=@payurl%>" class="btn action_popover" data-content="<%=@paytype_content%>" data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >
-	                  	<i class="action-icon icon icon-gift" title="<%=@paytype_title%>"></i>
-	                  	Payment
-	                  </a>
-		             <% end %>
+		             		<% end %>
 	           
 	              <!-- check if the item is sold or not -->
-	              <% if @item.deletedate.nil? %>
-	                <button class="btn"  id="delete_button"  itemid="<%=@item.id%>">
-	                	<i  class=" action-icon icon-trash" title="Remove Listing"></i>
-	                </button>
-		            <% else %>
+	              	<% if @item.deletedate.nil? %>
+		                <button class="btn"  id="delete_button"  itemid="<%=@item.id%>">
+		                	<i  class=" action-icon icon-trash" title="Remove Listing"></i>
+		                </button>
+		            	<% else%>
+		              
 		              <button class="btn">
 		               	<i  class=" action-icon icon-check" title="Deleted Listing"></i>
 		              </button>
 	              <% end %>
 
-	              <button class="btn " id="enable">
-	              	<i  class="action-icon icon-pencil"  title="Edit Listing"></i>
-	              </button>
+	              <%if @item.user.id == p2p_current_user.id%>
+		              <button class="btn " id="enable">
+		              	<i  class="action-icon icon-pencil"  title="Edit Listing"></i>
+		              </button>
 
-	              <button class="btn btn-success hide " id="save"  >
-	              	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i>
-	              </button>
+		              <button class="btn btn-success hide " id="save_top"  >
+		              	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i> Save
+		              </button>
 
-	              <button class="btn btn-danger hide " id="cancel" >
-	              	<i  class=" icon-white icon-remove-circle action-icon" title="Cancel changes"></i>
-	              </button>
+		              <button class="btn btn-danger hide " id="cancel_top" >
+		              	<i  class=" icon-white icon-remove-circle action-icon" title="Cancel changes"></i> Cancel
+		              </button>
 
-	              <a href="<%=@item_message_url%>" role="button" class="btn " data-toggle="modal" ><i  d="reqcount_<%=@item.id%>"  class="action-icon icon-envelope" title="View Messages for this listing">  </i>  <%= @item.reqCount %> </a>
+		              <a href="<%=@item_message_url%>" role="button" class="btn " data-toggle="modal" ><i  d="reqcount_<%=@item.id%>"  class="action-icon icon-envelope" title="View Messages for this listing">  </i>  <%= @item.reqCount %> </a>
+
+
+		            <% end %>
 
 	              <button class="btn" id="viewcount" ><i  title="Number of view of this listing" class="action-icon icon-eye-open"></i><%= @item.viewcount %></button>
 
@@ -170,7 +179,7 @@
 	              <tr class="edit_visible">
 	                <td>Title </td>
 	                <td>
-	                	<span class=" action-icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
+	                	<span class="canEdit action-icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
 	               	</td>
 	              </tr>
 	              <tr>
@@ -195,7 +204,7 @@
 	                 <td>
 	                    <span class="highlight highlight_force_color">
 	                    	Rs.
-	                        <span class=" highlight action-icon  highlight_force_color" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
+	                        <span class=" canEdit highlight action-icon  highlight_force_color" data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
 	                        	<%= @item.price %>
 	                        </span>
 	                    </span>
@@ -207,7 +216,7 @@
 	                  <span class="highlight"> Condition</span>
 	                </td>
 	                <td>
-	                  <span class=" highlight action-icon  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
+	                  <span class=" canEdit highlight action-icon  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
 	                </td>
 	              </tr>
 
@@ -217,14 +226,14 @@
 	                  <span class="highlight">Location</span>
 	                </td>
 	                <td>
-	              	  <span class="highlight  action-icon highlight_force_color" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
+	              	  <span class="highlight canEdit action-icon highlight_force_color" data-name="username"  data-type="typeahead" data-source="/p2p/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
 	              	  	<%= @item.city.name %>
 	              	  </span>
 	                 </td>
 	              </tr>
 
 	              <!-- load some specs hree -->
-	              <% unless @attr.empty? %>
+
 	                <% spec_used = [] %>
 	                <% @attr.each do |aspec| %>
 	                  <% spec_used.push(aspec.spec.id)%>
@@ -233,13 +242,13 @@
 	                        <%= aspec.spec.name %>
 	                      </td>
 	                      <td>
-	                        <span class=" action-icon" data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
+	                        <span class=" canEdit action-icon" data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
 	                        	<%= aspec.value.titleize  unless aspec.value.nil? %>
 	                        </span>
 	                      </td>
 	                    </tr>
 	                  <% end %>
-	              <% end %>
+
 
 	              <!-- keep a check if we have shown all specs here or show more -->
 	              <%if spec_used.size < @attr.size %>
@@ -260,6 +269,7 @@
 	               <h4> <%= @item.title.titleize %> Description</h4>
 	               <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class=" action-icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
 	          </div>
+
 	     </div>
 
 	     <!-- if we have more specs -->
@@ -285,7 +295,7 @@
 	                <tr>
 	                  <td> <%= @attr[i].spec.name %> </td>
 	                  <td>
-	                    <span data-name="username"  title="<%=@attr[i].name%>"  specname="<%= @attr[i].spec.name %>" specid="<%= @attr[i].spec.id.to_s %>" id="item_<%= @attr[i].spec.id %>" data-placement="right">
+	                    <span class="canEdit" data-name="username"  title="<%=@attr[i].name%>"  specname="<%= @attr[i].spec.name %>" specid="<%= @attr[i].spec.id.to_s %>" id="item_<%= @attr[i].spec.id %>" data-placement="right">
 	                    	<%= @attr[i].value.titleize %>
 	                    </span>
 	                  </td>
@@ -303,7 +313,7 @@
 	        <b>Add More Specification here <br/></b>
 	        <table class="table table-bordered table-striped hide" id="empty_specs">
 	          <tr>
-	            <th>Specification</th>
+	            <th class="span3">Specification</th>
 	            <th>Value</th>
 	          </tr>
 	          <% @item.product.category.specs.each do |spec| %>
@@ -312,7 +322,7 @@
 	              <tr>
 	                <td><%= spec.name %> </td>
 	                <td>
-	                  <span data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>" data-placement="right">  </span>
+	                  <span class="canEdit" data-name="<%=spec.name%>"  title="Enter <%=spec.name%>"  specname="<%= spec.name %>" specid="<%= spec.id.to_s %>" id="item_<%= spec.id %>" data-placement="right">  </span>
 	                </td>
 	              </tr>
 	           <% end %>
@@ -320,7 +330,21 @@
 	      </div>
 	    <%end %>
 
+    <div class="pull-right">
+          <button class="btn btn-success hide " id="save_bottom"  >
+          	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i> Save
+          </button>
+
+          <button class="btn btn-danger hide " id="cancel_bottom" >
+          	<i  class=" icon-white icon-remove-circle action-icon" title="Cancel changes"></i> Cancel
+          </button>
+
+    </div>
+
+
 </div>
+
+
 	<script>
 
 		window.item_id = '<%= @item.id%>';

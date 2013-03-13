@@ -160,12 +160,15 @@ class P2p::ItemsController < ApplicationController
         begin
           attr = item.specs.find_by_spec_id(key.to_i)
           attr.updated_at = update_time
-          attr.value = value
-          attr.save
-          if value == ""  || value == 'undefined'
-            attr.destroy
+
+          if value.strip.length == 0  or value == 'undefined'
+            attr.delete
             next
+          else
+            attr.value = value
+
           end
+
         rescue
           attr = item.specs.new
           attr.spec = item.category.specs.find(key.to_i)

@@ -74,7 +74,7 @@ Dir.chdir(Rails.root) do
                   #save images
                   (image_3-2..image_3).each do |i|
                     if !row[i].nil? and (/http:\/\/[^"]+\..*$/i).match(CGI::unescape(row[i]))!= nil
-                      a = item.images.new(:image_url => CGI::unescape(row[i]) )
+                      a = item.images.new(:image_url => URI.encode(row[i]) )
                       a.download_remote_image
 
                     end
@@ -87,7 +87,7 @@ Dir.chdir(Rails.root) do
                   end
                 end
               rescue Exception => e
-                puts "Error Occured for User\n" + e.backtrace.join('\n')
+                puts "Error Occured for User\n" + e.message + "       "  + e.backtrace.join('\n')
 
                 csvfile_obj.failed_csvs.create(:csv_data=>row.to_json())
                 next

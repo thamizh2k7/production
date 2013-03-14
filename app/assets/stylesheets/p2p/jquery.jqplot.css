@@ -43,6 +43,10 @@
     left: 15px;
 /*    padding-top: 10px;*/
     vertical-align: top;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    width:60px;
 }
 
 .jqplot-x2axis-tick {

@@ -220,4 +220,34 @@ class P2p::UsersController < ApplicationController
     @vendors=P2p::User.where('user_type = 1').paginate(:page => params[:vendor_page],:per_page => 20 )
     @users=P2p::User.where('user_type = 0').paginate(:page => params[:user_page],:per_page => 20 )
   end
+
+  def show_jobs
+    
+    if  params.has_key?(:job)
+
+      case params[:job]
+      
+        when 'bulk'
+          if params[:cmd] ='start'
+            Kernel.spawn("bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")
+          end
+      end
+
+      redirect_to '/p2p/admin/jobs'
+      return
+    end
+
+
+    if File.exist?(Rails.root.join('log/update_bulk_vendor.lock'))
+        @vendor_upload = "Vendor Bulk uploads is currently running"
+        @icon_class = 'icon-spin'
+         @run_bulk_upload =  false
+      else
+        @vendor_upload = "Bulk uploads is  currently not running"
+        @icon_class = ''
+        @run_bulk_upload = true
+    end
+
+  end
+
 end

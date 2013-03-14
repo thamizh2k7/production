@@ -193,6 +193,78 @@ class P2p::UsersController < ApplicationController
     end
   end
 
+  def getusers
+
+
+    
+    response={:aaData => []}
+    #where to start
+    if params.has_key?("iDisplayStart")
+      start = (params[:iDisplayStart].to_i / params[:iDisplayLength].to_i) + 1
+    else
+      start = 1
+    end
+    #order by the time by default
+    order = "updated_at desc"
+
+    #if sort is explicitly sennt from the client
+    if params.has_key?(:iSortCol_0)
+      case params[:iSortCol_0]
+      when "4" #based on time column
+        order = "updated_at " + params[:sSortDir_0]
+      when "1" #based on sender column
+        #check the table and sent the order by 
+          order = "id " + params[:sSortDir_0]
+        #based on item
+      end
+    end
+
+    #find for which items is the request came for 
+    # and get messages appropiatly
+    if params[:query] == 'vendors'
+      usertype = 1
+    elsif params[:query] == 'users'
+      usertype = 0
+    end
+
+    if params[:searchq]
+      users = User.where("email like '%#{params[:searchq]}%'")
+      users = users.pluck('id') 
+      users << 0
+      vendors = P2p::User.where("id in (#{users.join(',')}) and user_type = #{usertype}").paginate(:page => start,:per_page =>  params[:iDisplayLength] )
+    else
+      vendors = P2p::User.where("user_type = #{usertype}").paginate(:page => start,:per_page => params[:iDisplayLength] )
+    end
+
+    # form the response for the datatable
+    response[:iTotalRecords] =  vendors.count
+    response[:iTotalDisplayRecords] = vendors.count
+    #form the time to be displayed
+    vendors.each do |vendor|
+      tme =Time.now - vendor.created_at
+      if tme >= 86400
+        tme =  (tme/86400).to_i.to_s + " days ago"
+      elsif tme >=3600
+        tme =  (tme/3600).to_i.to_s + " hr ago"
+      else
+        if (tme/60).to_i > 2
+          tme = (tme/60).to_i.to_s + "min ago"
+        else
+          tme =  "about a min ago"
+        end
+      end
+
+      response[:aaData].push({
+                               "0" => "<input type='checkbox' class='vendor_check' userid='#{vendor.id}' >",
+                               "1" => vendor.user.name,
+                               "2" => vendor.user.email,
+                               "3" => tme
+
+      })
+    end
+    render :json => response
+end
+
   # Vendor
   #toggle vendors based on the params
   #set set the vendor,
@@ -200,14 +272,12 @@ class P2p::UsersController < ApplicationController
   def vendorsdetails
     if params.has_key?(:cmd)
       if params[:cmd] == 'set'
-        params[:user].each do |user_id|
+        params[:userid].each do |user_id|
           user = P2p::User.find(user_id.to_i)
           user.update_attributes(:user_type => 1)
         end
       elsif params[:cmd] == 'remove'
-
-        users =  params[:user] - params[:user_old]
-        users.each do |user_id|
+        params[:userid].each do |user_id|
           user = P2p::User.find(user_id.to_i)
           user.update_attributes(:user_type => 0)
         end
@@ -215,7 +285,13 @@ class P2p::UsersController < ApplicationController
         redirect_to '/p2p/vendors' ,:notice => 'Nothing found for your request'
         return
       end
+
+      if request.xhr?
+        render :json => {:success => 1}
+      end
     end
+
+
     #get vendors
     @vendors=P2p::User.where('user_type = 1').paginate(:page => params[:vendor_page],:per_page => 20 )
     @users=P2p::User.where('user_type = 0').paginate(:page => params[:user_page],:per_page => 20 )

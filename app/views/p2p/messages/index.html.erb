@@ -236,7 +236,7 @@
 
     	$('.master_check').on("click",function(){
     		var tbl=$("#" + $(this).attr("tbl")+ "_id");
-    		tbl.children("tbody tr td .msg_check").attr("checked","checked");
+    		tbl.find("tbody tr td .msg_check").attr("checked","checked");
 
     	});
 

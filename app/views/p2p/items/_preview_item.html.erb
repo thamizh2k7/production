@@ -61,7 +61,7 @@
     <div class="span3 pull-right" id="item_top_buy_button">
 
 
-      <% if p2p_current_user.nil? %>
+      <% if session[:userid].nil? %>
 
           <!-- Buyer View -->
           <div class="btn-group" id="listing_action">
@@ -85,7 +85,7 @@
             <% end %>
 
           </div>
-      <% elsif p2p_current_user.id.to_s != @item.user.id %>
+      <% elsif session[:userid].to_s != @item.user.id %>
 
 
           <% if defined?(@item.paytype) and @item.paytype == 2 %>
@@ -244,12 +244,12 @@
 
           </span>
       
-      <%if !p2p_current_user.nil? and p2p_current_user.id.to_s != @item.user.id %>
+      <%if !session[:userid].nil? and session[:userid].to_s != @item.user.id %>
 
           <span class="item_top_details_detail btn action_popover" id="itemfavourite"  data-content="You have starred <%=@item.user.user.name%>, which will bring you a notification everytime <%=@item.user.user.name%> lists a new item" data-title="<i class='icon-star '></i> Favourite <%=@item.user.user.name%>" data-trigger="hover" data-placement="top" data-html=true >
 
             <%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></span>
-      <% elsif p2p_current_user.nil?  %>
+      <% elsif session[:userid].nil?  %>
 
           <a data-toggle="modal" href="#head_login_modal" class="item_top_details_detail btn action_popover"   data-content="Starring <%=@item.user.user.name%> brings you a notification everytime <%=@item.user.user.name%> lists a new item" data-title="<i class='icon-star '></i> Favourite <%=@item.user.user.name%>" data-trigger="hover" data-placement="top" data-html=true   >
             <i class='icon-star'></i> <%= @item.user.user.name %>

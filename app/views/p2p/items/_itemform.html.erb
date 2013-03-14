@@ -610,7 +610,7 @@
 					item_values['brand'] = "<%= brandid %>";
 					item_values['price'] = "<%= price %>";
 					item_values['condition'] = "<%= condition %>";
-					item_values['desc'] = $("#desc_content").html();
+					item_values['desc'] = escape($("#desc_content").html());
 					item_values['location'] = "<%=location%>";
 
 					<% spec.each do |aspec| %>

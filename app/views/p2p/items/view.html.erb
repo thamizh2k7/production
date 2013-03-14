@@ -364,7 +364,7 @@
 		item_values['brand'] = "<%= @brand_id %>";
 		item_values['price'] = "<%= @item.price %>";
 		item_values['condition'] = "<%= @item.condition %>";
-		item_values['desc'] = $("#desc_content").html();
+		item_values['desc'] = escape($("#desc_content").html());
 		item_values['location'] = "<%=@item.city.name%>";
 
 	  <% @attr.each do |aspec| %>

@@ -75,7 +75,8 @@ class P2p::IndexController < ApplicationController
     end
   end
   def get_search_suggestions(query)
-    response =[{:label => query ,:value => URI.encode("#{query}")}]
+    #response =[{:label => query ,:value => URI.encode("#{query}")}]
+    response =[]
 
     item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).group('product_id').notsold.approved.select('product_id').search(query ,:match_mode => :any ,:star => true)
 

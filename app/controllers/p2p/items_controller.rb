@@ -9,7 +9,7 @@ class P2p::ItemsController < ApplicationController
   def new
     @item = p2p_current_user.items.new
   end
-  
+
   #creates the item..
   #the trick here is first time we dn save the item..
   #we simulate the save process
@@ -161,7 +161,7 @@ class P2p::ItemsController < ApplicationController
 
           attr = item.specs.find_by_spec_id(key.to_i)
           # skip if same value
-          next if attr.value == value 
+          next if attr.value == value
           attr.updated_at = update_time
 
           if value.strip.length == 0  or value == 'undefined'
@@ -310,6 +310,9 @@ class P2p::ItemsController < ApplicationController
     end
     #random image
     @rand_image = rand(0..(@item.get_image(0,:thumb).count-1))
+
+    # load address of the current user
+    @address = JSON.parse(current_user.address) rescue ""
   end
   def inventory
     user = p2p_current_user

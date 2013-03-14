@@ -152,6 +152,7 @@ Sociorent::Application.routes.draw do
 
       get ':cat/:prod/:item' => 'items#view' ,:as => :item_url
       get ':cat(/:prod)' => "index#browse"
+      match "update_shipping_address" => "users#update_shipping"
 
   end
 

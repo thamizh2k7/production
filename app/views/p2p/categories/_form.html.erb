@@ -9,17 +9,26 @@
  	<%= f.input :commission %>
 	<%= f.association :category %>
 
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th class="span2">Product Name</th>
+			<th class="span1">Action</th>
+		</tr>
 
-	<%= f.fields_for :products do |product| %>
-	  <%= product.label  :name ,"Product" %>	
-	  <%= product.text_field  :name %>
-	  <%= product.link_to_remove '<i class="icon-trash"></i>'.html_safe %>
-	<% end %>
+		<%= f.fields_for :products do |product| %>
+			<tr>
+				<td> <%= product.text_field  :name   %> </td>
+				<td> <%= product.link_to_remove '<i class="icon-trash"></i>'.html_safe %> </td>
+			</tr>
+		<% end %>
 
-	<%= f.fields_for  :specs do |spec| %>
+	</table>
+
+	<%= f.fields_for  :specs  do |spec| %>
+
 	  <%= spec.label  :name ,"Specification" %>	
 	  <%= spec.text_field  :name %>
-	  <%= spec.input  :show_filter ,inline_label: true ,:label => false %>
+	  <%= spec.input  :show_filter %>
 	  <%= spec.link_to_remove '<i class="icon-trash"></i>'.html_safe %>
 	<% end %>
 

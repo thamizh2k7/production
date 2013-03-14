@@ -7,26 +7,26 @@ class P2p::UsersController < ApplicationController
   def dashboard
     #find the total items and convert them to the
     #% based on the totalitem count
-    @total_items = p2p_current_user.items.unscoped.notdeleted.count.to_f
+    @total_items = p2p_current_user.items.count.to_f
     @sold_count = p2p_current_user.items.sold.count.to_f
     if @sold_count == 0
       @sold_percentage = 0
     else
       @sold_percentage = ((@sold_count/@total_items) * 100 ).ceil
     end
-    @waiting_count = p2p_current_user.items.unscoped.notsold.waiting.count.to_f
+    @waiting_count = p2p_current_user.items.waiting.count.to_f
     if @waiting_count == 0
       @waiting_percentage = 0
     else
       @waiting_percentage = ((@waiting_count/@total_items) * 100 ).ceil
     end
-    @disapproved_count = p2p_current_user.items.unscoped.notsold.disapproved.count.to_f
+    @disapproved_count = p2p_current_user.items.disapproved.count.to_f
     if @disapproved_count == 0
       @disapproved_percentage = 0
     else
       @disapproved_percentage = ((@disapproved_count/@total_items) *100 ).ceil
     end
-    @approved_count = p2p_current_user.items.unscoped.notsold.approved.count.to_f
+    @approved_count = p2p_current_user.items.notsold.approved.count.to_f
     if @approved_count == 0
       @approved_percentage = 0
     else
@@ -39,6 +39,11 @@ class P2p::UsersController < ApplicationController
     @disapproved_count= @disapproved_count.to_i
     @approved_count = @approved_count.to_i
     @waiting_count =  @waiting_count.to_i
+    @view_counts = p2p_current_user.items.notsold.select("title,viewcount").order("viewcount desc").limit(10)
+    @count_items =[]
+    @view_counts.each do |item|
+      @count_items << "['#{item.title}',#{item.viewcount}]"
+    end
   end
 
   def list

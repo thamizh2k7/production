@@ -98,7 +98,7 @@ class P2p::ItemsController < ApplicationController
 
     #save the item now..
     if item.save
-      redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
+      redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{(item.title).gsub(/ /,"-")}/item.id")
       # redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
     else
       flash[:notice] = "Failed "
@@ -180,7 +180,7 @@ class P2p::ItemsController < ApplicationController
         flash[:notice] = "Failed to save"
       end
     end
-    redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{item.title}")
+    redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
   end
 
 
@@ -345,7 +345,7 @@ class P2p::ItemsController < ApplicationController
     @item.solddate =Time.now
     @item.save
     #render :json => {:status => 1 ,:id => "/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}"}
-    redirect_to URI.encode("/p2p/#{@item.product.category.name}/#{@item.product.name}/#{@item.title}")
+    redirect_to URI.encode("/p2p/#{@item.product.category.name}/#{@item.product.name}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
   end
   def add_image
     if params[:item_id] != ""

@@ -1,10 +1,10 @@
 
 
  <button class="btn delete_messsage" tbl="<%=table_name%>"><i  title="Delete Selected" class="action_icon icon-trash"></i></button>
-
-
-
  <button class="btn refresh_messsage" tbl="<%=table_name%>"><i  title="Delete Selected" class="action_icon icon-refresh"></i></button>
+ <% if table_name == "inbox" %>
+ <button class="btn mark_as_read" tbl="<%=table_name%>">Mark As Read</button>
+ <% end %>
 
 
 <div class="input-append pull-right">
@@ -19,17 +19,17 @@
 		<tr>
 			<th><input type="checkbox" class="master_check"  tbl="<%=table_name%>"></th>
 
-			<th> <i class="action icon-tag"></i> 
-				Ref</th> 
-			<th> <i class="action icon-user"></i> 
+			<th> <i class="action icon-tag"></i>
+				Ref</th>
+			<th> <i class="action icon-user"></i>
 				Sender </th>
 
-			<th> <i class="action icon-envelope"></i> 
+			<th> <i class="action icon-envelope"></i>
 				Message</th>
-				 
-			<th> <i class="action icon-time"></i> 
+
+			<th> <i class="action icon-time"></i>
 				Time</th>
-			
+
 		</tr>
 	</thead>
 
@@ -42,5 +42,5 @@
 				<td></td>
 			</tr>
 	</tbody>
-		
+
 </table>

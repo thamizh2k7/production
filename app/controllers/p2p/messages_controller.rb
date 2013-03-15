@@ -112,7 +112,7 @@ class P2p::MessagesController < ApplicationController
     #render "p2p/messages/compose" ,:message => @message
     #return
   end
-  
+
   #get the messages as requested bye the data table
   def getmessages
     response={:aaData => []}
@@ -132,7 +132,7 @@ class P2p::MessagesController < ApplicationController
       when "4" #based on time column
         order = "created_at " + params[:sSortDir_0]
       when "2" #based on sender column
-        #check the table and sent the order by 
+        #check the table and sent the order by
         if params[:id] == 'inbox'
           order = "sender_id " + params[:sSortDir_0]
         elsif  params[:id] == 'sentbox'
@@ -157,7 +157,7 @@ class P2p::MessagesController < ApplicationController
         end
       end
     end
-    #find for which items is the request came for 
+    #find for which items is the request came for
     # and get messages appropiatly
     if params[:id] == 'inbox'
       if search != ""
@@ -224,7 +224,7 @@ class P2p::MessagesController < ApplicationController
       end
       #add click trigger for js to display the message
       row_class += ' message_show_trigger'
-      
+
       if msg.messagetype ==  2
         msgtype = "  <i class=' action  icon-shopping-cart '  title='Buy Request'></i>  ";
       else
@@ -240,5 +240,11 @@ class P2p::MessagesController < ApplicationController
       })
     end
     render :json => response
+  end
+
+  def mark_as_read
+    messages = p2p_current_user.received_messages.unread
+    messages.update_all({:receiver_status => 1})
+    render :text=>"Updated"
   end
 end

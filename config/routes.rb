@@ -71,6 +71,7 @@ Sociorent::Application.routes.draw do
     root :to => "index#index"
 
     resources :messages
+    match 'mark_as_read' =>'messages#mark_as_read'
     resources :items
     resources :images
     resources :credits

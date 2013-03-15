@@ -12,7 +12,7 @@
 
 			var that = $(this);
 
-			
+
 
 			_.each($("#" + that.attr("tbl") + "_table").find('.msg_check'),function(elm){
 
@@ -20,7 +20,7 @@
 						$(elm).attr('checked','checked');
 					}
 					else{
-						$(elm).removeAttr('checked');	
+						$(elm).removeAttr('checked');
 					}
 
 					// toggle the checkbox
@@ -40,7 +40,7 @@
 		$(".msg_check").change(function(){
 
 		});
-		
+
 		// delete selected messages
 		$('.delete_messsage').click(function(){
 			var that = $(this);
@@ -54,14 +54,14 @@
 					}
 			});
 
-			
-			//if nothing is selected reutnr 
+
+			//if nothing is selected reutnr
 			if (delete_messages.length < 1 ){
 				alert('Please select atleast one message');
 				$("#" + that.attr('tbl') + " .master_check").removeAttr('checked');
 				return false;
 			}
-			
+
 			showOverlay();
 
 			showNotifications("Processing  " + delete_messages.length + " messages.! Please wait");
@@ -76,11 +76,11 @@
 					// reset the checkbox
 					$("#" + that.attr('tbl') + " .master_check").removeAttr('checked');
 
-					
+
 					if (data['unreadcount'] > 0){
 						$('#unread_count').html("(" + data['unreadcount'] +  ")");
 						$('#header_msg_count').html("(" + data['unreadcount'] +  ")");
-						
+
 					}
 					else{
 						$('#unread_count').html("");
@@ -100,7 +100,7 @@
 					}
 
 					// #hide the overloy
-					
+
 					if (delete_messages.length > 0)
 						showNotifications("Successfully " + delete_messages.length + " messages");
 
@@ -118,7 +118,7 @@
 
 
 		if ($("#inbox").css('display') == 'none'){
-			
+
 			$("#inbox").css('display','');
 			$("#sent").css('display','none');
 			$("#delete").css('display','none');
@@ -159,7 +159,12 @@
 			$('#show_msg').css('display','none');
 		}
 	});
-
+	$(".mark_as_read").live("click",function(){
+		$.post("/p2p/mark_as_read",function(data){
+			showNotifications("All Messages Marked as unread");
+			oInboxTable.fnDraw();
+		});
+	});
 
 
 });
@@ -167,7 +172,7 @@
 
  	// Showing overlay while fetching contents
 	showOverlay = function(){
-		
+
 		$("#overlay").css({
 			"width":$(".tab-content").outerWidth(),
 			"height":$(".tab-content").outerHeight(),
@@ -186,6 +191,6 @@
 // 		giCount+".2",
 // 		giCount+".3",
 // 		giCount+".4" ] );
-	
+
 // 	giCount++;
 // }

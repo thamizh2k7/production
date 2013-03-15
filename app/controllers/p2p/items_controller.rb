@@ -45,28 +45,9 @@ class P2p::ItemsController < ApplicationController
       rescue
         begin
           item.product = item.category.products.new(:name =>  (Publisher.find_by_name(params[:brand])).name )
-          # P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => 1 ,
-          #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in your p2p and hence was taken from sociorent and created automatically for you, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically. Sincerally - Developers",
-          #                                       :messagetype => 5,
-          #                                       :sender_id => 1,
-          #                                       :sender_status => 2,
-          #                                       :receiver_status => 0,
-          #                                       :parent_id => 0,
-          #                                       :item_id => item.id
-          #                                      });
         rescue
           begin
             item.product = item.category.products.new(:name => params[:brand] )
-            #item.category.products.new(:name => params[:brand] )
-            # P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => 1 ,
-            #                                       :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The publisher #{product.name} was not found in either p2p nor in sociorent, when the #{p2p_current_user.user.email} requested on listing a book and was created automatically.  <br/><h4>We request you to verify the same.</h4>Sincerally - Developers",
-            #                                       :messagetype => 5,
-            #                                       :sender_id => 1,
-            #                                       :sender_status => 2,
-            #                                       :receiver_status => 0,
-            #                                       :parent_id => 0,
-            #                                       :item_id => item.id
-            #                                      });
           end
         end
       end
@@ -139,7 +120,7 @@ class P2p::ItemsController < ApplicationController
         city.save
         item.city = city
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same. Sincerally - Developers",
+                                                                 :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same.",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 2,
@@ -264,6 +245,7 @@ class P2p::ItemsController < ApplicationController
       redirect_to '/p2p'
       return
     end
+
     if @item.product.category.category.nil?
       @category_name = @item.product.category.name
       @category_id = @item.product.category.id
@@ -275,6 +257,7 @@ class P2p::ItemsController < ApplicationController
       @category_name = @item.product.category.category.name
       @category_id = @item.product.category.category.id
     end
+
     if !session[:userid].nil?
       if  session[:userid] != @item.user_id and !session[:isadmin]
         @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
@@ -282,9 +265,11 @@ class P2p::ItemsController < ApplicationController
     else
       @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
     end
+
     @brand_name = @item.product.name
     @brand_id = @item.product.id
     @attr = @item.specs(:includes => :attr)
+
     if !session[:userid].nil? and session[:userid] == @item.user_id
       @messages = @item.messages.all
     elsif !session[:userid].nil?
@@ -292,12 +277,14 @@ class P2p::ItemsController < ApplicationController
       @message = @item.messages.new
       @buyerreqcount = @item.messages.find_all_by_sender_id(session[:userid]).count
     end
+
     @fullimage = @item.get_image(0,:view)
     @thumbimage = @item.get_image(0,:thumb)
     @viewimage = @item.get_image(0,:view)
     # decide the paycontne and title for popover
     @item_message_url = "/p2p/messages/#{@item.title}"
     @payurl = "/p2p/itempayment/#{@item.id}"
+
     if @item.paytype == 1
       @paytype_content = "You have selected to send this item via courier in #{@item.payinfo.split(',')[0]} business days <br/> Click on the button to change it."
       @paytype_title = "Send by Courier"
@@ -308,11 +295,19 @@ class P2p::ItemsController < ApplicationController
       @paytype_content = "You have selected sociorent to pickup and safely deliver the item. <br/> Click on the button to change it"
       @paytype_title = "Send by Sociorent"
     end
+
     #random image
     @rand_image = rand(0..(@item.get_image(0,:thumb).count-1))
 
     # load address of the current user
     @address = JSON.parse(current_user.address) rescue ""
+
+    @address = {"address_street_1" => "",
+    "address_street_2" => "", 
+    "address_city" => "", 
+    "address_state" => "", 
+    "address_pincode" => "" } if @address == ''
+
   end
   def inventory
     user = p2p_current_user
@@ -471,7 +466,14 @@ oDeleteBoxTable.fnDraw();
         item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:approveddate => Time.now ,:disapproveddate => nil)
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
-                                                                 :message => "This is an auto generated system message. Your item is verified , approved  and  will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                                                 :message => "Congratulations, Your item <b>#{item.title}</b> has been approved and it is now live. <br>
+<br>
+This is a system generated message and you need not reply to this.
+<br><br>
+Thank you.
+<br>
+Sincerly,<br>
+Sociorent Street Team.",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 2,

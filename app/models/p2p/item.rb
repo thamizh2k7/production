@@ -175,7 +175,7 @@ class P2p::Item < ActiveRecord::Base
     PrivatePub.publish_to("/user_1", admin_message_notification )
 
     admin.sent_messages.create({:receiver_id => self.user.id ,
-                                              :message => 'This is an auto generated system message. Your listing is kept under verification and will appear on the site with in 2hours. To send a message to me just click compose and send your message. <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent',
+                                              :message => "Thank you for listing an item in Sociorent Street. Your listing is under validation and you'll get a message <br> on the status of the item in a couple of hours.<br>This is a system generated message and you need not reply to this.<br><br>Thank you.<br><br>Sincerly,<br>Sociorent Street Team.",
                                               :messagetype => 5,
                                               :sender_id => admin.id,
                                               :sender_status => 2,

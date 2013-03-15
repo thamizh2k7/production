@@ -267,7 +267,7 @@
 	     <div class="row">
 	          <div id="desc" class="span10">
 	               <h4> <%= @item.title.titleize %> Description</h4>
-	               <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class=" action-icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc %> </span>
+	               <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class=" action-icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
 	          </div>
 
 	     </div>

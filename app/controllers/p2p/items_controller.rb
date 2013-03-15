@@ -264,6 +264,7 @@ class P2p::ItemsController < ApplicationController
       redirect_to '/p2p'
       return
     end
+
     if @item.product.category.category.nil?
       @category_name = @item.product.category.name
       @category_id = @item.product.category.id
@@ -275,6 +276,7 @@ class P2p::ItemsController < ApplicationController
       @category_name = @item.product.category.category.name
       @category_id = @item.product.category.category.id
     end
+
     if !session[:userid].nil?
       if  session[:userid] != @item.user_id and !session[:isadmin]
         @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
@@ -282,9 +284,11 @@ class P2p::ItemsController < ApplicationController
     else
       @item.update_attributes(:viewcount => @item.viewcount.to_i + 1 )
     end
+
     @brand_name = @item.product.name
     @brand_id = @item.product.id
     @attr = @item.specs(:includes => :attr)
+
     if !session[:userid].nil? and session[:userid] == @item.user_id
       @messages = @item.messages.all
     elsif !session[:userid].nil?
@@ -292,12 +296,14 @@ class P2p::ItemsController < ApplicationController
       @message = @item.messages.new
       @buyerreqcount = @item.messages.find_all_by_sender_id(session[:userid]).count
     end
+
     @fullimage = @item.get_image(0,:view)
     @thumbimage = @item.get_image(0,:thumb)
     @viewimage = @item.get_image(0,:view)
     # decide the paycontne and title for popover
     @item_message_url = "/p2p/messages/#{@item.title}"
     @payurl = "/p2p/itempayment/#{@item.id}"
+
     if @item.paytype == 1
       @paytype_content = "You have selected to send this item via courier in #{@item.payinfo.split(',')[0]} business days <br/> Click on the button to change it."
       @paytype_title = "Send by Courier"
@@ -308,11 +314,19 @@ class P2p::ItemsController < ApplicationController
       @paytype_content = "You have selected sociorent to pickup and safely deliver the item. <br/> Click on the button to change it"
       @paytype_title = "Send by Sociorent"
     end
+
     #random image
     @rand_image = rand(0..(@item.get_image(0,:thumb).count-1))
 
     # load address of the current user
     @address = JSON.parse(current_user.address) rescue ""
+
+    @address = {"address_street_1" => "",
+    "address_street_2" => "", 
+    "address_city" => "", 
+    "address_state" => "", 
+    "address_pincode" => "" } if @address == ''
+    
   end
   def inventory
     user = p2p_current_user

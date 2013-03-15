@@ -24,7 +24,7 @@
   <% ranges = [] %>
   <% item_price_res.insert(0,0)  if item_price_res.count.odd?  %>
   <% item_price_res.each do |d| %>
-    <% ranges.push((d[0]-1)..(d[1]+1)) %>
+    <% ranges.push((d[0].to_i-1)..(d[1].to_i+1)) %>
   <% end  %>
 
 

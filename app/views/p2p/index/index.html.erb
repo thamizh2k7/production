@@ -38,14 +38,14 @@
 				-->     <% items.each do |p| %>
 										<li class="span3 aitem_holder">
 												<div class="thumbnail">
-																<a href="<%= URI.encode("/p2p/#{p.category.name}/#{p.product.name}/#{p.title}")%>">
+																<a href="<%= URI.encode("/p2p/#{p.category.name}/#{p.product.name}/#{(p.title).gsub(/ /, "-")}/#{p.id}")%>">
 																	<div class="aitem_left">
 																			 <img src="<%=p.get_image(1,:search)[0][:url]%>" >
 																 </div>
 																</a>
 
 															<div class="aitem_right">
-																 <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}")%>">
+																 <a href="<%= URI.encode("/p2p/#{p.product.category.name}/#{p.product.name}/#{p.title}/#{p.id}")%>">
 																	<div  title="<%= p.title %>">
 																		<div class="item_title"><%= p.title.truncate(20).titleize  %></div>
 																	</div>

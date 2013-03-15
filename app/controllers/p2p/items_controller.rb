@@ -228,19 +228,23 @@ class P2p::ItemsController < ApplicationController
       #@item = P2p::Item.find(params[:id])
       @cat =  P2p::Category.find_by_name(params[:cat])
       @prod=  @cat.products.find_by_name(params[:prod])
+      
       if !session[:userid].nil? and  session[:isadmin]
-        @item = @prod.items.unscoped.find_by_title(params[:item])
+        @item = @prod.items.unscoped.find(params[:id])
       else
-        @item = @prod.items.find_by_title(params[:item])
+        @item = @prod.items.find(params[:id])
       end
+
       raise "Nothing found" if   @item.nil?
       if !session[:userid].nil? and @item.paytype.nil? and session[:userid] == @item.user.id
         redirect_to "/p2p/itempayment/#{@item.id}"
         return
       end
+
       if (session[:userid].nil? and @item.approveddate.nil?) or @item.paytype.nil?
         raise "Nothing found paytype and not approved"
       end
+
     rescue
       redirect_to '/p2p'
       return
@@ -422,7 +426,7 @@ class P2p::ItemsController < ApplicationController
         item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:disapproveddate => Time.now , :approveddate => nil)
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
-                                                                 :message => "This is an auto generated system message. Your item #{item.title} has been disapproved due to some reasons . Reply to this message to know the reason.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                                                 :message => "Your listing for the item #{item.title} has been disapproved for the following reason.<br>'-'<br>You may edit the appropriate content and re-submit the listing for review. <br><br>This is a system generated message and you need not reply.<br><br>Thank you.<br>Sincerly,<br>Sociorent Street",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 2,
@@ -431,7 +435,7 @@ class P2p::ItemsController < ApplicationController
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.Your can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.Your can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -446,7 +450,7 @@ text: 'Your item #{item.title} has been disapproved by admin. Please check messa
 },{
 expires:false,
 click:function(){
-window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{item.title}';
+window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
 }
 });
 if (oInboxTable){
@@ -482,7 +486,7 @@ Sociorent Street Team.",
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id] ,
-                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{item.title}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/p2p/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -523,7 +527,7 @@ text: 'Your item #{item.title} has been approved by admin and will be listed on 
 },{
 expires:false,
 click:function(){
-window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{item.title}';
+window.location.href = '/p2p/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
 }
 });
 if (oInboxTable){
@@ -603,7 +607,7 @@ oDeleteBoxTable.fnDraw();
         @item.new_item_created
       else
       end
-      redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}")
+      redirect_to URI.encode("/p2p/#{@item.category.name}/#{@item.product.name}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
       return
     elsif params.has_key?(:terms) and params[:terms] !='1'
       flash.now[:notice] = 'Agree to the terms and conditions.'

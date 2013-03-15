@@ -153,7 +153,7 @@ pay_now_citrus_pay =  function(shipping_addr){
           $("input[name='reqtime']").val(signature_data.time);
           $("input[name='secSignature']").val(signature_data.signature);
           $("input[name='merchantTxnId']").val(signature_data.txn_id);
-          //$("#citruspay_form").submit();
+          $("#citruspay_form").submit();
           // submitting the form to citruspay
           return false;
 

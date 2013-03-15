@@ -39,10 +39,34 @@ class P2p::UsersController < ApplicationController
     @disapproved_count= @disapproved_count.to_i
     @approved_count = @approved_count.to_i
     @waiting_count =  @waiting_count.to_i
-    @view_counts = p2p_current_user.items.notsold.select("title,viewcount").order("viewcount desc").limit(10)
+    @view_counts = []
+    # for displaying chart for admin & vendors
+    if session[:isadmin] || session[:user_type] == 1
+      @categories = []
+      @cate_counts = []
+      categories = P2p::Category.includes(:items).all
+      categories.each do |cate|
+        # for vendor getting items
+        if session[:user_type] == 1 && session[:isadmin].nil?
+          count_hash=cate.items.where("user_id=?",p2p_current_user.id).group("viewcount").count
+        else
+          count_hash=cate.items.group("viewcount").count
+        end
+        total_count = 0
+        count_hash.each_with_index do |(cnt_val,count),index|
+          puts "Total Count =(#{total_count})+(#{cnt_val} * #{count})"
+          total_count += (cnt_val * count)
+        end
+        @cate_counts << "['#{cate.name}',#{total_count}]"
+        @categories << "'#{cate.name}'"
+      end
+    end
+    @view_counts = p2p_current_user.items.notsold.order("viewcount desc").limit(10)
     @count_items =[]
+    @item_names = []
     @view_counts.each do |item|
       @count_items << "['#{item.title}',#{item.viewcount}]"
+      @item_names << "'/p2p/#{item.category.name}/#{item.product.name}/#{item.title}'"
     end
   end
 
@@ -201,7 +225,7 @@ class P2p::UsersController < ApplicationController
   def getusers
 
 
-    
+
     response={:aaData => []}
     #where to start
     if params.has_key?("iDisplayStart")
@@ -218,13 +242,13 @@ class P2p::UsersController < ApplicationController
       when "4" #based on time column
         order = "updated_at " + params[:sSortDir_0]
       when "1" #based on sender column
-        #check the table and sent the order by 
+        #check the table and sent the order by
           order = "id " + params[:sSortDir_0]
         #based on item
       end
     end
 
-    #find for which items is the request came for 
+    #find for which items is the request came for
     # and get messages appropiatly
     if params[:query] == 'vendors'
       usertype = 1
@@ -234,7 +258,7 @@ class P2p::UsersController < ApplicationController
 
     if params[:searchq]
       users = User.where("email like '%#{params[:searchq]}%'")
-      users = users.pluck('id') 
+      users = users.pluck('id')
       users << 0
       vendors = P2p::User.where("id in (#{users.join(',')}) and user_type = #{usertype}").paginate(:page => start,:per_page =>  params[:iDisplayLength] )
     else
@@ -303,11 +327,11 @@ end
   end
 
   def show_jobs
-    
+
     if  params.has_key?(:job)
 
       case params[:job]
-      
+
         when 'bulk'
           if params[:cmd] ='start'
             Kernel.spawn("bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")

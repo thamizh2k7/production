@@ -580,3 +580,7 @@ vertical-align: middle;
 	position: relative;
 	margin: 40px auto;
 }
+#category_status{
+	margin-bottom: 30px;
+	min-height: 300px;
+}

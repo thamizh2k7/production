@@ -79,6 +79,6 @@ StaticPage.create(:page_name => "terms_of_use", :page_title => "Terms of use", :
 StaticPage.create(:page_name => "privacy_policy", :page_title => "Privacy policy", :page_content => "privacy policy", :is_active => true)
 StaticPage.create(:page_name => "faq", :page_title => "FAQ", :page_content => "FAQ", :is_active => true)
 
-
+load Rails.root.to_s + '/db/p2pseed.rb'
 
 #

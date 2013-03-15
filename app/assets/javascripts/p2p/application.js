@@ -35,6 +35,9 @@
 //= require p2p/jqplot.barRenderer.min
 //= require p2p/jqplot.pointLabels
 //= require p2p/jqplot.pieRenderer.min
+//= require p2p/jqplot.canvasAxisLabelRenderer.min
+//= require p2p/jqplot.canvasTextRenderer.min
+//= require p2p/jqplot.canvasAxisTickRenderer.min
 //= require p2p/jqplot.categoryAxisRenderer.min
 //= require p2p/jquery-scrolltofixed-min
 //= require p2p/search

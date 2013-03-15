@@ -130,10 +130,7 @@
 }
 
 table.jqplot-table-legend {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    margin-left: 12px;
-    margin-right: 12px;
+    margin:2px;
 
 }
 
@@ -144,7 +141,6 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 td.jqplot-table-legend {
-    padding-left:10px;
     vertical-align:middle;
 }
 

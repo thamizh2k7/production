@@ -303,9 +303,9 @@ class P2p::ItemsController < ApplicationController
     @address = JSON.parse(current_user.address) rescue ""
 
     @address = {"address_street_1" => "",
-    "address_street_2" => "", 
-    "address_city" => "", 
-    "address_state" => "", 
+    "address_street_2" => "",
+    "address_city" => "",
+    "address_state" => "",
     "address_pincode" => "" } if @address == ''
 
   end

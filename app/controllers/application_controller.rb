@@ -19,10 +19,15 @@ class ApplicationController < ActionController::Base
 	 user_pwd="Sathish@sociorent.com:Sathish1"
 	 sender_id="SOCRNT"
 	 url= "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=#{user_pwd}&senderID=#{sender_id}&receipientno=#{receipient}&dcs=0&msgtxt=#{msg}&state=4"
+	 puts url
 	 agent =Mechanize.new
 	 page = agent.get(url)
 	 resp=page.body.split(",")
 	 puts page.body
+
+	 # puts receipient
+	 # puts msg
+	 # resp = ["Status=1"]
 	 puts resp
 	 if resp[0]=="Status=1"
 		return false
@@ -66,7 +71,7 @@ class ApplicationController < ActionController::Base
   # this selects the layout for the p2p namespace
   def p2p_layout
 
-	 if request.xhr? 
+	 if request.xhr?
 		return false;
 	 else
 		guess_user_location
@@ -76,7 +81,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  ##return p2pUser 
+  ##return p2pUser
   def p2p_current_user
 
   	begin
@@ -94,7 +99,7 @@ class ApplicationController < ActionController::Base
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id
 
-	  		if user.user.is_admin 
+	  		if user.user.is_admin
 	  			session[:isadmin] = true
 	  		end
 
@@ -108,13 +113,13 @@ class ApplicationController < ActionController::Base
 
   end
 
- 
+
 
 
   ##P2p Authentication
   def p2p_user_signed_in
 
-  
+
 	 if current_user.nil?
 		redirect_to '/p2p'
 		return false
@@ -127,11 +132,11 @@ class ApplicationController < ActionController::Base
 
 	# check for ucrrent user and ignore the user presnce if the user is not logged in
 	if current_user.nil?
-		return true 
-	end	
+		return true
+	end
 
 	if P2p::User.find_by_user_id(current_user.id).nil?
-	  redirect_to '/p2p/welcome'  
+	  redirect_to '/p2p/welcome'
 	  return false
 	end
 
@@ -160,16 +165,16 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-  	
+
   	unless request.xhr?
-  		return request.env["HTTP_REFERER"] 
+  		return request.env["HTTP_REFERER"]
   	end
   	super
   end
 
   def after_sign_out_path_for(resource)
   	unless request.xhr?
-  		return request.env["HTTP_REFERER"] 	
+  		return request.env["HTTP_REFERER"]
 
   	end
   	super
@@ -185,12 +190,12 @@ class ApplicationController < ActionController::Base
 		 end
 	  end
 	  def authenticate_admin!
-		 authenticate_user! 
+		 authenticate_user!
 		 unless current_user.is_admin?
 			flash[:alert] = "Unauthorized Access!"
-			redirect_to root_path 
+			redirect_to root_path
 		 end
-	  end  
+	  end
 
 
 

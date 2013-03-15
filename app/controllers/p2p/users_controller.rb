@@ -111,7 +111,7 @@ class P2p::UsersController < ApplicationController
       user.user = current_user
       user.save
       admin.sent_messages.create({:receiver_id => session[:userid] ,
-                                  :message => "Hi #{p2p_current_user.user.name},  <br/> 
+                                  :message => "Hi #{p2p_current_user.user.name},  <br/>
                                   Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
                                   :messagetype => 6,
                                   :sender_id => admin.id,
@@ -167,9 +167,14 @@ class P2p::UsersController < ApplicationController
   # Get code for verification of mobile
   def getcode
     session[:verify] = rand(10000..99999)
+    mobile_number = params[:mobile]
     msg = "Your Sociorent.com Order 1234 has been shipped through #{session[:verify]} with tracking number . Thank you."
-    sendsms(p2p_current_user.user.mobile_number,msg)
-    #todo sendsms
+    user = P2p::User.find(session[:userid])
+    user.update_attributes(:mobile_number=>mobile_number)
+    puts session[:verify]
+    #TODO :: check the send sms function whether it pinging mvooyoo correctly.or not
+    #send_sms(mobile_number,msg)
+
     render :json => {:status => 1}
   end
 

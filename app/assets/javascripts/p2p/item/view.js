@@ -170,6 +170,7 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
          $.ajax({
               url:'/p2p/users/verifymobile/code',
               type:'post',
+              data:{"mobile":$("#mobile_number").val()},
               dataType:'json',
               success:function(data){
                    if (data.status== 1){

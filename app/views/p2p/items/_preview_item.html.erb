@@ -107,7 +107,14 @@
                     </div>
 
                     <div class="modal-body form-horizontal">
-                      Before you send a message to seller, verify your mobile.
+                      Before you send a message to seller, verify your mobile.<br>
+                      <div class="control-group">
+                        <label class="control-label"> Enter Mobile</label>
+
+                        <div class="controls">
+                          <input type="text" id="mobile_number" value = "<%= current_user.mobile_number %>" class="input text" >
+                        </div>
+                      </div>
 
                       <div class="control-group">
                         <label class="control-label"> Verification Code:</label>

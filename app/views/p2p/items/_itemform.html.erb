@@ -649,6 +649,7 @@
 							  				$.ajax({
 							  					url:'/p2p/users/verifymobile/code',
 							  					type:'post',
+							  					data:{"mobile":$("#mobile_number").val();}
 							  					dataType:'json',
 							  					success:function(data){
 							  						if (data.status== 1){

@@ -14,3 +14,6 @@ $(document).ready ->
 
   $("#browse_button").mouseenter ->
     $(this).trigger "click"
+
+  $("#home_notice").click ->
+    $("#notice_container").hide()

@@ -230,7 +230,7 @@ li.dropdown:hover > ul.dropdown-menu{
 
 #menuSet{
 	text-align: right;
-	margin-bottom: -20px;
+	margin-bottom: 0px;
 }
 
 #menuSet li{
@@ -277,7 +277,7 @@ li.dropdown:hover > ul.dropdown-menu{
 }
 
 .main_nav{
-	margin-top: 7px;
+	margin: 7px 0px 10px 0px;
 }
 .main_nav li a{
 	display: block;

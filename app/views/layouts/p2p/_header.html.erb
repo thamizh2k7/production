@@ -21,6 +21,7 @@
 
 
                   
+                  <li class=" action-icon" title="Sociorent.com" data-placement="bottom"><a href="/"><i class="icon-home"></i>Sociorent Home</a></li>
         
                   <li class="action-icon" title="Messages" data-placement="bottom">
                     <% unread_count = (session[:userid].nil?) ? 0 :  p2p_current_user.received_messages.inbox.unread.count %>
@@ -28,7 +29,7 @@
                       <span id="header_msg_count"><%= "(#{unread_count})" if  unread_count > 0  %><span>
                   </li>
                   <li class=" action-icon" title="Dashboard" data-placement="bottom"><a href="/p2p/dashboard"><i class="icon-dashboard"></i>Dashboard</a></li>
-                  <li class=" action-icon" title="List New Item" data-placement="bottom"><a href="/p2p/sellitem"><i class="icon-shopping-cart"></i>Sell Item</a></li>
+                  
                   <li class=" action-icon" title="Sign out" data-placement="bottom">
                     <%= link_to "<i class='icon-signout'></i> Sign Out".html_safe, destroy_user_session_path, :method => :delete %>
                   </li>
@@ -41,14 +42,20 @@
 
           <nav class="main_nav pull-right">
             <ul>
+              <%if current_user%>
+                <%url = "/p2p/sellitem" %>
+              <% else %>
+                <%url = "#head_login_modal" %>
+              <% end %>
+              
               <!-- <li><a href="#faq_page" class="static_page_dialog_open">FAQ</a></li>
               <li><a href="#universities" class="open_university">UNIVERSITIES</a></li> -->
-              <li><a href="http://www.sociorent.com/blog">BLOG</a></li>
+                 <li><a href="<%=url%>" <%if current_user%>data-toggle="modal" role="button" <%end%> class="selected" id="sell_item_button"><i class="icon-shopping-cart"></i>Sell Your Item</a></li>
               <% if current_user %>
                 <li><a href="#" class="selected" id="my_account_button"><%= current_user.name %></a></li>
               <% else %>
                 <li>
-                  <a href="#head_login_modal" class="selected " role="button" data-toggle="modal">Login</a>
+                  <a href="#head_login_modal" class="selected " role="button" data-toggle="modal">Login / SignUp</a>
                 </li>
               <% end %>
             </ul>
@@ -100,7 +107,7 @@
                 <div id="head_login_modal" class="modal hide fade span9" tabindex="-1" role="dialog" aria-labelledby="head_login_modalLabel" aria-hidden="true">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="head_login_modalLabel">Login</h3>
+                <h3 id="head_login_modalLabel">Login</h3> (If you are an existing Sociorent user, you can login with same credentials)
                 </div>
 
                 <div class="modal-body span7" id="login_popup_content">

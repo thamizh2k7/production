@@ -8,7 +8,7 @@
 
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-        <i class="icon icon-star"> </i> Send by Sociorent...........
+        <i class="icon icon-star"> </i> Ship via Sociorent
       </a>
     </div>
 
@@ -26,7 +26,16 @@
 
 
           <div class="control-group">
-            <label class="control-label"> Enter your Pincode: </label>
+            <label class="control-label"> Enter your Full Address for the pick-up:<br>
+(if the item is sold) </label>
+
+            <div class="controls">
+              <%= f.collection_select :payinfo ,P2p::ServicePincode.all ,:id , :pincode ,:include_blank => "Select your pincode"  ,:selected => 0 %>
+            </div>
+          </div> 
+
+          <div class="control-group">
+            <label class="control-label"> Enter Landmark: </label>
 
             <div class="controls">
               <%= f.collection_select :payinfo ,P2p::ServicePincode.all ,:id , :pincode ,:include_blank => "Select your pincode"  ,:selected => 0 %>
@@ -38,23 +47,23 @@
           <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil   %>
 
           <div class="control-group">
-            <label class="control-label"> Charges Deducted: </label>
+            <label class="control-label"> Sociorent Charges:</label>
 
             <div class="controls">
-              <span class="highlight"> Rs. <%= sociorent_charges %> </span> (Courier charges + 4% of list price)  (rounded off to nearest integer)
+              <span class="highlight"> Rs. <%= sociorent_charges %> </span> (Courier charges + 4% of list price)
              
-              <code>(subject to change)</code>
+              
 
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label"> Total amount you get: </label>
+            <label class="control-label"> Amount you'll receive: Rs </label>
 
             <div class="controls">
-              <%=@item.price%> - <%= sociorent_charges %> = <span class="highlight">Rs. <%= (@item.price - sociorent_charges) %></span>
+              <%=@item.price.ceil%> - <%= sociorent_charges %> = <span class="highlight">Rs. <%= (@item.price - sociorent_charges).ceil %></span>
 
-              <code>(subject to change)</code>
+              
             </div>
           </div>
 
@@ -65,8 +74,8 @@
             <label class="control-label">  Terms and conditions</label>
 
             <div class="controls">
-              <%= check_box_tag 'terms'%>  I Agree to the charges deducted by sociorent.<a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
-              <code>(subject to change)</code>
+              <%= check_box_tag 'terms'%>  I have fully read and understood the Seller's Policies and agree to the Terms of Use of Sociorent Street.<a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+              
 
             </div>
           </div>
@@ -74,13 +83,9 @@
           <div class="control-group">
 
             <div class="controls">
-              <% if (@item.price - sociorent_charges ) <=0.0 %>
-                  <span class="btn btn-danger">Create Listing</span> (Amount not accecptable)
-              <% elsif (@item.price - sociorent_charges ) <=40.0 %>
-                  <%= f.submit :class => 'btn btn-warning' %> Amount you receive is quite less.
-              <% else %>
+              
                   <%= f.submit "Create Listing", :id=>'sociorent_payment_submit',:class => 'btn btn-primary'  %>
-              <% end %>
+         
 
             </div>
           </div>
@@ -101,7 +106,7 @@
 
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-      <i class="icon icon-gift"> </i> Send by Courier...........
+      <i class="icon icon-gift"> </i> Ship yourself through Courier
     </a>
   </div>
 
@@ -119,7 +124,7 @@
 
 
         <div class="control-group">
-          <label class="control-label"> Cities you would courier </label>
+          <label class="control-label"> Cities you would courier to: </label>
 
           <div class="controls">
             <%#= f.collection_select :city ,P2p::City.all ,:id , :name  %>
@@ -142,7 +147,7 @@
 
 
         <div class="control-group">
-          <label class="control-label">  All over india :</label>
+          <label class="control-label">  Do you ship all over India: (Inlude the shipping charges in the product price)</label>
 
           <div class="controls">
             <%= check_box_tag 'alloverindia' %>
@@ -150,7 +155,7 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label"> Charges Deducted: </label>
+          <label class="control-label"> Sociorent Charges: </label>
 
           
 
@@ -158,21 +163,21 @@
 
 
           <div class="controls">
-            <span class="highlight"> Rs. <%= sociorent_charges %> </span> (4% of list price)  (rounded off to nearest integer)
+            <span class="highlight"> Rs. <%= sociorent_charges %> </span> (4% of the list price)
             <!--
-<code class="popover" data-content="Charges are subject to change." data-title="Information" data-html="true" data-delay="{show:0,hide:500}" data-trigger="hover">(subject to change)</code> -->
+<code class="popover" data-content="Charges are subject to change." data-title="Information" data-html="true" data-delay="{show:0,hide:500}" data-trigger="hover"></code> -->
 
-            <code>(subject to change)</code>
+            
 
           </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label"> Total amount you Receive: </label>
+          <label class="control-label"> Amount you'll receive: Rs.  </label>
 
           <div class="controls">
                                         <span class="highlight"> <%=@item.price %> - <%= sociorent_charges %>
-                                          = Rs. <%= @item.price -  sociorent_charges %> </span>  <code>(subject to change)</code>
+                                          = Rs. <%= @item.price -  sociorent_charges %> </span>  
 
           </div>
         </div>
@@ -181,8 +186,8 @@
           <label class="control-label">  Terms and conditions</label>
 
           <div class="controls">
-            <%= check_box_tag 'terms'%>  I Agree to the charges deducted by sociorent.<a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
-            <code>(subject to change)</code>
+            <%= check_box_tag 'terms'%>  I have fully read and understood the Seller's Policies and agree to the Terms of Use of Sociorent Street.<a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+            
 
 
             <a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
@@ -223,7 +228,7 @@
 
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-        <i class="icon icon-user"> </i> Direct payment
+        <i class="icon icon-user"> </i> Sell it Offline in your city
       </a>
     </div>
 
@@ -252,19 +257,17 @@
 
 
           <div class="control-group">
-            <label class="control-label"> Where would you exchange ? </label>
+            <label class="control-label"> Shipping:</label>
 
             <div class="controls">
-              <%= select_tag "meet_at",options_for_select([["Meet in Common Place",1],["Meet in home",2]]) %>
+              <%= select_tag "meet_at",options_for_select([["Meet in a Common Place",1],["Self Pick-up",2]]) %>
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label">  Terms and conditions</label>
-
             <div class="controls">
-              <%= check_box_tag 'terms'%> I Agree to the
-              <a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a>
+              <%= check_box_tag 'terms'%> I have fully read and understood the Seller's Policies and agree to the Terms of Use of Sociorent Street.
+              <br><a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Terms and conditions</a><br><a href="#terms_and_conditions_modal" role="button" class=" " data-toggle="modal">Buyer protection</a>
             </div>
           </div>
 

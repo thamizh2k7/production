@@ -17,22 +17,24 @@
 </div>
 
 </div>
-
+<div id="google_ad_holder">
+  <img src="//storage.googleapis.com/support-kms-prod/SNP_2922339_en_v0" width="732" height="94">
+</div>  
+<div id="item_box"><span class="big"><%=@item.title%></span></div>
 <div class="row">
+
 <div class="span4">
+  
   <ul class="thumbnails">
     <li class="span4">
       <div class="thumbnail">
-
+        
 
         <%r = rand(0..(@thumbimage.count-1))%>
         <div id="view_image_holder">
-
-
-              <a href="<%=@fullimage[r][:url]%>" id="view_image_fancy">
-                <img src="<%= @viewimage[r][:url] %>" imgid="<%= @viewimage[r][:id] %>" alt="Item pic" id="view_image">
-              </a>
-
+          <a href="<%=@fullimage[r][:url]%>" id="view_image_fancy">
+            <img src="<%= @viewimage[r][:url] %>" imgid="<%= @viewimage[r][:id] %>" alt="Item pic" id="view_image">
+          </a>
         </div>
 
         <div class="caption thumb_holder">
@@ -271,13 +273,6 @@
 
     <hr/>
         <table class="table table-bordered table-striped ">
-          <thead>
-            <tr >
-              <th > Specification</th>
-              <th > Value</th>
-            </tr>
-
-          </thead>
           <tbody>
 
 
@@ -288,12 +283,12 @@
 
 
           <tr>
-            <td>Category </td>
+            <td>Product </td>
             <td> <span class="canEdit " id="category" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/p2p/getcategories" ><%=@item.category.name%></span></td>
           </tr>
 
           <tr>
-            <td>Model </td>
+            <td>Model / Category</td>
             <td>
               <span id="model" class=""  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=@item.product.name%></span>
             </td>
@@ -328,7 +323,7 @@
 
   <div id="desc">
     <h4> <%= @item.title.titleize %> Description</h4>
-    <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit " inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
+    <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit " inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
   </div>
 
   <div>
@@ -341,12 +336,6 @@
         <col class="span7">
       </colgroup>
 
-      <thead>
-      <tr>
-        <th class="span2">Specification</th>
-        <th >Value</th>
-      </tr>
-      </thead>
       <tbody>
 
 
@@ -357,12 +346,12 @@
 
 
       <tr>
-        <td>Category </td>
+        <td>Product </td>
         <td> <span class="canEdit " id="category" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/p2p/getcategories" ><%=@item.category.name%></span></td>
       </tr>
 
       <tr>
-        <td>Model </td>
+        <td>Category / Model </td>
         <td>
           <span id="model" class=""  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=@item.product.name%></span>
         </td>

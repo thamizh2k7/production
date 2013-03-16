@@ -382,3 +382,20 @@ transition: height 0.9s ease;
 	background: white;
 	border-radius: 4px;
 }
+
+#google_ad_holder {
+	text-align: center;
+	margin: 0px 0px 20px 0px;
+}
+
+#item_title {
+	font-size: 20px;
+}
+
+#item_box {
+	padding: 5px;
+	background: #F7F7F9;
+	border: 1px #DDDDDD solid;
+	margin-bottom: 10px;
+	border-radius: 3px;
+}

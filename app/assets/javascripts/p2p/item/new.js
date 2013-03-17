@@ -79,7 +79,7 @@ save_new_item = 	function(){
 			       }
 
 			       $('#form_temp').append($("<input  class='hide' name='paytype' value='3'>"));
-			       $('#form_temp').append($("<input  class='hide' name='payinfo' value='" + $("#payinfo").val() + "'>"));
+			       $('#form_temp').append($("<input  class='hide' name='payinfo' value='" + $("#p2p_item_payinfo").val() + "'>"));
 
 
 			       $("#fileupload").submit();

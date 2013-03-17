@@ -26,23 +26,15 @@
 
 
           <div class="control-group">
-            <label class="control-label"> Enter your Full Address for the pick-up:<br>
+            <label class="control-label"> Enter your Full Address with landmark for the pick-up:<br>
 (if the item is sold) </label>
 
             <div class="controls">
-              <%= f.collection_select :payinfo ,P2p::ServicePincode.all ,:id , :pincode ,:include_blank => "Select your pincode"  ,:selected => 0 %>
+              <%= f.text_area :payinfo, :rows => "5" %>
             </div>
           </div> 
 
-          <div class="control-group">
-            <label class="control-label"> Enter Landmark: </label>
-
-            <div class="controls">
-              <%= f.collection_select :payinfo ,P2p::ServicePincode.all ,:id , :pincode ,:include_blank => "Select your pincode"  ,:selected => 0 %>
-            </div>
-          </div>
-
-
+         
 
           <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil   %>
 

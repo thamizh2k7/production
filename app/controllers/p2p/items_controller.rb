@@ -76,6 +76,7 @@ class P2p::ItemsController < ApplicationController
         rescue
         end
       end
+      
       # set payment type
       if params[:paytype] == "1" #courier
         item.paytype = 1

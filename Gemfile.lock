@@ -281,6 +281,8 @@ GEM
     ruby-hmac (0.4.0)
     ruby-ole (1.2.11.6)
     rubyzip (0.9.9)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -368,6 +370,7 @@ DEPENDENCIES
   rails_admin
   roo
   ruby-hmac (~> 0.4)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   simple_form
   thin

@@ -8,6 +8,7 @@ set :scm_verbose, true
 set :use_sudo, false
 set :rails_env, "development" #added for delayed job 
 
+set :rvm_type, :system
 
 
 after 'deploy:update_code' do

@@ -1,3 +1,6 @@
+require "rvm/capistrano"
+require "bundler/capistrano"
+
 server "176.58.103.250", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent"
 set :branch, 'p2p_master'

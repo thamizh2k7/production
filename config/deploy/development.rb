@@ -5,13 +5,22 @@ set :scm_verbose, true
 set :use_sudo, false
 set :rails_env, "development" #added for delayed job 
 
+
+
 after 'deploy:update_code' do
   # run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
-  run "cd #{release_path}; RAILS_ENV=development"
+  run "cd #{release_path};"
   run "mkdir -p #{release_path}/tmp/cache;"
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
   run "chmod -R 777 #{release_path}/public/uploads"
+  run "ln -s /var/www/db_admin #{release_path}/public/db_admin"
+  run "ln -s #{shared_path}/system #{release_path}/public/system"
+  run "bundle --deployment"
+  run "rake ts:rebuild"
+  run "chown -R www-data:www-data #{release_path}/*"
+  run "chmod -R 777 #{release_path}/log"
+  run "as"
 end
 
 namespace :deploy do

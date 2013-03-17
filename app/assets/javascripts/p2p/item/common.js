@@ -112,13 +112,13 @@ function check_before_save(){
 
 
 
-				if (!('brand' in item_values) || item_values['brand'] == ""){
+				if (!window.brand){
 					$("#model").addClass("error");
 					$("#model").tooltip('show');
 					return false;
 				}
 
-				if (!('price' in item_values) || item_values['price'] == ""){
+				if (!window.price){
 					$("#price").addClass("error");
 					$("#model").tooltip('show');
 					return false;

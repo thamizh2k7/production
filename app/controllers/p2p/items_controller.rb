@@ -13,11 +13,11 @@ class P2p::ItemsController < ApplicationController
   #creates the item..
   #the trick here is first time we dn save the item..
   #we simulate the save process
-  #this is to diplay the payment options fot the user
+  #this is to diplay the payment options for the user
   #when the user submits from the payment options,
   #we save it then :)
   def create
-
+    puts "Price #{params[:price]}"
     item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
     # render :json => item
     item.category = P2p::Category.find(params[:cat].to_i)
@@ -101,7 +101,7 @@ class P2p::ItemsController < ApplicationController
       redirect_to URI.encode("/p2p/#{item.product.category.name}/#{item.product.name}/#{(item.title).gsub(/ /,"-")}/item.id")
       # redirect_to URI.encode('/p2p/itempayment/' + item.id.to_s)
     else
-      flash[:notice] = "Failed "
+      flash[:notice] = "Failed"
       redirect_to URI.encode("/p2p/")
     end
   end

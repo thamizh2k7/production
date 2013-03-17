@@ -105,20 +105,20 @@ class P2p::UsersController < ApplicationController
 
   #send the first time initializing messages..
   def user_first_time
-    admin =P2p::User.find_by_user_id(session[:admin_id])
+    admin = P2p::User.find_by_user_id(session[:admin_id])
     if session[:userid].nil?
       user = P2p::User.new
       user.user = current_user
       user.save
-      admin.sent_messages.create({:receiver_id => session[:userid] ,
-                                  :message => "Hi #{p2p_current_user.user.name},  <br/>
-                                  Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
-                                  :messagetype => 6,
-                                  :sender_id => admin.id,
-                                  :sender_status => 2,
-                                  :receiver_status => 0,
-                                  :parent_id => 0
-                                  });
+      # admin.sent_messages.create({:receiver_id => session[:userid] ,
+      #                             :message => "Hi #{p2p_current_user.user.name},  <br/>
+      #                             Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
+      #                             :messagetype => 6,
+      #                             :sender_id => admin.id,
+      #                             :sender_status => 2,
+      #                             :receiver_status => 0,
+      #                             :parent_id => 0
+      #                             });
       redirect_to '/p2p'
       return
     end

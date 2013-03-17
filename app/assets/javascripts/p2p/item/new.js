@@ -8,7 +8,8 @@ $(document).ready(function(){
 
 
 save_new_item = 	function(){
-
+		item_values['price'] = window.price
+		item_values['model'] = window.brand
 		item_values['authenticity_token']= AUTH_TOKEN;
 		$.ajax({
 			url:window.editsaveurl,

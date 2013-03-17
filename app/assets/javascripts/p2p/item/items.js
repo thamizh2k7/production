@@ -59,19 +59,20 @@ saveItem = function(){
 				// and submit the form
 
 				$("#form_temp").html('');
-				$('#form_temp').append($("<input  class='hide' name='price' value='" + item_values['price'] + "'>"));
-				$('#form_temp').append($("<input  class='hide' name='title' value='" + item_values['title'] + "'>"));
-				$('#form_temp').append($("<input  class='hide' name='location' value='" + item_values['location'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='price' value='" + window.price + "'>"));
+				$('#form_temp').append($("<input class='hide' name='title' value='" + item_values['title'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='location' value='" + item_values['location'] + "'>"));
 				$('#form_temp').append($("<input class='hide' name='condition' value='" + item_values['condition'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
 				$('#form_temp').append($("<input class='hide' name='desc' value='" + item_values['desc'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='brand' value='" + item_values['brand'] + "'>"));
+				// $('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
 				$('#form_temp').append($("<input  class='hide' name='cat' value='" + item_values['cat'] + "'>"));
 
 				_.each(item_values['spec'],function(value,key){
 					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));
 				});
 
+				//console.log($('#form_temp').html());
 
 			// if new form get the payment details and them save
 			if (!window.edit){
@@ -252,7 +253,7 @@ edit_item =function(){
 			$(par).html(temp);
 			$("#model").html("Select one");
 			$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
-			item_values['brand'] = '';
+			window.brand = '';
 
 
 			//make the model editable
@@ -264,7 +265,7 @@ edit_item =function(){
 		   				 //alert('Saved value: ' + params.newValue);
 		   				 //alert('saving');
 						if (params.newValue != "") {
-							item_values['brand'] = params.newValue;
+							window.brand = params.newValue;
 							$(this).removeClass('error');
 
 							if (params.newValue == 'Other'){
@@ -272,7 +273,7 @@ edit_item =function(){
 								$("#add_new_model").editable('show');
 								$("#model").addClass('hidden');
 
-								item_values['brand'] = '';
+								window.brand = '';
 
 							}else{
 								$("#add_new_model").addClass('hidden');
@@ -283,7 +284,7 @@ edit_item =function(){
 							$('#add_new_model').val('');
 						}
 						else{
-							item_values['brand']="";
+							window.brand="";
 							params.newValue = params.oldValue;
 							$(this).addClass('error');
 							$("#model").tooltip('show');
@@ -295,7 +296,7 @@ edit_item =function(){
 		   				 //alert('Saved value: ' + params.newValue);
 		   				 //alert('saving');
 						if (params.newValue != "") {
-							item_values['brand'] = params.newValue;
+							window.brand = params.newValue;
 							$("#price").tooltip('show');
 							$('#model').text(params.newValue);
 							$("#add_new_model").addClass('hidden');
@@ -303,7 +304,7 @@ edit_item =function(){
 							
 						}
 						else{
-							item_values['brand']="";
+							window.brand="";
 							params.newValue = params.oldValue;
 							$(this).addClass('error');
 						}
@@ -360,12 +361,12 @@ edit_item =function(){
 		$('#price').on('save', function(e, params) {
  				 //alert('Saved value: ' + params.newValue);
 			if (params.newValue.match(/^\d+\.?\d+$/) != null) {
-				item_values['price'] = params.newValue;
+				window.price = params.newValue;
 				$(this).removeClass('error');
 				$("#condition").tooltip('show');
 
 			}else{
-				item_values['price']="";
+				window.price="";
 				$(this).editable('setValue','');
 				$(this).addClass('error');
 				$(this).tooltip('show');

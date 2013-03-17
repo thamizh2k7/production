@@ -167,4 +167,3 @@ function check_before_save(){
 
 				return true;
 }
-

@@ -43,6 +43,7 @@
 //= require p2p/search
 //= require p2p/category_menu
 //= require global/chosen.jquery
+//= require ckeditor-jquery
 // require_tree .
 
 
@@ -106,5 +107,18 @@ $(document).ready(function(){
 	// 		}
 	// 	});
 
+
+
+// JS code for Dash board > Static page
+$("#static_page_page_name").live("change", function(){
+	$.getJSON("/static_pages/get_page/"+this.value , function(data){
+		$(".page_title").val(data.page_title);
+		for (instance in CKEDITOR.instances){
+      CKEDITOR.instances[instance].setData(data.page_content);
+    }
+    $(".edit_static_page").attr("action","/static_pages/"+data.id);
+    $(".edit_static_page").attr("id","edit_static_page_"+data.id);
+	});
+});
 
 });

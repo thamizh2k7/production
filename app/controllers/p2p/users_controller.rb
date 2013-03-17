@@ -361,4 +361,8 @@ end
 
   end
 
+  def cms
+    @page = StaticPage.new
+  end
+
 end

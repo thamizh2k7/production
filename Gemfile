@@ -98,3 +98,5 @@ gem "nested_form"
 gem "rack","~>1.4.1"
 
 gem 'roo'
+
+gem 'ckeditor_rails'

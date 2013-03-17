@@ -584,3 +584,9 @@ vertical-align: middle;
 	margin-bottom: 30px;
 	min-height: 300px;
 }
+
+/*CSS for Dash board */
+#static_page {
+	width: 900px;
+	height: auto;
+}

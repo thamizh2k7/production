@@ -35,7 +35,7 @@
 			          	<span class="divider">/</span>
 			          </li>
 			          <li class="active ">
-			          	<a href="/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title..gsub(/ /,"-")%>/<%=@item.id%>"> <%= @item.title.titleize%> </a>
+			          	<a href="/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>"> <%= @item.title.titleize%> </a>
 			          </li>
 		          </ul>
 		        </div>

@@ -7,6 +7,10 @@ class P2p::ItemsController < ApplicationController
   layout :p2p_layout
 
   def new
+    if p2p_current_user.mobileverified == false
+      flash[:warning] = "You should verify your mobile number before listing"
+      redirect_to "/p2p#verify_mobile" and return
+    end
     @item = p2p_current_user.items.new
   end
 
@@ -76,7 +80,7 @@ class P2p::ItemsController < ApplicationController
         rescue
         end
       end
-      
+
       # set payment type
       if params[:paytype] == "1" #courier
         item.paytype = 1
@@ -229,7 +233,7 @@ class P2p::ItemsController < ApplicationController
       #@item = P2p::Item.find(params[:id])
       @cat =  P2p::Category.find_by_name(params[:cat])
       @prod=  @cat.products.find_by_name(params[:prod])
-      
+
       if !session[:userid].nil? and  session[:isadmin]
         @item = @prod.items.unscoped.find(params[:id])
       else

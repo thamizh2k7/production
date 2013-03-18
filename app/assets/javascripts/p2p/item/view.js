@@ -102,29 +102,43 @@ $('#approve').on('click',function(){
     });
 });
 
-//admin disapprove
-$('#disapprove').on('click',function(){
-  var that  = $(this);
-
-  $.ajax({
-    url:'/p2p/approve/disapprove',
-    data:{id: that.attr('itemid')},
-    dateType:'json',
-    type:'post',
-    success:function(data){
-        if (data ==  1) {
-          showNotifications('Item Disapproved');
-          that.remove();
-        }
-        else{
-          showNotifications('Something went wrong');
-        }
-    },
-    error:function(){
-        showNotifications('Something went wrong');
-    }
-  });
+$("#disapprove").editable({
+  type:'text',
+  title :'Enter reason',
+  mode:'popup',
+  emptytext : 'Enter Reason',
+  placement:'bottom',
+  success :function(response,newValue){
+    showNotifications('Item Disapproved');
+    $("#disapprove").remove();
+  },
+  url :'/p2p/approve/disapprove?id='+$('#disapprove').attr("itemid"),
+  value :'Disapprove'
 });
+
+//admin disapprove
+// $('#disapprove').on('click',function(){
+//   var that  = $(this);
+
+//   $.ajax({
+//     url:'/p2p/approve/disapprove',
+//     data:{id: that.attr('itemid')},
+//     dateType:'json',
+//     type:'post',
+//     success:function(data){
+//         if (data ==  1) {
+//           showNotifications('Item Disapproved');
+//           that.remove();
+//         }
+//         else{
+//           showNotifications('Something went wrong');
+//         }
+//     },
+//     error:function(){
+//         showNotifications('Something went wrong');
+//     }
+//   });
+// });
 
 
 

@@ -429,7 +429,7 @@ class P2p::ItemsController < ApplicationController
     if params.has_key?(:query)
       if params[:query] == 'disapprove'
         item = P2p::Item.notsold.find(params[:id])
-        item.update_attributes(:disapproveddate => Time.now , :approveddate => nil)
+        item.update_attributes(:disapproveddate => Time.now , :approveddate => nil, :disapproved_reason=>params[:disapprove].to_s)
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
                                                                  :message => "Your listing for the item #{item.title} has been disapproved for the following reason.<br>'-'<br>You may edit the appropriate content and re-submit the listing for review. <br><br>This is a system generated message and you need not reply.<br><br>Thank you.<br>Sincerly,<br>Sociorent Street",
                                                                  :messagetype => 5,

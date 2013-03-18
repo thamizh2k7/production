@@ -84,7 +84,7 @@ module ApplicationHelper
   end
 
   def get_seller_url
-  	if current_user
+  	if session[:userid]
   		if p2p_current_user.mobileverified == true
         url = "/p2p/sellitem"
       else

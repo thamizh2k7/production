@@ -43,6 +43,7 @@
 //= require p2p/search
 //= require p2p/category_menu
 //= require global/chosen.jquery
+//= require global/jstorage.min
 //= require ckeditor-jquery
 // require_tree .
 
@@ -119,6 +120,14 @@ $("#static_page_page_name").live("change", function(){
     $(".edit_static_page").attr("action","/static_pages/"+data.id);
     $(".edit_static_page").attr("id","edit_static_page_"+data.id);
 	});
+});
+
+
+// Code for Job html
+
+$("#start_background").click(function(){
+	$.jStorage.set("background", "1");
+	$.jStorage.setTTL("background", 15000); // expires in 3 seconds
 });
 
 });

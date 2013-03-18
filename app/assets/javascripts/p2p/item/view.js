@@ -241,8 +241,8 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
          });//ajax
     });
 
+  $('#owner_item,#payment_btn').tooltip('destroy');
 
-  $('').tooltip('destroy');
   $(".chosen").chosen();
 });
 window.show_address_model = function (){

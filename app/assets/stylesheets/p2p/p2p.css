@@ -254,14 +254,15 @@ li.dropdown:hover > ul.dropdown-menu{
 	background: url("/assets/paper.jpg") repeat;
 }
 .logo{
-	background: url("/assets/Sociorent.png") no-repeat scroll 0 0 transparent;
-  height: 70px;
+	background: url("/assets/Sociorentstreet.png") no-repeat scroll 0 0 transparent;
+  height: 100px;
   width: 301px;
-  margin-top:-12px;
+
 }
 .logo h1{
 	text-indent: -999px;
 }
+
 
 [class*="grid"] {
     float: left;

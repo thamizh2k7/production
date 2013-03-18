@@ -137,17 +137,6 @@
 		
 		cat.save
 
-		# Storage Devices
-		cat = P2p::Category.create({:name => "Storage Devices"})
-			cat.subcategories.create({:name => 'Pen Drive'})
-			cat.subcategories.create({:name => 'Memory Card'})
-			cat.subcategories.create({:name => 'Hard Disk'})
-
-		cat.specs.new({:name => 'Capacity' ,:show_filter => true})
-
-		
-		cat.save
-
 		# Games
 		cat = P2p::Category.create({:name => "Games"})
 

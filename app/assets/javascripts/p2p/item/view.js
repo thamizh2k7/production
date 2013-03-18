@@ -33,7 +33,7 @@ $(document).ready(function(){
           return;
         }
 
-        $.getJSON( "/p2p/getserviceavailability/" + $("#check_availability").attr('itemid') + '/'  + request.term,{}, function( data, status, xhr ) {
+        $.getJSON( "/street/getserviceavailability/" + $("#check_availability").attr('itemid') + '/'  + request.term,{}, function( data, status, xhr ) {
           cache[ term ] = data;
           response( data );
         });
@@ -65,13 +65,13 @@ $(document).ready(function(){
     }
 
     $.ajax({
-      url:"/p2p/items/" + $(this).attr("itemid"),
+      url:"/street/items/" + $(this).attr("itemid"),
       type:"delete",
       dataType:"json",
       data:{"authenticity_token" : AUTH_TOKEN},
       success:function(data){
         if (data.status == 1){
-          window.location.href="/p2p/mystore"
+          window.location.href="/street/mystore"
         }
       }
     });
@@ -83,7 +83,7 @@ $('#approve').on('click',function(){
     var that  = $(this);
 
     $.ajax({
-      url:'/p2p/approve/approve',
+      url:'/street/approve/approve',
       data:{id: that.attr('itemid')},
       dateType:'json',
       type:'post',
@@ -112,7 +112,7 @@ $("#disapprove").editable({
     showNotifications('Item Disapproved');
     $("#disapprove").remove();
   },
-  url :'/p2p/approve/disapprove?id='+$('#disapprove').attr("itemid"),
+  url :'/street/approve/disapprove?id='+$('#disapprove').attr("itemid"),
   value :'Disapprove'
 });
 
@@ -121,7 +121,7 @@ $("#disapprove").editable({
 //   var that  = $(this);
 
 //   $.ajax({
-//     url:'/p2p/approve/disapprove',
+//     url:'/street/approve/disapprove',
 //     data:{id: that.attr('itemid')},
 //     dateType:'json',
 //     type:'post',
@@ -182,7 +182,7 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
          $(this).html('Sending verification code').attr('disabled','disabled');
 
          $.ajax({
-              url:'/p2p/users/verifymobile/code',
+              url:'/street/users/verifymobile/code',
               type:'post',
               data:{"mobile":$("#mobile_number").val()},
               dataType:'json',
@@ -218,7 +218,7 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
          $(this).html('Verifying code').attr('disabled','disabled');
 
          $.ajax({
-              url:'/p2p/users/verifymobile/' + $("#verify_mobile").val(),
+              url:'/street/users/verifymobile/' + $("#verify_mobile").val(),
               type:'post',
               dataType:'json',
               success:function(data){

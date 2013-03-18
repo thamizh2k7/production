@@ -61,7 +61,7 @@ $(document).ready(function(){
 	$("#user_location").change(function(){
 
 		$.ajax({
-			url:'/p2p/location',
+			url:'/street/location',
 			type:'post',
 			data:{location:$("#user_location :selected").val()},
 			dataType:'json',

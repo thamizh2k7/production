@@ -12,7 +12,7 @@
     <li><a href="/p2p">Home</a> <span class="divider">/</span></li>
     <li><a href="/p2p/<%=@item.category.name%>"><%=@item.category.name.titleize %></a> <span class="divider">/</span></li>
     <li><a  href="/p2p/<%=@item.category.name%>/<%=@item.product.name%>"><%=@item.product.name.titleize %></a> <span class="divider">/</span></li>
-    <li class="active "> <%=link_to @item.title.titleize ,{:cat => @item.category.name ,:prod => @item.product.name ,:item => @item.title } %> </li>
+    <li class="active "> <%= @item.title.titleize %> <%= "/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title}/#{@item.id}" %> </li>
   </ul>
 </div>
 
@@ -236,7 +236,7 @@
                 // calling the API ...
                 var obj = {
                   method: 'feed',
-                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>",
+                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title%>/<%=@item.id%>",
                   link: 'https://developers.facebook.com/docs/reference/dialogs/',
                   picture: "http://<%=request.host%>:<%=request.port%><%=@thumbimage[0][:url]%>",
                   name: "<%=@item.title%> ",

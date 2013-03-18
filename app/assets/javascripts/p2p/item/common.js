@@ -6,6 +6,7 @@ $(document).ready(function(){
 	$('#upload_image').click(function(){
      $('#image_upload').trigger('click');
 	});
+	
 	$('#upload_pic').click(function(){
      $('#image_upload').trigger('click');
 	});

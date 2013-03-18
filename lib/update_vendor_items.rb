@@ -8,11 +8,21 @@ Dir.chdir(Rails.root) do
       csvfiles = P2p::VendorUpload.where(:processed=>false)
 
       csvfiles.each do |csvfile_obj|
+
           category = P2p::Category.find(csvfile_obj.category_id.to_i)
           csvfile = csvfile_obj.upload_csv
           csvfile_obj.update_attributes(:processed=>true)
+begin
+          
+File.open(csvfile.path,"r:iso-8859-1") do |f|
+            @csvs = f.read
+          end
+rescue Exception => e
+puts e.message
+
+end
           begin
-            CSV.foreach(csvfile.path, {:headers => true}) do |row|
+            CSV.parse(@csvs, {:headers => true}) do |row|
               next if row.header_row?
               row_ar = row.to_a
               header_count = row.count

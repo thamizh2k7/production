@@ -163,6 +163,9 @@ edit_item =function(){
 
 			    var files = $(this)[0].files; // FileList object
 			    // Loop through the FileList and render image files as thumbnails.
+
+			    $(".thumb_holder .thumbnails").html('')
+
 			    for (var i = 0, f; f = files[i]; i++) {
 
 			      // Only process image files.

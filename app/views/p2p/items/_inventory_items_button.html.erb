@@ -1,6 +1,6 @@
     <div class="actions btn-group" id="inventory_buttons">
 
-        
+
         <% if !@user_id.nil? and @user_id != "" %>
             <% url = "/user/#{@user_id}" %>
         <% else %>
@@ -8,7 +8,7 @@
         <% end %>
 
     	<% if params.has_key?(:query) and params[:query] == 'sold' %>
-    			<a href="/p2p/mystore/sold<%=url%>"  class="btn btn-primary span2  pull-left">  Sold </a> 
+    			<a href="/p2p/mystore/sold<%=url%>"  class="btn btn-primary span2  pull-left">  Sold </a>
     	<% else %>
 				<a href="/p2p/mystore/sold<%=url%>" class="btn span2 btn pull-left">  Sold </a>
     	<% end %>
@@ -30,10 +30,6 @@
         <% else %>
         	<a href="/p2p/waiting<%=url%>" class="btn span2  btn-info pull-left">  Waiting for approval </a>
         <% end %>
-        
-        
-        
-
 
   </div>
 

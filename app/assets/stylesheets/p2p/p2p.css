@@ -32,6 +32,7 @@ a,a:visited,a:focus {
 
 #body_content{
 	margin-top: 10px;
+	min-height: 500px;
 }
 
 /*//item view page*/

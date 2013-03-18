@@ -6,14 +6,14 @@
       </ul>
     </div>
 	<div class="span9">
-			<div class="span8 pull-left ">
+			<div class="span8 statistics pull-left ">
                  <% if p2p_current_user.items.count >0 %>
     				<h3>Your  Statistics </h3>
 				  <div id="items_status"></div>
                 <% else %>
                     <div class="well">
                         <h4>Start selling your items.</h4>
-                        <p><a href="/p2p/sellitem" class="btn btn-primary white">Sell your Item</a></p>
+                        <p><a href="<%= get_seller_url%>"  <%if current_user.nil? || p2p_current_user.mobileverified == false %> data-toggle="modal" role="button" <% end%> class="btn btn-primary white">Sell your Item</a></p>
                     </div>
                 <% end %>
 				  <!-- For category chart only for admins and vendors -->
@@ -41,6 +41,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
+    <% if p2p_current_user.items.count >0 %>
     var plot1 = $.jqplot('items_status', [[['Waiting (<%=@waiting_count%>)',<%=@waiting_count%>],['Approved (<%=@approved_count%>)',<%=@approved_count%>],['Disapproved (<%=@disapproved_count%>)',<%=@disapproved_count%>],['Sold (<%=@sold_count%>)',<%=@sold_count%>]]], {
         gridPadding: {top:20, bottom:38, left:0, right:0},
         title: 'Statistics of your Items',
@@ -68,6 +69,7 @@ $(document).ready(function(){
             marginTop: '15px'
         }
     });
+    <% end %>
 	var line1= [ <%= raw @count_items.join(",")%>];
 	$('#users_view_count').jqplot([line1], {
         title:'Top '+line1.length+' Listings of Viewed Items ',

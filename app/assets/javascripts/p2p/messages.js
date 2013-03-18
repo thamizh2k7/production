@@ -163,6 +163,7 @@
 		$.post("/p2p/mark_as_read",function(data){
 			showNotifications("All Messages Marked as unread");
 			oInboxTable.fnDraw();
+
 		});
 	});
 

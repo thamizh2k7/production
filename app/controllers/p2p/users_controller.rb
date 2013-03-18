@@ -66,7 +66,7 @@ class P2p::UsersController < ApplicationController
     @item_names = []
     @view_counts.each do |item|
       @count_items << "['#{item.title}',#{item.viewcount}]"
-      @item_names << "'/p2p/#{item.category.name}/#{item.product.name}/#{item.title}'"
+      @item_names << "'/p2p/#{item.category.name}/#{item.product.name}/#{item.title.gsub(/ /,"-")}/#{item.id}'"
     end
   end
 

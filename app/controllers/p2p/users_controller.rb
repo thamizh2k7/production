@@ -173,7 +173,7 @@ class P2p::UsersController < ApplicationController
     user.update_attributes(:mobile_number=>mobile_number)
     puts session[:verify]
     #TODO :: check the send sms function whether it pinging mvooyoo correctly.or not
-    #send_sms(mobile_number,msg)
+    send_sms(mobile_number,msg)
 
     render :json => {:status => 1}
   end

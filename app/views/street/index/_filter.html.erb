@@ -58,7 +58,7 @@
 						<% checked = "[#{@view_filter_set['price'][0]},#{@view_filter_set['price'][1]}]" %>	
 					<% end %>
 
-		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + ( prices.max.to_i  % 50) ) %>" data-slider-step="50" data-slider-value="<%=checked%>" id="price_slider">
+		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + (50 - ( prices.max.to_i  % 50) ) ) %>" data-slider-step="50" data-slider-value="<%=checked%>" id="price_slider">
 	</div>
 	<% end %>
 

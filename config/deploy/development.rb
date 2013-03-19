@@ -28,6 +28,7 @@ after 'deploy:update_code' do
   run "cd #{release_path} && bundle --deployment"
   # run "cd #{release_path} && pkill sphinx"
   # run "cd #{release_path} &&  rake ts:rebuild"
+  run "cd #{release_path} &&  rake db:migrate"
   run "chown -R www-data:www-data #{release_path}/*"
   run "chmod -R 777 #{release_path}/log"
   # run "as"

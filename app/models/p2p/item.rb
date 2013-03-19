@@ -63,6 +63,7 @@ class P2p::Item < ActiveRecord::Base
   scope :sold , where('solddate is not null')
 
   scope :notsold , where('solddate is null')
+  scope :active_items,  where('approveddate is not null and disapproveddate is null and solddate is null')
 
   # listing the unsold ,not deleted and approved items
   scope :listing_items_by_location, lambda { |location|

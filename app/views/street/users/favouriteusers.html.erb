@@ -23,7 +23,9 @@
 				<% @fav.each do |f| %>
 					<tr>
 						<td>
-							<%= f.p2pfav.user.name %>
+							<a href="/p2p/sellers/<%=f.p2pfav.user.id%>/<%=f.p2pfav.user.name.gsub(/ /,"-")%>"><%= f.p2pfav.user.name %>	
+							</a>
+
 						</td>
 						<td>
 							<%= f.created_at.strftime("%d-%m-%C%y") %>

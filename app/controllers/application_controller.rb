@@ -84,22 +84,20 @@ class ApplicationController < ActionController::Base
 		session[:isadmin] = false
 
 		socio_admin = User.find_by_is_admin(1)
-		session[:admin_id] = (P2p::User.find_by_user_id(socio_admin.id)).id
+		session[:admin_id] = (P2p::User.find_or_create_by_user_id(socio_admin.id)).id
 
 	  	if current_user.nil?
 	  		return nil
 	  		session[:userid] = nil
 	  	else
 	  		user = P2p::User.find_by_user_id(current_user.id)
-
+	  		puts user.inspect
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id
 
 	  		if user.user.is_admin
 	  			session[:isadmin] = true
 	  		end
-
-
 
 	  		return user
 	  	end

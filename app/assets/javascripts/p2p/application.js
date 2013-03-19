@@ -41,6 +41,8 @@
 //= require p2p/jqplot.categoryAxisRenderer.min
 //= require p2p/jquery-scrolltofixed-min
 //= require p2p/bootstrap-slider
+//= require p2p/bootstrap-modal
+//= require p2p/bootstrap-modalmanager
 //= require p2p/search
 //= require p2p/category_menu
 //= require global/chosen.jquery

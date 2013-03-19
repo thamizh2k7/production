@@ -36,9 +36,34 @@
           <% unless flash[:notice].nil? %>
             showNotifications("<%=flash[:notice]%>");
           <% end %>
+          <% if p2p_get_user_location =="" %>
+          $("#static").modal("show");
+          $("#submit_user_location").on("click",function(){
+              $.post("/street/location", {"location":$("#location").val()},function(data){
+                if(data.status == 2)
+                  showNotifications("Error occurred in Setting Location. Try again");
+                else
+                  location.reload();
+
+              });
+          });
+          <% end%>
      });
     </script>
   </div>
+  <% if p2p_get_user_location =="" %>
+  <div id="static" class="modal hide fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+  <div class="modal-header">
+    <h4>Choose Your Location</h4>
+  </div>
+  <div class="modal-body">
+    <p><%=select_tag "location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]} , p2p_get_user_location ),:prompt=>"Your Location?"%>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="submit_user_location" class="btn btn-primary">Set Location</button>
+  </div>
+  </div>
+  <% end %>
 
 </body>
 <% unless session[:userid].nil? %>

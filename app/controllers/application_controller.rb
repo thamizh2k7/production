@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
- # before_filter :add_www_subdomain
 
  # Helper method for all views
  helper_method  :p2p_current_user ,:p2p_get_user_location
@@ -49,16 +48,15 @@ class ApplicationController < ActionController::Base
   	    if !session.has_key?(:city) or session[:city] == ""
 	        #todo replace ip from request
 	        #geocode  = Geocoder.search(request[:REMOTE_ADDR])
-
 	        geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
-
 	        session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
-
-	        city_id = P2p::City.find_or_create_by_name(session[:city]).id
-
-	        session[:city_id] = (city_id.nil? ) ? '' : city_id;
+	        if city_id !=""
+	        	city_id = P2p::City.find_or_create_by_name(session[:city]).id
+	          session[:city_id] = (city_id.nil? ) ? '' : city_id;
+	        end
       	end
     rescue Exception => ex
+    	puts ex
     end
   end
 
@@ -186,7 +184,6 @@ class ApplicationController < ActionController::Base
   	super
   end
 
-
   ###########################
 
   private
@@ -202,6 +199,7 @@ class ApplicationController < ActionController::Base
 			redirect_to root_path
 		 end
 	  end
+
 
 
 

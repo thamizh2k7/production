@@ -35,6 +35,8 @@ Sociorent::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -45,4 +47,7 @@ Sociorent::Application.configure do
     :password             => 'Sociorent1',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+    
+  # config.middleware.use "Insight::App",
+  # :secret_key => "71120948385429608d3d0616fc3247c1654798ec0a235140ae95431115f2cedf7ee6451361be6a22f649728bce7f8beb4cab889a9958f489f42767df8005fe11"
 end

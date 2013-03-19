@@ -85,3 +85,7 @@ gem "rack","~>1.4.1"
 gem 'roo'
 
 gem 'ckeditor_rails'
+
+#gem "logical-insight"
+
+gem 'newrelic_rpm'

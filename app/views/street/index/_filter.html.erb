@@ -112,7 +112,7 @@
 			<script>
 			window.category="<%=category.name%>";
 
-			window.filterurl= "/street/<%=category.name%>/filters";
+			window.filterurl= "/street/<%=category.name.gsub(/ /,"-")%>/filters";
 
 			</script>
 

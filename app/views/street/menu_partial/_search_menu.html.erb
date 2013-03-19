@@ -7,7 +7,7 @@
 
 		<% P2p::Category.where('category_id is null').each do |cat| %>
 			<div class="sub_category level_1">
-				<%= link_to "#{cat.name}" , "/street/#{cat.name}" %>
+				<%= link_to "#{cat.name}" , "/street/#{cat.name.gsub(/ /,"-")}" %>
 			</div>
 		<% end %>
 

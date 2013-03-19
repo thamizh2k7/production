@@ -10,9 +10,9 @@
 <div class="span12">
   <ul class="breadcrumb">
     <li><a href="/street">Home</a> <span class="divider">/</span></li>
-    <li><a href="/street/<%=@item.category.name%>"><%=@item.category.name.titleize %></a> <span class="divider">/</span></li>
-    <li><a  href="/street/<%=@item.category.name%>/<%=@item.product.name%>"><%=@item.product.name.titleize %></a> <span class="divider">/</span></li>
-    <li class="active ">  <a href="<%="/street/#{@item.category.name}/#{@item.product.name}/#{@item.title.gsub(/ /,"-")}/#{@item.id}"%>"> <%= @item.title.titleize %> </a> </li>
+    <li><a href="/street/<%=@item.category.name.gsub(/ /,"-")%>"><%=@item.category.name.titleize %></a> <span class="divider">/</span></li>
+    <li><a  href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>"><%=@item.product.name.titleize %></a> <span class="divider">/</span></li>
+    <li class="active ">  <a href="<%="/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{@item.title.gsub(/ /,"-")}/#{@item.id}"%>"> <%= @item.title.titleize %> </a> </li>
   </ul>
 </div>
 
@@ -236,7 +236,7 @@
                 // calling the API ...
                 var obj = {
                   method: 'feed',
-                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/street/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>",
+                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>",
                   link: 'https://developers.facebook.com/docs/reference/dialogs/',
                   picture: '<%= URI.encode("http://#{request.host}#{@thumbimage[0][:url]}") %>',
                   name: "<%=@item.title%> ",

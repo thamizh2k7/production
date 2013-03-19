@@ -66,7 +66,7 @@ class Street::UsersController < ApplicationController
     @item_names = []
     @view_counts.each do |item|
       @count_items << "['#{item.title}',#{item.viewcount}]"
-      @item_names << "'/street/#{item.category.name}/#{item.product.name}/#{item.title.gsub(/ /,"-")}/#{item.id}'"
+      @item_names << "'/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'"
     end
   end
 

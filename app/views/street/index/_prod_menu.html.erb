@@ -3,7 +3,7 @@
 	<% prod.each do |aprod| %>
 
 		<li class="product_menu">
-			<a href="/street/<%= aprod.category.name %>/<%= aprod.name %>">
+			<a href="/street/<%= aprod.category.name.gsub(/ /,"-") %>/<%= aprod.name.gsub(/ /,"-") %>">
 				<%= aprod.name %> <span class="pull-right">(<%= aprod.items.by_location_or_allover(p2p_get_user_location).count %>) </span>
 			</a>
 		</li>

@@ -24,18 +24,18 @@
 			           	<span class="divider">/</span>
 			          </li>
 			          <li>
-			           	<a href="/street/<%=@item.category.name%>">
+			           	<a href="/street/<%=@item.category.name.gsub(/ /,"-")%>">
 			           		<%=@item.category.name.titleize %></a>
 			           		<span class="divider">/</span>
 			          </li>
 			          <li>
-			           	<a  href="/street/<%=@item.category.name%>/<%=@item.product.name%>">
+			           	<a  href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>">
 			           		<%=@item.product.name.titleize %>
 			           	</a>
 			          	<span class="divider">/</span>
 			          </li>
 			          <li class="active ">
-			          	<a href="/street/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>"> <%= @item.title.titleize%> </a>
+			          	<a href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>"> <%= @item.title.titleize%> </a>
 			          </li>
 		          </ul>
 		        </div>

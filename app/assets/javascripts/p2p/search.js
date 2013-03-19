@@ -134,6 +134,20 @@
          });//ajax
     });//click
 
+    $(".unfollow_user").click(function(){
+      var id = $(this).attr("userid");
+      $.post('/street/favourites/'+id, function(data) {
+        console.log(data);
+        if (data.status == 1){
+          $("#"+id).hide();
+        }
+        if(data.count == 0) {
+          $("#fav_table").hide();
+          $("#fav_container").html("<h3>You don't have any favourite sellers.</h3>");
+        }
+
+      });
+    });
 
     $("#seller_verify_code_submit").live("click",function(){
 

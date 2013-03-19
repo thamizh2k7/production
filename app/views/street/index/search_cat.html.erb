@@ -31,13 +31,13 @@ Browsing
 			<% next if prod.items.by_location_or_allover(p2p_get_user_location).count ==0 %>
 			<div id="listHeader" class="row">
 				<p class="fleft"> <b><%= prod.name.titlecase %> in <%=prod.category.name %></b></p>
-				<p class="fright"><a href="/street/search/c/<%=prod.category.name%>/<%=prod.name%>"> View All</a></p>
+				<p class="fright"><a href="/street/search/c/<%=prod.category.name.gsub(/ /,"-")%>/<%=prod.name.gsub(/ /,"-")%>"> View All</a></p>
 			</div>
 			<ul class="thumbnails">
 
 				<% prod.items.by_location_or_allover(p2p_get_user_location).limit(5).each do |p| %>
 				<li class="span2">
-					<a href="/street/<%=p.product.category.name%>/<%=p.product.name%>/<%=(p.title).gsub(/ /,"-")%>/<%=p.id%>">
+					<a href="/street/<%=p.product.category.name.gsub(/ /,"-")%>/<%=p.product.name.gsub(/ /,"-")%>/<%=(p.title).gsub(/ /,"-")%>/<%=p.id%>">
 						<div class="thumbnail">
 
 							<div class="image_holder">

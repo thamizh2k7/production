@@ -6,7 +6,7 @@
   <body>
   	<div>Dear <%= @listing.user.user.name %></div>
     <p>
-      You have received a message form <%= @user.name %> on your listing <a href="http://localhost:3000/p2p/<%=@listing.category.name%>/<%=@listing.product.name%>/<%=@listing.title.gsub(/ /,"-")%>/<%=@listing.id%>"> <%=@listing.title%> <br/>
+      You have received a message form <%= @user.name %> on your listing <a href="http://localhost:3000/p2p/<%=@listing.category.name.gsub(/ /,"-")%>/<%=@listing.product.name.gsub(/ /,"-")%>/<%=@listing.title.gsub(/ /,"-")%>/<%=@listing.id%>"> <%=@listing.title%> <br/>
       Check your message in <a href="http://localhost:3000/p2p/messages">
     </p>
     Thank you, <br/>

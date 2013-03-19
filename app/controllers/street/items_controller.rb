@@ -44,14 +44,14 @@ class Street::ItemsController < ApplicationController
       raise "Product not found" if item.product.nil?
     rescue
       begin
-        item.product = item.category.products.find_by_name(params[:brand])
+        item.product = item.category.products.find_by_name(params[:brand].gsub(/ /,"-"))
         raise "Product not found" if item.product.nil?
       rescue
         begin
-          item.product = item.category.products.new(:name =>  (Publisher.find_by_name(params[:brand])).name )
+          item.product = item.category.products.new(:name =>  (Publisher.find_by_name(params[:brand].gsub(/ /,"-"))).name )
         rescue
           begin
-            item.product = item.category.products.new(:name => params[:brand] )
+            item.product = item.category.products.new(:name => params[:brand]..gsub(/ /,"-") )
           end
         end
       end
@@ -103,7 +103,7 @@ class Street::ItemsController < ApplicationController
 
     #save the item now..
     if item.save
-      redirect_to URI.encode("/street/#{item.product.category.name}/#{item.product.name}/#{(item.title).gsub(/ /,"-")}/item.id")
+      redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/item.id")
       # redirect_to URI.encode('/street/itempayment/' + item.id.to_s)
     else
       flash[:notice] = "Failed"
@@ -185,7 +185,7 @@ class Street::ItemsController < ApplicationController
         flash[:notice] = "Failed to save"
       end
     end
-    redirect_to URI.encode("/street/#{item.product.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}/#{item.id}")
+    redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}")
   end
 
 
@@ -231,8 +231,8 @@ class Street::ItemsController < ApplicationController
   def view
     begin
       #@item = P2p::Item.find(params[:id])
-      @cat =  P2p::Category.find_by_name(params[:cat])
-      @prod=  @cat.products.find_by_name(params[:prod])
+      @cat =  P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+      @prod=  @cat.products.find_by_name(params[:prod].gsub(/ /,"-"))
 
       if !session[:userid].nil? and  session[:isadmin]
         @item = @prod.items.unscoped.find(params[:id])
@@ -349,7 +349,7 @@ class Street::ItemsController < ApplicationController
     @item = P2p::Item.find(params[:id])
     @item.solddate =Time.now
     @item.save
-    redirect_to URI.encode("/street/#{@item.product.category.name}/#{@item.product.name}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+    redirect_to URI.encode("/street/#{@item.product.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
   end
   def add_image
     if params[:item_id] != ""
@@ -439,7 +439,7 @@ class Street::ItemsController < ApplicationController
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.Your can see it here <a href='" + URI.encode("/street/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.You can see it here <a href='" + URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -454,7 +454,7 @@ text: 'Your item #{item.title} has been disapproved by admin. Please check messa
 },{
 expires:false,
 click:function(){
-window.location.href = '/street/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
 }
 });
 if (oInboxTable){
@@ -490,7 +490,7 @@ Sociorent Street Team.",
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id] ,
-                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/street/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -531,7 +531,7 @@ text: 'Your item #{item.title} has been approved by admin and will be listed on 
 },{
 expires:false,
 click:function(){
-window.location.href = '/street/#{item.category.name}/#{item.product.name}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
 }
 });
 if (oInboxTable){
@@ -611,7 +611,7 @@ oDeleteBoxTable.fnDraw();
         @item.new_item_created
       else
       end
-      redirect_to URI.encode("/street/#{@item.category.name}/#{@item.product.name}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+      redirect_to URI.encode("/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
       return
     elsif params.has_key?(:terms) and params[:terms] !='1'
       flash.now[:notice] = 'Agree to the terms and conditions.'

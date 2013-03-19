@@ -1,0 +1,9 @@
+//= require jqplot.min
+//= require jqplot.barRenderer.min
+//= require jqplot.pointLabels
+//= require jqplot.pieRenderer.min
+//= require jqplot.canvasAxisLabelRenderer.min
+//= require jqplot.canvasTextRenderer.min
+//= require jqplot.canvasAxisTickRenderer.min
+//= require jqplot.categoryAxisRenderer.min
+//= require jquery-scrolltofixed-min

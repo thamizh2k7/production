@@ -25,30 +25,12 @@
 //= require bootstrap
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
-//= require global/wysihtml5-0.3.0.min
-//= require global/bootstrap-wysihtml5-0.0.2.min
-//= require global/wysihtml5
-//= require p2p/select2
 //= require private_pub
-//= require p2p/jquery.history
-//= require p2p/jqplot.min
-//= require p2p/jqplot.barRenderer.min
-//= require p2p/jqplot.pointLabels
-//= require p2p/jqplot.pieRenderer.min
-//= require p2p/jqplot.canvasAxisLabelRenderer.min
-//= require p2p/jqplot.canvasTextRenderer.min
-//= require p2p/jqplot.canvasAxisTickRenderer.min
-//= require p2p/jqplot.categoryAxisRenderer.min
-//= require p2p/jquery-scrolltofixed-min
-//= require p2p/bootstrap-slider
 //= require p2p/bootstrap-modal
 //= require p2p/bootstrap-modalmanager
 //= require p2p/search
 //= require p2p/category_menu
-//= require global/chosen.jquery
-//= require global/jstorage.min
-//= require ckeditor-jquery
-// require_tree .
+
 
 
 $(document).ready(function(){

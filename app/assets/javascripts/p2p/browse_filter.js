@@ -1,3 +1,6 @@
+//= require p2p/bootstrap-slider
+//= require p2p/jquery-scrolltofixed-min
+
 filter_spec_by_text = function (val,elem){
 
 			var regexp = new RegExp("" +  val + "",'i');
@@ -285,3 +288,4 @@ $(document).ready(function(){
 // end of fixinf
 
 });
+

@@ -1,3 +1,7 @@
+//= require global/wysihtml5-0.3.0.min
+//= require global/bootstrap-wysihtml5-0.0.2.min
+//= require global/wysihtml5
+
 $(document).ready(function(){
 
 	$(document).on('click',function(e){

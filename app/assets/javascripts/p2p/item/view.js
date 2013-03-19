@@ -1,9 +1,10 @@
+//= require p2p/item/application
 //= require p2p/jquery.mousewheel-3.0.6.pack.js
 //= require p2p/jquery.fancybox.js
 //= require p2p/helpers/jquery.fancybox-buttons.js
 //= require p2p/helpers/jquery.fancybox-thumbs.js
 //= require p2p/helpers/jquery.fancybox-media.js
-
+//= require global/chosen.jquery
 
 $(document).ready(function(){
 

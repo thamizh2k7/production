@@ -1,3 +1,10 @@
+/*
+*= require p2p/jquery.fancybox.css
+*= require p2p/jquery.fancybox-buttons.css
+*= require p2p/jquery.fancybox-thumbs.css
+*= require global/chosen
+*/
+
 #Itemlist {
 	margin-top:20px
 }

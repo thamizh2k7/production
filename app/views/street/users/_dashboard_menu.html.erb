@@ -1,4 +1,4 @@
-
+<%= stylesheet_link_tag '/assets/p2p/inventory.css' %>
 	<% if session[:isadmin]%>
 
 		<%	waiting_count     = P2p::Item.waiting.count  %>
@@ -81,3 +81,5 @@
 		</div>
   </div>
 </div>
+
+<%= javascript_include_tag "/assets/p2p/ckeditor-jquery" %>

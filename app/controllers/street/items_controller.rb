@@ -44,14 +44,14 @@ class Street::ItemsController < ApplicationController
       raise "Product not found" if item.product.nil?
     rescue
       begin
-        item.product = item.category.products.find_by_name(params[:brand].gsub(/ /,"-"))
+        item.product = item.category.products.find_by_name(params[:brand].gsub(/-/," "))
         raise "Product not found" if item.product.nil?
       rescue
         begin
-          item.product = item.category.products.new(:name =>  (Publisher.find_by_name(params[:brand].gsub(/ /,"-"))).name )
+          item.product = item.category.products.new(:name =>  (Publisher.find_by_name(params[:brand].gsub(/-/," "))).name )
         rescue
           begin
-            item.product = item.category.products.new(:name => params[:brand]..gsub(/ /,"-") )
+            item.product = item.category.products.new(:name => params[:brand].gsub(/-/," ") )
           end
         end
       end
@@ -221,7 +221,7 @@ class Street::ItemsController < ApplicationController
   def get_spec
     items = P2p::Item.find(params[:id])
     spec = items.specs.select("id,value,spec_id")
-    render :partial => "p2p/items/editspec" , :locals => {:spec => spec}
+    render :partial => "street/items/editspec" , :locals => {:spec => spec}
     #  render :json => @attr
   end
   def get_sub_categories
@@ -231,8 +231,8 @@ class Street::ItemsController < ApplicationController
   def view
     begin
       #@item = P2p::Item.find(params[:id])
-      @cat =  P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
-      @prod=  @cat.products.find_by_name(params[:prod].gsub(/ /,"-"))
+      @cat =  P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
+      @prod=  @cat.products.find_by_name(params[:prod].gsub(/-/," "))
 
       if !session[:userid].nil? and  session[:isadmin]
         @item = @prod.items.unscoped.find(params[:id])
@@ -611,7 +611,7 @@ oDeleteBoxTable.fnDraw();
         @item.new_item_created
       else
       end
-      redirect_to URI.encode("/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+      redirect_to URI.encode("/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/-/," ")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
       return
     elsif params.has_key?(:terms) and params[:terms] !='1'
       flash.now[:notice] = 'Agree to the terms and conditions.'

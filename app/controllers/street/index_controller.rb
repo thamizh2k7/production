@@ -106,7 +106,7 @@ class Street::IndexController < ApplicationController
     end
 
     item_result.each do |res|
-      response.push({:label=> "#{res.title}" ,:value => URI.encode("/p2p/#{res.product.category.name.gsub(/ /,"-")}/#{res.product.name.gsub(/ /,"-")}/#{res.title.gsub(/ /,"-")}/#{res.id}") }) unless res.nil?
+      response.push({:label=> "#{res.title}" ,:value => URI.encode("/street/#{res.product.category.name.gsub(/ /,"-")}/#{res.product.name.gsub(/ /,"-")}/#{res.title.gsub(/ /,"-")}/#{res.id}") }) unless res.nil?
     end
     return response
   end
@@ -114,10 +114,10 @@ class Street::IndexController < ApplicationController
   # search inside a category
   #for urls like /p2p/books
   def search_cat
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
     @cat_name = @cat.name
     if params.has_key?("prod")
-      @products = @cat.products.find_all_by_name(params[:prod].gsub(/ /,"-"))
+      @products = @cat.products.find_all_by_name(params[:prod].gsub(/-/," "))
     else
       @products = @cat.products
     end
@@ -136,7 +136,7 @@ class Street::IndexController < ApplicationController
   end
 
   def browse
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
     if @cat.nil? or @cat.products.count == 0
       flash[:notice] ="Nothing found for your request"
       redirect_to "/street"
@@ -145,7 +145,7 @@ class Street::IndexController < ApplicationController
     if params.has_key?("prod")
       @products=@cat.products.order("priority").find_all_by_name(params[:prod])
       if @products.nil?
-        @cat = P2p::Category.find_by_name(params[:prod].gsub(/ /,"-"))
+        @cat = P2p::Category.find_by_name(params[:prod].gsub(/-/," "))
         @products= @cat.products.all.order("priority")
         params.delete("prod")
       end
@@ -178,7 +178,7 @@ class Street::IndexController < ApplicationController
       end
     end
     # find the category in which the filter is to be applied
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
     if @cat.nil?
       render :json => []
       return

@@ -46,6 +46,8 @@ $(document).ready(function(){
 
 saveItem = function(){
 
+				item_values['brand'] = window.brand;
+				item_values['price'] = window.price;
 				// if some fields are not filled this will return false
 				// 	so dont save them
 				if (!check_before_save()){

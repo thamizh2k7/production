@@ -21,7 +21,7 @@
 
       
         admin.sent_messages.create({:receiver_id => item.user.id ,
-                                              :message => "This is an auto generated system message. Your item <a href='/p2p/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'> #{item.title} </a> has been idel for over 15 days and hence has been disapproved .Reply to this message asking the admin to re approve if you need the item to be on sociorent.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                              :message => "This is an auto generated system message. Your item <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'> #{item.title} </a> has been idel for over 15 days and hence has been disapproved .Reply to this message asking the admin to re approve if you need the item to be on sociorent.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                               :messagetype => 5,
                                               :sender_id => admin.id,
                                               :sender_status => 2,

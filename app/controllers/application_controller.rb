@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
 
 
 	 if current_user.nil?
-		redirect_to '/p2p'
+		redirect_to '/street/'
 		return false
 	 end
   end

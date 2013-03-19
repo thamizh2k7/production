@@ -192,7 +192,7 @@ class Street::ItemsController < ApplicationController
   def destroy
     begin
       item = P2p::Item.find(params[:id])
-      raise "Cannot Delete" if item.user.id != current_user.id  and !session[:isadmin]
+      raise "Cannot Delete" if item.user.id != session[:userid]  and !session[:isadmin]
       item.deletedate = Time.now
       item.save
     rescue

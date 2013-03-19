@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	if P2p::User.find_by_user_id(current_user.id).nil?
-	  redirect_to '/p2p/welcome'
+	  redirect_to '/street/welcome'
 	  return false
 	end
 
@@ -164,7 +164,7 @@ class ApplicationController < ActionController::Base
 
   def p2p_is_admin
   	if !session[:isadmin]
-  		redirect_to '/p2p'
+  		redirect_to '/street'
   		return false
   	end
   	return true

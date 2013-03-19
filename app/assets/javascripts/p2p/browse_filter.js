@@ -99,20 +99,13 @@ $(document).ready(function(){
 		if (spec in filters){
 			if (filters[spec].indexOf(val) == -1){
 				filters[spec].push(val)
-				$(that).addClass('active');
-				$(that).children(".icon-remove").removeClass("hidden");
-
 			}else{
 				filters[spec].splice(filters[spec].indexOf(val),1)
-				$(that).removeClass('active');
-				$(that).children(".icon-remove").addClass("hidden");
 			}
 		}
 		else{
 			filters[spec]=[]
 			filters[spec].push(val)
-			$(that).addClass('active');
-			$(that).children(".icon-remove").removeClass("hidden");
 		}
 		// Ajax Call for selected filter
 		call_filter(spec,val,that);
@@ -191,8 +184,7 @@ $(document).ready(function(){
 				showNotifications("Something went wrong. Try again");
 				$("#filter_loading_image").addClass('hide');
 				filters[spec].splice(filters[spec].indexOf(val),1)
-				$(that).removeClass('active');
-				$(that).children(".icon-remove").addClass("hidden");
+				$(that).parent().children('.spec_filter_check').removeAttr('checked');
 
 			}
 		});

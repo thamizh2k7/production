@@ -10,10 +10,19 @@
 		<div class="filters_value">
 			<% item_condition_res.each do |itm| %>
 				<div class="spec-filter">
-					<input  class="spec_filter_check" type="checkbox"  spec-name="condition" spec-value="<%=itm.condition%>">	<span class="spec_filter_check_label"><%= itm.condition %> </span>
+					
+					<% checked = "" %>	
+					<% if @view_filter_set.include?("condition")  and @view_filter_set["condition"].include?(itm.condition) %>
+						<% checked = "checked" %>	
+					<% end %>
+
+					<input  class="spec_filter_check" type="checkbox"  spec-name="condition" spec-value="<%=itm.condition%>"
+					<%= checked %> >
+					<span class="spec_filter_check_label" <%=checked %> ><%= itm.condition %> </span>
+
 				</div>
-		<% end %>
-	</div>
+			<% end %>
+		</div>
 	<% end %>
 		<!-- price range -->
 
@@ -25,7 +34,13 @@
 		<div class="filters_value">
 			<% item_model_res.each do |prod| %>
 				<div class="spec-filter">
-					<input  class="spec_filter_check" type="checkbox"  spec-name="model" spec-value="<%=prod.id%>">	<span class="spec_filter_check_label"><%= prod.name %> </span>
+
+					<% checked = "" %>	
+					<% if @view_filter_set.include?('model')  and @view_filter_set["model"].include?(prod.id.to_s) %>
+						<% checked = "checked" %>	
+					<% end %>
+
+					<input  class="spec_filter_check" type="checkbox"  spec-name="model" spec-value="<%=prod.id%>" <%=checked%> >	<span class="spec_filter_check_label"><%= prod.name %> </span>
 				</div>
 		<% end %>
 	</div>
@@ -35,7 +50,15 @@
 	<% if prices.count > 0 %>
 		<div class="filter_title"> Price </div>
 		<div class="row">
-		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + ( prices.max.to_i  % 50) ) %>" data-slider-step="50" data-slider-value="[0,<%= prices.max.to_i %>]" id="price_slider">
+
+					<% checked = "" %>	
+
+					<% if @view_filter_set.include?('price') %>
+						
+						<% checked = "[#{@view_filter_set['price'][0]},#{@view_filter_set['price'][1]}]" %>	
+					<% end %>
+
+		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + ( prices.max.to_i  % 50) ) %>" data-slider-step="50" data-slider-value="<%=checked%>" id="price_slider">
 	</div>
 	<% end %>
 
@@ -52,7 +75,13 @@
 
 		<% spec.itemspecs.select("distinct value").where("value !=''").order('value asc').each do |itemspec| %>
 		<div class="spec-filter" >
-			<input class="spec_filter_check" type="checkbox" spec-name="<%=spec.name%>" spec-value="<%=itemspec.value%>">		<span class="spec_filter_check_label"><%= itemspec.value	%></span>
+
+					<% checked = "" %>	
+					<% if @view_filter_set.include?(spec.name)  and @view_filter_set[spec.name].include?(itemspec.value) %>
+						<% checked = "checked" %>	
+					<% end %>
+
+			<input class="spec_filter_check" type="checkbox" spec-name="<%=spec.name%>" spec-value="<%=itemspec.value%>" <%=checked%> >		<span class="spec_filter_check_label"><%= itemspec.value	%></span>
 		</div>
 		<% end %>
 	</div>

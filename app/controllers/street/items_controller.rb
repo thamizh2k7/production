@@ -185,7 +185,7 @@ class Street::ItemsController < ApplicationController
         flash[:notice] = "Failed to save"
       end
     end
-    redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+    redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}")
   end
 
 

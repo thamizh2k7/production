@@ -152,7 +152,6 @@ class ApplicationController < ActionController::Base
   end
 
   def p2p_get_user_location
-  	puts session.inspect
   	if session.has_key?(:city_id) and session[:city_id] != ""
   		return session[:city_id]
   	else

@@ -51,7 +51,7 @@
 		<div class="filter_title"> Price </div>
 		<div class="row">
 
-					<% checked = "" %>	
+					<% checked = "[0,<%= prices.max.to_i %>]" %>	
 
 					<% if @view_filter_set.include?('price') %>
 						

@@ -99,13 +99,13 @@ function check_before_save(){
 
 				var flag = 1;
 
-				if (!('title' in item_values) || item_values['title'] == ""){
+				if (!('title' in window.item_values) || window.item_values['title'] == ""){
 					$("#title").addClass("error");
 					$("#title").tooltip('show');
 					return false;
 				}
 
-				if (!('cat' in item_values) || item_values['cat'] == ""){
+				if (!('cat' in window.item_values) || window.item_values['cat'] == ""){
 					$("#category_item").addClass("error");
 					$("#category_item").tooltip('show');
 					return false;
@@ -125,26 +125,26 @@ function check_before_save(){
 					return false;
 				}
 
-				if (!('condition' in item_values) || item_values['condition'] == ""){
+				if (!('condition' in window.item_values) || window.item_values['condition'] == ""){
 					$("#condition").addClass("error");
 					$("#condition").tooltip('show');
 					return false;
 				}
 
-				if (!('desc' in item_values) || item_values['desc'] == ""){
+				if (!('desc' in window.item_values) || window.item_values['desc'] == ""){
 					$("#item_desc").addClass("error");
 					$("#item_desc").tooltip('show');
 					return false;
 
 				}
 
-				if (!('location' in item_values) || item_values['location'] == ""){
+				if (!('location' in window.item_values) || window.item_values['location'] == ""){
 					$("#location").addClass("error");
 					$("#location").tooltip('show');
 					alert("Enter item location");
 					return false;
 				}
-				_.each(item_values['spec'],function(value,key){
+				_.each(window.item_values['spec'],function(value,key){
 					$("#item_" + key).removeClass("error");
 					if (value == ""){
 						$("#item_" + key).addClass("error");

@@ -170,7 +170,6 @@ $(document).ready(function(){
 					else if (val.length > 0){
 						fil_url .push(key + '='+ val);
 					}
-
 					hideNotifications();
 				});
 

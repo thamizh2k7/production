@@ -1,10 +1,5 @@
 <% content_for :pagetitle  do %>
-
-	Result for
-
-		<%= @cat.name %>
-
-
+	Result for <%= @cat.name %>
 <%end %>
 
 
@@ -95,7 +90,7 @@
 	<script>
 		//set the filters if we have found it already..
 		$(document).ready(function(){
-			var filter = "<%=raw @view_filter_set.to_json()%>";
+			window.filter = "<%=raw @view_filter_set.to_json()%>";
 		});
 
 

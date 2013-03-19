@@ -298,7 +298,18 @@ edit_item =function(){
 					$('#add_new_model').on('save', function(e, params) {
 		   				 //alert('Saved value: ' + params.newValue);
 		   				 //alert('saving');
+
+
 						if (params.newValue != "") {
+
+							if (params.newValue.indexOf('-') != -1 ){
+								window.brand="";
+								params.newValue = params.oldValue;
+								$(this).addClass('error');
+								$(this).tooltip('destroy').attr('title',' - is not allowed').tooltip('show');
+								return false;
+							}
+
 							window.brand = params.newValue;
 							$("#price").tooltip('show');
 							$('#model').text(params.newValue);

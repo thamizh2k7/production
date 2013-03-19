@@ -62,9 +62,6 @@
 		</tbody>
 	</table>
 
-
-
-
 	<%= f.submit :class =>"btn" %>
 
 <% end %>
@@ -108,6 +105,33 @@ $(document).ready(function(){
 
       	return false;
 	}
+
+	$("[id^=p2p_category_products_attributes]").live('change',function(){
+		if ($(this).val().indexOf('-') != -1){
+			$(this).val('');
+			alert('Product Name cannot contain - ');
+		}
+	});
+
+	$("[id^=p2p_category_products_attributes]").live('change',function(){
+		if ($(this).val().indexOf('-') != -1){
+			$(this).val('');
+			alert('Product Name cannot contain - ');
+		}
+	});
+
+	$("#new_p2p_category").submit(function(){
+		if ($("#p2p_category_name").val() == ''){
+			alert('Enter a Category Name');
+			return false;
+		}
+
+		if ($("#p2p_category_name").val().indexOf() != -1){
+			alert('Name cannot -');
+			return false;
+		}
+	});
+
 
 });
 </script>

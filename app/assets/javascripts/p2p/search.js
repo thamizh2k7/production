@@ -6,7 +6,7 @@
 
         // $("#top_search_input").keyup(function(e){
         //     if (e.which == 13 && $.trim($(this).val()) !=""){
-        //         window.location.href = '/p2p/search/q/' + $.trim($(this).val());
+        //         window.location.href = '/street/search/q/' + $.trim($(this).val());
         //     }
         // });
 
@@ -69,7 +69,7 @@
           return;
         }
 
-        $.getJSON( "/p2p/search/" + request.term,{}, function( data, status, xhr ) {
+        $.getJSON( "/street/search/" + request.term,{}, function( data, status, xhr ) {
           cache[ term ] = data;
           response( data );
         });
@@ -110,7 +110,7 @@
          $(this).html('Sending verification code').attr('disabled','disabled');
 
          $.ajax({
-              url:'/p2p/users/verifymobile/code',
+              url:'/street/users/verifymobile/code',
               type:'post',
               data:{"mobile":$("#seller_mobile_number").val()},
               dataType:'json',
@@ -146,12 +146,12 @@
          $(this).html('Verifying code').attr('disabled','disabled');
 
          $.ajax({
-              url:'/p2p/users/verifymobile/' + $("#seller_verify_mobile").val(),
+              url:'/street/users/verifymobile/' + $("#seller_verify_mobile").val(),
               type:'post',
               dataType:'json',
               success:function(data){
                    if (data.status== 1){
-                        location.href="/p2p/sellitem"
+                        location.href="/street/sellitem"
                         location.reload
                    }else{
                         showNotifications('Some error occured. Try again.');

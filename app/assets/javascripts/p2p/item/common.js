@@ -40,7 +40,7 @@ $(document).ready(function(){
 
 		$.ajax({
 
-			url:"/p2p/images/" + that.siblings('img').attr("imgid"),
+			url:"/street/images/" + that.siblings('img').attr("imgid"),
 			type:"delete",
 			dataType:"json",
 			data:{"authenticity_token" : AUTH_TOKEN},

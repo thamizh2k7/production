@@ -9,7 +9,7 @@
 
 			oVendorTable = $('#vendor_id').dataTable({
 						"sDom": "<r><f>t<i><p>",
-			  		"sAjaxSource": '/p2p/getusers/vendors' ,
+			  		"sAjaxSource": '/street/getusers/vendors' ,
 	          "bFilter":false,
 	         	"iDisplayLength" : 20,
 	          "bAutoWidth": false,
@@ -26,7 +26,7 @@
 
 			oUserTable = $('#user_id').dataTable({
 						"sDom": "<r><f>t<i><p>",
-			  		"sAjaxSource": '/p2p/getusers/users' ,
+			  		"sAjaxSource": '/street/getusers/users' ,
 	          "bFilter":false,
 	         	"iDisplayLength" : 20,
 	          "bAutoWidth": false,
@@ -73,7 +73,7 @@
 				}
 			});
 
-		
+
 		// delete selected messages
 		$('.delete_vendor_user').click(function(){
 			var that = $(this);
@@ -87,21 +87,21 @@
 					}
 			});
 
-			
-			//if nothing is selected reutnr 
+
+			//if nothing is selected reutnr
 			if (delete_messages.length < 1 ){
 				alert('Please select atleast one User');
 				$("#" + that.attr('tbl') + " .vendor_check").removeAttr('checked');
 				return false;
 			}
-			
+
 			showNotifications("Processing  " + delete_messages.length + " users.! Please wait");
 			// delete the messages using ajax
 			var vendorurl = ""
 			if (that.attr('tbl') == 'vendor'){
-				vendorurl = '/p2p/vendors/remove'
+				vendorurl = '/street/vendors/remove'
 			}else{
-				vendorurl = '/p2p/vendors/set'
+				vendorurl = '/street/vendors/set'
 			}
 
 			$.ajax({
@@ -119,7 +119,7 @@
 						oUserTable.fnDraw();
 
 					// #hide the overloy
-					
+
 					if (delete_messages.length > 0)
 						showNotifications("Successfully Processed" + delete_messages.length + " User");
 

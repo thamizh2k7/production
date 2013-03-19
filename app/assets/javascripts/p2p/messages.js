@@ -67,7 +67,7 @@
 			showNotifications("Processing  " + delete_messages.length + " messages.! Please wait");
 			// delete the messages using ajax
 			$.ajax({
-				url:'/p2p/messages/0',
+				url:'/street/messages/0',
 				data:{msgid:delete_messages , tbl: that.attr('tbl')},
 				type:'delete',
 				dataType:'json',
@@ -160,7 +160,7 @@
 		}
 	});
 	$(".mark_as_read").live("click",function(){
-		$.post("/p2p/mark_as_read",function(data){
+		$.post("/street/mark_as_read",function(data){
 			showNotifications("All unread messages marked as read");
 			oInboxTable.fnDraw();
 

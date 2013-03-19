@@ -6,7 +6,7 @@ $(document).ready(function(){
         showNotifications('Deleting item.Please wait..!');
 
         $.ajax({
-          url:"/p2p/items/" + $(this).attr("itemid"),
+          url:"/street/items/" + $(this).attr("itemid"),
           type:"delete",
           dataType:"json",
           data:{"authenticity_token" : AUTH_TOKEN},
@@ -34,7 +34,7 @@ $(document).ready(function(){
           $("#disapprove_item_with_reason").on("click",function(){
             showNotifications('Please wait while we process it');
             $.ajax({
-              url:'/p2p/approve/disapprove',
+              url:'/street/approve/disapprove',
               data:{id: that.attr('itemid'),"disapprove":$("#reason_disapprove").val()},
               dateType:'json',
               type:'post',
@@ -63,7 +63,7 @@ $(document).ready(function(){
           showNotifications('Please wait while we process it');
 
           $.ajax({
-            url:'/p2p/approve/approve',
+            url:'/street/approve/approve',
             data:{id: that.attr('itemid')},
             dateType:'json',
             type:'post',
@@ -97,7 +97,7 @@ $(document).ready(function(){
           }
 
       $.ajax({
-        url:'/p2p/users/list',
+        url:'/street/users/list',
         data:{q:term},
         dataType:"json",
         type:'post',
@@ -110,7 +110,7 @@ $(document).ready(function(){
 
         },
         select:function(event,elem){
-            window.location = '/p2p/mystore/sold/user/' + elem.item.value
+            window.location = '/street/mystore/sold/user/' + elem.item.value
             return elem.item.label;
         },
         focus:function(){

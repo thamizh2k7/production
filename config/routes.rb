@@ -7,7 +7,7 @@ Sociorent::Application.routes.draw do
   mount RailsAdmin::Engine => '/cb_admin', :as => 'rails_admin'
 
   ActiveAdmin.routes(self)
-  
+
   resources :static_pages
 
   get 'static_pages/get_page/:page_name' => 'static_pages#get_page'
@@ -70,7 +70,7 @@ Sociorent::Application.routes.draw do
   devise_for :counters
 
   ##P2P Routes
-  namespace :p2p do
+  namespace :street do
 
     root :to => "index#index"
 
@@ -79,7 +79,7 @@ Sociorent::Application.routes.draw do
     resources :items
     resources :images
     resources :credits
-    
+
 
     #for adimn
     scope 'admin' do
@@ -116,7 +116,7 @@ Sociorent::Application.routes.draw do
 
 
       get 'faileduploads' => 'users#failed_uploads'
-      
+
       get 'getattributes/:id' => "categories#get_attributes"
       get 'getspec/:id' =>  "items#get_spec"
       get 'getsubcategories' => "items#get_sub_categories"
@@ -175,5 +175,5 @@ Sociorent::Application.routes.draw do
   match '/assets/*a', :to => 'errors#ignore_routing'
 
   match '*a', :to => 'errors#routing'
-  
+
 end

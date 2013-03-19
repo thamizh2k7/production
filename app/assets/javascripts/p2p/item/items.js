@@ -4,15 +4,15 @@ $(document).ready(function(){
 		if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
 	});
 
-	
-	
+
+
 	// save the form onclick trigger
 	$("#save_top").click(function(){
 		// call the save function if saved not return false
 		if (!saveItem()){
 			return false;
 		}
-		
+
 		$('.action-icon').tooltip('destroy');
 
 	});
@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 saveItem = function(){
 
-				// if some fields are not filled this will return false 
+				// if some fields are not filled this will return false
 				// 	so dont save them
 				if (!check_before_save()){
 					return false;
@@ -55,7 +55,7 @@ saveItem = function(){
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');
 
-				// add all the fields to the form 
+				// add all the fields to the form
 				// and submit the form
 
 				$("#form_temp").html('');
@@ -126,8 +126,8 @@ edit_item =function(){
 		$("[id^=reqcount_]").addClass('hidden');
 		$("#owner_item").addClass('hidden');
 		$("#payment_btn").addClass('hidden');
-		
-		
+
+
 
 		$(".edit_visible").addClass('edit_shown').removeClass('edit_visible');
 
@@ -215,11 +215,11 @@ edit_item =function(){
 
 		// enable xeditable
 		$('.canEdit').editable();
-		
+
 		//enbale image upload
 		$("#image_upload").removeAttr('disabled','disabled');
 
-		// if i'm in edit 
+		// if i'm in edit
 		if (window.edit){
 			$('[id^=item_]').on('save',check_specs);
 		}else{
@@ -244,7 +244,7 @@ edit_item =function(){
 			// set the new value in global
 			item_values['cat'] = params.newValue;
 
-			// clear the specs 
+			// clear the specs
 			$(".specs").remove();
 			item_values['spec']={};
 
@@ -255,7 +255,7 @@ edit_item =function(){
 			var par = $('#model').parent();
 			$(par).html(temp);
 			$("#model").html("Select one");
-			$("#model").attr("data-source",'/p2p/getbrand/' + params.newValue);
+			$("#model").attr("data-source",'/street/getbrand/' + params.newValue);
 			window.brand = '';
 
 
@@ -304,7 +304,7 @@ edit_item =function(){
 							$('#model').text(params.newValue);
 							$("#add_new_model").addClass('hidden');
 							$("#model").removeClass('hidden');
-							
+
 						}
 						else{
 							window.brand="";
@@ -317,7 +317,7 @@ edit_item =function(){
 			showNotifications("Fetching specifications...! Please Wait..");
 
 			$.ajax({
-				url:'/p2p/getattributes/' + params.newValue,
+				url:'/street/getattributes/' + params.newValue,
 				type:"get",
 				success:function(data){
 
@@ -440,12 +440,12 @@ function cancel_edit(){
 			$("[id^=reqcount_]").removeClass('hidden');
 			$("#owner_item").removeClass('hidden');
 			$("#payment_btn").removeClass('hidden');
-		
+
 			$(".action_icon").tooltip('destroy');
 
 			$('#clearuploads').addClass('hidden');
 			$('.remove_image').addClass('hidden');
-			
+
 
 			$("#add_more_spec").addClass('hide');
 

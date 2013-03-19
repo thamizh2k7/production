@@ -203,13 +203,13 @@ class Street::UsersController < ApplicationController
   #toggle the favourite users for a user
   def setfavourite
     begin
-      
+
       if params[:itemid]
         fav_id = P2p::Item.find(params[:itemid].to_i).user.id
       else
         fav_id = P2p::User.find(params[:id].to_i)
       end
-      
+
       fav = p2p_current_user.favouriteusers.find_by_fav_id(fav_id)
       if fav.nil?
         flag = 1
@@ -218,7 +218,7 @@ class Street::UsersController < ApplicationController
         flag = 0
         fav.destroy
       end
-      
+
       render :json => {:status => 1 ,:fav => flag ,:count => p2p_current_user.favouriteusers.count}
       return
     rescue Exception => ex
@@ -349,11 +349,10 @@ end
       case params[:job]
 
         when 'bulk'
-          if params[:cmd] ='start'
-            Kernel.spawn("bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")
+          if params[:cmd] == 'start'
+            Kernel.spawn("RAILS_ENV=#{Rails.env} bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")
           end
       end
-
       redirect_to '/street/admin/jobs'
       return
     end

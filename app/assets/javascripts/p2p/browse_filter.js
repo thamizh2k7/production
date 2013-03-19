@@ -167,10 +167,10 @@ $(document).ready(function(){
 				var fil_url =[];
 				_.each(window.filters,function(val,key){
 					if (typeof(val) == 'Array' && val.length > 0 ){
-						fil_url .push(key + '=' + val.join(","));
+						fil_url.push(key + '=' + val.join(","));
 					}
 					else if (val.length > 0){
-						fil_url .push(key + '='+ val);
+						fil_url.push(key + '='+ val);
 					}
 					hideNotifications();
 				});

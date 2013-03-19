@@ -113,10 +113,10 @@
 			_.each($('.spec-filter'),function(elm){
 
 
-				if ($(elm).attr('spec-name') in old_filters && ( $.inArray($(elm).attr('spec-value'),  old_filters[$(elm).attr('spec-name')] ) ) !=-1 ){
+				if ($(elm).find('.spec_filter_check').attr('spec-name') in old_filters && ( $.inArray($(elm).find('.spec_filter_check').attr('spec-value'),  old_filters[$(elm).find('.spec_filter_check').attr('spec-name')] ) ) !=-1 ){
 
-					spec = $(elm).attr('spec-name');
-					val = old_filters[$(elm).attr('spec-name')][0] ;
+					spec = $(elm).find('.spec_filter_check').attr('spec-name');
+					val = old_filters[$(elm).find('.spec_filter_check').attr('spec-name')][0] ;
 
 					if (!(spec in filters))	filters[spec]=[]
 

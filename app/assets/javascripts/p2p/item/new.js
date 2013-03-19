@@ -71,7 +71,7 @@ save_new_item = 	function(){
 			       }
 
 			       if ($("#sociorent_payment_form #p2p_item_payinfo").val() == "" ){
-			       		showNotifications('Select one pincode');
+			       		showNotifications('Enter your address');
 			       		return false;
 			       }
 

@@ -3,14 +3,27 @@ $(document).ready(function(){
 
 
   // fancy box for view image
+  // $('#view_image_fancy').fancybox({
+  //     'speedIn'   : 500,
+  //     'speedOut'    : 200,
+  //     'centerOnScroll': true,
+  //     'showCloseButton':true,
+  //     'enableEscapeButton':true,
+  //     'autoScale':true
+  // });
   $('#view_image_fancy').fancybox({
-      'speedIn'   : 500,
-      'speedOut'    : 200,
-      'centerOnScroll': true,
-      'showCloseButton':true,
-      'enableEscapeButton':true,
-      'autoScale':true
-  });
+      prevEffect  : 'none',
+      nextEffect  : 'none',
+      helpers : {
+        title : {
+          type: 'outside'
+        },
+        thumbs  : {
+          width : 50,
+          height: 50
+        }
+      }
+    });
 
 
   // thumbs on clicked must change the image in view

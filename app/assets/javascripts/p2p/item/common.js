@@ -113,13 +113,13 @@ function check_before_save(){
 
 
 
-				if (!window.brand){
+				if (window.brand ==""){
 					$("#model").addClass("error");
 					$("#model").tooltip('show');
 					return false;
 				}
 
-				if (!window.price){
+				if (window.price == ''){
 					$("#price").addClass("error");
 					$("#model").tooltip('show');
 					return false;

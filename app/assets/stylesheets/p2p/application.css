@@ -16,8 +16,10 @@
 *= require p2p/ui.notify
 *= require p2p/header
 *= require index/user_bar
-*= require p2p/jquery.fancybox-1.3.4
 *= require p2p/slider
+*= require p2p/jquery.fancybox.css
+*= require p2p/jquery.fancybox-buttons.css
+*= require p2p/jquery.fancybox-thumbs.css
 *= require global/chosen
 *= require_tree .
 */

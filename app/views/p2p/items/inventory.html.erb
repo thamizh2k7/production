@@ -27,15 +27,18 @@
       </a></p>
     </div>
 
-    <% if session[:isadmin] %>
-      <div class="pull-right">
-        See items by Email: <input type="text" id="user_id" placeholder="Type email">
-      </div>
-    <% end %>
-
+      <% if session[:isadmin] %>
+        <div class="pull-right">
+          See items by Email: <input type="text" id="user_id" placeholder="Type email">
+        </div>
+      <% end %>
+     <% show_menu = true if session[:isadmin] || p2p_current_user.items.count > 0 %>
+    <% if show_menu == true %>
     <%= render '/p2p/items/inventory_items_button' %>
-
     <%= render "/p2p/items/inventory_items" , :items => @items %>
+            <% else%>
+            <h3> You didn't post any items </h3>
+        <%end %>
   </div>
 
 </div>

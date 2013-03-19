@@ -236,9 +236,9 @@
                 // calling the API ...
                 var obj = {
                   method: 'feed',
-                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/p2p/<%=@item.category.name%>/<%=@item.product.name%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>",
+                  redirect_uri: '<%= URI.encode("http://#{request.host}/p2p/#{@item.category.name}/#{@item.product.name}/#{@item.title.gsub(/ /,"-")}/#{@item.id}") %>',
                   link: 'https://developers.facebook.com/docs/reference/dialogs/',
-                  picture: "http://<%=request.host%>:<%=request.port%><%=@thumbimage[0][:url]%>",
+                  picture: '<%= URI.encode("http://#{request.host}#{@thumbimage[0][:url]}") %>',
                   name: "<%=@item.title%> ",
                   caption: "P2P - Sociorent",
                   description: "<%=@item.desc.encode('UTF-8').truncate(100)%>"

@@ -90,8 +90,8 @@
 	<script>
 		//set the filters if we have found it already..
 		$(document).ready(function(){
-      <% if @view_filter_set.count %>
-			window.filters = <%=raw @view_filter_set.to_json()%>;
+      <% if @view_filter_set.count > 0 %>
+			window.filters = <%= raw @view_filter_set.to_json() %>;
       <% else %>
         window.filters={};
       <% end %>

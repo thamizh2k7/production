@@ -15,7 +15,13 @@ filter_spec_by_text = function (val,elem){
 
 }
 
+
 $(document).ready(function(){
+
+
+	if ( window.filters === undefined ){
+		window.filters = {};
+	}
 
 	$(".filter_spec_input").keyup(function(){
 		var value = $(this).val();
@@ -30,7 +36,7 @@ $(document).ready(function(){
 	$("#price_slider").slider().on("stopSlide",function(ev){
 			// TODO :: price slider value should be sent to the filter
 			//ev.value =>  [0] , [1]
-			filters['price'] = ev.value
+			window.filters['price'] = ev.value
 			call_filter('price',ev.value,$(this));
 	});
 
@@ -95,16 +101,16 @@ $(document).ready(function(){
 
 		$("#dummy_filter_holder").css({"position":"relative"});
 
-		if (spec in filters){
-			if (filters[spec].indexOf(val) == -1){
-				filters[spec].push(val)
+		if (spec in window.filters){
+			if (window.filters[spec].indexOf(val) == -1){
+				window.filters[spec].push(val)
 			}else{
-				filters[spec].splice(filters[spec].indexOf(val),1)
+				window.filters[spec].splice(window.filters[spec].indexOf(val),1)
 			}
 		}
 		else{
-			filters[spec]=[]
-			filters[spec].push(val)
+			window.filters[spec]=[]
+			window.filters[spec].push(val)
 		}
 		// Ajax Call for selected filter
 		call_filter(spec,val,that);
@@ -118,7 +124,7 @@ $(document).ready(function(){
 		$("#load_more div").html(' <img src="/assets/ajax_small.gif"/> Loading more items..! Please wait');
 		$.ajax({
 			url:window.filterurl ,
-			data:{"filter": filters ,page: page_num},
+			data:{"filter": window.filters ,page: page_num},
 			type:"post",
 			dataType:"json",
 			success:function(data){
@@ -145,13 +151,13 @@ $(document).ready(function(){
 	// Main function working out the filter
 	function call_filter(spec,val,that){
 
-		//showNotifications(' <img src="/assets/ajax_small.gif"/> Applying filters Please wait..!');
+		//showNotifications(' <img src="/assets/ajax_small.gif"/> Applying window.filters Please wait..!');
 
 		$("#filter_loading_image").removeClass('hide');
 
 		$.ajax({
 			url:window.filterurl ,
-			data:{"filter": filters ,page : 1 },
+			data:{"filter": window.filters ,page : 1 },
 			type:"post",
 			dataType:"json",
 			success:function(data){
@@ -159,7 +165,7 @@ $(document).ready(function(){
 				$(window).scrollTop(0);
 
 				var fil_url =[];
-				_.each(filters,function(val,key){
+				_.each(window.filters,function(val,key){
 					if (typeof(val) == 'Array' && val.length > 0 ){
 						fil_url .push(key + '=' + val.join(","));
 					}
@@ -181,7 +187,7 @@ $(document).ready(function(){
 			error:function(){
 				showNotifications("Something went wrong. Try again");
 				$("#filter_loading_image").addClass('hide');
-				filters[spec].splice(filters[spec].indexOf(val),1)
+				window.filters[spec].splice(window.filters[spec].indexOf(val),1)
 				$(that).parent().children('.spec_filter_check').removeAttr('checked');
 
 			}
@@ -190,7 +196,7 @@ $(document).ready(function(){
 
 	// Sorting dropdown (price range)
 	$("#filter_sort").change(function(){
-		 filters['sort'] = $("#filter_sort").val();
+		 window.filters['sort'] = $("#filter_sort").val();
 		 call_filter('sort',$("#filter_sort").val(),$("#filter_sort"));
 	});
 

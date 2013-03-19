@@ -28,14 +28,6 @@
       </div>
     </div>
     <%= render "layouts/p2p/footer_menu" %>
-    <!-- footer content  -->
-<!--     <div class="footer_cpy">
-      <div class="wrapper">
-        <span>&copy; Sociorent. All rights reserved.</span>
-      </div>
-    </div>
-
- -->
     <div class="clearfix"></div>
 
     <script>
@@ -43,14 +35,6 @@
           <% unless flash[:notice].nil? %>
             showNotifications("<%=flash[:notice]%>");
           <% end %>
-
-       // <#% if !session[:userid].nil? and  p2p_current_user.received_messages.unread.count > 0 %>
-
-        //     $('#notificationcontainer').notify('create',{
-        //       title:"Pending Messages",
-        //       text:"You have <#%=p2p_current_user.received_messages.unread.count %> messages unread"
-        //     });
-       // <#% end %>
      });
     </script>
   </div>

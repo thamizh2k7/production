@@ -65,6 +65,13 @@ class HomeController < ApplicationController
 
   def search
     resp = {}
+
+    # return if not xh
+    unless request.xhr?
+      redirect_to ''
+      return
+    end
+
     if params[:query] == ""
        @books = intelligent_books(current_user)
        @books += Book.first(6-@books.count) if @books.count < 6

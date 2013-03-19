@@ -5,7 +5,7 @@ class P2p::Image < ActiveRecord::Base
 	attr_accessor :image_url
   attr_accessible :img,:image_url
   has_attached_file :img , :styles => { :view => "290X290", :thumb => "50X50#" ,:search => "110X155#" ,:full => "640X480" },
-  					:default_url => '/assets/noimage.jpg'
+  					:default_url => '/assets/no_book.jpeg'
 
 #	before_save :download_remote_image, :if => :image_url_provided?
 

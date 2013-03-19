@@ -17,6 +17,7 @@
 //= require global/jquery.ui.position.js
 //= require ./underscore.js
 //= require ./backbone
+//= require ./jquery.ui.menu
 //= require ./jquery.sticky
 //= require ./jquery.ui.dialog.js
 //= require ./jquery.ui.tabs
@@ -26,6 +27,7 @@
 //= require ./jquery.typewatch
 //= require ./bootstrap.min
 //= require ./jquery.nivo.slider.pack
+//= require ./jquery.timeago
 
 $(document).ready(function(){
 	$("#resources_button").click(function(){

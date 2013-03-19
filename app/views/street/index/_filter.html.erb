@@ -18,6 +18,7 @@
 		<!-- price range -->
 
 	<% prices = (category.items.by_location_or_allover(p2p_get_user_location).select("distinct p2p_items.price").order('p2p_items.price asc')).pluck('price') %>
+
   <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
 	<% if item_model_res.count > 0 %>
 		<div class="filter_title"> <%= (category.name =="Books") ? 'Category' : 'Model'%> </div>
@@ -34,7 +35,7 @@
 	<% if prices.count > 0 %>
 		<div class="filter_title"> Price </div>
 		<div class="row">
-		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%=prices.max.to_i%>" data-slider-step="50" data-slider-value="[0,<%=prices.max.to_i%>]" id="price_slider">
+		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + ( prices.max.to_i  % 50) ) %>" data-slider-step="50" data-slider-value="[0,<%= prices.max.to_i %>]" id="price_slider">
 	</div>
 	<% end %>
 

@@ -166,7 +166,7 @@ class Street::IndexController < ApplicationController
   def seller_items
     @items = P2p::User.find(params[:id]).items.active_items
   end
-  
+
 
   def browse_filter
     # // if applied_filters filters is passed we

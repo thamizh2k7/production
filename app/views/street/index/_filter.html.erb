@@ -17,18 +17,8 @@
 	<% end %>
 		<!-- price range -->
 
-	<% item_price_res = (category.items.by_location_or_allover(p2p_get_user_location).select("distinct cast(p2p_items.price as UNSIGNED)").order('p2p_items.price asc')).pluck('price') %>
-
-    <% item_price_res =   item_price_res.in_groups(2) %>
-
-  <% ranges = [] %>
-  <% item_price_res.insert(0,0)  if item_price_res.count.odd?  %>
-  <% item_price_res.each do |d| %>
-    <% ranges.push((d[0].to_i-1)..(d[1].to_i+1)) %>
-  <% end  %>
-
-
-	<% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
+	<% prices = (category.items.by_location_or_allover(p2p_get_user_location).select("distinct p2p_items.price").order('p2p_items.price asc')).pluck('price') %>
+  <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
 	<% if item_model_res.count > 0 %>
 		<div class="filter_title"> <%= (category.name =="Books") ? 'Category' : 'Model'%> </div>
 		<div class="filters_value">
@@ -41,15 +31,11 @@
 	<% end %>
 
 
-	<% if ranges.count > 0 %>
+	<% if prices.count > 0 %>
 		<div class="filter_title"> Price </div>
-		<div class="filters_value">
-			<% ranges.each do |rng| %>
-				<div class="spec-filter">
-					<input  class="spec_filter_check" type="checkbox"  spec-name="price" spec-value="<%=rng%>">	<span class="spec_filter_check_label"><%= rng.to_s.sub('..' , ' to ') %> </span>
-				</div>
-			<% end %>
-		</div>
+		<div class="row">
+		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%=prices.max.to_i%>" data-slider-step="50" data-slider-value="[0,<%=prices.max.to_i%>]" id="price_slider">
+	</div>
 	<% end %>
 
 	<% category.specs.where(:show_filter => 1).each do |spec|%>
@@ -71,6 +57,7 @@
 	</div>
 	<% end %>
 	<li class="divider"></li>
+
 	<!-- Template for the search results -->
 	<!-- load only for inital request and not for load more-->
 	<script type="template" id="item_template">

@@ -17,6 +17,7 @@
 //= require jquery.ui.position
 //= require jquery.ui.autocomplete
 //= require jquery.ui.datepicker
+//= require jquery.ui.slider
 //= require jquery_nested_form
 //= require jquery-fileupload
 //= require p2p/jquery.notify
@@ -39,6 +40,7 @@
 //= require p2p/jqplot.canvasAxisTickRenderer.min
 //= require p2p/jqplot.categoryAxisRenderer.min
 //= require p2p/jquery-scrolltofixed-min
+//= require p2p/bootstrap-slider
 //= require p2p/search
 //= require p2p/category_menu
 //= require global/chosen.jquery

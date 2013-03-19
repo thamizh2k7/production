@@ -103,14 +103,14 @@ $(document).ready(function(){
 
 		if (spec in window.filters){
 			if (window.filters[spec].indexOf(val) == -1){
-				window.filters[spec].push(val)
+				window.filters[spec].push(val);
 			}else{
-				window.filters[spec].splice(window.filters[spec].indexOf(val),1)
+				window.filters[spec].splice(window.filters[spec].indexOf(val),1);
 			}
 		}
 		else{
-			window.filters[spec]=[]
-			window.filters[spec].push(val)
+			window.filters[spec]=[];
+			window.filters[spec].push(val);
 		}
 		// Ajax Call for selected filter
 		call_filter(spec,val,that);

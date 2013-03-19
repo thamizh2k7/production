@@ -141,6 +141,11 @@
         if (data.status == 1){
           $("#"+id).hide();
         }
+        if(data.count == 0) {
+          $("#fav_table").hide();
+          $("#fav_container").html("<h3>You don't have any favourite sellers.</h3>");
+        }
+
       });
     });
 

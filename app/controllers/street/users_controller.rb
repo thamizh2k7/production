@@ -219,10 +219,11 @@ class Street::UsersController < ApplicationController
         fav.destroy
       end
       
-      render :json => {:status => 1 ,:fav => flag }
+      render :json => {:status => 1 ,:fav => flag ,:count => p2p_current_user.favouriteusers.count}
       return
     rescue Exception => ex
       render :json => {:status => 0}
+      # render :text => ex.message
     end
   end
 

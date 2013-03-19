@@ -1,3 +1,9 @@
+//= require p2p/jquery.mousewheel-3.0.6.pack.js
+//= require p2p/jquery.fancybox.js
+//= require p2p/helpers/jquery.fancybox-buttons.js
+//= require p2p/helpers/jquery.fancybox-thumbs.js
+//= require p2p/helpers/jquery.fancybox-media.js
+
 
 $(document).ready(function(){
 
@@ -11,7 +17,8 @@ $(document).ready(function(){
   //     'enableEscapeButton':true,
   //     'autoScale':true
   // });
-  $('#view_image_fancy').fancybox({
+
+  $('.fancy_thumb').fancybox({
       prevEffect  : 'none',
       nextEffect  : 'none',
       helpers : {
@@ -22,6 +29,9 @@ $(document).ready(function(){
           width : 50,
           height: 50
         }
+      },
+      beforeLoad:function(e){
+        $(this).find('img').trigger('click');
       }
     });
 

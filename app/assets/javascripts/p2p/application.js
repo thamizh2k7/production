@@ -20,11 +20,6 @@
 //= require jquery_nested_form
 //= require jquery-fileupload
 //= require p2p/jquery.notify
-//= require p2p/jquery.mousewheel-3.0.6.pack.js
-//= require p2p/jquery.fancybox.js
-//= require p2p/helpers/jquery.fancybox-buttons.js
-//= require p2p/helpers/jquery.fancybox-thumbs.js
-//= require p2p/helpers/jquery.fancybox-media.js
 //= require global/underscore
 //= require bootstrap
 //= require bootstrap-editable

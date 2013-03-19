@@ -66,8 +66,6 @@ class Street::ServicePincodesController < ApplicationController
   def update
     @p2p_service_pincode = P2p::ServicePincode.find(params[:id])
 
-    redirect_to :index and return
-
     respond_to do |format|
       if @p2p_service_pincode.update_attributes(params[:p2p_service_pincode])
 

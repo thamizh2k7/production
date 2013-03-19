@@ -31,7 +31,7 @@
 		  <tr>
 		    <td><%= p2p_service_pincode.pincode %></td>
 		    <td><%= link_to '<i class="icon-edit"></i>'.html_safe, edit_street_service_pincode_path(p2p_service_pincode) %>
-		    <%= link_to '<i class="icon-trash"></i>'.html_safe, p2p_service_pincode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		    <%= link_to '<i class="icon-trash"></i>'.html_safe, street_service_pincode_path(p2p_service_pincode), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		  </tr>
 		<% end %>
 		</table>

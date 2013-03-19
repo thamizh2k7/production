@@ -156,7 +156,11 @@
 				              <% @thumbimage.each do |img| %>
 					              <li class="thumbs picture_upload_preview">
 					                <i class="icon-remove pull-right remove_image hidden"></i>
-				                  <img src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=@fullimage[i][:url]%>" viewimage="<%= @viewimage[i][:url] %>">
+
+					                <a class="fancy_thumb" rel="fancy_thumb" imgid="<%= img[:id] %>" href="<%=@fullimage[i][:url]%>">
+				                  		<img  src="<%= img[:url]%>"  imgid="<%= img[:id] %>" alt="" id="image_<%= img[:id]%>" class="thumb_img" fancyimg="<%=@fullimage[i][:url]%>" viewimage="<%= @viewimage[i][:url] %>">
+				                  	</a>
+
 				                </li>
 				              <% i += 1 %>
 				              <% end %>

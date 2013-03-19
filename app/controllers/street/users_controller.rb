@@ -77,8 +77,12 @@ class Street::UsersController < ApplicationController
     users = User.where("email like '%#{params[:q]}%'")
     resp = []
     users.each do |usr|
+      begin
       p2pusr = P2p::User.find_by_user_id(usr.id)
       resp.push(:value => p2pusr.id , :label => "#{usr.name}(#{usr.email})" )
+      rescue
+        next
+      end
     end
     if resp.count ==0
       resp.push(:value => -1 , :label => "Nothing Found" )

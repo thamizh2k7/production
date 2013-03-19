@@ -30,6 +30,8 @@ $(document).ready(function(){
 	$("#price_slider").slider().on("stopSlide",function(ev){
 			// TODO :: price slider value should be sent to the filter
 			//ev.value =>  [0] , [1]
+			filters['price'] = ev.value
+			call_filter('price',ev.value,$(this));
 	});
 
 	//scrill up function

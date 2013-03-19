@@ -89,6 +89,8 @@ Sociorent::Application.routes.draw do
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end
 
+      match "sellers/:id/:name" => "index#seller_items"
+      
       match 'gettemplate' => 'items#downloadtemplate'
 
 #      get "categories/set_category" => "categories#set_category"
@@ -165,7 +167,6 @@ Sociorent::Application.routes.draw do
       get ':cat/:prod/:item/:id' => 'items#view' ,:as => :item_url
       get ':cat(/:prod)' => "index#browse"
       match "update_shipping_address" => "users#update_shipping"
-
   end
 
 

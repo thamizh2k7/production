@@ -162,6 +162,12 @@ class Street::IndexController < ApplicationController
     @products
   end
 
+
+  def seller_items
+    @items = P2p::User.find_by_user_id(params[:id]).items.active_items
+  end
+  
+
   def browse_filter
     # // if applied_filters filters is passed we
     # must be sure we are called via ajax

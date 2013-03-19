@@ -16,7 +16,7 @@
 
                   </li>
 
-
+              
               <% if p2p_current_user %>
 
 
@@ -30,7 +30,7 @@
                   </li>
                   <li class=" action-icon" title="Dashboard" data-placement="bottom"><a href="/street/dashboard"><i class="icon-dashboard"></i>Dashboard</a></li>
 
-                  <li class=" action-icon" title="Sign out" data-placement="bottom">
+                  <li class="action-icon" title="Sign out" data-placement="bottom">
                     <%= link_to "<i class='icon-signout'></i> Sign Out".html_safe, destroy_user_session_path, :method => :delete %>
                   </li>
 
@@ -44,6 +44,7 @@
             <ul><%url = get_seller_url %>
               <!-- <li><a href="#faq_page" class="static_page_dialog_open">FAQ</a></li>
               <li><a href="#universities" class="open_university">UNIVERSITIES</a></li> -->
+
                  <li><a href="<%=url%>" <%if current_user.nil? || ( !session[:userid].nil?  and p2p_current_user.mobileverified == false ) %>
                   data-toggle="modal" role="button" <% end%>
                   class="selected" id="sell_item_button"><i class="icon-shopping-cart"></i>Sell Your Item</a></li>

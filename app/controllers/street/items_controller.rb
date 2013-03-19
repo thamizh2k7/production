@@ -103,7 +103,7 @@ class Street::ItemsController < ApplicationController
 
     #save the item now..
     if item.save
-      redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/item.id")
+      redirect_to URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/#{item.id}")
       # redirect_to URI.encode('/street/itempayment/' + item.id.to_s)
     else
       flash[:notice] = "Failed"
@@ -192,7 +192,7 @@ class Street::ItemsController < ApplicationController
   def destroy
     begin
       item = P2p::Item.find(params[:id])
-      raise "Cannot Delete" if item.user.id != current_user.id  and !session[:isadmin]
+      raise "Cannot Delete" if item.user.id != session[:userid]  and !session[:isadmin]
       item.deletedate = Time.now
       item.save
     rescue

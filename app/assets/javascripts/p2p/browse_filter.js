@@ -30,6 +30,8 @@ $(document).ready(function(){
 	$("#price_slider").slider().on("stopSlide",function(ev){
 			// TODO :: price slider value should be sent to the filter
 			//ev.value =>  [0] , [1]
+			filters['price'] = ev.value
+			call_filter('price',ev.value,$(this));
 	});
 
 	//scrill up function
@@ -85,7 +87,6 @@ $(document).ready(function(){
 	});
 
 	// For storing the applied filter
-	window.filters={};
 	window.page_num =2;
 
 	//Updating the widnow.filter vaiable and calling ajax function
@@ -97,20 +98,13 @@ $(document).ready(function(){
 		if (spec in filters){
 			if (filters[spec].indexOf(val) == -1){
 				filters[spec].push(val)
-				$(that).addClass('active');
-				$(that).children(".icon-remove").removeClass("hidden");
-
 			}else{
 				filters[spec].splice(filters[spec].indexOf(val),1)
-				$(that).removeClass('active');
-				$(that).children(".icon-remove").addClass("hidden");
 			}
 		}
 		else{
 			filters[spec]=[]
 			filters[spec].push(val)
-			$(that).addClass('active');
-			$(that).children(".icon-remove").removeClass("hidden");
 		}
 		// Ajax Call for selected filter
 		call_filter(spec,val,that);
@@ -172,7 +166,6 @@ $(document).ready(function(){
 					else if (val.length > 0){
 						fil_url .push(key + '='+ val);
 					}
-
 					hideNotifications();
 				});
 
@@ -189,8 +182,7 @@ $(document).ready(function(){
 				showNotifications("Something went wrong. Try again");
 				$("#filter_loading_image").addClass('hide');
 				filters[spec].splice(filters[spec].indexOf(val),1)
-				$(that).removeClass('active');
-				$(that).children(".icon-remove").addClass("hidden");
+				$(that).parent().children('.spec_filter_check').removeAttr('checked');
 
 			}
 		});

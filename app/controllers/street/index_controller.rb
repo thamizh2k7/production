@@ -158,6 +158,7 @@ class Street::IndexController < ApplicationController
       end
     end
 
+    @view_filter_set=[]
 
     @products
   end
@@ -216,6 +217,7 @@ class Street::IndexController < ApplicationController
     end #end for applied filters
     #not the filter is presetnt..
     #first find order by
+    @view_filter_set = []
     if params.has_key?("filter")
       @view_filter_set = params[:filter].dup
       if params[:filter].has_key?("sort")
@@ -233,25 +235,12 @@ class Street::IndexController < ApplicationController
         end
       end
 
-      if params[:filter].has_key?(:price)
-        temp =[]
-          params[:filter][:price].each do |fil|
-            fil1 = fil.split('..')
-            temp.push(" between " + fil1[0] + " and " + fil1[1] + " ")
-        end
-        item_price = ""
-
-        temp.each do |rng|
-          item_price += ((item_price.empty?) ? "" : " or ") + ' p2p_items.price ' + rng + " "
-
-          if item_condition_filter!=""
-              item_condition_filter   += " and "
-          end
-
-        end
-
+      if params[:filter].has_key?(:price) and !params[:filter][:price].nil?
+        item_price = '  p2p_items.price between ' + params[:filter][:price][0] + ' and ' + params[:filter][:price][1] + '  '
         item_condition_filter += "(#{item_price})"
       end
+
+       
 
       # second from the query
       # by parsing each and every filter
@@ -259,9 +248,13 @@ class Street::IndexController < ApplicationController
 
       if params[:filter].has_key?(:model)
         params[:prod] = params[:filter][:model]
+
+        if item_condition_filter !=""
+          item_condition_filter += ' and ' 
+        end
+
         item_condition_filter += " p2p_items.product_id in (#{ params[:filter][:model].join(',')}) "
       end
-
 
       # second from the query
       # by parsing each and every filter
@@ -277,25 +270,26 @@ class Street::IndexController < ApplicationController
         if item_condition_filter!=""
                 item_condition_filter   += " and "
         end
-
+        
         item_condition_filter += ' p2p_items.condition in (' + temp.join(",") + ")  "
       end
 
-      params[:filter].each do |key,val|
-        begin
-          temp = @cat.specs.find_by_name(key)
-          val_temp=[]
-          val.each do |v|
-            val_temp.push("'#{v}'")
+        params[:filter].each do |key,val|
+          begin
+            temp = @cat.specs.find_by_name(key)
+            val_temp=[]
+            val.each do |v|
+              val_temp.push("'#{v}'")
+            end
+            filter.push( " (spec_id = #{temp.id}  and value in (#{val_temp.join(",")}) )" )
+          rescue
           end
-          filter.push( " (spec_id = #{temp.id}  and value in (#{val_temp.join(",")}) )" )
-        rescue
         end
-      end
-    end
+
     if !filter.empty? and item_condition_filter != ""
       item_condition_filter   += " and "
     end
+  end
 
     item_where_condition = item_condition_filter
     #if we have prod then search inside it..

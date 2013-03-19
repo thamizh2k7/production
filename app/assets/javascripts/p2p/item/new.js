@@ -1,3 +1,5 @@
+//= require p2p/item/application
+
 $(document).ready(function(){
 
 	//show the new item welcome popover

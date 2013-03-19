@@ -46,8 +46,8 @@ $(document).ready(function(){
 
 saveItem = function(){
 
-				item_values['brand'] = window.brand;
-				item_values['price'] = window.price;
+				window.item_values['brand'] = window.brand;
+				window.item_values['price'] = window.price;
 				// if some fields are not filled this will return false
 				// 	so dont save them
 				if (!check_before_save()){
@@ -62,15 +62,15 @@ saveItem = function(){
 
 				$("#form_temp").html('');
 				$('#form_temp').append($("<input class='hide' name='price' value='" + window.price + "'>"));
-				$('#form_temp').append($("<input class='hide' name='title' value='" + item_values['title'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='location' value='" + item_values['location'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='condition' value='" + item_values['condition'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='title' value='" + window.item_values['title'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='location' value='" + window.item_values['location'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='condition' value='" + window.item_values['condition'] + "'>"));
 				$('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
-				$('#form_temp').append($("<input class='hide' name='desc' value='" + item_values['desc'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='desc' value='" + window.item_values['desc'] + "'>"));
 				// $('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
-				$('#form_temp').append($("<input  class='hide' name='cat' value='" + item_values['cat'] + "'>"));
+				$('#form_temp').append($("<input  class='hide' name='cat' value='" + window.item_values['cat'] + "'>"));
 
-				_.each(item_values['spec'],function(value,key){
+				_.each(window.item_values['spec'],function(value,key){
 					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));
 				});
 
@@ -97,7 +97,7 @@ check_specs =  function(e, params) {
 
 		if (params.newValue.length > 0) {
 			if (params.newValue.length > 1) {
-				item_values['spec'][that.attr('specid')] = params.newValue;
+				window.item_values['spec'][that.attr('specid')] = params.newValue;
 				$(this).removeClass('error');
 
 				if ($('[id^=item_]')[Number($(this).attr('specid')) ]){
@@ -110,13 +110,13 @@ check_specs =  function(e, params) {
 				}
 		}
 		else{
-			item_values['spec'][that.attr('specid')]="";
+			window.item_values['spec'][that.attr('specid')]="";
 			params.newValue = params.oldValue;
 			$(this).addClass('error');
 		}
 	}
 	else{
-		item_values['spec'][that.attr('specid')]="";
+		window.item_values['spec'][that.attr('specid')]="";
 		$(this).tooltip('show');
 	}
 }// check specs
@@ -241,14 +241,14 @@ edit_item =function(){
 		$("#category_item").on('save',function(e,params){
 
 			// if new value is old value dn do anything
-			if (params.newValue == item_values['cat']) return false ;
+			if (params.newValue == window.item_values['cat']) return false ;
 
 			// set the new value in global
-			item_values['cat'] = params.newValue;
+			window.item_values['cat'] = params.newValue;
 
 			// clear the specs
 			$(".specs").remove();
-			item_values['spec']={};
+			window.item_values['spec']={};
 
 			//for editable dirty hack..
 			//remove the element from the page and add it newly
@@ -360,12 +360,12 @@ edit_item =function(){
 		$('#title').on('save', function(e, params) {
  				 //alert('Saved value: ' + params.newValue);
 			if (params.newValue.length > 2) {
-				item_values['title'] = params.newValue;
+				window.item_values['title'] = params.newValue;
 				$(this).removeClass('error');
 				$('#category_item').tooltip('show');
 			}
 			else{
-				item_values['title']="";
+				window.item_values['title']="";
 				params.newValue = params.oldValue;
 				$(this).addClass('error');
 				$(this).tooltip('show');
@@ -394,12 +394,12 @@ edit_item =function(){
  				 //alert('Saved value: ' + params.newValue);
 
 			if (params.newValue.length !=0 ) {
-				item_values['location'] = params.newValue;
+				window.item_values['location'] = params.newValue;
 				$(this).removeClass('error');
 				$('[id^=item_] :first').tooltip('show');
 			}
 			else{
-				item_values['location']="";
+				window.item_values['location']="";
 				params.newValue = params.oldValue;
 				$(this).addClass('error');
 				$(this).tooltip('show');
@@ -413,12 +413,12 @@ edit_item =function(){
  				 params.newValue = $.trim(params.newValue);
 
 			if (params.newValue.length > 20) {
-				item_values['desc'] = escape(params.newValue);
+				window.item_values['desc'] = escape(params.newValue);
 				$(this).removeClass('error');
 				$("#upload_pic").tooltip('show');
 			}
 			else{
-				item_values['desc']="";
+				window.item_values['desc']="";
 				params.newValue = params.oldValue;
 				$(this).addClass('error');
 				$(this).tooltip('show');
@@ -432,12 +432,12 @@ edit_item =function(){
  				 params.newValue = $.trim(params.newValue);
 
 			if (params.newValue.length > 2) {
-				item_values['condition'] = params.newValue;
+				window.item_values['condition'] = params.newValue;
 				$(this).removeClass('error');
 				$("#location").tooltip('show');
 			}
 			else{
-				item_values['condition']="";
+				window.item_values['condition']="";
 				params.newValue = params.oldValue;
 				$(this).addClass('error');
 				$(this).tooltip('show');

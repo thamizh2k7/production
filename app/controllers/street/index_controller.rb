@@ -164,7 +164,7 @@ class Street::IndexController < ApplicationController
 
 
   def seller_items
-    @items = P2p::User.find_by_user_id(params[:id]).items.active_items
+    @items = P2p::User.find(params[:id]).items.active_items
   end
   
 

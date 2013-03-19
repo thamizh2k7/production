@@ -600,3 +600,7 @@ vertical-align: middle;
 .white{
 	color:white !important;
 }
+
+.unfollow_user {
+	cursor: pointer;
+}

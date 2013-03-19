@@ -199,18 +199,24 @@ class Street::UsersController < ApplicationController
   #toggle the favourite users for a user
   def setfavourite
     begin
-      fav_id = P2p::Item.find(params[:itemid].to_i).user.id
+      
+      if params[:itemid]
+        fav_id = P2p::Item.find(params[:itemid].to_i).user.id
+      else
+        fav_id = P2p::User.find(params[:id].to_i)
+      end
+      
       fav = p2p_current_user.favouriteusers.find_by_fav_id(fav_id)
       if fav.nil?
         flag = 1
-        fav = p2p_current_user.favouriteusers.new
-        fav.fav_id = fav_id
-        fav.save
+        fav = p2p_current_user.favouriteusers.create(:fav_id => fav_id)
       else
         flag = 0
         fav.destroy
       end
+      
       render :json => {:status => 1 ,:fav => flag }
+      return
     rescue Exception => ex
       render :json => {:status => 0}
     end

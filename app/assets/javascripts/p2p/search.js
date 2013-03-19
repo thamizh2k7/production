@@ -134,6 +134,15 @@
          });//ajax
     });//click
 
+    $(".unfollow_user").click(function(){
+      var id = $(this).attr("userid");
+      $.post('/street/favourites/'+id, function(data) {
+        console.log(data);
+        if (data.status == 1){
+          $("#"+id).hide();
+        }
+      });
+    });
 
     $("#seller_verify_code_submit").live("click",function(){
 

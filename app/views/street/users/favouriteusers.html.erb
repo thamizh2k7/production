@@ -18,14 +18,18 @@
 
 				<tr>
 					<th>User</th>
+					<th>Action</th>
 					<th>Date</th>
 				</tr>
 				<% @fav.each do |f| %>
-					<tr>
+					<tr id="<%=f.p2pfav.id%>">
 						<td>
-							<a href="/p2p/sellers/<%=f.p2pfav.user.id%>/<%=f.p2pfav.user.name.gsub(/ /,"-")%>"><%= f.p2pfav.user.name %>	
+							<a href="/street/sellers/<%=f.p2pfav.id%>/<%=f.p2pfav.user.name.gsub(/ /,"-")%>"><%= f.p2pfav.user.name %>	
 							</a>
 
+						</td>
+						<td>
+							<a class="unfollow_user" userid="<%=f.p2pfav.id%>">unfollow</a>
 						</td>
 						<td>
 							<%= f.created_at.strftime("%d-%m-%C%y") %>
@@ -36,7 +40,7 @@
 			</table>
 
 	<% else %>
-		<h3>Oops.., You don have any favourite sellers. Make few now.</h3>
+		<h3>You don't have any favourite sellers.</h3>
 	<% end %>
 	</div>
 

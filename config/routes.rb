@@ -144,6 +144,7 @@ Sociorent::Application.routes.draw do
       match 'waiting(/user/:id)' => 'items#waiting'
       get  'favourites' => 'users#favouriteusers'
       post 'favourites' => 'users#setfavourite'
+      post 'favourites/:id' => 'users#setfavourite'
       match 'vendors(/:cmd)' => 'users#vendorsdetails'
       match 'getusers(/:query)' => 'users#getusers'
 

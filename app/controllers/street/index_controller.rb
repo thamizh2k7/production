@@ -136,7 +136,7 @@ class Street::IndexController < ApplicationController
   end
 
   def browse
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
     if @cat.nil? or @cat.products.count == 0
       flash[:notice] ="Nothing found for your request"
       redirect_to "/street"
@@ -145,7 +145,7 @@ class Street::IndexController < ApplicationController
     if params.has_key?("prod")
       @products=@cat.products.order("priority").find_all_by_name(params[:prod])
       if @products.nil?
-        @cat = P2p::Category.find_by_name(params[:prod].gsub(/ /,"-"))
+        @cat = P2p::Category.find_by_name(params[:prod].gsub(/-/," "))
         @products= @cat.products.all.order("priority")
         params.delete("prod")
       end
@@ -166,7 +166,7 @@ class Street::IndexController < ApplicationController
   def seller_items
     @items = P2p::User.find(params[:id]).items.active_items
   end
-  
+
 
   def browse_filter
     # // if applied_filters filters is passed we
@@ -178,7 +178,7 @@ class Street::IndexController < ApplicationController
       end
     end
     # find the category in which the filter is to be applied
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
+    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
     if @cat.nil?
       render :json => []
       return

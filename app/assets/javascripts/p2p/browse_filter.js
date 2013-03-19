@@ -1,14 +1,14 @@
 filter_spec_by_text = function (val,elem){
 
 			var regexp = new RegExp("" +  val + "",'i');
-			
+
 			_.each($(elem).find('.spec_filter_check'),function(spec){
 				console.log($(spec).attr('spec-value') + ' al');
 				if (regexp.test($(spec).attr('spec-value'))){
-						$(spec).parent().removeClass('hidden');	
+						$(spec).parent().removeClass('hidden');
 				}
 				else{
-					
+
 					$(spec).parent().addClass('hidden');
 				}
 			});
@@ -19,11 +19,17 @@ $(document).ready(function(){
 
 	$(".filter_spec_input").keyup(function(){
 		var value = $(this).val();
-		
+
 		$(this).next().css('min-height',($(this).next().css('height') ) );
 
 		filter_spec_by_text(value,$(this).next());
 
+	});
+	$("#price_slider").slider();
+
+	$("#price_slider").slider().on("stopSlide",function(ev){
+			// TODO :: price slider value should be sent to the filter
+			//ev.value =>  [0] , [1]
 	});
 
 	//scrill up function
@@ -204,7 +210,7 @@ $(document).ready(function(){
 
 		$("#filter_loading_image").removeClass('hide');
 
-		
+
 		// $("#overlay").css({
 		// 	"width":$("#items").outerWidth(),
 		// 	"height":$("#items").outerHeight(),

@@ -231,8 +231,8 @@ class Street::ItemsController < ApplicationController
   def view
     begin
       #@item = P2p::Item.find(params[:id])
-      @cat =  P2p::Category.find_by_name(params[:cat].gsub(/ /,"-"))
-      @prod=  @cat.products.find_by_name(params[:prod].gsub(/ /,"-"))
+      @cat =  P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
+      @prod=  @cat.products.find_by_name(params[:prod].gsub(/-/," "))
 
       if !session[:userid].nil? and  session[:isadmin]
         @item = @prod.items.unscoped.find(params[:id])

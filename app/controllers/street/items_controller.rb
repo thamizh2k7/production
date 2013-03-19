@@ -103,7 +103,7 @@ class Street::ItemsController < ApplicationController
 
     #save the item now..
     if item.save
-      redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/item.id")
+      redirect_to URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/#{item.id}")
       # redirect_to URI.encode('/street/itempayment/' + item.id.to_s)
     else
       flash[:notice] = "Failed"

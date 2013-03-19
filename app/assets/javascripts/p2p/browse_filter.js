@@ -87,7 +87,6 @@ $(document).ready(function(){
 	});
 
 	// For storing the applied filter
-	window.filters={};
 	window.page_num =2;
 
 	//Updating the widnow.filter vaiable and calling ajax function
@@ -167,7 +166,6 @@ $(document).ready(function(){
 					else if (val.length > 0){
 						fil_url .push(key + '='+ val);
 					}
-
 					hideNotifications();
 				});
 

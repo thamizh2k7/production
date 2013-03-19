@@ -1,7 +1,5 @@
 <% content_for :pagetitle  do %>
-
   Create a new listing
-
 <%end %>
 
 <%= stylesheet_link_tag "items/items_manifest"%>
@@ -140,6 +138,8 @@
   </div>
 
 
+<%= javascript_include_tag '/assets/p2p/item/new' %>
+
   <script>
       // save url
       window.editsavetype = 'post';
@@ -162,13 +162,5 @@
         edit_item();
 
       });
-
   </script>
-
-
-
 </div>
-
-
-  <%= javascript_include_tag "/assets/p2p/item/application" %>
-  <%= javascript_include_tag "/assets/p2p/item/new" %>

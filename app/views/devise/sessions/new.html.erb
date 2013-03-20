@@ -1,5 +1,10 @@
 <%= javascript_include_tag 'global/jquery.validate.min' %>
 
+<% unless request.env["HTTP_REFERER"] %>
+  <div class="wrapper">
+<% end %>
+
+
 <div id="devise_pages" class="login_form">
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 	  <div><%= f.label :email %>
@@ -36,3 +41,7 @@ $(document).ready(function(){
   });
 });
 </script>
+
+<% unless request.env["HTTP_REFERER"] %>
+  </div>
+<% end %>

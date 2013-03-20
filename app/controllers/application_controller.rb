@@ -48,7 +48,9 @@ class ApplicationController < ActionController::Base
   	    if !session.has_key?(:city) or session[:city] == ""
 	        #todo replace ip from request
 	        #geocode  = Geocoder.search(request[:REMOTE_ADDR])
-	        geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
+    	    geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
+		    #geocode  = Geocoder.search('106.51.91.235')
+
 	        session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
 	        if city_id !=""
 	        	city_id = P2p::City.find_or_create_by_name(session[:city]).id
@@ -110,8 +112,6 @@ class ApplicationController < ActionController::Base
 
   ##P2p Authentication
   def p2p_user_signed_in
-
-
 	 if current_user.nil?
 		redirect_to '/street/'
 		return false
@@ -168,19 +168,27 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-
   	unless request.xhr?
-  		return request.env["HTTP_REFERER"]
+  		if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"] 
+  				return request.env["HTTP_REFERER"]
+  			else
+  				return '/'
+  		end
+  	else
+  		return '/'
   	end
-  	super
   end
 
   def after_sign_out_path_for(resource)
   	unless request.xhr?
-  		return request.env["HTTP_REFERER"]
-
+  		if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"]
+  				return request.env["HTTP_REFERER"]
+  			else
+  				return '/'
+  		end
+  	else
+  		return '/'
   	end
-  	super
   end
 
   ###########################

@@ -2,7 +2,7 @@
 require 'will_paginate/array'
 class Street::IndexController < ApplicationController
   #check for user presence inside p2p
-  before_filter :check_p2p_user_presence
+  before_filter :check_p2p_user_presence , :except => [:get_city]
   layout :p2p_layout
 
   def index

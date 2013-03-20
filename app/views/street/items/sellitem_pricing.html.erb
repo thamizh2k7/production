@@ -38,14 +38,14 @@
           </div>
 
 
-
-          <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil.to_i   %>
+          
+          <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (@item.category.commission.to_f/100.00))).ceil.to_i   %>
 
           <div class="control-group">
             <label class="control-label"> Sociorent Charges:</label>
 
             <div class="controls">
-              <span class="highlight"> Rs. <%= sociorent_charges %> </span> (Courier charges + 4% of list price)
+              <span class="highlight"> Rs. <%= sociorent_charges %> </span> (Courier charges Rs.<%=@item.category.courier_charge.ceil.to_i%> + <%=@item.category.commission.ceil.to_i%>% of list price)
 
 
 

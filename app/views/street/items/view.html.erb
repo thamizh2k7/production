@@ -4,6 +4,7 @@
 
 
 
+
 <!-- if not logged in user or owner or admin show preview -->
 <% if session[:userid].nil? or (session[:userid] != @item.user.id and !session[:isadmin] ) %>
 
@@ -109,9 +110,11 @@
 	              <% end %>
 
 	              <%if @item.user.id == session[:userid]%>
-		              <button class="btn " id="enable">
-		              	<i  class="action-icon icon-pencil"  title="Edit Listing"></i>
-		              </button>
+	              	<% if @item.solddate.nil? %>
+			              <button class="btn " id="enable">
+			              	<i  class="action-icon icon-pencil"  title="Edit Listing"></i>
+			              </button>
+		              <% end %>
 
 		              <button class="btn btn-success hide " id="save_top"  >
 		              	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i> Save

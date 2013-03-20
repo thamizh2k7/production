@@ -18,6 +18,9 @@ class P2p::Item < ActiveRecord::Base
   has_many :images ,:class_name => 'P2p::Image'
 
   has_many :item_deliveries, :foreign_key=>'p2p_item_id'
+
+  #has_many :bought_item , :through => :item_deliveries ,:class_name => 'P2p::Item' ,:foreign_key => 'item_id'
+
   attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision, :disapproved_reason , :city_id
 
 

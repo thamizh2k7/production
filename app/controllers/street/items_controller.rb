@@ -242,16 +242,20 @@ class Street::ItemsController < ApplicationController
 
       raise "Nothing found" if   @item.nil? 
 
+      if session[:userid]
 
-      if !session[:userid].nil? and @item.paytype.nil? and session[:userid] == @item.user.id
-        redirect_to "/street/itempayment/#{@item.id}"
-        return
+        if session[:userid] != @item.user.id and !@item.solddate.nil?
+
+          unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid])
+            redirect_to "/street/"
+            return
+          end
+        end
+      elsif (@item.approveddate.nil? or !@item.solddate.nil? )
+        raise 'Nothing found..!'
       end
 
-      if ((session[:userid].nil?) and (@item.approveddate.nil? or !@item.solddate.nil? )) or @item.paytype.nil?
-        raise "Nothing found paytype and not approved"
-      end
-
+  
     rescue
       redirect_to '/street'
       return

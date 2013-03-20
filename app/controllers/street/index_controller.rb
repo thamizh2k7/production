@@ -163,7 +163,6 @@ class Street::IndexController < ApplicationController
     @products
   end
 
-
   def seller_items
     @items = P2p::User.find(params[:id]).items.active_items
   end
@@ -240,7 +239,7 @@ class Street::IndexController < ApplicationController
         item_condition_filter += "(#{item_price})"
       end
 
-       
+
 
       # second from the query
       # by parsing each and every filter
@@ -250,7 +249,7 @@ class Street::IndexController < ApplicationController
         params[:prod] = params[:filter][:model]
 
         if item_condition_filter !=""
-          item_condition_filter += ' and ' 
+          item_condition_filter += ' and '
         end
 
         item_condition_filter += " p2p_items.product_id in (#{ params[:filter][:model].join(',')}) "
@@ -270,7 +269,7 @@ class Street::IndexController < ApplicationController
         if item_condition_filter!=""
                 item_condition_filter   += " and "
         end
-        
+
         item_condition_filter += ' p2p_items.condition in (' + temp.join(",") + ")  "
       end
 
@@ -342,5 +341,14 @@ class Street::IndexController < ApplicationController
       @items = res
       return
     end
+  end
+
+  def get_city
+    cities = P2p::City.where(" name like '%#{params[:q]}%' and 1=1").limit(15)
+    resp = [];
+    cities.each do |city|
+      resp << { :label=> city.name, :value=>city.name}
+    end
+    render :text=> resp.to_json() and return
   end
 end

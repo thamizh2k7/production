@@ -61,29 +61,29 @@ $(document).ready(function(){
 		$("#user_location").val($("#user_city").val());
 	}
 
-	$("#user_location").change(function(){
+	// $("#user_location").blur(function(){
 
-		$.ajax({
-			url:'/street/location',
-			type:'post',
-			data:{location:$("#user_location :selected").val()},
-			dataType:'json',
-			success:function(data){
-				if (data.status == 1){
-					window.location.reload();
-					$("#user_location").val(data.location);
-					$("#head_user_location i").attr('title',$("#user_location :selected").text()).tooltip('destroy').tooltip();
-				}
-				else if(data.status == 2){
-					$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
-				}
-			},
-			error:function(){
-				$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
-			}
-		});
-		return false;
-	});
+	// 	$.ajax({
+	// 		url:'/street/location',
+	// 		type:'post',
+	// 		data:{location:$("#user_location").val()},
+	// 		dataType:'json',
+	// 		success:function(data){
+	// 			if (data.status == 1){
+	// 				window.location.reload();
+	// 				//$("#user_location").val(data.location);
+	// 				$("#head_user_location i").attr('title',$("#user_location :selected").text()).tooltip('destroy').tooltip();
+	// 			}
+	// 			else if(data.status == 2){
+	// 				$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+	// 			}
+	// 		},
+	// 		error:function(){
+	// 			$("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+	// 		}
+	// 	});
+	// 	return false;
+	// });
 
 
 	// //guess location of user if not set

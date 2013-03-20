@@ -21,19 +21,15 @@
 
 
 #user_location{
-	margin-top: -1px;
+	margin-top: 7px;
 	height: auto;
 	border: none;
 	outline: none;
 	padding: 0px;
 	width:auto;
-	background-color: transparent;	
+	background-color: transparent;
 	font-weight: bold;
   display: inline-block;
-  -moz-appearance:none;
-  appearance:none;
-  cursor:pointer;
-	-webkit-appearance: none;    
 
 }
 

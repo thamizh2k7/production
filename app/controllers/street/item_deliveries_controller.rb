@@ -1,6 +1,6 @@
 class Street::ItemDeliveriesController < ApplicationController
 
-  before_filter :p2p_is_admin
+  #before_filter :p2p_is_admin
 
   layout :p2p_layout
 
@@ -75,6 +75,14 @@ class Street::ItemDeliveriesController < ApplicationController
   # PUT /p2p/item_deliveries/1.json
   def update
     @p2p_item_delivery = P2p::ItemDelivery.find(params[:id])
+
+    unless params[:p2p_item_delivery].has_key?(:p2p_item_delivery_shipping_date) and params[:p2p_item_delivery][:p2p_item_delivery_shipping_date] !=""
+      params[:p2p_item_delivery][:p2p_status]= 7
+    end
+
+    unless params[:p2p_item_delivery].has_key?(:p2p_item_delivery_shipping_date) and params[:p2p_item_delivery][:p2p_item_delivery_shipping_date] !=""
+      params[:p2p_item_delivery][:p2p_status]= 7
+    end
 
     respond_to do |format|
       if @p2p_item_delivery.update_attributes(params[:p2p_item_delivery])

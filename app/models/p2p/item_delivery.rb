@@ -11,8 +11,23 @@ class P2p::ItemDelivery < ActiveRecord::Base
    # p2p_status
    # 0 => normal
    # 1 => invalid transcations
-   # 2 => waiting
+   # 2 => waiting       means payment was sucessfule, and waiting for delivery and shipping
    # 3 => refunding
    # 4 transcation failed
+   # 5 => user complete
+   # 6 => sociorent complete
+   # 7 => shipped
 
+
+   def statustext
+      if self.p2p_status == 2
+         return 'Waiting for Shippment'
+      elsif self.p2p_status == 0
+         return 'Payment Intiaited, but not done'
+      elsif self.p2p_status == 4
+         return 'Payment was cancelled in gateway'
+      elsif self.p2p_status == 7
+         return 'Item shipped'
+      end
+   end
 end

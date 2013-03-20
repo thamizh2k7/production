@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320063510) do
+ActiveRecord::Schema.define(:version => 20130320081641) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -295,12 +295,12 @@ ActiveRecord::Schema.define(:version => 20130320063510) do
   create_table "p2p_categories", :force => true do |t|
     t.string   "name"
     t.integer  "category_id"
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
     t.integer  "priority"
-    t.decimal  "courier_charge", :precision => 3, :scale => 2, :default => 0.0
-    t.decimal  "commission",     :precision => 3, :scale => 2, :default => 0.0
-    t.boolean  "delta",                                        :default => true
+    t.decimal  "courier_charge", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "commission",     :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "delta",                                         :default => true
   end
 
   add_index "p2p_categories", ["category_id"], :name => "index_p2p_categories_on_category_id"

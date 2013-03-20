@@ -1,4 +1,6 @@
-<%= simple_form_for(@p2p_item_delivery) do |f| %>
+<% url = (@p2p_item_delivery.new_record?) ? street_item_deliveries_path : street_item_delivery_path(@p2p_item_delivery) %>
+
+<%= simple_form_for(@p2p_item_delivery ,:url => url) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">

@@ -240,13 +240,15 @@ class Street::ItemsController < ApplicationController
         @item = @prod.items.find(params[:id])
       end
 
-      raise "Nothing found" if   @item.nil?
+      raise "Nothing found" if   @item.nil? 
+
+
       if !session[:userid].nil? and @item.paytype.nil? and session[:userid] == @item.user.id
         redirect_to "/street/itempayment/#{@item.id}"
         return
       end
 
-      if (session[:userid].nil? and @item.approveddate.nil?) or @item.paytype.nil?
+      if ((session[:userid].nil?) and (@item.approveddate.nil? or @item.solddate.nil? or @item.disapproveddate.nil?)) or @item.paytype.nil?
         raise "Nothing found paytype and not approved"
       end
 

@@ -84,7 +84,10 @@ Sociorent::Application.routes.draw do
     #for adimn
     scope 'admin' do
       #scaffold controller and view
-      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries
+      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries , :cities
+
+      match 'cities/:id/destory' => 'cities#destroy'
+      
       root :to => 'categories#index'
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end

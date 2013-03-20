@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318082740) do
+ActiveRecord::Schema.define(:version => 20130320063510) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -309,9 +309,10 @@ ActiveRecord::Schema.define(:version => 20130318082740) do
     t.string   "name"
     t.string   "latitude"
     t.string   "longitude"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "pickup",     :default => 0
+    t.boolean  "show_city",  :default => false
   end
 
   create_table "p2p_credits", :force => true do |t|
@@ -514,10 +515,10 @@ ActiveRecord::Schema.define(:version => 20130318082740) do
   end
 
   create_table "publishers", :force => true do |t|
-    t.integer  "rental"
+    t.integer  "rental",     :default => 25
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

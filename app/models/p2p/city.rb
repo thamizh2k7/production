@@ -1,5 +1,5 @@
 class P2p::City < ActiveRecord::Base
-  attr_accessible :latitude, :longitude, :name ,:pickup
+  attr_accessible :latitude, :longitude, :name ,:pickup ,:show_city
   has_many :items , :class_name => 'P2p::Item'
 
 	after_save do

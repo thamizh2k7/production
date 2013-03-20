@@ -3,10 +3,10 @@ require "bundler/capistrano"
 
 server "176.58.103.250", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent"
-set :branch, 'p2p_master'
+set :branch, 'p2p_dep'
 set :scm_verbose, true
 set :use_sudo, false
-set :rails_env, "development" #added for delayed job 
+set :rails_env, "production" #added for delayed job 
 set :rvm_type, :system
 
 
@@ -26,12 +26,10 @@ after 'deploy:update_code' do
   run "ln -s '/var/www/db_admin' #{release_path}/public/"
 
   run "cd #{release_path} && bundle --deployment"
-  # run "cd #{release_path} && pkill sphinx"
-  # run "cd #{release_path} &&  rake ts:rebuild"
-  run "cd #{release_path} &&  rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV=production rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV=production rake assets:precompile"
   run "chown -R www-data:www-data #{release_path}/*"
   run "chmod -R 777 #{release_path}/log"
-  # run "as"
 end
 
 namespace :deploy do

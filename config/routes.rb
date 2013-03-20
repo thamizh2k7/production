@@ -11,10 +11,10 @@ Sociorent::Application.routes.draw do
   resources :static_pages
 
   get 'static_pages/get_page/:page_name' => 'static_pages#get_page'
+  get 'college_ambassadors' => 'static_pages#colleges'
 
   # get 'aboutus' => 'static_pages#about_us'
   # get 'pricing' => 'static_pages#pricing'
-  # get 'college_ambassadors' => 'static_pages#colleges'
   # get 'contactus' => 'static_pages#contactus'
   # get 'privacy_policy' => 'static_pages#privacypolicy'
   # get 'terms_of_use' => 'static_pages#termsofuse'

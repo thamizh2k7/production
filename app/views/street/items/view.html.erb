@@ -94,15 +94,18 @@
 		             		<% end %>
 
 	              <!-- check if the item is sold or not -->
+	              <% if @item.solddate.nil? %>
 	              	<% if @item.deletedate.nil? %>
 		                <button class="btn"  id="delete_button"  itemid="<%=@item.id%>">
 		                	<i  class=" action-icon icon-trash" title="Remove Listing"></i>
 		                </button>
+
 		            	<% else%>
 
 		              <button class="btn">
 		               	<i  class=" action-icon icon-check" title="Deleted Listing"></i>
 		              </button>
+	              	<% end %>
 	              <% end %>
 
 	              <%if @item.user.id == session[:userid]%>

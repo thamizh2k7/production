@@ -14,9 +14,9 @@ class P2p::Image < ActiveRecord::Base
   belongs_to :item
 
 
-  Paperclip.interpolates :file_name do |attachment, style|
-     "#{attachment.instance.id}.jpg"
-  end
+  # Paperclip.interpolates :file_name do |attachment, style|
+  #    "#{attachment.instance.id}.jpg"
+  # end
 
 
   #validates :img, :attachment_presence => true

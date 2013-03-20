@@ -72,25 +72,80 @@
 
 		# Camera
 		cat = P2p::Category.create({:name => "Camera"})
-				cat.subcategories.create({:name => "CamCoders"})
 
-		cat.products.new({:name => "Sony"})
+			cat.products.new({:name => "Sony"})
+			cat.specs.new({:name => 'Mega pixel' ,:show_filter => true})
+			cat.specs.new({:name => 'zoom' ,:show_filter => true})
+			cat.specs.new({:name => 'Type' ,:show_filter => true})
+			cat.specs.new({:name => 'Memory' ,:show_filter => false})
+			cat.save
 
-		cat.specs.new({:name => 'Mega pixel' ,:show_filter => true})
-		cat.specs.new({:name => 'zoom' ,:show_filter => true})
-		cat.specs.new({:name => 'Type' ,:show_filter => true})
 
-		cat.specs.new({:name => 'Memory' ,:show_filter => false})
-
-		cat.save
+			cat1 = cat.subcategories.create({:name => "CamCoders"})
+			cat1.products.new({:name => "Sony"})
+			cat1.specs.new({:name => 'Mega pixel' ,:show_filter => true})
+			cat1.specs.new({:name => 'zoom' ,:show_filter => true})
+			cat1.specs.new({:name => 'Type' ,:show_filter => true})
+			cat1.specs.new({:name => 'Memory' ,:show_filter => false})
+			cat1.save
 
 
 		#laptop
 
 		cat = P2p::Category.create({:name => "Computer"})
-			cat.subcategories.create({:name => "Laptop"})
-			cat.subcategories.create({:name => "Tablet"})
 
+			cat1 = cat.subcategories.create({:name => "Laptop"})
+			cat2 = cat.subcategories.create({:name => "Tablet"})
+
+			cat1.products.new({:name => "HP"})
+			cat1.products.new({:name => "DELL"})
+			cat1.products.new({:name => "Apple"})
+			cat1.products.new({:name => "Sony Viao"})
+			cat1.products.new({:name => "Compaq"})
+			cat1.products.new({:name => "Lenovo"})
+
+			cat1.specs.new({:name => 'OS' ,:show_filter => true})
+			cat1.specs.new({:name => 'RAM' ,:show_filter => true})
+			cat1.specs.new({:name => 'Storage' ,:show_filter => true})
+			cat1.specs.new({:name => 'Screen Size' ,:show_filter => true})
+			cat1.specs.new({:name => 'Processor' ,:show_filter => true})
+
+			cat1.specs.new({:name => 'Connectivity' ,:show_filter => false})
+			cat1.specs.new({:name => 'Camera' ,:show_filter => false})
+			cat1.specs.new({:name => 'Audio' ,:show_filter => false})
+			cat1.specs.new({:name => 'KeyPad' ,:show_filter => false})
+			cat1.specs.new({:name => 'USB' ,:show_filter => false})
+			cat1.specs.new({:name => 'VGA' ,:show_filter => false})
+			cat1.specs.new({:name => 'mini-Card slot' ,:show_filter => false})
+			cat1.specs.new({:name => 'Wifi' ,:show_filter => false})		
+			cat1.specs.new({:name => 'Graphics' ,:show_filter => false})
+
+			cat1.save
+
+			cat2.products.new({:name => "HP"})
+			cat2.products.new({:name => "DELL"})
+			cat2.products.new({:name => "Apple"})
+			cat2.products.new({:name => "Sony Viao"})
+			cat2.products.new({:name => "Compaq"})
+			cat2.products.new({:name => "Lenovo"})
+
+			cat2.specs.new({:name => 'OS' ,:show_filter => true})
+			cat2.specs.new({:name => 'RAM' ,:show_filter => true})
+			cat2.specs.new({:name => 'Storage' ,:show_filter => true})
+			cat2.specs.new({:name => 'Screen Size' ,:show_filter => true})
+			cat2.specs.new({:name => 'Processor' ,:show_filter => true})
+
+			cat2.specs.new({:name => 'Connectivity' ,:show_filter => false})
+			cat2.specs.new({:name => 'Camera' ,:show_filter => false})
+			cat2.specs.new({:name => 'Audio' ,:show_filter => false})
+			cat2.specs.new({:name => 'KeyPad' ,:show_filter => false})
+			cat2.specs.new({:name => 'USB' ,:show_filter => false})
+			cat2.specs.new({:name => 'VGA' ,:show_filter => false})
+			cat2.specs.new({:name => 'mini-Card slot' ,:show_filter => false})
+			cat2.specs.new({:name => 'Wifi' ,:show_filter => false})		
+			cat2.specs.new({:name => 'Graphics' ,:show_filter => false})
+
+			cat2.save
 
 			cat.products.new({:name => "HP"})
 			cat.products.new({:name => "DELL"})
@@ -128,14 +183,23 @@
 
 		# Storage Devices
 		cat = P2p::Category.create({:name => "Storage Devices"})
-			cat.subcategories.create({:name => 'Pen Drive'})
-			cat.subcategories.create({:name => 'Memory Card'})
-			cat.subcategories.create({:name => 'Hard Disk'})
+			cat1 = cat.subcategories.create({:name => 'Pen Drive'})
+			cat2 = cat.subcategories.create({:name => 'Memory Card'})
+			cat3 = cat.subcategories.create({:name => 'Hard Disk'})
 
-		cat.specs.new({:name => 'Capacity' ,:show_filter => true})
 
-		
-		cat.save
+			cat1.specs.new({:name => 'Capacity' ,:show_filter => true})
+			cat1.save
+
+			cat2.specs.new({:name => 'Capacity' ,:show_filter => true})
+			cat2.save
+
+			cat3.specs.new({:name => 'Capacity' ,:show_filter => true})
+			cat3.save
+
+
+			cat.specs.new({:name => 'Capacity' ,:show_filter => true})
+			cat.save
 
 		# Games
 		cat = P2p::Category.create({:name => "Games"})
@@ -157,6 +221,9 @@
 		 P2p::ServicePincode.create(:pincode => '560036' )
 		 P2p::ServicePincode.create(:pincode => '560043' )
 
+
+		 StaticPage.create(:page_name => "buyer_protection", :page_title => "Buyer Protection", :page_content => "Buyer Protection", :is_active => true)
+		 StaticPage.create(:page_name => "terms_conditions", :page_title => "Terms and conditons", :page_content => "Terms and condition", :is_active => true)
 
 # *******************************************************************
 

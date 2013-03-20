@@ -2,7 +2,7 @@ class Street::UsersController < ApplicationController
   layout :p2p_layout
   before_filter :p2p_user_signed_in  ,:except => [:guesslocation ,:setlocation]
   #check for user presence inside p2p
-  before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time]
+  before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time,:setlocation]
 
   def dashboard
     #find the total items and convert them to the

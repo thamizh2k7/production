@@ -248,7 +248,7 @@ class Street::ItemsController < ApplicationController
         return
       end
 
-      if ((session[:userid].nil?) and (@item.approveddate.nil? or @item.solddate.nil? or @item.disapproveddate.nil?)) or @item.paytype.nil?
+      if ((session[:userid].nil?) and (@item.approveddate.nil? or !@item.solddate.nil? )) or @item.paytype.nil?
         raise "Nothing found paytype and not approved"
       end
 

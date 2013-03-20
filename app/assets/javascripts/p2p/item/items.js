@@ -57,6 +57,10 @@ $(document).ready(function(){
           cache[ term ] = data;
           response( data );
         });
+      },
+      	select:function(event,elem){
+      		$("#location").html(elem.item.value);
+					window.item_values['location'] = elem.item.value;
       }
     });
 	});

@@ -3,7 +3,7 @@ require "bundler/capistrano"
 
 server "103.8.126.71", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent.com"
-set :branch, 'master'
+set :branch, 'p2p_dep'
 set :scm_verbose, true
 set :use_sudo, false
 set :rails_env, "production" #added for delayed job 

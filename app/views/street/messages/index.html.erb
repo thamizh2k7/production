@@ -166,16 +166,15 @@
 
 
 		oInboxTable = $('#inbox_table').dataTable({
-					"sDom": "<r><f>t<i><p>",
-		  		"sAjaxSource": '/street/getmessages/inbox' ,
-          "bFilter":false,
+			"sDom": "<r><f>t<i><p>",
+	  		"sAjaxSource": '/street/getmessages/inbox' ,
+            "bFilter":false,
          	"iDisplayLength" : 10,
-          "bAutoWidth": false,
-          "sPaginationType": "bootstrap",
-		  		"bProcessing": true,
+            "bAutoWidth": false,
+            "sPaginationType": "bootstrap",
+	  		"bProcessing": true,
     	  	"bServerSide": true,
      	  	"aoColumns": [{ sWidth: '4%',"bSortable":false },{ sWidth: '25%',"bSortable":false},{ sWidth: '25%',"bSortable":false},{ sWidth: '25%' },{ sWidth: '20%' }],
-
 		  "fnServerParams": function ( aoData ) {
 		  	if ($.trim($("#search_inbox").val()) != ""){
             	aoData.push( { "name" : "searchq" ,"value" : $("#search_inbox").val() } );

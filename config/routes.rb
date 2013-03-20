@@ -11,10 +11,10 @@ Sociorent::Application.routes.draw do
   resources :static_pages
 
   get 'static_pages/get_page/:page_name' => 'static_pages#get_page'
+  get 'college_ambassadors' => 'static_pages#colleges'
 
   # get 'aboutus' => 'static_pages#about_us'
   # get 'pricing' => 'static_pages#pricing'
-  # get 'college_ambassadors' => 'static_pages#colleges'
   # get 'contactus' => 'static_pages#contactus'
   # get 'privacy_policy' => 'static_pages#privacypolicy'
   # get 'terms_of_use' => 'static_pages#termsofuse'
@@ -84,7 +84,10 @@ Sociorent::Application.routes.draw do
     #for adimn
     scope 'admin' do
       #scaffold controller and view
-      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries
+      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries , :cities
+
+      match 'cities/:id/destory' => 'cities#destroy'
+      
       root :to => 'categories#index'
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end

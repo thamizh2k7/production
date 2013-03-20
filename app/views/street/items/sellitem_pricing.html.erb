@@ -39,7 +39,7 @@
 
 
 
-          <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil   %>
+          <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (4.to_f/100.00))).ceil.to_i   %>
 
           <div class="control-group">
             <label class="control-label"> Sociorent Charges:</label>
@@ -56,7 +56,7 @@
             <label class="control-label"> Amount you'll receive: Rs </label>
 
             <div class="controls">
-              <%=@item.price.ceil%> - <%= sociorent_charges %> = <span class="highlight">Rs. <%= (@item.price - sociorent_charges).ceil %></span>
+              <%=@item.price.ceil.to_i%> - <%= sociorent_charges %> = <span class="highlight">Rs. <%= (@item.price - sociorent_charges).ceil.to_i %></span>
 
 
             </div>
@@ -171,7 +171,7 @@
 
 
 
-          <% sociorent_charges = ( @item.price * (4.to_f/100.00)).ceil   %>
+          <% sociorent_charges = ( @item.price * (4.to_f/100.00)).ceil.to_i   %>
 
 
           <div class="controls">

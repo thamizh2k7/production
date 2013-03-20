@@ -240,12 +240,89 @@ class Street::UsersController < ApplicationController
   #list all the payment details of the user
   #if params has bought(:checkroutes :-) ) then display only bought payments
   #else display sold
+
   def paymentdetails
+    if request.xhr?
+
+      paymenttable
+      return
+
+    end
+
     if params.has_key?(:bought)
       @payments = p2p_current_user.payments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
     else
       @payments = p2p_current_user.soldpayments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
     end
+  end
+
+
+  def paymenttable
+
+    response={:aaData => []}
+    #where to start
+    if params.has_key?("iDisplayStart")
+      start = (params[:iDisplayStart].to_i / 10) + 1
+    else
+      start = 1
+    end
+    #order by the time by default
+    order = "created_at desc"
+    search = ""
+    item = 0
+    #if sort is explicitly sennt from the client
+    if params.has_key?(:iSortCol_0)
+      case params[:iSortCol_0]
+        #based on item
+      when "1"
+        order = "p2p_status " + params[:sSortDir_0]
+      end
+    end
+    #if the client has request for search
+    if params.has_key?(:searchq)
+      search = params[:searchq]
+      #the searc for item begines with #
+      #eg, to searchh for nokia product search like #nokia
+      #reset searches in message column
+      if search.index('@') == 0
+        begin
+          user = P2p::User.where( "user_id in (select id from user where email like '%#{search.slice(1,(search.size-1))}%')").pluck('id')
+        rescue
+          user = 0
+        end
+      end
+    end
+    #find for which items is the request came for
+    # and get messages appropiatly
+
+      #if search != "" and user!= 0
+    if params.has_key?(:bought)
+        @payments = p2p_current_user.payments.order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    else
+        @payments = p2p_current_user.soldpayments.order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    end
+
+    # form the response for the datatable
+    response[:iTotalRecords] =  @payments.count
+    response[:iTotalDisplayRecords] = @payments.count
+    #form the time to be displayed
+    @payments.each do |pay|
+
+      response[:aaData].push({
+                               "0" => "0",
+                               "1" => "1",
+                               "2" => "2",
+                               "3" => "3",
+                               "4" => "4",
+                               "5" => "5",
+                               "6" => "6",
+                               "7" => "7",
+                               "8" => "8",
+                               "9" => "9"
+
+      })
+    end
+    render :json => response
   end
 
   def getusers

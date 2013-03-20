@@ -53,10 +53,22 @@
               <tr>
                 <td><%= p2p_item_delivery.statustext %></td>
                 <td><%= p2p_item_delivery.item.title %></td>
-                <td><%= p2p_item_delivery.courier_name %></td>
-                <td><%= p2p_item_delivery.tracking_no %></td>
-                <td><%= p2p_item_delivery.shipping_date.strftime("%d-%b-%C%y") unless p2p_item_delivery.shipping_date.nil? %></td>
-                <td><%= p2p_item_delivery.delivery_date.strftime("%d-%b-%C%y") unless p2p_item_delivery.delivery_date.nil?  %></td>
+                <td><%= (p2p_item_delivery.courier_name == "" or p2p_item_delivery.courier_name.nil? ) ? "-NA-": p2p_item_delivery.courier_name %></td>
+                <td><%= (p2p_item_delivery.tracking_no =="" or p2p_item_delivery.tracking_no.nil?) ? "-NA-" : p2p_item_delivery.tracking_no %></td>
+                <td><%=  unless p2p_item_delivery.shipping_date.nil?
+                            p2p_item_delivery.shipping_date.strftime("%d-%b-%C%y")
+                        else
+                            "-NA-"
+                        end
+                 %></td>
+
+                <td><%= unless p2p_item_delivery.delivery_date.nil?
+                            p2p_item_delivery.delivery_date.strftime("%d-%b-%C%y")
+                        else
+                            "-NA-"
+                        end
+
+                  %></td>
 
             <%if params.has_key?(:bought)%>
                 <td>

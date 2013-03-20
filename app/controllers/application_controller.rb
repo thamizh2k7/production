@@ -89,8 +89,8 @@ class ApplicationController < ActionController::Base
 
 
   def p2p_get_user_location
-  	if session.has_key?(:city) 
-  		return session[:city]
+  	if session.has_key?(:city) and session.has_key?(:city_id)
+  		return session[:city_id]
   	else
   		return nil
   	end

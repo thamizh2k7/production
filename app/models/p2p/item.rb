@@ -71,7 +71,7 @@ class P2p::Item < ActiveRecord::Base
   # listing the unsold ,not deleted and approved items
   scope :listing_items_by_location, lambda { |location|
     apnd_qry =""
-    if location !=""
+    if location !="" and !location.nil?
       apnd_qry = "and (city_id = #{location} or (paytype=1 and payinfo like '%,1' ))"
     end
     where("solddate is null and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")

@@ -22,7 +22,7 @@ class Street::ItemsController < ApplicationController
   #we save it then :)
   def create
     puts "Price #{params[:price]}"
-    item = p2p_current_user.items.new({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
+    item = p2p_current_user.items.new({:title => params[:title].strip, :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
     # render :json => item
     item.category = P2p::Category.find(params[:cat].to_i)
     begin

@@ -92,8 +92,9 @@ Sociorent::Application.routes.draw do
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end
 
+      match "/get_city/:q" => "index#get_city"
       match "sellers/:id/:name" => "index#seller_items"
-      
+
       match 'gettemplate' => 'items#downloadtemplate'
 
 #      get "categories/set_category" => "categories#set_category"

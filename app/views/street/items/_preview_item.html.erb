@@ -176,7 +176,13 @@
                 <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
                 <input type="hidden" name="currency" value="INR">
                 <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+
                 <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
+                <input type="hidden" name="addressStreet1" id="addressStreet1">
+                <input type="hidden" name="addressCity" id="addressCity">
+                <input type="hidden" name="addressZip" id="addressZip">
+                <input type="hidden" name="addressState" id="addressState">
+
               </form>
 
               <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
@@ -192,6 +198,12 @@
                 <input type="hidden" name="currency" value="INR">
                 <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
                 <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
+
+                <input type="hidden" name="addressStreet1" id="addressStreet1">
+                <input type="hidden" name="addressCity" id="addressCity">
+                <input type="hidden" name="addressZip" id="addressZip">
+                <input type="hidden" name="addressState" id="addressState">
+
               </form>
               <!-- Modal -->
               <div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">

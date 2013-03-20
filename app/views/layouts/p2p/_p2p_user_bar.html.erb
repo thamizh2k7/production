@@ -21,7 +21,7 @@
 
           <a class='btn search_btn'><span> Search <i class="icon-search"></i></span></a>
         </div>
-        <input type="hidden" id ="user_city" value ="<%= (session.has_key?(:city_id)) ? session[:city_id] : "" %>">
+        <input type="hidden" id ="user_city" value ="<%= (session.has_key?(:city)) ? session[:city] : "" %>">
       </form>
     <div class="clear"></div>
   </div>

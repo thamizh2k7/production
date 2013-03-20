@@ -153,12 +153,12 @@ class Street::UsersController < ApplicationController
 
   #used to set the locatin forcibly when user want to change it manually
   def setlocation
-    if params[:location] == session[:city_id]
+    if params[:location] == session[:city]
       render :json => {:status => 3}
       return
     end
     begin
-      city = P2p::City.find(params[:location])
+      city = P2p::City.find_by_name(params[:location])
       session[:city] = city.name.titleize
       session[:city_id] = city.id.to_s
       render :json => {:status => 1}

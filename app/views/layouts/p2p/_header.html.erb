@@ -11,11 +11,13 @@
 
             <div id="menuSet" class="span7 pull-right">
                 <li class="pull-left location_li">
-                    <i class="icon-globe"></i><%=select_tag "user_location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]} , p2p_get_user_location ),:prompt=>"Your Location?"%>
+                    <i class="icon-globe"></i>
+                    <input type="text" id="user_location" placeholder="Your Location?">
+                    <%# =select_tag "user_location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]} , p2p_get_user_location ),:prompt=>"Your Location?"%>
 
                   </li>
 
-              
+
               <% if p2p_current_user %>
 
 

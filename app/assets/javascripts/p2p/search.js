@@ -58,6 +58,52 @@
       $("#top_search_form").submit();
     });
 
+    $("#user_location, #location").autocomplete({
+      minLength: 2,
+      source: function( request, response ) {
+       var term = request.term;
+        if ( term in cache ) {
+          response( cache[ term ] );
+          return;
+        }
+        $.getJSON( "/street/get_city/" + request.term,{}, function( data, status, xhr ) {
+          cache[ term ] = data;
+          response( data );
+        });
+      },
+      select:function(event,elem){
+          set_location(elem.item.value);
+          event.preventDefault();
+      }
+    });
+
+    function set_location(city)
+    {
+      $.ajax({
+            url:'/street/location',
+            type:'post',
+            data:{location:city},
+            dataType:'json',
+            success:function(data){
+              if (data.status == 1){
+                window.location.reload();
+              }
+              else if(data.status == 2){
+                $("#user_location").val($("#user_city").val());
+                $("#head_user_location i").attr('title','Error: Entered city not available. Try with different location').tooltip('destroy').tooltip('show');
+              }
+            },
+            error:function(){
+              $("#user_location").val($("#user_city").val());
+              $("#head_user_location i").attr('title','Error occured in setting your location').tooltip('destroy').tooltip('show');
+            }
+          });
+    }
+
+    $("#user_location").blur(function(){
+      $("#user_location").val($("#user_city").val());
+    })
+
     //auto complete for the search
     $("#top_search_input").autocomplete({
       minLength: 2,

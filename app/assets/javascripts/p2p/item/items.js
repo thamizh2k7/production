@@ -39,9 +39,27 @@ $(document).ready(function(){
 			else{
 				edit_item();
 			}
-  });
+  	});
 
-});
+	});
+
+	$('#location').on('shown', function() {
+	    var editable = $(this).data('editable');
+	    editable.input.$input.autocomplete({
+      minLength: 2,
+      source: function( request, response ) {
+       var term = request.term;
+        if ( term in cache ) {
+          response( cache[ term ] );
+          return;
+        }
+        $.getJSON( "/street/get_city/" + request.term,{}, function( data, status, xhr ) {
+          cache[ term ] = data;
+          response( data );
+        });
+      }
+    });
+	});
 // save the item
 
 saveItem = function(){

@@ -630,10 +630,50 @@ oDeleteBoxTable.fnDraw();
       when "CANCELED"
         flash[:warning]="Transaction Failed. Try again"
         status = 4
+
+        P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
+                                                                 :message => "This is an auto generated system message. You attempted to buy <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
+                                                                 :messagetype => 7,
+                                                                 :sender_id => session[:admin_id],
+                                                                 :sender_status => 1,
+                                                                 :receiver_status => 0,
+                                                                 :parent_id => 0,
+                                                                 :item_id => item.id
+                                                                 });
+
+
       when "SUCCESS"
         flash[:warning] = "Transaction success"
         item_delivery.item.update_attributes(:solddate=>Time.now)
         status = 2
+
+        P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
+                                                                 :message => "This is an auto generated system message. You had bought <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
+                                                                 :messagetype => 8,
+                                                                 :sender_id => session[:admin_id],
+                                                                 :sender_status => 1,
+                                                                 :receiver_status => 0,
+                                                                 :parent_id => 0,
+                                                                 :item_id => item.id
+                                                                 });
+        msg =""
+
+        if item_delivery.item.paytype == 1 #courier
+          msg = "Please ship the product to the buyer"
+        elsif item_delivery.item.paytype == 3 #onlie
+          msg = "We will contact you to collect the product."
+        end
+
+        P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.item.user.id ,
+                                                                 :message => "This is an auto generated system message. #{item_delivery.buyer.name} has bought your listing <a href='/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/-/," ")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}'> #{item_delivery.item.title} </a>. #{msg} <br/> Thank you <br/> Admin- Sociorent",
+                                                                 :messagetype => 8,
+                                                                 :sender_id => session[:admin_id],
+                                                                 :sender_status => 1,
+                                                                 :receiver_status => 0,
+                                                                 :parent_id => 0,
+                                                                 :item_id => item.id
+                                                                 });
+
       end
       item_delivery.update_attributes(:citrus_pay_id=>params[:TxStatus],:citrus_reason=>params[:TxMsg],:citrus_ref_no=>params[:TxRefNo] ,:p2p_status => status)
       redirect_to "/street/paymentdetails/bought"

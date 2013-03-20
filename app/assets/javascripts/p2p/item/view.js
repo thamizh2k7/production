@@ -272,6 +272,10 @@ window.show_address_model = function (){
   $("#address_modal").modal('show');
   $("#conitinue_to_checkout").click(function(){
     var shipping_addr = $("#shipping_address_form").serialize()
+    $("#addressStreet1").val($("#address_street_name1").val()+$("#address_street_name2").val());
+    $("#addressCity").val($("#address_city").val());
+    $("#addressState").val($("#address_state").val());
+    $("#addressZip").val($("#address_pincode").val());
     console.log(shipping_addr);
     pay_now_citrus_pay(shipping_addr);
     return false;

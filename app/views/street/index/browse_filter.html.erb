@@ -61,7 +61,7 @@
                                   </a>
                                 </div>
                                         <div class="item_condition"><%=itm[:condition] %></div>
-                                      <div class="item_price"><del>&#2352;</del> <%=itm[:price] %>
+                                      <div class="item_price"><del>&#2352;</del> <%=itm[:price].to_i %>
                                 </div>
                                 <div class="buy_now"><a href="<%= itm[:url] %>">Buy Now</a></div>
                               <div class="clearfix"></div>

@@ -119,15 +119,19 @@ class Street::UsersController < ApplicationController
 
       p2p_current_user
 
-      # admin.sent_messages.create({:receiver_id => session[:userid] ,
-      #                             :message => "Hi #{p2p_current_user.user.name},  <br/>
-      #                             Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
-      #                             :messagetype => 6,
-      #                             :sender_id => admin.id,
-      #                             :sender_status => 2,
-      #                             :receiver_status => 0,
-      #                             :parent_id => 0
-      #                             });
+      begin
+      admin.sent_messages.create({:receiver_id => session[:userid] ,
+                                  :message => "Hi #{p2p_current_user.user.name},  <br/>
+                                  Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
+                                  :messagetype => 6,
+                                  :sender_id => admin.id,
+                                  :sender_status => 2,
+                                  :receiver_status => 0,
+                                  :parent_id => 0
+                                  });
+      rescue
+      end
+      
       redirect_to '/street'
       return
     end

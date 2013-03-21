@@ -105,6 +105,8 @@ class Street::UsersController < ApplicationController
       redirect_to '/street'
       return
     end
+
+    user_first_time
   end
 
   #send the first time initializing messages..

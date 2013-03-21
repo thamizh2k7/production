@@ -108,7 +108,6 @@
     $("#top_search_input").autocomplete({
       minLength: 2,
       source: function( request, response ) {
-        console.log(request);
         var term = request.term;
         if ( term in cache ) {
           response( cache[ term ] );
@@ -121,6 +120,12 @@
         });
       },
       select:function(event,elem){
+
+        if (elem.item.value == "") {
+          $("#top_search_input").val('');
+          return false;
+        }
+
         var category_val = elem.item.label.split(" in ");
 
         if ( elem.item.value[0] == '/'){
@@ -145,6 +150,12 @@
       }
     });
 
+
+    $("#top_search_form").on('submit',function(){
+      if ($("#top_search_input").val() == '') {
+        return false;
+      }
+    });
     setupunotify();
 
     $(".action_popover").popover();
@@ -226,7 +237,10 @@
     });
     if(location.hash == "#verify_mobile")
       $("#seller_mobile_verify_modal").modal("show");
-  });
+
+
+
+   });
 
 
   function setupunotify(){

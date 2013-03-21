@@ -14,6 +14,7 @@ class P2p::User < ActiveRecord::Base
   # => 1 vendor
   #
 
+  belongs_to :city ,:class_name => P2p::City
 
   has_many :credits
  # Association for Messages

@@ -70,169 +70,183 @@
           <div class="btn-group" id="listing_action">
 
             <!-- contact seller modal  -->
+
             <!-- Button to trigger modal -->
 
-            <% if @item.paytype == 2 %>
+            <% if @item.solddate.nil? %>
 
-                <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal"> <i class="icon-white icon-user"></i>  Contact Seller</a>
+              <% if @item.paytype == 2 %>
+
+                  <a href="#head_login_modal" role="button" class="btn  btn-warning " data-toggle="modal"> <i class="icon-white icon-user"></i>  Contact Seller</a>
 
 
-            <% elsif @item.paytype == 1 %>
+              <% elsif @item.paytype == 1 %>
 
-                <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
+                  <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
 
-            <% elsif @item.paytype == 3 %>
+              <% elsif @item.paytype == 3 %>
 
-                <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
+                  <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
 
+              <% end %>
             <% end %>
 
           </div>
       <% elsif session[:userid].to_s != @item.user.id %>
 
 
-          <% if defined?(@item.paytype) and @item.paytype == 2 %>
+          <%if @item.solddate.nil? %>
 
-              <% if p2p_current_user.mobileverified == true %>
-                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i> Contact Seller</a>
-              <% else %>
-                  <a href="#contact_seller_modal" role="button" class="btn  btn-warning hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
+            <% if defined?(@item.paytype) and @item.paytype == 2 %>
 
-                  <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i> Contact Seller</a>
+                <% if p2p_current_user.mobileverified == true %>
+                    <a href="#contact_seller_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i> Contact Seller</a>
+                <% else %>
+                    <a href="#contact_seller_modal" role="button" class="btn  btn-warning hide" data-toggle="modal"  id="contact_seller_modal_button" ><i class="icon-white icon-user"></i>Contact Seller</a>
 
-                  <!-- Modal -->
-                  <div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
+                    <a href="#mobile_verify_modal" id="mobile_verify_modal_button" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-user"></i> Contact Seller</a>
 
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h3 id="mobile_verify_modalLabel">Verify your mobile</h3>
+                    <!-- Modal -->
+                    <div id="mobile_verify_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mobile_verify_modallLabel" aria-hidden="true">
+
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="mobile_verify_modalLabel">Verify your mobile</h3>
+                      </div>
+
+                      <div class="modal-body form-horizontal">
+                        Before you send a message to seller, verify your mobile.<br>
+                        <div class="control-group">
+                          <label class="control-label"> Enter Mobile</label>
+
+                          <div class="controls">
+                            <input type="text" id="mobile_number" value = "<%= current_user.mobile_number %>" class="input text" >
+                          </div>
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label"> Verification Code:</label>
+                          <div class="controls">
+                            <button class="btn  btn-primary" id="send_verify_code">
+                              Send
+                            </button>
+                          </div>
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label"> Enter Code:</label>
+
+                          <div class="controls">
+                            <input type="text" id="verify_mobile" class="input text" >
+                          </div>
+
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label"> </label>
+
+                          <div class="controls">
+                            <button class="btn " id="verify_code_submit">Verify Code</button>
+                          </div>
+
+                        </div>
+
+                      </div>
                     </div>
 
-                    <div class="modal-body form-horizontal">
-                      Before you send a message to seller, verify your mobile.<br>
-                      <div class="control-group">
-                        <label class="control-label"> Enter Mobile</label>
+                <% end %>
+                <!-- Modal -->
+                <div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
 
-                        <div class="controls">
-                          <input type="text" id="mobile_number" value = "<%= current_user.mobile_number %>" class="input text" >
-                        </div>
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label"> Verification Code:</label>
-                        <div class="controls">
-                          <button class="btn  btn-primary" id="send_verify_code">
-                            Send
-                          </button>
-                        </div>
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label"> Enter Code:</label>
-
-                        <div class="controls">
-                          <input type="text" id="verify_mobile" class="input text" >
-                        </div>
-
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label"> </label>
-
-                        <div class="controls">
-                          <button class="btn " id="verify_code_submit">Verify Code</button>
-                        </div>
-
-                      </div>
-
-                    </div>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
                   </div>
 
-              <% end %>
-              <!-- Modal -->
-              <div id="contact_seller_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contact_seller_modallLabel" aria-hidden="true">
+                  <div class="modal-body">
 
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 id="contact_seller_modalLabel">Send a Buy Request to seller</h3>
+                    <!-- Seller aggres to <%=@item.payinfo%> -->
+
+                    <p><%= render 'street/messages/compose' , :ownerid => @item.user.id ,:itemid => @item.id ,:message =>  @item.messages.new %></p>
+                  </div>
+
                 </div>
 
-                <div class="modal-body">
 
-                  <!-- Seller aggres to <%=@item.payinfo%> -->
+            <% elsif @item.paytype == 1 %>
 
-                  <p><%= render 'street/messages/compose' , :ownerid => @item.user.id ,:itemid => @item.id ,:message =>  @item.messages.new %></p>
+                <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                  <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                  <input type="hidden" name="secSignature" id="citruspay_signature">
+                  <input type="hidden" name="merchantTxnId">
+                  <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                  <input type="hidden" name="currency" value="INR">
+                  <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+
+                  <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
+                  <input type="hidden" name="addressStreet1" id="addressStreet1">
+                  <input type="hidden" name="addressCity" id="addressCity">
+                  <input type="hidden" name="addressZip" id="addressZip">
+                  <input type="hidden" name="addressState" id="addressState">
+
+                </form>
+
+                <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
+
+            <% elsif @item.paytype == 3 %>
+
+                <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
+                <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
+                  <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
+                  <input type="hidden" name="secSignature" id="citruspay_signature">
+                  <input type="hidden" name="merchantTxnId">
+                  <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
+                  <input type="hidden" name="currency" value="INR">
+                  <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
+                  <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
+
+                  <input type="hidden" name="addressStreet1" id="addressStreet1">
+                  <input type="hidden" name="addressCity" id="addressCity">
+                  <input type="hidden" name="addressZip" id="addressZip">
+                  <input type="hidden" name="addressState" id="addressState">
+
+                </form>
+                <!-- Modal -->
+                <div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="check_availability_modalLabel">Check availability in your area</h3>
+                  </div>
+
+                  <div class="modal-body">
+                    <p>
+                      Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=@item.id%>' id='check_availability'> <span id='availability_check_msg'>
+                    </p>
+                  </div>
+
                 </div>
 
-              </div>
+            <% end %>
+        <% else %>
+            <!-- Buyer View -->
+            <div class="btn-group" id="listing_action">
 
+              <div class="badge badge-success preview_item">Preview</div>
+            </div>
+        <% end %>
+        <% else %>
+        <!-- Buyer View -->
+            <div class="btn-group" id="listing_action">
+                <div class="badge badge-success preview_item">Preview</div>
+            </div>
 
-          <% elsif @item.paytype == 1 %>
-
-              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
-                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
-                <input type="hidden" name="secSignature" id="citruspay_signature">
-                <input type="hidden" name="merchantTxnId">
-                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
-                <input type="hidden" name="currency" value="INR">
-                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
-
-                <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
-                <input type="hidden" name="addressStreet1" id="addressStreet1">
-                <input type="hidden" name="addressCity" id="addressCity">
-                <input type="hidden" name="addressZip" id="addressZip">
-                <input type="hidden" name="addressState" id="addressState">
-
-              </form>
-
-              <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
-
-          <% elsif @item.paytype == 3 %>
-
-              <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
-              <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
-                <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
-                <input type="hidden" name="secSignature" id="citruspay_signature">
-                <input type="hidden" name="merchantTxnId">
-                <input type="hidden" name="orderAmount" id="OrderAmount" value= "<%= @item.price%>">
-                <input type="hidden" name="currency" value="INR">
-                <input type="hidden" name="reqtime" value="<%= Time.now.to_i * 1000 %>">
-                <input type="hidden" name="returnUrl" value="<%= root_url%>street/update_citrus">
-
-                <input type="hidden" name="addressStreet1" id="addressStreet1">
-                <input type="hidden" name="addressCity" id="addressCity">
-                <input type="hidden" name="addressZip" id="addressZip">
-                <input type="hidden" name="addressState" id="addressState">
-
-              </form>
-              <!-- Modal -->
-              <div id="check_availability_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="check_availability_modallLabel" aria-hidden="true">
-
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 id="check_availability_modalLabel">Check availability in your area</h3>
-                </div>
-
-                <div class="modal-body">
-                  <p>
-                    Enter your pincode to verify the availablity <input type='text' placeholder='Pincode' itemid='<%=@item.id%>' id='check_availability'> <span id='availability_check_msg'>
-                  </p>
-                </div>
-
-              </div>
-
-          <% end %>
-      <% else %>
-          <!-- Buyer View -->
-          <div class="btn-group" id="listing_action">
-
-            <div class="badge badge-success ">Preview</div>
-          </div>
-      <% end %>
+        <% end %>
       </div>
 
     <div class="span7" id="item_top_details_buttons">
 
+        <% if @item.solddate.nil? %>
 
           <span class="item_top_details_detail action_popover" id="itemsharefb" data-content="Share this listing on facebook with friends and groups and increase the speed of selling." data-title="<img width=20 height=20 src='/assets/facebook_128.png'>Facebook Share" data-trigger="hover" data-placement="top" data-html=true>
 
@@ -265,7 +279,7 @@
 
             </script>
 
-
+            <% end %>
           </span>
 
       <%if !session[:userid].nil? and session[:userid].to_s != @item.user.id %>

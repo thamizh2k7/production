@@ -1,3 +1,4 @@
+
 <% content_for :pagetitle  do %>
 
 
@@ -26,9 +27,13 @@
             <h3>Payment Details</h3>
             <% if @payments.count > 0 %>
 
+
             <%= will_paginate(@payments , :renderer => BootstrapPagination::Rails) %>
-            <table class="table table-striped table-bordered">
-              <tr>
+
+            <input type="text" id="search_payment" placeholder="Search Payments" class="pull-right">
+            <table class="table table-striped table-bordered" id="payment_table">
+                <thead>
+                <tr>
 
                 <th>Status</th>
                 <th>Item Title</th>
@@ -48,56 +53,20 @@
             <% end %>
                 <th>Action</th>
               </tr>
+              </thead>
 
-            <% @payments.each do |p2p_item_delivery| %>
+              <tbody>
               <tr>
-                <td><%= p2p_item_delivery.statustext %></td>
-                <td><%= p2p_item_delivery.item.title %></td>
-                <td><%= p2p_item_delivery.courier_name %></td>
-                <td><%= p2p_item_delivery.tracking_no %></td>
-                <td><%= p2p_item_delivery.shipping_date.strftime("%d-%b-%C%y") unless p2p_item_delivery.shipping_date.nil? %></td>
-                <td><%= p2p_item_delivery.delivery_date.strftime("%d-%b-%C%y") unless p2p_item_delivery.delivery_date.nil?  %></td>
-
-            <%if params.has_key?(:bought)%>
-                <td>
-                    <%= p2p_item_delivery.item.price %>
-                </td>
-            <% else %>
-                <td>
-
-                    <%= p2p_item_delivery.commission %>
-                </td>
-
-                <td>
-                    <%= p2p_item_delivery.shipping_charge %>
-
-                </td>
-
-<!--                 <td>
-                    <%=  "#{p2p_item_delivery.item.price} - (#{p2p_item_delivery.item.price} x #{p2p_item_delivery.commission/100} )  #{p2p_item_delivery.shipping_charge.to_s}"  %>
-                </td>
- -->
-                <td>
-                    <%=  (p2p_item_delivery.item.price - (
-                (p2p_item_delivery.item.price *  (p2p_item_delivery.commission/100) ) + p2p_item_delivery.shipping_charge.to_f).ceil).to_i  %>
-                </td>
-
-            <% end %>
-
-            
-
-
-                <td>
-                    <% if [2,7].include?(p2p_item_delivery.p2p_status)#waiting %> 
-                        <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_street_item_delivery_path(p2p_item_delivery) %>
-                    <% end %>
-
-                </td>
-
-            <% end %>
-
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
-
+            </tbody>
 
             </table>
 
@@ -109,3 +78,5 @@
             <% end %>
             <%#= link_to 'New Item delivery', new_p2p_item_delivery_path %>
 </div></div>
+
+<%= javascript_include_tag '/assets/p2p/payments' %>

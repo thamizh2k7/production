@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320081641) do
+ActiveRecord::Schema.define(:version => 20130320142938) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -489,8 +489,10 @@ ActiveRecord::Schema.define(:version => 20130320081641) do
     t.datetime "updated_at",                        :null => false
     t.integer  "user_type",      :default => 0
     t.string   "mobile_number"
+    t.integer  "city_id"
   end
 
+  add_index "p2p_users", ["city_id"], :name => "index_p2p_users_on_city_id"
   add_index "p2p_users", ["user_id"], :name => "index_p2p_users_on_user_id"
 
   create_table "p2p_vendor_uploads", :force => true do |t|
@@ -515,10 +517,10 @@ ActiveRecord::Schema.define(:version => 20130320081641) do
   end
 
   create_table "publishers", :force => true do |t|
-    t.integer  "rental",     :default => 25
+    t.integer  "rental"
     t.string   "name"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

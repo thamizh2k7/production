@@ -3,7 +3,7 @@ require "bundler/capistrano"
 
 server "103.8.126.71", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent.com"
-set :branch, 'master'
+set :branch, 'p2p_dep'
 set :scm_verbose, true
 set :use_sudo, false
 set :rails_env, "production" #added for delayed job 
@@ -13,6 +13,9 @@ set :rvm_type, :system
 after 'deploy:update_code' do
   # run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
   run "cd #{release_path};"
+  run "rm -rf #{release_path}/log"
+  run "mkdir #{release_path}/log"
+  run "chmod -R 777 #{release_path}/log"
   run "mkdir -p #{release_path}/tmp/cache;"
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
@@ -29,7 +32,6 @@ after 'deploy:update_code' do
   run "cd #{release_path} && RAILS_ENV=production rake db:migrate"
   run "cd #{release_path} && RAILS_ENV=production rake assets:precompile"
   run "chown -R www-data:www-data #{release_path}/*"
-  run "chmod -R 777 #{release_path}/log"
 end
 
 namespace :deploy do

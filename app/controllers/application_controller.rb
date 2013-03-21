@@ -179,6 +179,7 @@ class ApplicationController < ActionController::Base
   	#set user variables
   	if !current_user.nil? and session[:userid].nil?
   		#call it so it sets the needed variables
+      cookies.delete(:return_url)
   		p2p_current_user
   	end
 
@@ -188,6 +189,7 @@ class ApplicationController < ActionController::Base
 
 	# check for ucrrent user and ignore the user presnce if the user is not logged in
 	if current_user.nil?
+		session[:return_url] = "http://#{request.env['HTTP_HOST']}#{request.env['ORIGINAL_FULLPATH']}"
 		return true
 	end
 
@@ -212,6 +214,16 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
   	unless request.xhr?
+
+
+      if cookies.has_key?(:return_url)
+        return cookies[:return_url]
+      end
+
+  		if (session.has_key?(:return_url))
+  			return session[:return_url]
+  		end
+
   		if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"] 
   				return request.env["HTTP_REFERER"]
   			else

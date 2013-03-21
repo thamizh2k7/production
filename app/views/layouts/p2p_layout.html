@@ -48,6 +48,22 @@
               });
           });
           <% end%>
+
+
+
+    $("#sell_item_button").click(function(){
+        var exdate=new Date();
+        exdate.setDate(exdate.getDate() + 1);
+        var c_value=escape('/street/sellitem') + "; expires="+exdate.toUTCString();
+        document.cookie='return_url' + "=" + c_value + ";path=/";
+    });
+
+    if (window.location.hash ="#_=_")
+    {
+      window.location.hash ="";
+    }
+
+
      });
     </script>
   </div>

@@ -150,6 +150,7 @@
       }
     });
 
+
     $("#top_search_form").on('submit',function(){
       if ($("#top_search_input").val() == '') {
         return false;
@@ -236,7 +237,10 @@
     });
     if(location.hash == "#verify_mobile")
       $("#seller_mobile_verify_modal").modal("show");
-  });
+
+
+
+   });
 
 
   function setupunotify(){

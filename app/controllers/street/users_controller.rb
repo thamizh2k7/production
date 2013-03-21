@@ -279,28 +279,54 @@ class Street::UsersController < ApplicationController
       end
     end
     #if the client has request for search
-    if params.has_key?(:searchq)
+    if params.has_key?(:searchq) and params[:searchq].strip !=""
       search = params[:searchq]
       #the searc for item begines with #
       #eg, to searchh for nokia product search like #nokia
       #reset searches in message column
+      where = "" 
+      # if search.downcase == 'success'
+      #   where += 'p2p_status in  (2,) '
+      # end
+
       if search.index('@') == 0
         begin
-          user = P2p::User.where( "user_id in (select id from user where email like '%#{search.slice(1,(search.size-1))}%')").pluck('id')
+          user = P2p::User.where( "user_id in (select id from users where email like '%#{search.slice(1,(search.size-1))}%')").pluck('id')
         rescue
           user = 0
         end
       end
+
+        begin
+          item = P2p::Item.where( "title like '%#{search}%'").pluck('id')
+        rescue
+          item = 0
+        end
     end
     #find for which items is the request came for
     # and get messages appropiatly
+    
 
-      #if search != "" and user!= 0
-    if params.has_key?(:bought)
-        @payments = p2p_current_user.payments.order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
-    else
-        @payments = p2p_current_user.soldpayments.order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    if user!=0 and !user.nil? and user.count > 0
+      where += " buyer in (#{user.join(',')})"
+    elsif item!=0 and !item.nil? and item.count > 0
+      where=" and " if where!=""
+      where += " p2p_item_id in (#{item.join(',')})"
     end
+
+    if params.has_key?(:searchq) and params[:searchq].strip !=""
+      if where == ""
+        render :json => response
+        return
+      end
+    end
+
+    if params.has_key?(:bought)
+        @payments = p2p_current_user.payments.where(where).order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    else
+        @payments = p2p_current_user.soldpayments.where(where).order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    end
+
 
     # form the response for the datatable
     response[:iTotalRecords] =  @payments.count
@@ -309,16 +335,16 @@ class Street::UsersController < ApplicationController
     @payments.each do |pay|
 
       response[:aaData].push({
-                               "0" => "0",
-                               "1" => "1",
-                               "2" => "2",
-                               "3" => "3",
-                               "4" => "4",
-                               "5" => "5",
-                               "6" => "6",
-                               "7" => "7",
-                               "8" => "8",
-                               "9" => "9"
+                               "0" =>  pay.statustext,
+                               "1" => pay.item.title,
+                               "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
+                               "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
+                               "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
+                               "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
+                               "6" =>  pay.item.price,
+                               "7" =>  pay.commission ,
+                               "8" => pay.shipping_charge,
+                               "9" =>  (pay.item.price - ((pay.item.price *  (pay.commission/100) ) + pay.shipping_charge.to_f).ceil).to_i
 
       })
     end

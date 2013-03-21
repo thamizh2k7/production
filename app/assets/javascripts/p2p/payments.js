@@ -17,15 +17,13 @@
 	    	  	"bServerSide": true,
 	  			"fnServerParams": function ( aoData ) {
 		  				if ($.trim($("#search_payment").val()).length != 0){
-            		aoData.push( { "name" : "searchq" ,"value" : $("#search_payment").val() } );
+            				aoData.push( { "name" : "searchq" ,"value" : $("#search_payment").val() } );
             			}
           		}
 			});
 
 			$("#search_payment").keyup(function(){
-				if ( $.trim($("#search_payment").val()).length > 1 ){
-					oUserTable.fnDraw();
-				}
+					oVendorTable.fnDraw();
 			});
 
     	$('.master_check').on("change",function(){

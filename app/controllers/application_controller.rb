@@ -51,6 +51,14 @@ class ApplicationController < ActionController::Base
             session[:city] = city.name
             session[:city_id] = city.id
             cookies.permanent[:city] = session[:city]
+
+        	user = p2p_current_user
+
+        	if user
+        		user.city = P2p::City.find(session[:city_id])
+        		user.save
+        	end
+        	return 
           end
 
     	    geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
@@ -70,9 +78,9 @@ class ApplicationController < ActionController::Base
 	        	end
           else
 
-	    		session.delete(:city)
-          session.delete(:city_id)
-	    	end
+	    	session.delete(:city)
+         	session.delete(:city_id)
+	      end
 	    else
 	    	
 	    	if session[:city] == '' or session[:city].nil?

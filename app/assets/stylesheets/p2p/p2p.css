@@ -341,10 +341,16 @@ li {
 	}
 }
 
+
+@font-face{
+	font-family: 'PT Sans';
+	src : url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+}
+
 body {
   background: white;
   font-size: 13px;
-  font-family: 'PT Sans', sans-serif !important;
+  font-family: 'PT Sans' !important;
 }
 
 

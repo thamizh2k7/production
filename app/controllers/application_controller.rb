@@ -41,27 +41,68 @@ class ApplicationController < ActionController::Base
   end
 
 
-
-
   def guess_user_location
   	begin
-  	    if !session.has_key?(:city) or session[:city] == ""
-	        #todo replace ip from request
-	        #geocode  = Geocoder.search(request[:REMOTE_ADDR])
-    	    geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
-		    #geocode  = Geocoder.search('106.51.91.235')
 
-	        session[:city] = (geocode.count > 0 ) ? geocode[0].data["city"] : ""
-	        if city_id !=""
-	        	city_id = P2p::City.find_or_create_by_name(session[:city]).id
-	          session[:city_id] = (city_id.nil? ) ? '' : city_id;
-	        end
+  	    if !session.has_key?(:city) 
+
+          if cookies.has_key?(:city) and cookies[:city]!= '' and !cookies[:city].nil?
+            city = P2p::City.find_by_name(cookies[:city])
+            session[:city] = city.name
+            session[:city_id] = city.id
+            cookies.permanent[:city] = session[:city]
+
+        	user = p2p_current_user
+
+        	if user
+        		user.city = P2p::City.find(session[:city_id])
+        		user.save
+        	end
+        	return 
+          end
+
+    	    geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
+    	    #geocode  = Geocoder.search('106.51.91.235')
+    	    
+
+    	    if geocode.count >0
+	        	session[:city] = geocode[0].data["city"]
+	        	session[:city_id] = P2p::City.find_or_create_by_name(session[:city]).id
+            	cookies.permanent[:city] = session[:city]
+            	
+	        	user = p2p_current_user
+
+	        	if user
+	        		user.city = P2p::City.find(session[:city_id])
+	        		user.save
+	        	end
+          else
+
+	    	session.delete(:city)
+         	session.delete(:city_id)
+	      end
+	    else
+	    	
+	    	if session[:city] == '' or session[:city].nil?
+	    		session.delete(:city)
+          session.delete(:city_id)
+	    	end
+
       	end
     rescue Exception => ex
     	puts ex
+    	redirect_to '/street'
     end
   end
 
+
+  def p2p_get_user_location
+  	if session.has_key?(:city) and session.has_key?(:city_id)
+  		return session[:city_id]
+  	else
+  		return nil
+  	end
+  end
 
   ##P2P layout
   # this selects the layout for the p2p namespace
@@ -76,6 +117,9 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
+
+  def set_location_variables(city)
+  end
 
   ##return p2pUser
   def p2p_current_user
@@ -95,6 +139,17 @@ class ApplicationController < ActionController::Base
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id
 
+			
+	  		if user.city 
+	  			session[:city] =user.city.name
+	  			session[:city_id] =user.city.id
+	  			cookies.permanent[:city] = session[:city]
+	  			
+	  		elsif session.has_key?(:city)
+	  			user.city = P2p::City.find(session[:city_id])
+	  			user.save
+	  		end
+
 	  		if user.user.is_admin
 	  			session[:isadmin] = true
 	  		end
@@ -110,6 +165,7 @@ class ApplicationController < ActionController::Base
 
 
 
+
   ##P2p Authentication
   def p2p_user_signed_in
 	 if current_user.nil?
@@ -118,16 +174,12 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
+
   def check_p2p_user_presence
-
-
   	#set user variables
-
   	if !current_user.nil? and session[:userid].nil?
-
   		#call it so it sets the needed variables
   		p2p_current_user
-
   	end
 
   	unless request.xhr?
@@ -143,20 +195,11 @@ class ApplicationController < ActionController::Base
 	  redirect_to '/street/welcome'
 	  return false
 	end
-
   end
 
   def to_hash(obj)
      hash = {}; obj.attributes.each { |k,v| hash[k.to_sym] = v }
 	 return hash
-  end
-
-  def p2p_get_user_location
-  	if session.has_key?(:city_id) and session[:city_id] != ""
-  		return session[:city_id]
-  	else
-  		return ''
-  	end
   end
 
   def p2p_is_admin

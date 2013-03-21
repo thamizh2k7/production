@@ -30,7 +30,10 @@
                 <div class="approve_item pull-right" itemid="<%=p.id%>"><i title="Approve Listing" class="action icon icon-ok"></i></div>
               <% end %>
 
-              <div class="delete_item pull-right" itemid="<%=p.id%>"></div>
+              <% if p.solddate.nil? %>
+                <div class="delete_item pull-right" itemid="<%=p.id%>"></div>
+              <% end %>
+
             </div>
             <a href="<%= URI.encode("/street/#{p.product.category.name.gsub(/ /,"-")}/#{p.product.name.gsub(/ /,"-")}/#{p.title.gsub(/ /,"-")}/#{p.id}")%>">
               <div class="aitem_left">

@@ -18,6 +18,9 @@ class P2p::Item < ActiveRecord::Base
   has_many :images ,:class_name => 'P2p::Image'
 
   has_many :item_deliveries, :foreign_key=>'p2p_item_id'
+
+  #has_many :bought_item , :through => :item_deliveries ,:class_name => 'P2p::Item' ,:foreign_key => 'item_id'
+
   attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision, :disapproved_reason , :city_id
 
 
@@ -68,7 +71,7 @@ class P2p::Item < ActiveRecord::Base
   # listing the unsold ,not deleted and approved items
   scope :listing_items_by_location, lambda { |location|
     apnd_qry =""
-    if location !=""
+    if location !="" and !location.nil?
       apnd_qry = "and (city_id = #{location} or (paytype=1 and payinfo like '%,1' ))"
     end
     where("solddate is null and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")

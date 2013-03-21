@@ -105,6 +105,8 @@ class Street::UsersController < ApplicationController
       redirect_to '/street'
       return
     end
+
+    user_first_time
   end
 
   #send the first time initializing messages..
@@ -156,16 +158,23 @@ class Street::UsersController < ApplicationController
 
   #used to set the locatin forcibly when user want to change it manually
   def setlocation
-    if params[:location] == session[:city]
-      render :json => {:status => 3}
-      return
-    end
     begin
       city = P2p::City.find_by_name(params[:location])
       session[:city] = city.name.titleize
       session[:city_id] = city.id.to_s
+      cookies.permanent[:city] = session[:city]
+      
+      user = p2p_current_user
+      if user
+        user.city = city
+        user.save
+      end
+
       render :json => {:status => 1}
     rescue
+      session.delete(:city)
+      session.delete(:city_id)
+
       render :json => {:status => 2}
     end
     return
@@ -233,12 +242,115 @@ class Street::UsersController < ApplicationController
   #list all the payment details of the user
   #if params has bought(:checkroutes :-) ) then display only bought payments
   #else display sold
+
   def paymentdetails
+    if request.xhr?
+
+      paymenttable
+      return
+
+    end
+
     if params.has_key?(:bought)
       @payments = p2p_current_user.payments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
     else
       @payments = p2p_current_user.soldpayments.order('updated_at desc').paginate(:page => params[:page],:per_page => 10)
     end
+  end
+
+
+  def paymenttable
+
+    response={:aaData => []}
+    #where to start
+    if params.has_key?("iDisplayStart")
+      start = (params[:iDisplayStart].to_i / 10) + 1
+    else
+      start = 1
+    end
+    #order by the time by default
+    order = "created_at desc"
+    search = ""
+    item = 0
+    #if sort is explicitly sennt from the client
+    if params.has_key?(:iSortCol_0)
+      case params[:iSortCol_0]
+        #based on item
+      when "1"
+        order = "p2p_status " + params[:sSortDir_0]
+      end
+    end
+    #if the client has request for search
+    if params.has_key?(:searchq) and params[:searchq].strip !=""
+      search = params[:searchq]
+      #the searc for item begines with #
+      #eg, to searchh for nokia product search like #nokia
+      #reset searches in message column
+      where = "" 
+      # if search.downcase == 'success'
+      #   where += 'p2p_status in  (2,) '
+      # end
+
+      if search.index('@') == 0
+        begin
+          user = P2p::User.where( "user_id in (select id from users where email like '%#{search.slice(1,(search.size-1))}%')").pluck('id')
+        rescue
+          user = 0
+        end
+      end
+
+        begin
+          item = P2p::Item.where( "title like '%#{search}%'").pluck('id')
+        rescue
+          item = 0
+        end
+    end
+    #find for which items is the request came for
+    # and get messages appropiatly
+    
+
+    if user!=0 and !user.nil? and user.count > 0
+      where += " buyer in (#{user.join(',')})"
+    elsif item!=0 and !item.nil? and item.count > 0
+      where=" and " if where!=""
+      where += " p2p_item_id in (#{item.join(',')})"
+    end
+
+    if params.has_key?(:searchq) and params[:searchq].strip !=""
+      if where == ""
+        render :json => response
+        return
+      end
+    end
+
+    if params.has_key?(:bought)
+        @payments = p2p_current_user.payments.where(where).order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    else
+        @payments = p2p_current_user.soldpayments.where(where).order('updated_at desc').paginate(:page => start,:per_page => params[:iDisplayLength])
+    end
+
+
+    # form the response for the datatable
+    response[:iTotalRecords] =  @payments.count
+    response[:iTotalDisplayRecords] = @payments.count
+    #form the time to be displayed
+    @payments.each do |pay|
+
+      response[:aaData].push({
+                               "0" =>  pay.statustext,
+                               "1" => pay.item.title,
+                               "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
+                               "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
+                               "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
+                               "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
+                               "6" =>  pay.item.price,
+                               "7" =>  pay.commission ,
+                               "8" => pay.shipping_charge,
+                               "9" =>  (pay.item.price - ((pay.item.price *  (pay.commission/100) ) + pay.shipping_charge.to_f).ceil).to_i
+
+      })
+    end
+    render :json => response
   end
 
   def getusers

@@ -52,7 +52,7 @@
                   data-toggle="modal" role="button" <% end%>
                   class="selected" id="sell_item_button"><i class="icon-shopping-cart"></i>Sell Your Item</a></li>
               <% if current_user %>
-                <li><a href="#" class="selected" id="my_account_button"><%= current_user.name %></a></li>
+                <li><a href="/street/dashboard" class="selected" id="my_account_button"><%= current_user.name %></a></li>
               <% else %>
                 <li>
                   <a href="#head_login_modal" class="selected " role="button" data-toggle="modal">Login / SignUp</a>

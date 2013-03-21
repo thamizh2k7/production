@@ -52,7 +52,7 @@
 		<div class="filter_title"> Price </div>
 		<div class="row">
 
-					<% checked = "[0,#{prices.max.to_i}]" %>	
+					<% checked = "[0,#{(prices.max.to_i + (50 - ( prices.max.to_i  % 50) ) )}]" %>	
 
 					<% if @view_filter_set.include?('price') %>
 						<% checked = "[#{@view_filter_set['price'][0]},#{@view_filter_set['price'][1]}]" %>	

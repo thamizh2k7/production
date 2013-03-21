@@ -642,7 +642,7 @@ oDeleteBoxTable.fnDraw();
                                                                  :sender_status => 1,
                                                                  :receiver_status => 0,
                                                                  :parent_id => 0,
-                                                                 :item_id => item.id
+                                                                 :item_id => item_delivery.item.id
                                                                  });
 
 
@@ -658,7 +658,7 @@ oDeleteBoxTable.fnDraw();
                                                                  :sender_status => 1,
                                                                  :receiver_status => 0,
                                                                  :parent_id => 0,
-                                                                 :item_id => item.id
+                                                                 :item_id => item_delivery.item.id
                                                                  });
         msg =""
 
@@ -675,7 +675,7 @@ oDeleteBoxTable.fnDraw();
                                                                  :sender_status => 1,
                                                                  :receiver_status => 0,
                                                                  :parent_id => 0,
-                                                                 :item_id => item.id
+                                                                 :item_id => item_delivery.item.id
                                                                  });
 
       end

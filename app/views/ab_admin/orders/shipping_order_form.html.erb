@@ -18,15 +18,15 @@
 		</div>
 	</form>
 	<% else %>
-		
+
 		<h5>All Books were Shipped</h5>
 	<% end %>
 	<div>
 		<% @dates.each do |date| %>
 			<% unless date.nil? %>
 				------------------ (<%=date%>) ---------------------------
-				<p><a href="/print_label?order=<%=@order.id%>&date=<%=date%>" target="_blank">Address Label</a></p>
-				<p><a href="/print_invoice?order=<%=@order.id%>&date=<%=date%>" target="_blank">Invoice</a></p>
+				<p><a href="/print_label?order=<%=@order.id%>&date=<%=date.utc%>" target="_blank">Address Label</a></p>
+				<p><a href="/print_invoice?order=<%=@order.id%>&date=<%=date.utc%>" target="_blank">Invoice</a></p>
 
 			<% end %>
 		<% end %>

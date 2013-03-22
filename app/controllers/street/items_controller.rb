@@ -583,6 +583,10 @@ oDeleteBoxTable.fnDraw();
     publisher = book.publisher.name
     book = to_hash(book)
     book["publisher"] = publisher
+    book.each_with_index do |(key,value),index|
+         book[key] =''  if value.nil?
+    end
+
     render :json => book
   end
   def sellitem_pricing

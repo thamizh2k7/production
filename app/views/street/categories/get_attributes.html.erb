@@ -19,6 +19,9 @@
 
 							$("#item_<%=attr.id%>").on("save",function(e,params){
 								// load books
+
+								window.item_values['spec']['1'] = params.newValue;
+
 								showNotifications('Fetching book deatils');
 
 								$.ajax({
@@ -28,36 +31,53 @@
 									success:function(data){
 
 										// reset all values
-										if (data == null || data.length == 0 ){
+										if (data == null || Object.keys(data).length == 0 ){
 											$('.canEdit').editable();
 										}
 										else{
 
-											_.each(data,function(elm){
-												if ($.trim(elm) == ''){
-													elm = ''
-												}
+											if (!(data['price'] == null ||  data['price'] == undefined || $.trim(data['price']) == '')){
+												window.item_values['price'] =  data['price'] ;
+												$("#price").text(data['price']);
+											}
+
+
+											if (!(data['desc'] == null ||  data['desc'] == undefined || $.trim(data['desc']) == '')){
+												window.item_values['desc'] = data['description'];
+												$('#desc_content').text(data['description']);
+											}
+
+											if (!(data['publisher'] == null ||  data['publisher'] == undefined || $.trim(data['publisher']) == '')){
+												window.item_values['spec']['2'] =  data['publisher'] ;
+												$('#item_2').text(data['publisher']);
+											}
+
+											//ignore 2nd specificatino as it is isbn13 which the user already entered
+
+											if (!(data['isbn10'] == null ||  data['isbn10'] == undefined || $.trim(data['isbn10']) == '')){
+												window.item_values['spec']['3'] = data['isbn10'];
+												$('#item_3').text(data['isbn10']);
+											}
+
+											if (!(data['pages'] == null ||  data['pages'] == undefined || $.trim(data['pages']) == '')){
+												window.item_values['spec']['4'] = data['pages'];
+												$('#item_4').text(data['pages']);
+											}
+
+											if (!(data['author'] == null ||  data['author'] == undefined || $.trim(data['author']) == '')){
+												window.item_values['spec']['5'] = data['author'];
+												$('#item_5').text(data['author']);
+											}
+
+											if (!(data['edition'] == null ||  data['edition'] == undefined || $.trim(data['edition']) == '')){
+												window.item_values['spec']['5'] = data['edition'];
+												$('#item_5').text(data['author']);
+											}
+
+											$('#notificationcontainer').notify('create',{
+												title:'Helping you out..!',
+												text: 'Specifications are prefilled, change them if you need.'
 											});
-
-											$("#price").text(data['price']);
-											$('#desc_content').text(data['description']);
-											$('#item_1').text(data['publisher']);
-											$('#item_2').text(data['isbn13']);
-											$('#item_3').text(data['isbn10']);
-											$('#item_4').text(data['pages']);
-											$('#item_5').text(data['author']);
-
-											window.item_values['price'] = data['price'];
-											window.item_values['desc'] = data['description'];
-											window.item_values['spec']['1'] = data['publisher'];
-											window.item_values['spec']['3'] = data['isbn10'];
-											window.item_values['spec']['4'] = data['pages'];
-											window.item_values['spec']['5'] = data['author'];
-
-										$('#notificationcontainer').notify('create',{
-											title:'Helping you out..!',
-											text: 'Specifications are prefilled, change them if you need.'
-										});
 
 										}
 									},

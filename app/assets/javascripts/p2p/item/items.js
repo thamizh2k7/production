@@ -257,8 +257,17 @@ edit_item =function(){
 		//trigger on category change
 		$("#category_item").on('save',function(e,params){
 
+
 			// if new value is old value dn do anything
 			if (params.newValue == window.item_values['cat']) return false ;
+
+			if ($("#category_item").text() == "Books"){
+				$("#category_item").text('Type');
+			}else{
+				$("#category_item").text('Brand')
+			}
+
+			$('#model').closest('tr').find('td:first').text('Book Type');
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;

@@ -13,7 +13,7 @@
 				<script>
 					<% if done and attr.name.downcase.starts_with?("isbn") and attr.name.index('13') != nil  %>
 
-							$('#model').closest('tr').find('td:first').text('Book Type');
+							//$('#model').closest('tr').find('td:first').text('Book Type');
 
 							$("#item_<%=attr.id%>").editable('show');
 

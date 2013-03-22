@@ -261,13 +261,11 @@ edit_item =function(){
 			// if new value is old value dn do anything
 			if (params.newValue == window.item_values['cat']) return false ;
 
-			if ($("#category_item").text() == "Books"){
-				$("#category_item").text('Type');
+			if (params.newValue == "1"){
+				$('#model').closest('tr').find('td:first').text('Book Type');
 			}else{
-				$("#category_item").text('Brand')
+				$('#model').closest('tr').find('td:first').text('Brand');
 			}
-
-			$('#model').closest('tr').find('td:first').text('Book Type');
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;

@@ -2,18 +2,12 @@
   <%=@item.title %> listed under <%= @item.product.name %>, <%=@item.category.name %>
 <%end %>
 
-
-
-
 <!-- if not logged in user or owner or admin show preview -->
 <% if session[:userid].nil? or (session[:userid] != @item.user.id and !session[:isadmin] ) %>
-
     <%= render "/street/items/preview_item"  %>
-
 <% else %>
 
 	<%= stylesheet_link_tag "items/items_manifest"%>
-
 
 	<div class="main_wrapper">
 	     <div class="row">

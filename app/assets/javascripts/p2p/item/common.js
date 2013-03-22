@@ -1,6 +1,6 @@
 
-$(document).ready(function(){
 
+$(document).ready(function(){
 
 	//trigger the upload on the file input when click on the div
 	$('#upload_image').click(function(){
@@ -91,47 +91,42 @@ $(document).ready(function(){
 //initialize variables
 	window.cache ={}
 
-
-
 //both for new and edit
-
 function check_before_save(){
 
 				var flag = 1;
 
-				if (!('title' in window.item_values) || window.item_values['title'] == ""){
+				if (!('title' in window.item_values) || window.item_values['title'] == "" || window.item_values['title'] == null || window.item_values['title'] == undefined ){
 					$("#title").addClass("error");
 					$("#title").tooltip('show');
 					return false;
 				}
 
-				if (!('cat' in window.item_values) || window.item_values['cat'] == ""){
+				if (!('cat' in window.item_values) || window.item_values['cat'] == "" || window.item_values['cat'] == null || window.item_values['cat'] == undefined ){
 					$("#category_item").addClass("error");
 					$("#category_item").tooltip('show');
 					return false;
 				}
 
-
-
-				if (window.brand ==""){
+				if (window.brand =="" || window.brand == null || window.brand == undefined ){
 					$("#model").addClass("error");
 					$("#model").tooltip('show');
 					return false;
 				}
 
-				if (window.price == ''){
+				if (window.price == '' || window.price == null || window.price == undefined ){
 					$("#price").addClass("error");
 					$("#model").tooltip('show');
 					return false;
 				}
 
-				if (!('condition' in window.item_values) || window.item_values['condition'] == ""){
+				if (!('condition' in window.item_values) || window.item_values['condition'] == ""  || window.item_values['condition'] == null  || window.item_values['condition'] == undefined){
 					$("#condition").addClass("error");
 					$("#condition").tooltip('show');
 					return false;
 				}
 
-				if (!('desc' in window.item_values) || window.item_values['desc'] == ""){
+				if (!('desc' in window.item_values) || window.item_values['desc'] == ""  || window.item_values['desc'] == null  || window.item_values['desc'] == undefined){
 					$("#item_desc").addClass("error");
 					$("#item_desc").tooltip('show');
 					return false;
@@ -165,6 +160,7 @@ function check_before_save(){
 					showNotifications("Atleast one image is required.");
 					return false;
 				}
+
 
 				return true;
 }

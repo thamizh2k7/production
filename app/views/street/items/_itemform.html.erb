@@ -600,11 +600,11 @@
 		window.image_count =  <%= (itemid.empty?) ? 0 : viewimage.count %>;
 
 		window.item_values ={};
-		item_values['spec']={};
+		window.item_values['spec']={};
 		window.edit = <%= (itemid.empty?) ? false : true %>;
 
 				<%if !itemid.empty?  and ownerid == session[:userid].to_s %>
-					item_values['title'] = "<%= title %>";
+					window.item_values['title'] = "<%= title %>";
 					item_values['cat'] = "<%= categoryid %>";
 					item_values['scat'] = "<%= subcategoryid %>";
 					item_values['brand'] = "<%= brandid %>";

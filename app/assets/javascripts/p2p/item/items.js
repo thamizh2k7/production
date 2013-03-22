@@ -4,17 +4,13 @@ $(document).ready(function(){
 		if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
 	});
 
-
-
 	// save the form onclick trigger
 	$("#save_top").click(function(){
 		// call the save function if saved not return false
 		if (!saveItem()){
 			return false;
 		}
-
 		$('.action-icon').tooltip('destroy');
-
 	});
 
 	$("#save_bottom").click(function(){
@@ -23,7 +19,6 @@ $(document).ready(function(){
 			return false;
 		}
 	});
-
 
 
 	// EDIT Button click function..

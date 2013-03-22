@@ -27,7 +27,7 @@
 	cat.products.new({:name => "Self development"})
 	cat.products.new({:name => "Comics"})
 
-	cat.specs.new({:name => 'Publisher' ,:show_filter => true})
+
 
 	cat.specs.new({:name => 'ISBN-13',:show_filter => false})
 	cat.specs.new({:name => 'ISBN-10',:show_filter => false})
@@ -37,6 +37,8 @@
 	cat.specs.new({:name => 'Binding',:show_filter => false})
 	cat.specs.new({:name => 'Published Year',:show_filter => false})
 
+	cat.specs.new({:name => 'Publisher' ,:show_filter => true})
+	
 	cat.save
 
 	# Mobiles

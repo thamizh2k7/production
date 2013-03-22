@@ -574,14 +574,19 @@ oDeleteBoxTable.fnDraw();
   end
   def getbook_details
 
-    book = Book.select('description as desc_content,isbn13 as \'ISBN-13\',isbn10 as \'ISBN-10\',binding as \'Binding\',publisher_id as \'Publisher\',published as \'Published Year\',pages as \'Page Count\',price,author as \'Author\'').find_by_isbn13(params[:isbn13])
+    #book = Book.select('description as desc_content,isbn13 as \'ISBN-13\',isbn10 as \'ISBN-10\',binding as \'Binding\',publisher_id as \'Publisher\',published as \'Published Year\',pages as \'Page Count\',price,author as \'Author\'').find_by_isbn13(params[:isbn13])
+    book = Book.select('description ,isbn13 ,isbn10 ,binding ,publisher_id ,published ,pages ,price,author').find_by_isbn13(params[:isbn13])
     if book.nil?
       render :json => {}
       return
     end
     publisher = book.publisher.name
     book = to_hash(book)
-    book["Publisher"] = publisher
+    book["publisher"] = publisher
+    book.each_with_index do |(key,value),index|
+         book[key] =''  if value.nil?
+    end
+
     render :json => book
   end
   def sellitem_pricing

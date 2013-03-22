@@ -348,12 +348,21 @@ class Street::UsersController < ApplicationController
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
                                  "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
                                  "6" =>  pay.item.price,
-                                 "7" =>  'action'
+                                 "7" =>  ''
 
         })
       end
     else
+
+
       @payments.each do |pay|
+
+        if pay.shipping_date.nil?
+          downloadlinks ="<a href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i></a>"
+        else
+          downloadlinks = "<a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Label </a>"
+        end
+
         response[:aaData].push({
                                  "0" =>  pay.statustext,
                                  "1" => pay.item.title,
@@ -364,7 +373,7 @@ class Street::UsersController < ApplicationController
                                  "6" =>  "#{pay.commission}%"  ,
                                  "7" => "Rs. #{pay.shipping_charge}",
                                  "8" =>  "Rs. #{(pay.item.price - ((pay.item.price *  (pay.commission/100) ) + pay.shipping_charge.to_f).ceil).to_i}",
-                                 "9" => "action"
+                                 "9" => downloadlinks
 
         })
       end

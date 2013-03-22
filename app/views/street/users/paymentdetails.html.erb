@@ -70,7 +70,6 @@
 
             </table>
 
-
             <%= will_paginate(@payments , :renderer => BootstrapPagination::Rails) %>
             <br />
             <% else %>
@@ -80,3 +79,13 @@
 </div></div>
 
 <%= javascript_include_tag '/assets/p2p/payments' %>
+
+<script>
+
+    <% if params.has_key?(:bought)%>
+        window.bought = '/street/paymentdetails/bought';
+    <% else %>
+        window.bought = '/street/paymentdetails';
+    <% end %>
+    
+</script>

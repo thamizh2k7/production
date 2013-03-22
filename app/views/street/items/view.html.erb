@@ -85,12 +85,12 @@
 
              					<% if @item.user.id == session[:userid] %>
 	                  		<a href="<%=@payurl%>" id="payment_btn" class="btn action_popover" data-content="<%=@paytype_content%>" data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >
-		      	           	<i class="action-icon icon icon-gift" title="<%=@paytype_title%>"></i>
+		      	           	<i class="action-icon icon icon-gift" title="<%=@item.paytype_text%>"></i>
 		    	              	Payment
 	  		                </a>
 	  		            	<% end %>
 	  		            <% else %>
-       									<span class="btn action_popover"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
+       						<span class="btn action_popover"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
 
 		             		<% end %>
 

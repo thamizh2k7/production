@@ -302,13 +302,10 @@ class Street::ItemsController < ApplicationController
 
     if @item.paytype == 1
       @paytype_content = "You have selected to send this item via courier in #{@item.payinfo.split(',')[0]} business days <br/> Click on the button to change it."
-      @paytype_title = "Send by Courier"
     elsif @item.paytype == 2
       @paytype_content = "You have selected to deal with the buyer directly <br/> Click on the button to change it."
-      @paytype_title = "Pay Directly"
     elsif @item.paytype == 3
       @paytype_content = "You have selected sociorent to pickup and safely deliver the item. <br/> Click on the button to change it"
-      @paytype_title = "Send by Sociorent"
     end
 
     #random image

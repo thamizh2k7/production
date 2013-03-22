@@ -104,12 +104,10 @@ class P2p::Item < ActiveRecord::Base
     self.changes.each do |column,value|
 
         next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason'].include?(column)
-        next if column =='paytype' and self.changes[:paytype].nil?
+        next if column =='paytype'
 
         self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
-
     end
-
 
     self.itemhistories.where(:created_at => self.updated_at).each do |itemhistory|
       changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} -> #{itemhistory.newvalue}"
@@ -119,8 +117,6 @@ class P2p::Item < ActiveRecord::Base
 
         PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
         PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}'>#{self.title}</a> listing and is waiting for your approval." )
-
-
 
         admin.sent_messages.create({:receiver_id => admin.id,
                                                   :message => "This is an auto generated system message. #{self.user.user.name}  has changed <a href='/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}'>#{self.title}</a> listing and is kept under your verification The changes are <br/>#{changed_column} <br/> Please review them. - System",
@@ -276,6 +272,18 @@ class P2p::Item < ActiveRecord::Base
       end
       res
     end
+  end
+
+  def paytype_text
+
+    if self.paytype == 1
+      return "Send by Courier"
+    elsif self.paytype == 2
+      return "Pay Directly"
+    elsif self.paytype == 3
+      return "Send by Sociorent"
+    end
+
   end
 
   def is_valid_data?

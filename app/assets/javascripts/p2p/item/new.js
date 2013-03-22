@@ -10,12 +10,13 @@ $(document).ready(function(){
 
 
 save_new_item = 	function(){
-		item_values['price'] = window.price
-		item_values['model'] = window.brand
-		item_values['authenticity_token']= AUTH_TOKEN;
+		window.item_values['price'] = window.price
+		window.item_values['model'] = window.brand
+
+		window.item_values['authenticity_token']= AUTH_TOKEN;
 		$.ajax({
 			url:window.editsaveurl,
-			data:item_values,
+			data:window.item_values,
 			type:window.editsavetype,
 			success:function(data){
 
@@ -39,7 +40,6 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='paytype' value='2'>"));
 			       $('#form_temp').append($("<input  class='hide' name='meet_at' value='" + $("#direct_payment_form #meet_at").val() + "'>"));
 
-
 			       $("#fileupload").submit();
 
 			      return false;
@@ -56,7 +56,6 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='paytype' value='1'>"));
 			       $('#form_temp').append($("<input  class='hide' name='dispatch_day' value='" + $("#dispatch_day").val() + "'>"));
 			       $('#form_temp').append($("<input  class='hide' name='alloverindia' value='" + $("#alloverindia").val() + "'>"));
-
 
 
 			       $("#fileupload").submit();

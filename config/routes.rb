@@ -109,6 +109,7 @@ Sociorent::Application.routes.draw do
       post 'users/verifymobile/code' => 'users#getcode'
       post 'users/verifymobile/:code' => 'users#verifycode'
       get  'paymentdetails(/:bought)' => 'users#paymentdetails'
+      get  'paymentdetails/print_invoice/:id(/:bought)' => 'item_deliveries#print_invoice'
 
 
       post 'location' => 'users#setlocation'
@@ -136,6 +137,7 @@ Sociorent::Application.routes.draw do
       get  'addimage/:form_id/form' => "items#sellitem_pricing"
 
       get 'sold/:id' => "items#sold"
+
 
       get 'mystore(/:query(/user/:id))' => 'items#inventory'
 
@@ -183,3 +185,4 @@ Sociorent::Application.routes.draw do
   match '*a', :to => 'errors#routing'
 
 end
+ 

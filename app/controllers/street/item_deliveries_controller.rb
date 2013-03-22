@@ -106,4 +106,27 @@ class Street::ItemDeliveriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+  def print_invoice
+    if !params.has_key?(:id) or params[:id].nil? 
+      redirect_to '/street/dashboard/'
+      return
+    end
+
+    if params.has_key?(:bought)
+      @payment = p2p_current_user.payments.find(params[:id])
+    else
+      @payment = p2p_current_user.soldpayments.find(params[:id])
+    end
+
+    if @payment.nil?
+      redirect_to '/street/dashboard'
+      return
+    end
+
+
+    render :partial => '/street/item_history/invoice' 
+  end  
 end

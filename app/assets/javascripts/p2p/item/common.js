@@ -91,15 +91,12 @@ $(document).ready(function(){
 //initialize variables
 	window.cache ={}
 
-
-
 //both for new and edit
-
 function check_before_save(){
 
 				var flag = 1;
 
-				if (!('title' in window.item_values) || window.item_values['title'] == ""){
+				if (!('title' in window.item_values) || window.item_values['title'] == "" || window.item_values['title'] != null || window.item_values['title'] != undefined ){
 					$("#title").addClass("error");
 					$("#title").tooltip('show');
 					return false;

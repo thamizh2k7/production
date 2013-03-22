@@ -6,9 +6,11 @@
 
 	$(document).ready(function(){
 
+
+
 			oVendorTable = $('#payment_table').dataTable({
 				"sDom": "<r><f>t<i><p>",
-			  	"sAjaxSource": '/street/paymentdetails' ,
+			  	"sAjaxSource": window.bought ,
 	            "bFilter":false,
 	         	"iDisplayLength" : 20,
 	            "bAutoWidth": false,

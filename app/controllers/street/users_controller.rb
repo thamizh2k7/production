@@ -338,22 +338,38 @@ class Street::UsersController < ApplicationController
     response[:iTotalRecords] =  @payments.count
     response[:iTotalDisplayRecords] = @payments.count
     #form the time to be displayed
-    @payments.each do |pay|
+    if params.has_key?(:bought)
+      @payments.each do |pay|
+        response[:aaData].push({
+                                 "0" =>  pay.statustext,
+                                 "1" => pay.item.title,
+                                 "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
+                                 "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
+                                 "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
+                                 "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
+                                 "6" =>  pay.item.price,
+                                 "7" =>  'action'
 
-      response[:aaData].push({
-                               "0" =>  pay.statustext,
-                               "1" => pay.item.title,
-                               "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
-                               "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
-                               "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
-                               "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
-                               "6" =>  pay.item.price,
-                               "7" =>  pay.commission ,
-                               "8" => pay.shipping_charge,
-                               "9" =>  (pay.item.price - ((pay.item.price *  (pay.commission/100) ) + pay.shipping_charge.to_f).ceil).to_i
+        })
+      end
+    else
+      @payments.each do |pay|
+        response[:aaData].push({
+                                 "0" =>  pay.statustext,
+                                 "1" => pay.item.title,
+                                 "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
+                                 "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
+                                 "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
+                                 "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
+                                 "6" =>  "#{pay.commission}%"  ,
+                                 "7" => "Rs. #{pay.shipping_charge}",
+                                 "8" =>  "Rs. #{(pay.item.price - ((pay.item.price *  (pay.commission/100) ) + pay.shipping_charge.to_f).ceil).to_i}",
+                                 "9" => "action"
 
-      })
+        })
+      end
     end
+
     render :json => response
   end
 

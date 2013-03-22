@@ -360,7 +360,7 @@ class Street::UsersController < ApplicationController
         if pay.shipping_date.nil?
           downloadlinks ="<a href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i></a>"
         else
-          downloadlinks = "<a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Download Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Download Label </a>"
+          downloadlinks = "<a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Label </a>"
         end
 
         response[:aaData].push({

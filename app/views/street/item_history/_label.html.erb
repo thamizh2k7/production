@@ -14,16 +14,6 @@
 			Ph: <%= @payment.buyer.mobile_number %>
 			</p>
 	</div>
-	<div class="span10 offset1" id="price_box">
-		<table class="table-bordered" id="price_table">
-      <tbody>
-        <tr>
-          <td>Shipment Items Value</td>
-          <td>Rs. <%= @payment.item.price %> </td>
-        </tr>
-      </tbody>
-    </table>
-	</div>
 	<div class="span12" id="price_container">
 		<p id="total_quantity">Total Quantity Inside: 1 </p>
 	</div>
@@ -32,7 +22,7 @@
 	</div>
 	<div class="span10 offset1">
 		<p id="footer">
-			Contains <%= @payment.item.category.name %>. Please handle with care.
+			Handle with care
 		</p>
 	</div>
 </div>

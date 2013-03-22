@@ -139,10 +139,10 @@ class Street::ItemDeliveriesController < ApplicationController
 
      @address = @address.html_safe
 
-     @senderaddress ="#{@payment.item.user.user.name}<br/>" 
+     @senderaddress ="#{@payment.item.user.user.name} " 
      addr=JSON.parse @payment.item.user.user.address
      addr.each do |k,v|
-       @senderaddress += "#{v}<br/>"
+       @senderaddress += "#{v} "
      end
 
      @senderaddress = @senderaddress.html_safe

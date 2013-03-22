@@ -166,7 +166,8 @@
     setupunotify();
 
     $(".action_popover").popover();
-    $('.action-icon').tooltip();
+    $("*").tooltip('disable');
+    $('[data-toggle="tooltip"]').tooltip('enable');
 
 
     $("#seller_send_verify_code").live("click",function(){

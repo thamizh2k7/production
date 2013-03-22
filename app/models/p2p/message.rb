@@ -42,17 +42,10 @@ class P2p::Message < ActiveRecord::Base
 
     message_notification = "
 
-        if (oInboxTable){
+        if (typeof(oInboxTable) != 'undefined' && oInboxTable!=null){
           oInboxTable.fnDraw();
         }
-        
-        if (oSentBoxTable){
-          oSentBoxTable.fnDraw();
-        }
 
-        if (oDeleteBoxTable){
-          oDeleteBoxTable.fnDraw();
-        }
       "
 
       if self.messagetype !=5 

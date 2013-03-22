@@ -15,8 +15,8 @@
     <div class="span6">
     <!-- New Form -->
       <div class="btn-group" id="listing_action">
-        <button class="btn btn-success action-icon"  data-title="Save this listing"  id="save_top"  ><i  class=" action_icon icon-white icon-ok-circle" title="Save changes"></i> Save</button>
-        <button class="btn btn-danger action-icon"  data-title="Cancel the changes"  id="cancel_top" ><i  class=" icon-white icon-remove-circle action_icon" title="Cancel changes"></i> Cancel</button>
+        <a href="#"  data-toggle="tooltip" class="btn btn-success"  data-title="Save this listing"  id="save_top"  ><i  class="  icon-white icon-ok-circle" title="Save changes"></i> Save</a>
+        <a href="#"  data-toggle="tooltip"  class="btn btn-danger"  data-title="Cancel the changes"  id="cancel_top" ><i  class=" icon-white icon-remove-circle " title="Cancel changes"></i> Cancel</a >
       </div>
     </div>
 
@@ -27,8 +27,8 @@
       <ul class="thumbnails">
         <li class="span4">
           <div class="thumbnail">
-            <i id="clearuploads" class="icon-trash action_icon pull-right hidden" title="Clear pics uploaded just now" disabled="disabled"></i>
-            <div id="upload_pic" title="Upload more photos" class="action_icon pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
+            <i id="clearuploads" class="icon-trash  pull-right hidden" title="Clear pics uploaded just now" disabled="disabled"></i>
+            <div id="upload_pic" title="Upload more photos" class=" pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
             <div class="clearfix"></div>
             <%= form_tag  "/street/items", :multipart => true, :id => "fileupload"   do %>
                 <div id="form_temp"></div>
@@ -64,16 +64,16 @@
             <tbody>
         <tr class="edit_visible">
           <td>Product Name </td>
-          <td> <span class="canEdit action_icon" id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ></span></td>
+          <td> <span class="canEdit " id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ></span></td>
         </tr>
         <tr>
           <td>Category </td>
-          <td> <span class="canEdit action_icon" id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ></span></td>
+          <td> <span class="canEdit " id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ></span></td>
         </tr>
         <tr>
           <td>Brand</td>
           <td>
-            <span id="model" class="action_icon "  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ></span>
+            <span id="model" class=" "  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ></span>
               <span id="add_new_model" class="hidden" id="add_new_model" data-title="Enter other Model" size="3">
           </td>
         </tr>
@@ -83,7 +83,7 @@
           </td>
           <td>
             <span> Rs.
-             <span class="canEdit  action_icon " data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> </span>
+             <span class="canEdit   " data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> </span>
             </span>
           </td>
         </tr>
@@ -92,7 +92,7 @@
             <span> Condition</span>
           </td>
           <td>
-            <span class="canEdit  action_icon " data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" ></span>
+            <span class="canEdit   " data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" ></span>
           </td>
         </tr>
         <tr>
@@ -100,7 +100,7 @@
             <span>Location</span>
           </td>
           <td>
-           <span class=" canEdit action_icon " data-name="username"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Enter the Location" ></span>
+           <span class=" canEdit  " data-name="username"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Enter the Location" ></span>
           </td>
         </tr>
      </tbody>
@@ -111,14 +111,14 @@
   <div class="row">
     <div id="desc" class="span10">
       <h4> Description</h4>
-      <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit action_icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"></span>
+      <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit " inputclass="desc_content_form" data-wysihtml5="{image:false}"></span>
     </div>
   </div>
 
 <div class="span10">
   <div class="btn-group pull-right" id="listing_action">
-    <button class="btn btn-success action-icon"  data-title="Save this listing"  id="save_bottom"  ><i  class=" action_icon icon-white icon-ok-circle" title="Save changes"></i> Save</button>
-    <button class="btn btn-danger action-icon"  data-title="Cancel the changes"  id="cancel_bottom" ><i  class=" icon-white icon-remove-circle action_icon" title="Cancel changes"></i> Cancel</button>
+    <button  data-toggle="tooltip"  class="btn btn-success"  data-title="Save this listing"  id="save_bottom"  ><i  class="  icon-white icon-ok-circle" title="Save changes"></i> Save</button>
+    <button  data-toggle="tooltip" class="btn btn-danger"  data-title="Cancel the changes"  id="cancel_bottom" ><i  class=" icon-white icon-remove-circle " title="Cancel changes"></i> Cancel</button>
   </div>
 </div>
 

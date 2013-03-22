@@ -52,7 +52,6 @@
 
 
 $(document).ready(function(){
-//	$(".action_icon").tooltip();
   $(".datepicker").datepicker();
 	$("#head_user_location").click(function(){
 		$("#location_modal").modal('show');

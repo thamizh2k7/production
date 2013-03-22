@@ -42,89 +42,87 @@
 
 	          		<!-- display the author button -->
 	          		<%if session[:isadmin]%>
-	          			<span class="btn action_popover" id="owner_item" data-title="<i class='icon-user'></i> Owner" data-content="The owner of this item is <%=@item.user.user.name%>(<%=@item.user.user.email%>)." data-placement="bottom" data-trigger="hover" data-html="true"><i class="icon-user"></i> Owner</span>
+	          			<span class="btn action_popover disabled" id="owner_item" data-title="<i class='icon-user'></i> Owner" data-content="The owner of this item is <%=@item.user.user.name%>(<%=@item.user.user.email%>)." data-placement="bottom" data-trigger="hover" data-html="true"><i class="icon-user"></i> Owner</span>
 	          		<% end %>
 
 		             <% if @item.solddate.nil?  %>
 		             		<% if @item.disapproveddate.nil? && @item.approveddate.nil? %>
                 				<a href="#" class="  btn"  >
-			                  	<i class=" action-icon icon-ban-circle"  title="Waiting For Approval"></i>
+			                  	<i class="  icon-ban-circle"  data-toggle="tooltip" title="Waiting For Approval"></i>
 				                  	Waiting For Approval
 			                  </a>
 			                   <%if session[:isadmin]%>
-				                  	<button class="btn alert-info"  id="approve" itemid="<%=@item.id%>"><i  class="action-icon icon-thumbs-up" title="Approve this listing"></i></button>
- 				                  	<button class="btn alert-info" id="disapprove" data-org-title="Enter Reason" itemid="<%= @item.id %>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
+				                  	<a href="#" class="btn alert-info"  id="approve" itemid="<%=@item.id%>" data-toggle="tooltip" title="Approve this listing" ><i  class=" icon-thumbs-up" ></i></a>
+ 				                  	<a href="#" class="btn alert-info" id="disapprove" data-original-title="Enter Reason" itemid="<%= @item.id %>" data-toggle="tooltip" title="DisApprove this listing><i  class="icon-thumbs-down" "></i></a>
 		                  	<%end %>
              				<% elsif @item.approveddate %>
              						<% if @item.user.id == session[:userid] %>
-	             				 		<a href="/street/sold/<%= @item.id %>" class=" btn"   >
-				                  	<i class="  action-icon  icon-shopping-cart" title="Mark this listing as sold"></i> Mark as sold
+	             				 		<a href="/street/sold/<%= @item.id %>" class=" btn" data-toggle="tooltip" title="Mark this listing as sold"   >
+				                  	<i class="icon-shopping-cart" ></i> Mark as sold
 				                  </a>
 			                  <% end%>
 												<% if session[:isadmin]%>
-													<a href="#" class=" btn"   >Approved    </a>
-			                  	<button class="btn alert-info" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down action-icon" title="DisApprove this listing"></i></button>
+													<button class=" btn disabled action_popover" data-title="Item Approved" data-content="This listing has been approved on <%=@item.approveddate.strftime("%d-%b-%C%y")%>" data-placement="top" data-trigger="hover" id="approved_btn_info"  > <i class="icon-thumbs-up"> </i>Approved    </a>
+			                  	<a href="#" class="btn alert-info" data-toggle="tooltip" title="DisApprove this listing" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down " ></i></button>
 			                  <% end %>
 
 		              	<% elsif @item.disapproveddate %>
 			                  <!-- if admin display the approve button -->
-			                 <a href="#" class="  btn" >
-				                	<i class=" action-icon icon-shopping-cart"  title="Item Disapproved"></i>
+			                 <button class="btn disabled action_popover"  data-content="This listing has been disapproved on <%=@item.disapproveddate.strftime("%d-%b-%C%y")%>" data-title="Item Disapproved" id="disapproved_btn_info"  data-trigger="hover" data-placement="top">
+				                	<i class="  icon-thumbs-down"  ></i>
 				                  Disapproved
-				                </a>
+				                </button>
 				                <%if session[:isadmin]%>
-				                  	<button class="btn alert-info"  id="approve" itemid="<%=@item.id%>"><i  class="action-icon icon-thumbs-up" title="Approve this listing"></i></button>
+				                  	<button class="btn alert-info"  title="Approve this listing" data-toggle="tooltip" id="approve" itemid="<%=@item.id%>"><i  class=" icon-thumbs-up" ></i></button>
 			                  <%end %>
 			              <% end %>
 
              					<% if @item.user.id == session[:userid] %>
-	                  		<a href="<%=@payurl%>" id="payment_btn" class="btn action_popover" data-content="<%=@paytype_content%>" data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="Payment Options" data-placement="bottom" >
-		      	           	<i class="action-icon icon icon-gift" title="<%=@item.paytype_text%>"></i>
+	                  		<a href="<%=@payurl%>" id="payment_btn" class="btn action_popover" data-content="<%=@paytype_content%>" data-html="true" data-trigger="hover" data-dealy="{show:0,hide:500}" data-title="<%=@item.paytype_text%>" data-placement="bottom" >
+		      	           	<i class=" icon icon-gift"></i>
 		    	              	Payment
 	  		                </a>
 	  		            	<% end %>
 	  		            <% else %>
-       						<span class="btn action_popover"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
+       						<span class="btn action_popover disabled"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
 
 		             		<% end %>
 
 	              <!-- check if the item is sold or not -->
 	              <% if @item.solddate.nil? %>
 	              	<% if @item.deletedate.nil? %>
-		                <button class="btn"  id="delete_button"  itemid="<%=@item.id%>">
-		                	<i  class=" action-icon icon-trash" title="Remove Listing"></i>
-		                </button>
+		                <a href="#" class="btn"  id="delete_button" data-toggle="tooltip" data-title="Remove Listing"  itemid="<%=@item.id%>">
+		                	<i  class="icon-trash" ></i>
+		                </a>
 
 		            	<% else%>
 
-		              <button class="btn">
-		               	<i  class=" action-icon icon-check" title="Deleted Listing"></i>
-		              </button>
+		              <a href="#" class="btn action_popover" data-placement="top" data-title="Deleted Listing" data-content="This listing was deleted on <%= @item.deletedate.strftime('%d-%b-%C%y')%>">
+		               	<i  class="icon-check"></i>
+		              </a>
 	              	<% end %>
 	              <% end %>
 
 	              <%if @item.user.id == session[:userid]%>
 	              	<% if @item.solddate.nil? %>
-			              <button class="btn " id="enable">
-			              	<i  class="action-icon icon-pencil"  title="Edit Listing"></i>
-			              </button>
+			              <a href="#" data-toggle="tooltip"  title="Edit Listing" class="btn " id="enable">
+			              	<i  class=" icon-pencil" ></i>
+			              </a>
 		              <% end %>
 
-		              <button class="btn btn-success hide " id="save_top"  >
-		              	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i> Save
-		              </button>
+		              <a href="#" data-toggle="tooltip"  title="Save changes" class="btn btn-success hide " id="save_top"  >
+		              	<i  class=" icon-white icon-ok-circle"></i> Save
+		              </a> 
 
-		              <button class="btn btn-danger hide " id="cancel_top" >
-		              	<i  class=" icon-white icon-remove-circle action-icon" title="Cancel changes"></i> Cancel
-		              </button>
+		              <a href="#" data-toggle="tooltip" title="Cancel changes"  class="btn btn-danger hide " id="cancel_top" >
+		              	<i  class=" icon-white icon-remove-circle" ></i> Cancel
+		              </a> 
 
-		              <a href="<%=@item_message_url%>" id="reqcount_<%=@item.id%>" role="button" class="btn " data-toggle="modal" ><i   class="action-icon icon-envelope" title="View Messages for this listing">  </i>  <%= @item.reqCount %> </a>
+		              <a href="<%=@item_message_url%>" data-toggle="tooltip"  title="View Messages for this listing" id="reqcount_<%=@item.id%>" role="button" class="btn " data-toggle="modal" ><i   class="icon-envelope">  </i>  <%= @item.reqCount %> </a>
 		            <% end %>
 
 
-	              <button class="btn" id="viewcount" ><i  title="Number of view of this listing" class="action-icon icon-eye-open"></i><%= @item.viewcount %></button>
-
-
+	              <button data-toggle="tooltip" title="Number of view of this listing" class="btn disabled"  id="viewcount" ><i   class="icon-eye-open"></i> <%= @item.viewcount %></button>
 	        </div> <!-- span6 action buttons-->
 	      </div>
 	    </div> <!-- row -->
@@ -134,9 +132,10 @@
 	          <ul class="thumbnails">
 	        	  <li>
 		            <div class="thumbnail">
-		              <i id="clearuploads" class="icon-trash action-icon pull-right hidden" title="Clear pics uploaded just now" disabled="disabled">
-		              </i>
-		              <div id="upload_pic" title="Upload more photos" class="action-icon pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
+		              <a href="#"  title="Clear pics uploaded just now" data-toggle="tooltip"><i id="clearuploads" class="icon-trash pull-right hidden"  disabled="disabled">
+		              </i></a>
+
+		              <a href="#" data-toggle="tooltip"  title="Upload more photos" ><div id="upload_pic" class="pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
 
 		              <div class="clearfix"></div>
 
@@ -189,19 +188,19 @@
 	              <tr class="edit_visible">
 	                <td>Title </td>
 	                <td>
-	                	<span class="canEdit action-icon" id="title"  data-org-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
+	                	<span class="canEdit" data-toggle="tooltip" id="title"  data-org-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
 	               	</td>
 	              </tr>
 	              <tr>
 	                  <td>Category </td>
-	                  <td> <span class=" action-icon" id="category_item" data-type="select" data-org-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ><%=@item.category.name %></span></td>
+	                  <td> <span data-toggle="tooltip" id="category_item" data-type="select" data-org-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ><%=@item.category.name %></span></td>
 	              </tr>
 	              <tr>
 	                <td>
 	                	<%= (@item.category.name =="Books") ? 'Type' : 'Brand'%>
 	                </td>
 	                <td>
-	                	<span id="model" class="action-icon"  data-placement="right" data-placeholder="Select a model"  data-org-title="Select Model" data-type="select" >
+	                	<span id="model" data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" >
 	                		<%=@item.product.name%>
 	                	</span>
 	                </td>
@@ -214,7 +213,7 @@
 	                 <td>
 	                    <span class="highlight highlight_force_color">
 	                    	Rs.
-	                        <span class=" canEdit highlight action-icon  highlight_force_color" data-name="username"  data-org-title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
+	                        <span class=" canEdit highlight  highlight_force_color" data-name="username"  data-org-title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
 	                        	<%= @item.price %>
 	                        </span>
 	                    </span>
@@ -226,7 +225,7 @@
 	                  <span class="highlight"> Condition</span>
 	                </td>
 	                <td>
-	                  <span class=" canEdit highlight action-icon  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" data-org-title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
+	                  <span class=" canEdit highlight  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" data-org-title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
 	                </td>
 	              </tr>
 
@@ -236,7 +235,7 @@
 	                  <span class="highlight">Location</span>
 	                </td>
 	                <td>
-	              	  <span class="highlight canEdit action-icon highlight_force_color" data-name="username"  data-type="typeahead" data-source="/street/getcities"  data-org-title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
+	              	  <span class="highlight canEdit highlight_force_color" data-name="username"  data-type="typeahead" data-source="/street/getcities"  data-org-title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
 	              	  	<%= @item.city.name %>
 	              	  </span>
 	                 </td>
@@ -252,7 +251,7 @@
 	                        <%= aspec.spec.name %>
 	                      </td>
 	                      <td>
-	                        <span class=" canEdit action-icon" data-name="username"  data-org-title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
+	                        <span class=" canEdit" data-name="username"  data-org-title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right">
 	                        	<%= aspec.value.titleize  unless aspec.value.nil? %>
 	                        </span>
 	                      </td>
@@ -277,7 +276,7 @@
 	     <div class="row">
 	          <div id="desc" class="span10">
 	               <h4> <%= @item.title.titleize %> Description</h4>
-	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class=" action-icon" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
+	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
 	          </div>
 
 	     </div>
@@ -339,11 +338,11 @@
 
     <div class="pull-right">
           <button class="btn btn-success hide " id="save_bottom"  >
-          	<i  class=" action-icon icon-white icon-ok-circle" title="Save changes"></i> Save
+          	<i  class=" icon-white icon-ok-circle" title="Save changes"></i> Save
           </button>
 
           <button class="btn btn-danger hide " id="cancel_bottom" >
-          	<i  class="icon-white icon-remove-circle action-icon" title="Cancel changes"></i> Cancel
+          	<i  class="icon-white icon-remove-circle" title="Cancel changes"></i> Cancel
           </button>
 
     </div>

@@ -10,7 +10,6 @@ $(document).ready(function(){
 		if (!saveItem()){
 			return false;
 		}
-		$('.action-icon').tooltip('destroy');
 	});
 
 	$("#save_bottom").click(function(){
@@ -478,9 +477,7 @@ function cancel_edit(){
 			$("#owner_item").removeClass('hidden');
 			$("#payment_btn").removeClass('hidden');
 
-			$(".action_icon").tooltip('destroy');
-
-			$('#clearuploads').addClass('hidden');
+		$('#clearuploads').addClass('hidden');
 			$('.remove_image').addClass('hidden');
 
 

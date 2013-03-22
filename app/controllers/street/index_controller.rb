@@ -58,11 +58,11 @@ class Street::IndexController < ApplicationController
     end
     if params[:query] !="" && ((params[:category]!="" && item_count > 0 ) || params[:category] =="")
       puts "falled in sphinx"
-      @result = item.listing_items_by_location(p2p_get_user_location).search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
+      @result = item.listing_items_by_location(p2p_get_user_location).active_items.search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
 
       # //if 0 results dn depend on sphinx
       if @result.count == 0
-          @result = item.listing_items_by_location(p2p_get_user_location).where("title like '%#{params[:query]}%' or title like lower('%#{params[:query]}%')").paginate(:page => params[:page] ,:per_page => 20)
+          @result = item.listing_items_by_location(p2p_get_user_location).active_items.where("title like '%#{params[:query]}%' or title like lower('%#{params[:query]}%')").paginate(:page => params[:page] ,:per_page => 20)
       end
 
     elsif params[:category]!="" && params[:query] ==""
@@ -78,10 +78,10 @@ class Street::IndexController < ApplicationController
     #response =[{:label => query ,:value => URI.encode("#{query}")}]
     response =[]
 
-    item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).group('product_id').notsold.approved.select('product_id').search(query ,:match_mode => :any ,:star => true)
+    item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).active_items.group('product_id').notsold.approved.select('product_id').search(query ,:match_mode => :any ,:star => true)
 
     if item_result.count == 0
-      item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).group('product_id').notsold.approved.select('product_id').where("title like '%#{query}%' or title like lower('%#{query}%')").paginate(:page => params[:page] ,:per_page => 20)
+      item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).active_items.group('product_id').notsold.approved.select('product_id').where("title like '%#{query}%' or title like lower('%#{query}%')").paginate(:page => params[:page] ,:per_page => 20)
     end
 
     used_cat =[]
@@ -100,9 +100,9 @@ class Street::IndexController < ApplicationController
     end
 
 
-    item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.search(query ,:match_mode => :any ,:star => true)
+    item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).active_items.search(query ,:match_mode => :any ,:star => true)
     if item_result.count == 0
-      item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).notsold.approved.where("title like '%#{query}%' or title like lower('%#{query}%')").paginate(:page => params[:page] ,:per_page => 20)
+      item_result = P2p::Item.by_location_or_allover(p2p_get_user_location).active_items.where("title like '%#{query}%' or title like lower('%#{query}%')").paginate(:page => params[:page] ,:per_page => 20)
     end
 
     item_result.each do |res|

@@ -114,7 +114,9 @@ $('#approve').on('click',function(){
           if (data ==  1) {
             showNotifications('Item Approved');
             that.remove();
+            $("#disapproved_btn_info").remove();
           }
+          
           else{
             showNotifications('Something went wrong');
           }
@@ -134,10 +136,18 @@ $("#disapprove").editable({
   success :function(response,newValue){
     showNotifications('Item Disapproved');
     $("#disapprove").remove();
+    $("#approved_btn_info").remove();
   },
   url :'/street/approve/disapprove?id='+$('#disapprove').attr("itemid"),
   value :'Disapprove'
 });
+$("#disapprove").on('shown',function(){
+    if ( $(this).data('editable').input.$input.val() == 'Disapprove' ){
+      $(this).data('editable').input.$input.val('');
+      $(this).data('editable').input.$input.focus();
+      $(this).data('editable').input.$input.attr('placeholder',"Enter Reason");
+    }
+  });
 
 //admin disapprove
 // $('#disapprove').on('click',function(){
@@ -267,6 +277,8 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
   $('#owner_item,#payment_btn').tooltip('destroy');
 
   $(".chosen").chosen();
+
+  $('.action_popover').tooltip('destroy');
 });
 window.show_address_model = function (){
   $("#address_modal").modal('show');

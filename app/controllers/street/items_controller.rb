@@ -451,25 +451,17 @@ class Street::ItemsController < ApplicationController
                                                                  :item_id => item.id
                                                                  });
         @message_notification = "
-$('#notificationcontainer').notify('create', {
-title: 'Disapproval of Listing',
-text: 'Your item #{item.title} has been disapproved by admin. Please check messages and reply to correct the issue'
-},{
-expires:false,
-click:function(){
-window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
-}
-});
-if (oInboxTable){
-oInboxTable.fnDraw();
-}
-if (oSentBoxTable){
-oSentBoxTable.fnDraw();
-}
-if (oDeleteBoxTable){
-oDeleteBoxTable.fnDraw();
-}
-"
+                    $('#notificationcontainer').notify('create', {
+                    title: 'Disapproval of Listing',
+                    text: 'Your item #{item.title} has been disapproved by admin. Please check messages and reply to correct the issue'
+                    },{
+                    expires:false,
+                    click:function(){
+                    window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+                    }
+                    });
+        "
+
         PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )
         render :json => '1'
         return
@@ -528,25 +520,17 @@ Sociorent Street Team.",
           message_page_count = " $('#unread_count').html('');"
         end
         @message_notification = "
-$('#notificationcontainer').notify('create', {
-title: 'Approval of Listing',
-text: 'Your item #{item.title} has been approved by admin and will be listed on the site.'
-},{
-expires:false,
-click:function(){
-window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
-}
-});
-if (oInboxTable){
-oInboxTable.fnDraw();
-}
-if (oSentBoxTable){
-oSentBoxTable.fnDraw();
-}
-if (oDeleteBoxTable){
-oDeleteBoxTable.fnDraw();
-}
-"
+                              $('#notificationcontainer').notify('create', {
+                              title: 'Approval of Listing',
+                              text: 'Your item #{item.title} has been approved by admin and will be listed on the site.'
+                              },{
+                              expires:false,
+                              click:function(){
+                              window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+                              }
+                              });
+                           "
+                           
         PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
         render :json => '1'
         return

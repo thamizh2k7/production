@@ -365,7 +365,7 @@ left: 0px;
 text-align: center;
 }
 .thumbnail:hover >.overlay_seller{
-	height: 30px;
+	height: 50px;
 	-khtml-transition: height 0.9s ease;
 -moz-transition: height 0.9s ease;
 -ms-transition: height 0.9s ease;

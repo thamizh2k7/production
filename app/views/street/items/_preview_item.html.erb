@@ -252,32 +252,14 @@
 
               <span id='fb-root'></span>
               <script src='http://connect.facebook.net/en_US/all.js'></script>
-              <a class="btn" onclick='postToFeed(); return false;'><i class="icon-facebook-sign"></i> Share</a>
-            <script>
-              FB.init({appId: "424914297573197", status: true, cookie: true});
+              <% fb_app_id = ENV['FACEBOOK_KEY'] %>
+              <% fb_picture = URI.encode("http://#{request.host}#{@thumbimage[0][:url]}") %>
+              <% fb_name = @item.title %>
+              <% fb_description = @item.desc.encode('UTF-8').truncate(100)%>
+              <% fb_link = URI.encode("http://#{request.host}/street/#{@item.category.name.gsub(/ /,'-')}/#{@item.product.name.gsub(/ /,'-')}/#{@item.title.gsub(/ /,'-')}/#{@item.id}")%>
+              <%= facebook_url= "https://www.facebook.com/dialog/feed?app_id=#{fb_app_id}&link=#{fb_link}&picture=#{fb_picture}&caption=Street-Sociorent&redirect_uri=#{fb_link}") %>
+              <a class="btn" ><i class="icon-facebook-sign" href="<%= facebook_url %>"></i> Share</a>
 
-              function postToFeed() {
-
-
-                // calling the API ...
-                var obj = {
-                  method: 'feed',
-                  redirect_uri: "http://<%=request.host%>:<%=request.port%>/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>",
-                  link: 'https://developers.facebook.com/docs/reference/dialogs/',
-                  picture: '<%= URI.encode("http://#{request.host}#{@thumbimage[0][:url]}") %>',
-                  name: "<%=@item.title%> ",
-                  caption: "Street - Sociorent",
-                  description: "<%=@item.desc.encode('UTF-8').truncate(100)%>"
-                };
-
-                function callback(response) {
-                  document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-                }
-
-                FB.ui(obj, callback);
-              }
-
-            </script>
 
             <% end %>
           </span>

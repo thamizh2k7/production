@@ -19,8 +19,11 @@
 
 			<h3>Updating <%= @p2p_item_delivery.item.title %> </h3>
 
+      <%= link_to raw('<i class="icon-arrow-left"></i> Back'), street_item_deliveries_path, class: "pull-right btn" %>
+
+
 			<%= render 'form' %>
 
-			<%= link_to 'Back', street_item_deliveries_path %>
+			
 		</div>
 </div>

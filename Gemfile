@@ -85,3 +85,6 @@ gem "rack","~>1.4.1"
 gem 'roo'
 
 gem 'ckeditor_rails'
+
+gem 'wkhtmltopdf-binary'
+gem 'pdfkit'

@@ -110,7 +110,10 @@ class Street::ItemDeliveriesController < ApplicationController
 
 
   def print_invoice
-    if !params.has_key?(:id) or params[:id].nil? 
+  end
+
+  def print_invoice_label
+    if !params.has_key?(:id) or params[:id].nil?  or !params.has_key?(:type)
       redirect_to '/street/dashboard/'
       return
     end
@@ -127,6 +130,61 @@ class Street::ItemDeliveriesController < ApplicationController
     end
 
 
-    render :partial => '/street/item_history/invoice' 
-  end  
+
+     @address = "#{@payment.buyer.user.name}<br/>"
+     addr=JSON.parse @payment.shipping_address
+     addr.each do |k,v|
+       @address += "#{v}<br/>"
+     end
+
+     @address = @address.html_safe
+
+     @senderaddress ="#{@payment.item.user.user.name}<br/>" 
+     addr=JSON.parse @payment.item.user.user.address
+     addr.each do |k,v|
+       @senderaddress += "#{v}<br/>"
+     end
+
+     @senderaddress = @senderaddress.html_safe
+
+    if params[:type] == 'invoice'
+        #capture the html in variable
+        html = render :partial => '/street/item_history/invoice' ,:layout => false
+    elsif params[:type] == 'label'
+        html = render :partial => '/street/item_history/label' ,:layout => false
+    else
+      redirect_to '/street/dashboard/'
+      return
+    end
+
+
+    #send the html to pdfkit
+    kit = PDFKit.new(html[0], :page_size => 'A4')
+
+    #send the stylesheets with absolute paths
+    kit.stylesheets <<  Rails.root.join('app/assets/stylesheets/p2p/invoice.css')
+    kit.stylesheets <<  Rails.root.join('app/assets/stylesheets/global/bootstrap.min.css')
+
+    #temp file path
+    path = (Rails.root.join("tmp/order_#{@payment.id}")).to_s
+
+    #save the pdf
+    kit.to_file(path)
+
+    if params[:type] == 'label'
+      label = "Package Label for Order #{@payment.id}"
+    elsif params[:type] == 'invoice'
+      label = "Package Invoice for Order #{@payment.id}"
+    end
+
+    #send the pdf
+    #send_data( kit.to_pdf,:type => "application/pdf", :filename => "Order #{@payment.id}")
+    send_file( path,:type => "application/pdf", :filename => label )
+
+    #delete the temp file
+    File.delete(path)
+
+    return
+
+  end
 end

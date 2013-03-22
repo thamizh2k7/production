@@ -1,6 +1,5 @@
 #main_wrapper {
 	border: 4px solid black;
-	padding-left: 40px;
 }
 
 #logo {
@@ -68,7 +67,8 @@
 	border-color: black;
 	margin-top: 20px;
 	font-size: 16px;
-	padding: 10px 0px
+	padding: 10px 0px;
+	display:block;
 }
 
 #shipping_price {
@@ -126,4 +126,5 @@
 
 #user_address_content{
 	margin-left:1em;
+	display:block;
 }

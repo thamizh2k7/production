@@ -109,7 +109,7 @@ Sociorent::Application.routes.draw do
       post 'users/verifymobile/code' => 'users#getcode'
       post 'users/verifymobile/:code' => 'users#verifycode'
       get  'paymentdetails(/:bought)' => 'users#paymentdetails'
-      get  'paymentdetails/print_invoice/:id(/:bought)' => 'item_deliveries#print_invoice'
+      get  'paymentdetails/:type/:id(/:bought)' => 'item_deliveries#print_invoice_label'
 
 
       post 'location' => 'users#setlocation'

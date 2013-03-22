@@ -1,3 +1,12 @@
+
+window.filter_request = null;
+
+clear_filter_request = function(){
+	if (window.filter_request !=  null and window.filter_request != undefined){
+		window.filter_request.abort();
+	}
+}
+
 filter_spec_by_text = function (val,elem){
 
 			var regexp = new RegExp("" +  val + "",'i');
@@ -5,14 +14,12 @@ filter_spec_by_text = function (val,elem){
 			_.each($(elem).find('.spec_filter_check'),function(spec){
 				console.log($(spec).attr('spec-value') + ' al');
 				if (regexp.test($(spec).attr('spec-value'))){
-						$(spec).parent().removeClass('hidden');
+					$(spec).parent().removeClass('hidden');
 				}
 				else{
-
 					$(spec).parent().addClass('hidden');
 				}
 			});
-
 }
 
 
@@ -47,23 +54,20 @@ $(document).ready(function(){
         } else {
             $('.scrollup').fadeOut();
         }
-  });
+    });
 
 	$('.scrollup').click(function(){
-    $("html, body").animate({ scrollTop: 0 }, 600);
-    return false;
+  	  $("html, body").animate({ scrollTop: 0 }, 600);
+	  return false;
     });
 
 	//end of scroll up
-
-
 
 	$("#Itemlist .navbar-inner").scrollToFixed({
 		'unfixed' : function() {
 			$("#Itemlist .navbar-inner").css('top',0);
 		}
 	});
-
 	// TO Apply filter on all attributes has spec filter class
 	// $(".spec-filter").click(function(){
 	// 	var spec = $(this).attr('spec-name');
@@ -119,10 +123,13 @@ $(document).ready(function(){
 	// TO load more items
 	function load_more(){
 
+		clear_filter_request();
+
 		$("#dummy_filter_holder").css({"position":"relative"});
 
 		$("#load_more div").html(' <img src="/assets/ajax_small.gif"/> Loading more items..! Please wait');
-		$.ajax({
+
+		window.filter_request  = $.ajax({
 			url:window.filterurl ,
 			data:{"filter": window.filters ,page: page_num},
 			type:"post",
@@ -153,9 +160,12 @@ $(document).ready(function(){
 
 		//showNotifications(' <img src="/assets/ajax_small.gif"/> Applying window.filters Please wait..!');
 
+		clear_filter_request();
+
+		
 		$("#filter_loading_image").removeClass('hide');
 
-		$.ajax({
+		window.filter_request = $.ajax({
 			url:window.filterurl ,
 			data:{"filter": window.filters ,page : 1 },
 			type:"post",

@@ -1,4 +1,11 @@
 
+// window.search_request = null;
+
+// clear_search_request = function(){
+//   if (window.search_request != null and window.search_request and != undefined){
+//     window.search_request.abort();
+//   }
+// }
 
   $(document).ready(function() {
 

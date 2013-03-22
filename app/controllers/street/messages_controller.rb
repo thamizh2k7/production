@@ -157,8 +157,10 @@ class Street::MessagesController < ApplicationController
       #eg, to searchh for nokia product search like #nokia
       #reset searches in message column
       if search.index('#') == 0
+        puts 'in search'
         begin
-          item = P2p::Item.find_by_title(search.slice(1,(search.size-1))).id
+          search =  search.slice(1,(search.size-1))
+          item = P2p::Item.where("title like '%#{search}%'")[0].id
         rescue
           item = 0
         end

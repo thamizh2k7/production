@@ -3,9 +3,12 @@
 //= require dataTables/jquery.dataTables.bootstrap
 */
 
+	
 
 	$(document).ready(function(){
 
+
+		$('.action_popover').popover();
 
 		// check or uncheck all the messages in the table
 		$(".master_check").change(function(){

@@ -58,7 +58,7 @@
   <div class="row">
     <div class="span4" id="item_top_details_details">
       <div class="big"> Condition: <span class="highlight"> <%= @item.condition %> </span></div>
-      <div class="big"> Price: <span class="highlight"> <%= @item.price %> </span></div>
+      <div class="big"> Price: <span class="highlight"> <%= @item.price.ceil.to_i %> </span></div>
     </div>
 
     <div class="span3 pull-right" id="item_top_buy_button">

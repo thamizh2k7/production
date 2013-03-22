@@ -211,7 +211,7 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
               dataType:'json',
               success:function(data){
                    if (data.status== 1){
-                        $("#send_verify_code").removeClass('btn-primary').attr('disabled','disable').html('Code Sent');
+                        $("#send_verify_code").removeClass('btn-primary').addClass('btn-warning').html('Code Sent. Resend Code');
 
                         $("#verify_code_submit").addClass('btn-primary');
 

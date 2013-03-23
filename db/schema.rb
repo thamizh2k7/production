@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320142938) do
+ActiveRecord::Schema.define(:version => 20130323065659) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -298,7 +298,7 @@ ActiveRecord::Schema.define(:version => 20130320142938) do
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
     t.integer  "priority"
-    t.decimal  "courier_charge", :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "courier_charge",                                :default => 0
     t.decimal  "commission",     :precision => 10, :scale => 2, :default => 0.0
     t.boolean  "delta",                                         :default => true
   end
@@ -414,7 +414,7 @@ ActiveRecord::Schema.define(:version => 20130320142938) do
     t.datetime "solddate"
     t.integer  "viewcount",          :default => 0
     t.integer  "reqCount",           :default => 0
-    t.float    "price"
+    t.integer  "price"
     t.integer  "city_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
@@ -517,10 +517,10 @@ ActiveRecord::Schema.define(:version => 20130320142938) do
   end
 
   create_table "publishers", :force => true do |t|
-    t.integer  "rental"
+    t.integer  "rental",     :default => 25
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

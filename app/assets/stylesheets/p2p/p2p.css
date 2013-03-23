@@ -571,6 +571,7 @@ vertical-align: middle;
 .aslink{
 	color: blue !important;
 	text-decoration: underline;
+	cursor: pointer;
 }
 .white{
 	color:white !important;

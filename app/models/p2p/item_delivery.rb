@@ -27,8 +27,10 @@ class P2p::ItemDelivery < ActiveRecord::Base
          return 'Payment Intiaited, but not done'
       elsif self.p2p_status == 4
          return 'Payment was cancelled in gateway'
-      elsif self.p2p_status == 7
+      elsif self.p2p_status == 7 and !self.shipping_date.nil? and self.delivery_date.nil?
          return 'Item shipped'
+      elsif self.p2p_status == 7 and !self.shipping_date.nil? and !self.delivery_date.nil?
+         return 'Item Delivered'
       end
    end
 end

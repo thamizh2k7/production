@@ -341,6 +341,13 @@ class Street::UsersController < ApplicationController
     #form the time to be displayed
     if params.has_key?(:bought)
       @payments.each do |pay|
+
+        if pay.shipping_date.nil?
+          action = ""
+        else
+          action ="<a class='aslink' href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i> Update Delivery date</a>".html_safe
+        end
+
         response[:aaData].push({
                                  "0" =>  pay.statustext,
                                  "1" => pay.item.title,
@@ -349,7 +356,7 @@ class Street::UsersController < ApplicationController
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
                                  "5" => (pay.delivery_date.nil?) ? "-NA-" : pay.delivery_date.strftime("%d-%b-%C%y"),
                                  "6" =>  pay.item.price,
-                                 "7" =>  ''
+                                 "7" =>  action
 
         })
       end
@@ -358,10 +365,14 @@ class Street::UsersController < ApplicationController
 
       @payments.each do |pay|
 
-        if pay.shipping_date.nil?
-          downloadlinks ="<a href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i></a>"
-        else
-          downloadlinks = "<a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Label </a>"
+        downloadlinks =""
+
+        if pay.delivery_date.nil?
+          downloadlinks +="<a class='aslink' href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i>Update Shipping Date</a><br/>"
+        end
+        
+        unless pay.shipping_date.nil?
+          downloadlinks += " <a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Label </a>"
         end
 
         response[:aaData].push({

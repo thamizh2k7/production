@@ -42,7 +42,7 @@
 
 	          		<!-- display the author button -->
 	          		<%if session[:isadmin]%>
-	          			<span class="btn action_popover disabled" id="owner_item" data-title="<i class='icon-user'></i> Owner" data-content="The owner of this item is <%=@item.user.user.name%>(<%=@item.user.user.email%>)." data-placement="bottom" data-trigger="hover" data-html="true"><i class="icon-user"></i> Owner</span>
+	          			<span class="btn action_popover disabled" id="owner_item" data-title="<i class='icon-user'></i> Owner" data-content="The owner of this item is <%=@item.user.user.name%> (<%=@item.user.user.email%>)." data-placement="bottom" data-trigger="hover" data-html="true"><i class="icon-user"></i> Owner</span>
 	          		<% end %>
 
 		             <% if @item.solddate.nil?  %>

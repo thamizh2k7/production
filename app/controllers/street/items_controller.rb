@@ -636,8 +636,8 @@ Sociorent Street Team.",
         item_delivery.item.update_attributes(:solddate=>Time.now)
         status = 2
 
-        sendsms (item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")
-        sendsms (item_delivery.buyer.mobile_number,"Thank you for buying the item #{item_delivery.item.title} and we would follow-up with the shipping notifications soon. Thank you!")
+        sendsms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")
+        sendsms(item_delivery.buyer.mobile_number,"Thank you for buying the item #{item_delivery.item.title} and we would follow-up with the shipping notifications soon. Thank you!")
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
                                                                  :message => "This is an auto generated system message. You had bought <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",

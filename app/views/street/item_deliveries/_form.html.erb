@@ -3,7 +3,12 @@
 <%= simple_form_for(@p2p_item_delivery ,:url => url) do |f| %>
   <%= f.error_notification %>
 
+  <% (@p2p_item_delivery.shipping_date = @p2p_item_delivery.shipping_date.strftime("%m/%d/%Y") ) unless @p2p_item_delivery.shipping_date.nil? %>
+  
+  <% (@p2p_item_delivery.delivery_date = @p2p_item_delivery.delivery_date.strftime("%m/%d/%Y") )  unless @p2p_item_delivery.delivery_date.nil? %>
+
   <div class="form-inputs">
+
 
 
 

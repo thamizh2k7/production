@@ -74,23 +74,97 @@ class Street::ItemDeliveriesController < ApplicationController
   # PUT /p2p/item_deliveries/1
   # PUT /p2p/item_deliveries/1.json
   def update
-    @p2p_item_delivery = P2p::ItemDelivery.find(params[:id])
 
-    unless params[:p2p_item_delivery].has_key?(:p2p_item_delivery_shipping_date) and params[:p2p_item_delivery][:p2p_item_delivery_shipping_date] !=""
-      params[:p2p_item_delivery][:p2p_status]= 7
+
+    send_deleiverd = false
+    send_shipped = false
+
+    delivery = false
+    shipping = false
+
+    begin
+      @p2p_item_delivery = p2p_current_user.soldpayments.find(params[:id])
+      raise 'delivery_date' if @p2p_item_delivery.nil? 
+      shipping = true
+    rescue
+      @p2p_item_delivery = p2p_current_user.payments.find(params[:id])
+      delivery = true
     end
 
-    unless params[:p2p_item_delivery].has_key?(:p2p_item_delivery_shipping_date) and params[:p2p_item_delivery][:p2p_item_delivery_shipping_date] !=""
-      params[:p2p_item_delivery][:p2p_status]= 7
+    if shipping
+
+      unless params[:p2p_item_delivery].has_key?(:p2p_item_delivery_shipping_date) and params[:p2p_item_delivery][:shipping_date] !=""
+        params[:p2p_item_delivery][:p2p_status]= 7
+
+
+        if (params[:p2p_item_delivery][:courier_name].to_s.strip == "") or ( params[:p2p_item_delivery][:tracking_no].to_s.strip == "")
+          redirect_to '/street/paymentdetails', notice: 'Enter all the Courier Name, Tracking Number, and shipping date'
+          return
+        end
+
+        params[:p2p_item_delivery][:shipping_date] = DateTime.strptime(params[:p2p_item_delivery][:shipping_date],"%m/%d/%Y")
+        send_shipped = true
+
+        params[:p2p_item_delivery].delete(:delivery_date)
+      end
+    end
+
+    if delivery
+      unless params[:p2p_item_delivery].has_key?(:shipping_date) and params[:p2p_item_delivery][:delivery_date] !=""
+        params[:p2p_item_delivery][:p2p_status]= 7
+        params[:p2p_item_delivery][:delivery_date] = DateTime.strptime(params[:p2p_item_delivery][:delivery_date] + " +05:30","%m/%d/%Y %z")
+
+        if  @p2p_item_delivery.shipping_date >=params[:p2p_item_delivery][:delivery_date]
+            redirect_to '/street/paymentdetails/bought', notice: 'Enter valid Delivery date'
+            return
+        end
+
+        send_deleiverd = true
+
+        params[:p2p_item_delivery].delete(:shipping_date)
+        params[:p2p_item_delivery].delete(:courier_name)
+        params[:p2p_item_delivery].delete(:tracking_no)
+      end
     end
 
     respond_to do |format|
+      
+      admin = P2p::User.find_by_user_id(session[:admin_id])
+
       if @p2p_item_delivery.update_attributes(params[:p2p_item_delivery])
+
+        if send_shipped 
+          send_sms(@p2p_item_delivery.buyer.mobile_number,"Your item #{@p2p_item_delivery.item.title} has been shipped via #{@p2p_item_delivery.courier_name} with AWB Number #{@p2p_item_delivery.tracking_no} on #{params[:p2p_item_delivery][:shipping_date].strftime("%d-%m-%C%y")} and you'll receive the item in the next 2-3 working days. Thanks.")
+
+          admin.sent_messages.create({:receiver_id => @p2p_item_delivery.buyer.id ,
+                                  :message => "Your item #{@p2p_item_delivery.item.title} has been shipped via #{@p2p_item_delivery.courier_name} with AWB Number #{@p2p_item_delivery.tracking_no} on #{params[:p2p_item_delivery][:shipping_date].strftime("%d-%m-%C%y")} and you'll receive the item in the next 2-3 working days. Thanks. <br/> Sociorent",
+                                  :messagetype => 6,
+                                  :sender_id => admin.id,
+                                  :sender_status => 2,
+                                  :receiver_status => 0,
+                                  :parent_id => 0
+                                  });
+  
+        end
+
+        if send_deleiverd
+          send_sms(@p2p_item_delivery.item.user.mobile_number,"Thank you for shopping at Sociorent Street. Your item #{@p2p_item_delivery.item.title} has been successfully delivered. We look forward to serve you soon. Thank you!")
+
+          admin.sent_messages.create({:receiver_id => @p2p_item_delivery.item.user.id ,
+                        :message => "Thank you for shopping at Sociorent Street. Your item #{@p2p_item_delivery.item.title} has been successfully delivered. We look forward to serve you soon. <br/>Thank you- <br/> Sociorent ",
+                        :messagetype => 6,
+                        :sender_id => admin.id,
+                        :sender_status => 2,
+                        :receiver_status => 0,
+                        :parent_id => 0
+                        });
+        end
+
         format.html { redirect_to '/street/paymentdetails', notice: 'Item delivery was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: 'p2p/paymentdetails', status: :unprocessable_entity }
+        format.json { render json: '/street/paymentdetails', status: :unprocessable_entity }
       end
     end
   end
@@ -188,3 +262,4 @@ class Street::ItemDeliveriesController < ApplicationController
 
   end
 end
+

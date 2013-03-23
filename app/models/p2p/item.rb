@@ -287,7 +287,7 @@ class P2p::Item < ActiveRecord::Base
   end
 
   def is_valid_data?
-    condition = ['brand new','like new','used','old']
+    condition = ['Brand New','Like New','Good Conditon','Used']
     result = true
     #result = false if /^\d+\.?\d*$/.match(self.price) == nil
     result = false if self.price == 0

@@ -7,7 +7,7 @@
         <div class="pull-left">
           <a class="pull-left logo" href="/street/"><h1>sociorent</h1></a><br>
         </div>
-        <div class="topbar_right pull-right">
+        <div class="topbar_right pull-right span8">
           <div>
 
 
@@ -24,16 +24,16 @@
 
 
 
-                  <li class=" action-icon" title="Sociorent.com" data-placement="bottom"><a href="/"><i class="icon-home"></i>Sociorent Home</a></li>
+                  <li data-toggle="tooltip" title="Sociorent.com" data-placement="bottom"><a href="/"><i class="icon-home"></i>Sociorent Home</a></li>
 
-                  <li class="action-icon" title="Messages" data-placement="bottom">
+                  <li data-toggle="tooltip" title="Messages" data-placement="bottom">
                     <% unread_count = (session[:userid].nil?) ? 0 :  p2p_current_user.received_messages.inbox.unread.count %>
                     <a href="/street/messages"><i class="icon-envelope"></i> Messages
                       <span id="header_msg_count"><%= "(#{unread_count})" if  unread_count > 0  %><span>
                   </li>
-                  <li class=" action-icon" title="Dashboard" data-placement="bottom"><a href="/street/dashboard"><i class="icon-dashboard"></i>Dashboard</a></li>
+                  <li data-toggle="tooltip" title="Dashboard" data-placement="bottom"><a href="/street/dashboard"><i class="icon-dashboard"></i>Dashboard</a></li>
 
-                  <li class="action-icon" title="Sign out" data-placement="bottom">
+                  <li data-toggle="tooltip" title="Sign out" data-placement="bottom">
                     <%= link_to "<i class='icon-signout'></i> Sign Out".html_safe, destroy_user_session_path, :method => :delete %>
                   </li>
 
@@ -82,7 +82,7 @@
     <div class="input-append input-prepend">
         <span class="add-on " id="head_user_location"  cityid="<%= (session.has_key?(:city_id)) ? session[:city_id] : "" %>" >
 
-            <i class="icon-globe action_icon " data-placement="bottom" data-title="<%= (session.has_key?(:city)) ? session[:city] : "Choose your location now" %>"></i>
+            <i class="icon-globe  " data-placement="bottom" data-title="<%= (session.has_key?(:city)) ? session[:city] : "Choose your location now" %>"></i>
         </span>
 
           <div class="modal hide fade" id="location_modal">

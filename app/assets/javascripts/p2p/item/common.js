@@ -14,9 +14,6 @@ $(document).ready(function(){
 
 	// edit new js
 
-	// set the configuration for tooltips
-	//$('.action-icon').tooltip('destroy');
-
 		// cancel edit function trigger
 	// #TODO: CHECK IF THE FORM IS CHANGED OR NOT AND REDIRECT ACCORDINGLY
 	$("#cancel_top").on('click',function(){

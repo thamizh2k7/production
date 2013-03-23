@@ -10,7 +10,6 @@ $(document).ready(function(){
 		if (!saveItem()){
 			return false;
 		}
-		$('.action-icon').tooltip('destroy');
 	});
 
 	$("#save_bottom").click(function(){
@@ -257,8 +256,15 @@ edit_item =function(){
 		//trigger on category change
 		$("#category_item").on('save',function(e,params){
 
+
 			// if new value is old value dn do anything
 			if (params.newValue == window.item_values['cat']) return false ;
+
+			if (params.newValue == "1"){
+				$('#model').closest('tr').find('td:first').text('Book Type');
+			}else{
+				$('#model').closest('tr').find('td:first').text('Brand');
+			}
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;
@@ -471,9 +477,7 @@ function cancel_edit(){
 			$("#owner_item").removeClass('hidden');
 			$("#payment_btn").removeClass('hidden');
 
-			$(".action_icon").tooltip('destroy');
-
-			$('#clearuploads').addClass('hidden');
+		$('#clearuploads').addClass('hidden');
 			$('.remove_image').addClass('hidden');
 
 

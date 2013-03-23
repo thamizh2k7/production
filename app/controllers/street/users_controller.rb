@@ -212,6 +212,17 @@ class Street::UsersController < ApplicationController
     end
   end
 
+  def updateaddress
+    begin
+      
+      p2p_current_user.update_attributes(:address => params[:address].to_json)
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+
+  end
+
   #list all the favourite users  for the current user
   def favouriteusers
     @fav = p2p_current_user.favouriteusers
@@ -615,5 +626,17 @@ end
       redirect_to '/street/faileduploads'
       return
     end
+  end
+
+  def profile
+        # load address of the current user
+    @address = JSON.parse(p2p_current_user.address) rescue {"address_street_1" => "",
+                                                        "address_street_2" => "",
+                                                        "address_city" => "",
+                                                        "address_state" => "",
+                                                        "address_pincode" => "" }
+
+    @mobile = (p2p_current_user.mobile_number.nil?) ? "" : @mobile
+
   end
 end

@@ -1,0 +1,172 @@
+
+
+
+<% content_for :pagetitle  do %>
+    Categories  -Admin
+<%end %>
+
+
+
+<div class="row" id="body_content" >
+
+     <div class="span3">
+
+      <ul class="nav nav-list">
+
+        <%= render "/street/users/dashboard_menu.html.erb" %>
+        <%#= render "/p2p/index/scat_menu" %>
+
+      </ul>
+    </div>
+
+
+<div class="span9">
+
+	<h3> <%= p2p_current_user.user.name %> Profile </h3>
+
+	<h4> Update Mobile </h4>
+    <div>
+       <div class="control-group">
+          <label class="control-label">Enter Mobile</label>
+          <div class="controls">
+            <input type="text" id="profile_mobile_number" value = "<%= p2p_current_user.mobile_number %>" class="input text" >
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"> Verification Code:</label>
+          <div class="controls">
+            <button class="btn  btn-primary" id="profile_send_verify_code">
+              Send
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"> Enter Verification Code:</label>
+          <div class="controls">
+            <input type="text" id="profile_verify_mobile" class="input text" >
+          </div>
+
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"> </label>
+
+          <div class="controls">
+            <button class="btn " id="profile_verify_code_submit">Verify Code</button>
+          </div>
+
+        </div>
+
+		</div>
+		
+		<br/>
+		<br/>
+
+ <h4> Update Address </h4>
+
+                    <form id="profile_address_form">
+                      <table class="table table-bordered table-striped">
+                        <% @address.each_with_index do |(name,value),index| %>
+                          <tr>
+                            <td><%= name.gsub(/address/i,'').humanize.titleize %></td>
+                            <td>
+                              <%if(name=="address_state")%>
+                                <%= select_tag("address[#{name}]",get_states_selected(value).html_safe,:class=>"chosen")%>
+                              <% else%>
+                                <%= text_field_tag("address[#{name}]",value)%>
+                              <% end%>
+                             </td>
+                          </tr>
+                        <% end %>
+                        <tr><td></td><td><a class="btn btn-primary" id="profile_update_address">Continue Shipping</a></td></tr>
+                      </table>
+                    </form>
+	</div>
+</div>
+
+
+<script>
+
+	$(document).ready(function(){
+
+
+    $("#profile_verify_code_submit").live("click",function(){
+
+         if ($("#profile_verify_mobile").val().length  !=6 ){
+              alert('Wrong code. Enter the correct code');
+              return false;
+         }
+
+         $(this).html('Verifying code').attr('disabled','disabled');
+
+         $.ajax({
+              url:'/street/users/verifymobile/' + $("#profile_verify_mobile").val(),
+              type:'post',
+              dataType:'json',
+              success:function(data){
+                   if (data.status== 1){
+												showNotifications('Successfully Verified Mobile');
+												$("#profile_verify_code_submit").removeClass('btn-primary').removeAttr('disabled').html('Verified Successfully');
+                   }else{
+                        $("#profile_verify_code_submit").addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
+                   }
+              },
+              error:function(){
+                        $("#profile_verify_code_submit").addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
+              }
+         });//ajax
+    });
+
+
+
+    $("#profile_update_address").live("click",function(){
+
+
+         $.ajax({
+              url:'/street/profile/updateaddress',
+              type:'post',
+              data:$('#profile_address_form').serialize(),
+              dataType:'json',
+              success:function(data){
+                   if (data.status== 1){
+												showNotifications('Successfully Updated address');
+                   }else{
+                        showNotifications('Some error occured. Try again.');
+                   }
+              },
+              error:function(){
+                        showNotifications('Some error occured. Try again.');
+              }
+         });//ajax
+    });
+
+
+
+    $("#profile_send_verify_code").live("click",function(){
+        var verify_ele = $(this)
+         $(this).html('Sending verification code');
+
+         $.ajax({
+              url:'/street/users/verifymobile/code',
+              type:'post',
+              data:{"mobile":$("#profile_mobile_number").val()},
+              dataType:'json',
+              success:function(data){
+                   if (data.status == 1){
+                        $(verify_ele).removeClass('btn-primary').html('Code Sent. Resend Code');
+                   }else{
+                        showNotifications('Some error occured. Try again.');
+                   }
+              },
+              error:function(){
+                        showNotifications('Some error occured. Try again.');
+              }
+
+         });//ajax
+    });//click
+
+	});
+
+</script>

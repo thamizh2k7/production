@@ -25,6 +25,7 @@
 
 <li class="nav-header">Menu</li>
 <li class="<%= (params[:action] == "dashboard") ? "active" : "" %>"> <a href="/street/dashboard"> <i class="icon-dashboard"></i> Dashboard</a></li>
+<li class="<%= (params[:action] == "profile") ? "active" : "" %>"> <a href="/street/profile"> <i class="icon-user"></i> My Profile</a></li>
 <li class="<%= (params[:action] == "inventory" and !params.has_key?(:query)) ? "active" : "" %>"><a href="/street/mystore"><i class="icon-shopping-cart "></i>My Store</a></li>
 <li class="<%= (params[:action] == "favouriteusers") ? "active" : "" %>"><a href="/street/favourites"><i class="icon-star "></i>My Favourites</a></li>
 <li class="<%= (params[:action] == "paymentdetails" and params.has_key?(:bought)) ? "active" : "" %>"> <a href="/street/paymentdetails/bought"><i class="icon-money "></i>Bought History</a></li>

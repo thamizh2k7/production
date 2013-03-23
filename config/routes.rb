@@ -86,12 +86,15 @@ Sociorent::Application.routes.draw do
     match 'seller_policy' => 'static_pages#sellerpolicy'
     match 'buyer_policy' => 'static_pages#buyerpolicy'
 
+    post '/profile/updateaddress' => 'users#updateaddress'
+
     resources :messages
     match 'mark_as_read' =>'messages#mark_as_read'
     resources :items
     resources :images
     resources :credits
 
+    match 'profile' => 'users#profile'
 
     #for adimn
     scope 'admin' do

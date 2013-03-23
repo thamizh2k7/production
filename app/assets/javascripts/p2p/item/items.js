@@ -261,10 +261,15 @@ edit_item =function(){
 			if (params.newValue == window.item_values['cat']) return false ;
 
 			if (params.newValue == "1"){
-				$('#model').closest('tr').find('td:first').text('Book Type');
+				$('#model').closest('tr').find('td:first').text('Book Genere');
+			}else if (params.newValue == "13"){
+				$('#model').closest('tr').find('td:first').text('Platform');
+			}else if (params.newValue == "14"){
+				$('#model').closest('tr').find('td:first').text('Cloth Style');
 			}else{
-				$('#model').closest('tr').find('td:first').text('Brand');
+				$('#model').closest('tr').find('td:first').text('Model');
 			}
+
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;

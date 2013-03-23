@@ -3,6 +3,7 @@
 //= require p2p/helpers/jquery.fancybox-buttons.js
 //= require p2p/helpers/jquery.fancybox-thumbs.js
 //= require p2p/helpers/jquery.fancybox-media.js
+//= require global/jquery.typewatch
 
 
 $(document).ready(function(){

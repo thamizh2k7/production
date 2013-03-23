@@ -309,19 +309,19 @@
 
           <tr class="edit_visible">
             <td>Title </td>
-            <td> <span class="canEdit " id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span></td>
+            <td> <span id="title" ><%=@item.title.titleize  %></span></td>
           </tr>
 
 
           <tr>
             <td>Product </td>
-            <td> <span class="canEdit " id="category" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ><%=@item.category.name%></span></td>
+            <td> <span class="category_item" ><%=@item.category.name%></span></td>
           </tr>
 
           <tr>
             <td>Model / Category</td>
             <td>
-              <span id="model" class=""  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=@item.product.name%></span>
+              <span class="model_item"  ><%=@item.product.name%></span>
             </td>
 
           </tr>
@@ -334,7 +334,7 @@
                 <%= aspec.spec.name %>
               </td>
               <td>
-                <span class="canEdit " data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
+                <span class="canEdit " > <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
               </td>
             </tr>
         <% end %>
@@ -354,7 +354,7 @@
 
   <div id="desc">
     <h4> <%= @item.title.titleize %> Description</h4>
-    <span id="desc_content" title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="canEdit " inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
+    <span id="desc_content" > <%= URI.decode(@item.desc).html_safe %> </span>
   </div>
 
   <div>
@@ -372,19 +372,19 @@
 
       <tr class="edit_visible">
         <td>Title </td>
-        <td> <span class="canEdit " id="title"  data-original-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span></td>
+        <td> <span id="title"  ><%=@item.title.titleize  %></span></td>
       </tr>
 
 
       <tr>
         <td>Product </td>
-        <td> <span class="canEdit " id="category" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ><%=@item.category.name%></span></td>
+        <td> <span class="category_item" ><%=@item.category.name%></span></td>
       </tr>
 
       <tr>
         <td>Category / Model </td>
         <td>
-          <span id="model" class=""  data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" ><%=@item.product.name%></span>
+          <span class="model_item" ><%=@item.product.name%></span>
         </td>
 
       </tr>
@@ -396,7 +396,7 @@
         </td>
         <td>
                 <span > Rs.
-                   <span data-name="username"  title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price"> <%= @item.price %>  </span>
+                   <span> <%= @item.price %>  </span>
               </span>
 
         </td>
@@ -408,7 +408,7 @@
           <span > Condition</span>
         </td>
         <td>
-          <span  data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
+          <span > <%= @item.condition.titleize %> </span>
         </td>
       </tr>
 
@@ -418,7 +418,7 @@
           <span >Location</span>
         </td>
         <td>
-          <span  data-name="username"  data-type="typeahead" data-source="/street/getcities"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" > <%= @item.city.name.titleize %> </span>
+          <span > <%= @item.city.name.titleize %> </span>
         </td>
       </tr>
 
@@ -430,7 +430,7 @@
                       <%= aspec.spec.name %>
                     </td>
                     <td>
-                      <span class="canEdit " data-name="username"  title="Enter <%= aspec.spec.name %>"  specname="<%= aspec.spec.name %>" specid="<%= aspec.spec.id.to_s %>" id="item_<%= aspec.spec.id %>" data-placement="right"> <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
+                      <span > <%= aspec.value.titleize  unless aspec.value.nil? %> </span>
                     </td>
                   </tr>
               <% end %>
@@ -510,6 +510,20 @@
                 }
             });
         });
+
+
+        //rename
+      var cat= $('.category_item').val();
+
+      if (cat == 'Books'){
+        $('.model_item').closest('tr').find('td:first').text('Book Genre');
+      }else if (cat == "Games"){
+        $('.model_item').closest('tr').find('td:first').text('Platform');
+      }else if (cat == "Clothing"){
+        $('.model_item').closest('tr').find('td:first').text('Cloth Style');
+      }else{
+        $('.model_item').closest('tr').find('td:first').text('Model');
+      }
 
     });
 

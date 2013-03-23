@@ -33,6 +33,7 @@
 
                   <li data-toggle="tooltip" title="Sign out" data-placement="bottom">
                     <%= link_to "<i class='icon-signout'></i> Sign Out".html_safe, destroy_user_session_path, :method => :delete %>
+
                   </li>
 
                 <% end %>
@@ -169,8 +170,34 @@
 
                     </div>
                 </div>
-
+              </div>
+              <% unless session[:userid].nil? %>
+                <div id="address_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Shipping Address" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3> Shipping Address </h3>
+                  </div>
+                  <div class="modal-body form-horizontal">
+                    <form id="shipping_address_form">
+                      <table class="table table-bordered table-striped">
+                        <% @address.each_with_index do |(name,value),index| %>
+                          <tr>
+                            <td><%= name.gsub(/address/i,'').humanize.titleize %></td>
+                            <td>
+                              <%if(name=="address_state")%>
+                                <%= select_tag(name,get_states_selected(value).html_safe,:class=>"chosen")%>
+                              <% else%>
+                                <%= text_field_tag("#{name}",value)%>
+                              <% end%>
+                             </td>
+                          </tr>
+                        <% end %>
+                        <tr><td></td><td><a class="btn" id="conitinue_to_checkout">Continue Shipping</a></td></tr>
+                      </table>
+                    </form>
+                  </div>
                 </div>
+              <% end %>
 
 
 <!-- set the container hidden to avoid a flash of unstyled content

@@ -586,3 +586,9 @@ vertical-align: middle;
 .unfollow_user {
 	cursor: pointer;
 }
+
+
+.btn{
+	filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=0.5,MakeShadow=false);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=0.5,MakeShadow=false)";
+}

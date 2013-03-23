@@ -2,7 +2,7 @@
 window.filter_request = null;
 
 clear_filter_request = function(){
-	if (window.filter_request !=  null and window.filter_request != undefined){
+	if (window.filter_request !=  null && window.filter_request != undefined){
 		window.filter_request.abort();
 	}
 }
@@ -162,7 +162,7 @@ $(document).ready(function(){
 
 		clear_filter_request();
 
-		
+
 		$("#filter_loading_image").removeClass('hide');
 
 		window.filter_request = $.ajax({

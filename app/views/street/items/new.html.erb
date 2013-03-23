@@ -27,10 +27,10 @@
       <ul class="thumbnails">
         <li class="span4">
           <div class="thumbnail">
-            <a id="clearuploads" class="pull-right hidden aslink" data-toggle="tooltip" title="Clear pics uploaded just now" ><i class="icon-trash disabled="disabled"></i>Clear Uploaded</a>
+            <a id="clearuploads" class="pull-right hidden aslink" data-toggle="tooltip" title="Clear pics uploaded just now" ><i class="icon-trash" disabled="disabled"></i>Clear Uploaded</a>
             <div id="upload_pic" title="Upload more photos" class=" pull-right edit_visible"><i class="icon-upload"></i>Upload</div>
             <div class="clearfix"></div>
-            <%= form_tag  "/street/items", :multipart => true, :id => "fileupload"   do %>
+            <%= form_tag  "/street/items", :class=> 'hide', :multipart => true, :id => "fileupload"   do %>
                 <div id="form_temp"></div>
                   <%= file_field_tag "img[]" ,:id=> "image_upload" ,:multiple  => 'true' ,:disabled => true  ,:accept => "image/*"  %>
             <% end %>

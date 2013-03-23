@@ -288,13 +288,9 @@ class Street::UsersController < ApplicationController
     #if the client has request for search
     if params.has_key?(:searchq) and params[:searchq].strip !=""
       search = params[:searchq]
-      #the searc for item begines with #
-      #eg, to searchh for nokia product search like #nokia
-      #reset searches in message column
+
       where = "" 
-      # if search.downcase == 'success'
-      #   where += 'p2p_status in  (2,) '
-      # end
+
 
       if search.index('@') == 0
         begin
@@ -304,20 +300,44 @@ class Street::UsersController < ApplicationController
         end
       end
 
-        begin
-          item = P2p::Item.where( "title like '%#{search}%'").pluck('id')
-        rescue
-          item = 0
+
+      if search.index('#') == 0
+
+        case search.slice(1,(search.size-1))
+          when 'shipped'
+              where += 'shipping_date is not null'
+          when 'delivered'
+              where += 'delivery_date is not null'
+          when 'success'
+              where += 'p2p_status =2 '
+          when 'fail'
+              where += 'p2p_status = 0'
+          when 'cancelled'
+              where += 'p2p_status = 4'
         end
+
+      end
+
+      begin
+        item = P2p::Item.where( "title like '%#{search}%'").pluck('id')
+      rescue
+        item = 0
+      end
     end
     #find for which items is the request came for
     # and get messages appropiatly
     
 
+
     if user!=0 and !user.nil? and user.count > 0
+      
+      where += ' and ' if where!="" 
+
       where += " buyer in (#{user.join(',')})"
     elsif item!=0 and !item.nil? and item.count > 0
+
       where=" and " if where!=""
+
       where += " p2p_item_id in (#{item.join(',')})"
     end
 
@@ -596,5 +616,4 @@ end
       return
     end
   end
-
 end

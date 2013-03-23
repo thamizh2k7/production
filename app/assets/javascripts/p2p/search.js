@@ -172,7 +172,7 @@
 
     $("#seller_send_verify_code").live("click",function(){
         var verify_ele = $(this)
-         $(this).html('Sending verification code').attr('disabled','disabled');
+         $(this).html('Sending verification code');
 
          $.ajax({
               url:'/street/users/verifymobile/code',
@@ -180,9 +180,8 @@
               data:{"mobile":$("#seller_mobile_number").val()},
               dataType:'json',
               success:function(data){
-                   if (data.status== 1){
-                        $(verify_ele).removeClass('btn-primary').attr('disabled','disable').html('Code Sent');
-
+                   if (data.status == 1){
+                        $(verify_ele).removeClass('btn-primary').html('Code Sent. Resend Code');
                         $("#seller_verify_code_submit").addClass('btn-primary');
 
                    }else{

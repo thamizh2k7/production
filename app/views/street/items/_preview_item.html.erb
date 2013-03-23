@@ -84,7 +84,7 @@
                   <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal"><i class="icon-white icon-gift"> </i>  Buy this now </a>
 
                   <div class="well" id="ship_city_info">
-                    This item will be shipped to <%= @item.city.name %> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
+                    This item will be shipped to <%= @item.city.name %> <br/> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
                   </div>
 
               <% elsif @item.paytype == 3 %>
@@ -204,7 +204,7 @@
                 <br/><br/>
 
                 <div class="well" id="ship_city_info">
-                  This item will be shipped to <%= @item.city.name %> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
+                  This item will be shipped to <%= @item.city.name %> <br/><%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
                 </div>
 
             <% elsif @item.paytype == 3 %>

@@ -23,14 +23,12 @@
 #user_location{
 	margin-top: 7px;
 	height: auto;
-	border: none;
-	outline: none;
-	padding: 0px;
-	width:130px;
-	background-color: transparent;
+	border: 1px solid #DDD;
+	padding: 0px 0px 0px 5px;
+	width: 130px;
+	background-color: white;
 	font-weight: bold;
-    display: inline-block;
-
+	display: inline-block;
 }
 
 .location_li i{

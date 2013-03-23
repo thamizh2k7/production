@@ -350,7 +350,7 @@ class Street::UsersController < ApplicationController
 
         response[:aaData].push({
                                  "0" =>  pay.statustext,
-                                 "1" => pay.item.title,
+                                 "1" => "<a class='aslink' href='#{URI.encode("/street/#{pay.item.category.name.gsub(/ /,"-")}/#{pay.item.product.name.gsub(/ /,"-")}/#{(pay.item.title).gsub(/ /,"-")}/#{pay.item.id}")}'>#{pay.item.title}</a>",
                                  "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
                                  "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
@@ -377,7 +377,7 @@ class Street::UsersController < ApplicationController
 
         response[:aaData].push({
                                  "0" =>  pay.statustext,
-                                 "1" => pay.item.title,
+                                 "1" => "<a class='aslink' href='#{URI.encode("/street/#{pay.item.category.name.gsub(/ /,"-")}/#{pay.item.product.name.gsub(/ /,"-")}/#{(pay.item.title).gsub(/ /,"-")}/#{pay.item.id}")}'>#{pay.item.title}</a>",
                                  "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
                                  "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,

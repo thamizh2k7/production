@@ -257,7 +257,7 @@
               <% fb_name = @item.title %>
               <% fb_description = @item.desc.encode('UTF-8').truncate(100)%>
               <% fb_link = URI.encode("http://#{request.host}/street/#{@item.category.name.gsub(/ /,'-')}/#{@item.product.name.gsub(/ /,'-')}/#{@item.title.gsub(/ /,'-')}/#{@item.id}")%>
-              <%= facebook_url= "https://www.facebook.com/dialog/feed?app_id=#{fb_app_id}&link=#{fb_link}&picture=#{fb_picture}&caption=Street-Sociorent&redirect_uri=#{fb_link}") %>
+              <% facebook_url= "https://www.facebook.com/dialog/feed?app_id=#{fb_app_id}&link=#{fb_link}&picture=#{fb_picture}&caption=Street-Sociorent&redirect_uri=#{fb_link}" %>
               <a class="btn" ><i class="icon-facebook-sign" href="<%= facebook_url %>"></i> Share</a>
 
 

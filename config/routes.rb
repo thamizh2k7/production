@@ -10,7 +10,7 @@ Sociorent::Application.routes.draw do
 
   resources :static_pages
 
-  get 'static_pages/get_page/:page_name' => 'static_pages#get_page'
+  get 'page/:id' => 'static_pages#show'
   get 'college_ambassadors' => 'static_pages#colleges'
 
   # get 'aboutus' => 'static_pages#about_us'
@@ -72,7 +72,19 @@ Sociorent::Application.routes.draw do
   ##P2P Routes
   namespace :street do
 
+
     root :to => "index#index"
+
+
+    match 'aboutus' => 'static_pages#aboutus'
+    match 'contactus' => 'static_pages#contactus'
+    match 'privacy_policy' => 'static_pages#privacypolicy'
+    match 'how_to_sell' => 'static_pages#howtosell'
+    match 'how_to_buy' => 'static_pages#howtobuy'
+    match 'buyer_protection' => 'static_pages#buyerprotection'
+    match 'terms_of_use' => 'static_pages#terms'
+    match 'seller_policy' => 'static_pages#sellerpolicy'
+    match 'buyer_policy' => 'static_pages#buyerpolicy'
 
     resources :messages
     match 'mark_as_read' =>'messages#mark_as_read'

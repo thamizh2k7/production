@@ -592,3 +592,7 @@ vertical-align: middle;
 	filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=0.5,MakeShadow=false);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=0.5,MakeShadow=false)";
 }
+
+#body_container{
+	min-height: 500px;
+}

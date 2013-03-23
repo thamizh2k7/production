@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-  layout "p2p_layout"
 
   def new
     @page = StaticPage.new

@@ -180,6 +180,7 @@
                   <div class="modal-body form-horizontal">
                     <form id="shipping_address_form">
                       <table class="table table-bordered table-striped">
+                        <% @address=[] if @address.nil? %>
                         <% @address.each_with_index do |(name,value),index| %>
                           <tr>
                             <td><%= name.gsub(/address/i,'').humanize.titleize %></td>

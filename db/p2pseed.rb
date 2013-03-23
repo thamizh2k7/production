@@ -223,9 +223,15 @@
 		 P2p::ServicePincode.create(:pincode => '560036' )
 		 P2p::ServicePincode.create(:pincode => '560043' )
 
-
-		 StaticPage.create(:page_name => "buyer_protection", :page_title => "Buyer Protection", :page_content => "Buyer Protection", :is_active => true)
-		 StaticPage.create(:page_name => "terms_conditions", :page_title => "Terms and conditons", :page_content => "Terms and condition", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_aboutus", :page_title => "About us", :page_content => "About Us", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_contactus", :page_title => "Contact us", :page_content => "Contact Us", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_privacypolicy", :page_title => "Privacy Policy", :page_content => "Privacy Policy", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_how_to_sell", :page_title => "How to sell", :page_content => "How to sell", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_how_to_buy", :page_title => "How to buy", :page_content => "How to buy", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_buyer_protection", :page_title => "Buyer Protection", :page_content => "Buyer Protection", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_terms_conditions", :page_title => "Terms and conditons", :page_content => "Terms and Conditions", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_seller_policy", :page_title => "Seller Policy", :page_content => "Seller Policy", :is_active => true)
+		 StaticPage.create(:page_name => "p2p_buyer_policy", :page_title => "Buyer Polciy", :page_content => "Buyer Policy", :is_active => true)
 
 # *******************************************************************
 

@@ -343,13 +343,13 @@ li {
 
 
 @font-face {
-        font-family: 'PT Sans';
-        src: url('/assets/fonts/PT_Sans-Web-Regular.eot'),
-             url('/assets/fonts/PT_Sans-Web-Regular.woff') format('woff'),
-             url('/assets/fonts/PT_Sans-Web-Regular.ttf') format('truetype'),
+			 font-family: 'PT Sans';
+  		 font-style: normal;
+  		 font-weight: 400;
+  		 src: local('PT Sans'), local('PTSans-Regular'), url(http://themes.googleusercontent.com/static/fonts/ptsans/v4/LKf8nhXsWg5ybwEGXk8UBQ.woff) format('woff'),
+             url('/assets/fonts/PT_Sans-Web-Regular.eot'),
+             url('/assets/fonts/PT_Sans-Web-Regular.ttf') format('ttf'),
              url('/assets/fonts/PT_Sans-Web-Regular.svg') format('svg');
-        font-weight: normal;
-        font-style: normal;
 }
 
 

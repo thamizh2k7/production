@@ -82,11 +82,15 @@
 
               <% elsif @item.paytype == 1 %>
 
-                  <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-envelope"> </i>     Buy this now </a>
+                  <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Receive by courier"><i class="icon-white icon-gift"> </i>  Buy this now </a>
+
+                  This item will be shipped to <%= @item.city.name %> 
 
               <% elsif @item.paytype == 3 %>
 
                   <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" title="Pay and receive by Sociorent"><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
+
+                  This item will be shipped to <%= @item.city.name %> 
 
               <% end %>
             <% end %>
@@ -192,6 +196,9 @@
                 </form>
 
                 <button class="btn btn-warning action_popover" id= "pay_now_citrus_pay"><i class="icon-white icon-credit-card"></i>   Buy this now</button>
+
+                <br/><br/>
+                This item will be shipped to <%= @item.city.name %> <%  %>
 
             <% elsif @item.paytype == 3 %>
 

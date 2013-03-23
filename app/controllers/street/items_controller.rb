@@ -312,15 +312,14 @@ class Street::ItemsController < ApplicationController
     @rand_image = rand(0..(@item.get_image(0,:thumb).count-1))
 
     # load address of the current user
-    @address = JSON.parse(current_user.address) rescue ""
-
-    @address = {"address_street_1" => "",
-    "address_street_2" => "",
-    "address_city" => "",
-    "address_state" => "",
-    "address_pincode" => "" } if @address == ''
+    @address = JSON.parse(current_user.address) rescue {"address_street_1" => "",
+                                                        "address_street_2" => "",
+                                                        "address_city" => "",
+                                                        "address_state" => "",
+                                                        "address_pincode" => "" }
 
   end
+  
   def inventory
     user = p2p_current_user
     if params[:query].present?

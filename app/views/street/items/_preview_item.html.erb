@@ -84,13 +84,18 @@
 
                   <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal"><i class="icon-white icon-gift"> </i>  Buy this now </a>
 
-                  This item will be shipped to <%= @item.city.name %>
+                  <div class="well" id="ship_city_info">
+                    This item will be shipped to <%= @item.city.name %> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
+                  </div>
 
               <% elsif @item.paytype == 3 %>
 
                   <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal" ><i class="icon-white icon-star"> </i>    Buy this now  via Sociorent </a>
 
+                <div class="well" id="ship_city_info">
                   This item will be shipped to <%= @item.city.name %>
+                </div>
+
 
               <% end %>
             <% end %>
@@ -200,12 +205,17 @@
                 <br/><br/>
 
                 <div class="well" id="ship_city_info">
-                  This item will be shipped to <%= @item.city.name %> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to <b>all over india</b>.".html_safe %>
+                  This item will be shipped to <%= @item.city.name %> <%= ((@item.payinfo.split(','))[1].nil?) ? "" : " and to all over india.".html_safe %>
                 </div>
 
             <% elsif @item.paytype == 3 %>
 
                 <a href="#check_availability_modal" role="button" class="btn  btn-warning" data-toggle="modal"  ><i class="icon-white icon-credit-card"></i>    Buy this now</a>
+
+                <div class="well" id="ship_city_info">
+                  This item will be shipped to <%= @item.city.name %>
+                </div>
+
                 <form id="citruspay_form" method="post" action="https://www.citruspay.com/wnw4zo7md1">
                   <input type="hidden" name="merchantAccessKey" value="FFY8AMUA98AR6E1NNHS9">
                   <input type="hidden" name="secSignature" id="citruspay_signature">

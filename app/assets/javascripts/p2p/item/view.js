@@ -212,7 +212,7 @@ $("#pay_now_citrus_pay").live("click",show_address_model);
 
 
   $("#send_verify_code").click(function(){
-         $(this).html('Sending verification code').attr('disabled','disabled');
+         $(this).html('Sending verification code');
 
          $.ajax({
               url:'/street/users/verifymobile/code',

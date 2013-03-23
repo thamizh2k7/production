@@ -408,4 +408,5 @@ transition: height 0.9s ease;
 
 #ship_city_info{
 	padding:3px;
+	width:180px;
 }

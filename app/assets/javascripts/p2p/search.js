@@ -216,7 +216,7 @@
     $("#seller_verify_code_submit").live("click",function(){
 
 
-         if ($("#seller_verify_mobile").val().length  <4){
+         if ($("#seller_verify_mobile").val().length  !=6 ){
               alert('Wrong code. Enter the correct code');
               return false;
          }

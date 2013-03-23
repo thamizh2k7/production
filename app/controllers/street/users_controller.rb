@@ -121,14 +121,15 @@ class Street::UsersController < ApplicationController
 
       begin
       admin.sent_messages.create({:receiver_id => session[:userid] ,
-                                  :message => "Hi #{p2p_current_user.user.name},  <br/>
-                                  Welcome to Sociorent Street, the latest online platfrom for buying and selling used products from your <br>peers in the student community. Since this is meant only for the students in India, we urge you to take the <br>most advantage of the platform. Should you have any queries, feel free to compose a message from your <br> Message Box and you'll get a reply within 8 working hours. <br> Thank you.. <br><br> Sincerly,<br>Sociorent Street Team.",
+                                  :message => "Welcome to Sociorent Street, your own marketplace. Your ID is #{p2p_current_user.id.rjust(2,'0')} and you may now login to buy / sell awesome items. Thanks.",
                                   :messagetype => 6,
                                   :sender_id => admin.id,
                                   :sender_status => 2,
                                   :receiver_status => 0,
                                   :parent_id => 0
                                   });
+
+
       rescue
       end
       
@@ -186,9 +187,9 @@ class Street::UsersController < ApplicationController
 
   # Get code for verification of mobile
   def getcode
-    session[:verify] = rand(10000..99999)
+    session[:verify] = rand(100000..999999)
     mobile_number = params[:mobile]
-    msg = "Your Sociorent.com Order 1234 has been shipped through #{session[:verify]} with tracking number . Thank you."
+    msg = "Please enter the six digit mobile verification code #{session[:verify]} to confirm the listing. Thanks - Sociorent.com"
     user = P2p::User.find(session[:userid])
     user.update_attributes(:mobile_number=>mobile_number)
     puts session[:verify]

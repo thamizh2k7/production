@@ -13,26 +13,28 @@
 
 	<div class="span9" id="fav_container">
 
+		<h3>My Favourite Sellers </h3>
+
 	<% if @fav.count > 0 %>
 			<table id="fav_table" class="table table-striped table-bordered">
 
 				<tr>
-					<th>User</th>
-					<th>Action</th>
-					<th>Date</th>
+					<th><i class="icon-user"> </i> Seller Name </th>
+					<th><i class="icon-ban-circle"> </i>  Unfavourite Seller</th>
+					<th><i class="icon-table"> </i>  Favourite from</th>
 				</tr>
 				<% @fav.each do |f| %>
 					<tr id="<%=f.p2pfav.id%>">
 						<td>
-							<a href="/street/sellers/<%=f.p2pfav.id%>/<%=f.p2pfav.user.name.gsub(/ /,"-")%>"><%= f.p2pfav.user.name %>	
+							<i class="icon-user"> </i>  <a class="aslink" href="/street/sellers/<%=f.p2pfav.id%>/<%=f.p2pfav.user.name.gsub(/ /,"-")%>"><%= f.p2pfav.user.name %>	
 							</a>
 
 						</td>
 						<td>
-							<a class="unfollow_user" userid="<%=f.p2pfav.id%>">unfollow</a>
+							<i class="icon-ban-circle"> </i>  <a class=" aslink unfollow_user" userid="<%=f.p2pfav.id%>">Unfavourite</a>
 						</td>
 						<td>
-							<%= f.created_at.strftime("%d-%m-%C%y") %>
+							<i class="icon-time"> </i> <%= f.created_at.strftime("%d-%m-%C%y") %>
 						</td>
 
 					</tr>

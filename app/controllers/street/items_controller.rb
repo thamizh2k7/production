@@ -7,9 +7,9 @@ class Street::ItemsController < ApplicationController
   layout :p2p_layout
 
   def new
-    if p2p_current_user.mobileverified == false
+    if p2p_current_user.mobileverified == false or p2p_current_user.address.nil?
       flash[:warning] = "You should verify your mobile number before listing"
-      redirect_to "/street#verify_mobile" and return
+      redirect_to "/street/profile" and return
     end
     @item = p2p_current_user.items.new
   end

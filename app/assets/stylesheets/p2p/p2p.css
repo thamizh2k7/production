@@ -596,3 +596,10 @@ vertical-align: middle;
 #body_container{
 	min-height: 500px;
 }
+
+.listheader {
+	height:20px;
+	background:url(/assets/p2p/index/texture.png) repeat;
+	margin:0 0 15px;
+	padding:10px 15px
+}

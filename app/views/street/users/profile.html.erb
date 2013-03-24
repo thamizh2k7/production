@@ -24,72 +24,131 @@
 
 	<h3> <%= p2p_current_user.user.name %> Profile </h3>
 
-	<h4> Update Mobile </h4>
-    <div>
-       <div class="control-group">
-          <label class="control-label">Enter Mobile</label>
-          <div class="controls">
-            <input type="text" id="profile_mobile_number" value = "<%= p2p_current_user.mobile_number %>" class="input text" >
+      <div class="alert alert-error"> 
+        <% if !flash[:notice].nil? %>
+
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              Update your Mobile number and address to continue 
+        <% end %>
+
+
+      <%if !p2p_current_user.mobileverified %> 
+        <li>Your Mobile Number is not Verified</li>
+      <% end %>
+
+      <%if p2p_current_user.address.nil? %> 
+        <li>You have no address</li>
+      <% end %>
+  </div>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="myTab">
+    <li><a  data-toggle="tab" href="#mobile">Mobile Number</a></li>
+    <li><a  data-toggle="tab" href="#address">Address</a></li>
+  </ul>
+   
+  <div class="tab-content">
+    <div class="tab-pane active" id="mobile">
+
+
+        <h4> Update Mobile </h4>
+          <div>
+             <div class="control-group">
+                <label class="control-label">Mobile Number</label>
+                <div class="controls">
+                  <input type="text" id="profile_mobile_number" value = "<%= p2p_current_user.mobile_number %>" class="input text" >
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label"> Verification Code:</label>
+                <div class="controls">
+                  <button class="btn  btn-primary" id="profile_send_verify_code" disabled="disabled">
+                    Send
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label"> Enter Verification Code:</label>
+                <div class="controls">
+                  <input type="text" id="profile_verify_mobile" class="input text"  disabled="disabled" >
+                </div>
+
+              </div>
+
+              <div class="control-group">
+                <label class="control-label"> </label>
+
+                <div class="controls">
+                  <button class="btn " id="profile_verify_code_submit"  disabled="disabled">Verify Code</button>
+                </div>
+
+              </div>
+
           </div>
-        </div>
 
-        <div class="control-group">
-          <label class="control-label"> Verification Code:</label>
-          <div class="controls">
-            <button class="btn  btn-primary" id="profile_send_verify_code">
-              Send
-            </button>
-          </div>
-        </div>
+    </div>
+    <div class="tab-pane" id="address">
+  
 
-        <div class="control-group">
-          <label class="control-label"> Enter Verification Code:</label>
-          <div class="controls">
-            <input type="text" id="profile_verify_mobile" class="input text" >
-          </div>
+         <h4> Update Address </h4>
 
-        </div>
+                            <form id="profile_address_form">
+                              <table class="table table-bordered table-striped">
+                                <% @address.each_with_index do |(name,value),index| %>
+                                  <tr>
+                                    <td><%= name.gsub(/address/i,'').humanize.titleize %></td>
+                                    <td>
+                                      <%if(name=="address_state")%>
+                                        <%= select_tag("address[#{name}]",get_states_selected(value).html_safe,:class=>"chosen")%>
+                                      <% else%>
+                                        <%= text_field_tag("address[#{name}]",value)%>
+                                      <% end%>
+                                     </td>
+                                  </tr>
+                                <% end %>
+                                <tr><td></td><td><a class="btn btn-primary" id="profile_update_address">Update Address</a></td></tr>
+                              </table>
+                            </form>
+    </div>
+  </div>
+  </div>
 
-        <div class="control-group">
-          <label class="control-label"> </label>
 
-          <div class="controls">
-            <button class="btn " id="profile_verify_code_submit">Verify Code</button>
-          </div>
-
-        </div>
-
-		</div>
-		
-		<br/>
-		<br/>
-
- <h4> Update Address </h4>
-
-                    <form id="profile_address_form">
-                      <table class="table table-bordered table-striped">
-                        <% @address.each_with_index do |(name,value),index| %>
-                          <tr>
-                            <td><%= name.gsub(/address/i,'').humanize.titleize %></td>
-                            <td>
-                              <%if(name=="address_state")%>
-                                <%= select_tag("address[#{name}]",get_states_selected(value).html_safe,:class=>"chosen")%>
-                              <% else%>
-                                <%= text_field_tag("address[#{name}]",value)%>
-                              <% end%>
-                             </td>
-                          </tr>
-                        <% end %>
-                        <tr><td></td><td><a class="btn btn-primary" id="profile_update_address">Continue Shipping</a></td></tr>
-                      </table>
-                    </form>
-	</div>
+ </div>
 </div>
 
 
 <script>
 
+disableverify=function(){
+
+            $("#profile_send_verify_code").attr('disabled','disabled');
+            $("#profile_verify_code_submit").attr('disabled','disabled');
+            $("#profile_verify_mobile").attr('disabled','disabled');
+}
+
 	$(document).ready(function(){
+
+
+    $("#profile_mobile_number").keypress(function(){
+      if (!(/^\d{10}$/.test($("#profile_mobile_number").val())) ){
+          showNotifications('Enter a valid mobile number');
+          disableverify();
+          return true;
+      }
+      if ($("#profile_mobile_number").val() == "<%=p2p_current_user.mobile_number%>"){
+        disableverify();
+        return true;
+      }
+
+    $("#profile_send_verify_code").removeAttr('disabled');
+    $("#profile_verify_code_submit").removeAttr('disabled');
+    $("#profile_verify_mobile").removeAttr('disabled');
+
+    });
+
 
 
     $("#profile_verify_code_submit").live("click",function(){
@@ -109,7 +168,11 @@
                    if (data.status== 1){
 												showNotifications('Successfully Verified Mobile');
 												$("#profile_verify_code_submit").removeClass('btn-primary').removeAttr('disabled').html('Verified Successfully');
-                   }else{
+                   }else if (data.status== 10){
+                        showNotifications('Mobile Number Already in use.');
+                   }
+
+                   else{
                         $("#profile_verify_code_submit").addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
                    }
               },
@@ -120,9 +183,24 @@
     });
 
 
+    $("#address_address_city").val($("#user_location").val());
+
 
     $("#profile_update_address").live("click",function(){
 
+        if (!(/^\d{6}$/.test($("#address_address_pincode").val()))){
+          showNotifications('Enter a valid Pincode');
+          $("#address_address_pincode").addClass('error');
+          return false;
+        }
+
+
+        if ($("#address_address_street_1").val().length <5 || $("#address_address_city").val().length <2 ){
+          showNotifications('Enter a valid address');
+          return false;
+        }
+
+        $("#address_address_pincode").removeClass('error');
 
          $.ajax({
               url:'/street/profile/updateaddress',

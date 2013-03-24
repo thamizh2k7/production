@@ -187,6 +187,11 @@ class Street::UsersController < ApplicationController
 
   # Get code for verification of mobile
   def getcode
+    if P2p::user.find_by_mobile_number(params[:mobile]).count > 0 
+      render :json => {:status => 10}
+      return
+    end
+
     session[:verify] = rand(100000..999999)
     mobile_number = params[:mobile]
     msg = "Please enter the six digit mobile verification code #{session[:verify]} to confirm the listing. Thanks - Sociorent.com"

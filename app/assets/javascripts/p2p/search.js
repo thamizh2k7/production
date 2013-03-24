@@ -184,7 +184,11 @@
                         $(verify_ele).removeClass('btn-primary').html('Code Sent. Resend Code');
                         $("#seller_verify_code_submit").addClass('btn-primary');
 
-                   }else{
+                   }else if (data.status == 1){
+                        showNotifications('Mobile Number in use');
+                        $(verify_ele).addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
+                   }
+                   else{
                         showNotifications('Some error occured. Try again.');
                         $(verify_ele).addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
                    }

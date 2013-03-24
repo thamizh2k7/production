@@ -291,9 +291,9 @@
             <%= ((p2p_current_user.favouriteusers.where(:fav_id => @item.user.id)).count == 0 ) ? "<i class='icon-star '></i> #{@item.user.user.name}".html_safe : "<i class='icon-star already_fav'></i> #{@item.user.user.name}".html_safe %></span>
       <% elsif session[:userid].nil?  %>
 
-          <a data-toggle="modal" href="#head_login_modal" class="item_top_details_detail btn action_popover"   data-content="Starring <%=@item.user.user.name%> brings you a notification everytime <%=@item.user.user.name%> lists a new item" data-title="<i class='icon-star '></i> Favourite <%=@item.user.user.name%>" data-trigger="hover" data-placement="top" data-html=true   >
+          <button data-toggle="modal" href="#head_login_modal" class="item_top_details_detail btn action_popover"   data-content="Starring <%=@item.user.user.name%> brings you a notification everytime <%=@item.user.user.name%> lists a new item" data-title="<i class='icon-star '></i> Favourite <%=@item.user.user.name%>" data-trigger="hover" data-placement="top" data-html=true   >
             <i class='icon-star'></i> <%= @item.user.user.name %>
-          </a>
+          </button>
 
       <% end %>
   </div>

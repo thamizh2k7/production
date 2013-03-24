@@ -42,7 +42,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     <% if p2p_current_user.items.count >0 %>
-    var plot1 = $.jqplot('items_status', [[['Waiting (<%=@waiting_count%>)',<%=@waiting_count%>],['Approved (<%=@approved_count%>)',<%=@approved_count%>],['Disapproved (<%=@disapproved_count%>)',<%=@disapproved_count%>],['Sold (<%=@sold_count%>)',<%=@sold_count%>]]], {
+    var plot1 = $.jqplot('items_status', [[['<a href="/street/waiting">Waiting </a>(<%=@waiting_count%>)',<%=@waiting_count%>],['<a href="/street/approve/">Approved </a>(<%=@approved_count%>)',<%=@approved_count%>],['<a href="/street/disapprove">Disapproved</a> (<%=@disapproved_count%>)',<%=@disapproved_count%>],['<a href="/street/mystore/sold">Sold </a>(<%=@sold_count%>)',<%=@sold_count%>]]], {
         gridPadding: {top:20, bottom:38, left:0, right:0},
         title: 'Statistics of your Items',
         animate: !$.jqplot.use_excanvas,

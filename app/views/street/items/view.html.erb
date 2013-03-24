@@ -62,8 +62,8 @@
 				                  </a>
 			                  <% end%>
 												<% if session[:isadmin]%>
-													<button class=" btn disabled action_popover" data-title="Item Approved" data-content="This listing has been approved on <%=@item.approveddate.strftime("%d-%b-%C%y")%>" data-placement="top" data-trigger="hover" id="approved_btn_info"  > <i class="icon-thumbs-up"> </i>Approved    </a>
-			                  	<a href="#" class="btn alert-info" data-toggle="tooltip" title="DisApprove this listing" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down " ></i></button>
+													<a class=" btn disabled action_popover" data-title="Item Approved" data-content="This listing has been approved on <%=@item.approveddate.strftime("%d-%b-%C%y")%>" data-placement="top" data-trigger="hover" id="approved_btn_info"  > <i class="icon-thumbs-up"> </i>Approved    </a>
+			                  	<a href="#" class="btn alert-info" data-toggle="tooltip" title="DisApprove this listing" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down " ></i></a>
 			                  <% end %>
 
 		              	<% elsif @item.disapproveddate %>

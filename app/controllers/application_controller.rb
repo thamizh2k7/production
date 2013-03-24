@@ -90,7 +90,6 @@ class ApplicationController < ActionController::Base
 
       	end
     rescue Exception => ex
-    	puts ex
     	redirect_to '/street'
     end
   end
@@ -135,7 +134,6 @@ class ApplicationController < ActionController::Base
 	  		session[:userid] = nil
 	  	else
 	  		user = P2p::User.find_by_user_id(current_user.id)
-	  		puts user.inspect
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id
 

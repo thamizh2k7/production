@@ -6,6 +6,9 @@ class Street::ItemsController < ApplicationController
   before_filter :check_p2p_user_presence
   layout :p2p_layout
 
+  cache_sweeper :item_sweeper , :only => [:create, :update ,:sellitem_pricing,:destroy,:sold ,:approve ,:update_online_payment]
+  caches_page :view ,:get_spec ,:getbook_details ,:get_sub_categories ,:inventory ,:waiting ,:disapproved , :upload_csv ,:downloadtemplate
+
   def new
     if p2p_current_user.mobileverified == false or p2p_current_user.address.nil?
       flash[:warning] = "You should verify your mobile number before listing"
@@ -21,6 +24,8 @@ class Street::ItemsController < ApplicationController
   #when the user submits from the payment options,
   #we save it then :)
   def create
+
+
     puts "Price #{params[:price]}"
     item = p2p_current_user.items.new({:title => params[:title].strip, :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
     # render :json => item
@@ -113,6 +118,15 @@ class Street::ItemsController < ApplicationController
 
   #update the item
   def update
+
+    # expire_page :controller => 'index' , :action => 'index'
+    # expire_page :controller => 'index' , :action => 'search'
+    # expire_page :controller => 'index' , :action => 'browse_filter'
+    # #expire_page :controller => 'index' , :action => 'seller_items' ,:id => session[:userid]
+    # #expire_page :controller => 'index' , :action => 'browse'
+
+
+
     item = p2p_current_user.items.find(params[:id])
     item.update_attributes({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]});
     item.product = P2p::Product.find(params[:brand])
@@ -573,6 +587,9 @@ Sociorent Street Team.",
     render :json => book
   end
   def sellitem_pricing
+
+    #expire_page :controller => 'index' , :action => 'index'
+
     if request.xhr?
       layout :false
     end

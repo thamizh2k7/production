@@ -5,6 +5,8 @@ class Street::IndexController < ApplicationController
   before_filter :check_p2p_user_presence , :except => [:get_city]
   layout :p2p_layout
 
+  caches_page :index, :search, :search_cat ,:search_query ,:browse ,:seller_items ,:browse_filter ,:get_city
+
   def index
     # load the categories based on their priority
     @category = P2p::Category.order("priority")
@@ -58,7 +60,7 @@ class Street::IndexController < ApplicationController
     end
     if params[:query] !="" && ((params[:category]!="" && item_count > 0 ) || params[:category] =="")
       puts "falled in sphinx"
-      @result = item.listing_items_by_location(p2p_get_user_location).active_items.search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
+      @result = item.listing_items_by_location(p2p_get_user_location).search(params[:query] ,:match_mode => :any ,:star => true).paginate(:page => params[:page] ,:per_page => 20)
 
       # //if 0 results dn depend on sphinx
       if @result.count == 0

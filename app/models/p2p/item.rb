@@ -80,7 +80,7 @@ class P2p::Item < ActiveRecord::Base
  define_index do
 
     #where ('deletedate is not null and paytype is not null and solddate is null')
-    where ('deletedate is null and paytype is not null and solddate is null')
+    where ('deletedate is null and paytype is not null and solddate is null and approveddate is not null')
     indexes :title
 
     set_property :delta =>true

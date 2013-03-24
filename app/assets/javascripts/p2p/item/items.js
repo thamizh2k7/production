@@ -144,9 +144,6 @@ edit_item =function(){
 		$("[id^=reqcount_]").addClass('hidden');
 		$("#owner_item").addClass('hidden');
 		$("#payment_btn").addClass('hidden');
-
-
-
 		$(".edit_visible").addClass('edit_shown').removeClass('edit_visible');
 
 		$('#clearuploads').removeClass('hidden');
@@ -244,11 +241,6 @@ edit_item =function(){
 			$("#category_item").editable();
 		}
 
-		$("#title").css({'color':'blue'});
-		$("#title").editable({
-			placement:'bottom'
-		});
-		$("#title").tooltip('show');
 		$("#empty_specs").removeClass('hide');
 
 
@@ -472,6 +464,8 @@ edit_item =function(){
 			}
 		});
 
+		$("#title").click(function(){$(this).editable('show')});
+		$("#desc_content").editable();
 	}//edit item end
 
 

@@ -62,8 +62,8 @@
 				                  </a>
 			                  <% end%>
 												<% if session[:isadmin]%>
-													<button class=" btn disabled action_popover" data-title="Item Approved" data-content="This listing has been approved on <%=@item.approveddate.strftime("%d-%b-%C%y")%>" data-placement="top" data-trigger="hover" id="approved_btn_info"  > <i class="icon-thumbs-up"> </i>Approved    </a>
-			                  	<a href="#" class="btn alert-info" data-toggle="tooltip" title="DisApprove this listing" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down " ></i></button>
+													<a class=" btn disabled action_popover" data-title="Item Approved" data-content="This listing has been approved on <%=@item.approveddate.strftime("%d-%b-%C%y")%>" data-placement="top" data-trigger="hover" id="approved_btn_info"  > <i class="icon-thumbs-up"> </i>Approved    </a>
+			                  	<a href="#" class="btn alert-info" data-toggle="tooltip" title="DisApprove this listing" id="disapprove"   itemid="<%= @item.id %>"><i  class="icon-thumbs-down " ></i></a>
 			                  <% end %>
 
 		              	<% elsif @item.disapproveddate %>
@@ -189,12 +189,12 @@
 	              <tr class="edit_visible">
 	                <td>Title </td>
 	                <td>
-	                	<span class="canEdit" data-toggle="tooltip" id="title"  data-org-title="Enter a title for your listing" data-placement="right" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
+	                	<span class="canEdit" data-toggle="tooltip" id="title" title="Enter a title for your listing" data-placeholder="Enter a title" ><%=@item.title.titleize  %></span>
 	               	</td>
 	              </tr>
 	              <tr>
 	                  <td>Category </td>
-	                  <td> <span data-toggle="tooltip" id="category_item" data-type="select" data-org-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ><%=@item.category.name %></span></td>
+	                  <td> <span data-toggle="tooltip" id="category_item"><%=@item.category.name %></span></td>
 	              </tr>
 	              <tr>
 	                <td>
@@ -209,12 +209,12 @@
 	              <!-- Price -->
 	              <tr>
 	                 <td>
-	                   <span class="highlight">Price</span>
+	                   <span>Price</span>
 	                 </td>
 	                 <td>
-	                    <span class="highlight highlight_force_color">
+	                    <span >
 	                    	Rs.
-	                        <span class=" canEdit highlight  highlight_force_color" data-name="username"  data-org-title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
+	                        <span class=" canEdit" data-name="username"  data-org-title="Enter Price"   data-placement="right" data-placeholder="Enter the price"  specname="price" specid="0" id="price">
 	                        	<%= @item.price %>
 	                        </span>
 	                    </span>
@@ -223,20 +223,20 @@
 	            <!-- Location -->
 	              <tr>
 	                <td>
-	                  <span class="highlight"> Condition</span>
+	                  <span> Condition</span>
 	                </td>
 	                <td>
-	                  <span class=" canEdit highlight  highlight_force_color" data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" data-org-title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
+	                  <span class=" canEdit " data-name="username" data-type="select" data-source="['Brand New','Like New','Used','Old']" data-org-title="Enter Condition"  specname="condition" specid="0" id="condition"  data-placement="right" data-placeholder="Select the condition" > <%= @item.condition.titleize %> </span>
 	                </td>
 	              </tr>
 
 	            <!-- Location -->
 	              <tr>
 	                <td>
-	                  <span class="highlight">Location</span>
+	                  <span >Location</span>
 	                </td>
 	                <td>
-	              	  <span class="highlight canEdit highlight_force_color" data-name="username"  data-type="typeahead" data-source="/street/getcities"  data-org-title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
+	              	  <span class="canEdit" data-name="username"  data-type="typeahead" data-source="/street/getcities"  data-org-title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Select the Location" >
 	              	  	<%= @item.city.name %>
 	              	  </span>
 	                 </td>

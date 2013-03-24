@@ -107,6 +107,13 @@ Sociorent::Application.routes.draw do
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end
 
+
+    scope 'mob' do
+      match 'getcities' => 'mobile#get_city'
+      match  'recentitems(/:cat(/:prod))' => 'mobile#recent_items'
+      get ':cat/:prod/:item/:id' => 'mobile#view_item'
+    end
+
       match "/get_city/:q" => "index#get_city"
       match "sellers/:id/:name" => "index#seller_items"
 

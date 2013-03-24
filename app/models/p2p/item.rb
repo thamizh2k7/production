@@ -221,7 +221,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg1" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -232,7 +232,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg2" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -243,7 +243,7 @@ class P2p::Item < ActiveRecord::Base
         if type  == :view
           res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg3" ,:id => 0})
+          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
         end
@@ -262,7 +262,7 @@ class P2p::Item < ActiveRecord::Base
             if type  == :view
               res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
             elsif type == :thumb
-              res.push({:url => "/assets/p2p/noimage_thumb.jpg4" ,:id => 0})
+              res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
             elsif type == :search
               res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
             end

@@ -10,8 +10,10 @@
       <center class="error"> No Items found..! </center>
     <% else %>
       <% items.each do |p|%>
+
         <% approve_class = ['alert-info','alert-error','alert-success' ,'']%>
-        <% if !p.solddate.nil? %>
+
+        <% if params.has_key?(:query) and params[:query] == "sold" and p.soldcount > 0 %>
           <% apprval_class = 3 %>
         <% elsif !p.approveddate.nil? %>
           <% apprval_class = 2 %>
@@ -20,6 +22,7 @@
         <% else %>
           <% apprval_class = 0 %>
         <%end%>
+
         <li class="span3 aitem_holder">
           <div class="thumbnail  alert <%= approve_class[apprval_class] %>">
             <div class="inventory_actions pull-right">

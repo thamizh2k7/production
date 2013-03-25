@@ -63,10 +63,10 @@ class P2p::Item < ActiveRecord::Base
 
   scope :notfinished , where(' deletedate is null and paytype is null')
 
-  scope :sold , where('(totalcount - soldcount) == 0')
+  scope :sold , where('soldcount > 0')
 
-  scope :notsold , where('(totalcount - soldcount) >0')
-  scope :active_items,  where('approveddate is not null and disapproveddate is null and (totalcount - solddate) > 0')
+  scope :notsold , where('soldcount = 0')
+  scope :active_items,  where('approveddate is not null and disapproveddate is null and (totalcount - soldcount) > 0')
 
   # listing the unsold ,not deleted and approved items
   scope :listing_items_by_location, lambda { |location|
@@ -74,7 +74,7 @@ class P2p::Item < ActiveRecord::Base
     if location !="" and !location.nil?
       apnd_qry = "and (city_id = #{location} or (paytype=1 and payinfo like '%,1' ))"
     end
-    where("solddate is null and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")
+    where("( (totalcount - soldcount) > 0 ) and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")
   }
 
  define_index do
@@ -107,7 +107,7 @@ class P2p::Item < ActiveRecord::Base
 
     self.changes.each do |column,value|
 
-        next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason'].include?(column)
+        next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason','soldcount','totalcount'].include?(column)
         next if column =='paytype'
 
         self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )

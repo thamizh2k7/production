@@ -73,7 +73,7 @@
 
             <!-- Button to trigger modal -->
 
-            <% if @item.solddate.nil? %>
+            <% if @item.availablecount > 0 %>
 
               <% if @item.paytype == 2 %>
 
@@ -103,7 +103,7 @@
       <% elsif session[:userid].to_s != @item.user.id %>
 
 
-          <%if @item.solddate.nil? %>
+          <%if @item.availblecount > 0 %>
 
             <% if defined?(@item.paytype) and @item.paytype == 2 %>
 
@@ -265,7 +265,7 @@
 
     <div class="span7" id="item_top_details_buttons">
 
-        <% if @item.solddate.nil? %>
+        <% if @item.availablecount > 0 %>
 
           <span class="item_top_details_detail action_popover" id="itemsharefb" data-content="Share this listing on facebook with friends and groups and increase the speed of selling." data-title="<img width=20 height=20 src='/assets/facebook_128.png'>Facebook Share" data-trigger="hover" data-placement="top" data-html=true>
 

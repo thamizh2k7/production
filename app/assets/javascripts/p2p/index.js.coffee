@@ -16,4 +16,4 @@ $(document).ready ->
     $(this).trigger "click"
 
   $("#home_notice").click ->
-    $("#notice_container").hide()
+    $("#notice_container").slideToggle(1000);

@@ -52,8 +52,8 @@
 				                  	Waiting For Approval
 			                  </a>
 			                   <%if session[:isadmin]%>
-				                  	<a href="#" class="btn alert-info"  id="approve" itemid="<%=@item.id%>" data-toggle="tooltip" title="Approve this listing" ><i  class=" icon-thumbs-up" ></i></a>
- 				                  	<a href="#" class="btn alert-info" id="disapprove" data-original-title="Enter Reason" itemid="<%= @item.id %>" data-toggle="tooltip" title="DisApprove this listing><i  class="icon-thumbs-down" "></i></a>
+				                  	<button  class="btn alert-info"  id="approve" itemid="<%=@item.id%>" data-toggle="tooltip" title="Approve this listing" ><i  class=" icon-thumbs-up" ></i></button>
+ 				                  	<button class="btn alert-info" id="disapprove" data-original-title="Enter Reason" itemid="<%= @item.id %>" data-toggle="tooltip" title="DisApprove this listing"></button>
 		                  	<%end %>
              				<% elsif @item.approveddate %>
              						<% if @item.user.id == session[:userid] %>

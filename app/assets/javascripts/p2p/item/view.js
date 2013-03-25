@@ -142,6 +142,11 @@ $("#disapprove").editable({
   url :'/street/approve/disapprove?id='+$('#disapprove').attr("itemid"),
   value :'Disapprove'
 });
+
+$("#disapprove").click(function(){
+  $(this).editable('show');
+});
+
 $("#disapprove").on('shown',function(){
     if ( $(this).data('editable').input.$input.val() == 'Disapprove' ){
       $(this).data('editable').input.$input.val('');

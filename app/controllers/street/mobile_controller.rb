@@ -63,11 +63,13 @@ class Street::MobileController < ApplicationController
 			      				:price => item.price,
 			      				:condition => item.condition,
 			      				:product_id => prod.id,
-			      				:desc => item.desc
+			      				:desc => item.desc,
+			      				:img => URI.encode("http://#{request.env['HTTP_HOST']}#{item.get_image(0,:view)[0][:url]}"),
+			      				:specs => {}
 			       }
 
 			       item.specs.each do |spec|
-			       		resp[spec.spec.name.to_sym] = spec.value
+			       		resp[:specs][spec.spec.name.to_sym] = spec.value
 			       end
 
 			       render :json => resp

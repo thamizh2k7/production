@@ -297,7 +297,7 @@ class Street::ItemsController < ApplicationController
       elsif (@item.approveddate.nil? or ( @item.availablecount == 0 ) )
         raise 'Nothing found..!1'
       end
-  
+
     rescue Exception => ex
       puts ex.message
       redirect_to '/street'
@@ -362,7 +362,7 @@ class Street::ItemsController < ApplicationController
                                                         "address_pincode" => "" }
 
   end
-  
+
   def inventory
     user = p2p_current_user
     if params[:query].present?
@@ -393,7 +393,7 @@ class Street::ItemsController < ApplicationController
   def sold
     @item = P2p::Item.find(params[:id])
     @item.solddate =Time.now
-    @item.soldcount += 1 
+    @item.soldcount += 1
     @item.save
     redirect_to URI.encode("/street/#{@item.product.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
   end
@@ -573,7 +573,7 @@ Sociorent Street Team.",
                               }
                               });
                            "
-                           
+
         PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
         render :json => '1'
         return
@@ -677,7 +677,7 @@ Sociorent Street Team.",
 
       when "SUCCESS"
         flash[:warning] = "Transaction success"
-        item_delivery.item.update_attributes(:solddate=> Time.now , :soldcount => (item_delivery.item.soldcount.to_i + 1 )  )  
+        item_delivery.item.update_attributes(:solddate=> Time.now , :soldcount => (item_delivery.item.soldcount.to_i + 1 )  )
         status = 2
 
         send_sms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")
@@ -726,7 +726,7 @@ Sociorent Street Team.",
     if params.has_key?(:category_template)
       cat = P2p::Category.find(params[:category_template])
       require 'csv'
-      item = ['Brand','Title','Price','Condition','Location','Description','Send By','All over India','Image Url','Image Url','Image Url']
+      item = ['Brand','Title','Price','Quantity','Condition','Location','Description','Send By','All over India','Image Url','Image Url','Image Url']
       if cat.name =="Books"
         item[0] = 'Book Category'
       end

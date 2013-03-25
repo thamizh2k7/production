@@ -132,7 +132,7 @@ class Street::UsersController < ApplicationController
 
       rescue
       end
-      
+
       redirect_to '/street'
       return
     end
@@ -168,7 +168,7 @@ class Street::UsersController < ApplicationController
       session[:city] = city.name.titleize
       session[:city_id] = city.id.to_s
       cookies.permanent[:city] = session[:city]
-      
+
       user = p2p_current_user
       if user
         user.city = city
@@ -187,7 +187,7 @@ class Street::UsersController < ApplicationController
 
   # Get code for verification of mobile
   def getcode
-    if P2p::user.find_by_mobile_number(params[:mobile]).count > 0 
+    if P2p::user.find_by_mobile_number(params[:mobile]).count > 0
       render :json => {:status => 10}
       return
     end
@@ -219,7 +219,7 @@ class Street::UsersController < ApplicationController
 
   def updateaddress
     begin
-      
+
       p2p_current_user.update_attributes(:address => params[:address].to_json)
       render :json => {:status => 1}
     rescue
@@ -305,7 +305,7 @@ class Street::UsersController < ApplicationController
     if params.has_key?(:searchq) and params[:searchq].strip !=""
       search = params[:searchq]
 
-      where = "" 
+      where = ""
 
 
       if search.index('@') == 0
@@ -342,12 +342,12 @@ class Street::UsersController < ApplicationController
     end
     #find for which items is the request came for
     # and get messages appropiatly
-    
+
 
 
     if user!=0 and !user.nil? and user.count > 0
-      
-      where += ' and ' if where!="" 
+
+      where += ' and ' if where!=""
 
       where += " buyer in (#{user.join(',')})"
     elsif item!=0 and !item.nil? and item.count > 0
@@ -406,7 +406,7 @@ class Street::UsersController < ApplicationController
         if pay.delivery_date.nil?
           downloadlinks +="<a class='aslink' href='/street/admin/item_deliveries/#{pay.id}/edit'><i class='icon-edit'></i>Update Shipping Date</a><br/>"
         end
-        
+
         unless pay.shipping_date.nil?
           downloadlinks += " <a class='aslink' href='/street/paymentdetails/invoice/#{pay.id}'>Invoice </a> <br/><a class='aslink' href='/street/paymentdetails/label/#{pay.id}'>Label </a>"
         end
@@ -589,7 +589,7 @@ end
 
       cat = P2p::Category.find(@failed[0].category_id)
       require 'csv'
-      item = ['Brand','Title','Price','Condition','Location','Description','Send By','All over India','Image Url','Image Url','Image Url']
+      item = ['Brand','Title','Price','Quantity','Condition','Location','Description','Send By','All over India','Image Url','Image Url','Image Url']
       if cat.name =="Books"
         item[0] = 'Book Category'
       end
@@ -650,5 +650,5 @@ end
   def staticpages
 
   end
-  
+
 end

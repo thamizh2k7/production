@@ -298,7 +298,7 @@ class P2p::Item < ActiveRecord::Base
     result = false if self.price == 0
     find = false
     condition.each do |cond|
-      if cond == self.condition.downcase()
+      if cond.downcase == self.condition.downcase()
         self.condition = cond.titleize()
         find = true
         break

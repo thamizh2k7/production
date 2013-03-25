@@ -108,14 +108,14 @@ class P2p::Item < ActiveRecord::Base
 
     self.changes.each do |column,value|
 
-        next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason','soldcount','totalcount'].include?(column)
+        next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason','soldcount'].include?(column)
         next if column =='paytype'
 
-        self.itemhistories.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] )
+        P2p::ItemHistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] ,:item_id => self.id ,:created_at => self.updated_at )
     end
 
     self.itemhistories.where(:created_at => self.updated_at).each do |itemhistory|
-      changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} -> #{itemhistory.newvalue}"
+      changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} <b>-></b> #{itemhistory.newvalue}"
     end
 
     unless changed_column.empty?
@@ -143,7 +143,7 @@ class P2p::Item < ActiveRecord::Base
                                                   });
 
     end
-    return true
+   # return true
   end
 
   def new_item_created

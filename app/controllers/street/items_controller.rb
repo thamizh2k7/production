@@ -248,15 +248,17 @@ class Street::ItemsController < ApplicationController
         if session[:userid] != @item.user.id and (@item.availablecount == 0 )
 
           unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid])
+            puts 'not buyer or seller'
             redirect_to "/street/"
             return
           end
         end
       elsif (@item.approveddate.nil? or ( @item.availablecount == 0 ) )
-        raise 'Nothing found..!'
+        raise 'Nothing found..!1'
       end
   
-    rescue
+    rescue Exception => ex
+      puts ex.message
       redirect_to '/street'
       return
     end
@@ -634,11 +636,11 @@ Sociorent Street Team.",
 
       when "SUCCESS"
         flash[:warning] = "Transaction success"
-        item_delivery.item.update_attributes(:solddate=>Time.now , :soldcount => ' soldcount + 1')
+        item_delivery.item.update_attributes(:solddate=> Time.now , :soldcount => (item_delivery.item.soldcount.to_i + 1 )  )  
         status = 2
 
-        sendsms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")
-        sendsms(item_delivery.buyer.mobile_number,"Thank you for buying the item #{item_delivery.item.title} and we would follow-up with the shipping notifications soon. Thank you!")
+        send_sms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")
+        send_sms(item_delivery.buyer.mobile_number,"Thank you for buying the item #{item_delivery.item.title} and we would follow-up with the shipping notifications soon. Thank you!")
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
                                                                  :message => "This is an auto generated system message. You had bought <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
@@ -658,7 +660,7 @@ Sociorent Street Team.",
         end
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.item.user.id ,
-                                                                 :message => "This is an auto generated system message. #{item_delivery.buyer.name} has bought your listing <a href='/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/-/," ")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}'> #{item_delivery.item.title} </a>. #{msg} <br/> Thank you <br/> Admin- Sociorent",
+                                                                 :message => "This is an auto generated system message. #{item_delivery.buyer.user.name} has bought your listing <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>. #{msg} <br/> Thank you <br/> Admin- Sociorent",
                                                                  :messagetype => 8,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,

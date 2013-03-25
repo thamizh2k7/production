@@ -83,8 +83,17 @@
 		    	              	Payment
 	  		                </a>
 	  		            	<% end %>
-	  		            <% else %>
-       						<span class="btn action_popover disabled"  data-title="Listing Sold" data-content="On <%= @item.solddate.strftime("%d-%b-%C%y") %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> Listing Sold  </span>
+	  		            <% else #solddate %> 
+
+	  		            <% if @item.totalcount > 1 and @item.availablecount  > 0 %>
+	  		            	<% pop_title = 'Listing last sold' %>
+	  		            	<% pop_content = "This listing was last sold on #{@item.solddate.strftime("%d-%b-%C%y")}" %>
+	  		            <% else  %>
+	  		            	<% pop_title = 'Listing sold' %>
+	  		            	<% pop_content = "This listing was sold on #{@item.solddate.strftime("%d-%b-%C%y")}" %>
+	  		            <% end %>
+
+       						<span class="btn action_popover disabled"  data-title="<%= pop_title %>" data-content="<%= pop_content %>"  data-trigger="hover" data-placement="bottom"> <i class="icon-shoppingcart"> </i> <%= pop_title %>  </span>
 
 		             		<% end %>
 

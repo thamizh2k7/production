@@ -478,7 +478,7 @@ class Street::UsersController < ApplicationController
     response[:iTotalDisplayRecords] = vendors.count
     #form the time to be displayed
     vendors.each do |vendor|
-      tme =Time.now - vendor.created_at
+      tme =Time.now - vendor.updated_at
       if tme >= 86400
         tme =  (tme/86400).to_i.to_s + " days ago"
       elsif tme >=3600

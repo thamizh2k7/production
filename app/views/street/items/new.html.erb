@@ -103,6 +103,16 @@
            <span class=" canEdit  " data-name="username"  title="Enter Location"  specname="location" specid="0" id="location"  data-placement="right" data-placeholder="Enter the Location" ></span>
           </td>
         </tr>
+        <% if !session[:user_type].nil? and session[:user_type] == 1 %>
+          <tr>
+            <td>
+              <span>Count</span>
+            </td>
+            <td>
+             <span class=" canEdit  " data-name="count"  title="Enter count"  specname="count" specid="0" id="count"  data-placement="right" data-placeholder="Enter Item Count" ></span>
+            </td>
+          </tr>
+        <% end %>
      </tbody>
     </table>
     </div>

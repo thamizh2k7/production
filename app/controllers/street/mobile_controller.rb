@@ -21,6 +21,9 @@ class Street::MobileController < ApplicationController
 
 						#if no item found check spelling and find items again
 						if items.count ==0 
+
+							query_word  = params[:query]
+
 						    speller = Aspell.new("en_US")
 						    speller.suggestion_mode = Aspell::ULTRA
 						    query_word.split(" ").each do |word|

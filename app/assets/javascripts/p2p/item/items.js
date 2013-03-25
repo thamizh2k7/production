@@ -409,6 +409,22 @@ edit_item =function(){
 			}
 		});
 
+
+
+		//validate price
+		$('#count').on('save', function(e, params) {
+ 				 //alert('Saved value: ' + params.newValue);
+			if (params.newValue.match(/^\d+\.?\d+$/) != null) {
+				window.item_values['count'] = params.newValue;
+				$(this).removeClass('error');
+			}else{
+				window.item_values['count'] = params.oldValue;
+				$(this).editable('setValue','');
+				$(this).addClass('error');
+				$(this).tooltip('show');
+			}
+		});
+
 		//validate location
 		$('#location').on('save', function(e, params) {
  				 //alert('Saved value: ' + params.newValue);

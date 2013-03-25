@@ -94,6 +94,7 @@ class P2p::Item < ActiveRecord::Base
 
   before_save do
     self.desc = self.desc.strip
+    self.soldcount = 0
   end
   after_update :update_changed_history
 
@@ -188,7 +189,7 @@ class P2p::Item < ActiveRecord::Base
     prod_url = URI.encode("/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}")
 
     admin.sent_messages.create({:receiver_id => admin.id,
-                                              :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item and is waiting for your verification. Listing link - <a href='#{prod_url}'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
+                                              :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item #{(self.totalcount == 1) ? '' : self.totalcount  } and is waiting for your verification. Listing link - <a href='#{prod_url}'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",
                                               :messagetype => 5,
                                               :sender_id => admin.id,
                                               :sender_status => 2,

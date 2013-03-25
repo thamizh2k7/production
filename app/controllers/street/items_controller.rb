@@ -21,8 +21,18 @@ class Street::ItemsController < ApplicationController
   #when the user submits from the payment options,
   #we save it then :)
   def create
-    puts "Price #{params[:price]}"
-    item = p2p_current_user.items.new({:title => params[:title].strip, :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]})
+
+    if session[:user_type] == 1
+      if params.has_key?(:count) and params[:count].class.to_s == "Fixnum" 
+
+      else
+        params[:count] = 1
+      end
+    else
+      params[:count] = 1
+    end
+
+    item = p2p_current_user.items.new({:title => params[:title].strip, :desc => params[:desc], :price => params[:price] ,:condition => params[:condition] , :totalcount => params[:count] })
     # render :json => item
     item.category = P2p::Category.find(params[:cat].to_i)
     begin

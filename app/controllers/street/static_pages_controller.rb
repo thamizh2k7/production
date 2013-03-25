@@ -14,10 +14,17 @@ class Street::StaticPagesController < ApplicationController
     @page = StaticPage.find(params[:id])
   end
 
+
   def update
     @page = StaticPage.find(params[:id])
     @page = @page.update_attributes(params[:static_page])
   end
+
+  def get_page
+    @page = StaticPage.find_by_page_name(params[:page_name])
+    render :json => @page
+  end
+
 
   def aboutus
     @page = StaticPage.find_by_page_name('p2p_aboutus')

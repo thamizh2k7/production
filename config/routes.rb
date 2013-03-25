@@ -75,6 +75,7 @@ Sociorent::Application.routes.draw do
 
     root :to => "index#index"
 
+    
 
     match 'aboutus' => 'static_pages#aboutus'
     match 'contactus' => 'static_pages#contactus'
@@ -99,7 +100,11 @@ Sociorent::Application.routes.draw do
     #for adimn
     scope 'admin' do
       #scaffold controller and view
-      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries , :cities
+      resources :categories ,:products ,:specs ,:service_pincodes , :item_deliveries , :cities ,:static_pages
+
+
+      match 'staticpage' => "users#staticpages"
+      match 'static_pages/get_page/:page_name' => 'static_pages#get_page'
 
       match 'cities/:id/destory' => 'cities#destroy'
       

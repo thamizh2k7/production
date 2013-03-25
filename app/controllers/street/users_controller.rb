@@ -644,4 +644,11 @@ end
     @mobile = (p2p_current_user.mobile_number.nil?) ? "" : @mobile
 
   end
+
+
+
+  def staticpages
+
+  end
+  
 end

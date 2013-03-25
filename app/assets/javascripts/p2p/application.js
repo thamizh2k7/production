@@ -114,7 +114,7 @@ $(document).ready(function(){
 
 // JS code for Dash board > Static page
 $("#static_page_page_name").live("change", function(){
-	$.getJSON("/static_pages/get_page/"+this.value , function(data){
+	$.getJSON("/street/admin/static_pages/get_page/"+this.value , function(data){
 		$(".page_title").val(data.page_title);
 		for (instance in CKEDITOR.instances){
       CKEDITOR.instances[instance].setData(data.page_content);

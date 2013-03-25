@@ -166,7 +166,9 @@
     setupunotify();
 
     $(".action_popover").popover();
-    $("*").tooltip('disable');
+    
+    // $("*").tooltip('disable');
+
     $('[data-toggle="tooltip"]').tooltip('enable');
 
 

@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-	$(document).on('click',function(e){
-		if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
-	});
+	// $(document).on('click',function(e){
+	// 	if ($(e.target).parents('.tooltip').length == 0) $('[data-original-title]').tooltip('hide');
+	// });
 
 	// save the form onclick trigger
 	$("#save_top").click(function(){

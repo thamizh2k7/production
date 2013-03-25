@@ -245,7 +245,7 @@ class Street::ItemsController < ApplicationController
 
       if session[:userid]
 
-        if session[:userid] != @item.user.id and (@item.availablecount == 0 ) )
+        if session[:userid] != @item.user.id and (@item.availablecount == 0 )
 
           unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid])
             redirect_to "/street/"
@@ -634,7 +634,7 @@ Sociorent Street Team.",
 
       when "SUCCESS"
         flash[:warning] = "Transaction success"
-        item_delivery.item.update_attributes(:solddate=>Time.now , :solddate => ' solddate + 1')
+        item_delivery.item.update_attributes(:solddate=>Time.now , :soldcount => ' soldcount + 1')
         status = 2
 
         sendsms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")

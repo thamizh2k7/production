@@ -21,7 +21,7 @@ class P2p::Item < ActiveRecord::Base
 
   #has_many :bought_item , :through => :item_deliveries ,:class_name => 'P2p::Item' ,:foreign_key => 'item_id'
 
-  attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision, :disapproved_reason , :city_id
+  attr_accessible :approveddate, :disapproveddate , :delivereddate, :desc, :paiddate, :paytype, :reqCount, :solddate, :title, :viewcount, :price ,:img,:condition, :deletedate , :payinfo,:commision, :disapproved_reason , :city_id , :totalcount , :soldcount
 
 
 
@@ -63,10 +63,10 @@ class P2p::Item < ActiveRecord::Base
 
   scope :notfinished , where(' deletedate is null and paytype is null')
 
-  scope :sold , where('solddate is not null')
+  scope :sold , where('(totalcount - soldcount) == 0')
 
-  scope :notsold , where('solddate is null')
-  scope :active_items,  where('approveddate is not null and disapproveddate is null and solddate is null')
+  scope :notsold , where('(totalcount - soldcount) >0')
+  scope :active_items,  where('approveddate is not null and disapproveddate is null and (totalcount - solddate) > 0')
 
   # listing the unsold ,not deleted and approved items
   scope :listing_items_by_location, lambda { |location|
@@ -80,7 +80,7 @@ class P2p::Item < ActiveRecord::Base
  define_index do
 
     #where ('deletedate is not null and paytype is not null and solddate is null')
-    where ('deletedate is null and paytype is not null and solddate is null')
+    where ('deletedate is null and paytype is not null and ((totalcount - soldcount)>0) ) ')
     indexes :title
 
     set_property :delta =>true

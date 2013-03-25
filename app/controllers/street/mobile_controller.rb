@@ -16,17 +16,39 @@ class Street::MobileController < ApplicationController
 
 			begin
 
-					if params.has_key?(:prod)
+					if params.has_key?(:query)
+						items = P2p::Item.search(params[:query] ,:match_mode => :any ,:star => true ,:order => :created_at , :sort_mode => :desc ,:cutoff => 15)
+
+						#if no item found check spelling and find items again
+						if items.count ==0 
+						    speller = Aspell.new("en_US")
+						    speller.suggestion_mode = Aspell::ULTRA
+						    query_word.split(" ").each do |word|
+						      if !speller.check(word)
+						        query_word.gsub! word , speller.suggest(word).first
+						      end
+						    end
+
+						    items = P2p::Item.search(query_word ,:match_mode => :any ,:star => true ,:order => :created_at , :sort_mode => :desc ,:cutoff => 15 )
+
+						    # if still no items found render nothing
+						    if items.count ==0 
+						    	render :json => {}
+						    	return
+						    end
+						end
+
+					elsif params.has_key?(:prod)
 						cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
 						prod = cat.products.find_by_name(params[:prod].gsub(/-/," "))
-						items = prod.items
+						items = prod.items.active_items.order('created_at desc').limit(10)
 					elsif params.has_key?(:cat)
-						items = P2p::Category.find_by_name(params[:cat].gsub(/-/," ")).items
+						items = P2p::Category.find_by_name(params[:cat].gsub(/-/," ")).items.active_items.order('created_at desc').limit(10)
 					else
-						items = P2p::Item
+						items = P2p::Item.active_items.order('created_at desc').limit(10)
 					end
 
-					items.active_items.order('created_at desc').limit(10).each do |item|
+					items.each do |item|
 							resp.push({:id => item.id,
 													:title => item.title,
 													:condition => item.condition,

@@ -117,6 +117,7 @@ Sociorent::Application.routes.draw do
       match 'getcities' => 'mobile#get_city'
       match  'recentitems(/:cat(/:prod))' => 'mobile#recent_items'
       get ':cat/:prod/:item/:id' => 'mobile#view_item'
+      get '/query/:query' => 'mobile#recent_items'
     end
 
       match "/get_city/:q" => "index#get_city"

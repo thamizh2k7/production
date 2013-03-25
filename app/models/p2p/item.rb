@@ -82,6 +82,7 @@ class P2p::Item < ActiveRecord::Base
     #where ('deletedate is not null and paytype is not null and solddate is null')
     where ('deletedate is null and paytype is not null and solddate is null')
     indexes :title
+    indexes :created_at, :sortable => true
 
     set_property :delta =>true
 

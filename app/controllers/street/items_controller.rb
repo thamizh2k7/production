@@ -228,6 +228,7 @@ class Street::ItemsController < ApplicationController
     cat = P2p::Category.select("id as value ,name as text")
     render :json => cat
   end
+
   def view
     begin
       #@item = P2p::Item.find(params[:id])
@@ -240,21 +241,20 @@ class Street::ItemsController < ApplicationController
         @item = @prod.items.find(params[:id])
       end
 
-      raise "Nothing found" if   @item.nil? 
+      raise "Nothing found" if   @item.nil?
 
       if session[:userid]
 
-        if session[:userid] != @item.user.id and !@item.solddate.nil?
+        if session[:userid] != @item.user.id and (@item.availablecount == 0 ) )
 
           unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid])
             redirect_to "/street/"
             return
           end
         end
-      elsif (@item.approveddate.nil? or !@item.solddate.nil? )
+      elsif (@item.approveddate.nil? or ( @item.availablecount == 0 ) )
         raise 'Nothing found..!'
       end
-
   
     rescue
       redirect_to '/street'
@@ -350,6 +350,7 @@ class Street::ItemsController < ApplicationController
   def sold
     @item = P2p::Item.find(params[:id])
     @item.solddate =Time.now
+    @item.soldcount += 1 
     @item.save
     redirect_to URI.encode("/street/#{@item.product.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
   end
@@ -633,7 +634,7 @@ Sociorent Street Team.",
 
       when "SUCCESS"
         flash[:warning] = "Transaction success"
-        item_delivery.item.update_attributes(:solddate=>Time.now)
+        item_delivery.item.update_attributes(:solddate=>Time.now , :solddate => ' solddate + 1')
         status = 2
 
         sendsms(item_delivery.item.user.mobile_number,"Congratulations! Your item #{item_delivery.item.title} has been sold. Please login to your Sociorent Street Account to know more. Thanks.")

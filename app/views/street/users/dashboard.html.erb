@@ -86,7 +86,9 @@ $(document).ready(function(){
         },
         axes:{
             xaxis:{
-                renderer: $.jqplot.CategoryAxisRenderer
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: [<%= raw @count_ticks.join(',') %>]
+
             }
         }
     });

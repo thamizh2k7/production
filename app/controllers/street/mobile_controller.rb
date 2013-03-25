@@ -88,7 +88,7 @@ class Street::MobileController < ApplicationController
 			      				:price => item.price,
 			      				:condition => item.condition,
 			      				:product_id => prod.id,
-			      				:desc => item.desc,
+			      				:desc => URI.decode(item.desc).html_safe,
 			      				:img => URI.encode("http://#{request.env['HTTP_HOST']}#{item.get_image(0,:view)[0][:url]}"),
 			      				:specs => {}
 			       }

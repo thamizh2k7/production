@@ -23,9 +23,13 @@ class Street::ItemsController < ApplicationController
   def create
 
     if session[:user_type] == 1
-      if params.has_key?(:count) and params[:count].class.to_s == "Fixnum" 
-
-      else
+      begin
+        if params.has_key?(:count)
+           params[:count] = params[:count].to_i
+        else
+           params[:count] = 1
+        end
+      rescue
         params[:count] = 1
       end
     else
@@ -124,7 +128,34 @@ class Street::ItemsController < ApplicationController
   #update the item
   def update
     item = p2p_current_user.items.find(params[:id])
-    item.update_attributes({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition]});
+
+    if session[:user_type] == 1
+      begin
+        if params.has_key?(:count)
+          cnt = params[:count].to_i
+
+          if item.totalcount < cnt  #add more
+            params[:count] = item.totalcount  + (cnt - item.availablecount )
+          else #subtact
+            params[:count] = item.totalcount  - (item.availablecount - cnt)
+          end
+
+          if params[:count] < item.soldcount
+             params[:count] = item.soldcount
+          end
+
+
+        else
+          params[:count] = item.totalcount
+        end
+      rescue
+        params[:count] = item.totalcount
+      end
+    else
+      params[:count] = item.totalcount
+    end
+
+    item.update_attributes({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition] ,:totalcount => params[:count] });
     item.product = P2p::Product.find(params[:brand])
     begin
       item.city = P2p::City.find_by_name(params[:location])
@@ -255,9 +286,9 @@ class Street::ItemsController < ApplicationController
 
       if session[:userid]
 
-        if session[:userid] != @item.user.id and (@item.availablecount == 0 )
+        if (session[:userid] != @item.user.id and @item.availablecount == 0 ) or session[:isadmin]
 
-          unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid])
+          unless @item.item_deliveries.paysucess.pluck('buyer').include?(session[:userid]) or session[:isadmin]
             puts 'not buyer or seller'
             redirect_to "/street/"
             return

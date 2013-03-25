@@ -33,7 +33,7 @@
                 <div class="approve_item pull-right" itemid="<%=p.id%>"><i title="Approve Listing" class="action icon icon-ok"></i></div>
               <% end %>
 
-              <% if p.availablecount  > 0 %>
+              <% if p.solddate.nil? %>
                 <div class="delete_item pull-right" itemid="<%=p.id%>"></div>
               <% end %>
 

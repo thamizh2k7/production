@@ -88,6 +88,9 @@ class P2p::Item < ActiveRecord::Base
 
   end
 
+  def availablecount
+    return self.totalcount - self.soldcount
+  end
 
   before_save do
     self.desc = self.desc.strip

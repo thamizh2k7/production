@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323065659) do
+ActiveRecord::Schema.define(:version => 20130325073351) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -425,6 +425,8 @@ ActiveRecord::Schema.define(:version => 20130323065659) do
     t.datetime "deletedate"
     t.boolean  "delta",              :default => true
     t.string   "disapproved_reason"
+    t.integer  "totalcount"
+    t.integer  "soldcount"
   end
 
   add_index "p2p_items", ["city_id"], :name => "index_p2p_items_on_city_id"
@@ -490,6 +492,7 @@ ActiveRecord::Schema.define(:version => 20130323065659) do
     t.integer  "user_type",      :default => 0
     t.string   "mobile_number"
     t.integer  "city_id"
+    t.text     "address"
   end
 
   add_index "p2p_users", ["city_id"], :name => "index_p2p_users_on_city_id"

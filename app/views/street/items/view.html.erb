@@ -47,7 +47,7 @@
 
 		             <% if @item.solddate.nil?  %>
 		             		<% if @item.disapproveddate.nil? && @item.approveddate.nil? %>
-                				<a href="#" class="  btn"  >
+                				<a href="#" class="  btn disabled"  >
 			                  	<i class="  icon-ban-circle"  data-toggle="tooltip" title="Waiting For Approval"></i>
 				                  	Waiting For Approval
 			                  </a>
@@ -56,7 +56,7 @@
  				                  	<button class="btn alert-info" id="disapprove" data-original-title="Enter Reason" itemid="<%= @item.id %>" data-toggle="tooltip" title="DisApprove this listing"></button>
 		                  	<%end %>
              				<% elsif @item.approveddate %>
-             						<% if @item.user.id == session[:userid] %>
+             						<% if @item.user.id == session[:userid]  and @item.totalcount > 0 %>
 	             				 		<a href="/street/sold/<%= @item.id %>" class=" btn" data-toggle="tooltip" title="Mark this listing as sold"   >
 				                  	<i class="icon-shopping-cart" ></i> Mark as sold
 				                  </a>
@@ -229,7 +229,7 @@
 	                    </span>
 	                 </td>
 	              </tr>
-	            <!-- Location -->
+	            <!-- Condition -->
 	              <tr>
 	                <td>
 	                  <span> Condition</span>
@@ -250,6 +250,19 @@
 	              	  </span>
 	                 </td>
 	              </tr>
+
+			        <% if (!session[:user_type].nil? and session[:user_type] == 1 ) or session[:isadmin] %>
+			          <tr>
+			            <td>
+			              <span class="highlight" >Count</span>
+			            </td>
+			            <td>
+			             <span   class=" canEdit   highlight" data-name="count"  title="Enter count"  specname="count" specid="0" id="count"  data-placement="right" data-placeholder="Enter Item Count" > <%= @item.availablecount %> </span>
+
+			             <span class="pull-right action_popover" data-trigger="hover" data-html="true" data-title="Listing count details" data-content="<ul><li>Total: <%= @item.totalcount %> </li> <li>Sold: <%=@item.soldcount%> <li>Available: <%=@item.availablecount%> </li>  </ul>" > <i class="icon-table"></i> </span>
+			            </td>
+			          </tr>
+			        <% end %>
 
 	              <!-- load some specs hree -->
 

@@ -94,7 +94,7 @@ class P2p::Item < ActiveRecord::Base
 
   before_save do
     self.desc = self.desc.strip
-    self.soldcount = 0
+    self.soldcount = 0 if self.new_record?
   end
   after_update :update_changed_history
 

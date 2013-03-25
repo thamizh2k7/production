@@ -83,6 +83,7 @@ saveItem = function(){
 				$('#form_temp').append($("<input class='hide' name='condition' value='" + window.item_values['condition'] + "'>"));
 				$('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
 				$('#form_temp').append($("<input class='hide' name='desc' value='" + window.item_values['desc'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='count' value='" + window.item_values['count'] + "'>"));
 				// $('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
 				$('#form_temp').append($("<input  class='hide' name='cat' value='" + window.item_values['cat'] + "'>"));
 
@@ -414,7 +415,7 @@ edit_item =function(){
 		//validate price
 		$('#count').on('save', function(e, params) {
  				 //alert('Saved value: ' + params.newValue);
-			if (params.newValue.match(/^\d+\.?\d+$/) != null) {
+			if (params.newValue.match(/^\d+$/) != null) {
 				window.item_values['count'] = params.newValue;
 				$(this).removeClass('error');
 			}else{

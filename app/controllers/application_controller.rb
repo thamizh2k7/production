@@ -3,15 +3,35 @@ class ApplicationController < ActionController::Base
  # Helper method for all views
  helper_method  :p2p_current_user ,:p2p_get_user_location
 
+# if Rails.env.production?
 
- # if Rails.env.production?
-	#  rescue_from Exception, with: :render_404
-	#  rescue_from ActionController::RoutingError, with: :render_404
-	#  rescue_from ActionController::UnknownController, with: :render_404
+	 # rescue_from ActionController::RoutingError, with: :render_404
+	 # rescue_from ActionController::UnknownController, with: :render_404
+	 # rescue_from AbstractController::ActionNotFound, with: :render_404 # To prevent Rails 3.2.8 deprecation warnings
+	 # rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-	#  rescue_from AbstractController::ActionNotFound, with: :render_404 # To prevent Rails 3.2.8 deprecation warnings
-	#  rescue_from ActiveRecord::RecordNotFound, with: :render_404
- # end
+
+# end
+
+
+
+  rescue_from Exception, :with => :server_error
+
+  def server_error(exception)
+    # Whatever code that handles the exception
+
+    UserMailer.error_mail(exception,request,session,params).deliver()
+    begin
+      if request.env['HTTP_REFERER'].index('street')
+        redirect_to '/street' ,:notice => "Page not found"
+      else
+        redirect_to '/'  ,:notice => "Page not found"
+      end
+    rescue
+       redirect_to '/'  ,:notice => "Page not found"
+    end
+  end
+
 
   protect_from_forgery
   def send_sms(receipient,msg)
@@ -35,10 +55,18 @@ class ApplicationController < ActionController::Base
 	 end
   end
 
-  def render_404(exception = nil)
-	  flash[:warning]="Page not found"
-	  redirect_to "/"
+  def render_error(exception)
+	  
+    UserMailer.error_mail(exception).deliver()
+
+    if request.env['HTTP_REFERER'].index('street')
+      redirect_to '/street' ,:notice => "Page not found"
+    else
+      redirect_to '/'  ,:notice => "Page not found"
+    end
+
   end
+
 
 
   def guess_user_location
@@ -246,6 +274,29 @@ class ApplicationController < ActionController::Base
   	end
   end
 
+
+
+
+  #####################
+
+  # protected
+
+  # def rescue_action_in_public(exception)
+
+  #     UserMailer.error_mail(exception).deliver
+
+  #     if request.env['HTTP_REFERER'].index('street')
+  #       redirect_to '/street' ,:notice => "Page not found"
+  #     else
+  #       redirect_to '/'  ,:notice => "Page not found"
+  #     end
+  # end
+
+  # def local_request?
+  #   false
+  # end
+
+
   ###########################
 
   private
@@ -254,6 +305,7 @@ class ApplicationController < ActionController::Base
 			redirect_to "http://www.sociorent.com"
 		 end
 	  end
+
 	  def authenticate_admin!
 		 authenticate_user!
 		 unless current_user.is_admin?
@@ -261,8 +313,6 @@ class ApplicationController < ActionController::Base
 			redirect_to root_path
 		 end
 	  end
-
-
 
 
 end

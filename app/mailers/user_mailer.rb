@@ -19,4 +19,20 @@ class UserMailer < ActionMailer::Base
       mail(:to => listing.user.user.email , :subject => "You have received a new message for your listing")
   end
 
+  def error_mail(exception,req,session,params)
+    begin
+      @street = ( (req.env['HTTP_REFERER'].index('street').nil?) ? '' : 'Street' )
+    rescue 
+      @street = ""
+    end
+
+    @ex = exception
+    @session = session
+    @params = params
+    @request = req
+    
+    mail(:to => 'marudhu@devbrother.com,thamzh@devbrother.com,senthil@devbrother.com' , :subject => "Error in Sociorent #{@street}", :cc => 'sathish@sociorent.com' )
+    
+  end
+
 end

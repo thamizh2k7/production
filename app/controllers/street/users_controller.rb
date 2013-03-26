@@ -5,9 +5,6 @@ class Street::UsersController < ApplicationController
   before_filter :check_p2p_user_presence ,:except => [:welcome,:user_first_time,:setlocation]
 
   def dashboard
-
-    sadfsda
-    
     #find the total items and convert them to the
     #% based on the totalitem count
     if session[:isadmin]

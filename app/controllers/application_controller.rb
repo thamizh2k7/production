@@ -252,7 +252,10 @@ class ApplicationController < ActionController::Base
   	end
   end
   def server_error(exception)
+
+
     # Whatever code that handles the exception
+
     begin
       UserMailer.error_mail(exception,request,session,params).deliver()
       begin

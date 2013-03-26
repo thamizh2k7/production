@@ -263,6 +263,5 @@ div.jqplot-noData-container {
     font-weight: bold;
 }
 .jqplot-title{
-
-z-index: 1000`;
+    z-index: 1000;
 }

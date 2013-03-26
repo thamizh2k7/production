@@ -66,6 +66,7 @@ class Street::MobileController < ApplicationController
 							:view_count => item.viewcount,
 							:desc => URI.decode(item.desc).html_safe,
 							:img => URI.encode("http://#{request.env['HTTP_HOST']}#{item.get_image(0,:thumb)[0][:url]}"),
+							:big_img => URI.encode("http://#{request.env['HTTP_HOST']}#{item.get_image(0,:view)[0][:url]}"),
 							:specs => specs
 						})
 					end

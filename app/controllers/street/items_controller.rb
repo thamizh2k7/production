@@ -36,7 +36,6 @@ class Street::ItemsController < ApplicationController
     else
       params[:count] = 1
     end
-
     item = p2p_current_user.items.new({:title => params[:title].strip, :desc => params[:desc], :price => params[:price] ,:condition => params[:condition] , :totalcount => params[:count] })
     # render :json => item
     item.category = P2p::Category.find(params[:cat].to_i)

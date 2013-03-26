@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325073351) do
+ActiveRecord::Schema.define(:version => 20130326065318) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -404,6 +404,13 @@ ActiveRecord::Schema.define(:version => 20130325073351) do
 
   add_index "p2p_item_specs", ["item_id"], :name => "index_p2p_item_specs_on_item_id"
   add_index "p2p_item_specs", ["spec_id"], :name => "index_p2p_item_specs_on_spec_id"
+
+  create_table "p2p_itemlookups", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "view_count"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "p2p_items", :force => true do |t|
     t.integer  "product_id"

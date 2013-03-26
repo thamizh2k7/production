@@ -121,8 +121,12 @@ class P2p::Item < ActiveRecord::Base
 
     unless changed_column.empty?
 
-        PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
-        PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}'>#{self.title}</a> listing and is waiting for your approval." )
+        begin
+          PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
+          PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}'>#{self.title}</a> listing and is waiting for your approval." )
+        rescue
+
+        end
 
         admin.sent_messages.create({:receiver_id => admin.id,
                                                   :message => "This is an auto generated system message. #{self.user.user.name}  has changed <a href='/street/#{self.category.name.gsub(/ /,"-")}/#{self.product.name.gsub(/ /,"-")}/#{(self.title).gsub(/ /,"-")}/#{self.id}'>#{self.title}</a> listing and is kept under your verification The changes are <br/>#{changed_column} <br/> Please review them. - System",
@@ -176,8 +180,11 @@ class P2p::Item < ActiveRecord::Base
           });
       "
 
-    PrivatePub.publish_to("/user_#{self.user.id}", message_notification )
-    PrivatePub.publish_to("/user_1", admin_message_notification )
+      begin
+        PrivatePub.publish_to("/user_#{self.user.id}", message_notification )
+        PrivatePub.publish_to("/user_1", admin_message_notification )
+      rescue
+      end
 
     admin.sent_messages.create({:receiver_id => self.user.id ,
                                               :message => "Thank you for listing an item in Sociorent Street. Your listing is under validation and you'll get a message <br> on the status of the item in a couple of hours.<br>This is a system generated message and you need not reply to this.<br><br>Thank you.<br><br>Sincerly,<br>Sociorent Street Team.",

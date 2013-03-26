@@ -504,8 +504,11 @@ class Street::ItemsController < ApplicationController
                     }
                     });
         "
-
-        PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )
+        begin
+          PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )
+        rescue
+        end
+        
         render :json => '1'
         return
       elsif params[:query] == 'approve'
@@ -573,8 +576,11 @@ Sociorent Street Team.",
                               }
                               });
                            "
-
-        PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
+        begin
+          PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
+        rescue
+        end
+        
         render :json => '1'
         return
       end

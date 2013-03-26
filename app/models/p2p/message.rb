@@ -70,8 +70,11 @@ class P2p::Message < ActiveRecord::Base
       
 
 
-
-    PrivatePub.publish_to("/user_#{self.receiver.id}", header_msg + unread_msg + message_notification )
+      begin
+        PrivatePub.publish_to("/user_#{self.receiver.id}", header_msg + unread_msg + message_notification )
+      rescue
+      end
+      
   end
 
   	def message_type

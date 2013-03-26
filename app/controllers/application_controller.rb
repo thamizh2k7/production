@@ -295,29 +295,29 @@ class ApplicationController < ActionController::Base
         }
         </style>
 
-        <h2><span class='error'> Error Occured in Sociorent <%= @street %>
+        <h2><span class='error'> Error Occured in Sociorent #{@street}
         </span></h2>
 
         <body>
 
 
-            <h3>Exception obj:</h3>  <%= debug @ex %>
+            <h3>Exception obj:</h3>  #{debug @ex}
             <br/><hr><br/>
 
-            <h3>BackTrace :</h3> <%= debug @ex.backtrace %>
-
-            <br/><hr><br/>
-
-            <h3>Session Dump:</h3> <%= debug @session %>
+            <h3>BackTrace :</h3> #{debug @ex.backtrace}
 
             <br/><hr><br/>
 
-            <h3>Params Dump: </h3><%= debug @params %>
+            <h3>Session Dump:</h3> #{debug @session}
+
+            <br/><hr><br/>
+
+            <h3>Params Dump: </h3>#{debug @params}
 
             <br/><hr><br/>
 
             <h3>Request Dump: </h3>
-              <%= debug @request %>
+              #{debug @request}
 
               <br/><hr><br/>
 
@@ -327,8 +327,8 @@ class ApplicationController < ActionController::Base
 
     "
 
-        File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa[0]) }
-        send_sms('8951173103',"Thanks for signing-up with Sociorent.com. Your ID is 'Error in sociorent. Mail not working. Find at error logged at sociorent.com/tech_errors.html' . You may now login to place your order. Thank you.")
+        File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa) }
+        #send_sms('8951173103',"Thanks for signing-up with Sociorent.com. Your ID is 'Error in sociorent. Mail not working. Find at error logged at sociorent.com/tech_errors.html' . You may now login to place your order. Thank you.")
 
         begin
           if request.env['HTTP_REFERER'].index('street')

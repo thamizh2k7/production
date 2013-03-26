@@ -19,6 +19,7 @@ Sociorent::Application.routes.draw do
   # get 'privacy_policy' => 'static_pages#privacypolicy'
   # get 'terms_of_use' => 'static_pages#termsofuse'
 
+  match 'privacy_policy' => 'static_pages#privacypolicy'
 
   get "home/index"
   match "/search" => "home#search"
@@ -76,7 +77,7 @@ Sociorent::Application.routes.draw do
     root :to => "index#index"
 
 
-
+    
     match 'aboutus' => 'static_pages#aboutus'
     match 'contactus' => 'static_pages#contactus'
     match 'privacy_policy' => 'static_pages#privacypolicy'

@@ -197,7 +197,7 @@ class Street::UsersController < ApplicationController
 
   # Get code for verification of mobile
   def getcode
-    if P2p::user.find_by_mobile_number(params[:mobile]).count > 0
+    unless P2p::User.find_by_mobile_number(params[:mobile]).nil?
       render :json => {:status => 10}
       return
     end
@@ -209,7 +209,7 @@ class Street::UsersController < ApplicationController
     user.update_attributes(:mobile_number=>mobile_number)
     puts session[:verify]
     #TODO :: check the send sms function whether it pinging mvooyoo correctly.or not
-    send_sms(mobile_number,msg)
+    #send_sms(mobile_number,msg)
     render :json => {:status => 1}
   end
 
@@ -644,14 +644,27 @@ end
   end
 
   def profile
+    begin
         # load address of the current user
-    @address = JSON.parse(p2p_current_user.address) rescue {"address_street_1" => "",
-                                                        "address_street_2" => "",
-                                                        "address_city" => "",
-                                                        "address_state" => "",
-                                                        "address_pincode" => "" }
+      @address = JSON.parse(p2p_current_user.address) 
+      @address_present = true
+    rescue 
+     @address= {"address_street_1" => "","address_street_2" => "", "address_city" => "","address_state" => "","address_pincode" => "" }
+     @address_present = false
+    end
 
-    @mobile = (p2p_current_user.mobile_number.nil?) ? "" : @mobile
+    
+
+    if p2p_current_user.mobileverified
+      @mobile =p2p_current_user.mobile_number
+      @mobile_preset = true
+    else
+      @mobile = ''
+      @mobile_preset = false
+    end
+
+     
+    
 
   end
 

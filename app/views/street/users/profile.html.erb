@@ -24,26 +24,31 @@
 
 	<h3> <%= p2p_current_user.user.name %> Profile </h3>
 
-      <div class="alert alert-error"> 
-        <% if !flash[:notice].nil? %>
 
+        <% if !flash[:notice].nil? %>
+          <div class="alert alert-error"> 
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               Update your Mobile number and address to continue 
+          </div>
         <% end %>
 
 
       <%if !p2p_current_user.mobileverified %> 
-        <li>Your Mobile Number is not Verified</li>
+        <div class="alert alert-error"> 
+          <li>Your Mobile Number is not Verified</li>
+        </div>
       <% end %>
 
       <%if p2p_current_user.address.nil? %> 
-        <li>You have no address</li>
+        <div class="alert alert-error"> 
+          <li>You have no address</li>
+        </div>
       <% end %>
-  </div>
+
 
 <div class="tabbable">
   <ul class="nav nav-tabs" id="myTab">
-    <li><a  data-toggle="tab" href="#mobile">Mobile Number</a></li>
+    <li class="active"><a  data-toggle="tab" href="#mobile">Mobile Number</a></li>
     <li><a  data-toggle="tab" href="#address">Address</a></li>
   </ul>
    
@@ -56,7 +61,7 @@
              <div class="control-group">
                 <label class="control-label">Mobile Number</label>
                 <div class="controls">
-                  <input type="text" id="profile_mobile_number" value = "<%= p2p_current_user.mobile_number %>" class="input text" >
+                  <input type="text" id="profile_mobile_number" value = "<%= @mobile %>" class="input text" >
                 </div>
               </div>
 
@@ -119,7 +124,6 @@
  </div>
 </div>
 
-
 <script>
 
 disableverify=function(){
@@ -131,6 +135,10 @@ disableverify=function(){
 
 	$(document).ready(function(){
 
+
+    <% if !@mobile_present and !@address_present %>
+      $("#myTab li:nth-child(2) a").tab('show');
+    <% end %>
 
     $("#profile_mobile_number").keypress(function(){
       if (!(/^\d{10}$/.test($("#profile_mobile_number").val())) ){
@@ -165,13 +173,13 @@ disableverify=function(){
               type:'post',
               dataType:'json',
               success:function(data){
-                   if (data.status== 1){
+                   if (data.status == 1){
 												showNotifications('Successfully Verified Mobile');
 												$("#profile_verify_code_submit").removeClass('btn-primary').removeAttr('disabled').html('Verified Successfully');
-                   }else if (data.status== 10){
-                        showNotifications('Mobile Number Already in use.');
-                   }
-
+                        <% unless @address_present %>
+                          $("#myTab li:nth-child(2) a").tab('show');
+                        <% end %>
+                  }
                    else{
                         $("#profile_verify_code_submit").addClass('btn-primary').removeAttr('disabled').html('Failed.Retry');
                    }
@@ -195,7 +203,7 @@ disableverify=function(){
         }
 
 
-        if ($("#address_address_street_1").val().length <5 || $("#address_address_city").val().length <2 ){
+        if ($("#address_address_street_1").val().length <2 || $("#address_address_city").val().length <2 ){
           showNotifications('Enter a valid address');
           return false;
         }
@@ -209,6 +217,11 @@ disableverify=function(){
               dataType:'json',
               success:function(data){
                    if (data.status== 1){
+                        <% if cookies.has_key?(:redirect_to) %>
+                            window.location.href="<%=cookies[:redirect_to]%>";
+                            return false;
+                        <% end %>
+
 												showNotifications('Successfully Updated address');
                    }else{
                         showNotifications('Some error occured. Try again.');
@@ -234,7 +247,11 @@ disableverify=function(){
               success:function(data){
                    if (data.status == 1){
                         $(verify_ele).removeClass('btn-primary').html('Code Sent. Resend Code');
-                   }else{
+                   }else if (data.status == 10){
+                        showNotifications('Mobile Number Already in use.');
+                        $("#profile_send_verify_code").addClass('btn-primary').removeAttr('disabled').html('Mobile in use. Send Again');
+                   }
+                   else{
                         showNotifications('Some error occured. Try again.');
                    }
               },

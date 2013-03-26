@@ -6,6 +6,7 @@ class Street::IndexController < ApplicationController
   layout :p2p_layout
 
   def index
+    asdfs
     # load the categories based on their priority
     @category = P2p::Category.order("priority")
     @main_categories = P2p::Category.main_categories.includes(:items)

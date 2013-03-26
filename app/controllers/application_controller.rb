@@ -275,10 +275,11 @@ class ApplicationController < ActionController::Base
           @street = ""
         end
 
-        @ex = exception
-        @session = session
-        @params = params
-        @request = request
+        @ex = exception.inspect
+        @ex_backtrace = exception.backtrace.inspect
+        @session = session.inspect
+        @params = params.inspect
+        @request = request.inspect
 
         time_now = Time.now
         aa ="
@@ -301,23 +302,23 @@ class ApplicationController < ActionController::Base
         <body>
 
 
-            <h3>Exception obj:</h3>  #{debug @ex}
+            <h3>Exception obj:</h3>  #{@ex}
             <br/><hr><br/>
 
-            <h3>BackTrace :</h3> #{debug @ex.backtrace}
-
-            <br/><hr><br/>
-
-            <h3>Session Dump:</h3> #{debug @session}
+            <h3>BackTrace :</h3> #{ @ex_backtrace}
 
             <br/><hr><br/>
 
-            <h3>Params Dump: </h3>#{debug @params}
+            <h3>Session Dump:</h3> #{ @session}
+
+            <br/><hr><br/>
+
+            <h3>Params Dump: </h3>#{ @params}
 
             <br/><hr><br/>
 
             <h3>Request Dump: </h3>
-              #{debug @request}
+              #{ @request}
 
               <br/><hr><br/>
 

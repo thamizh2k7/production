@@ -75,7 +75,7 @@ Sociorent::Application.routes.draw do
 
     root :to => "index#index"
 
-    
+
 
     match 'aboutus' => 'static_pages#aboutus'
     match 'contactus' => 'static_pages#contactus'
@@ -107,17 +107,16 @@ Sociorent::Application.routes.draw do
       match 'static_pages/get_page/:page_name' => 'static_pages#get_page'
 
       match 'cities/:id/destory' => 'cities#destroy'
-      
+
       root :to => 'categories#index'
       match 'jobs(/:job(/:cmd))' => 'users#show_jobs'
     end
 
-
     scope 'mob' do
       match 'getcities' => 'mobile#get_city'
       match  'recentitems(/:cat(/:prod))' => 'mobile#recent_items'
-      get ':cat/:prod/:item/:id' => 'mobile#view_item'
       get '/query/:query' => 'mobile#recent_items'
+      match 'update_view_count/:id'=> "mobile#update_view_count"
     end
 
       match "/get_city/:q" => "index#get_city"
@@ -213,4 +212,3 @@ Sociorent::Application.routes.draw do
   match '*a', :to => 'errors#routing'
 
 end
- 

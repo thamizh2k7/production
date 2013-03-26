@@ -12,6 +12,7 @@ class P2p::Item < ActiveRecord::Base
   has_many :specs ,:class_name => "P2p::ItemSpec"
 
   has_many :messages ,:class_name => 'P2p::Message'
+  has_one :itemlookup, :class_name=>"P2p::Itemlookup"
 
   has_one :category ,:through => :product
 

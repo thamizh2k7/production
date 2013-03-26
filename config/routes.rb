@@ -10,6 +10,8 @@ Sociorent::Application.routes.draw do
 
   resources :static_pages
 
+  get 'privacy_policy' => 'static_pages#privacypolicy'
+  
   get 'page/:id' => 'static_pages#show'
   get 'college_ambassadors' => 'static_pages#colleges'
 
@@ -18,8 +20,6 @@ Sociorent::Application.routes.draw do
   # get 'contactus' => 'static_pages#contactus'
   # get 'privacy_policy' => 'static_pages#privacypolicy'
   # get 'terms_of_use' => 'static_pages#termsofuse'
-
-  match 'privacy_policy' => 'static_pages#privacypolicy'
 
   get "home/index"
   match "/search" => "home#search"

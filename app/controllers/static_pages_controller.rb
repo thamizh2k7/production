@@ -25,5 +25,10 @@ class StaticPagesController < ApplicationController
   def show
     @page = StaticPage.find_by_page_name(params[:id])
   end
+
+  def privacypolicy
+    @page = StaticPage.find_by_page_name('privacy_policy')
+    render :show
+  end
   
 end

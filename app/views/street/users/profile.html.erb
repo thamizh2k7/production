@@ -193,6 +193,24 @@ disableverify=function(){
 
     $("#address_address_city").val($("#user_location").val());
 
+    window.cache_profile_city = {};
+
+    $("#address_address_city").autocomplete({
+            minLength: 2,
+            source: function( request, response ) {
+             var term = request.term;
+              if ( term in window.cache_profile_city ) {
+                response( window.cache_profile_city[ term ] );
+                return;
+              }
+              $.getJSON( "/street/get_city/" + request.term,{}, function( data, status, xhr ) {
+                window.cache_profile_city[ term ] = data;
+                response( data );
+              });
+            }
+
+    });
+
 
     $("#profile_update_address").live("click",function(){
 
@@ -223,6 +241,7 @@ disableverify=function(){
                         <% end %>
 
 												showNotifications('Successfully Updated address');
+                        $(".alert-error").remove();
                    }else{
                         showNotifications('Some error occured. Try again.');
                    }

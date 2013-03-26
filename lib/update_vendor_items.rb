@@ -35,7 +35,7 @@ end
                 item.title = CGI::unescape(row[1])
                 #saving to database
                 item.price = CGI::unescape(row[2])
-                item.totalcount = CGI::unescape(row[3])
+                item.totalcount = ( ( CGI::unescape(row[3]).to_s.empty?)  ? 1 : CGI::unescape(row[3]) )
                 item.condition = CGI::unescape(row[4])
                 item.desc = CGI::unescape(row[6])
 

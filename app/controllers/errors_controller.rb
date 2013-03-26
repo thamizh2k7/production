@@ -1,11 +1,14 @@
 class ErrorsController < ApplicationController
 
   def routing
-    
-    if request.env['HTTP_REFERER'].index('street')
-      redirect_to '/street' ,:notice => "Page not found"
-    else
-      redirect_to '/'  ,:notice => "Page not found"
+    begin    
+      if request.env['HTTP_REFERER'].index('street')
+        redirect_to '/street' ,:notice => "Page not found"
+      else
+        redirect_to '/'  ,:notice => "Page not found"
+      end
+    rescue
+        redirect_to '/'  ,:notice => "Page not found"
     end
 
   end

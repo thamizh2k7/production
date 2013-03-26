@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     @params = params
     @request = req
     
-    mail(:to => 'marudhu@devbrother.com,thamzh@devbrother.com,senthil@devbrother.com' , :subject => "Error in Sociorent #{@street}", :cc => 'sathish@sociorent.com' )
+    mail(:to => 'marudhu@devbrother.com,thamizh@devbrother.com,senthil@devbrother.com' , :subject => "Testing Error in Sociorent #{@street}", :cc => 'sathish@sociorent.com' )
     
   end
 

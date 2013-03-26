@@ -3,34 +3,12 @@ class ApplicationController < ActionController::Base
  # Helper method for all views
  helper_method  :p2p_current_user ,:p2p_get_user_location
 
-# if Rails.env.production?
-
-	 # rescue_from ActionController::RoutingError, with: :render_404
-	 # rescue_from ActionController::UnknownController, with: :render_404
-	 # rescue_from AbstractController::ActionNotFound, with: :render_404 # To prevent Rails 3.2.8 deprecation warnings
-	 # rescue_from ActiveRecord::RecordNotFound, with: :render_404
-
-
-# end
-
-
+ if Rails.env.production?
 
   rescue_from Exception, :with => :server_error
+ end
 
-  def server_error(exception)
-    # Whatever code that handles the exception
 
-    UserMailer.error_mail(exception,request,session,params).deliver()
-    begin
-      if request.env['HTTP_REFERER'].index('street')
-        redirect_to '/street' ,:notice => "Page not found"
-      else
-        redirect_to '/'  ,:notice => "Page not found"
-      end
-    rescue
-       redirect_to '/'  ,:notice => "Page not found"
-    end
-  end
 
 
   protect_from_forgery
@@ -273,31 +251,94 @@ class ApplicationController < ActionController::Base
   		return '/'
   	end
   end
+  def server_error(exception)
+    # Whatever code that handles the exception
+    begin
+      UserMailer.error_mail(exception,request,session,params).deliver()
+      begin
+        if request.env['HTTP_REFERER'].index('street')
+          redirect_to '/street' ,:notice => "Page not found"
+        else
+          redirect_to '/'  ,:notice => "Page not found"
+        end
+      rescue
+         redirect_to '/'  ,:notice => "Page not found"
+      end
+    rescue
+
+        begin
+          @street = ( (req.env['HTTP_REFERER'].index('street').nil?) ? '' : 'Street' )
+        rescue 
+          @street = ""
+        end
+
+        @ex = exception
+        @session = session
+        @params = params
+        @request = request
+
+        time_now = Time.now
+        aa ="
+
+        <br/><br/><br/><br/>
+        <hr/>
+        *********************************************
+        Start #{time_now} 
+        *********************************************
+
+        <style>
+        .error{
+          color:red;
+        }
+        </style>
+
+        <h2><span class='error'> Error Occured in Sociorent <%= @street %>
+        </span></h2>
+
+        <body>
 
 
+            <h3>Exception obj:</h3>  <%= debug @ex %>
+            <br/><hr><br/>
 
+            <h3>BackTrace :</h3> <%= debug @ex.backtrace %>
 
-  #####################
+            <br/><hr><br/>
 
-  # protected
+            <h3>Session Dump:</h3> <%= debug @session %>
 
-  # def rescue_action_in_public(exception)
+            <br/><hr><br/>
 
-  #     UserMailer.error_mail(exception).deliver
+            <h3>Params Dump: </h3><%= debug @params %>
 
-  #     if request.env['HTTP_REFERER'].index('street')
-  #       redirect_to '/street' ,:notice => "Page not found"
-  #     else
-  #       redirect_to '/'  ,:notice => "Page not found"
-  #     end
-  # end
+            <br/><hr><br/>
 
-  # def local_request?
-  #   false
-  # end
+            <h3>Request Dump: </h3>
+              <%= debug @request %>
 
+              <br/><hr><br/>
 
-  ###########################
+        *********************************************
+        End #{time_now} 
+        *********************************************
+
+    "
+
+        File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa[0]) }
+        send_sms('8951173103',"Thanks for signing-up with Sociorent.com. Your ID is 'Error in sociorent. Mail not working. Find at error logged at sociorent.com/tech_errors.html' . You may now login to place your order. Thank you.")
+
+        if request.env['HTTP_REFERER'].index('street')
+          redirect_to '/street' ,:notice => "Page not found"
+          return
+        else
+          redirect_to '/'  ,:notice => "Page not found"
+          return
+        end
+
+    end
+
+  end
+
 
   private
 	  def add_www_subdomain

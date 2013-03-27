@@ -6,7 +6,6 @@ Dir.chdir(Rails.root) do
       Lock_File = File.open(Rails.root.join('log/update_bulk_vendor.lock'),'w',2)
 
       tme = Time.now
-
       csvfiles = P2p::VendorUpload.where(:processed=>false)
 
       csvfiles.each do |csvfile_obj|
@@ -14,22 +13,44 @@ Dir.chdir(Rails.root) do
           category = P2p::Category.find(csvfile_obj.category_id.to_i)
           csvfile = csvfile_obj.upload_csv
           csvfile_obj.update_attributes(:processed=>true)
-begin
 
-File.open(csvfile.path,"r:iso-8859-1") do |f|
-            @csvs = f.read
-          end
-rescue Exception => e
-puts e.message
+  begin
+      File.open(csvfile.path,"r:iso-8859-1") do |f|
+          @csvs = f.read
+      end
+  rescue Exception => e
+    puts e.message
+    next
+  end
 
-end
+        finished_line_no = 0
+        begin
+          finished_line_no = (File.read("Books.csv_finished")).to_i
+        rescue
+          puts 'check inside rescure 33'
+        end
+
+        curline = 0
+
           begin
+            
             CSV.parse(@csvs, {:headers => true}) do |row|
+
+                curline +=1
+
+              if ( curline <= finished_line_no )
+                next
+              end
+                
+              # end
+
               next if row.header_row?
               row_ar = row.to_a
               header_count = row.count
               begin
                 item = csvfile_obj.user.items.new
+                item.user = P2p::User.first
+                
                 item.category = category
                 item.product= category.products.find_or_create_by_name(CGI::unescape(row[0]))
                 item.title = CGI::unescape(row[1])
@@ -93,7 +114,14 @@ end
                   end
 
                   if item.is_valid_data?
-                    item.save
+
+                    if item.save
+                      File.open("Books.csv_finished", 'w+') { |file| file.write(curline) }
+                    else
+                      raise 'Not Saved'
+                    end
+
+
                   else
                     raise "Data not Valid"
                   end
@@ -114,6 +142,5 @@ end
     Lock_File.close()
     File.delete(Rails.root.join('log/update_bulk_vendor.lock'))
 
-    rescue
     end
-end
+# end

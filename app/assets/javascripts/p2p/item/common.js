@@ -106,8 +106,14 @@ function check_before_save(){
 				}
 
 				if (window.brand =="" || window.brand == null || window.brand == undefined ){
-					$("#model").addClass("error");
-					$("#model").tooltip('show');
+					if ($('#model').hasClass('hidden')){
+						$("#add_new_model").removeClass('hidden');
+						$("#add_new_model").editable('show');
+					}else{
+						$("#model").addClass("error");
+						$("#model").tooltip('show');
+					}
+					
 					return false;
 				}
 

@@ -119,7 +119,7 @@ check_specs =  function(e, params) {
 
 				if ($('[id^=item_]')[Number($(this).attr('specid')) ]){
 
-					$($('[id^=item_]')[Number($(this).attr('specid'))]).tooltip('show');
+					//$($('[id^=item_]')[Number($(this).attr('specid'))]).tooltip('show');
 				}
 				else{
 					$(window).scrollTop = $("#desc_content").top;
@@ -306,7 +306,7 @@ edit_item =function(){
 								$("#add_new_model").editable('destroy');
 							}
 
-							$("#price").tooltip('show');
+							//$("#price").tooltip('show');
 							$('#add_new_model').val('');
 						}
 						else{
@@ -334,7 +334,7 @@ edit_item =function(){
 							}
 
 							window.brand = params.newValue;
-							$("#price").tooltip('show');
+							//$("#price").tooltip('show');
 							$('#model').text(params.newValue);
 							$("#add_new_model").addClass('hidden');
 							$("#model").removeClass('hidden');
@@ -373,7 +373,7 @@ edit_item =function(){
 
 			});
 
-			$('#model').tooltip('show');
+			//$('#model').tooltip('show');
 		});
 
 
@@ -383,7 +383,7 @@ edit_item =function(){
 			if (params.newValue.length > 2) {
 				window.item_values['title'] = params.newValue;
 				$(this).removeClass('error');
-				$('#category_item').tooltip('show');
+				//$('#category_item').tooltip('show');
 			}
 			else{
 				window.item_values['title']="";
@@ -400,7 +400,7 @@ edit_item =function(){
 			if (params.newValue.match(/^\d+\.?\d+$/) != null) {
 				window.price = params.newValue;
 				$(this).removeClass('error');
-				$("#condition").tooltip('show');
+				//$("#condition").tooltip('show');
 
 			}else{
 				window.price="";
@@ -433,7 +433,7 @@ edit_item =function(){
 			if (params.newValue.length !=0 ) {
 				window.item_values['location'] = params.newValue;
 				$(this).removeClass('error');
-				$('[id^=item_] :first').tooltip('show');
+				//$('[id^=item_] :first').tooltip('show');
 			}
 			else{
 				window.item_values['location']="";
@@ -452,7 +452,7 @@ edit_item =function(){
 			if (params.newValue.length > 20) {
 				window.item_values['desc'] = escape(params.newValue);
 				$(this).removeClass('error');
-				$("#upload_pic").tooltip('show');
+				//$("#upload_pic").tooltip('show');
 			}
 			else{
 				window.item_values['desc']="";
@@ -471,7 +471,7 @@ edit_item =function(){
 			if (params.newValue.length > 2) {
 				window.item_values['condition'] = params.newValue;
 				$(this).removeClass('error');
-				$("#location").tooltip('show');
+				//$("#location").tooltip('show');
 			}
 			else{
 				window.item_values['condition']="";

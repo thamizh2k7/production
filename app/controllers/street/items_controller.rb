@@ -541,7 +541,7 @@ Sociorent Street Team.",
                                                                  });
         #session[:verifycode] = rand(0..100000)
         begin
-          send_sms(item.user.user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{item.title.truncate(110)} . You may now login to place your order. Thank you.")
+          #send_sms(item.user.user.mobile_number,"Thanks for signing-up with Sociorent.com. Your ID is #{item.title.truncate(110)} . You may now login to place your order. Thank you.")
         rescue
           P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
                                                                    :message => "This is an auto generated system message. A approval message cant be sent to #{item.user.user.mobile_number } (#{item.user.user.email},  #{item.user.user.name} ).<br/> Thank you.. <br/> Sincerly, <br/> Developers ",

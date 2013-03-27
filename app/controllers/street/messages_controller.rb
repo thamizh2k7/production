@@ -45,7 +45,7 @@ class Street::MessagesController < ApplicationController
       end
 
     end
-  end
+
 
   #show the message as requested by the id
   def show

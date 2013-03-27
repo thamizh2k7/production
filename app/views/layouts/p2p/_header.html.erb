@@ -9,7 +9,7 @@
             <div id="menuSet" class="span8 pull-right">
                 <li class="pull-left location_li">
                     <i class="icon-globe"></i>
-                    <input type="text" id="user_location" placeholder="Your Location?">
+                    <input type="text" id="user_location" placeholder="Your Location?" value="<%( (session[:city].nil?) ? '' :  session[:city] )%>">
                     <%# =select_tag "user_location" ,options_for_select( P2p::City.all.collect{|city|  [city.name,city.id]} , p2p_get_user_location ),:prompt=>"Your Location?"%>
 
                   </li>

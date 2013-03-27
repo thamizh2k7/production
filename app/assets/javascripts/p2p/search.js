@@ -84,6 +84,7 @@
       }
     });
 
+
     function set_location(city)
     {
       $.ajax({
@@ -110,6 +111,7 @@
     $("#user_location").blur(function(){
       $("#user_location").val($("#user_city").val());
     })
+    
 
     //auto complete for the search
     $("#top_search_input").autocomplete({

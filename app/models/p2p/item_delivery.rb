@@ -18,6 +18,8 @@ class P2p::ItemDelivery < ActiveRecord::Base
    # 5 => user complete
    # 6 => sociorent complete
    # 7 => shipped
+   # 8 => warning_sent
+   # 9 => refunded
 
 
    def statustext

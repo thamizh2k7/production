@@ -116,7 +116,7 @@ Sociorent::Application.routes.draw do
     scope 'mob' do
       match 'getcities' => 'mobile#get_city'
       match  'recentitems(/:cat(/:prod))' => 'mobile#recent_items'
-      get '/query/:query' => 'mobile#recent_items'
+      get '/query/:query/:city' => 'mobile#recent_items'
       match 'update_view_count/:id'=> "mobile#update_view_count"
     end
 

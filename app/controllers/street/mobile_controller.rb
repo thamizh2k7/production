@@ -2,12 +2,12 @@ class Street::MobileController < ApplicationController
 
 	  def get_city
 	    cities = P2p::City.all
-	    resp = [];
+	    resp = {}
+	    resp['cities'] = []
 	    cities.each do |city|
-	      resp.push city.name
+	      resp['cities'].push(city.name)
 	    end
-
-	    	render :text=> resp.to_json() and return
+	    	render :json => resp and return
 		end
 
 		def recent_items

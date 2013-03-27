@@ -38,6 +38,10 @@ class Street::MessagesController < ApplicationController
 
       if @message.item.paytype == 2
         UserMailer.p2p_listing_new_msg_notification(current_user,@message.item).deliver
+      elsif @message.item.paytype == 3
+        UserMailer.p2p_listing_new_msg_notification(current_user,@message.item).deliver
+      end
+
       end
 
     end

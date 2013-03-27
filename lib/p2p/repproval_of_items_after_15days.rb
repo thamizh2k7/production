@@ -20,7 +20,7 @@
 		item.update_attributes(:approveddate => nil)
 
       
-        admin.sent_messages.create({:receiver_id => item.user.id ,
+    admin.sent_messages.create({:receiver_id => item.user.id ,
                                               :message => "This is an auto generated system message. Your item <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'> #{item.title} </a> has been idel for over 15 days and hence has been disapproved .Reply to this message asking the admin to re approve if you need the item to be on sociorent.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                               :messagetype => 5,
                                               :sender_id => admin.id,
@@ -38,7 +38,7 @@
 		item.update_attributes(:approveddate => nil)
 
 
-        admin.sent_messages.create({:receiver_id => item.user.id ,
+    admin.sent_messages.create({:receiver_id => item.user.id ,
                                               :message => "This is an auto generated system message. Your item #{item.title} has been not sold for over 13 days and hence will be disapproved automatically if u don ask for reapproval from the admin.. Reply to this message to know the reason.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                               :messagetype => 5,
                                               :sender_id => admin.id,

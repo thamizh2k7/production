@@ -109,12 +109,6 @@ class Street::UsersController < ApplicationController
       flash[:notice] = 'Nothing could be found for your request'
       return
     end
-    #get image
-    unless session[:userid].nil?
-      user=p2p_current_user
-      redirect_to '/street'
-      return
-    end
 
     user_first_time
   end
@@ -122,7 +116,7 @@ class Street::UsersController < ApplicationController
   #send the first time initializing messages..
   def user_first_time
     admin = P2p::User.find_by_user_id(session[:admin_id])
-    if session[:userid].nil?
+    if p2p_current_user.nil?
       user = P2p::User.new
       user.user = current_user
       user.save

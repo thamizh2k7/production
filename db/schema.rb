@@ -527,10 +527,10 @@ ActiveRecord::Schema.define(:version => 20130326065318) do
   end
 
   create_table "publishers", :force => true do |t|
-    t.integer  "rental",     :default => 25
+    t.integer  "rental"
     t.string   "name"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

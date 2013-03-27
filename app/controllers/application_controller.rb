@@ -130,6 +130,8 @@ class ApplicationController < ActionController::Base
   ##return p2pUser
   def p2p_current_user
 
+    user = nil
+    
   	begin
 		session[:isadmin] = false
 
@@ -145,7 +147,7 @@ class ApplicationController < ActionController::Base
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id
 
-			
+			begin
 	  		if user.city 
 	  			session[:city] =user.city.name
 	  			session[:city_id] =user.city.id
@@ -155,17 +157,23 @@ class ApplicationController < ActionController::Base
 	  			user.city = P2p::City.find(session[:city_id])
 	  			user.save
 	  		end
+      rescue
+        session.delete(:city)
+        session.delete(:city_id)
+      end
 
 	  		if user.user.is_admin
 	  			session[:isadmin] = true
 	  		end
 
+
 	  		return user
 	  	end
 
 	  rescue
-	  end
 
+	  end
+    return user
   end
 
 

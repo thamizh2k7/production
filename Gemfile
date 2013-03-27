@@ -88,3 +88,7 @@ gem 'ckeditor_rails'
 
 gem 'wkhtmltopdf-binary'
 gem 'pdfkit'
+
+#amazon s3
+gem 'aws-sdk'
+gem 'aws-s3'

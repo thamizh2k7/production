@@ -12,7 +12,7 @@ Dir.chdir(Rails.root) do
 
           category = P2p::Category.find(csvfile_obj.category_id.to_i)
           csvfile = csvfile_obj.upload_csv
-          csvfile_obj.update_attributes(:processed=>true)
+
 
   begin
       File.open(csvfile.path,"r:iso-8859-1") do |f|
@@ -49,7 +49,6 @@ Dir.chdir(Rails.root) do
               header_count = row.count
               begin
                 item = csvfile_obj.user.items.new
-                item.user = P2p::User.first
                 
                 item.category = category
                 item.product= category.products.find_or_create_by_name(CGI::unescape(row[0]))
@@ -128,9 +127,11 @@ Dir.chdir(Rails.root) do
                 end
               rescue Exception => e
                 puts "Error Occured for User\n" + e.message + "       "  + e.backtrace.join('\n')
-                csvfile_obj.failed_csvs.create(:csv_data=>row.to_s ,:reason => e.message, :created_at => tme ,:categroy_id => category.id )
+                csvfile_obj.failed_csvs.create(:csv_data=>row.to_s ,:reason => e.message, :created_at => tme ,:category_id => category.id )
                 next
               end
+
+
             end
           rescue  Exception => e
             puts "caught#{e}\n" + e.message + e.backtrace.join('\n')
@@ -142,9 +143,12 @@ Dir.chdir(Rails.root) do
     Lock_File.close()
     File.delete(Rails.root.join('log/update_bulk_vendor.lock'))
 
+    csvfile_obj.update_attributes(:processed=>true)
+
     rescue
       puts "caught#{e}\n" + e.message + e.backtrace.join('\n')
     end
+
 
   end
 # end

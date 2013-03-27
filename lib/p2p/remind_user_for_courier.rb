@@ -14,7 +14,6 @@ refunding_file = 'item_error.html'
 #get admin user
 @admin = P2p::User.find_by_user_id(User.find_by_is_admin(1).id)
 
-
 def send_warning(item)
 
 		puts "Sending warining for "	 + item.title

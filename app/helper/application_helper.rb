@@ -84,9 +84,8 @@ module ApplicationHelper
   end
 
   def get_seller_url
-    url = "#head_login_modal"
   	begin
-
+      p2p_current_user
   	if session[:userid]
   		if p2p_current_user.mobileverified == true
         url = "/street/sellitem"
@@ -101,8 +100,6 @@ module ApplicationHelper
   	session.delete(session[:userid])
   	session.delete(session[:user_type])
   end
-
-    return url
 
   end
 end

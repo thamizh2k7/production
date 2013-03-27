@@ -138,10 +138,11 @@ class ApplicationController < ActionController::Base
 		session[:admin_id] = (P2p::User.find_or_create_by_user_id(socio_admin.id)).id
 
 	  	if current_user.nil?
-	  		return nil
 	  		session[:userid] = nil
+        return nil
 	  	else
-	  		user = P2p::User.find_by_user_id(current_user.id)
+	  		user = P2p::User.find_or_create_by_user_id(current_user.id)
+
 	  		puts user.inspect
 	  		session[:user_type] = user.user_type
 	  		session[:userid] = user.id

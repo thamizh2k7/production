@@ -191,7 +191,10 @@ class Street::UsersController < ApplicationController
 
   # Get code for verification of mobile
   def getcode
-    unless P2p::User.find_by_mobile_number(params[:mobile]).nil?
+
+    user_mobile = P2p::User.find_by_mobile_number(params[:mobile])
+
+    if (!user_mobile.nil? and user_mobile.id != session[:userid])
       render :json => {:status => 10}
       return
     end

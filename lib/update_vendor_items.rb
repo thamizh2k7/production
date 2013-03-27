@@ -142,5 +142,9 @@ Dir.chdir(Rails.root) do
     Lock_File.close()
     File.delete(Rails.root.join('log/update_bulk_vendor.lock'))
 
+    rescue
+      puts "caught#{e}\n" + e.message + e.backtrace.join('\n')
     end
+
+  end
 # end

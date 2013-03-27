@@ -82,7 +82,7 @@ def refund_money(item)
 				                            :parent_id => 0
 				                            });
 
-			  @admin.sent_messages.create({:receiver_id => ,
+			  @admin.sent_messages.create({:receiver_id => apay.item.user.id,
 			                              :message => "This is an auto generated system message. <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'>#{item.title}</a> was ordered on  #{item.solddate}. The product was not shipped on time and hence the amount is refunded to the buyer. Your product has been moved to not sold items and will be available on site for selling - System",
 				                            :messagetype => 5,
 				                            :sender_id => @admin.id,

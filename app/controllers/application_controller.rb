@@ -52,13 +52,13 @@ class ApplicationController < ActionController::Base
 
   	    if !session.has_key?(:city) 
 
-          if cookies.has_key?(:city) and cookies[:city]!= '' and !cookies[:city].nil?
-            city = P2p::City.find_by_name(cookies[:city])
+        if cookies.has_key?(:city) and cookies[:city]!= '' and !cookies[:city].nil?
+            city = P2p::City.find_or_create_by_name(cookies[:city])
             session[:city] = city.name
             session[:city_id] = city.id
             cookies.permanent[:city] = session[:city]
 
-        	user = p2p_current_user
+        	user = P2p::User.find_by_user_id(current_user.id)
 
         	if user
         		user.city = P2p::City.find(session[:city_id])
@@ -71,12 +71,12 @@ class ApplicationController < ActionController::Base
     	    #geocode  = Geocoder.search('106.51.91.235')
     	    
 
-    	    if geocode.count >0
+    	    if geocode.count >0 and geocode[0].data["city"] != ''
 	        	session[:city] = geocode[0].data["city"]
 	        	session[:city_id] = P2p::City.find_or_create_by_name(session[:city]).id
             	cookies.permanent[:city] = session[:city]
             	
-	        	user = p2p_current_user
+	        	user = P2p::User.find_by_user_id(current_user.id)
 
 	        	if user
 	        		user.city = P2p::City.find(session[:city_id])
@@ -96,8 +96,7 @@ class ApplicationController < ActionController::Base
 
       	end
     rescue Exception => ex
-    	puts ex
-    	redirect_to '/street'
+    	redirect_to '/'
     end
   end
 
@@ -176,10 +175,6 @@ class ApplicationController < ActionController::Base
     return user
   end
 
-
-
-
-
   ##P2p Authentication
   def p2p_user_signed_in
 	 if current_user.nil?
@@ -208,9 +203,9 @@ class ApplicationController < ActionController::Base
 	end
 
 	if P2p::User.find_by_user_id(current_user.id).nil?
-	  redirect_to '/street/welcome'
 	  return false
-	end
+  end
+
   end
 
   def to_hash(obj)
@@ -220,7 +215,6 @@ class ApplicationController < ActionController::Base
 
   def p2p_is_admin
   	if !session[:isadmin]
-  		redirect_to '/street'
   		return false
   	end
   	return true

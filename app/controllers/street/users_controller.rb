@@ -519,11 +519,32 @@ end
         params[:userid].each do |user_id|
           user = P2p::User.find(user_id.to_i)
           user.update_attributes(:user_type => 1)
+
+          admin.sent_messages.create({:receiver_id => user.id ,
+                            :message => "This is an auto generated message. You have been promoted as a vendor and hence you can start to bulk upload items from now on. Go to your dashboard to find the 'Bulk Upload' link <br/>-Thank you<br/> Sociorent ",
+                            :messagetype => 6,
+                            :sender_id => admin.id,
+                            :sender_status => 2,
+                            :receiver_status => 0,
+                            :parent_id => 0
+                            });
+
         end
       elsif params[:cmd] == 'remove'
         params[:userid].each do |user_id|
           user = P2p::User.find(user_id.to_i)
           user.update_attributes(:user_type => 0)
+
+          admin.sent_messages.create({:receiver_id => session[:admin_id] ,
+                            :message => "This is an auto generated message. You have been de-promoted from vendor by admin. <br/>-Thank you<br/> Sociorent ",
+                            :messagetype => 6,
+                            :sender_id => admin.id,
+                            :sender_status => 2,
+                            :receiver_status => 0,
+                            :parent_id => 0
+                            });
+
+
         end
       else
         redirect_to '/street/vendors' ,:notice => 'Nothing found for your request'

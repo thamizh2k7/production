@@ -512,6 +512,15 @@ class Street::ItemsController < ApplicationController
       elsif params[:query] == 'approve'
         item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:approveddate => Time.now ,:disapproveddate => nil)
+
+        item.images.each do |img|
+          if img.process_state = 0
+            img.process_state = 1 
+            img.save
+          end
+          
+        end
+
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
                                                                  :message => "Congratulations, Your item <b>#{item.title}</b> has been approved and it is now live. <br>
 <br>

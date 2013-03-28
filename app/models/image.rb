@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>", :book => "130x160>" },
    :path => ":rails_root/public/system/:attachment/:class/:id/:style/:file_name.:extension",
    :url => "/system/:attachment/:class/:id/:style/:file_name.:extension"
-  belongs_to :imageable, :polymorphic => true
+  belongs_to :imageable_socio, :polymorphic => true
 
 
   Paperclip.interpolates :file_name do |attachment, style|

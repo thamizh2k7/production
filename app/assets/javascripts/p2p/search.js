@@ -276,3 +276,15 @@
   function hideNotifications(){
     $("#flash_notice").hide();
   }
+
+
+  function hide_div_overlay(){
+    $('.block_div').css({'display':'none'});
+  }
+
+  function show_div_overlay(elm){
+    var blockelm= $(".block_div");
+
+    $(blockelm).offset($(elm).offset());
+    $(blockelm).css({'display':'block','width':$(elm).width() + 'px','height':$(elm).height() + 'px'});
+  }

@@ -334,7 +334,7 @@ class Street::ItemsController < ApplicationController
       @buyerreqcount = @item.messages.find_all_by_sender_id(session[:userid]).count
     end
 
-    @fullimage = @item.get_image(0,:view)
+    @fullimage = @item.get_image(0,:full)
     @thumbimage = @item.get_image(0,:thumb)
     @viewimage = @item.get_image(0,:view)
     # decide the paycontne and title for popover
@@ -513,12 +513,14 @@ class Street::ItemsController < ApplicationController
         item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:approveddate => Time.now ,:disapproveddate => nil)
 
+        #set for reporcessing
         item.images.each do |img|
-          if img.process_state = 0
-            img.process_state = 1 
+          if img.process_status = 0
+            #img.process_status = 1 
+            img.img.reprocess!
+            img.process_status = 2
             img.save
           end
-          
         end
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,

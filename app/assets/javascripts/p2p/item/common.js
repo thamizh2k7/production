@@ -34,20 +34,25 @@ $(document).ready(function(){
 
 		var that = $(this);
 
+		show_div_overlay(that.siblings('a'));
 
 		$.ajax({
 
-			url:"/street/images/" + that.siblings('img').attr("imgid"),
+			url:"/street/images/" + that.siblings('a').attr("imgid"),
 			type:"delete",
 			dataType:"json",
 			data:{"authenticity_token" : AUTH_TOKEN},
 			success:function(data){
 				if (data.status == 1){
-					var imgid = that.siblings('img').attr("imgid");
+					var imgid = that.siblings('a').attr("imgid");
 					that.parent().remove();
 					window.image_count -= 1;
 					$(".thumbs :first").trigger("click");
+					hide_div_overlay();
 				}
+			},
+			error:function(){
+				hide_div_overlay();
 			}
 		});
 	});

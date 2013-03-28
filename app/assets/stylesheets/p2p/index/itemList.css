@@ -290,14 +290,18 @@ textarea{
 	}
 
 	.aitem_left {
-		display:table;
+		display:table-cell;
 		float:left;
 		vertical-align:middle;
-
+		height:155px;
+		width:110px;
+		position: relative;
+		line-height: 155px;
 	}
 
 	.aitem_left img {
-		min-height:100%
+		max-height:100%;
+		max-width:100%;
 	}
 
 	.aitem_right {
@@ -331,10 +335,16 @@ textarea{
 		overflow:hidden
 	}
 
-.thumb_img {
-	height:50px;
-	width:50px
-}
+	.thumbs{
+		display: table-cell;
+		line-height: 50px;
+		vertical-align: middle;
+		text-align: center;
+	}
+	.thumb_img {
+		max-height:50px;
+		max-width:50px
+	}
 
 .buy_now {
 	font-size:13px;

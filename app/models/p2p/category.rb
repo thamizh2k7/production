@@ -22,7 +22,7 @@ class P2p::Category < ActiveRecord::Base
   define_index do
     indexes :name
 
-    set_property :delta =>true
+#    set_property :delta =>true
     
     #indexes p2p_products(:name), :as=> :product_name
 

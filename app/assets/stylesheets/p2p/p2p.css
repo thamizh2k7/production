@@ -616,3 +616,17 @@ vertical-align: middle;
 #simple_notification,#new_message_notification,#new_item_notification{
 	z-index:10000;
 }
+
+.small_text{
+	font-size:0.8em;
+}
+
+.block_div{
+	opacity:0.8;
+	background-color: #ccc;
+	border-radius: 0.2em;
+	position: absolute;
+	display:none;
+	z-index:10010;
+	background: url('/assets/loading.gif') no-repeat center;
+}

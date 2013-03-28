@@ -5,6 +5,9 @@ $(document).ready(function(){
 
         showNotifications('Deleting item.Please wait..!');
 
+        show_div_overlay($(that).closest('li'));
+
+
         $.ajax({
           url:"/street/items/" + $(this).attr("itemid"),
           type:"delete",
@@ -15,9 +18,11 @@ $(document).ready(function(){
             if (data.status == 1){
               showNotifications('Listing deleted');
               $(that).closest('li').fadeOut(1000);
+              hide_div_overlay();
             }
             else{
               showNotifications('There was an error in deleting');
+              hide_div_overlay();
             }
           }
         });
@@ -29,6 +34,9 @@ $(document).ready(function(){
 
       $('.disapprove_item').on('click',function(){
           var that  = $(this);
+
+
+          show_div_overlay($(that).closest('li'));
 
           $("#disapprove_reason_modal").modal("show");
           $("#disapprove_item_with_reason").on("click",function(){
@@ -44,13 +52,16 @@ $(document).ready(function(){
                     showNotifications('Item Disapproved');
                     $("#reason_disapprove").val("");
                     that.closest('li').fadeOut(1000);
+                    hide_div_overlay();
                   }
                   else{
                     showNotifications('Something went wrong');
+                    hide_div_overlay();
                   }
               },
               error:function(){
                   showNotifications('Something went wrong');
+                  hide_div_overlay();
               }
             });
           });
@@ -62,6 +73,8 @@ $(document).ready(function(){
 
           showNotifications('Please wait while we process it');
 
+          show_div_overlay($(that).closest('li'));
+
           $.ajax({
             url:'/street/approve/approve',
             data:{id: that.attr('itemid')},
@@ -71,13 +84,16 @@ $(document).ready(function(){
                 if (data ==  '1') {
                   showNotifications('Item Approved');
                   that.closest('li').fadeOut(1000);
+                  hide_div_overlay();
                 }
                 else{
                   showNotifications('Something went wrong');
+                  hide_div_overlay();
                 }
             },
             error:function(){
                 showNotifications('Something went wrong');
+                hide_div_overlay();
             }
           });
       });
@@ -96,17 +112,17 @@ $(document).ready(function(){
             return;
           }
 
-      $.ajax({
-        url:'/street/users/list',
-        data:{q:term},
-        dataType:"json",
-        type:'post',
-        success:function(data){
-              cache[ term ] = data;
-                response( data );
+              $.ajax({
+                url:'/street/users/list',
+                data:{q:term},
+                dataType:"json",
+                type:'post',
+                success:function(data){
+                      cache[ term ] = data;
+                        response( data );
 
-        }
-      });
+                }
+              });
 
         },
         select:function(event,elem){
@@ -120,6 +136,3 @@ $(document).ready(function(){
 
 
 });
-
-
-

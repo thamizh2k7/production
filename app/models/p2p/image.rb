@@ -17,7 +17,7 @@ class P2p::Image < ActiveRecord::Base
 
   def process_only_on_approval
 
-    if self.item.nil? or self.item.approvaldate.nil?
+    if self.item.nil? or self.item.approveddate.nil?
       return false 
     else
       return true

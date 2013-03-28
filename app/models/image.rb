@@ -1,6 +1,6 @@
 require "open-uri"
 class Image < ActiveRecord::Base
-	attr_accessible :image, :image_url,:image_file_name
+	attr_accessible :image, :image_url,:image_file_name ,:process_status
 	attr_accessor :image_url
 
 	before_save :download_remote_image, :if => :image_url_provided?

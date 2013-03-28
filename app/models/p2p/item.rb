@@ -85,7 +85,7 @@ class P2p::Item < ActiveRecord::Base
     indexes :title
     indexes :created_at, :sortable => true
 
-    set_property :delta =>true
+#    set_property :delta =>true
 
   end
 
@@ -270,16 +270,26 @@ class P2p::Item < ActiveRecord::Base
         res.push ({:url => img.first.img.url(type) , :id => img.first.id.to_s })
       else
         img.each do |img|
+
+            if img.process_status < 2
+              res.push({:url => "/assets/ajax_small.gif" ,:id => 0})
+              next
+            end
+
           unless img.img.exists?
 
             if type  == :view
               res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+              next
             elsif type == :thumb
               res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+              next
             elsif type == :search
               res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+              next
             end
           end
+
           res.push ({:url => img.img.url(type) , :id => img.id.to_s })
         end
       end

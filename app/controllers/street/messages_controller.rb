@@ -46,7 +46,6 @@ class Street::MessagesController < ApplicationController
 
     end
 
-
   #show the message as requested by the id
   def show
     unless request.xhr?

@@ -334,18 +334,18 @@ class ApplicationController < ActionController::Base
         File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa) }
         #send_sms('8951173103',"Thanks for signing-up with Sociorent.com. Your ID is 'Error in sociorent. Mail not working. Find at error logged at sociorent.com/tech_errors.html' . You may now login to place your order. Thank you.")
 
-        # begin
-        #   if request.env['HTTP_REFERER'].index('street')
-        #     redirect_to '/street' ,:notice => "Page not found"
-        #     return
-        #   else
-        #     redirect_to '/'  ,:notice => "Page not found"
-        #     return
-        #   end
-        # rescue
-        #   redirect_to '/'  ,:notice => "Page not found"
-        #   return
-        # end
+        begin
+          if request.env['HTTP_REFERER'].index('street')
+            redirect_to '/street' ,:notice => "Page not found"
+            return
+          else
+            redirect_to '/'  ,:notice => "Page not found"
+            return
+          end
+        rescue
+          redirect_to '/'  ,:notice => "Page not found"
+          return
+        end
 
     end
 

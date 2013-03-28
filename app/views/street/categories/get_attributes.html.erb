@@ -38,6 +38,7 @@
 
 											if (!(data['price'] == null ||  data['price'] == undefined || $.trim(data['price']) == '')){
 												window.item_values['price'] =  data['price'] ;
+												window.price = data['price'];
 												$("#price").text(data['price']);
 											}
 

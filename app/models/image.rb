@@ -12,10 +12,10 @@ class Image < ActiveRecord::Base
 
 
   Paperclip.interpolates :file_name do |attachment, style|
-    if attachment.instance.imageable_type=="Book"
-      "#{attachment.instance.imageable.isbn13}"
+    if attachment.instance.imageable_socio_type=="Book"
+      "#{attachment.instance.imageable_socio.isbn13}"
     else
-      "#{attachment.instance.imageable_type}-#{attachment.instance.id}"
+      "#{attachment.instance.imageable_socio_type}-#{attachment.instance.id}"
     end
   end
 

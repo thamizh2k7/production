@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326065318) do
+ActiveRecord::Schema.define(:version => 20130328122708) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -264,14 +264,14 @@ ActiveRecord::Schema.define(:version => 20130326065318) do
   end
 
   create_table "images", :force => true do |t|
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "imageable_id"
-    t.string   "imageable_type"
+    t.integer  "imageable_socio_id"
+    t.string   "imageable_socio_type"
   end
 
   create_table "orders", :force => true do |t|
@@ -349,12 +349,13 @@ ActiveRecord::Schema.define(:version => 20130326065318) do
 
   create_table "p2p_images", :force => true do |t|
     t.integer  "item_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "img_file_name"
     t.string   "img_content_type"
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
+    t.integer  "process_status",   :default => 0
   end
 
   add_index "p2p_images", ["item_id"], :name => "index_p2p_images_on_item_id"

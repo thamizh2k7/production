@@ -286,5 +286,5 @@
     var blockelm= $(".block_div");
 
     $(blockelm).offset($(elm).offset());
-    $(blockelm).css({'display':'block','width':$(elm).width() + 'px','height':$(elm).height() + 'px'});
+    $(blockelm).css({'display':'table-cell','width':$(elm).width() + 'px','height':$(elm).height() + 'px' , 'line-height':$(elm).height() + 'px'});
   }

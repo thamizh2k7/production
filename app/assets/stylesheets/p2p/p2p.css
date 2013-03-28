@@ -628,5 +628,7 @@ vertical-align: middle;
 	position: absolute;
 	display:none;
 	z-index:10010;
-	background: url('/assets/loading.gif') no-repeat center;
+	vertical-align: middle;
+	text-align: center;
+
 }

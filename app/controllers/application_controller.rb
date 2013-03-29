@@ -199,7 +199,7 @@ class ApplicationController < ActionController::Base
 
 	# check for ucrrent user and ignore the user presnce if the user is not logged in
 	if current_user.nil?
-		session[:return_url] = "http://#{request.env['HTTP_HOST']}#{request.env['ORIGINAL_FULLPATH']}"
+	#	session[:return_url] = "http://#{request.env['HTTP_HOST']}#{request.env['ORIGINAL_FULLPATH']}"
 		return true
 	end
 

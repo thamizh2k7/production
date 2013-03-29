@@ -5,6 +5,9 @@ class P2p::ItemSpec < ActiveRecord::Base
 
   attr_accessible :value   ,:update_at ,:created_at, :spec_id
 
+  before_save do
+    self.value = URI.decode(self.value)
+  end
  #  before_destroy do
 	# #puts self.inspect + "bafter delete"
 	# self.item.itemhistories.create(:approved => false , :columnname => self.spec.name(self.spec.id) , :newvalue => "" ,:oldvalue =>  self.value ,:created_at => P2p::item_updated_at )

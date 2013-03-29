@@ -631,3 +631,11 @@ vertical-align: middle;
 	text-align: center;
 
 }
+
+#index_menu_holder .dropdown-menu li{
+	background-color: #fff;
+	background-image: none;
+	text-align: left;
+	display: block;
+	padding: 0px;
+}

@@ -7,7 +7,7 @@ class Street::CategoriesController < ApplicationController
   # GET /p2p/categories
   # GET /p2p/categories.json
   def index
-    @p2p_categories = P2p::Category.all
+    @p2p_categories = P2p::Category.order('priority')
 
     respond_to do |format|
       format.html # index.html.erb

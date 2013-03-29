@@ -18,11 +18,24 @@ Browse the site and make the most of it!</p>
 		<ul class="btn-group">
 			<%used_cat = [] %>
 				<%used_cat.push(0)%>
-				<% @main_categories.each do |cat|%>
+				<% @main_categories.order('priority').limit(7).each do |cat|%>
 					<% used_cat.push(cat.id) %>
 					<li class="btn">
 						<a href="/street/<%= cat.name.gsub(/ /,"-") %>" ><%= cat.name %></a></li>
 				<% end %>
+
+				<li class="btn"> <a  data-toggle='dropdown'>Others</a>
+					<span class="caret"></span>
+					<ul class="dropdown-menu" role="menu" >
+						<% @main_categories.order('priority').where("id not in (#{used_cat.join(',')})").each do |cat|%>
+							<% used_cat.push(cat.id) %>
+							<li>
+								<a href="/street/<%= cat.name.gsub(/ /,"-") %>" ><%= cat.name %></a>
+							</li>
+						<% end %>
+					</ul>
+				</li>
+				
 			</ul>
 			</div>
 		</div>

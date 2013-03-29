@@ -290,6 +290,6 @@
                     'width':$(elm).width() + 'px',
                     'height':$(elm).height() + 'px' , 
                     'line-height':$(elm).height() + 'px',
-                    'z-index' : (($(elm).css('z-index') || 0 ) + 1)
+                    'z-index' : 1000
                   });
   }

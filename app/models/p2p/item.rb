@@ -94,8 +94,13 @@ class P2p::Item < ActiveRecord::Base
   end
 
   before_save do
-    self.desc = self.desc.strip
+    self.title= URI.decode(self.title)
+    self.desc = URI.decode(self.desc)
+
+    self.condition = URI.decode(self.condition)
+
     self.soldcount = 0 if self.new_record?
+
   end
   after_update :update_changed_history
 
@@ -237,6 +242,8 @@ class P2p::Item < ActiveRecord::Base
           res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+        elsif type == :full
+          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         end
       return res
     end
@@ -248,6 +255,8 @@ class P2p::Item < ActiveRecord::Base
           res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+        elsif type == :full
+          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         end
 
     else
@@ -259,6 +268,8 @@ class P2p::Item < ActiveRecord::Base
           res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
         elsif type == :search
           res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+        elsif type == :full
+          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
         end
 
         return res
@@ -267,18 +278,35 @@ class P2p::Item < ActiveRecord::Base
       img = self.images
 
       if count == 1
-        res.push ({:url => img.first.img.url(type) , :id => img.first.id.to_s })
+        if img.first.process_status < 2
+
+          if type  == :view
+            res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
+          elsif type == :thumb
+            res.push({:url => "/assets/p2p/approve_thumb.gif" ,:id => 0})
+          elsif type == :search
+            res.push({:url => "/assets/p2p/approve_search.gif" ,:id => 0})
+          elsif type == :full
+            res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
+          end
+        else
+          res.push ({:url => img.first.img.url(type) , :id => img.first.id.to_s })
+        end
+
+
       else
         img.each do |img|
 
             if img.process_status < 2
 
               if type  == :view
-                res.push({:url => "/assets/p2p/approve_view.jpg" ,:id => 0})
+                res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
               elsif type == :thumb
-                res.push({:url => "/assets/p2p/approve_thumb.jpg" ,:id => 0})
+                res.push({:url => "/assets/p2p/approve_thumb.gif" ,:id => 0})
               elsif type == :search
-                res.push({:url => "/assets/p2p/approve_search.jpg" ,:id => 0})
+                res.push({:url => "/assets/p2p/approve_search.gif" ,:id => 0})
+              elsif type == :full
+                res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
               end
              next
             end
@@ -293,6 +321,8 @@ class P2p::Item < ActiveRecord::Base
               next
             elsif type == :search
               res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+            elsif type == :full
+              res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
               next
             end
           end

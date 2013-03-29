@@ -169,6 +169,17 @@ function check_before_save(){
 					return false;
 				}
 
+				clean_values(window.item_values);
 
-				return true;
+			return true;
+}
+
+clean_values = function(elm){
+	_.each(elm,function(val,key){
+		if (typeof(val) == 'object'){
+			clean_values(val);
+		}else if (typeof(val) == 'string'){
+			elm[key] = escape(val);
+		}
+	});
 }

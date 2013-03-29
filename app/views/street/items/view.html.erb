@@ -301,7 +301,7 @@
 	     <div class="row">
 	          <div id="desc" class="span10">
 	               <h4> <%= @item.title.titleize %> Description</h4>
-	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= URI.decode(@item.desc).html_safe %> </span>
+	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
 	          </div>
 
 	     </div>
@@ -393,12 +393,12 @@
 
 	  //load the values in the window namespace
 	  //for edit
-		item_values['title'] = "<%= @item.title %>";
+		item_values['title'] = "<%= raw @item.title %>";
 		item_values['cat'] = "<%= @category_id %>";
 		item_values['scat'] = "<%= @sub_category_id %>";
 		item_values['brand'] = "<%= @brand_id %>";
 		item_values['price'] = "<%= @item.price %>";
-		item_values['condition'] = "<%= @item.condition %>";
+		item_values['condition'] = "<%= raw @item.condition %>";
 		item_values['desc'] = escape($("#desc_content").html());
 		item_values['location'] = "<%=@item.city.name%>";
 
@@ -406,7 +406,7 @@
 		window.brand = item_values['brand'];
 
 	  <% @attr.each do |aspec| %>
-	    item_values['spec']['<%= aspec.spec.id%>'] = "<%= aspec.value %>";
+	    item_values['spec']['<%= aspec.spec.id%>'] = "<%= raw aspec.value %>";
 	  <% end %>
 	</script>
 <% end %>

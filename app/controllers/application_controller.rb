@@ -284,11 +284,11 @@ class ApplicationController < ActionController::Base
           @street = ""
         end
 
-        @ex = exception.inspect
-        @ex_backtrace = exception.backtrace.inspect
-        @session = session.inspect
-        @params = params.inspect
-        @request = request.inspect
+        @ex = CGI.escapeHTML(exception.inspect)
+        @ex_backtrace = CGI.escapeHTML(exception.backtrace.inspect)
+        @session = CGI.escapeHTML(session.inspect)
+        @params = CGI.escapeHTML(params.inspect)
+        @request = CGI.escapeHTML(request.inspect)
 
         time_now = Time.now
         aa ="
@@ -311,23 +311,23 @@ class ApplicationController < ActionController::Base
         <body>
 
 
-            <h3>Exception obj:</h3>  #{@ex}
+            <h3>Exception obj:</h3> <pre> #{@ex}</pre>
             <br/><hr><br/>
 
-            <h3>BackTrace :</h3> #{ @ex_backtrace}
-
-            <br/><hr><br/>
-
-            <h3>Session Dump:</h3> #{ @session}
+            <h3>BackTrace :</h3>  <pre>  #{@ex_backtrace} </pre>
 
             <br/><hr><br/>
 
-            <h3>Params Dump: </h3>#{ @params}
+            <h3>Session Dump:</h3> <pre>#{ @session}</pre>
+
+            <br/><hr><br/>
+
+            <h3>Params Dump: </h3> <pre>#{ @params} </pre>
 
             <br/><hr><br/>
 
             <h3>Request Dump: </h3>
-              #{ @request}
+              <pre> #{ @request} </pre>
 
               <br/><hr><br/>
 

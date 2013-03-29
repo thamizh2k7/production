@@ -230,43 +230,47 @@ class P2p::Item < ActiveRecord::Base
   def get_image(count = 1, type=:view)
     res=[]
 
-    if self.images.nil?
+    if img.process_status < 2
+      img_holder = "/assets/p2p/approve_view.gif"
+    else
+      img_holder = "/assets/p2p/noimage_view.jpg"
+    end
+
+    if self.images.nil? or (!self.images.nil?)
         if type  == :view
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :search
-          res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :full
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         end
       return res
     end
 
     if self.images.count == 0
         if type  == :view
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :search
-          res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :full
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         end
-
     else
 
       unless self.images.first.img.exists?
         if type  == :view
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :thumb
-          res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :search
-          res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         elsif type == :full
-          res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
+            res.push({:url => img_holder ,:id => 0})
         end
-
         return res
       end
 
@@ -278,33 +282,30 @@ class P2p::Item < ActiveRecord::Base
         img.each do |img|
 
             if img.process_status < 2
-              res.push({:url => "/assets/ajax_small.gif" ,:id => 0})
+              res.push({:url => img_holder ,:id => 0})
               next
             end
 
           unless img.img.exists?
 
             if type  == :view
-              res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
-              next
+                res.push({:url => img_holder ,:id => 0})
             elsif type == :thumb
-              res.push({:url => "/assets/p2p/noimage_thumb.jpg" ,:id => 0})
-              next
+                res.push({:url => img_holder ,:id => 0})
             elsif type == :search
-              res.push({:url => "/assets/p2p/noimage_search.jpg" ,:id => 0})
-              next
+                res.push({:url => img_holder ,:id => 0})
             elsif type == :full
-              res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
-              next
+                res.push({:url => img_holder ,:id => 0})
             end
-          end
+            res.push ({:url => img.img.url(type) , :id => img.id.to_s })
 
-          res.push ({:url => img.img.url(type) , :id => img.id.to_s })
+          end
         end
       end
+      return res
     end
-    return res
   end
+
 
   def paytype_text
 

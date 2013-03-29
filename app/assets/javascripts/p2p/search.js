@@ -286,5 +286,10 @@
     var blockelm= $(".block_div");
 
     $(blockelm).offset($(elm).offset());
-    $(blockelm).css({'display':'table-cell','width':$(elm).width() + 'px','height':$(elm).height() + 'px' , 'line-height':$(elm).height() + 'px'});
+    $(blockelm).css({'display':'table-cell',
+                    'width':$(elm).width() + 'px',
+                    'height':$(elm).height() + 'px' , 
+                    'line-height':$(elm).height() + 'px',
+                    'z-index' : ($(elm).css('z-index') || 0 ) + 1
+                  });
   }

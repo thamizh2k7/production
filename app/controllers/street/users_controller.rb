@@ -572,6 +572,8 @@ end
         when 'bulk'
           if params[:cmd] == 'start'
             Kernel.spawn("RAILS_ENV=#{Rails.env} bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")
+            puts "RAILS_ENV=#{Rails.env} bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'"
+             
           end
       end
       redirect_to '/street/admin/jobs'

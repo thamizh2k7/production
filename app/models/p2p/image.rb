@@ -2,7 +2,7 @@ require 'open-uri'
 
 class P2p::Image < ActiveRecord::Base
   # attr_accessible :title, :body
-	attr_accessor :image_url
+	attr_accessor :image_url ,:force_reporcess
   attr_accessible :img,:image_url
   has_attached_file :img , :styles => { :view => "290X290>", :thumb => "50X50>" ,:search => "110X155>" ,:full => "640X480>" },
     :storage => :s3,
@@ -17,7 +17,7 @@ class P2p::Image < ActiveRecord::Base
 
   def process_only_on_approval
 
-    if self.item.nil? or self.item.approveddate.nil?
+    if (self.item.nil? or self.item.approveddate.nil? ) and self.force_reporcess != 1
       return false 
     else
       return true
@@ -26,7 +26,8 @@ class P2p::Image < ActiveRecord::Base
   end
 
   def process_image
-      self.reprocess
+      self.force_reporcess = 1
+      self.img.reprocess!
   end
 
 #	before_save :download_remote_image, :if => :image_url_provided?

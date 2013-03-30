@@ -3,7 +3,7 @@
 	Browsing
 
 	<% if params.has_key?(:prod)  %>
-		<%= @products.first.name %>
+		<%=( (@products.first.nil?) ? @cat.name  : @products.first.name ) %>
 	<% else %>
 		<%= @cat.name %>
 	<% end %>

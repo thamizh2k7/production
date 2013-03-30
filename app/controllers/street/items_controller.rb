@@ -517,7 +517,7 @@ class Street::ItemsController < ApplicationController
         item.images.each do |img|
           if img.process_status = 0
             #img.process_status = 1 
-            img.img.reprocess!
+            img.process_image
             img.process_status = 2
             img.save
           end

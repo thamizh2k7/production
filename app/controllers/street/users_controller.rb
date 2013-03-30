@@ -515,6 +515,7 @@ end
   #remove removes the vendor
   def vendorsdetails
     if params.has_key?(:cmd)
+      admin = P2p::User.find_by_user_id(session[:admin_id])
       if params[:cmd] == 'set'
         params[:userid].each do |user_id|
           user = P2p::User.find(user_id.to_i)

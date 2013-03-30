@@ -25,7 +25,7 @@ Dir.chdir(Rails.root) do
 
         finished_line_no = 0
         begin
-          finished_line_no = (File.read("Books.csv_finished")).to_i
+          finished_line_no = (File.read("#{csvfile.path}_finished")).to_i
         rescue
           puts 'check inside rescure 33'
         end
@@ -105,7 +105,8 @@ Dir.chdir(Rails.root) do
 
                   #save images
                   (image_3-2..image_3).each do |i|
-                    if !row[i].nil? and (/http:\/\/[^"]+\..*$/i).match(CGI::unescape(row[i]))!= nil
+                    #if !row[i].nil? and (/:\/\/[^"]+\..*$/i).match(CGI::unescape(row[i]))!= nil
+                    if !row[i].nil? and row[i].length > 5 #simple number 5
                       a = item.images.new(:image_url => URI.encode(row[i]) )
                       a.download_remote_image
 
@@ -115,7 +116,7 @@ Dir.chdir(Rails.root) do
                   if item.is_valid_data?
 
                     if item.save
-                      File.open("Books.csv_finished", 'w+') { |file| file.write(curline) }
+                      File.open("#{csvfile.path}_finished", 'w+') { |file| file.write(curline) }
                     else
                       raise 'Not Saved'
                     end
@@ -135,6 +136,43 @@ Dir.chdir(Rails.root) do
             end
           rescue  Exception => e
             puts "caught#{e}\n" + e.message + e.backtrace.join('\n')
+
+
+            time_now = Time.now
+            @ex = e.inspect
+            @ex_backtrace = e.backtrace
+
+            aa ="
+                  <br/><br/><br/><br/>
+                  <hr/>
+                  *********************************************
+                  Start #{time_now} 
+                  *********************************************
+
+                  <style>
+                  .error{
+                    color:red;
+                  }
+                  </style>
+
+                  <h2><span class='error'> Error Occured in Bulk upload
+                  </span></h2>
+
+                  <body>
+
+                      <h3>Exception obj:</h3> <pre> #{@ex}</pre>
+                      <br/><hr><br/>
+
+                      <h3>BackTrace :</h3>  <pre>  #{@ex_backtrace} </pre>
+
+                      <br/><hr><br/>
+
+                  *********************************************
+                  End #{time_now} 
+                  *********************************************
+          "
+
+          File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa) }
           end
       end
 
@@ -145,10 +183,52 @@ Dir.chdir(Rails.root) do
 
     csvfile_obj.update_attributes(:processed=>true)
 
-    rescue
+    rescue     Exception => e
       puts "caught#{e}\n" + e.message + e.backtrace.join('\n')
+
+        time_now = Time.now
+        @ex = e.inspect
+        @ex_backtrace = e.backtrace
+
+              aa ="
+
+        <br/><br/><br/><br/>
+        <hr/>
+        *********************************************
+        Start #{time_now} 
+        *********************************************
+
+        <style>
+        .error{
+          color:red;
+        }
+        </style>
+
+        <h2><span class='error'> Error Occured in Bulk upload
+        </span></h2>
+
+        <body>
+
+
+            <h3>Exception obj:</h3> <pre> #{@ex}</pre>
+            <br/><hr><br/>
+
+            <h3>BackTrace :</h3>  <pre>  #{@ex_backtrace} </pre>
+
+            <br/><hr><br/>
+
+        *********************************************
+        End #{time_now} 
+        *********************************************
+
+    "
+
+      File.open(Rails.root.join('public/tech_errors.html'), 'a+') { |file| file.write(aa) }
     end
 
 
-  end
+    Lock_File.close()
+    File.delete(Rails.root.join('log/update_bulk_vendor.lock'))
+
+end
 # end

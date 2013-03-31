@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error(exception)
-    
+
     UserMailer.error_mail(exception).deliver()
 
     if request.env['HTTP_REFERER'].index('street')
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   def guess_user_location
     begin
 
-        if !session.has_key?(:city) 
+        if !session.has_key?(:city)
 
         if cookies.has_key?(:city) and cookies[:city]!= '' and !cookies[:city].nil?
             city = P2p::City.find_or_create_by_name(cookies[:city])
@@ -64,20 +64,20 @@ class ApplicationController < ActionController::Base
               if user
                 user.city = P2p::City.find(session[:city_id])
                 user.save
-                return   
+                return
               end
             end
         end
 
           geocode  = Geocoder.search(request.env['REMOTE_ADDR'])
           #geocode  = Geocoder.search('106.51.91.235')
-          
+
 
           if geocode.count >0 and geocode[0].data["city"] != ''
             session[:city] = geocode[0].data["city"]
             session[:city_id] = P2p::City.find_or_create_by_name(session[:city]).id
               cookies.permanent[:city] = session[:city]
-              
+
               #save if user logged in
               unless current_user.nil?
                 user = P2p::User.find_by_user_id(current_user.id)
@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
           session.delete(:city_id)
         end
       else
-        
+
         if session[:city] == '' or session[:city].nil?
           session.delete(:city)
           session.delete(:city_id)
@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
   def p2p_current_user
 
     user = nil
-    
+
     begin
     session[:isadmin] = false
 
@@ -154,11 +154,11 @@ class ApplicationController < ActionController::Base
         session[:userid] = user.id
 
       begin
-        if user.city 
+        if user.city
           session[:city] =user.city.name
           session[:city_id] =user.city.id
           cookies.permanent[:city] = session[:city]
-          
+
         elsif session.has_key?(:city)
           user.city = P2p::City.find(session[:city_id])
           user.save
@@ -230,20 +230,25 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     unless request.xhr?
 
+      begin
 
-      if cookies.has_key?(:return_url)
-        return cookies[:return_url]
+        if cookies.has_key?(:return_url)
+          return cookies[:return_url]
+        end
+
+        if (session.has_key?(:return_url))
+          return session[:return_url]
+        end
+
+        if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"]
+            return request.env["HTTP_REFERER"]
+          else
+            return '/'
+        end
+      rescue
+        return '/'
       end
 
-      if (session.has_key?(:return_url))
-        return session[:return_url]
-      end
-
-      if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"] 
-          return request.env["HTTP_REFERER"]
-        else
-          return '/'
-      end
     else
       return '/'
     end
@@ -251,11 +256,15 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource)
     unless request.xhr?
+      begin
       if ( request.env['HTTP_REFERER'].index('devise') == nil or (request.env['HTTP_REFERER'] != (request.env['HTTP_HOST'] + request.env['REQUEST_PATH']))) and request.env["HTTP_REFERER"]
           return request.env["HTTP_REFERER"]
         else
           return '/'
       end
+    rescue
+      return '/'
+    end
     else
       return '/'
     end
@@ -280,7 +289,7 @@ class ApplicationController < ActionController::Base
 
         begin
           @street = ( (req.env['HTTP_REFERER'].index('street').nil?) ? '' : 'Street' )
-        rescue 
+        rescue
           @street = ""
         end
 
@@ -296,7 +305,7 @@ class ApplicationController < ActionController::Base
         <br/><br/><br/><br/>
         <hr/>
         *********************************************
-        Start #{time_now} 
+        Start #{time_now}
         *********************************************
 
         <style>
@@ -332,7 +341,7 @@ class ApplicationController < ActionController::Base
               <br/><hr><br/>
 
         *********************************************
-        End #{time_now} 
+        End #{time_now}
         *********************************************
 
     "

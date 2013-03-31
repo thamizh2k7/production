@@ -81,7 +81,7 @@ class P2p::Item < ActiveRecord::Base
  define_index do
 
     #where ('deletedate is not null and paytype is not null and solddate is null')
-    where ('deletedate is null and paytype is not null and ((totalcount - soldcount)>0) ) ')
+    where ('deletedate is null and paytype is not null and ((totalcount - soldcount)>0)  ')
     indexes :title
     indexes :created_at, :sortable => true
 

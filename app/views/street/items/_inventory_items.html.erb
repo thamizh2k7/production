@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'p2p/inventory' %>
 <div class="itemsRow">
   <%= will_paginate(items , :renderer => BootstrapPagination::Rails) unless items.nil? %>
-  <div class="clearfix"></div>
+  <br/><br/>
   <ul class="thumbnails">
     <%if items.count == 0 %>
       <br/>

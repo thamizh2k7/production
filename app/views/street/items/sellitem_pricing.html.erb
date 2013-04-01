@@ -38,7 +38,7 @@
           </div>
 
 
-          
+
           <% sociorent_charges = ( @item.category.courier_charge + ( @item.price * (@item.category.commission.to_f/100.00))).ceil.to_i   %>
 
           <div class="control-group">
@@ -94,7 +94,7 @@
 
             <div class="controls">
 
-                  <%= f.submit "Create Listing", :id=>'sociorent_payment_submit',:class => 'btn btn-primary'  %>
+                  <%= f.submit "Create My Listing", :id=>'sociorent_payment_submit',:class => 'btn btn-primary'  %>
 
 
             </div>
@@ -171,7 +171,7 @@
 
 
           <div class="controls">
-            <span class="highlight"> Rs. <%= sociorent_charges %> </span> (4% of the list price)
+            <span class="highlight"> Rs. <%= sociorent_charges %> </span> (<%=@item.category.commission.to_i%>% of the list price)
             <!--
 <code class="popover" data-content="Charges are subject to change." data-title="Information" data-html="true" data-delay="{show:0,hide:500}" data-trigger="hover"></code> -->
 
@@ -218,7 +218,7 @@
 
           <div class="controls">
 
-            <%= f.submit "Create Listing",:id => 'courier_payment_submit',:class => 'btn btn-primary' %>
+            <%= f.submit "Create My Listing",:id => 'courier_payment_submit',:class => 'btn btn-primary' %>
 
           </div>
         </div>
@@ -283,7 +283,7 @@
           <div class="control-group">
 
             <div class="controls">
-              <%=f.submit "Create Listing",:id=>'direct_payment_submit',:class => 'btn btn-primary' %>
+              <%=f.submit "Create My Listing",:id=>'direct_payment_submit',:class => 'btn btn-primary' %>
             </div>
           </div>
 

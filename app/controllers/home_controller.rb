@@ -74,11 +74,12 @@ class HomeController < ApplicationController
 
     if params[:query] == ""
         if current_user.nil? #no method error college for nil class in intelligen books action
-         @books = intelligent_books(current_user)
+          @books = intelligent_books(current_user)
+          @books += Book.first(6-@books.count) if @books.count < 6
+        else
+          @books = Book.first(6)
         end
-
-       @books += Book.first(6-@books.count) if @books.count < 6
-     else
+    else
   	  @books = Book.search "#{params[:query]}", :star => true, :condition => "publisher_id is NOT NULL"
       # unless params[:query].=~ /^[0-9]+$/
       #   resp[:suggestion] = params[:query]

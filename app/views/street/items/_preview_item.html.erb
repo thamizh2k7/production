@@ -272,7 +272,7 @@
               <% fb_app_id = 212611612202812 || ENV['FACEBOOK_KEY'] %>
               <% fb_picture = URI.encode("http://#{request.host}#{@thumbimage[0][:url]}") %>
               <% fb_name = @item.title %>
-              <% fb_description = @item.desc.encode('UTF-8').truncate(100)%>
+              <% fb_description = CGI.unescape(@item.desc.encode('UTF-8').truncate(100))%>
               <% redirect_uri ="http://sociorent.com/street"%>
               <% fb_link = URI.encode("http://#{request.host}/street/#{@item.category.name.gsub(/ /,'-')}/#{@item.product.name.gsub(/ /,'-')}/#{@item.title.gsub(/ /,'-')}/#{@item.id}")%>
               <% facebook_url= "https://www.facebook.com/dialog/feed?app_id=#{fb_app_id}&link=#{fb_link}&picture=#{fb_picture}&caption=Street-Sociorent&description=#{fb_description}&redirect_uri=#{redirect_uri}" %>
@@ -350,7 +350,7 @@
 
   <div id="desc">
     <h4> <%= @item.title.titleize %> Description</h4>
-    <span id="desc_content" > <%= URI.decode(@item.desc).html_safe %> </span>
+    <span id="desc_content" > <%= CGI.unescape(@item.desc).html_safe %> </span>
   </div>
 
   <div>

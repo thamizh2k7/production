@@ -301,7 +301,7 @@
 	     <div class="row">
 	          <div id="desc" class="span10">
 	               <h4> <%= @item.title.titleize %> Description</h4>
-	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= @item.desc.html_safe %> </span>
+	               <span id="desc_content" data-org-title="Enter Description(More than 20 letters)" data-type="wysihtml5" class="" inputclass="desc_content_form" data-wysihtml5="{image:false}"> <%= CGI.unescape(@item.desc).html_safe %> </span>
 	          </div>
 
 	     </div>
@@ -399,8 +399,9 @@
 		item_values['brand'] = "<%= @brand_id %>";
 		item_values['price'] = "<%= @item.price %>";
 		item_values['condition'] = "<%= raw @item.condition %>";
-		item_values['desc'] = escape($("#desc_content").html());
+		item_values['desc'] = escape(encodeURIComponent("<%=@item.desc%>"));
 		item_values['location'] = "<%=@item.city.name%>";
+		item_values['count'] = "<%=@item.availablecount%>";
 
 		window.price = item_values['price'];
 		window.brand = item_values['brand'];

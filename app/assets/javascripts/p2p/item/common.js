@@ -77,7 +77,7 @@ $(document).ready(function(){
 
 
 	_.each($(".thumb_img"),function(elem){
-				if ($(elem).attr('imgid') == -1){
+				if ($(elem).attr('imgid') == "-1"){
 					$(elem).parent().remove();
 				}
 		});
@@ -118,7 +118,7 @@ function check_before_save(){
 						$("#model").addClass("error");
 						$("#model").tooltip('show');
 					}
-					
+
 					return false;
 				}
 

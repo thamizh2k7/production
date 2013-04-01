@@ -180,7 +180,7 @@ edit_item =function(){
 			    var files = $(this)[0].files; // FileList object
 			    // Loop through the FileList and render image files as thumbnails.
 
-			    $(".thumb_holder .thumbnails").html('')
+			    //$(".thumb_holder .thumbnails").html('')
 
 			    for (var i = 0, f; f = files[i]; i++) {
 
@@ -450,7 +450,7 @@ edit_item =function(){
  				 params.newValue = $.trim(params.newValue);
 
 			if (params.newValue.length > 20) {
-				window.item_values['desc'] = escape(params.newValue);
+				window.item_values['desc'] = escape(encodeURIComponent(params.newValue));
 				$(this).removeClass('error');
 				//$("#upload_pic").tooltip('show');
 			}

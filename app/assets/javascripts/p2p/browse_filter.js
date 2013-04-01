@@ -12,8 +12,21 @@ filter_spec_by_text = function (val,elem){
 			var regexp = new RegExp("" +  val + "",'i');
 
 			_.each($(elem).find('.spec_filter_check'),function(spec){
-				console.log($(spec).attr('spec-value') + ' al');
 				if (regexp.test($(spec).attr('spec-value'))){
+					$(spec).parent().removeClass('hidden');
+				}
+				else{
+					$(spec).parent().addClass('hidden');
+				}
+			});
+}
+
+filter_category_by_text = function (val,elem){
+
+			var regexp = new RegExp("" +  val + "",'i');
+
+			_.each($(elem).find('.spec_filter_check'),function(spec){
+				if (regexp.test($(spec).next().text())){
 					$(spec).parent().removeClass('hidden');
 				}
 				else{
@@ -30,12 +43,23 @@ $(document).ready(function(){
 		window.filters = {};
 	}
 
+
 	$(".filter_spec_input").keyup(function(){
 		var value = $(this).val();
 
 		$(this).next().css('min-height',($(this).next().css('height') ) );
 
 		filter_spec_by_text(value,$(this).next());
+
+	});
+
+
+	$(".filter_category_input").keyup(function(){
+		var value = $(this).val();
+
+		$(this).next().css('min-height',($(this).next().css('height') ) );
+
+		filter_category_by_text(value,$(this).next());
 
 	});
 	$("#price_slider").slider();

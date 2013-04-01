@@ -32,6 +32,17 @@
   <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
 	<% if item_model_res.count > 0 %>
 		<div class="filter_title"> <%= (category.name =="Books") ? 'Category' : 'Model'%> </div>
+
+	<!-- show only if more than 11..:) -->
+
+	<% if item_model_res.count  >= 11 %>
+		<input type="text" class="filter_category_input" placeholder="Filter Category">
+	<% end %>
+
+
+
+
+
 		<div class="filters_value">
 			<% item_model_res.each do |prod| %>
 				<div class="spec-filter">
@@ -67,7 +78,7 @@
 	<div class="filter_title"> <%= spec.name %>  </div>
 
 	<!-- show only if more than 11..:) -->
-	<% if (spec.itemspecs.select(" distinct value").where("value !=''").count )  > 11 %>
+	<% if (spec.itemspecs.select(" distinct value").where("value !=''").count )  >= 11 %>
 		<input type="text" class="filter_spec_input" placeholder="Filter <%=spec.name%>">
 	<% end %>
 

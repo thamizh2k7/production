@@ -46,7 +46,7 @@ Browse the site and make the most of it!</p>
 					<% @category_items.each_with_index do |(category_name,items),index| %>
 						<!-- loop and display only if the categories has products and items in it. -->
 							 <div class="itemsRow">
-								<div id="listHeader" class="row"><a href="<%=CGI.escape('/street/#{category_name}') %>">
+								<div id="listHeader" class="row"><a href='/street/<%=CGI.escape(category_name.gsub(' ','-'))%>'>
 									<p class="header_title"> <b><%= category_name %> </b></p>
 									<p class="header_view_all">View All</p></a>
 								</div>

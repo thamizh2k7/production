@@ -336,6 +336,14 @@
         <% end %>
       <% end %>
 
+    <%if @attr.size > 3 %>
+      <tr>
+        <td colspan="2">
+          <a class="btn btn-link aslink" href="#table_specs"> <i class="icon-arrow-down"></i> View more</a>
+        </td>
+      </tr>
+    <% end %>
+
 
       </tbody>
     </table>

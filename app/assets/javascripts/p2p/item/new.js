@@ -40,7 +40,7 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='paytype' value='2'>"));
 			       $('#form_temp').append($("<input  class='hide' name='meet_at' value='" + $("#direct_payment_form #meet_at").val() + "'>"));
 
-						 $('#direct_payment_submit').val('Uploading images..Please wait..').attr('disabled');
+						 $('#direct_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
 
 			       $("#fileupload").submit();
 
@@ -59,7 +59,7 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='dispatch_day' value='" + $("#dispatch_day").val() + "'>"));
 			       $('#form_temp').append($("<input  class='hide' name='alloverindia' value='" + $("#alloverindia").val() + "'>"));
 
-						 $('#courier_payment_submit').val('Uploading images..Please wait..').attr('disabled');
+						 $('#courier_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
 
 			       $("#fileupload").submit();
 
@@ -82,7 +82,7 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='paytype' value='3'>"));
 			       $('#form_temp').append($("<input  class='hide' name='payinfo' value='" + $("#p2p_item_payinfo").val() + "'>"));
 
-					   $('#sociorent_payment_submit').val('Uploading images..Please wait..').attr('disabled');
+					   $('#sociorent_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
 
 			       $("#fileupload").submit();
 

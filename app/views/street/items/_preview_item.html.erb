@@ -350,7 +350,7 @@
 
   <div id="desc">
     <h4> <%= @item.title.titleize %> Description</h4>
-    <span id="desc_content" > <%= CGI.unescape(@item.desc).html_safe %> </span>
+    <span id="desc_content" > <%= (CGI.unescape(@item.desc)).html_safe %> </span>
   </div>
 
   <div>

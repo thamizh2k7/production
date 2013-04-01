@@ -94,7 +94,7 @@ class P2p::Item < ActiveRecord::Base
   end
 
   before_save do
-    self.title= self.title
+    self.title= CGI.unescape(URI.decode(self.title))
     self.desc = CGI.unescape(URI.decode(self.desc))
 
     self.condition = CGI.unescape(self.condition)

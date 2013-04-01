@@ -166,7 +166,6 @@ class ApplicationController < ActionController::Base
       else
         user = P2p::User.find_or_create_by_user_id(current_user.id)
 
-        puts user.inspect
         session[:user_type] = user.user_type
         session[:userid] = user.id
 

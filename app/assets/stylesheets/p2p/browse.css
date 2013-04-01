@@ -136,3 +136,11 @@ div.dropdown:hover > ul.dropdown-menu{
 .sub_category .icon-caret-down{
 	padding-right: 10px;
 }
+
+.spec_filter_check_label{
+	height: 14px;
+	width: 83%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

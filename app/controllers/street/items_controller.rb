@@ -117,7 +117,7 @@ class Street::ItemsController < ApplicationController
 
     #save the item now..
     if item.save
-      redirect_to URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /,"-")}/#{item.id}")
+      redirect_to make_item_url(item)
       # redirect_to URI.encode('/street/itempayment/' + item.id.to_s)
     else
       flash[:notice] = "Failed"
@@ -226,7 +226,7 @@ class Street::ItemsController < ApplicationController
         flash[:notice] = "Failed to save"
       end
     end
-    redirect_to URI.encode("/street/#{item.product.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}")
+    redirect_to make_item_url(item)
   end
 
 
@@ -393,7 +393,7 @@ class Street::ItemsController < ApplicationController
     @item.solddate =Time.now
     @item.soldcount += 1
     @item.save
-    redirect_to URI.encode("/street/#{@item.product.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+    redirect_to make_item_url(@item)
   end
   def add_image
     if params[:item_id] != ""
@@ -483,7 +483,7 @@ class Street::ItemsController < ApplicationController
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.You can see it here <a href='" + URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.You can see it here <a href='#{make_item_url(item)}'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -498,7 +498,7 @@ class Street::ItemsController < ApplicationController
                     },{
                     expires:false,
                     click:function(){
-                    window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+                    window.location.href = '#{make_item_url(item)}';
                     }
                     });
         "
@@ -506,7 +506,7 @@ class Street::ItemsController < ApplicationController
           PrivatePub.publish_to("/user_#{item.user_id}", @message_notification )
         rescue
         end
-        
+
         render :json => '1'
         return
       elsif params[:query] == 'approve'
@@ -516,7 +516,7 @@ class Street::ItemsController < ApplicationController
         #set for reporcessing
         item.images.each do |img|
           if img.process_status = 0
-            #img.process_status = 1 
+            #img.process_status = 1
             img.process_image
             img.process_status = 2
             img.save
@@ -540,7 +540,7 @@ Sociorent Street Team.",
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id] ,
-                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='" + URI.encode("/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}}/#{item.id}") + "'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have approved item no #{item.id} and this listing will appear on the site. You can see it here <a href='#{make_item_url(item)}'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -581,7 +581,7 @@ Sociorent Street Team.",
                               },{
                               expires:false,
                               click:function(){
-                              window.location.href = '/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{(item.title).gsub(/ /, "-")}/#{item.id}';
+                              window.location.href = '#{make_item_url(item)}';
                               }
                               });
                            "
@@ -589,7 +589,7 @@ Sociorent Street Team.",
           PrivatePub.publish_to("/user_#{item.user_id}", header_count + message_page_count  + @message_notification)
         rescue
         end
-        
+
         render :json => '1'
         return
       end
@@ -661,7 +661,7 @@ Sociorent Street Team.",
         @item.new_item_created
       else
       end
-      redirect_to URI.encode("/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/-/," ")}/#{(@item.title).gsub(/ /, "-")}/#{@item.id}")
+      redirect_to make_item_url(@item)
       return
     elsif params.has_key?(:terms) and params[:terms] !='1'
       flash.now[:notice] = 'Agree to the terms and conditions.'
@@ -680,7 +680,7 @@ Sociorent Street Team.",
         status = 4
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
-                                                                 :message => "This is an auto generated system message. You attempted to buy <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
+                                                                 :message => "This is an auto generated system message. You attempted to buy <a href='#{make_item_url(item_delivery.item)}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
                                                                  :messagetype => 7,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -699,7 +699,7 @@ Sociorent Street Team.",
         send_sms(item_delivery.buyer.mobile_number,"Thank you for buying the item #{item_delivery.item.title} and we would follow-up with the shipping notifications soon. Thank you!")
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.buyer.id ,
-                                                                 :message => "This is an auto generated system message. You had bought <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
+                                                                 :message => "This is an auto generated system message. You had bought <a href='#{make_item_url(item_delivery.item)}'> #{item_delivery.item.title} </a>, but didn proceed there after.<br/> Thank you <br/> Admin- Sociorent",
                                                                  :messagetype => 8,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -716,7 +716,7 @@ Sociorent Street Team.",
         end
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item_delivery.item.user.id ,
-                                                                 :message => "This is an auto generated system message. #{item_delivery.buyer.user.name} has bought your listing <a href='/street/#{item_delivery.item.category.name.gsub(/ /,"-")}/#{item_delivery.item.product.name.gsub(/-/," ")}/#{(item_delivery.item.title).gsub(/ /, "-")}/#{item_delivery.item.id}'> #{item_delivery.item.title} </a>. #{msg} <br/> Thank you <br/> Admin- Sociorent",
+                                                                 :message => "This is an auto generated system message. #{item_delivery.buyer.user.name} has bought your listing <a href='make_item_url(item_delivery.item)'> #{item_delivery.item.title} </a>. #{msg} <br/> Thank you <br/> Admin- Sociorent",
                                                                  :messagetype => 8,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,

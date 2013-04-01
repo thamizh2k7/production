@@ -11,8 +11,8 @@
 		<div class="filters_value">
 			<% item_condition_res.each do |itm| %>
 				<div class="spec-filter">
-					
-					<% checked = "" %>	
+
+					<% checked = "" %>
 					<% if @view_filter_set.include?("condition")  and @view_filter_set["condition"].include?(itm.condition) %>
 						<% checked = "checked" %>
 					<% end %>
@@ -36,9 +36,9 @@
 			<% item_model_res.each do |prod| %>
 				<div class="spec-filter">
 
-					<% checked = "" %>	
+					<% checked = "" %>
 					<% if @view_filter_set.include?('model')  and @view_filter_set["model"].include?(prod.id.to_s) %>
-						<% checked = "checked" %>	
+						<% checked = "checked" %>
 					<% end %>
 
 					<input  class="spec_filter_check" type="checkbox"  spec-name="model" spec-value="<%=prod.id%>" <%=checked%> >	<span class="spec_filter_check_label"><%= prod.name %> </span>
@@ -52,10 +52,10 @@
 		<div class="filter_title"> Price </div>
 		<div class="row">
 
-					<% checked = "[0,#{(prices.max.to_i + (50 - ( prices.max.to_i  % 50) ) )}]" %>	
+					<% checked = "[0,#{(prices.max.to_i + (50 - ( prices.max.to_i  % 50) ) )}]" %>
 
 					<% if @view_filter_set.include?('price') %>
-						<% checked = "[#{@view_filter_set['price'][0]},#{@view_filter_set['price'][1]}]" %>	
+						<% checked = "[#{@view_filter_set['price'][0]},#{@view_filter_set['price'][1]}]" %>
 					<% end %>
 
 		<span class="span1"></span><input type="text" class="span2" value="" data-slider-min="50"  spec-name="price" spec-value="" data-slider-max="<%= (prices.max.to_i + (50 - ( prices.max.to_i  % 50) ) ) %>" data-slider-step="50" data-slider-value="<%=checked%>" id="price_slider">
@@ -76,7 +76,7 @@
 		<% spec.itemspecs.select("distinct value").where("value !=''").order('value asc').each do |itemspec| %>
 		<div class="spec-filter" >
 
-					<% checked = "" %>	
+					<% checked = "" %>
 					<% if @view_filter_set.include?(spec.name)  and @view_filter_set[spec.name].include?(itemspec.value) %>
 						<% checked = "checked" %>
 					<% end %>
@@ -129,7 +129,7 @@
 			<script>
 			window.category="<%=category.name%>";
 
-			window.filterurl= "/street/<%=category.name.gsub(/ /,"-")%>/filters";
+			window.filterurl= "<%=make_category_url(category)%>filters";
 
 			</script>
 

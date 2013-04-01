@@ -22,7 +22,7 @@ def send_warning(item)
 
 		pay.each do |apay |
     		@admin.sent_messages.create({:receiver_id => apay.item.user.id,
-                                 :message => "This is an auto generated system message. <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'>#{item.title}</a> was ordered on  #{item.solddate}. You had agreed to ship the item by 2 days. Please dont forget to ship the item - System",
+                                 :message => "This is an auto generated system message. <a href='#{make_item_url(item)}'>#{item.title}</a> was ordered on  #{item.solddate}. You had agreed to ship the item by 2 days. Please dont forget to ship the item - System",
                                  :messagetype => 5,
                                  :sender_id => @admin.id,
                                  :sender_status => 2,
@@ -50,7 +50,7 @@ def send_warning(item)
     		";
 
     File.write(Rails.root.join("public/#{warning_file}"),'a+') {|file| file.write()}
-    
+
 
     end
 
@@ -73,7 +73,7 @@ def refund_money(item)
   pay.each do |apay|
 
 			  @admin.sent_messages.create({:receiver_id => @admin.id,
-			                              :message => "This is an auto generated system message. <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'>#{item.title}</a> was ordered on  #{item.solddate}. The product was not shipped on time and hence the amount has to be refunded to the buyer <br/> CITRUSPAY ID: #{apay.citrus_pay_id} <br/> Txn ID: #{apay.txn_id} <br/> Buyer: #{apay.buyer.user.name}<br/> Email: #{apay.buyer.user.email}  - System",
+			                              :message => "This is an auto generated system message. <a href='#{make_item_url(item)}'>#{item.title}</a> was ordered on  #{item.solddate}. The product was not shipped on time and hence the amount has to be refunded to the buyer <br/> CITRUSPAY ID: #{apay.citrus_pay_id} <br/> Txn ID: #{apay.txn_id} <br/> Buyer: #{apay.buyer.user.name}<br/> Email: #{apay.buyer.user.email}  - System",
 				                            :messagetype => 5,
 				                            :sender_id => @admin.id,
 				                            :sender_status => 2,
@@ -82,7 +82,7 @@ def refund_money(item)
 				                            });
 
 			  @admin.sent_messages.create({:receiver_id => apay.item.user.id,
-			                              :message => "This is an auto generated system message. <a href='/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'>#{item.title}</a> was ordered on  #{item.solddate}. The product was not shipped on time and hence the amount is refunded to the buyer. Your product has been moved to not sold items and will be available on site for selling - System",
+			                              :message => "This is an auto generated system message. <a href='#{make_item_url(item)}'>#{item.title}</a> was ordered on  #{item.solddate}. The product was not shipped on time and hence the amount is refunded to the buyer. Your product has been moved to not sold items and will be available on site for selling - System",
 				                            :messagetype => 5,
 				                            :sender_id => @admin.id,
 				                            :sender_status => 2,
@@ -122,7 +122,7 @@ def refund_money(item)
     		";
 
     File.write(Rails.root.join("public/#{refunding_file}"),'a+') {|file| file.write()}
-    
+
 
 	end
 
@@ -134,7 +134,7 @@ P2p::ItemDelivery.update_all('p2p_status = 1','citrus_ref_no is null')
 
 #find all items for sending warning
 P2p::Item.sold.where("paytype = 1 and id in (select p2p_item_id from p2p_item_deliveries where p2p_status = 2)").uniq.each do |item|
-	
+
 	days = item.payinfo.split(',')[0].to_i
 
 	temp = item.solddate.to_datetime.next
@@ -149,7 +149,7 @@ P2p::Item.sold.where("paytype = 1 and id in (select p2p_item_id from p2p_item_de
 
 	end
 
-	if count >= days 
+	if count >= days
 		refund_money(item)
 	else count >=(days + 2)
 		send_warning(item)
@@ -160,7 +160,7 @@ end
 
 #find all items for refundin
 P2p::Item.sold.where("paytype = 1 and id in (select p2p_item_id from p2p_item_deliveries where p2p_status = 8)").uniq.each do |item|
-	
+
 	days = item.payinfo.split(',')[0].to_i
 
 	temp = item.solddate.to_datetime.next
@@ -175,7 +175,7 @@ P2p::Item.sold.where("paytype = 1 and id in (select p2p_item_id from p2p_item_de
 
 	end
 
-	if count >= days 
+	if count >= days
 		refund_money(item)
 	else count >=(days + 2)
 		send_warning(item)

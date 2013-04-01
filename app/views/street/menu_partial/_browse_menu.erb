@@ -29,7 +29,7 @@
 
 		<% category.subcategories.each do |scat| %>
 			<div class="sub_category level_<%=level%>">
-				<%= link_to "#{scat.name}" , "/street/#{scat.name.gsub(/ /,"-")}" %>
+				<%= link_to "#{scat.name}" , "#{make_category_url(scat)}" %>
 			</div>
 		<% end %>
 

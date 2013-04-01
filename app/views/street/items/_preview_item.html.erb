@@ -10,16 +10,14 @@
 <div class="span12">
   <ul class="breadcrumb">
     <li><a href="/street">Home</a> <span class="divider">/</span></li>
-    <li><a href="/street/<%=@item.category.name.gsub(/ /,"-")%>"><%=@item.category.name.titleize %></a> <span class="divider">/</span></li>
-    <li><a  href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>"><%=@item.product.name.titleize %></a> <span class="divider">/</span></li>
-    <li class="active ">  <a href="<%="/street/#{@item.category.name.gsub(/ /,"-")}/#{@item.product.name.gsub(/ /,"-")}/#{@item.title.gsub(/ /,"-")}/#{@item.id}"%>"> <%= @item.title.titleize %> </a> </li>
+    <li><a href="<%=make_category_url(@item.category) %>"><%=@item.category.name.titleize %></a> <span class="divider">/</span></li>
+    <li><a  href="<%= make_product_url(@item.product) %>"><%=@item.product.name.titleize %></a> <span class="divider">/</span></li>
+    <li class="active "><a href="<%= make_item_url(@item) %>"> <%= @item.title.titleize %> </a> </li>
   </ul>
 </div>
 
 </div>
-<!-- <div id="google_ad_holder">
-  <img src="//storage.googleapis.com/support-kms-prod/SNP_2922339_en_v0" width="732" height="94">
-</div> -->
+
 <div id="item_box"><span class="big"><%=@item.title%></span></div>
 <div class="row">
 

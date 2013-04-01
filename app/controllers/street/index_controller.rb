@@ -106,7 +106,7 @@ class Street::IndexController < ApplicationController
     end
 
     item_result.each do |res|
-      response.push({:label=> "#{res.title}" ,:value => URI.encode("/street/#{res.product.category.name.gsub(/ /,"-")}/#{res.product.name.gsub(/ /,"-")}/#{res.title.gsub(/ /,"-")}/#{res.id}") }) unless res.nil?
+      response.push({:label=> "#{res.title}" ,:value => URI.encode("#{make_item_url(res)}") }) unless res.nil?
     end
     return response
   end
@@ -309,11 +309,11 @@ class Street::IndexController < ApplicationController
     res = []
     items.each do |itm|
       url = itm.get_image(1,:search)[0][:url]
-      temp_url = URI.encode("/street/#{itm.product.category.name.gsub(/ /,"-")}/#{itm.product.name.gsub(/ /,"-")}/#{itm.title.gsub(/ /,"-")}/#{itm.id}")
-      prod_url = URI.encode("/street/#{itm.product.category.name.gsub(/ /,"-")}/#{itm.product.name.gsub(/ /,"-")}")
+      temp_url = URI.encode("#{make_item_url(itm)}")
+      prod_url = URI.encode("#{make_product_url(itm.product)}")
       prod = itm.product.name
       cat = itm.product.category.name
-      cat_url = URI.encode("/street/#{itm.product.category.name.gsub(/ /,"-")}")
+      cat_url = URI.encode("#{make_category_url(itm.category)}")
       itm = to_hash(itm)
       itm[:url] = temp_url
       itm[:img] = url

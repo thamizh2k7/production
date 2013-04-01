@@ -76,7 +76,7 @@ class Street::UsersController < ApplicationController
       #@count_items << "['#{item.title}_#{item.id}',#{item.viewcount}]"
       @count_items << "#{item.viewcount}"
       @count_ticks << "'#{item.title}'"
-      @item_names << "'/street/#{item.category.name.gsub(/ /,"-")}/#{item.product.name.gsub(/ /,"-")}/#{item.title.gsub(/ /,"-")}/#{item.id}'"
+      @item_names << make_item_url(item)
     end
   end
 
@@ -393,7 +393,7 @@ class Street::UsersController < ApplicationController
 
         response[:aaData].push({
                                  "0" =>  pay.statustext,
-                                 "1" => "<a class='aslink' href='#{URI.encode("/street/#{pay.item.category.name.gsub(/ /,"-")}/#{pay.item.product.name.gsub(/ /,"-")}/#{(pay.item.title).gsub(/ /,"-")}/#{pay.item.id}")}'>#{pay.item.title}</a>",
+                                 "1" => "<a class='aslink' href='#{make_item_url(pay.item)}'>#{pay.item.title}</a>",
                                  "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
                                  "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
@@ -420,7 +420,7 @@ class Street::UsersController < ApplicationController
 
         response[:aaData].push({
                                  "0" =>  pay.statustext,
-                                 "1" => "<a class='aslink' href='#{URI.encode("/street/#{pay.item.category.name.gsub(/ /,"-")}/#{pay.item.product.name.gsub(/ /,"-")}/#{(pay.item.title).gsub(/ /,"-")}/#{pay.item.id}")}'>#{pay.item.title}</a>",
+                                 "1" => "<a class='aslink' href='#{make_item_url(pay.item)}'>#{pay.item.title}</a>",
                                  "2" => (pay.courier_name == "" or pay.courier_name.nil? ) ? "-NA-" : pay.courier_name,
                                  "3" => (pay.tracking_no =="" or pay.tracking_no.nil?) ? "-NA-" : pay.tracking_no,
                                  "4" => (pay.shipping_date.nil?) ? "-NA-" : pay.shipping_date.strftime("%d-%b-%C%y") ,
@@ -573,7 +573,7 @@ end
           if params[:cmd] == 'start'
             Kernel.spawn("RAILS_ENV=#{Rails.env} bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'")
             puts "RAILS_ENV=#{Rails.env} bundle exec rails runner '#{Rails.root.join('lib/update_vendor_items.rb')}'"
-             
+
           end
       end
       redirect_to '/street/admin/jobs'
@@ -667,14 +667,14 @@ end
   def profile
     begin
         # load address of the current user
-      @address = JSON.parse(p2p_current_user.address) 
+      @address = JSON.parse(p2p_current_user.address)
       @address_present = true
-    rescue 
+    rescue
      @address= {"address_street_1" => "","address_street_2" => "", "address_city" => "","address_state" => "","address_pincode" => "" }
      @address_present = false
     end
 
-    
+
 
     if p2p_current_user.mobileverified
       @mobile =p2p_current_user.mobile_number
@@ -684,8 +684,8 @@ end
       @mobile_preset = false
     end
 
-     
-    
+
+
 
   end
 

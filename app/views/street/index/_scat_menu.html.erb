@@ -40,7 +40,7 @@
 
 				<% end %>
 
-				<a  href="/street/<%= cat.name.gsub(/ /,"-") %>">
+				<a  href="<%=make_category_url(cat)%>">
 						<%= cat.name %>
 					</a>
 
@@ -65,7 +65,7 @@
 						<li>
 					<% end %>
 
-						<a  href="/street/<%= scat.name.gsub(/ /,"-") %>">
+						<a  href="<%=make_category_url(scat)%>">
 							<%= scat.name %>
 						</a>
 

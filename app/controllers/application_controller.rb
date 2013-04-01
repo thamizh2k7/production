@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
  # Helper method for all views
  helper_method  :p2p_current_user ,:p2p_get_user_location
 
+ helper_method :make_item_url ,:make_product_url ,:make_category_url
+
  if Rails.env.production?
 
   rescue_from Exception, :with => :server_error
@@ -127,6 +129,21 @@ class ApplicationController < ActionController::Base
     #return 'application'
    end
   end
+
+  # urlss
+  def make_item_url(item)
+    return URI.encode("/street/#{CGI.escape(item.category.name.gsub(/ /,"-"))}/#{CGI.escape(item.product.name.gsub(/ /,"-"))}/#{CGI.escape((item.title).gsub(/ /, "-"))}/#{item.id}/")
+  end
+
+  def make_product_url(product)
+    return URI.encode("/street/#{CGI.escape(product.category.name.gsub(/ /,"-"))}/#{CGI.escape(product.name.gsub(/ /,"-"))}/")
+  end
+
+  def make_category_url(category)
+    return URI.encode("/street/#{CGI.escape(category.name.gsub(/ /,"-"))}/")
+  end
+
+  # urlss
 
 
   def set_location_variables(city)

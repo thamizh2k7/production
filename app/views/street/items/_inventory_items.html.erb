@@ -1,6 +1,7 @@
 <%= javascript_include_tag 'p2p/inventory' %>
 <div class="itemsRow">
   <%= will_paginate(items , :renderer => BootstrapPagination::Rails) unless items.nil? %>
+  <div class="clearfix"></div>
   <ul class="thumbnails">
     <%if items.count == 0 %>
       <br/>
@@ -38,22 +39,22 @@
               <% end %>
 
             </div>
-            <a href="<%= URI.encode("/street/#{p.product.category.name.gsub(/ /,"-")}/#{p.product.name.gsub(/ /,"-")}/#{p.title.gsub(/ /,"-")}/#{p.id}")%>">
+            <a href="<%= make_item_url(p) %>">
               <div class="aitem_left">
                   <img src="<%=p.get_image(1,:search)[0][:url]%>" >
               </div>
             </a>
             <div class="aitem_right">
-              <a href="<%= URI.encode("/street/#{p.product.category.name.gsub(/ /,"-")}/#{p.product.name.gsub(/ /,"-")}/#{p.title.gsub(/ /,"-")}/#{p.id}")%>">
+              <a href="<%=  make_item_url(p) %>">
                 <div  title="<%= p.title %>">
                   <div class="item_title"><%= p.title.truncate(20).titleize  %></div>
                 </div>
               </a>
               <div class="item_category">
-                <a href="<%= URI.encode("/street/#{p.product.category.name.gsub(/ /,"-")}/#{p.product.name.gsub(/ /,"-")}") %>">
+                <a href="<%= make_product_url(p.product) %>">
                   <%= p.product.name  %>
                 </a>
-                <a href="<%= URI.encode("/street/#{p.product.category.name.gsub(/ /,"-")}")%>">
+                <a href="<%= make_category_url(p.category) %>">
                   <%= p.category.name  %>
                 </a>
               </div>

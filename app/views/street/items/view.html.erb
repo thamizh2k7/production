@@ -19,18 +19,18 @@
 			           	<span class="divider">/</span>
 			          </li>
 			          <li>
-			           	<a href="/street/<%=@item.category.name.gsub(/ /,"-")%>">
+			           	<a href="<%= make_category_url(@item.category) %>">
 			           		<%=@item.category.name.titleize %></a>
 			           		<span class="divider">/</span>
 			          </li>
 			          <li>
-			           	<a  href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>">
+			           	<a  href="<%= make_product_url(@item.product) %>">
 			           		<%=@item.product.name.titleize %>
 			           	</a>
 			          	<span class="divider">/</span>
 			          </li>
 			          <li class="active ">
-			          	<a href="/street/<%=@item.category.name.gsub(/ /,"-")%>/<%=@item.product.name.gsub(/ /,"-")%>/<%=@item.title.gsub(/ /,"-")%>/<%=@item.id%>"> <%= @item.title.titleize%> </a>
+			          	<a href="<%=make_item_url(@item)%>"> <%= @item.title.titleize%> </a>
 			          </li>
 		          </ul>
 		        </div>
@@ -83,7 +83,7 @@
 		    	              	Payment
 	  		                </a>
 	  		            	<% end %>
-	  		            <% else #solddate %> 
+	  		            <% else #solddate %>
 
 	  		            <% if @item.totalcount > 1 and @item.availablecount  > 0 %>
 	  		            	<% pop_title = 'Listing last sold' %>
@@ -121,11 +121,11 @@
 
 		              <a href="#" data-toggle="tooltip"  title="Save changes" class="btn btn-success hide " id="save_top"  >
 		              	<i  class=" icon-white icon-ok-circle"></i> Save
-		              </a> 
+		              </a>
 
 		              <a href="#" data-toggle="tooltip" title="Cancel changes"  class="btn btn-danger hide " id="cancel_top" >
 		              	<i  class=" icon-white icon-remove-circle" ></i> Cancel
-		              </a> 
+		              </a>
 
 		              <a href="<%=@item_message_url%>" data-toggle="tooltip"  title="View Messages for this listing" id="reqcount_<%=@item.id%>" role="button" class="btn " data-toggle="modal" ><i   class="icon-envelope">  </i>  <%= @item.reqCount %> </a>
 		            <% end %>
@@ -139,7 +139,7 @@
 	     <div class="row">
 	        <div class="span4">
 	          <ul class="thumbnails">
-	          	
+
 	        	  <li>
 		            <div class="thumbnail">
 		              <a href="#"  title="Clear pics uploaded just now" data-toggle="tooltip">

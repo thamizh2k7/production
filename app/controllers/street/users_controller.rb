@@ -76,7 +76,7 @@ class Street::UsersController < ApplicationController
       #@count_items << "['#{item.title}_#{item.id}',#{item.viewcount}]"
       @count_items << "#{item.viewcount}"
       @count_ticks << "'#{item.title}'"
-      @item_names << make_item_url(item)
+      @item_names << "#{make_item_url(item)}"
     end
   end
 

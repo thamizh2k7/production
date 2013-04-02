@@ -70,6 +70,10 @@ saveItem = function(){
 					return false;
 				}
 
+
+				var upload_values = _.clone(window.item_values);
+				clean_values(upload_values);
+
 				//showOverlay();
 				showNotifications('Saving item..! Please wait..!');
 
@@ -77,17 +81,17 @@ saveItem = function(){
 				// and submit the form
 
 				$("#form_temp").html('');
-				$('#form_temp').append($("<input class='hide' name='price' value='" + window.price + "'>"));
-				$('#form_temp').append($("<input class='hide' name='title' value='" + window.item_values['title'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='location' value='" + window.item_values['location'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='condition' value='" + window.item_values['condition'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
-				$('#form_temp').append($("<input class='hide' name='desc' value='" + window.item_values['desc'] + "'>"));
-				$('#form_temp').append($("<input class='hide' name='count' value='" + window.item_values['count'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='price' value='" + upload_values['price'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='title' value='" + upload_values['title'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='location' value='" + upload_values['location'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='condition' value='" + upload_values['condition'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='brand' value='" + upload_values['brand'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='desc' value='" + upload_values['desc'] + "'>"));
+				$('#form_temp').append($("<input class='hide' name='count' value='" + upload_values['count'] + "'>"));
 				// $('#form_temp').append($("<input class='hide' name='brand' value='" + window.brand + "'>"));
-				$('#form_temp').append($("<input  class='hide' name='cat' value='" + window.item_values['cat'] + "'>"));
+				$('#form_temp').append($("<input  class='hide' name='cat' value='" + upload_values['cat'] + "'>"));
 
-				_.each(window.item_values['spec'],function(value,key){
+				_.each(upload_values['spec'],function(value,key){
 					$('#form_temp').append($("<input class='hide' name='spec[" + key + "]' value='" + value + "'>"));
 				});
 
@@ -444,7 +448,7 @@ edit_item =function(){
  				 params.newValue = $.trim(params.newValue);
 
 			if (params.newValue.length > 20) {
-				window.item_values['desc'] = escape(encodeURIComponent(params.newValue));
+				window.item_values['desc'] = params.newValue;
 				$(this).removeClass('error');
 				//$("#upload_pic").tooltip('show');
 			}

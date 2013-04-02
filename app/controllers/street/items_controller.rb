@@ -23,6 +23,15 @@ class Street::ItemsController < ApplicationController
   #we save it then :)
   def create
 
+    params[:title] = Base64.decode64(params[:title])
+    params[:brand] = Base64.decode64(params[:brand])
+    params[:condition] = Base64.decode64(params[:condition])
+    params[:desc] = Base64.decode64(params[:desc])
+    params[:location] = Base64.decode64(params[:location])
+    params[:price] = Base64.decode64(params[:price])
+    params[:count] = Base64.decode64(params[:count])
+    params[:cat] = Base64.decode64(params[:cat])
+
     if session[:user_type] == 1
       begin
         if params.has_key?(:count)
@@ -82,9 +91,10 @@ class Street::ItemsController < ApplicationController
         item.images.new(:img => params[:img])
       end
       unless params['spec'].respond_to?('each')
-        params['spec'] = [params['spec']]
+        params['spec'] = Base64.decode64(params['spec'])
       end
       params["spec"].each do |key,value|
+        value = Base64.decode64(value)
         next if value.length == 0 or value == "null" or value =='undefined'
         begin
           attr = P2p::ItemSpec.new
@@ -128,6 +138,15 @@ class Street::ItemsController < ApplicationController
   #update the item
   def update
     item = p2p_current_user.items.find(params[:id])
+
+    params[:title] = Base64.decode64(params[:title])
+    params[:brand] = Base64.decode64(params[:brand])
+    params[:condition] = Base64.decode64(params[:condition])
+    params[:desc] = Base64.decode64(params[:desc])
+    params[:location] = Base64.decode64(params[:location])
+    params[:price] = Base64.decode64(params[:price])
+    params[:count] = Base64.decode64(params[:count])
+
 
     if session[:user_type] == 1
       begin
@@ -184,6 +203,7 @@ class Street::ItemsController < ApplicationController
     ActiveRecord::Base.transaction do
       item.updated_at = update_time
       params[:spec].each do |key,value|
+        value = Base64.decode64(value)
         begin
 
           attr = item.specs.find_by_spec_id(key.to_i)
@@ -219,7 +239,6 @@ class Street::ItemsController < ApplicationController
       item.images.each do |img|
         puts img.errors.full_messages
       end
-      item.approveddate = nil
       if item.save
         flash[:notice] = "Saved changes"
       else

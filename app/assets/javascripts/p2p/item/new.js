@@ -13,10 +13,14 @@ save_new_item = 	function(){
 		window.item_values['price'] = window.price
 		window.item_values['model'] = window.brand
 
+		var upload_values = _.clone(window.item_values);
+		clean_values(upload_values);
+
+
 		window.item_values['authenticity_token']= AUTH_TOKEN;
 		$.ajax({
 			url:window.editsaveurl,
-			data:window.item_values,
+			data:upload_values,
 			type:window.editsavetype,
 			success:function(data){
 
@@ -94,3 +98,4 @@ save_new_item = 	function(){
 	}
 
 });
+

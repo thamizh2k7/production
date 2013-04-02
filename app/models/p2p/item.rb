@@ -94,14 +94,9 @@ class P2p::Item < ActiveRecord::Base
   end
 
   before_save do
-    self.title= CGI.unescape(URI.decode(self.title))
-    self.desc = CGI.unescape(URI.decode(self.desc))
-
-    self.condition = CGI.unescape(self.condition)
-
     self.soldcount = 0 if self.new_record?
-
   end
+
   after_update :update_changed_history
 
   after_create :new_item_created
@@ -115,7 +110,7 @@ class P2p::Item < ActiveRecord::Base
     self.changes.each do |column,value|
 
         next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason','soldcount'].include?(column)
-        next if column =='paytype'
+        next if column =='paytype' or value[0] == value[1]
 
         P2p::ItemHistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] ,:item_id => self.id ,:created_at => self.updated_at )
     end
@@ -125,6 +120,8 @@ class P2p::Item < ActiveRecord::Base
     end
 
     unless changed_column.empty?
+
+      self.update_column(:approveddate,nil)
 
         begin
           PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )

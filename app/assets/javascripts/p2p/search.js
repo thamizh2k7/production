@@ -111,7 +111,7 @@
     $("#user_location").blur(function(){
       $("#user_location").val($("#user_city").val());
     })
-    
+
 
     //auto complete for the search
     $("#top_search_input").autocomplete({
@@ -168,7 +168,7 @@
     setupunotify();
 
     $(".action_popover").popover();
-    
+
     // $("*").tooltip('disable');
 
     $('[data-toggle="tooltip"]').tooltip('enable');
@@ -288,8 +288,26 @@
     $(blockelm).offset($(elm).offset());
     $(blockelm).css({'display':'table-cell',
                     'width':$(elm).width() + 'px',
-                    'height':$(elm).height() + 'px' , 
+                    'height':$(elm).height() + 'px' ,
                     'line-height':$(elm).height() + 'px',
                     'z-index' : 1000
                   });
+  }
+
+  function show_notification_modal(data,keyboard,backdrop){
+
+      if (keyboard == undefined || keyboard == null){
+        keyboard = false;
+      }
+
+      if (backdrop == undefined || backdrop == null){
+       backdrop  = 'static';
+      }
+            $('.close').trigger('click');
+        $('#notification_modal .modal-body').html(data);
+        $('#notification_modal').modal({'keyboard':keyboard,'show':true,'backdrop':backdrop});
+  }
+
+  function hide_notification_modal(){
+    $('#notification_modal').modal('hide')
   }

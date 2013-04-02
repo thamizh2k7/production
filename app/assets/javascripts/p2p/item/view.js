@@ -106,6 +106,7 @@ $(document).ready(function(){
 $('#approve').on('click',function(){
     var that  = $(this);
 
+    show_notification_modal('<i class="icon-info-sign"></i> Approving the listing..! <br/> Please Wait');
     $.ajax({
       url:'/street/approve/approve',
       data:{id: that.attr('itemid')},
@@ -116,14 +117,17 @@ $('#approve').on('click',function(){
             showNotifications('Item Approved');
             that.remove();
             $("#disapproved_btn_info").remove();
+            hide_notification_modal();
           }
-          
+
           else{
             showNotifications('Something went wrong');
+            hide_notification_modal();
           }
       },
       error:function(){
           showNotifications('Something went wrong');
+          hide_notification_modal();
       }
     });
 });
@@ -135,6 +139,7 @@ $("#disapprove").editable({
   emptytext : 'Enter Reason',
   placement:'bottom',
   success :function(response,newValue){
+    hide_notification_modal();
     showNotifications('Item Disapproved');
     $("#disapprove").remove();
     $("#approved_btn_info").remove();
@@ -143,9 +148,15 @@ $("#disapprove").editable({
   value :'Disapprove'
 });
 
+
 $("#disapprove").click(function(){
   $(this).editable('show');
 });
+
+  $("#disapprove").on('save',function(){
+    show_notification_modal('<i class="icon-info-sign"></i> Disapproving the listing..! <br/> Please Wait');
+  });
+
 
 $("#disapprove").on('shown',function(){
     if ( $(this).data('editable').input.$input.val() == 'Disapprove' ){

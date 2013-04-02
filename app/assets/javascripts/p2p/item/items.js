@@ -106,6 +106,7 @@ saveItem = function(){
 					'action':window.editsaveurl
 				});
 
+				show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
 				//if edit just submit the form
 				$("#fileupload").submit();
 			}

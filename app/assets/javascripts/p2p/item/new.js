@@ -46,6 +46,8 @@ save_new_item = 	function(){
 
 						 $('#direct_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
 
+						 show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
+
 			       $("#fileupload").submit();
 
 			      return false;
@@ -65,6 +67,7 @@ save_new_item = 	function(){
 
 						 $('#courier_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
 
+							show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
 			       $("#fileupload").submit();
 
 			      return false;
@@ -87,6 +90,8 @@ save_new_item = 	function(){
 			       $('#form_temp').append($("<input  class='hide' name='payinfo' value='" + $("#p2p_item_payinfo").val() + "'>"));
 
 					   $('#sociorent_payment_submit').val('Uploading images..Please wait..').attr('disabled','disabled');
+
+ 						show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
 
 			       $("#fileupload").submit();
 

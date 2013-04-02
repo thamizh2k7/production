@@ -295,15 +295,13 @@ edit_item =function(){
 							$(this).removeClass('error');
 
 							if (params.newValue == 'Other'){
-								$("#add_new_model").removeClass('hidden');
+								$('#other_model_holder').removeClass('hidden');
 								$("#add_new_model").editable('show');
-								$("#model").addClass('hidden');
 
 								window.brand = '';
 
 							}else{
-								$("#add_new_model").addClass('hidden');
-								$("#add_new_model").editable('destroy');
+								$("#other_model_holder").addClass('hidden');
 							}
 
 							//$("#price").tooltip('show');
@@ -335,10 +333,6 @@ edit_item =function(){
 
 							window.brand = params.newValue;
 							//$("#price").tooltip('show');
-							$('#model').text(params.newValue);
-							$("#add_new_model").addClass('hidden');
-							$("#model").removeClass('hidden');
-
 						}
 						else{
 							window.brand="";

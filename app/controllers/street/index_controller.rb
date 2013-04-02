@@ -235,11 +235,13 @@ class Street::IndexController < ApplicationController
       end
 
       if params[:filter].has_key?(:price) and !params[:filter][:price].nil?
-        item_price = '  p2p_items.price between ' + params[:filter][:price][0] + ' and ' + params[:filter][:price][1] + '  '
+        if params[:filter][:price][1].nil?
+          item_price = "  p2p_items.price > #{params[:filter][:price][0]} "
+        else
+          item_price = "  p2p_items.price between  #{params[:filter][:price][0]}  and #{params[:filter][:price][1]} "
+        end
         item_condition_filter += "(#{item_price})"
       end
-
-
 
       # second from the query
       # by parsing each and every filter

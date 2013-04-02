@@ -27,7 +27,7 @@ after 'deploy:update_code' do
   run "ln -s #{shared_path}/system/ #{release_path}/public/" 
   run "ln -s '/var/www/blog' #{release_path}/public/" 
   run "ln -s '/var/www/db_admin' #{release_path}/public/"
-
+  run "ln -s /var/www/db_bck/ #{release_path}/public/"
   run "cd #{release_path} && bundle --deployment"
   run "cd #{release_path} && RAILS_ENV=production rake db:migrate"
   run "cd #{release_path} && RAILS_ENV=production rake assets:precompile"

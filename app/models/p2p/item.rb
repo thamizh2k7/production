@@ -112,14 +112,14 @@ class P2p::Item < ActiveRecord::Base
         next if ['approveddate','disapproveddate','solddate','deletedate','updated_at','viewcount','reqCount','disapproved_reason','soldcount'].include?(column)
         next if column =='paytype' or value[0] == value[1]
 
-        P2p::ItemHistory.create(:approved => false , :columnname => column , :newvalue => value[0] ,:oldvalue =>  value[1] ,:item_id => self.id ,:created_at => self.updated_at )
+        P2p::ItemHistory.create(:approved => false , :columnname => column , :newvalue => value[1] ,:oldvalue =>  value[0] ,:item_id => self.id ,:created_at => self.updated_at )
     end
 
     self.itemhistories.where(:created_at => self.updated_at).each do |itemhistory|
       changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} <b>-></b> #{itemhistory.newvalue}"
     end
 
-    unless changed_column.empty?
+    unless changed_column.empty? and self.approveddate.nil?
 
       self.update_column(:approveddate,nil)
 

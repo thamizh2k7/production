@@ -174,25 +174,21 @@ class Street::ItemsController < ApplicationController
       params[:count] = item.totalcount
     end
 
-    item.update_attributes({:title => params[:title], :desc => params[:desc], :price => params[:price] ,:condition => params[:condition] ,:totalcount => params[:count] });
+    item.title = params[:title]
+    item.desc = params[:desc]
+    item.price = params[:price]
+    item.condition = params[:condition]
+    item.totalcount = params[:count]
+
     item.product = P2p::Product.find(params[:brand])
+
     begin
       item.city = P2p::City.find_by_name(params[:location])
       raise 'nothing found' if item.city.nil?
     rescue
       begin
         city = P2p::City.create(:name => params[:location])
-        city.save
         item.city = city
-        P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "Auto Generated Message.<br/><h4>Fall back creation</h4>. The city  #{params[:location]} was not found in your system and hence is created automatically for you, when the #{p2p_current_user.user.email} requested on listing a item We urge you to check the same.",
-                                                                 :messagetype => 5,
-                                                                 :sender_id => session[:admin_id],
-                                                                 :sender_status => 2,
-                                                                 :receiver_status => 0,
-                                                                 :parent_id => 0,
-                                                                 :item_id => item.id
-                                                                 });
       rescue
       end
     end

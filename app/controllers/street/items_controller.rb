@@ -768,6 +768,15 @@ Sociorent Street Team.",
       return
     else
       @cat = P2p::Category.all
+      available_cat = []
+      @cat.each do |cat|
+        if cat.specs.count > 0
+          available_cat.push(cat)
+        end
+      end
+
+      @cat = available_cat
+
       @not_processed = p2p_current_user.vendor_uploads.where(:processed=>false)
     end
   end

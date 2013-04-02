@@ -119,7 +119,7 @@ class P2p::Item < ActiveRecord::Base
       changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} <b>-></b> #{itemhistory.newvalue}"
     end
 
-    unless changed_column.empty? and self.approveddate.nil?
+    unless changed_column.empty?
 
       self.update_column(:approveddate,nil)
 

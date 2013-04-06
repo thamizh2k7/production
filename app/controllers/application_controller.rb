@@ -10,8 +10,13 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, :with => :server_error
  end
 
+#time
+ before_filter :set_start_time
 
-
+ def set_start_time
+    @start_time = Time.now.usec
+  end
+#time
 
   protect_from_forgery
   def send_sms(receipient,msg)

@@ -101,7 +101,17 @@ class Street::CategoriesController < ApplicationController
   def getcategories
     @res = []
     P2p::Category.all.each do |c|
-#      next if c.name!="Books" or c.specs.size == 0
+      next if  !c.category.nil? or  c.specs.size == 0
+      @res << {:value => c.id, :text => c.name}
+    end
+    render :json => @res
+  end
+
+  # get the categories for listing in xeditable
+  def getsubcategories
+    @res = []
+    P2p::Category.where("category_id = #{params[:id]}").each do |c|
+      next if c.specs.size == 0
       @res << {:value => c.id, :text => c.name}
     end
     render :json => @res

@@ -18,7 +18,7 @@ Browse the site and make the most of it!</p>
 		<ul class="btn-group">
 			<%used_cat = [] %>
 				<%used_cat.push(0)%>
-				<% @main_categories.order('priority').limit(7).each do |cat|%>
+				<% @main_categories.order('priority').each do |cat|%>
 					<% used_cat.push(cat.id) %>
 					<li class="btn">
 						<a href="<%=make_category_url(cat)%>" ><%= cat.name %></a></li>

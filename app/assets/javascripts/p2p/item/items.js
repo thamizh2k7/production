@@ -178,6 +178,14 @@ edit_item =function(){
 
 			$("#image_upload").change(function(){
 
+
+				_.each($(".thumb_img"),function(elem){
+							if ($(elem).attr('imgid') == "-1"){
+								$(elem).parent().remove();
+							}
+					});
+
+
 					// get the files uploaded ..
 					// Read locally..
 					// then display on the page
@@ -251,9 +259,45 @@ edit_item =function(){
 
 
 		window.try = 0;
+
 		//trigger on category change
 		$("#category_item").on('save',function(e,params){
 
+			if (params.newValue == window.item_values['cat']) return false ;
+
+			$.ajax({
+				url:'/street/getsubcategories/' + params.newValue,
+				type:'post',
+				success:function(data){
+					//if nothing found dn show andything
+					if (data.length == 0 ) {
+						$("#scategory_item_holder").addClass('hidden');
+						return;
+					}
+					var t = $("#scategory_item_holder").html();
+					$("#scategory_item_holder").empty();
+					$("#scategory_item_holder").html(t);
+
+					$("#scategory_item").attr('data-source',JSON.stringify(data));
+					$("#scategory_item_holder").removeClass('hidden');
+					$("#scategory_item").editable('show');
+					$("#scategory_item").on('save',category_change);
+
+				},
+				error:function(){
+					showNotifications('Something went wrong.!');
+				}
+			});
+
+			category_change(e,params);
+
+		});
+
+		$("#scategory_item").on('save',function(e,params){
+			category_change(e,params);
+		});
+
+		category_change = function(e,params){
 
 			// if new value is old value dn do anything
 			if (params.newValue == window.item_values['cat']) return false ;
@@ -373,8 +417,7 @@ edit_item =function(){
 			});
 
 			//$('#model').tooltip('show');
-		});
-
+		};
 
 		//validate title
 		$('#title').on('save', function(e, params) {

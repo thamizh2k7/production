@@ -209,7 +209,16 @@
 	              </tr>
 	              <tr>
 	                <td>
-	                	<%= (@item.category.name =="Books") ? 'Type' : 'Brand'%>
+	                	<%if @item.category.id == 1 %>
+													Book Genere
+										<% elsif @item.category.id == 13 %>
+													Platform
+										<% elsif @item.category.id == 14 %>
+													Cloth Style
+										<% else %>
+													Model
+										<% end %>
+
 	                </td>
 	                <td>
 	                	<span id="model" data-placement="right" data-placeholder="Select a model"  title="Select Model" data-type="select" >

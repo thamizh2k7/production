@@ -31,7 +31,19 @@
 
   <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
 	<% if item_model_res.count > 0 %>
-		<div class="filter_title"> <%= (category.name =="Books") ? 'Category' : 'Model'%> </div>
+		<div class="filter_title">
+
+        	<%if category.id == 1 %>
+								Book Genere
+					<% elsif category.id == 13 %>
+								Platform
+					<% elsif category.id == 14 %>
+								Cloth Style
+					<% else %>
+								Model
+					<% end %>
+
+		 </div>
 
 	<!-- show only if more than 11..:) -->
 

@@ -25,6 +25,13 @@ $(document).ready(function(){
 	// 	if in edit rather than new dn enable the category and brand for edition
 	// if edit is pressed for second time then try to toggle all the editable elements to normal
 	$('#enable').click(function(){
+
+			//alert on close window
+			window.onbeforeunload = function()
+							{
+							  return confirm('Poda','You are in edit mode. Your changes will be lost if you close the tab. Are you sure you want to close the tab?');
+							};
+
 		$(this).toggleClass('active');
 			//close all editable elements
 			if ($('.canEdit').hasClass('editable')){
@@ -108,6 +115,8 @@ saveItem = function(){
 
 				show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
 				//if edit just submit the form
+				window.onbeforeunload = null;
+
 				$("#fileupload").submit();
 			}
 } //save item

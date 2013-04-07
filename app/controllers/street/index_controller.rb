@@ -331,7 +331,7 @@ class Street::IndexController < ApplicationController
     if request.xhr?
       temp_result = res.paginate(:page => params[:page], :per_page => 20 )
       puts temp_result.next_page.to_s + "next page"
-      render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
+      render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) ,:tme => @start_time }
       return
     else
       #redirect if items is empty meaning no items found for filters

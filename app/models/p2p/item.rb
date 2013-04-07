@@ -75,7 +75,7 @@ class P2p::Item < ActiveRecord::Base
     if location !="" and !location.nil?
       apnd_qry = "and (city_id = #{location} or (paytype=1 and payinfo like '%,1' ))"
     end
-    where("( (totalcount - soldcount) > 0 ) and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")
+    where("( (totalcount - soldcount) > 0 ) and approveddate is not null and deletedate is null  and ((totalcount - soldcount) > 0 ) #{apnd_qry}").order("reqCount , viewcount")
   }
 
  define_index do

@@ -4,21 +4,14 @@ class P2p::Image < ActiveRecord::Base
   # attr_accessible :title, :body
 	attr_accessor :image_url ,:force_reporcess
   attr_accessible :img,:image_url
-  has_attached_file :img , :styles => { :view => "290X290>", :thumb => "50X50>" ,:search => "110X155>" ,:full => "640X480>" },
-    :storage => :s3,
-    :bucket => 'sociorent_street',
-    :s3_credentials => {
-    :access_key_id => 'AKIAIYLZTHQ7DOFWICFA',
-    :secret_access_key => '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'
-
-    }
+  has_attached_file :img , :styles => { :view => "290X290>", :thumb => "50X50>" ,:search => "110X155>" ,:full => "640X480>" }
 
   before_post_process :process_only_on_approval
 
   def process_only_on_approval
 
     if (self.item.nil? or self.item.approveddate.nil? ) and self.force_reporcess != 1
-      return false 
+      return false
     else
       return true
     end

@@ -274,6 +274,7 @@ edit_item =function(){
 						$("#scategory_item_holder").addClass('hidden');
 						return;
 					}
+
 					var t = $("#scategory_item_holder").html();
 					$("#scategory_item_holder").empty();
 					$("#scategory_item_holder").html(t);
@@ -282,6 +283,8 @@ edit_item =function(){
 					$("#scategory_item_holder").removeClass('hidden');
 					$("#scategory_item").editable('show');
 					$("#scategory_item").on('save',category_change);
+					window.item_values['cat'] = '';
+					$("#category_item").removeClass('error');
 
 				},
 				error:function(){
@@ -315,6 +318,7 @@ edit_item =function(){
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;
+			$("#category_item").removeClass('error');
 
 			// clear the specs
 			$(".specs").remove();

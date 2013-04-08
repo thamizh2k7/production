@@ -190,18 +190,18 @@ Sociorent::Application.routes.draw do
 
       match 'search/q' => "index#search_query"
 
-      match 'search/c/:cat(/:prod)' => "index#search_cat"
+      match 'search/c/:ignore1/:cat(/:ignore2/:prod)' => "index#search_cat"
 
       match "search/:id" =>"index#search"
       #citruspay response catching
       match "getCitursSignature" => "items#get_citrus_signature"
       match "update_citrus" => "items#update_online_payment"
-      match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/
-      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/
+      match ":ignore1/:cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/
+      match ":ignore1/:cat/:ignore2/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/
 
       # get ':cat/:prod/:item' => 'items#view' ,:as => :item_url
-      get ':cat/:prod/:item/:id' => 'items#view' ,:as => :item_url
-      get ':cat(/:prod)' => "index#browse"
+      get ':ignore1/:cat/:ignore2/:prod/:item/:id' => 'items#view' ,:as => :item_url
+      get ':ignore1/:cat(/:ignore2/:prod)' => "index#browse"
       match "update_shipping_address" => "users#update_shipping"
   end
 

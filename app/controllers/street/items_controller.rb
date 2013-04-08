@@ -511,7 +511,7 @@ class Street::ItemsController < ApplicationController
                     title: 'Disapproval of Listing',
                     text: 'Your item #{item.title} has been disapproved by admin. Please check messages and reply to correct the issue'
                     },{
-                    expires:false,
+                    expires:10000,
                     click:function(){
                     window.location.href = '#{make_item_url(item)}';
                     }
@@ -594,7 +594,7 @@ Sociorent Street Team.",
                               title: 'Approval of Listing',
                               text: 'Your item #{item.title} has been approved by admin and will be listed on the site.'
                               },{
-                              expires:false,
+                              expires:10000,
                               click:function(){
                               window.location.href = '#{make_item_url(item)}';
                               }

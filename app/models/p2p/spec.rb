@@ -1,7 +1,7 @@
 class P2p::Spec < ActiveRecord::Base
-  
-  attr_accessible :display_type, :name ,:category_id ,:priority ,:show_filter
-  
+
+  attr_accessible :display_type, :name ,:category_id ,:priority ,:show_filter , :placeholder
+
   belongs_to :category
 
   has_many :itemspecs ,:class_name => "P2p::ItemSpec"
@@ -10,5 +10,5 @@ class P2p::Spec < ActiveRecord::Base
     indexes :name
     has created_at,updated_at
   end
-  
+
 end

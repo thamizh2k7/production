@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328122708) do
+ActiveRecord::Schema.define(:version => 20130408050019) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -488,6 +488,7 @@ ActiveRecord::Schema.define(:version => 20130328122708) do
     t.datetime "updated_at",                      :null => false
     t.integer  "priority"
     t.boolean  "show_filter",  :default => false
+    t.string   "placeholder"
   end
 
   add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_category_id"

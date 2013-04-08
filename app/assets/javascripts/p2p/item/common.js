@@ -27,10 +27,16 @@ $(document).ready(function(){
 	//remove image funciton
 	$(".remove_image").click(function(){
 
-		if (window.image_count == 1 ){
-			showNotifications('Add more images to delete this.');
+		if (window.image_count == 1  ){
+			showNotifications('Add more images to delete.');
 			return false;
 		}
+
+		if ( (window.image_count - $("#image_upload")[0].files.length) <= 1  ){
+			showNotifications('Save the new images first to delete this image.');
+			return false;
+		}
+
 
 		var that = $(this);
 

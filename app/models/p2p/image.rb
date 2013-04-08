@@ -18,6 +18,12 @@ class P2p::Image < ActiveRecord::Base
 
   end
 
+  before_save do
+    if self.new_record? and (!self.item.nil?)
+      self.created_at = self.item.updated_at
+    end
+  end
+
   def process_image
       self.force_reporcess = 1
       self.img.reprocess!

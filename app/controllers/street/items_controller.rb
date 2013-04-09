@@ -29,7 +29,7 @@ class Street::ItemsController < ApplicationController
     params[:desc] = Base64.decode64(params[:desc])
     params[:location] = Base64.decode64(params[:location])
     params[:price] = Base64.decode64(params[:price])
-    params[:count] = Base64.decode64(params[:count])
+    params[:count] = Base64.decode64(params[:count]) unless params[:count].nil?
     params[:cat] = Base64.decode64(params[:cat])
 
     if session[:user_type] == 1
@@ -145,7 +145,7 @@ class Street::ItemsController < ApplicationController
     params[:desc] = Base64.decode64(params[:desc])
     params[:location] = Base64.decode64(params[:location])
     params[:price] = Base64.decode64(params[:price])
-    params[:count] = Base64.decode64(params[:count])
+    params[:count] = Base64.decode64(params[:count]) unless params[:count].nil?
 
 
     if session[:user_type] == 1

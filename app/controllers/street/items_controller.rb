@@ -137,7 +137,12 @@ class Street::ItemsController < ApplicationController
 
   #update the item
   def update
-    item = p2p_current_user.items.find(params[:id])
+
+    if session[:isadmin]
+      item = P2p::Item.find(params[:id])
+    else
+      item = p2p_current_user.items.find(params[:id])
+    end
 
     params[:title] = Base64.decode64(params[:title])
     params[:brand] = Base64.decode64(params[:brand])
@@ -347,6 +352,12 @@ class Street::ItemsController < ApplicationController
       # intialize the request messages
       @message = @item.messages.new
       @buyerreqcount = @item.messages.find_all_by_sender_id(session[:userid]).count
+    end
+
+    @admin_images = []
+
+    if session[:isadmin]
+      @admin_images = @item.get_image(0,:original)
     end
 
     @fullimage = @item.get_image(0,:full)

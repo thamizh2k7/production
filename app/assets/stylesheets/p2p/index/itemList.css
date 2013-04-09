@@ -2,6 +2,14 @@
 	margin-top:20px
 }
 
+.admin_thumb_holder{
+	display: inline-block;
+}
+
+.admin_thumb img{
+	width: 100px;
+	height: 100px;
+}
 
 .thumb_holder {
 	margin-left: 15px;

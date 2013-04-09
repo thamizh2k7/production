@@ -68,7 +68,15 @@
         </tr>
         <tr>
           <td>Category </td>
-          <td> <span class="canEdit " id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ></span></td>
+          <td>
+
+            <span class="canEdit " id="category_item" data-type="select" data-original-title="Select a category"  data-placement="right" data-placeholder="Select a category"   data-source="/street/getcategories" ></span>
+
+            <span id="scategory_item_holder" class="hidden"> ~>
+              <span class="canEdit " id="scategory_item" data-type="select" data-original-title="Select a sub Sub  category"   data-source="/street/getsubcategories" ></span>
+            </span>
+
+          </td>
         </tr>
         <tr>
           <td>Brand</td>

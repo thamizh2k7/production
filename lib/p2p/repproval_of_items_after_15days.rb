@@ -16,9 +16,9 @@
   socio_admin = User.find_by_is_admin(1)
   admin = P2p::User.find_by_user_id(socio_admin.id)
 
-	P2p::Item.notsold.approved.where("datediff('#{Time.now}' ,approveddate) = 15").each do |item|
+	P2p::Item.notsold.approved.where("datediff('#{Time.now}' ,approveddate) = 15 and totalcount = 1 ").each do |item|
+    next if item.owner.user_type == 1
 		item.update_attributes(:approveddate => nil)
-
 
     admin.sent_messages.create({:receiver_id => item.user.id ,
                                               :message => "This is an auto generated system message. Your item <a href='#{make_item_url(item)}'> #{item.title} </a> has been idel for over 15 days and hence has been disapproved .Reply to this message asking the admin to re approve if you need the item to be on sociorent.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
@@ -34,12 +34,14 @@
 
 
 
-	P2p::Item.notsold.approved.where("datediff('#{Time.now}' ,approveddate) = 13").each do |item|
-		item.update_attributes(:approveddate => nil)
+	P2p::Item.notsold.approved.where("datediff('#{Time.now}' ,approveddate) = 13 and totalcount = 1").each do |item|
+    next if item.owner.user_type == 1
+
+		#item.update_attributes(:approveddate => nil)
 
 
     admin.sent_messages.create({:receiver_id => item.user.id ,
-                                              :message => "This is an auto generated system message. Your item #{item.title} has been not sold for over 13 days and hence will be disapproved automatically if u don ask for reapproval from the admin.. Reply to this message to know the reason.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
+                                              :message => "This is an auto generated system message. Your item #{item.title} has been not sold for over 13 days and hence will be disapproved automatically with in 2 days. Reply to this message to know the reason.  <br/> Thank you.. <br/> Sincerly, <br/> Admin - Sociorent",
                                               :messagetype => 5,
                                               :sender_id => admin.id,
                                               :sender_status => 2,

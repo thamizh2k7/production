@@ -11,7 +11,7 @@ Sociorent::Application.routes.draw do
   resources :static_pages
 
   get 'privacy_policy' => 'static_pages#privacypolicy'
-  
+
   get 'page/:id' => 'static_pages#show'
   get 'college_ambassadors' => 'static_pages#colleges'
 
@@ -77,7 +77,7 @@ Sociorent::Application.routes.draw do
     root :to => "index#index"
 
 
-    
+
     match 'aboutus' => 'static_pages#aboutus'
     match 'contactus' => 'static_pages#contactus'
     match 'privacy_policy' => 'static_pages#privacypolicy'
@@ -129,7 +129,9 @@ Sociorent::Application.routes.draw do
 #      get "categories/sub_category" => "categories#sub_category"
 
       match 'getcategories' => "categories#getcategories"
-      get 'getbrand/:id' => "categories#get_brands"
+      match 'getsubcategories/:id' => "categories#getsubcategories"
+
+      get   'getbrand/:id' => "categories#get_brands"
 
       match 'getcities' => "cities#list"
 
@@ -154,7 +156,6 @@ Sociorent::Application.routes.draw do
 
       get 'getattributes/:id' => "categories#get_attributes"
       get 'getspec/:id' =>  "items#get_spec"
-      get 'getsubcategories' => "items#get_sub_categories"
       get 'welcome' => 'users#welcome'
       post 'welcome' => 'users#user_first_time'
 
@@ -189,18 +190,18 @@ Sociorent::Application.routes.draw do
 
       match 'search/q' => "index#search_query"
 
-      match 'search/c/:cat(/:prod)' => "index#search_cat"
+      match 'search/c/:ignore1/:cat(/:ignore2/:prod)' => "index#search_cat"
 
       match "search/:id" =>"index#search"
       #citruspay response catching
       match "getCitursSignature" => "items#get_citrus_signature"
       match "update_citrus" => "items#update_online_payment"
-      match ":cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/
-      match ":cat/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/
+      match ":ignore1/:cat/filters(/*applied_filters)" =>"index#browse_filter" ,  :applied_filters => /[^\/]*/
+      match ":ignore1/:cat/:ignore2/:prod/filters(/*applied_filters)" =>"index#browse_filter"  ,:applied_filters => /[^\/]*/
 
       # get ':cat/:prod/:item' => 'items#view' ,:as => :item_url
-      get ':cat/:prod/:item/:id' => 'items#view' ,:as => :item_url
-      get ':cat(/:prod)' => "index#browse"
+      get ':ignore1/:cat/:ignore2/:prod/:item/:id' => 'items#view' ,:as => :item_url
+      get ':ignore1/:cat(/:ignore2/:prod)' => "index#browse"
       match "update_shipping_address" => "users#update_shipping"
   end
 

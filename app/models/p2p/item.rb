@@ -75,7 +75,7 @@ class P2p::Item < ActiveRecord::Base
     if location !="" and !location.nil?
       apnd_qry = "and (city_id = #{location} or (paytype=1 and payinfo like '%,1' ))"
     end
-    where("( (totalcount - soldcount) > 0 ) and approveddate is not null and deletedate is null #{apnd_qry}").order("reqCount , viewcount")
+    where("( (totalcount - soldcount) > 0 ) and approveddate is not null and deletedate is null  and ((totalcount - soldcount) > 0 ) #{apnd_qry}").order("reqCount , viewcount")
   }
 
  define_index do
@@ -115,11 +115,17 @@ class P2p::Item < ActiveRecord::Base
         P2p::ItemHistory.create(:approved => false , :columnname => column , :newvalue => value[1] ,:oldvalue =>  value[0] ,:item_id => self.id ,:created_at => self.updated_at )
     end
 
+    self.images.each do |img|
+      if img.updated_at.to_s == self.updated_at.to_s
+       P2p::ItemHistory.create(:approved => false , :columnname => 'Image' , :newvalue => 'New Image' ,:oldvalue =>  'Old Image' ,:item_id => self.id ,:created_at => self.updated_at )
+      end
+    end
+
     self.itemhistories.where(:created_at => self.updated_at).each do |itemhistory|
       changed_column += "<li> #{itemhistory.columnname} from #{itemhistory.oldvalue} <b>-></b> #{itemhistory.newvalue}"
     end
 
-    unless changed_column.empty? and self.approveddate.nil?
+    unless changed_column.empty?
 
       self.update_column(:approveddate,nil)
 

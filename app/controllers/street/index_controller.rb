@@ -9,19 +9,19 @@ class Street::IndexController < ApplicationController
     # load the categories based on their priority
     @category = P2p::Category.order("priority")
     @main_categories = P2p::Category.main_categories.includes(:items)
-    category_count = 0
+#    category_count = 0
     @category_items = Hash.new
-    if category_count<5
+#    if category_count<5
       @main_categories.each do |main_cate|
         if main_cate.items.listing_items_by_location(p2p_get_user_location).count > 0
-          @category_items["#{main_cate.name}"] = []
+          @category_items["#{make_category_url(main_cate)}"] = []
           main_cate.items.listing_items_by_location(p2p_get_user_location).limit(4).each do |item|
-            @category_items["#{main_cate.name}"] << item
+            @category_items["#{make_category_url(main_cate)}"] << item
           end
-          category_count += 1
+#          category_count += 1
         end
       end
-    end
+#    end
   end
 
   # the autocomplete seeearch for site wide search
@@ -114,10 +114,10 @@ class Street::IndexController < ApplicationController
   # search inside a category
   #for urls like /p2p/books
   def search_cat
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
+    @cat = P2p::Category.find(params[:cat].to_i)
     @cat_name = @cat.name
     if params.has_key?("prod")
-      @products = @cat.products.find_all_by_name(params[:prod].gsub(/-/," "))
+      @products = @cat.products.find(params[:prod].to_i)
     else
       @products = @cat.products
     end
@@ -136,16 +136,16 @@ class Street::IndexController < ApplicationController
   end
 
   def browse
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
+    @cat = P2p::Category.find(params[:cat].to_i)
     if @cat.nil? or @cat.products.count == 0
       flash[:notice] ="Nothing found for your request"
       redirect_to "/street"
       return
     end
     if params.has_key?("prod")
-      @products=@cat.products.order("priority").find_all_by_name(params[:prod])
+      @products=@cat.products.order("priority").find(:all,params[:prod].to_i)
       if @products.nil?
-        @cat = P2p::Category.find_by_name(params[:prod].gsub(/-/," "))
+        # @cat = P2p::Category.find(params[:prod].to_i)
         @products= @cat.products.all.order("priority")
         params.delete("prod")
       end
@@ -178,7 +178,7 @@ class Street::IndexController < ApplicationController
       end
     end
     # find the category in which the filter is to be applied
-    @cat = P2p::Category.find_by_name(params[:cat].gsub(/-/," "))
+    @cat = P2p::Category.find(params[:cat].to_i)
     if @cat.nil?
       render :json => []
       return
@@ -331,7 +331,7 @@ class Street::IndexController < ApplicationController
     if request.xhr?
       temp_result = res.paginate(:page => params[:page], :per_page => 20 )
       puts temp_result.next_page.to_s + "next page"
-      render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) }
+      render :json => {:res => temp_result , :next => ((temp_result.next_page.nil?) ? 0 : 1) ,:tme => @start_time }
       return
     else
       #redirect if items is empty meaning no items found for filters

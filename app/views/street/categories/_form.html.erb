@@ -38,6 +38,7 @@
 		<thead>
 			<tr>
 				<th class="span5">Specification</th>
+				<th class="span5">Example</th>
 				<th class="span1">Show Filter</th>
 				<th class="span1">Action</th>
 			</tr>
@@ -46,6 +47,9 @@
 			<%= f.fields_for  :specs ,:wrapper => false do |spec| %>
 				<tr>
 					<td> <%= spec.text_field  :name %></td>
+	  				<td>
+	  					<%= spec.input  :placeholder , :label=>false %>
+	  				</td>
 	  				<td>
 	  					<%= spec.input  :show_filter , :label=>false %>
 	  				</td>

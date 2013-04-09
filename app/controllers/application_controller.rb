@@ -10,8 +10,13 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, :with => :server_error
  end
 
+#time
+ before_filter :set_start_time
 
-
+ def set_start_time
+    @start_time = Time.now.usec
+  end
+#time
 
   protect_from_forgery
   def send_sms(receipient,msg)
@@ -129,18 +134,19 @@ class ApplicationController < ActionController::Base
     #return 'application'
    end
   end
+# tr('!@#$%^&\*\(\),-\{\}<>\./\\\\|\]\[;:"_\+\?', "")
 
   # urlss
   def make_item_url(item)
-    return URI.encode("/street/#{CGI.escape(item.category.name.gsub(/ /,"-"))}/#{CGI.escape(item.product.name.gsub(/ /,"-"))}/#{CGI.escape((item.title).gsub(/ /, "-"))}/#{item.id}/")
+    return URI.encode("/street/#{item.category.name.gsub(/[^0-9A-Za-z]/, '')}/#{item.category.id}/#{item.product.name.gsub(/[^0-9A-Za-z]/, '')}/#{item.product.id}/#{item.title.gsub(/[^0-9A-Za-z]/, '')}/#{item.id}/")
   end
 
   def make_product_url(product)
-    return URI.encode("/street/#{CGI.escape(product.category.name.gsub(/ /,"-"))}/#{CGI.escape(product.name.gsub(/ /,"-"))}/")
+    return URI.encode("/street/#{product.category.name.gsub(/[^0-9A-Za-z]/, '')}/#{product.category.id}/#{product.name.gsub(/[^0-9A-Za-z]/, '')}/#{product.id}/")
   end
 
   def make_category_url(category)
-    return URI.encode("/street/#{CGI.escape(category.name.gsub(/ /,"-"))}/")
+    return URI.encode("/street/#{category.name.gsub(/[^0-9A-Za-z]/, '')}/#{category.id}/")
   end
 
   # urlss

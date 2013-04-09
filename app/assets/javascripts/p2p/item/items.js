@@ -25,6 +25,13 @@ $(document).ready(function(){
 	// 	if in edit rather than new dn enable the category and brand for edition
 	// if edit is pressed for second time then try to toggle all the editable elements to normal
 	$('#enable').click(function(){
+
+			//alert on close window
+			window.onbeforeunload = function()
+							{
+							  return confirm('Poda','You are in edit mode. Your changes will be lost if you close the tab. Are you sure you want to close the tab?');
+							};
+
 		$(this).toggleClass('active');
 			//close all editable elements
 			if ($('.canEdit').hasClass('editable')){
@@ -108,6 +115,8 @@ saveItem = function(){
 
 				show_notification_modal('<i class="icon-info-sign"></i> Uploading your images and saving you listing..! <br/> Please wait',true);
 				//if edit just submit the form
+				window.onbeforeunload = null;
+
 				$("#fileupload").submit();
 			}
 } //save item
@@ -177,6 +186,14 @@ edit_item =function(){
 
 
 			$("#image_upload").change(function(){
+
+
+				_.each($(".thumb_img"),function(elem){
+							if ($(elem).attr('imgid') == "-1"){
+								$(elem).parent().remove();
+							}
+					});
+
 
 					// get the files uploaded ..
 					// Read locally..
@@ -251,9 +268,48 @@ edit_item =function(){
 
 
 		window.try = 0;
+
 		//trigger on category change
 		$("#category_item").on('save',function(e,params){
 
+			if (params.newValue == window.item_values['cat']) return false ;
+
+			$.ajax({
+				url:'/street/getsubcategories/' + params.newValue,
+				type:'post',
+				success:function(data){
+					//if nothing found dn show andything
+					if (data.length == 0 ) {
+						$("#scategory_item_holder").addClass('hidden');
+						return;
+					}
+
+					var t = $("#scategory_item_holder").html();
+					$("#scategory_item_holder").empty();
+					$("#scategory_item_holder").html(t);
+
+					$("#scategory_item").attr('data-source',JSON.stringify(data));
+					$("#scategory_item_holder").removeClass('hidden');
+					$("#scategory_item").editable('show');
+					$("#scategory_item").on('save',category_change);
+					window.item_values['cat'] = '';
+					$("#category_item").removeClass('error');
+
+				},
+				error:function(){
+					showNotifications('Something went wrong.!');
+				}
+			});
+
+			category_change(e,params);
+
+		});
+
+		$("#scategory_item").on('save',function(e,params){
+			category_change(e,params);
+		});
+
+		category_change = function(e,params){
 
 			// if new value is old value dn do anything
 			if (params.newValue == window.item_values['cat']) return false ;
@@ -271,6 +327,7 @@ edit_item =function(){
 
 			// set the new value in global
 			window.item_values['cat'] = params.newValue;
+			$("#category_item").removeClass('error');
 
 			// clear the specs
 			$(".specs").remove();
@@ -373,8 +430,7 @@ edit_item =function(){
 			});
 
 			//$('#model').tooltip('show');
-		});
-
+		};
 
 		//validate title
 		$('#title').on('save', function(e, params) {

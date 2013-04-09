@@ -18,7 +18,7 @@ Browse the site and make the most of it!</p>
 		<ul class="btn-group">
 			<%used_cat = [] %>
 				<%used_cat.push(0)%>
-				<% @main_categories.order('priority').limit(7).each do |cat|%>
+				<% @main_categories.order('priority').each do |cat|%>
 					<% used_cat.push(cat.id) %>
 					<li class="btn">
 						<a href="<%=make_category_url(cat)%>" ><%= cat.name %></a></li>
@@ -43,11 +43,12 @@ Browse the site and make the most of it!</p>
 		<!-- List Section -->
 		<div id="Itemlist" class="row">
 				<div id="items" class="span12">
-					<% @category_items.each_with_index do |(category_name,items),index| %>
+					<% @category_items.each_with_index do |(category_url,items),index| %>
 						<!-- loop and display only if the categories has products and items in it. -->
+
 							 <div class="itemsRow">
-								<div id="listHeader" class="row"><a href='/street/<%=CGI.escape(category_name.gsub(' ','-'))%>'>
-									<p class="header_title"> <b><%= category_name %> </b></p>
+								<div id="listHeader" class="row"><a href="<%=category_url%>">
+									<p class="header_title"> <b><%= items[0].category.name %> </b></p>
 									<p class="header_view_all">View All</p></a>
 								</div>
 								<ul class="thumbnails row">

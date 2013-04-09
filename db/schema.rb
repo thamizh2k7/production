@@ -488,7 +488,7 @@ ActiveRecord::Schema.define(:version => 20130408050019) do
     t.datetime "updated_at",                      :null => false
     t.integer  "priority"
     t.boolean  "show_filter",  :default => false
-    t.string   "placeholder"
+    t.string   "placeholder",  :default => ""
   end
 
   add_index "p2p_specs", ["category_id"], :name => "index_p2p_specs_on_category_id"

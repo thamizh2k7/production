@@ -4,8 +4,9 @@
 <div id="dummy_filter_holder">
 	<div id="filter_holder_title">Filters</div>
 
+
 	<!-- overlay to be displayed during filter request -->
-	<% item_condition_res = category.items.by_location_or_allover(p2p_get_user_location).select("distinct p2p_items.condition").order('p2p_items.condition asc') %>
+	<% item_condition_res = category.items.by_location_or_allover(p2p_get_user_location).select("distinct p2p_items.condition").where('p2p_items.approveddate is not null and ( (p2p_items.totalcount - p2p_items.soldcount ) > 0  )').order('p2p_items.condition asc') %>
 	<% if item_condition_res.count > 0 %>
 		<div class="filter_title"> Condition </div>
 		<div class="filters_value">
@@ -86,7 +87,8 @@
 	<% end %>
 
 	<% category.specs.where(:show_filter => 1).each do |spec|%>
-	<% next if spec.itemspecs.select(" distinct value").where("value !=''").count == 0 %>
+	<% next if spec.itemspecs.select("distinct value").joins(:item).where("p2p_item_specs.value !='' and p2p_items.approveddate is not null and ( (p2p_items.totalcount - p2p_items.soldcount ) > 0 )  ").count == 0 %>
+
 	<div class="filter_title"> <%= spec.name %>  </div>
 
 	<!-- show only if more than 11..:) -->
@@ -96,7 +98,7 @@
 
 	<div class="filters_value">
 
-		<% spec.itemspecs.select("distinct value").where("value !=''").order('value asc').each do |itemspec| %>
+		<% spec.itemspecs.select("distinct value").joins(:item).where("p2p_item_specs.value !='' and p2p_items.approveddate is not null and ( (p2p_items.totalcount - p2p_items.soldcount ) > 0 )  ").order('value asc').each do |itemspec| %>
 		<div class="spec-filter" >
 
 					<% checked = "" %>

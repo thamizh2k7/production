@@ -112,7 +112,7 @@
 	              	<% end %>
 	              <% end %>
 
-	              <%if @item.user.id == session[:userid]%>
+	              <%if @item.user.id == session[:userid] or session[:isadmin] %>
 	              	<% if @item.solddate.nil? %>
 			              <a href="#" data-toggle="tooltip"  title="Edit Listing" class="btn " id="enable">
 			              	<i  class=" icon-pencil" ></i>

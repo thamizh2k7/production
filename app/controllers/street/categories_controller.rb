@@ -120,7 +120,7 @@ class Street::CategoriesController < ApplicationController
   # for new item
   def get_attributes
     cat = P2p::Category.find(params[:id])
-    @attributes = cat.specs.select("id,name,display_type").order(:id)
+    @attributes = cat.specs.select("id,name,display_type,placeholder").order(:id)
     #  render :json => @attr
   end
 

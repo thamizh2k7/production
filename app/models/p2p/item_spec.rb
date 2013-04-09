@@ -5,6 +5,8 @@ class P2p::ItemSpec < ActiveRecord::Base
 
   attr_accessible :value   ,:update_at ,:created_at, :spec_id
 
+  #default_scope where(self.item.approved_at != nil)
+
   before_save do
     self.value = URI.decode(self.value)
   end

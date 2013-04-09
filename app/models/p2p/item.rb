@@ -131,19 +131,19 @@ class P2p::Item < ActiveRecord::Base
 
         begin
           PrivatePub.publish_to("/user_#{self.user.id}", 'Your changes have been sent to admin for approval' )
-          PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='#{URI.encode("/street/#{CGI.escape(self.category.name.gsub(/ /,"-"))}/#{CGI.escape(self.product.name.gsub(/ /,"-"))}/#{CGI.escape((self.title).gsub(/ /, "-"))}/#{self.id}/")}'>#{self.title}</a> listing and is waiting for your approval." )
+          PrivatePub.publish_to("/user_#{admin.id}", "#{self.user.user.name} has changed the data in <a href='#{URI.encode("/street/#{self.category.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.category.id}/#{self.product.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.product.id}/#{self.title.gsub(/[^0-9A-Za-z]/, '')}/#{self.id}/")}'>#{self.title}</a> listing and is waiting for your approval." )
         rescue
 
         end
 
         admin.sent_messages.create({:receiver_id => admin.id,
-                                                  :message => "This is an auto generated system message. #{self.user.user.name}  has changed <a href='#{URI.encode("/street/#{CGI.escape(self.category.name.gsub(/ /,"-"))}/#{CGI.escape(self.product.name.gsub(/ /,"-"))}/#{CGI.escape((self.title).gsub(/ /, "-"))}/#{self.id}/")}'>#{self.title}</a> listing and is kept under your verification The changes are <br/>#{changed_column} <br/> Please review them. - System",
+                                                  :message => "This is an auto generated system message. #{self.user.user.name}  has changed <a href='#{URI.encode("/street/#{self.category.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.category.id}/#{self.product.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.product.id}/#{self.title.gsub(/[^0-9A-Za-z]/, '')}/#{self.id}/")}'> #{self.title}</a> listing and is kept under your verification The changes are <br/>#{changed_column} <br/> Please review them. - System",
                                                   :messagetype => 5,
                                                   :sender_id => admin.id,
                                                   :sender_status => 2,
                                                   :receiver_status => 0,
                                                   :parent_id => 0
-                                                  });
+                                  });
 
 
         admin.sent_messages.create({:receiver_id => self.user.id ,
@@ -202,7 +202,7 @@ class P2p::Item < ActiveRecord::Base
                                               :receiver_status => 0,
                                               :parent_id => 0
                                               });
-    prod_url = URI.encode("/street/#{CGI.escape(self.category.name.gsub(/ /,"-"))}/#{CGI.escape(self.product.name.gsub(/ /,"-"))}/#{CGI.escape((self.title).gsub(/ /, "-"))}/#{self.id}/")
+    prod_url = URI.encode("/street/#{self.category.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.category.id}/#{self.product.name.gsub(/[^0-9A-Za-z]/, '')}/#{self.product.id}/#{self.title.gsub(/[^0-9A-Za-z]/, '')}/#{self.id}/")
 
     admin.sent_messages.create({:receiver_id => admin.id,
                                               :message => "This is an auto generated system message. #{self.user.user.name} (#{self.user.user.email}) has listed a new item #{(self.totalcount == 1) ? '' : self.totalcount  } and is waiting for your verification. Listing link - <a href='#{prod_url}'>#{self.title}</a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers",

@@ -1,4 +1,4 @@
-<% content_for :pagetitle  do %>
+	<% content_for :pagetitle  do %>
   <%=@item.title %> listed under <%= @item.product.name %>, <%=@item.category.name %>
 <%end %>
 
@@ -183,6 +183,27 @@
 	        </div>
 
 	        <div class="span6">
+
+	        	<!-- show images for admin  -->
+	        		<% if @admin_images.count >0 %>
+	        			<i class="icon-info-sign"></i> Images that are waiting for verification (CTRL + CLICK to view the original size ) <br/>
+	        			<div class="admin_images">
+	        					<%@admin_images.each do |img_url|%>
+	        						<div class="admin_thumb_holder" >
+	        							<!-- <i class="icon-remove pull-right remove_image hidden"></i> -->
+	        							<a href="<%=img_url[:url]%>" class="admin_thumb" imgid="<%img_url[:id]%>" > <img src="<%=img_url[:url]%>"> </a>
+	        						</div>
+	        					<% end %>
+
+	        			</div>
+
+							<hr/>
+
+	        		<% end %>
+						<!-- show images for admin   end-->
+
+
+
 	          <center><code class="edit_visible"> All words in <span style="color:blue"> blue</span> are editable.Please click on them to edit</code></center>
 
 	          <table class="table table-bordered table-striped" id="table_specs">

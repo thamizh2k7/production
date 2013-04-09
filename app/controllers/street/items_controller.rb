@@ -153,7 +153,7 @@ class Street::ItemsController < ApplicationController
     params[:count] = Base64.decode64(params[:count]) unless params[:count].nil?
 
 
-    if session[:user_type] == 1
+    if session[:user_type] == 1 or session[:admin]
       begin
         if params.has_key?(:count)
           cnt = params[:count].to_i
@@ -167,7 +167,6 @@ class Street::ItemsController < ApplicationController
           if params[:count] < item.soldcount
              params[:count] = item.soldcount
           end
-
 
         else
           params[:count] = item.totalcount

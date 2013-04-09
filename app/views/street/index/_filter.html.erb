@@ -30,7 +30,7 @@
 
 	<% prices = (category.items.by_location_or_allover(p2p_get_user_location).select("distinct p2p_items.price").order('p2p_items.price asc')).pluck('price') %>
 
-  <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc') %>
+  <% item_model_res = category.products.select("distinct p2p_products.name,p2p_products.id").order('p2p_products.name asc').where('p2p_products.id in (select product_id from p2p_items where p2p_items.approveddate is not null and ((p2p_items.totalcount - p2p_items.soldcount ) > 0 ) )') %>
 	<% if item_model_res.count > 0 %>
 		<div class="filter_title">
 

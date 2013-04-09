@@ -499,7 +499,7 @@ class Street::ItemsController < ApplicationController
         item = P2p::Item.notsold.find(params[:id])
         item.update_attributes(:disapproveddate => Time.now , :approveddate => nil, :disapproved_reason=>params[:disapprove].to_s)
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
-                                                                 :message => "Your listing for the item #{item.title} has been disapproved for the following reason.<br><b>#{item.disapproved_reason}</b><br>You may edit the appropriate content and re-submit the listing for review. <br><br>This is a system generated message and you need not reply.<br><br>Thank you.<br>Sincerly,<br>Sociorent Street",
+                                                                 :message => "Your listing for the item <a href='#{make_item_url(item)}'>#{item.title}</a> has been disapproved for the following reason.<br><b>#{item.disapproved_reason}</b><br>You may edit the appropriate content and re-submit the listing for review. <br><br>This is a system generated message and you need not reply.<br><br>Thank you.<br>Sincerly,<br>Sociorent Street",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 2,
@@ -508,7 +508,7 @@ class Street::ItemsController < ApplicationController
                                                                  :item_id => item.id
                                                                  });
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => session[:admin_id],
-                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , #{item.title} and this listing will not appear on the site. A automated message is sent to the user.You can see it here <a href='#{make_item_url(item)}'> #{item.title} </a>. <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
+                                                                 :message => "This is an auto generated system message. You have disapproved item no #{item.id} , <a href='#{make_item_url(item)}'>#{item.title}</a> and this listing will not appear on the site. A automated message is sent to the user.You can see it here . <br/> Thank you.. <br/> Sincerly, <br/> Developers ",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 1,
@@ -549,14 +549,14 @@ class Street::ItemsController < ApplicationController
         end
 
         P2p::User.find(session[:admin_id]).sent_messages.create({:receiver_id => item.user.id ,
-                                                                 :message => "Congratulations, Your item <b>#{item.title}</b> has been approved and it is now live. <br>
-<br>
-This is a system generated message and you need not reply to this.
-<br><br>
-Thank you.
-<br>
-Sincerly,<br>
-Sociorent Street Team.",
+                                                                 :message => "Congratulations, Your item <b><a href='#{make_item_url(item)}'>#{item.title}</a></b> has been approved and it is now live. <br>
+                                                                    <br>
+                                                                    This is a system generated message and you need not reply to this.
+                                                                    <br><br>
+                                                                    Thank you.
+                                                                    <br>
+                                                                    Sincerly,<br>
+                                                                    Sociorent Street Team.",
                                                                  :messagetype => 5,
                                                                  :sender_id => session[:admin_id],
                                                                  :sender_status => 2,

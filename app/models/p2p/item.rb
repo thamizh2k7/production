@@ -241,6 +241,15 @@ class P2p::Item < ActiveRecord::Base
 
       img = self.images
 
+      if type == :original
+        img.each do |image|
+          if image.process_status < 2
+            res.push ({:url => image.img.url , :id => image.id.to_s })
+          end
+        end
+        return res
+      end
+
       if img.count ==0
 
         if type  == :view
@@ -285,25 +294,18 @@ class P2p::Item < ActiveRecord::Base
       else
         img.each do |img|
 
-            if img.process_status < 2
-
-              if type == :original
-                res.push ({:url => img.img.url , :id => img.id.to_s })
-              else
-                if type  == :view
-                  res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
-                elsif type == :thumb
-                  res.push({:url => "/assets/p2p/approve_thumb.gif" ,:id => 0})
-                elsif type == :search
-                  res.push({:url => "/assets/p2p/approve_search.gif" ,:id => 0})
-                elsif type == :full
-                  res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
-                end
+              if img.process_status < 2
+                  if type  == :view
+                    res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
+                  elsif type == :thumb
+                    res.push({:url => "/assets/p2p/approve_thumb.gif" ,:id => 0})
+                  elsif type == :search
+                    res.push({:url => "/assets/p2p/approve_search.gif" ,:id => 0})
+                  elsif type == :full
+                    res.push({:url => "/assets/p2p/approve_view.gif" ,:id => 0})
+                  end
+               next
               end
-
-             next
-            end
-
           unless img.img.exists?
 
             if type  == :view
@@ -320,14 +322,12 @@ class P2p::Item < ActiveRecord::Base
               next
             end
           end
-
-           res.push ({:url => img.img.url(type) , :id => img.id.to_s })
-
+          res.push ({:url => img.img.url(type) , :id => img.id.to_s })
 
         end
     end
 
-    if res.count == 0
+    if res.count == 0 and type != :original
       if type  == :view
         res.push({:url => "/assets/p2p/noimage_view.jpg" ,:id => 0})
       elsif type == :thumb

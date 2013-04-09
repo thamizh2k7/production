@@ -321,7 +321,7 @@ edit_item =function(){
 			}else if (params.newValue == "14"){
 				$('#model').closest('tr').find('td:first').text('Cloth Style');
 			}else{
-				$('#model').closest('tr').find('td:first').text('Model');
+				$('#model').closest('tr').find('td:first').text('Brand');
 			}
 
 

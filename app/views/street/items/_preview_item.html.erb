@@ -267,7 +267,7 @@
 
         <% if @item.availablecount > 0 %>
 
-          <span class="item_top_details_detail action_popover" id="itemsharefb" data-content="Share this listing on facebook with friends and groups and increase the speed of selling." data-title="<img width=20 height=20 src='/assets/facebook_128.png'>Facebook Share" data-trigger="hover" data-placement="top" data-html=true>
+          <span class="item_top_details_detail action_popover" id="itemsharefb" data-content="Share this listing on facebook with friends and groups" data-title="<img width=20 height=20 src='/assets/facebook_128.png'>Facebook Share" data-trigger="hover" data-placement="top" data-html=true>
 
               <span id='fb-root'></span>
               <script src='http://connect.facebook.net/en_US/all.js'></script>
@@ -498,7 +498,7 @@
       }else if (cat == "Clothing"){
         $('.model_item').closest('tr').find('td:first').text('Cloth Style');
       }else{
-        $('.model_item').closest('tr').find('td:first').text('Model');
+        $('.model_item').closest('tr').find('td:first').text('Brand');
       }
 
     });

@@ -20,20 +20,20 @@ Browse the site and make the most of it!</p>
 				<%used_cat.push(0)%>
 				<% @main_categories.order('priority').each do |cat|%>
 					<% used_cat.push(cat.id) %>
-					<li class="btn">
-						<a href="<%=make_category_url(cat)%>" ><%= cat.name %></a></li>
+					<li class="btn others">
+						<a class="others_drop" href="<%=make_category_url(cat)%>" ><%= cat.name %></a></li>
 				<% end %>
 
-				<li class="btn"> <a  data-toggle='dropdown'>Others</a>
-					<span class="caret"></span>
-					<ul class="dropdown-menu" role="menu" >
-						<% @main_categories.order('priority').where("id not in (#{used_cat.join(',')})").each do |cat|%>
-							<% used_cat.push(cat.id) %>
-							<li>
-								<a href="<%=make_category_url(cat)%>" ><%= cat.name %></a>
-							</li>
-						<% end %>
-					</ul>
+				<li class="btn others"> 
+					<a class="dropdown-toggle others_drop" data-toggle="dropdown" href="#"> Others
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<% @category.order('priority').where("id not in (#{used_cat.join(',')})").each do |cat|%>
+								<% used_cat.push(cat.id) %>
+								<li> <a href="<%=make_category_url(cat)%>" ><%= cat.name %></a> </li>
+							<% end %>
+						</ul>
+					
 				</li>
 
 			</ul>

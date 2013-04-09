@@ -39,3 +39,14 @@
 #sell_item_button:hover {
 	text-decoration: none;
 }
+
+.others {
+	padding:0 !important;
+}
+
+.others_drop {
+	display: inline-block;
+	height: 24px;
+	width: auto;
+	padding: 6px 10px 0px 10px;
+}

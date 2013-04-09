@@ -9,6 +9,7 @@ class Street::IndexController < ApplicationController
     # load the categories based on their priority
     @category = P2p::Category.order("priority")
     @main_categories = P2p::Category.main_categories.includes(:items)
+    
 #    category_count = 0
     @category_items = Hash.new
 #    if category_count<5

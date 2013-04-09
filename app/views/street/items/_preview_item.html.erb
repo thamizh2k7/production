@@ -81,7 +81,7 @@
 
                   <a class="btn  btn-warning " href="#head_login_modal" data-toggle="modal"><i class="icon-white icon-gift"> </i>  Buy this now </a>
 
-                  <div class="well" id="ship_city_info">
+
                     <%= ((@item.payinfo.split(','))[1].nil?) ? "This item will be shipped to #{ @item.city.name }".html_safe : " This item will be shipped all over india.".html_safe %>
 
                   </div>

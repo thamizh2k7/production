@@ -639,3 +639,7 @@ vertical-align: middle;
 	display: block;
 	padding: 0px;
 }
+
+#loginError {
+	color: red;
+}

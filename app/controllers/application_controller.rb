@@ -291,6 +291,7 @@ class ApplicationController < ActionController::Base
       return '/'
     end
   end
+
   def server_error(exception)
 
 

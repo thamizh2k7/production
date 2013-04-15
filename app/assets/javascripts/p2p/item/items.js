@@ -29,7 +29,7 @@ $(document).ready(function(){
 			//alert on close window
 			window.onbeforeunload = function()
 							{
-							  return confirm('Poda','You are in edit mode. Your changes will be lost if you close the tab. Are you sure you want to close the tab?');
+							  return confirm('You are in edit mode. Your changes will be lost if you close the tab. Are you sure you want to close the tab?');
 							};
 
 		$(this).toggleClass('active');

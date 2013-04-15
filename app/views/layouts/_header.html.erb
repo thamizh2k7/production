@@ -20,14 +20,14 @@
           </nav>
           <div class="clearfix"></div>
           <div class="contact_socio right">
-            <a href="mailto:care@sociorent.com"><img src="/assets/index/mail_icon.png">care@sociorent.com</a> | <img src="/assets/index/phone.png">+91-73531-12345 
+            <a href="mailto:care@sociorent.com"><img src="/assets/index/mail_icon.png">care@sociorent.com</a> | <img src="/assets/index/phone.png">+91-73531-12345
           </div>
         </div>
       </div>
     </div>
     <div class="cB"></div>
   </div>
-  
+
 <%= render 'layouts/user_bar' %>
 
 <% if current_user.nil? %>
@@ -45,7 +45,7 @@
     modal: true
   });
 
-  
+
   $(".login_error_msg").html("");
   $("#login_box_left_login form").live("submit",function(){
     if($(this).valid())
@@ -102,7 +102,7 @@
     $("#login_box").dialog( "open");
   });
 
-    
+
   $("a[href='/users/sign_in']").hide();
 
   $("#devise_pages a").click(function(){

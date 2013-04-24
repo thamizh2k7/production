@@ -1,19 +1,8 @@
 <div class="topbar">
     <div class="wrapper">
       <div class="grid_1">
-        <div class="pull-left">
-            <span class="pull-left logo" href="/p2p/">
-              <h1>sociorent</h1>
-              <img src="/assets/pointleft.png" />
-            </span>
-            <span class="pull-left logo" href="/p2p/">
-              <h1>sociorent</h1>
-              <img src="/assets/pointleft.png" />
-              <div class="clearfix"></div>
-            </span>
 
-        </div>
-        <div class="topbar_right pull-right span8">
+        <div class="topbar_right pull-right">
           <div>
             <div id="menuSet" class="span8 pull-right">
                 <li class="pull-left location_li">
@@ -60,17 +49,22 @@
               <% end %>
             </ul>
           </nav>
-          <div class="clearfix"></div>
 
-          <div class="contact_socio pull-right">
-            <a href="mailto:care@sociorent.com"><img src="/assets/index/mail_icon.png">care@sociorent.com</a> | <img src="/assets/index/phone.png">+91-73531-12345
-          </div>
-        </div>
-      </div>
+
+      <span class="pull-left logo" href="/p2p/">
+        <h1>Sociorent.com</h1>
+        <img id="sociorent_pointer" class="hide" src="/assets/pointleft.png" />
+      </span>
+      <span class="pull-left logo" href="/p2p/">
+        <h1>Sociorent Street</h1>
+        <img id="street_pointer" src="/assets/pointleft.png" />
+      </span>
     </div>
-    <div class="cB"></div>
-       <%= render '/layouts/p2p/p2p_user_bar' %>
     </div>
+    <div class="clearfix"></div>
+   </div>
+  </div>
+ </div>
 
                 <div id="head_login_modal" class="modal hide fade span9" tabindex="-1" role="dialog" aria-labelledby="head_login_modalLabel" aria-hidden="true">
                 <div class="modal-header">

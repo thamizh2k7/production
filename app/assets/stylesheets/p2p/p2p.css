@@ -253,6 +253,7 @@ li.dropdown:hover > ul.dropdown-menu{
 	background: #444 repeat;
 }
 
+
 #logo_holder{
 	margin-top: 10px;
 }
@@ -269,8 +270,28 @@ li.dropdown:hover > ul.dropdown-menu{
 	display: block;
 }
 
-.logo img{
-	margin-top: -13px;
+.socio_logo_holder{
+	margin-top: 10px;
+	height: 0px;
+}
+
+.socio_logo_holder,.socio_logo{
+	width:230px;
+}
+.pointer{
+	margin-top: -20px;
+	margin-left: -60px;
+}
+
+.street_logo_holder{
+	margin-top: -4px;
+}
+.street_logo_holder,.street_logo{
+	width:250px;
+}
+
+
+.logo .pointer{
   -webkit-transform: rotate(90deg);
   -moz-transform:    rotate(90deg);
   -ms-transform:     rotate(90deg);

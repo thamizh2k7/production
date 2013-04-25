@@ -203,11 +203,11 @@ body {
 	border-top: 8px solid #0F8159;
 	background: #444 repeat;
 }
+
 .logo{
- /*	background: url("/assets/home-sprite-green.png") no-repeat scroll 0 0 transparent; */
+
   height: 70px;
-	margin: 10px 0 25px;
-	padding-top: 30px;
+	margin: 20px 0 25px;
 	color:#fff;
 	margin-right:50px;
 	text-align:center;
@@ -215,13 +215,31 @@ body {
 	height:45px;
 }
 
-.logo img{
-	margin-top: -13px;
+.logo .pointer{
   -webkit-transform: rotate(90deg);
   -moz-transform:    rotate(90deg);
   -ms-transform:     rotate(90deg);
   -o-transform:      rotate(90deg);
   transform:         rotate(90deg);
+}
+
+.socio_logo_holder{
+	margin-top: 30px;
+}
+
+.socio_logo_holder,.socio_logo{
+	width:230px;
+	.pointer{
+		margin-top: 9px;
+		margin-left: -60px;
+	}
+}
+
+.street_logo_holder{
+	margin-top: 15px;
+}
+.street_logo_holder,.street_logo{
+	width:250px;
 }
 
 .logo h1{

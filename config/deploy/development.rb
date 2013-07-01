@@ -1,6 +1,6 @@
 server "sociorent.codingmart.com", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent"
-set :branch, 'master'
+set :branch, 'p2p_master'
 set :scm_verbose, true
 set :use_sudo, false
 set :rails_env, "development" #added for delayed job 

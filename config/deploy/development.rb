@@ -12,13 +12,14 @@ after 'deploy:update_code' do
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
   run "chmod -R 777 #{release_path}/public/uploads"
-  run "cd #{release_path} && bundle --deployment"
+  # run "chmod -R 777 #{release_path} && gem install bundler -v 1.0.0"
+  # run "cd #{release_path} && bundle --deployment"
 
-  #run "cd #{release_path} && rake db:seed"
-  run "cd #{release_path} && rake db:create"
-  run "cd #{release_path} && rake db:migrate"
-  run "cd #{release_path} && rake db:seed"
-  run "cd #{release_path} && rake assets:precompile"
+  # #run "cd #{release_path} && rake db:seed"
+  # run "cd #{release_path} && rake db:create"
+  # run "cd #{release_path} && rake db:migrate"
+  # run "cd #{release_path} && rake db:seed"
+  # run "cd #{release_path} && rake assets:precompile"
 end
 
 namespace :deploy do

@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'thinking-sphinx'
+gem 'thinking-sphinx', '~> 1.4.10'
 
 # Gems used only for assets and not required
 # in production environments by default.

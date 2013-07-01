@@ -1,5 +1,5 @@
 class ChangeBankNameToNameInBanks < ActiveRecord::Migration
   def change
-  	rename_column :banks ,:bank_name, :name
+  	rename_column :banks ,:bank, :name
   end
 end

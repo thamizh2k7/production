@@ -1,4 +1,4 @@
-server "176.58.103.250", :app, :web, :db, :primary => true
+server "sociorent.codingmart.com", :app, :web, :db, :primary => true
 set :deploy_to, "/var/www/sociorent"
 set :branch, 'master'
 set :scm_verbose, true
@@ -12,6 +12,13 @@ after 'deploy:update_code' do
   run "chmod -R 777 #{release_path}/tmp/cache;"
   run "mkdir -p #{release_path}/public/uploads;"
   run "chmod -R 777 #{release_path}/public/uploads"
+  run "cd #{release_path} && bundle --deployment"
+
+  #run "cd #{release_path} && rake db:seed"
+  run "cd #{release_path} && rake db:create"
+  run "cd #{release_path} && rake db:migrate"
+  run "cd #{release_path} && rake db:seed"
+  run "cd #{release_path} && rake assets:precompile"
 end
 
 namespace :deploy do

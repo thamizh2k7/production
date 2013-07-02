@@ -1,6 +1,6 @@
 set :application, 'sociorent'
 set :scm, :git
-set :repository, "git@github.com:thamizh/production.git"
+set :repository, "git@github.com:thamizh2k7/production.git"
 # set :repository, "https://github.com/sociorent/production.git"
 set :user, "root"
 set :scm_passphrase, ""
